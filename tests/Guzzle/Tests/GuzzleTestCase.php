@@ -105,14 +105,18 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
      */
     public function getMockResponse(Client $/* Replaced /* Replaced /* Replaced client */ */ */, $filename)
     {
-        $reflection = new \ReflectionClass(get_class($/* Replaced /* Replaced /* Replaced client */ */ */));
-        $path = str_replace(array(
-            str_replace($reflection->getNamespaceName() . '\\', '', $reflection->getName()),
-            '.php'
-        ), '', $reflection->getFileName());
+        if (isset($_SERVER['GUZZLE_MOCK_PATH'])) {
+            $path = $_SERVER['GUZZLE_MOCK_PATH'] . DIRECTORY_SEPARATOR . $filename;
+        } else {
+            $reflection = new \ReflectionClass(get_class($/* Replaced /* Replaced /* Replaced client */ */ */));
+            $path = str_replace(array(
+                str_replace($reflection->getNamespaceName() . '\\', '', $reflection->getName()),
+                '.php'
+            ), '', $reflection->getFileName());
 
-        // Create the path to the file
-        $path .= DIRECTORY_SEPARATOR . 'Tests' . DIRECTORY_SEPARATOR . 'Command' . DIRECTORY_SEPARATOR . 'Mock' . DIRECTORY_SEPARATOR . $filename;
+            // Create the path to the file
+            $path .= DIRECTORY_SEPARATOR . 'Tests' . DIRECTORY_SEPARATOR . 'Command' . DIRECTORY_SEPARATOR . 'Mock' . DIRECTORY_SEPARATOR . $filename;
+        }
 
         if (!file_exists($path)) {
             throw new \Exception('Unable to open mock file: ' . $path);
