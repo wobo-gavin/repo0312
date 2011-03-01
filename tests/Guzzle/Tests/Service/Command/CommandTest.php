@@ -10,6 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
 
 /**
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
@@ -115,7 +116,7 @@ class CommandTest extends AbstractCommandTest
         )));
 
         $command = new MockCommand();
-        
+
         $this->assertEquals($command, $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */));
         $this->assertEquals($command, $command->execute()); // Implicitly calls prepare
 
@@ -199,7 +200,7 @@ class CommandTest extends AbstractCommandTest
             'method' => 'POST',
             'min_args' => 1,
             'can_batch' => true,
-            'concrete_command_class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Common\\MockCommand',
+            'concrete_command_class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand',
             'args' => array(
                 'test' => array(
                     'default' => '123',

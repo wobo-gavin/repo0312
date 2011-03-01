@@ -69,7 +69,7 @@ class DefaultBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         } catch (\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException $e) {}
 
         $this->assertEquals($builder, $builder->setClass('abc.123'));
-        
+
         // The builder will convert lowercase and periods
         $this->assertEquals('Abc\\123', $builder->getClass());
 
@@ -90,15 +90,17 @@ class DefaultBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             'subdomain' => 'michael'
         ), 'michael.unfuddle');
 
-        $builder->setClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Unfuddle\\UnfuddleClient');
+        $builder->setClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient');
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $builder->build();
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Unfuddle\\UnfuddleClient', $/* Replaced /* Replaced /* Replaced client */ */ */);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $/* Replaced /* Replaced /* Replaced client */ */ */);
 
         // make sure a service was created correctly
-        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getService()->hasCommand('tickets.create_ticket'));
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getService()->hasCommand('sub.sub'));
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getService()->hasCommand('mock_command'));
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getService()->hasCommand('other_command'));
     }
-    
+
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::__toString
      */
@@ -108,12 +110,12 @@ class DefaultBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             'username' => 'michael',
             'password' => 'test',
             'subdomain' => 'michael'
-        ), 'michael.unfuddle');
+        ), 'mock');
 
-        $builder->setClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Unfuddle\\UnfuddleClient');
+        $builder->setClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient');
 
         $xml = <<<EOT
-<service name="michael.unfuddle" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Unfuddle.UnfuddleClient">
+<service name="mock" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockClient">
     <param name="username" value="michael" />
     <param name="password" value="test" />
     <param name="subdomain" value="michael" />
@@ -121,7 +123,7 @@ class DefaultBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
 EOT;
         $xml = trim($xml);
 
-        $this->assertEquals($xml, (string)$builder);
+        $this->assertEquals($xml, (string) $builder);
     }
 
     /**
@@ -138,7 +140,7 @@ EOT;
             'subdomain' => 'michael'
         ), 'michael.unfuddle');
 
-        $builder->setClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Unfuddle\\UnfuddleClient');
+        $builder->setClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient');
         $this->assertSame($builder, $builder->setCache($adapter));
 
         $/* Replaced /* Replaced /* Replaced client */ */ */1 = $builder->build();

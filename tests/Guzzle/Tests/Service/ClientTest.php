@@ -9,12 +9,16 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Logger;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\ClosureLogAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSet;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ConcreteCommandFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\DescriptionBuilder\XmlDescriptionBuilder;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceDescription;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
 
 /**
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
@@ -34,7 +38,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
                 'doc' => 'documentationForCommand',
                 'method' => 'DELETE',
                 'can_batch' => true,
-                'concrete_command_class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Aws\\S3\\Command\\Object\\DeleteObject',
+                'concrete_command_class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand',
                 'args' => array(
                     'bucket' => array(
                         'required' => true
@@ -70,7 +74,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
      */
     private function getLogPlugin()
     {
-        return new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin(new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Logger(array(new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\ClosureLogAdapter(
+        return new LogPlugin(new Logger(array(new ClosureLogAdapter(
             function($message, $priority, $category, $host) {
                 echo $message . ' ' . $priority . ' ' . $category . ' ' . $host . "\n";
             }
@@ -245,6 +249,23 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
+     */
+    public function testExecutesCommands()
+    {
+        $this->getServer()->flush();
+        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n");
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(array('base_url' => $this->getServer()->getUrl()), $this->service, $this->factory);
+        $cmd = new MockCommand();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->execute($cmd);
+
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\Response', $cmd->getResponse());
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\Response', $cmd->getResult());
+        $this->assertEquals(1, count($this->getServer()->getReceivedRequests(false)));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSetException
      */
     public function testThrowsExceptionWhenExecutingMixedClientCommandSets()
@@ -253,8 +274,8 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $otherClient = new Client(array('base_url' => 'http://www.test-123.com/'), $this->service, $this->factory);
 
         // Create a command set and a command
-        $set = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSet();
-        $cmd = new Command\MockCommand();
+        $set = new CommandSet();
+        $cmd = new MockCommand();
         $set->addCommand($cmd);
 
         // Associate the other /* Replaced /* Replaced /* Replaced client */ */ */ with the command
@@ -291,7 +312,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
         // Create a command set and a command
         $set = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSet();
-        $cmd = new Command\MockCommand();
+        $cmd = new MockCommand();
         $set->addCommand($cmd);
         $this->assertSame($set, $/* Replaced /* Replaced /* Replaced client */ */ */->execute($set));
 
@@ -369,7 +390,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         );
 
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->getRequest('GET');
-        $options = $request->getCurlOptions();        
+        $options = $request->getCurlOptions();
         $this->assertEquals(CURLAUTH_DIGEST, $options->get(CURLOPT_HTTPAUTH));
         $this->assertNull($options->get('curl.abc'));
     }

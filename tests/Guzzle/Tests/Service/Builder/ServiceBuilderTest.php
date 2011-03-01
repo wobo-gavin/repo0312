@@ -26,15 +26,18 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
 <?xml version="1.0" ?>
 </* Replaced /* Replaced /* Replaced guzzle */ */ */>
     </* Replaced /* Replaced /* Replaced client */ */ */s>
-        </* Replaced /* Replaced /* Replaced client */ */ */ name="michael.unfuddle" builder="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Builder.DefaultBuilder" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Unfuddle.UnfuddleClient">
+        </* Replaced /* Replaced /* Replaced client */ */ */ name="michael.mock" builder="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Builder.DefaultBuilder" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockClient">
             <param name="username" value="michael" />
             <param name="password" value="testing123" />
             <param name="subdomain" value="michael" />
         <//* Replaced /* Replaced /* Replaced client */ */ */>
-        </* Replaced /* Replaced /* Replaced client */ */ */ name="billy.unfuddle" builder="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Builder.DefaultBuilder" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Unfuddle.UnfuddleClient">
+        </* Replaced /* Replaced /* Replaced client */ */ */ name="billy.mock" builder="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Builder.DefaultBuilder" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockClient">
             <param name="username" value="billy" />
             <param name="password" value="passw0rd" />
             <param name="subdomain" value="billy" />
+        <//* Replaced /* Replaced /* Replaced client */ */ */>
+        </* Replaced /* Replaced /* Replaced client */ */ */ name="billy.testing" extends="billy.mock">
+            <param name="subdomain" value="test.billy" />
         <//* Replaced /* Replaced /* Replaced client */ */ */>
     <//* Replaced /* Replaced /* Replaced client */ */ */s>
 <//* Replaced /* Replaced /* Replaced guzzle */ */ */>
@@ -58,7 +61,7 @@ EOT;
     public function testCanBeCreatedUsingAnXmlFile()
     {
         $builder = ServiceBuilder::factory($this->tempFile);
-        $b = $builder->getBuilder('michael.unfuddle');
+        $b = $builder->getBuilder('michael.mock');
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Builder\\DefaultBuilder', $b);
     }
 
@@ -70,6 +73,17 @@ EOT;
     public function testFactoryEnsuresItCanOpenFile()
     {
         ServiceBuilder::factory('foobarfile');
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
+     */
+    public function testFactoryCanBuildServicesThatExtendOtherServices()
+    {
+        $s = ServiceBuilder::factory($this->tempFile);
+        $s = $s->getClient('billy.testing');
+        $this->assertEquals('test.billy', $s->getConfig('subdomain'));
+        $this->assertEquals('billy', $s->getConfig('username'));
     }
 
     /**
@@ -104,7 +118,7 @@ EOT;
         $this->assertEmpty($cache->getIds());
 
         $s1 = ServiceBuilder::factory($this->tempFile, $adapter, 86400);
-        
+
         // Make sure it added to the cache
         $this->assertNotEmpty($cache->getIds());
 
@@ -115,7 +129,7 @@ EOT;
         $this->assertEquals($s1, $s2);
 
         $this->assertSame($s1, $s1->setCache($adapter, 86400));
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = $s1->getClient('michael.unfuddle');
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $s1->getClient('michael.mock');
     }
 
     /**
@@ -124,8 +138,8 @@ EOT;
     public function testBuildersAreStoredForPerformance()
     {
         $builder = ServiceBuilder::factory($this->tempFile);
-        $b = $builder->getBuilder('michael.unfuddle');
-        $this->assertTrue($b === $builder->getBuilder('michael.unfuddle'));
+        $b = $builder->getBuilder('michael.mock');
+        $this->assertTrue($b === $builder->getBuilder('michael.mock'));
     }
 
     /**
@@ -144,27 +158,27 @@ EOT;
     public function testGetClientStoresClientCopy()
     {
         $builder = ServiceBuilder::factory($this->tempFile);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = $builder->getClient('michael.unfuddle');
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Unfuddle\\UnfuddleClient', $/* Replaced /* Replaced /* Replaced client */ */ */);
-        $this->assertEquals('https://michael.unfuddle.com/api/v1/', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
-        $this->assertEquals($/* Replaced /* Replaced /* Replaced client */ */ */, $builder->getClient('michael.unfuddle'));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $builder->getClient('michael.mock');
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $/* Replaced /* Replaced /* Replaced client */ */ */);
+        $this->assertEquals('http://127.0.0.1:8124/v1/michael', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
+        $this->assertEquals($/* Replaced /* Replaced /* Replaced client */ */ */, $builder->getClient('michael.mock'));
 
         // Get another /* Replaced /* Replaced /* Replaced client */ */ */ but throw this one away
-        $/* Replaced /* Replaced /* Replaced client */ */ */2 = $builder->getClient('billy.unfuddle', true);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Unfuddle\\UnfuddleClient', $/* Replaced /* Replaced /* Replaced client */ */ */2);
-        $this->assertEquals('https://billy.unfuddle.com/api/v1/', $/* Replaced /* Replaced /* Replaced client */ */ */2->getBaseUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */2 = $builder->getClient('billy.mock', true);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $/* Replaced /* Replaced /* Replaced client */ */ */2);
+        $this->assertEquals('http://127.0.0.1:8124/v1/billy', $/* Replaced /* Replaced /* Replaced client */ */ */2->getBaseUrl());
 
         // Make sure the original /* Replaced /* Replaced /* Replaced client */ */ */ is still there and set
-        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */ === $builder->getClient('michael.unfuddle'));
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */ === $builder->getClient('michael.mock'));
 
-        // Create a new billy.unfuddle /* Replaced /* Replaced /* Replaced client */ */ */ that is stored
-        $/* Replaced /* Replaced /* Replaced client */ */ */3 = $builder->getClient('billy.unfuddle');
-        
-        // Make sure that the stored billy.unfuddle /* Replaced /* Replaced /* Replaced client */ */ */ is equal to the other stored /* Replaced /* Replaced /* Replaced client */ */ */
-        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */3 === $builder->getClient('billy.unfuddle'));
+        // Create a new billy.mock /* Replaced /* Replaced /* Replaced client */ */ */ that is stored
+        $/* Replaced /* Replaced /* Replaced client */ */ */3 = $builder->getClient('billy.mock');
+
+        // Make sure that the stored billy.mock /* Replaced /* Replaced /* Replaced client */ */ */ is equal to the other stored /* Replaced /* Replaced /* Replaced client */ */ */
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */3 === $builder->getClient('billy.mock'));
 
         // Make sure that this /* Replaced /* Replaced /* Replaced client */ */ */ is not equal to the previous throwaway /* Replaced /* Replaced /* Replaced client */ */ */
-        $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */2 === $builder->getClient('billy.unfuddle'));
+        $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */2 === $builder->getClient('billy.mock'));
     }
 
     /**
@@ -175,7 +189,7 @@ EOT;
     public function testThrowsExceptionWhenGettingDefaultBuilderWithNoClassSpecified()
     {
         $s = new ServiceBuilder(array(
-            'michael.unfuddle' => array(
+            'michael.mock' => array(
                 'builder' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Builder.DefaultBuilder',
                 'params' => array(
                     'username' => 'michael'
@@ -183,7 +197,7 @@ EOT;
             )
         ));
 
-        $s->getBuilder('michael.unfuddle');
+        $s->getBuilder('michael.mock');
     }
 
     /**
@@ -192,9 +206,9 @@ EOT;
     public function testBuildersPassOptionsThroughToClients()
     {
         $s = new ServiceBuilder(array(
-            'michael.unfuddle' => array(
+            'michael.mock' => array(
                 'builder' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Builder.DefaultBuilder',
-                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Unfuddle.UnfuddleClient',
+                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
                 'params' => array(
                     'subdomain' => 'michael',
                     'password' => 'test',
@@ -204,7 +218,7 @@ EOT;
             )
         ));
 
-        $c = $s->getBuilder('michael.unfuddle')->build();
+        $c = $s->getBuilder('michael.mock')->build();
         $this->assertEquals(8080, $c->getConfig('curl.curlopt_proxyport'));
     }
 }

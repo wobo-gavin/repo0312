@@ -17,6 +17,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Aws\SimpleDb\Com
  * 'implicit_flush' => TRUE to disable batching.
  *
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */-project.org>
+ * @codeCoverageIgnore
  */
 abstract class AbstractQueuedLogAdapter extends AbstractLogAdapter
 {
