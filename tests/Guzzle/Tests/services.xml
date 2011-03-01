@@ -3,13 +3,6 @@
 
     </* Replaced /* Replaced /* Replaced client */ */ */s>
 
-        <!-- Unfuddle /* Replaced /* Replaced /* Replaced client */ */ */ -->
-        </* Replaced /* Replaced /* Replaced client */ */ */ name="test.unfuddle" builder="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Builder.DefaultBuilder" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Unfuddle.UnfuddleClient">
-            <param name="username" value="test_user" />
-            <param name="password" value="****" />
-            <param name="subdomain" value="test" />
-        <//* Replaced /* Replaced /* Replaced client */ */ */>
-
         <!-- Abstract service to store AWS account credentials -->
         </* Replaced /* Replaced /* Replaced client */ */ */ name="test.abstract.aws">
             <param name="access_key_id" value="12345" />
