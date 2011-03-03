@@ -32,7 +32,7 @@ Install /* Replaced /* Replaced /* Replaced Guzzle */ */ */ using pear when usin
     pear channel-discover pearhub.org
     pear install pearhub//* Replaced /* Replaced /* Replaced guzzle */ */ */
 
-You will need to add /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to your application's autoloader.  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ ships with a few select classes from other vendors, one of which is the Symfony2 universal class loader.  If your application does not already use an autoloader, you can use the autoloader distributed with /* Replaced /* Replaced /* Replaced Guzzle */ */ */:
+You will need to add /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to your application's autoloader.  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ ships with a few select classes from other vendors, one of which is the Symfony2 universal class loader.  If your application does not already use an autoloader, you can use the autoloader distributed with /* Replaced /* Replaced /* Replaced Guzzle */ */ */::
 
     <?php
 
@@ -86,7 +86,7 @@ Let's say you want to use the Amazon S3 /* Replaced /* Replaced /* Replaced clie
 
 1. Create a services.xml file:
 
-Create a services.xml that your ServiceBuilder will use to create service /* Replaced /* Replaced /* Replaced client */ */ */s.  The services.xml file defines the /* Replaced /* Replaced /* Replaced client */ */ */s you will be using and the arguments that will be passed into the /* Replaced /* Replaced /* Replaced client */ */ */ when it is constructed.  Each /* Replaced /* Replaced /* Replaced client */ */ */ + arguments combination is given a name and  referenced by name when retrieving a /* Replaced /* Replaced /* Replaced client */ */ */ from the ServiceBuilder.
+Create a services.xml that your ServiceBuilder will use to create service /* Replaced /* Replaced /* Replaced client */ */ */s.  The services.xml file defines the /* Replaced /* Replaced /* Replaced client */ */ */s you will be using and the arguments that will be passed into the /* Replaced /* Replaced /* Replaced client */ */ */ when it is constructed.  Each /* Replaced /* Replaced /* Replaced client */ */ */ + arguments combination is given a name and  referenced by name when retrieving a /* Replaced /* Replaced /* Replaced client */ */ */ from the ServiceBuilder.::
 
     <?xml version="1.0" ?>
     </* Replaced /* Replaced /* Replaced guzzle */ */ */>
@@ -103,14 +103,14 @@ Create a services.xml that your ServiceBuilder will use to create service /* Rep
         <//* Replaced /* Replaced /* Replaced client */ */ */s>
     <//* Replaced /* Replaced /* Replaced guzzle */ */ */>
 
-2. Create a ServiceBuilder
+2. Create a ServiceBuilder::
 
     <?php
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder;
 
     $serviceBuilder = ServiceBuilder::factory('/path/to/services.xml');
 
-3. Get the Amazon S3 /* Replaced /* Replaced /* Replaced client */ */ */ from the ServiceBuilder and execute a command
+3. Get the Amazon S3 /* Replaced /* Replaced /* Replaced client */ */ */ from the ServiceBuilder and execute a command::
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Aws\S3\Command\Object\GetObject;
 
@@ -122,7 +122,7 @@ Create a services.xml that your ServiceBuilder will use to create service /* Rep
     $httpResponse = $/* Replaced /* Replaced /* Replaced client */ */ */->execute($command);
     echo $httpResponse->getBody();
 
-The GetObject command just returns the HTTP response object when it is executed.  Other commands might return more valuable information when executed:
+The GetObject command just returns the HTTP response object when it is executed.  Other commands might return more valuable information when executed::
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Aws\S3\Command\Bucket\ListBucket;
 
@@ -143,7 +143,7 @@ The GetObject command just returns the HTTP response object when it is executed.
 
 The ListBucket command above returns a BucketIterator which will iterate over the entire contents of a bucket.  As you can see, commands can be as simple or complex as you want.
 
-If the above code samples seem a little verbose to you, you can take some shortcuts in your code by leveraging the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ command factory inherent to each /* Replaced /* Replaced /* Replaced client */ */ */:
+If the above code samples seem a little verbose to you, you can take some shortcuts in your code by leveraging the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ command factory inherent to each /* Replaced /* Replaced /* Replaced client */ */ */::
 
     $objects = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('bucket.list_bucket', array('bucket' => 'my_bucket'))->execute();
 
@@ -152,6 +152,8 @@ Examples of sending HTTP requests
 
 GET the google.com homepage
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Example of how to send a GET request::
 
     <?php
 
@@ -170,6 +172,8 @@ GET the google.com homepage
 
 POST to a Solr server
 ~~~~~~~~~~~~~~~~~~~~~
+
+Example of how to send a POST request::
 
     <?php
 
