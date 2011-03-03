@@ -8,6 +8,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Logger;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Subject\SubjectMediator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
@@ -93,7 +94,7 @@ class LogPlugin extends AbstractPlugin
                                 // The body of the request cannot be recalled so
                                 // logging the content of the request will need to
                                 // be streamed using updates
-                                $request->getParams()->set('request_wire', \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory(''));
+                                $request->getParams()->set('request_wire', EntityBody::factory(''));
                             }
                         }
 
@@ -101,7 +102,7 @@ class LogPlugin extends AbstractPlugin
                             // The body of the response cannot be recalled so
                             // logging the content of the response will need to
                             // be streamed using updates
-                            $request->getParams()->set('response_wire', \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory(''));
+                            $request->getParams()->set('response_wire', EntityBody::factory(''));
                         }
                     }
 
