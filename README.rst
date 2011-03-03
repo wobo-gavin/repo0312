@@ -34,8 +34,6 @@ Install /* Replaced /* Replaced /* Replaced Guzzle */ */ */ using pear when usin
 
 You will need to add /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to your application's autoloader.  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ ships with a few select classes from other vendors, one of which is the Symfony2 universal class loader.  If your application does not already use an autoloader, you can use the autoloader distributed with /* Replaced /* Replaced /* Replaced Guzzle */ */ */:
 
-.. code-block:: php
-
     <?php
 
     require_once '/path/to//* Replaced /* Replaced /* Replaced guzzle */ */ *//library/vendor/Symfony/Component/ClassLoader/UniversalClassLoader.php';
@@ -46,7 +44,7 @@ You will need to add /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to your
     ));
     $classLoader->register();
 
-*Substitute '/path/to/' with the full path to your /* Replaced /* Replaced /* Replaced Guzzle */ */ */ installation.  You can find the PEAR installation folder using pear config-get php_dir*
+Substitute '/path/to/' with the full path to your /* Replaced /* Replaced /* Replaced Guzzle */ */ */ installation.  You can find the PEAR installation folder using pear config-get php_dir
 
 Installing services
 -------------------
@@ -57,10 +55,12 @@ Current Services
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ services are distributed separately from the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ framework.  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ officially supports a few webservice /* Replaced /* Replaced /* Replaced client */ */ */s (these /* Replaced /* Replaced /* Replaced client */ */ */s are currently what we use at SHOEBACCA.com), and hopefully there will be third-party created services coming soon:
 
 * `Amazon Webservices (AWS) <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-aws>`_
+
     * Amazon S3
     * Amazon SimpleDB
     * Amazon SQS
     * Amazon MWS
+
 * `Unfuddle <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-unfuddle>`_
 * `Cardinal Commerce <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-cardinal-commerce>`_
 
@@ -88,8 +88,6 @@ Let's say you want to use the Amazon S3 /* Replaced /* Replaced /* Replaced clie
 
 Create a services.xml that your ServiceBuilder will use to create service /* Replaced /* Replaced /* Replaced client */ */ */s.  The services.xml file defines the /* Replaced /* Replaced /* Replaced client */ */ */s you will be using and the arguments that will be passed into the /* Replaced /* Replaced /* Replaced client */ */ */ when it is constructed.  Each /* Replaced /* Replaced /* Replaced client */ */ */ + arguments combination is given a name and  referenced by name when retrieving a /* Replaced /* Replaced /* Replaced client */ */ */ from the ServiceBuilder.
 
-.. code-block:: xml
-
     <?xml version="1.0" ?>
     </* Replaced /* Replaced /* Replaced guzzle */ */ */>
         </* Replaced /* Replaced /* Replaced client */ */ */s>
@@ -107,8 +105,6 @@ Create a services.xml that your ServiceBuilder will use to create service /* Rep
 
 2. Create a ServiceBuilder
 
-.. code-block:: php
-
     <?php
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder;
 
@@ -116,9 +112,6 @@ Create a services.xml that your ServiceBuilder will use to create service /* Rep
 
 3. Get the Amazon S3 /* Replaced /* Replaced /* Replaced client */ */ */ from the ServiceBuilder and execute a command
 
-.. code-block:: php
-
-    <?php
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Aws\S3\Command\Object\GetObject;
 
     $/* Replaced /* Replaced /* Replaced client */ */ */ = $serviceBuilder->getClient('test.s3');
@@ -131,9 +124,6 @@ Create a services.xml that your ServiceBuilder will use to create service /* Rep
 
 The GetObject command just returns the HTTP response object when it is executed.  Other commands might return more valuable information when executed:
 
-.. code-block:: php
-
-    <?php
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Aws\S3\Command\Bucket\ListBucket;
 
     $command = new ListBucket();
@@ -155,15 +145,13 @@ The ListBucket command above returns a BucketIterator which will iterate over th
 
 If the above code samples seem a little verbose to you, you can take some shortcuts in your code by leveraging the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ command factory inherent to each /* Replaced /* Replaced /* Replaced client */ */ */:
 
-.. code-block:: php
-
-    <?php
-
     $objects = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('bucket.list_bucket', array('bucket' => 'my_bucket'))->execute();
 
-## Examples of sending HTTP requests
+Examples of sending HTTP requests
+---------------------------------
 
-### GET the google.com homepage
+GET the google.com homepage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     <?php
 
@@ -180,7 +168,8 @@ If the above code samples seem a little verbose to you, you can take some shortc
     // Echo the raw HTTP response
     echo $response;
 
-### POST to a Solr server
+POST to a Solr server
+~~~~~~~~~~~~~~~~~~~~~
 
     <?php
 
