@@ -240,5 +240,6 @@ EOT;
         ));
 
         $c = $s->getBuilder('michael.mock')->build();
+        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $c);
     }
 }
