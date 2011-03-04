@@ -221,4 +221,24 @@ EOT;
         $c = $s->getBuilder('michael.mock')->build();
         $this->assertEquals(8080, $c->getConfig('curl.curlopt_proxyport'));
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder
+     */
+    public function testUsesTheDefaultBuilderWhenNoBuilderIsSpecified()
+    {
+        $s = new ServiceBuilder(array(
+            'michael.mock' => array(
+                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
+                'params' => array(
+                    'subdomain' => 'michael',
+                    'password' => 'test',
+                    'username' => 'michael',
+                    'curl.curlopt_proxyport' => 8080
+                )
+            )
+        ));
+
+        $c = $s->getBuilder('michael.mock')->build();
+    }
 }
