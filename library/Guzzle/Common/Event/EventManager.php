@@ -10,7 +10,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
  * Subject mediator event manager that connects {@see Subject}s and their
  * {@see Observer}s for loose coupling.
  *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */-project.org>
+ * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class EventManager
 {

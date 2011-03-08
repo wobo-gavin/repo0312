@@ -16,7 +16,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Aws\SimpleDb\Com
  * the $_maxQueueSize.  Pass a configuration parameter of
  * 'implicit_flush' => TRUE to disable batching.
  *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */-project.org>
+ * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  * @codeCoverageIgnore
  */
 abstract class AbstractQueuedLogAdapter extends AbstractLogAdapter

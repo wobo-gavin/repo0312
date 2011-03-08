@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Re
 /**
  * Cache adapter exception
  * 
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */-project.org>
+ * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class CacheAdapterException extends \Exception implements /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
 {

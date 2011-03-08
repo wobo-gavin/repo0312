@@ -17,7 +17,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Filter\FilterInte
  * run by the chain.  Filters are self-contained components without any direct
  * dependency on other filters.
  *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */-project.org>
+ * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class Chain implements Countable
 {

@@ -15,7 +15,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\LogException;
  * implementations so that you may use the log classes of your favorite
  * framework.
  * 
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */-project.org>
+ * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 abstract class AbstractLogAdapter implements LogAdapterInterface
 {

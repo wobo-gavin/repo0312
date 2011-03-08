@@ -10,7 +10,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter
  * Allows Closures to be called when messages are logged.  Closures combined
  * with filtering can trigger application events based on log messages.
  *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */-project.org>
+ * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class ClosureLogAdapter extends AbstractLogAdapter
 {
