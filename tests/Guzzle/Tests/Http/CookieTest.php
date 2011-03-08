@@ -70,6 +70,7 @@ class CookieTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Cookie
      */
     public function testAggregatesMultipleCookieValues()
     {

@@ -103,13 +103,13 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::getSubjectMediator
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::getEventManager
      */
-    public function testGetSubjectMediator()
+    public function testGetEventManager()
     {
-        $mediator = $this->request->getSubjectMediator();
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Subject\\SubjectMediator', $mediator);
-        $this->assertEquals($mediator, $this->request->getSubjectMediator());
+        $mediator = $this->request->getEventManager();
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Event\\EventManager', $mediator);
+        $this->assertEquals($mediator, $this->request->getEventManager());
         $this->assertEquals($this->request, $mediator->getSubject());
     }
 
@@ -197,26 +197,6 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
 
             $this->assertEquals($message, $e->getMessage());
         }
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::getPrepareChain
-     */
-    public function testStoresPrepareChain()
-    {
-        $chain = $this->request->getPrepareChain();
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Filter\\Chain', $chain);
-        $this->assertEquals($chain, $this->request->getPrepareChain());
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::getProcessChain
-     */
-    public function testStoresProcessChain()
-    {
-        $chain = $this->request->getProcessChain();
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Filter\\Chain', $chain);
-        $this->assertEquals($chain, $this->request->getProcessChain());
     }
 
     /**
@@ -582,10 +562,8 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
 
         $this->assertEquals(RequestInterface::STATE_NEW, $r->getState());
         $this->assertNotSame($r->getQuery(), $this->request->getQuery());
-        $this->assertNotSame($r->getPrepareChain(), $this->request->getPrepareChain());
-        $this->assertNotSame($r->getProcessChain(), $this->request->getProcessChain());
         $this->assertNotSame($r->getCurlOptions(), $this->request->getCurlOptions());
-        $this->assertNotSame($r->getSubjectMediator(), $this->request->getSubjectMediator());
+        $this->assertNotSame($r->getEventManager(), $this->request->getEventManager());
         $this->assertNotSame($r->getHeaders(), $this->request->getHeaders());
         $this->assertNotSame($r->getParams(), $this->request->getParams());
         $this->assertNull($r->getParams()->get('queued_response'));

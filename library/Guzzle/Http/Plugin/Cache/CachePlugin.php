@@ -8,9 +8,9 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\CacheAdapter\CacheAdapterInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Filter\FilterInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Subject\SubjectMediator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Subject;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\AbstractPlugin;
@@ -24,7 +24,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\AbstractPlug
  *
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
-class CachePlugin extends AbstractPlugin implements FilterInterface
+class CachePlugin extends AbstractPlugin
 {
     /**
      * @var CacheAdapter Cache adapter used to write cache data to cache objects
@@ -148,52 +148,50 @@ class CachePlugin extends AbstractPlugin implements FilterInterface
     /**
      * {@inheritdoc}
      *
-     * @param RequestInterface $command Request to process
+     * @param RequestInterface $subject Request to process
      */
-    public function process($command)
+    public function update(Subject $subject, $event, $context = null)
     {
         // @codeCoverageIgnoreStart
-        if (!$command instanceof RequestInterface) {
+        if (!($subject instanceof RequestInterface)) {
             return;
         }
         // @codeCoverageIgnoreEnd
 
-        if ($command->getState() != RequestInterface::STATE_COMPLETE) {
+        /* @var $subject EntityEnclosingRequest */
+        if ($event == 'request.before_send' && $subject->canCache()) {
 
-            if ($command->canCache()) {
+            // This request is being prepared
+            $key = spl_object_hash($subject);
+            $hashKey = $this->getCacheKey($subject);
+            $this->cached[$key] = $hashKey;
+            $cachedData = $this->getCacheAdapter()->fetch($hashKey);
 
-                // This request is being prepared
-                $key = spl_object_hash($command);
-                $hashKey = $this->getCacheKey($command);
-                $this->cached[$key] = $hashKey;
-                $cachedData = $this->getCacheAdapter()->fetch($hashKey);
+            // If the cached data was found, then make the request into a
+            // manually set request
+            if ($cachedData) {
+                if ($this->serialize) {
+                    $cachedData = unserialize($cachedData);
+                }
+                unset($this->cached[$key]);
+                $response = new Response($cachedData['c'], $cachedData['h'], $cachedData['b']);
+                $response->setHeader('Age', time() - strtotime($response->getDate() ?: 'now'));
+                $response->setHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Cache', $hashKey);
 
-                // If the cached data was found, then make the request into a
-                // manually set request
-                if ($cachedData) {
-                    if ($this->serialize) {
-                        $cachedData = unserialize($cachedData);
-                    }
-                    unset($this->cached[$key]);
-                    $response = new Response($cachedData['c'], $cachedData['h'], $cachedData['b']);
-                    $response->setHeader('Age', time() - strtotime($response->getDate() ?: 'now'));
-                    $response->setHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Cache', $hashKey);
-                    
-                    // Validate that the response satisfies the request
-                    if ($this->canResponseSatisfyRequest($command, $response)) {
-                        $command->setResponse($response);
-                    }
+                // Validate that the response satisfies the request
+                if ($this->canResponseSatisfyRequest($subject, $response)) {
+                    $subject->setResponse($response);
                 }
             }
 
-        } else if ($command->getResponse()->canCache()) {
+        } else if ($event == 'request.sent' && $subject->getResponse()->canCache()) {
 
             // The request is complete and now processing the response
-            $response = $command->getResponse();
-            $key = spl_object_hash($command);
+            $response = $subject->getResponse();
+            $key = spl_object_hash($subject);
             if (isset($this->cached[$key]) && $response->isSuccessful()) {
-                if ($command->getParams()->get('cache.override_ttl')) {
-                    $lifetime = $command->getParams()->get('cache.override_ttl');
+                if ($subject->getParams()->get('cache.override_ttl')) {
+                    $lifetime = $subject->getParams()->get('cache.override_ttl');
                     $response->setHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Ttl', $lifetime);
                 } else {
                     $lifetime = $response->getMaxAge();

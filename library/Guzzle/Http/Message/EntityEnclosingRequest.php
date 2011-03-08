@@ -8,9 +8,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Filter\Chain;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Filter\FilterInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Subject\SubjectMediator;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Subject\Observer;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Subject;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Observer;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\MultipartFormData;
@@ -42,7 +41,7 @@ class EntityEnclosingRequest extends Request implements EntityEnclosingRequestIn
         // Process the object as it might contain POST fields that need to be
         // generated into an EntityBody
         if (!$this->response) {
-            $this->process($this);
+            $this->getEventManager()->notify('request.prepare_entity_body');
         }
 
         $body = count($this->getPostFields()) && 0 == count($this->getPostFiles())
@@ -82,10 +81,13 @@ class EntityEnclosingRequest extends Request implements EntityEnclosingRequestIn
     /**
      * {@inheritdoc}
      */
-    public function process($context)
+    public function update(Subject $subject, $event, $context = null)
     {
         // @codeCoverageIgnoreStart
-        if ($context !== $this) {
+        if ($subject !== $this || 
+            !($event == 'request.prepare_entity_body' ||
+              $event == 'request.before_send' ||
+              $event == 'request.curl.before_create')) {
             return;
         }
         // @codeCoverageIgnoreEnd
@@ -234,9 +236,10 @@ class EntityEnclosingRequest extends Request implements EntityEnclosingRequestIn
      */
     private function addChain()
     {
-        $chain = $this->getPrepareChain();
-        if (!$chain->hasFilter($this)) {
-            $chain->prependFilter($this);
+        $sm = $this->getEventManager();
+        if (!$sm->hasObserver($this)) {
+            // Attach to itself at a high priority
+            $sm->attach($this, 9999);
         }
     }
 }

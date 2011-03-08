@@ -6,7 +6,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Subject\Subject;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Subject;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlFactoryInterface;
@@ -87,22 +87,6 @@ interface RequestInterface extends MessageInterface, Subject
      * @return Response|null
      */
     public function getResponse();
-
-    /**
-     * Get the intercepting filter Chain that is processed before the request
-     * is sent.
-     *
-     * @return Chain
-     */
-    public function getPrepareChain();
-
-    /**
-     * Get the intercepting filter Chain that is processed after the response is
-     * received
-     *
-     * @return Chain
-     */
-    public function getProcessChain();
 
     /**
      * Get the collection of key value pairs that will be used as the query

@@ -6,8 +6,8 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Subject\SubjectMediator;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Subject\Observer;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\EventManager;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Observer;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\BadResponseException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;

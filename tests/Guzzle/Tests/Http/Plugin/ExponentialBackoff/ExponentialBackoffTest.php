@@ -84,7 +84,7 @@ class ExponentialBackoffPluginTest extends \/* Replaced /* Replaced /* Replaced 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoff\ExponentialBackoffPlugin::process
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoff\ExponentialBackoffPlugin::update
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\BadResponseException
      */
@@ -107,7 +107,7 @@ class ExponentialBackoffPluginTest extends \/* Replaced /* Replaced /* Replaced 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoff\ExponentialBackoffPlugin::process
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoff\ExponentialBackoffPlugin::update
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\Pool
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoff\ExponentialBackoffObserver
      */

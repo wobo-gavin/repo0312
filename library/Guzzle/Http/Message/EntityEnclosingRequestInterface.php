@@ -6,7 +6,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Filter\FilterInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Observer;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 
@@ -15,7 +15,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
  *
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
-interface EntityEnclosingRequestInterface extends RequestInterface, FilterInterface
+interface EntityEnclosingRequestInterface extends RequestInterface, Observer
 {
     /**
      * Set the body of the request

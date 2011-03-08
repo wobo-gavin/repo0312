@@ -4,7 +4,7 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Subject;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 
 /**
  * /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Observer class
@@ -14,9 +14,13 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Subject;
 interface Observer
 {
     /**
-     * Receive notifications from a SubjectMediator
+     * Receive notifications from a EventManager
      *
-     * @param SubjectMediator $subject Subject mediator sending the update
+     * @param Subject $subject Subject emitting the event
+     * @param string $event Event signal state
+     * @param mixed $context (optional) Contextual information
+     *
+     * @return null|bool|mixed
      */
-    public function update(SubjectMediator $subject);
+    public function update(Subject $subject, $event, $context = null);
 }

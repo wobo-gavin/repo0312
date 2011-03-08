@@ -63,7 +63,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\AbstractPlugin::attach
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::process
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::update
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::attach
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::saveCache
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::getCacheKey
@@ -110,7 +110,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::process
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::update
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::saveCache
      */
     public function testSkipsNonReadableResponseBodies()
@@ -209,7 +209,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::process
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::update
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::saveCache
      */
     public function testRequestsCanOverrideTtlUsingCacheParam()
@@ -231,7 +231,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::canResponseSatisfyRequest
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::process
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::update
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::saveCache
      */
     public function testRequestsCanAcceptStaleResponses()

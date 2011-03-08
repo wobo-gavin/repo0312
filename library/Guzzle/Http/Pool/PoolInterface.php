@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Subject\Subject;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Subject;
 
 /**
  * Execute a pool of {@see RequestInterface} objects in

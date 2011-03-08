@@ -4,7 +4,7 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Subject;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 
 /**
  * /* Replaced /* Replaced /* Replaced Guzzle */ */ */ subject interface
@@ -24,7 +24,7 @@ interface Subject
     /**
      * Get the subject mediator associated with the subject
      *
-     * @return SubjectMediator
+     * @return EventManager
      */
-    public function getSubjectMediator();
+    public function getEventManager();
 }

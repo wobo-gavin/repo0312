@@ -106,7 +106,7 @@ class CommandSetTest extends AbstractCommandTest
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
 
         // Create a mock observer
-        $observer = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Subject\\Observer')->setMethods(array('update'))->getMock();
+        $observer = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Event\\Observer')->setMethods(array('update'))->getMock();
         // The observer should be called 4 times, 3 times for each command (once to retrieve from /* Replaced /* Replaced /* Replaced client */ */ */, one before send, one after send)
         $observer->expects($this->exactly(6))
                  ->method('update');
@@ -131,7 +131,7 @@ class CommandSetTest extends AbstractCommandTest
 
         $commandSet = new CommandSet(array($command1, $command2));
 
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getSubjectMediator()->attach($observer);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach($observer);
         $commandSet->execute();
 
         $this->assertTrue($command1->isExecuted());

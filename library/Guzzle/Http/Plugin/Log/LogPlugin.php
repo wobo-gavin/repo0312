@@ -7,7 +7,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Logger;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Subject\SubjectMediator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Subject;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
@@ -23,6 +23,11 @@ class LogPlugin extends AbstractPlugin
 {
     const WIRE_HEADERS = 1;
     const WIRE_FULL = 2;
+
+    /**
+     * {@inheritdoc} Try to ensure this is called last
+     */
+    protected $priority = -9999;
 
     /**
      * @var Logger Logger object used to delegate log messages to adapters
@@ -74,14 +79,14 @@ class LogPlugin extends AbstractPlugin
     /**
      * {@inheritdoc}
      */
-    public function update(SubjectMediator $subject)
+    public function update(Subject $subject, $event, $context = null)
     {
-        if ($subject->is('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\RequestInterface')) {
+        if ($subject instanceof RequestInterface) {
             
-            $request = $subject->getSubject();
+            $request = $subject;
             /* @var $request EntityEnclosingRequest */
 
-            switch ($subject->getState()) {
+            switch ($event) {
 
                 case 'request.before_send':
 
@@ -110,27 +115,27 @@ class LogPlugin extends AbstractPlugin
 
                 case 'request.success':
 
-                    $this->log($request, $subject->getContext());
+                    $this->log($request, $context);
                     break;
 
                 case 'request.failure':
 
                     // Log curl exception messages
-                    $this->log($request, $subject->getContext()->getResponse(), $subject->getContext()->getMessage());
+                    $this->log($request, $context->getResponse(), $context->getMessage());
                     
                     break;
 
                 case 'curl.callback.write':
                     // Stream the response body as it is read using cURL
                     if ($request->getParams()->get('response_wire')) {
-                        $request->getParams()->get('response_wire')->write($subject->getContext());
+                        $request->getParams()->get('response_wire')->write($context);
                     }
                     break;
 
                 case 'curl.callback.read':
                     // Stream the request body as it is read using cURL
                     if ($request->getParams()->get('request_wire')) {
-                        $request->getParams()->get('request_wire')->write($subject->getContext());
+                        $request->getParams()->get('request_wire')->write($context);
                     }
                     break;
             }

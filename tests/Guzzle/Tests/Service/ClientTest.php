@@ -197,9 +197,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->getRequest('GET');
         // Make sure the the plugin was attached to the new request
-        $this->assertTrue($request->getPrepareChain()->hasFilter($logPlugin));
-        $this->assertTrue($request->getProcessChain()->hasFilter($logPlugin));
-        $this->assertTrue($request->getSubjectMediator()->hasObserver($logPlugin));
+        $this->assertTrue($request->getEventManager()->hasObserver($logPlugin));
 
         // Make sure that the log plugin actually logged the request and response
         ob_start();
@@ -213,9 +211,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         // Ensure that it was actually detached
         $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->hasPlugin($logPlugin));
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->getRequest('GET');
-        $this->assertFalse($request->getPrepareChain()->hasFilter($logPlugin));
-        $this->assertFalse($request->getProcessChain()->hasFilter($logPlugin));
-        $this->assertFalse($request->getSubjectMediator()->hasObserver($logPlugin));
+        $this->assertFalse($request->getEventManager()->hasObserver($logPlugin));
 
         // Try that again, but reference it by name
         $/* Replaced /* Replaced /* Replaced client */ */ */->attachPlugin($logPlugin);
