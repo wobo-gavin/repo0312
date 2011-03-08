@@ -109,11 +109,11 @@ class CommandTest extends AbstractCommandTest
         ), '<xml><data>123</data></xml>');
 
         // Set a mock response
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getCreateRequestChain()->addFilter(new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Mock\MockFilter(array(
-            'callback' => function($filter, $command) use ($response) {
-                $command->setResponse($response);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(function($subject, $event, $context) use ($response) {
+            if ($event == 'request.create') {
+                $context->setResponse($response);
             }
-        )));
+        });
 
         $command = new MockCommand();
 
@@ -137,13 +137,13 @@ class CommandTest extends AbstractCommandTest
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
 
         // Set a mock response
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getCreateRequestChain()->addFilter(new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Mock\MockFilter(array(
-            'callback' => function($filter, $command) {
-                $command->setResponse(new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response(200, array(
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(function($subject, $event, $context) {
+            if ($event == 'request.create') {
+                $context->setResponse(new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response(200, array(
                     'Content-Type' => 'application/octect-stream'
                 ), 'abc,def,ghi'));
             }
-        )));
+        });
 
         $command = new MockCommand();
         $/* Replaced /* Replaced /* Replaced client */ */ */->execute($command);

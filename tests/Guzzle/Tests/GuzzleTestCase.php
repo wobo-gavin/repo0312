@@ -27,6 +27,7 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
 
     public static $serviceBuilder;
     public static $server;
+    public $mockObserver;
 
     /**
      * Get the global server object used throughout the unit tests of /* Replaced /* Replaced /* Replaced Guzzle */ */ */
@@ -159,23 +160,24 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
     {
         $this->requests = array();
         $responses = array();
-        foreach ((array)$filenames as $filename) {
+        foreach ((array) $filenames as $filename) {
             $responses[] = $this->getMockResponse($/* Replaced /* Replaced /* Replaced client */ */ */, $filename);
         }
 
         // Add a filter to the /* Replaced /* Replaced /* Replaced client */ */ */ to set a mock response on the next request
         $that = $this;
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getCreateRequestChain()->addFilter(new MockFilter(array(
-            'callback' => function($filter, $command) use (&$responses, $/* Replaced /* Replaced /* Replaced client */ */ */, $that) {
-                $that->addMockedRequest($command);
+
+        $that->mockObserver = $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(function($subject, $event, $context) use (&$responses, $/* Replaced /* Replaced /* Replaced client */ */ */, $that) {
+            if ($event == 'request.create') {
+                $that->addMockedRequest($context);
                 // Set the mock response
-                $command->setResponse(array_shift($responses), true);
+                $context->setResponse(array_shift($responses), true);
                 // Detach the filter from the /* Replaced /* Replaced /* Replaced client */ */ */ so it's a one-time use
                 if (count($responses) == 0) {
-                    $/* Replaced /* Replaced /* Replaced client */ */ */->getCreateRequestChain()->removeFilter($filter);
+                    $subject->getEventManager()->detach($that->mockObserver);
                 }
             }
-        )));
+        }, 9999);
     }
 
     /**
