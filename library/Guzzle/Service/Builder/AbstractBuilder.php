@@ -56,13 +56,13 @@ abstract class AbstractBuilder
      */
     public function __toString()
     {
-        $xml = '<service name="' . htmlspecialchars($this->getName()) . '" class="' . htmlspecialchars(str_replace('\\', '.', $this->getClass())) . '">' . "\n";
+        $xml = '</* Replaced /* Replaced /* Replaced client */ */ */ name="' . htmlspecialchars($this->getName()) . '" class="' . htmlspecialchars(str_replace('\\', '.', $this->getClass())) . '">' . "\n";
 
         foreach ($this->config as $key => $value) {
             $xml .= '    <param name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '" />' . "\n";
         }
 
-        return $xml . '</service>';
+        return $xml . '<//* Replaced /* Replaced /* Replaced client */ */ */>';
     }
 
     /**
