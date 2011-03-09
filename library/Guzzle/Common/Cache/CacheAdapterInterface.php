@@ -4,18 +4,21 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\CacheAdapter;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache;
 
 /**
- * Doctrine 2 cache adapter
+ * Interface for cache adapters.
  *
- * @link    http://www.doctrine-project.org/ 
+ * Cache adapters allow /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to utilze various frameworks for caching HTTP
+ * responses.
+ *
+ * The CacheAdapter interface was inspired by the Doctrine 2 ORM:
+ * @link http://www.doctrine-project.org/
+ *
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
-class DoctrineCacheAdapter extends AbstractCacheAdapter
+interface CacheAdapterInterface
 {
-    protected $className = 'Doctrine\Common\Cache\Cache';
-
     /**
      * Test if an entry exists in the cache.
      *
@@ -24,10 +27,7 @@ class DoctrineCacheAdapter extends AbstractCacheAdapter
      * @return bool TRUE if a cache entry exists for the given cache id,
      *      FALSE otherwise.
      */
-    public function contains($id)
-    {
-        return $this->cache->contains($id);
-    }
+    public function contains($id);
 
     /**
      * Deletes a cache entry.
@@ -36,23 +36,24 @@ class DoctrineCacheAdapter extends AbstractCacheAdapter
      *
      * @return bool TRUE on success, FALSE on failure
      */
-    public function delete($id)
-    {
-        return $this->cache->delete($id);
-    }
+    public function delete($id);
 
     /**
      * Fetches an entry from the cache.
      *
      * @param string $id cache id The id of the cache entry to fetch.
      *
-     * @return string The cached data or FALSE, if no cache entry exists for
-     *      the given id.
+     * @return string The cached data or FALSE, if no cache entry exists
+     *     for the given id.
      */
-    public function fetch($id)
-    {
-        return $this->cache->fetch($id);
-    }
+    public function fetch($id);
+
+    /**
+     * Get the wrapped cache object
+     *
+     * @return mixed
+     */
+    public function getCacheObject();
 
     /**
      * Puts data into the cache.
@@ -62,10 +63,8 @@ class DoctrineCacheAdapter extends AbstractCacheAdapter
      * @param int $lifeTime The lifetime. If != false, sets a specific lifetime
      *      for this cache entry (null => infinite lifeTime).
      *
-     * @return bool TRUE on success, FALSE on failure
+     * @return bool TRUE if the entry was successfully stored in the cache,
+     *      FALSE otherwise.
      */
-    public function save($id, $data, $lifeTime = false)
-    {
-        return $this->cache->save($id, $data, $lifeTime);
-    }
+    public function save($id, $data, $lifeTime = false);
 }

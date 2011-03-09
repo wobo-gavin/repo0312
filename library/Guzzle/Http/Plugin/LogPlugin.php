@@ -6,7 +6,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Logger;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\LogAdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Observer;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Subject;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
@@ -25,9 +25,9 @@ class LogPlugin implements Observer
     const WIRE_FULL = 2;
 
     /**
-     * @var Logger Logger object used to delegate log messages to adapters
+     * @var LogAdapterInterface
      */
-    private $logger;
+    private $logAdapter;
 
     /**
      * @var int Level of data to log when logging wire data
@@ -47,28 +47,28 @@ class LogPlugin implements Observer
     /**
      * Construct a new LogPlugin
      *
-     * @param Logger $logger Object used to delegate log messages to adapters
-     * @param bool $logContext (optional) Set to TRUE or FALSE to log contextual info
+     * @param LogAdapterInterface $logAdapter Adapter object used to log message
+     * @param bool $logContext (optional) Set to TRUE to log contextual info
      * @param bool $wireLevel (optional) Set to WIRE_HEADERS to log header data
      *      sent over the wire.  Set to WIRE_FULL to log header and content data
      *      sent over the wire.
      */
-    public function __construct(Logger $logger, $logContext = true, $wireLevel = false)
+    public function __construct(LogAdapterInterface $logAdapter, $logContext = true, $wireLevel = false)
     {
-        $this->logger = $logger;
+        $this->logAdapter = $logAdapter;
         $this->logContext = $logContext;
         $this->wireLevel = $wireLevel;
         $this->hostname = gethostname();
     }
 
     /**
-     * Get the logger object
+     * Get the log adapter object
      *
-     * @return Logger
+     * @return LogAdapterInterface
      */
-    public function getLogger()
+    public function getLogAdapter()
     {
-        return $this->logger;
+        return $this->logAdapter;
     }
 
     /**
@@ -139,7 +139,7 @@ class LogPlugin implements Observer
     }
 
     /**
-     * Send a message to the logger based on a request and response
+     * Log a message based on a request and response
      *
      * @param RequestInterface $request Request to log
      * @param Response $response (optional) Response to log
@@ -205,6 +205,8 @@ class LogPlugin implements Observer
             $message .= "\n" . $moreInfo;
         }
 
-        $this->logger->log(trim($message), $priority, '/* Replaced /* Replaced /* Replaced guzzle */ */ */_request', $this->hostname);
+        $this->logAdapter->log(trim($message), $priority, '/* Replaced /* Replaced /* Replaced guzzle */ */ */_request', array(
+            'hostname' => $this->hostname
+        ));
     }
 }

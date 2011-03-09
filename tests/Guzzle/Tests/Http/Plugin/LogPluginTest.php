@@ -7,8 +7,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Logger;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\ClosureLogAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ClosureLogAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin;
 
 /**
@@ -22,19 +21,19 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     private $plugin;
 
     /**
-     * @var Logger
+     * @var ClosureLogAdapter
      */
-    private $logger;
+    private $logAdapter;
 
     public function setUp()
     {
-        $this->logger = new Logger(array(new ClosureLogAdapter(
-            function($message, $priority, $category, $host) {
-                echo $message . ' - ' . $priority . ' ' . $category . ' ' . $host . "\n";
+        $this->logAdapter = new ClosureLogAdapter(
+            function($message, $priority, $extras = null) {
+                echo $message . ' - ' . $priority . ' ' . $extras . "\n";
             }
-        )));
+        );
 
-        $this->plugin = new LogPlugin($this->logger);
+        $this->plugin = new LogPlugin($this->logAdapter);
     }
 
     /**
@@ -59,12 +58,12 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::__construct
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::getLogger
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::getLogAdapter
      */
-    public function testHasLogger()
+    public function testPluginHasLogAdapter()
     {
-        $plugin = new LogPlugin($this->logger);
-        $this->assertEquals($this->logger, $plugin->getLogger());
+        $plugin = new LogPlugin($this->logAdapter);
+        $this->assertEquals($this->logAdapter, $plugin->getLogAdapter());
     }
 
     /**
@@ -76,7 +75,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n");
         $request = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request('GET', $this->getServer()->getUrl());
 
-        $plugin = new LogPlugin($this->logger);
+        $plugin = new LogPlugin($this->logAdapter);
         $request->getEventManager()->attach($plugin);
 
         ob_start();
@@ -90,7 +89,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $this->assertEquals(0, $parts['size']);
 
         $this->assertContains('127.0.0.1 - "GET / HTTP/1.1" - 200 0 - ', $message);
-        $this->assertContains('7 /* Replaced /* Replaced /* Replaced guzzle */ */ */_request ' . gethostname(), $message);
+        $this->assertContains('7 /* Replaced /* Replaced /* Replaced guzzle */ */ */_request', $message);
     }
 
     /**
@@ -101,7 +100,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     {
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata");
         $request = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request('GET', $this->getServer()->getUrl());
-        $plugin = new LogPlugin($this->logger, true, LogPlugin::WIRE_HEADERS);
+        $plugin = new LogPlugin($this->logAdapter, true, LogPlugin::WIRE_HEADERS);
         $request->getEventManager()->attach($plugin);
 
         ob_start();
@@ -110,7 +109,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
         // Make sure the context was logged
         $this->assertContains('127.0.0.1 - "GET / HTTP/1.1" - 200 4 - ', $message);
-        $this->assertContains('7 /* Replaced /* Replaced /* Replaced guzzle */ */ */_request ' . gethostname(), $message);
+        $this->assertContains('7 /* Replaced /* Replaced /* Replaced guzzle */ */ */_request', $message);
 
         // Check that the headers were logged
         $this->assertContains("GET / HTTP/1.1\r\n", $message);
@@ -131,7 +130,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     {
         $request = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest('PUT', $this->getServer()->getUrl());
         $request->setBody(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory('send'));
-        $plugin = new LogPlugin($this->logger, true, LogPlugin::WIRE_FULL);
+        $plugin = new LogPlugin($this->logAdapter, true, LogPlugin::WIRE_FULL);
         $request->getEventManager()->attach($plugin);
 
         ob_start();
@@ -163,7 +162,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     public function testLogsRequestAndResponseWireContentAndHeadersNonStreamable()
     {
         $request = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest('PUT', $this->getServer()->getUrl());
-        $plugin = new LogPlugin($this->logger, true, LogPlugin::WIRE_FULL);
+        $plugin = new LogPlugin($this->logAdapter, true, LogPlugin::WIRE_FULL);
         $request->getEventManager()->attach($plugin);
 
         // Send the response from the dummy server as the request body
@@ -203,7 +202,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     public function testLogsWhenExceptionsAreThrown()
     {
         $request = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request('GET', $this->getServer()->getUrl());
-        $plugin = new LogPlugin($this->logger, true, LogPlugin::WIRE_FULL);
+        $plugin = new LogPlugin($this->logAdapter, true, LogPlugin::WIRE_FULL);
         $request->getEventManager()->attach($plugin);
 
         $this->getServer()->enqueue("HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\n\r\n");

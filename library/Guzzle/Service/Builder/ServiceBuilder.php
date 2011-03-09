@@ -6,7 +6,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\CacheAdapter\CacheAdapterInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\CacheAdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException;
 
 /**

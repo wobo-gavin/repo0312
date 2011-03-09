@@ -4,31 +4,25 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\CacheAdapter;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache;
 
 /**
- * Interface for cache adapters.
+ * Zend Framework cache adapter
  *
- * Cache adapters allow /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to utilze various frameworks for caching HTTP
- * responses.
- *
- * The CacheAdapter interface was inspired by the Doctrine 2 ORM:
- * @link http://www.doctrine-project.org/
- *
+ * @link    http://www.doctrine-project.org/
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
-interface CacheAdapterInterface
+class ZendCacheAdapter extends AbstractCacheAdapter
 {
     /**
-     * Create a new cache adapter
+     * Constructor
      *
-     * @param object $cacheObject (optional) Concrete cache implementation that
-     *      will be wrapped by the adapter.
-     *
-     * @throws CacheAdapterException if the supplied
-     *      object does not implement the correct interface.
+     * @param Zend_Cache_Backend $cacheObject Object to wrap and adapt
      */
-    public function __construct($cacheObject);
+    public function __construct(\Zend_Cache_Backend $cache)
+    {
+        $this->cache = $cache;
+    }
 
     /**
      * Test if an entry exists in the cache.
@@ -38,7 +32,10 @@ interface CacheAdapterInterface
      * @return bool TRUE if a cache entry exists for the given cache id,
      *      FALSE otherwise.
      */
-    public function contains($id);
+    public function contains($id)
+    {
+        return $this->cache->test($id);
+    }
 
     /**
      * Deletes a cache entry.
@@ -47,24 +44,23 @@ interface CacheAdapterInterface
      *
      * @return bool TRUE on success, FALSE on failure
      */
-    public function delete($id);
+    public function delete($id)
+    {
+        return $this->cache->remove($id);
+    }
 
     /**
      * Fetches an entry from the cache.
      *
      * @param string $id cache id The id of the cache entry to fetch.
      *
-     * @return string The cached data or FALSE, if no cache entry exists
-     *     for the given id.
+     * @return string The cached data or FALSE, if no cache entry exists for
+     *      the given id.
      */
-    public function fetch($id);
-
-    /**
-     * Get the wrapped cache object
-     *
-     * @return mixed
-     */
-    public function getCacheObject();
+    public function fetch($id)
+    {
+        return $this->cache->load($id);
+    }
 
     /**
      * Puts data into the cache.
@@ -77,5 +73,8 @@ interface CacheAdapterInterface
      * @return bool TRUE if the entry was successfully stored in the cache,
      *      FALSE otherwise.
      */
-    public function save($id, $data, $lifeTime = false);
+    public function save($id, $data, $lifeTime = false)
+    {
+        return $this->cache->save($data, $id, array(), $lifeTime);
+    }
 }

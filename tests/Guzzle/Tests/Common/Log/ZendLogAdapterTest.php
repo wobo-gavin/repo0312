@@ -4,12 +4,11 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Log\Adapter;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Log;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\LogAdapterInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\ZendLogAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\LogAdapterInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ZendLogAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Filter\Chain;
 
 /**
  * Test class for ZendLogAdapter
@@ -52,29 +51,25 @@ class ZendLogAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\AbstractLogAdapter::__construct
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\LogAdapterException
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\AbstractLogAdapter::__construct
+     * @expectedException InvalidArgumentException
      */
     public function testConstruct()
     {
         $this->zfSkip();
         
-        $chain = new Chain();
-
         // A successful construction
-        $this->adapter = new ZendLogAdapter($this->log, new Collection(), $chain);
-        $this->assertEquals($chain, $this->adapter->getFilterChain());
-
+        $this->adapter = new ZendLogAdapter($this->log, new Collection());
+        
         // Throws an exception
         $this->adapter = new ZendLogAdapter(new \stdClass());
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\AbstractLogAdapter::log
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\ZendLogAdapter::logMessage
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ZendLogAdapter::log
      * @outputBuffering enabled
      */
-    public function testLog()
+    public function testLogsMessagesToAdaptedObject()
     {
         $this->zfSkip();
         
@@ -88,34 +83,12 @@ class ZendLogAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\AbstractLogAdapter::getLogObject
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\AbstractLogAdapter::getLogObject
      */
-    public function testGetLogObject()
+    public function testExposesAdaptedLogObject()
     {
         $this->zfSkip();
         
         $this->assertEquals($this->log, $this->adapter->getLogObject());
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\AbstractLogAdapter::__call
-     * @expectedException Zend_Log_Exception
-     */
-    public function testAdapterMustProxyToWrappedObject()
-    {
-        $this->zfSkip();
-        
-        $this->adapter->addPriority('EMERG', 0);
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\AbstractLogAdapter::__call
-     * @expectedException BadMethodCallException
-     */
-    public function testAdapterThrowExceptionsWhenProxyingToMissingMethods()
-    {
-        $this->zfSkip();
-        
-        $this->adapter->foo();
     }
 }

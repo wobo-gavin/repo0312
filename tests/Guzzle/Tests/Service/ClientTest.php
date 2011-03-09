@@ -8,8 +8,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Logger;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\ClosureLogAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ClosureLogAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
@@ -74,11 +73,11 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
      */
     private function getLogPlugin()
     {
-        return new LogPlugin(new Logger(array(new ClosureLogAdapter(
-            function($message, $priority, $category, $host) {
-                echo $message . ' ' . $priority . ' ' . $category . ' ' . $host . "\n";
+        return new LogPlugin(new ClosureLogAdapter(
+            function($message, $priority, $extras = null) {
+                echo $message . ' ' . $priority . ' ' . $extras . "\n";
             }
-        ))));
+        ));
     }
 
     /**
@@ -187,7 +186,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         ob_start();
         $request->send();
         $logged = ob_get_clean();
-        $this->assertEquals('www.google.com - "GET / HTTP/1.1" - 200 0 - 7 /* Replaced /* Replaced /* Replaced guzzle */ */ */_request ' . gethostname() . "\n", $logged);
+        $this->assertEquals('www.google.com - "GET / HTTP/1.1" - 200 0 - 7 /* Replaced /* Replaced /* Replaced guzzle */ */ */_request' . "\n", $logged);
     }
 
     /**

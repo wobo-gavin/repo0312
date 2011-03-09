@@ -7,7 +7,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\ZendLogAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Logger;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
@@ -190,8 +189,7 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
     public function enableClientDebug(Client $/* Replaced /* Replaced /* Replaced client */ */ */)
     {
         $adapter = new ZendLogAdapter(new \Zend_Log(new \Zend_Log_Writer_Stream('php://output')));
-        $logger = new Logger(array($adapter));
-        $plugin = new LogPlugin($logger, true, 2);
+        $plugin = new LogPlugin($adapter, true, 2);
         $/* Replaced /* Replaced /* Replaced client */ */ */->attachPlugin($plugin);
     }
 

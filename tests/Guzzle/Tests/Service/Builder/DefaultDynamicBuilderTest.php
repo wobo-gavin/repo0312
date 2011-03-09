@@ -7,7 +7,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Builder;
 
 use Doctrine\Common\Cache\ArrayCache;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\CacheAdapter\DoctrineCacheAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultDynamicBuilder;
 
 /**
