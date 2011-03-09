@@ -4,11 +4,11 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Builder;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
 
 use Doctrine\Common\Cache\ArrayCache;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder;
 
 /**
  * @group service
@@ -55,8 +55,8 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::getBuilder
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::getBuilder
      */
     public function testCanBeCreatedUsingAnXmlFile()
     {
@@ -66,7 +66,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException
      * @expectedExceptionMessage Unable to open service configuration file foobarfile
      */
@@ -76,7 +76,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
      */
     public function testFactoryCanBuildServicesThatExtendOtherServices()
     {
@@ -87,7 +87,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
      */
     public function testFactoryThrowsExceptionWhenBuilderExtendsNonExistentBuilder()
     {
@@ -107,9 +107,9 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::setCache
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::setCache
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder
      */
     public function testFactoryUsesCacheAdapterWhenAvailable()
     {
@@ -133,7 +133,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::getBuilder
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::getBuilder
      */
     public function testBuildersAreStoredForPerformance()
     {
@@ -143,7 +143,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::getBuilder
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::getBuilder
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException
      * @expectedExceptionMessage No service builder is registered as foobar
      */
@@ -153,7 +153,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::getClient
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::getClient
      */
     public function testGetClientStoresClientCopy()
     {
@@ -182,7 +182,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::getBuilder
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::getBuilder
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException
      * @expectedExceptionMessage A class attribute must be present when using /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultBuilder
      */
@@ -201,7 +201,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder
      */
     public function testBuildersPassOptionsThroughToClients()
     {
@@ -223,7 +223,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder
      */
     public function testUsesTheDefaultBuilderWhenNoBuilderIsSpecified()
     {

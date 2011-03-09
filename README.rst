@@ -23,10 +23,6 @@ Most web service /* Replaced /* Replaced /* Replaced client */ */ */s follow a s
 Installing /* Replaced /* Replaced /* Replaced Guzzle */ */ */
 -----------------
 
-Contributors should install /* Replaced /* Replaced /* Replaced Guzzle */ */ */ using git::
-
-    git clone https://mtdowling@github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.git
-
 Install /* Replaced /* Replaced /* Replaced Guzzle */ */ */ using pear when using /* Replaced /* Replaced /* Replaced Guzzle */ */ */ in production::
 
     pear channel-discover pearhub.org
@@ -106,7 +102,7 @@ Create a services.xml that your ServiceBuilder will use to create service /* Rep
 2. Create a ServiceBuilder::
 
     <?php
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder;
 
     $serviceBuilder = ServiceBuilder::factory('/path/to/services.xml');
 

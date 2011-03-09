@@ -115,11 +115,11 @@ class DefaultBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $builder->setClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient');
 
         $xml = <<<EOT
-<service name="mock" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockClient">
+</* Replaced /* Replaced /* Replaced client */ */ */ name="mock" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockClient">
     <param name="username" value="michael" />
     <param name="password" value="test" />
     <param name="subdomain" value="michael" />
-</service>
+<//* Replaced /* Replaced /* Replaced client */ */ */>
 EOT;
         $xml = trim($xml);
 
