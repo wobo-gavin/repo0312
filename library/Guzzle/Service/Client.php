@@ -9,14 +9,13 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inspector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Injector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Filter\Chain;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Observer;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\AbstractSubject;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlConstants;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\AbstractPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSet;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandFactoryInterface;
@@ -65,11 +64,6 @@ class Client extends AbstractSubject
      * @var RequestFactory Request factory used to create new /* Replaced /* Replaced /* Replaced client */ */ */ requests
      */
     protected $requestFactory;
-
-    /**
-     * @var array Plugins attached to the /* Replaced /* Replaced /* Replaced client */ */ */ which will be attached to requests
-     */
-    protected $plugins = array();
 
     /**
      * @var string Your application's name and version (e.g. MyApp/1.0)
@@ -121,20 +115,6 @@ class Client extends AbstractSubject
     }
 
     /**
-     * Get the short name of a plugin
-     *
-     * @param AbstractPlugin|string $plugin Plugin to shorten
-     *
-     * @return string
-     */
-    public static function getShortPluginName($plugin)
-    {
-        $class = (is_object($plugin)) ? get_class($plugin) : $plugin;
-
-        return basename(str_replace('\\', '/', $class));
-    }
-
-    /**
      * Get a configuration setting from the /* Replaced /* Replaced /* Replaced client */ */ */ or all of the configuration
      * settings.  This command should not allow the /* Replaced /* Replaced /* Replaced client */ */ */ config to be
      * modified, so an immutable value is returned
@@ -182,9 +162,9 @@ class Client extends AbstractSubject
             $request->getParams()->set('cache.key_filter', $this->getConfig('cache.key_filter'));
         }
 
-        // Attach registered plugins to the request
-        foreach ($this->plugins as $plugin) {
-            $plugin->attach($request);
+        // Attach /* Replaced /* Replaced /* Replaced client */ */ */ observers to the request
+        foreach ($this->getEventManager()->getAttached() as $observer) {
+            $request->getEventManager()->attach($observer);
         }
 
         $this->getEventManager()->notify('request.create', $request);
@@ -205,95 +185,6 @@ class Client extends AbstractSubject
         $this->getEventManager()->notify('request.factory.set', $factory);
 
         return $this;
-    }
-
-    /**
-     * Attach a plugin to the /* Replaced /* Replaced /* Replaced client */ */ */
-     *
-     * @param AbstractPlugin $plugin  Plugin to attach to the /* Replaced /* Replaced /* Replaced client */ */ */
-     *
-     * @return Client
-     */
-    public function attachPlugin(AbstractPlugin $plugin)
-    {
-        if (!$this->hasPlugin(get_class($plugin))) {
-            $this->plugins[self::getShortPluginName($plugin)] = $plugin;
-            $this->getEventManager()->attach($plugin);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Remove a plugin by plugin or plugin class
-     *
-     * @param string|AbstractPlugin $plugin The plugin to detach from the
-     *      /* Replaced /* Replaced /* Replaced client */ */ */.  Pass a string to remove all plugins that are an instance
-     *      of $plugin.  Pass a concrete plugin to remove a specific plugin
-     *
-     * @return Client
-     */
-    public function detachPlugin($plugin)
-    {
-        $foundPlugin = false;
-        if (is_string($plugin)) {
-            $plugin = self::getShortPluginName($plugin);
-        }
-
-        $mediator = $this->getEventManager();
-        $that = $this;
-        $c = __CLASS__;
-        $this->plugins = array_filter($this->plugins, function($p) use ($plugin, $mediator, $that, $c) {
-            $short = $c::getShortPluginName($p);
-            if ((is_string($plugin) && !strcmp($short, $plugin)) || $p === $plugin) {
-                if (!is_string($plugin)) {
-                    $mediator->detach($plugin);
-                }
-                return false;
-            }
-
-            return true;
-        });
-
-        return $this;
-    }
-
-    /**
-     * Check if the /* Replaced /* Replaced /* Replaced client */ */ */ has a specific plugin
-     *
-     * @param string|AbstractPlugin $plugin Check for the existence of a plugin
-     *      by class or a concrete plugin
-     *
-     * @return bool
-     */
-    public function hasPlugin($plugin)
-    {
-        if (is_string($plugin)) {
-            $plugin = self::getShortPluginName($plugin);
-        }
-
-        foreach ($this->plugins as $pluginItem) {
-            $short = self::getShortPluginName($pluginItem);
-            if ((is_string($plugin) && $short == $plugin) || $pluginItem === $plugin) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Get an attached plugin by name
-     *
-     * @param string $pluginClass Plugin class to retrieve
-     *
-     * @return AbstractPlugin|bool
-     */
-    public function getPlugin($pluginClass)
-    {
-        $short = self::getShortPluginName($pluginClass);
-
-        return (array_key_exists($short, $this->plugins)) ? $this->plugins[$short] : false;
     }
 
     /**

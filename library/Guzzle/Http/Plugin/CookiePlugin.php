@@ -4,20 +4,20 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Observer;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Subject;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\AbstractPlugin;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\CookieJarInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\CookieJarInterface;
 
 /**
  * Adds, extracts, and persists cookies between HTTP requests
  *
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
-class CookiePlugin extends AbstractPlugin
+class CookiePlugin implements Observer
 {
     /**
      * @var CookieJarInterface

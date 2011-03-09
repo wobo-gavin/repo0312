@@ -4,10 +4,9 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\PluginException;
 
 /**
  * Persists cookies using a temporary array

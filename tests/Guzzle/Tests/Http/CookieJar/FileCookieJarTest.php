@@ -4,11 +4,11 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin\Cookie\CookieJar;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\CookieJar;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\FileCookieJar;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\FileCookieJar;
 
 /**
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
@@ -74,7 +74,7 @@ class FileCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\FileCookieJar
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\FileCookieJar
      */
     public function testLoadsFromFileFile()
     {
@@ -85,7 +85,7 @@ class FileCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\FileCookieJar
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\FileCookieJar
      */
     public function testPersistsToFileFile()
     {

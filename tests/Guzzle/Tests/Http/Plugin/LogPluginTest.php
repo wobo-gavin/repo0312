@@ -4,12 +4,12 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin\Log;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Logger;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Adapter\ClosureLogAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin;
 
 /**
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
@@ -58,8 +58,8 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin::__construct
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin::getLogger
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::__construct
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::getLogger
      */
     public function testHasLogger()
     {
@@ -68,8 +68,8 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin::update
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin::log
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::update
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::log
      */
     public function testLogsRequestAndResponseContext()
     {
@@ -77,7 +77,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $request = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request('GET', $this->getServer()->getUrl());
 
         $plugin = new LogPlugin($this->logger);
-        $plugin->attach($request);
+        $request->getEventManager()->attach($plugin);
 
         ob_start();
         $request->send();
@@ -94,15 +94,15 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin::update
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin::log
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::update
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::log
      */
     public function testLogsRequestAndResponseWireHeaders()
     {
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata");
         $request = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request('GET', $this->getServer()->getUrl());
         $plugin = new LogPlugin($this->logger, true, LogPlugin::WIRE_HEADERS);
-        $plugin->attach($request);
+        $request->getEventManager()->attach($plugin);
 
         ob_start();
         $request->send();
@@ -124,15 +124,15 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin::update
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin::log
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::update
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::log
      */
     public function testLogsRequestAndResponseWireContentAndHeaders()
     {
         $request = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest('PUT', $this->getServer()->getUrl());
         $request->setBody(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory('send'));
         $plugin = new LogPlugin($this->logger, true, LogPlugin::WIRE_FULL);
-        $plugin->attach($request);
+        $request->getEventManager()->attach($plugin);
 
         ob_start();
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata");
@@ -158,13 +158,13 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin
      */
     public function testLogsRequestAndResponseWireContentAndHeadersNonStreamable()
     {
         $request = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest('PUT', $this->getServer()->getUrl());
         $plugin = new LogPlugin($this->logger, true, LogPlugin::WIRE_FULL);
-        $plugin->attach($request);
+        $request->getEventManager()->attach($plugin);
 
         // Send the response from the dummy server as the request body
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\nsend");
@@ -198,13 +198,13 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin
      */
     public function testLogsWhenExceptionsAreThrown()
     {
         $request = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request('GET', $this->getServer()->getUrl());
         $plugin = new LogPlugin($this->logger, true, LogPlugin::WIRE_FULL);
-        $plugin->attach($request);
+        $request->getEventManager()->attach($plugin);
 
         $this->getServer()->enqueue("HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\n\r\n");
 

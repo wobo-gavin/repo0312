@@ -6,6 +6,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Command;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Mock\MockObserver;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\Pool;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSet;
@@ -104,12 +105,7 @@ class CommandSetTest extends AbstractCommandTest
     public function testExecutesCommands()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
-
-        // Create a mock observer
-        $observer = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Event\\Observer')->setMethods(array('update'))->getMock();
-        // The observer should be called 4 times, 3 times for each command (once to retrieve from /* Replaced /* Replaced /* Replaced client */ */ */, one before send, one after send)
-        $observer->expects($this->exactly(6))
-                 ->method('update');
+        $observer = new MockObserver();
 
         // Create a Mock response
         $response = new Response(200, array(
@@ -141,5 +137,13 @@ class CommandSetTest extends AbstractCommandTest
 
         $this->assertEquals($response, $command1->getResponse());
         $this->assertEquals($response, $command2->getResponse());
+
+        $this->assertEquals(2, count(array_filter($observer->events, function($e) {
+            return $e == 'command.before_send';
+        })));
+
+        $this->assertEquals(2, count(array_filter($observer->events, function($e) {
+            return $e == 'command.after_send';
+        })));
     }
 }

@@ -4,14 +4,14 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin\Cookie;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookiePlugin;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\ArrayCookieJar;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\CookieJar\ArrayCookieJarTest;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CookiePlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
-use CookieJar\ArrayCookieJarTest;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 
 /**
@@ -280,7 +280,7 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
 
     /**
      * @dataProvider cookieParserDataProvider
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookiePlugin
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CookiePlugin
      */
     public function testParseCookie($cookie, $parsed, $url = null)
     {
@@ -315,7 +315,7 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookiePlugin
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CookiePlugin
      */
     public function testClearsCookiesWhenShuttingDown()
     {
@@ -332,7 +332,7 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookiePlugin
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CookiePlugin
      */
     public function testClearsTemporaryCookies()
     {
@@ -349,7 +349,7 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookiePlugin
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CookiePlugin
      */
     public function testClearsCookies()
     {
@@ -371,7 +371,7 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookiePlugin
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CookiePlugin
      */
     public function testExtractsAndStoresCookies()
     {
@@ -407,7 +407,7 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
 
         // Create a new request, attach the cookie plugin, set a mock response
         $request = new Request('GET', 'http://www.example.com/');
-        $this->plugin->attach($request);
+        $request->getEventManager()->attach($this->plugin);
         $request->setResponse($response, true);
         $request->send();
 
@@ -417,11 +417,11 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookiePlugin
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CookiePlugin
      */
     public function testAddsCookiesToRequests()
     {
-        CookieJar\ArrayCookieJarTest::addCookies($this->storage);
+        ArrayCookieJarTest::addCookies($this->storage);
 
         $this->storage->save(array(
             'domain' => '.y.example.com',
@@ -451,10 +451,10 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
         $request3 = new Request('GET', 'http://a.y.example.com/acme/');
         $request4 = new Request('GET', 'http://a.y.example.com/acme/');
 
-        $this->plugin->attach($request1);
-        $this->plugin->attach($request2);
-        $this->plugin->attach($request3);
-        $this->plugin->attach($request4);
+        $request1->getEventManager()->attach($this->plugin);
+        $request2->getEventManager()->attach($this->plugin);
+        $request3->getEventManager()->attach($this->plugin);
+        $request4->getEventManager()->attach($this->plugin);
 
         // Set a secure cookie
         $response1 = Response::factory("HTTP/1.1 200 OK\r\nSet-Cookie: a=b; c=d; Max-Age=86400; domain=.example.com; secure;\r\n\r\n");
@@ -482,7 +482,7 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookiePlugin
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CookiePlugin
      */
     public function testExtractsMultipleCookies()
     {
@@ -508,7 +508,7 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
         ));
 
         $request = RequestFactory::getInstance()->newRequest('GET', $this->getServer()->getUrl());
-        $this->plugin->attach($request);
+        $request->getEventManager()->attach($this->plugin);
 
         $request->send();
         $this->assertNull($request->getHeader('Cookie'));

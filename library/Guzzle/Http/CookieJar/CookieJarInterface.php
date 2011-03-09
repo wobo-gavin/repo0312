@@ -4,7 +4,7 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar;
 
 /**
  * Interface for persisting cookies

@@ -12,6 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Observer;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\PoolInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\Pool;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\PoolRequestException;
 
@@ -36,9 +37,9 @@ class PoolTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Test
     protected function setUp()
     {
         parent::setUp();
+        $this->updates = new Collection();
         $this->pool = new MockPool();
         $this->pool->getEventManager()->attach($this);
-        $this->updates = new Collection();
     }
 
     /**
@@ -46,6 +47,7 @@ class PoolTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Test
      */
     protected function tearDown()
     {
+        $this->pool->getEventManager()->detach($this);
         $this->pool = null;
         parent::tearDown();
     }

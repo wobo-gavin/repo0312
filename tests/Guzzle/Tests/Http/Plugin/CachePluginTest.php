@@ -4,7 +4,7 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin\Cache;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin;
 
 use Doctrine\Common\Cache\ArrayCache;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
@@ -14,7 +14,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin;
 
 /**
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
@@ -51,8 +51,8 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::__construct
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::getCacheAdapter
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::__construct
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::getCacheAdapter
      */
     public function testConstructorSetsValues()
     {
@@ -62,12 +62,10 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\AbstractPlugin::attach
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::update
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::attach
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::saveCache
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::getCacheKey
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::canResponseSatisfyRequest
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::update
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::saveCache
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::getCacheKey
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::canResponseSatisfyRequest
      */
     public function testSavesResponsesInCache()
     {
@@ -79,11 +77,13 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
 
         // Make sure that non GET and HEAD requests are not attached
         $request = RequestFactory::getInstance()->newRequest('POST', $this->getServer()->getUrl());
-        $this->assertFalse($plugin->attach($request));
+        $request->getEventManager()->attach($plugin);
+        $this->assertFalse($request->getEventManager()->hasObserver($plugin));
         
         // Create a new Request
         $request = RequestFactory::getInstance()->newRequest('GET', $this->getServer()->getUrl());
-        $this->assertTrue($plugin->attach($request));
+        $request->getEventManager()->attach($plugin);
+        $this->assertTrue($request->getEventManager()->hasObserver($plugin));
         
         // Send the Request to the test server
         $request->send();
@@ -101,7 +101,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         // The test server has no more script data, so if it actually sends a
         // request it will fail the test.
         $request2 = RequestFactory::getInstance()->newRequest('GET', $this->getServer()->getUrl());
-        $this->assertTrue($plugin->attach($request2));
+        $request2->getEventManager()->attach($plugin);
         $request2->send();
         $this->assertEquals('data', $request2->getResponse()->getBody(true));
 
@@ -110,8 +110,8 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::update
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::saveCache
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::update
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::saveCache
      */
     public function testSkipsNonReadableResponseBodies()
     {
@@ -123,7 +123,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
 
         // Create a new Client using the Cache plugin
         $request = RequestFactory::getInstance()->newRequest('GET', $this->getServer()->getUrl());
-        $this->assertTrue($plugin->attach($request));
+        $request->getEventManager()->attach($plugin);
 
         // Create a temp file that is not readable
         $tempFile = tempnam('/tmp', 'temp_stream_data');
@@ -158,7 +158,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::getCacheKey
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::getCacheKey
      * @dataProvider cacheKeyDataProvider
      */
     public function testCreatesCacheKeysUsingFilters($filter, $key, $url, $headers = null)
@@ -191,7 +191,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::getCacheKey
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::getCacheKey
      */
     public function testCreatesEncodedKeys()
     {
@@ -209,8 +209,8 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::update
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::saveCache
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::update
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::saveCache
      */
     public function testRequestsCanOverrideTtlUsingCacheParam()
     {
@@ -218,21 +218,20 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         
         $request = new Request('GET', 'http://www.test.com/');
         $request->getParams()->set('cache.override_ttl', 1000);
-        $plugin->attach($request);
-        $request->setResponse(Response::factory("HTTP/1.1 200 OK\r\nCache-Control: max-age=100\r\nContent-Length: 4\r\n\r\nData"), true);
+        $request->getEventManager()->attach($plugin);$request->setResponse(Response::factory("HTTP/1.1 200 OK\r\nCache-Control: max-age=100\r\nContent-Length: 4\r\n\r\nData"), true);
         $request->send();
         
         $request2 = new Request('GET', 'http://www.test.com/');
-        $plugin->attach($request2);
+        $request2->getEventManager()->attach($plugin);
         $response = $request2->send();
 
         $this->assertEquals(1000, $response->getHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Ttl'));
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::canResponseSatisfyRequest
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::update
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::saveCache
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::canResponseSatisfyRequest
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::update
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::saveCache
      */
     public function testRequestsCanAcceptStaleResponses()
     {
@@ -240,7 +239,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $plugin = new CachePlugin($this->adapter, true);
 
         $request = new Request('GET', $server->getUrl() . 'test');
-        $plugin->attach($request);
+        $request->getEventManager()->attach($plugin);
         // Cache this response for 1000 seconds if it is cacheable
         $request->getParams()->set('cache.override_ttl', 1000);
         $request->setResponse(Response::factory("HTTP/1.1 200 OK\r\nExpires: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('-1 second') . "\r\nContent-Length: 4\r\n\r\nData"), true);
@@ -250,7 +249,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         
         // Accept responses that are up to 100 seconds expired
         $request2 = new Request('GET', $server->getUrl() . 'test');
-        $plugin->attach($request2);
+        $request2->getEventManager()->attach($plugin);
         $request2->addCacheControlDirective('max-stale', 100);
         $response = $request2->send();
         $this->assertEquals(1000, $response->getHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Ttl'));
@@ -258,7 +257,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         // Accepts any stale response
         $request3 = new Request('GET', $server->getUrl() . 'test');
         $request3->addCacheControlDirective('max-stale');
-        $plugin->attach($request3);
+        $request3->getEventManager()->attach($plugin);
         $response = $request3->send();
         $this->assertEquals(1000, $response->getHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Ttl'));
 
@@ -266,13 +265,13 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $server->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\nData");
         $request4 = new Request('GET', $server->getUrl() . 'test');
         $request4->addCacheControlDirective('max-stale', 0);
-        $plugin->attach($request4);
+        $request4->getEventManager()->attach($plugin);
         $response = $request4->send();
         $this->assertEquals("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\nData", $this->removeKeepAlive((string) $response));
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::canResponseSatisfyRequest
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::canResponseSatisfyRequest
      */
     public function testChecksIfResponseCanSatisfyRequest()
     {
@@ -367,8 +366,8 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::canResponseSatisfyRequest
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin::revalidate
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::canResponseSatisfyRequest
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::revalidate
      * @dataProvider cacheRevalidationDataProvider
      */
     public function testRevalidatesResponsesAgainstOriginServer($can, $request, $response, $validate = null, $result = null, $param = null)
@@ -405,7 +404,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin
      */
     public function testCachesResponsesAndHijacksRequestsWhenApplicable()
     {
@@ -415,11 +414,11 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         
         $request = new Request('GET', $server->getUrl());
         $request->getCurlOptions()->set(\CURLOPT_TIMEOUT, 2);
-        $plugin->attach($request);
+        $request->getEventManager()->attach($plugin);
 
         $request2 = new Request('GET', $server->getUrl());
         $request2->getCurlOptions()->set(\CURLOPT_TIMEOUT, 2);
-        $plugin->attach($request2);
+        $request2->getEventManager()->attach($plugin);
 
         $request->send();
         $request2->send();

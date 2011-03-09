@@ -6,10 +6,10 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Filter;
 
-use \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Filter\Chain,
-    \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Filter\AbstractFilter,
-    \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Mock\MockFilter,
-    \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Mock\MockFilterCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Filter\Chain;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Filter\AbstractFilter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Mock\MockFilter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Mock\MockFilterCommand;
 
 /**
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>

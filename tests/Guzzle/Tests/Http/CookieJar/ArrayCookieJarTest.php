@@ -4,13 +4,13 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin\Cookie\CookieJar;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\CookieJar;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookiePlugin;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\ArrayCookieJar;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\CookieJarInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CookiePlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\CookieJarInterface;
 
 /**
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
@@ -89,7 +89,7 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\ArrayCookieJar
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar
      */
     public function testStoresAndRetrievesCookies()
     {
@@ -183,7 +183,7 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\ArrayCookieJar
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar
      * @dataProvider getCookiesDataProvider
      */
     public function testGetCookies(array $matches, $domain = null, $path = null, $name = null, $skipDiscardable = false)
@@ -194,7 +194,7 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\ArrayCookieJar
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar
      */
     public function testClearsTemporaryCookies()
     {
@@ -220,7 +220,7 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\ArrayCookieJar
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar
      */
     public function testClearsExpiredCookies()
     {
@@ -242,7 +242,7 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\ArrayCookieJar
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage Cookies require a domain
      */
@@ -252,7 +252,7 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\ArrayCookieJar
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage Cookies require a names and values
      */
@@ -280,7 +280,7 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\ArrayCookieJar
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar
      * @dataProvider clearCookiesDataProvider
      */
     public function testClearsCookies($matches, $total, $domain, $path, $name)
@@ -291,7 +291,7 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cookie\CookieJar\ArrayCookieJar
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar
      */
     public function testDoesNotAddDuplicates()
     {

@@ -12,7 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\HttpException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoff\ExponentialBackoffPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
@@ -556,7 +556,7 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
     public function testClonedRequestsUseNewInternalState()
     {
         $p = new ExponentialBackoffPlugin();
-        $p->attach($this->request);
+        $this->request->getEventManager()->attach($p);
 
         $r = clone $this->request;
 
@@ -568,8 +568,8 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
         $this->assertNotSame($r->getParams(), $this->request->getParams());
         $this->assertNull($r->getParams()->get('queued_response'));
 
-        $this->assertTrue($p->isAttached($this->request));
-        $this->assertTrue($p->isAttached($r));
+        $this->assertTrue($this->request->getEventManager()->hasObserver($p));
+        $this->assertTrue($r->getEventManager()->hasObserver($p));
     }
 
     /**
