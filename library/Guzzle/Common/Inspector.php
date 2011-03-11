@@ -6,6 +6,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 
 /**
@@ -228,7 +229,7 @@ class Inspector
 
             // Inject configuration information into the config value
             if (is_scalar($config->get($name)) && strpos($config->get($name), '{{') !== false) {
-                $config->set($name, Injector::inject($config->get($name), $config));
+                $config->set($name, /* Replaced /* Replaced /* Replaced Guzzle */ */ */::inject($config->get($name), $config));
             }
 
             // Ensure that required arguments are set

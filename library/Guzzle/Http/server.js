@@ -22,6 +22,7 @@
  *      Host: 127.0.0.1:8124
  *
  * @package /* Replaced /* Replaced /* Replaced Guzzle */ */ */ PHP <http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
+ * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  * @license See the LICENSE file that was distributed with this source code.
  */
 

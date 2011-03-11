@@ -6,8 +6,8 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inspector;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Injector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Observer;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\AbstractSubject;
@@ -259,7 +259,7 @@ class Client extends AbstractSubject
      */
     public function getBaseUrl($inject = true)
     {
-        return ($inject) ? $this->injectConfig($this->config->get('base_url')) : $this->config->get('base_url');
+        return $inject ? $this->inject($this->config->get('base_url')) : $this->config->get('base_url');
     }
 
     /**
@@ -284,9 +284,9 @@ class Client extends AbstractSubject
      *
      * @return string
      */
-    public function injectConfig($string)
+    public function inject($string)
     {
-        return Injector::inject($string, $this->config);
+        return /* Replaced /* Replaced /* Replaced Guzzle */ */ */::inject($string, $this->config);
     }
 
     /**

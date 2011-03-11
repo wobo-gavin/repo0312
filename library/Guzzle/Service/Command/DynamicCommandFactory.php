@@ -6,8 +6,8 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Injector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inspector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
@@ -49,8 +49,8 @@ class DynamicCommandFactory extends AbstractCommandFactory
 
                 // Build a custom URL if there are path values
                 if ($foundPath) {
-                    $path = str_replace('//', '', Injector::inject($api->getPath(), $pathValues));
-                    $url = Injector::inject($that->getClient()->getBaseUrl(false), $pathValues) . $path;
+                    $path = str_replace('//', '', /* Replaced /* Replaced /* Replaced Guzzle */ */ */::inject($api->getPath(), $pathValues));
+                    $url = /* Replaced /* Replaced /* Replaced Guzzle */ */ */::inject($that->getClient()->getBaseUrl(false), $pathValues) . $path;
                 } else {
                     $url = $that->getClient()->getBaseUrl() . $arg->get('path');
                 }
