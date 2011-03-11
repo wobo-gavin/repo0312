@@ -22,7 +22,7 @@ class MockCommand extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\S
      */
     protected function build()
     {
-        $this->request = $this->/* Replaced /* Replaced /* Replaced client */ */ */->getRequest('GET');
+        $this->request = $this->/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
     }
 
     /**

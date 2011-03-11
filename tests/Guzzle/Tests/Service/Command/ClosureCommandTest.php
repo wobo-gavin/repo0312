@@ -60,7 +60,7 @@ class ClosureCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $c = new ClosureCommand(array(
             'closure' => function($command, $api) {
                 $command->set('testing', '123');
-                $request = RequestFactory::getInstance()->newRequest('GET', 'http://www.test.com/');
+                $request = RequestFactory::get('http://www.test.com/');
                 return $request;
             },
             'closure_api' => true

@@ -15,7 +15,7 @@ class MockResourceIterator extends ResourceIterator
 {
     protected function sendRequest()
     {
-        $request = $this->/* Replaced /* Replaced /* Replaced client */ */ */->getRequest('GET');
+        $request = $this->/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
         $request->getQuery()->set('count', $this->calculatePageSize());
         $data = json_decode($request->send()->getBody(true), true);
 

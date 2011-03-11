@@ -9,6 +9,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ClosureLogAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
@@ -155,7 +157,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
      * Test that a plugin can be attached to a /* Replaced /* Replaced /* Replaced client */ */ */
      *
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__construct
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getRequest
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::createRequest
      */
     public function testClientAttachersObserversToRequests()
     {
@@ -175,7 +177,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
         // Get a request from the /* Replaced /* Replaced /* Replaced client */ */ */ and ensure the the observer was
         // attached to the new request
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->getRequest('GET');
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
         $this->assertTrue($request->getEventManager()->hasObserver($logPlugin));
 
         // Make sure that the log plugin actually logged the request and response
@@ -310,7 +312,8 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setUserApplication
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getRequest
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::createRequest
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::prepareRequest
      */
     public function testSetsUserApplication()
     {
@@ -322,12 +325,13 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
         $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $/* Replaced /* Replaced /* Replaced client */ */ */->setUserApplication('Test', '1.0Ab'));
 
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->getRequest('GET');
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
         $this->assertEquals('Test/1.0Ab ' . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent(), $request->getHeader('User-Agent'));
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getRequest
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::createRequest
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::prepareRequest
      */
     public function testClientAddsCurlOptionsToRequests()
     {
@@ -343,14 +347,15 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
             new ConcreteCommandFactory($this->serviceTest)
         );
 
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->getRequest('GET');
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
         $options = $request->getCurlOptions();
         $this->assertEquals(CURLAUTH_DIGEST, $options->get(CURLOPT_HTTPAUTH));
         $this->assertNull($options->get('curl.abc'));
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getRequest
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::createRequest
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::prepareRequest
      */
     public function testClientAddsCacheKeyFiltersToRequests()
     {
@@ -364,7 +369,101 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
             new ConcreteCommandFactory($this->serviceTest)
         );
 
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->getRequest('GET');
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
         $this->assertEquals('query=Date', $request->getParams()->get('cache.key_filter'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommand
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException
+     */
+    public function testThrowsExceptionWhenNoCommandFactoryIsSetAndGettingCommand()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(array(
+            'base_url' => $this->getServer()->getUrl()
+        ));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test');
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::prepareRequest
+     */
+    public function testPreparesRequestsNotCreatedByTheClient()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(array(
+            'base_url' => $this->getServer()->getUrl()
+        ));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(new ExponentialBackoffPlugin());
+
+        $request = RequestFactory::get($/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
+        $this->assertSame($request, $/* Replaced /* Replaced /* Replaced client */ */ */->prepareRequest($request));
+
+        $this->assertTrue($request->getEventManager()->hasObserver('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Plugin\\ExponentialBackoffPlugin'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::createRequest
+     */
+    public function testCreatesRequestsWithDefaultValues()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(array(
+            'base_url' => $this->getServer()->getUrl()
+        ));
+
+        // Create a GET request
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
+        $this->assertEquals('GET', $request->getMethod());
+        $this->assertEquals($/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl(), $request->getUrl());
+
+        // Create a DELETE request
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest(array(
+            'method' => 'DELETE'
+        ));
+        $this->assertEquals('DELETE', $request->getMethod());
+        $this->assertEquals($/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl(), $request->getUrl());
+
+        // Test using just the method as the param
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('DELETE');
+        $this->assertEquals('DELETE', $request->getMethod());
+
+        // Create a HEAD request with custom headers
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest(array(
+            'method' => 'HEAD',
+            'url' => 'http://www.test.com/',
+            'headers' => array(
+                'X-Test' => '123'
+            )
+        ));
+        $this->assertEquals('HEAD', $request->getMethod());
+        $this->assertEquals('http://www.test.com/', $request->getUrl());
+        $this->assertEquals('123', $request->getHeader('X-Test'));
+
+        // Create a PUT request
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest(array(
+            'method' => 'PUT',
+            'body' => '123'
+        ));
+        $this->assertEquals('PUT', $request->getMethod());
+        $this->assertEquals('123', (string) $request->getBody());
+
+        // Create POST request
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest(array(
+            'method' => 'POST',
+            'files' => array(
+                'file_1' => __FILE__
+            ),
+            'params' => array(
+                'a' => '123'
+            )
+        ));
+
+        $this->assertEquals('POST', $request->getMethod());
+        $this->assertEquals(array(
+            'a' => '123',
+            'file_1' => '@' . __FILE__
+        ), $request->getPostFields()->getAll());
+
+        $this->assertEquals(1, count($request->getPostFiles()));
     }
 }
