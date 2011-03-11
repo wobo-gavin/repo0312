@@ -16,6 +16,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\MultipartFormData;
 /**
  * HTTP request that sends an entity-body in the request message (POST, PUT)
  *
+ * Signals emitted:
+ *
+ *  event                        context  description
+ *  -----                        -------  -----------
+ *  request.prepare_entity_body  null     About to prepare the entity body
+ *
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class EntityEnclosingRequest extends Request implements EntityEnclosingRequestInterface
