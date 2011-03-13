@@ -677,17 +677,17 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         // Uses the response's max-age
         $this->assertEquals(120, $this->getResponse(200, array(
             'Cache-Control' => 'max-age=120',
-            'Expires' => '+1 day' // strtotime cause I'm lazy
+            'Expires' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('+1 day')
         ))->getMaxAge());
 
         // Uses the Expires date
-        $this->assertEquals(86400, $this->getResponse(200, array(
-            'Expires' => '+1 day' // strtotime cause I'm lazy
+        $this->assertGreaterThanOrEqual(82400, $this->getResponse(200, array(
+            'Expires' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('+1 day')
         ))->getMaxAge());
 
         // Uses the Expires date
-        $this->assertEquals(86400, $this->getResponse(200, array(
-            'Expires' => '+1 day' // strtotime cause I'm lazy
+        $this->assertGreaterThanOrEqual(82400, $this->getResponse(200, array(
+            'Expires' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('+1 day')
         ))->getMaxAge());
     }
 

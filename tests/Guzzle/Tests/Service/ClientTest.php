@@ -109,6 +109,15 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__construct
+     */
+    public function testConstructorCanAcceptString()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/');
+        $this->assertEquals('http://www.test.com/', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__construct
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException
      */
     public function testConstructorValidatesBaseUrlIsProvided()
@@ -407,9 +416,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
      */
     public function testCreatesRequestsWithDefaultValues()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(array(
-            'base_url' => $this->getServer()->getUrl()
-        ));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl() . 'base');
 
         // Create a GET request
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
@@ -417,53 +424,78 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals($/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl(), $request->getUrl());
 
         // Create a DELETE request
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest(array(
-            'method' => 'DELETE'
-        ));
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('DELETE');
         $this->assertEquals('DELETE', $request->getMethod());
         $this->assertEquals($/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl(), $request->getUrl());
 
-        // Test using just the method as the param
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('DELETE');
-        $this->assertEquals('DELETE', $request->getMethod());
-
         // Create a HEAD request with custom headers
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest(array(
-            'method' => 'HEAD',
-            'url' => 'http://www.test.com/',
-            'headers' => array(
-                'X-Test' => '123'
-            )
-        ));
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('HEAD', 'http://www.test.com/');
         $this->assertEquals('HEAD', $request->getMethod());
         $this->assertEquals('http://www.test.com/', $request->getUrl());
-        $this->assertEquals('123', $request->getHeader('X-Test'));
 
         // Create a PUT request
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest(array(
-            'method' => 'PUT',
-            'body' => '123'
-        ));
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('PUT');
         $this->assertEquals('PUT', $request->getMethod());
-        $this->assertEquals('123', (string) $request->getBody());
 
-        // Create POST request
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest(array(
-            'method' => 'POST',
-            'files' => array(
-                'file_1' => __FILE__
-            ),
-            'params' => array(
-                'a' => '123'
-            )
+        // Create a PUT request with injected config
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('PUT', '/path/{{a}}?q={{b}}', array(
+            'a' => '1',
+            'b' => '2'
         ));
+        $this->assertEquals($request->getUrl(), $this->getServer()->getUrl() . 'path/1?q=2');
 
-        $this->assertEquals('POST', $request->getMethod());
-        $this->assertEquals(array(
-            'a' => '123',
-            'file_1' => '@' . __FILE__
-        ), $request->getPostFields()->getAll());
+        // Realtive URL with relative path
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'relative/path/to/resource');
+        $this->assertEquals($this->getServer()->getUrl() . 'base/relative/path/to/resource', $request->getUrl());
 
-        $this->assertEquals(1, count($request->getPostFiles()));
+        // Realtive URL with relative path and query
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'relative/path/to/resource?a=b&c=d');
+        $this->assertEquals($this->getServer()->getUrl() . 'base/relative/path/to/resource?a=b&c=d', $request->getUrl());
+
+        // Relative URL with absolute path
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/absolute/path/to/resource');
+        $this->assertEquals($this->getServer()->getUrl() . 'absolute/path/to/resource', $request->getUrl());
+
+        // Relative URL with absolute path and query
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/absolute/path/to/resource?a=b&c=d');
+        $this->assertEquals($this->getServer()->getUrl() . 'absolute/path/to/resource?a=b&c=d', $request->getUrl());
+
+        // Test with a base URL containing a query string too
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl() . 'base?z=1');
+
+        // Absolute so replaces query
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/absolute/path/to/resource?a=b&c=d');
+        $this->assertEquals($this->getServer()->getUrl() . 'absolute/path/to/resource?a=b&c=d', $request->getUrl());
+
+        // Add relative with no query
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'relative/path/to/resource');
+        $this->assertEquals($this->getServer()->getUrl() . 'base/relative/path/to/resource?z=1', $request->getUrl());
+
+        // Add relative with query
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'relative/path/to/resource?another=query');
+        $this->assertEquals($this->getServer()->getUrl() . 'base/relative/path/to/resource?z=1&another=query', $request->getUrl());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::get
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::delete
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::head
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::put
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::post
+     */
+    public function testClientHasHelperMethodsForCreatingRequests()
+    {
+        $url = $this->getServer()->getUrl();
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($url . 'base');
+        $this->assertEquals('GET', $/* Replaced /* Replaced /* Replaced client */ */ */->get()->getMethod());
+        $this->assertEquals('PUT', $/* Replaced /* Replaced /* Replaced client */ */ */->put()->getMethod());
+        $this->assertEquals('POST', $/* Replaced /* Replaced /* Replaced client */ */ */->post()->getMethod());
+        $this->assertEquals('HEAD', $/* Replaced /* Replaced /* Replaced client */ */ */->head()->getMethod());
+        $this->assertEquals('DELETE', $/* Replaced /* Replaced /* Replaced client */ */ */->delete()->getMethod());
+        $this->assertEquals($url . 'base/abc', $/* Replaced /* Replaced /* Replaced client */ */ */->get('abc')->getUrl());
+        $this->assertEquals($url . 'zxy', $/* Replaced /* Replaced /* Replaced client */ */ */->put('/zxy')->getUrl());
+        $this->assertEquals($url . 'zxy?a=b', $/* Replaced /* Replaced /* Replaced client */ */ */->post('/zxy?a=b')->getUrl());
+        $this->assertEquals($url . 'base?a=b', $/* Replaced /* Replaced /* Replaced client */ */ */->head('?a=b')->getUrl());
+        $this->assertEquals($url . 'base?a=b', $/* Replaced /* Replaced /* Replaced client */ */ */->delete('/base?a=b')->getUrl());
     }
 }
