@@ -1,7 +1,7 @@
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */
 ======
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP framework for building REST webservice /* Replaced /* Replaced /* Replaced client */ */ */s.  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides the tools necessary to quickly build a testable webservice /* Replaced /* Replaced /* Replaced client */ */ */ with complete control over preparing HTTP requests and processing HTTP responses.
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP framework for building REST webservice /* Replaced /* Replaced /* Replaced client */ */ */s.  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides the tools necessary to quickly build a testable webservice /* Replaced /* Replaced /* Replaced client */ */ */ with complete control over preparing HTTP requests and processing HTTP responses::
 
     <?php
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
