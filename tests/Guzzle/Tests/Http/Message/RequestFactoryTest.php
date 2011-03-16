@@ -78,6 +78,16 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::options
+     */
+    public function testCreatesOptionsRequests()
+    {
+        $request = RequestFactory::options('http://www.example.com/');
+        $this->assertEquals('OPTIONS', $request->getMethod());
+        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\Request', $request);
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::put
      */

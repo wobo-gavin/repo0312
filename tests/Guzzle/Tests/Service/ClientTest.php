@@ -482,6 +482,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::head
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::put
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::post
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::options
      */
     public function testClientHasHelperMethodsForCreatingRequests()
     {
@@ -492,6 +493,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('POST', $/* Replaced /* Replaced /* Replaced client */ */ */->post()->getMethod());
         $this->assertEquals('HEAD', $/* Replaced /* Replaced /* Replaced client */ */ */->head()->getMethod());
         $this->assertEquals('DELETE', $/* Replaced /* Replaced /* Replaced client */ */ */->delete()->getMethod());
+        $this->assertEquals('OPTIONS', $/* Replaced /* Replaced /* Replaced client */ */ */->options()->getMethod());
         $this->assertEquals($url . 'base/abc', $/* Replaced /* Replaced /* Replaced client */ */ */->get('abc')->getUrl());
         $this->assertEquals($url . 'zxy', $/* Replaced /* Replaced /* Replaced client */ */ */->put('/zxy')->getUrl());
         $this->assertEquals($url . 'zxy?a=b', $/* Replaced /* Replaced /* Replaced client */ */ */->post('/zxy?a=b')->getUrl());
