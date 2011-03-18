@@ -21,6 +21,10 @@ abstract class AbstractCommandTest extends \/* Replaced /* Replaced /* Replaced 
         $service = $builder->build();
         $factory = new ConcreteCommandFactory($service);
 
-        return new Client(array('base_url' => 'http://www.google.com/'), $service, $factory);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ =  new Client('http://www.google.com/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setService($service)
+               ->setCommandFactory($factory);
+
+        return $/* Replaced /* Replaced /* Replaced client */ */ */;
     }
 }

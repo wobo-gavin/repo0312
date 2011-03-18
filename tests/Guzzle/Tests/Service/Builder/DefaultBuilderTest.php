@@ -22,10 +22,12 @@ class DefaultBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultBuilder::getConfig
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::getName
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::setName
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::validate
      */
     public function testConstructor()
     {
         $builder = new DefaultBuilder(array(
+            'base_url' => 'http://www.test.com/',
             'key' => 'value'
         ), 'test');
 
@@ -34,7 +36,23 @@ class DefaultBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertEquals($builder, $builder->setName('whodat'));
         $this->assertEquals('whodat', $builder->getName());
 
-        $this->assertEquals(array('key' => 'value'), $builder->getConfig()->getAll());
+        $this->assertEquals(array(
+            'base_url' => 'http://www.test.com/',
+            'key' => 'value'
+        ), $builder->getConfig()->getAll());
+
+        $builder->validate();
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::__construct
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException
+     */
+    public function testConstructorEnsuresBaseUrlIsSet()
+    {
+        $builder = new DefaultBuilder(array(
+            'key' => 'value'
+        ), 'test');
     }
 
     /**
@@ -43,6 +61,7 @@ class DefaultBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     public function testHasCache()
     {
         $builder = new DefaultBuilder(array(
+            'base_url' => 'http://www.test.com/',
             'key' => 'value'
         ), 'test');
 
@@ -60,6 +79,7 @@ class DefaultBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     public function testDefaultBuilderHasClass()
     {
         $builder = new DefaultBuilder(array(
+            'base_url' => 'http://www.test.com/',
             'key' => 'value'
         ), 'test');
 
@@ -80,11 +100,31 @@ class DefaultBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::__construct
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::validate
+     * @expectedException Exception
+     */
+    public function testAddsDefaultsAndValidatesConfig()
+    {
+        $b = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockBuilder(array(
+            'username' => 'a',
+            'password' => 'b'
+        ));
+
+        $this->assertEquals('a', $b->getConfig()->get('username'));
+        $this->assertEquals('b', $b->getConfig()->get('password'));
+        $this->assertEquals('http', $b->getConfig()->get('protocol'));
+
+        $b->validate();
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultBuilder::build
      */
     public function testBuildsClients()
     {
         $builder = new DefaultBuilder(array(
+            'base_url' => 'http://www.test.com/',
             'username' => 'michael',
             'password' => 'test',
             'subdomain' => 'michael'
@@ -107,6 +147,7 @@ class DefaultBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     public function testConvertsToXmlString()
     {
         $builder = new DefaultBuilder(array(
+            'base_url' => 'http://www.test.com/',
             'username' => 'michael',
             'password' => 'test',
             'subdomain' => 'michael'
@@ -116,6 +157,7 @@ class DefaultBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
 
         $xml = <<<EOT
 </* Replaced /* Replaced /* Replaced client */ */ */ name="mock" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockClient">
+    <param name="base_url" value="http://www.test.com/" />
     <param name="username" value="michael" />
     <param name="password" value="test" />
     <param name="subdomain" value="michael" />
@@ -135,6 +177,7 @@ EOT;
         $adapter = new DoctrineCacheAdapter($cache);
         $this->assertEmpty($cache->getIds());
         $builder = new DefaultBuilder(array(
+            'base_url' => 'http://www.test.com/',
             'username' => 'michael',
             'password' => 'test',
             'subdomain' => 'michael'

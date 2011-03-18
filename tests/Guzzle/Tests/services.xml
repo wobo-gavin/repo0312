@@ -35,7 +35,7 @@
         <//* Replaced /* Replaced /* Replaced client */ */ */>
 
         <!-- Mock service -->
-        </* Replaced /* Replaced /* Replaced client */ */ */ name="mock" builder="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Builder.DefaultBuilder" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockClient">
+        </* Replaced /* Replaced /* Replaced client */ */ */ name="mock" builder="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockBuilder">
             <param name="username" value="test_user" />
             <param name="password" value="****" />
             <param name="subdomain" value="test" />

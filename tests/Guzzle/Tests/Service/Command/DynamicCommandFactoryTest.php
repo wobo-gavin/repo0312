@@ -95,7 +95,9 @@ class DynamicCommandFactoryTest extends \/* Replaced /* Replaced /* Replaced Guz
     public function testBuildsUsingPathParametersAndAppendSlashPrepend()
     {
         $factory = new DynamicCommandFactory($this->service);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(array(), $this->service, $factory);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->service->getBaseUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setService($this->service);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setCommandFactory($factory);
 
         $command = $factory->buildCommand('test_command', array(
             'bucket' => 'test',
@@ -129,7 +131,8 @@ class DynamicCommandFactoryTest extends \/* Replaced /* Replaced /* Replaced Guz
     public function testValidatesArgs()
     {
         $factory = new DynamicCommandFactory($this->service);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(array(), $this->service, $factory);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->service->getBaseUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setService($this->service)->setCommandFactory($factory);
         $command = $factory->buildCommand('test_command', array());
         $/* Replaced /* Replaced /* Replaced client */ */ */->execute($command);
     }
@@ -140,7 +143,8 @@ class DynamicCommandFactoryTest extends \/* Replaced /* Replaced /* Replaced Guz
     public function testUsesDifferentLocations()
     {
         $factory = new DynamicCommandFactory($this->service);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(array(), $this->service, $factory);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->service->getBaseUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setCommandFactory($factory);
         $command = $factory->buildCommand('body', array(
             'b' => 'my-data',
             'q' => 'abc',

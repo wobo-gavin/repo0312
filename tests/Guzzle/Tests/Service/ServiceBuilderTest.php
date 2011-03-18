@@ -26,12 +26,12 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
 <?xml version="1.0" ?>
 </* Replaced /* Replaced /* Replaced guzzle */ */ */>
     </* Replaced /* Replaced /* Replaced client */ */ */s>
-        </* Replaced /* Replaced /* Replaced client */ */ */ name="michael.mock" builder="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Builder.DefaultBuilder" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockClient">
+        </* Replaced /* Replaced /* Replaced client */ */ */ name="michael.mock" builder="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockBuilder">
             <param name="username" value="michael" />
             <param name="password" value="testing123" />
             <param name="subdomain" value="michael" />
         <//* Replaced /* Replaced /* Replaced client */ */ */>
-        </* Replaced /* Replaced /* Replaced client */ */ */ name="billy.mock" builder="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Builder.DefaultBuilder" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockClient">
+        </* Replaced /* Replaced /* Replaced client */ */ */ name="billy.mock" builder="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockBuilder">
             <param name="username" value="billy" />
             <param name="password" value="passw0rd" />
             <param name="subdomain" value="billy" />
@@ -192,6 +192,7 @@ EOT;
             'michael.mock' => array(
                 'builder' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Builder.DefaultBuilder',
                 'params' => array(
+                    'base_url' => 'http://www.test.com/',
                     'username' => 'michael'
                 )
             )
@@ -210,6 +211,7 @@ EOT;
                 'builder' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Builder.DefaultBuilder',
                 'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
                 'params' => array(
+                    'base_url' => 'http://www.test.com/',
                     'subdomain' => 'michael',
                     'password' => 'test',
                     'username' => 'michael',
@@ -231,6 +233,7 @@ EOT;
             'michael.mock' => array(
                 'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
                 'params' => array(
+                    'base_url' => 'http://www.test.com/',
                     'subdomain' => 'michael',
                     'password' => 'test',
                     'username' => 'michael',

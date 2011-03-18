@@ -59,8 +59,12 @@ class DefaultDynamicBuilder extends AbstractBuilder
     public function build()
     {
         $class = $this->getClass();
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new $class($this->service->getBaseUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setConfig($this->config)
+               ->setService($this->service)
+               ->setCommandFactory($this->commandFactory);
 
-        return new $class($this->config, $this->service, $this->commandFactory);
+        return $/* Replaced /* Replaced /* Replaced client */ */ */;
     }
 
     /**

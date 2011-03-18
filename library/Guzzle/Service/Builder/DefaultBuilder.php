@@ -33,10 +33,15 @@ class DefaultBuilder extends AbstractBuilder
      */
     public function build()
     {
+        // Validate the builder configuration settings
+        $this->validate();
+
         $class = $this->getClass();
         
         if (!$class) {
-            throw new ServiceException('No class has been specified on the builder');
+            throw new ServiceException(
+                'No class has been specified on the builder'
+            );
         }
 
         if (!class_exists($class)) {
@@ -64,9 +69,24 @@ class DefaultBuilder extends AbstractBuilder
             }
         }
 
-        $commandFactory = new ConcreteCommandFactory($serviceDescription);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->createClient($class)
+            ->setConfig($this->config)
+            ->setCommandFactory(new ConcreteCommandFactory($serviceDescription))
+            ->setService($serviceDescription);
 
-        return new $class($this->config, $serviceDescription, $commandFactory);
+        return $/* Replaced /* Replaced /* Replaced client */ */ */;
+    }
+
+    /**
+     * Create the /* Replaced /* Replaced /* Replaced client */ */ */ object
+     *
+     * @param string $class Class of the /* Replaced /* Replaced /* Replaced client */ */ */ to create
+     *
+     * @return Client
+     */
+    protected function createClient($class)
+    {
+        return new $class($this->config->get('base_url'));
     }
 
     /**
