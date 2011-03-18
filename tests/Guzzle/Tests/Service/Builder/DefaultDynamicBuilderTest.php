@@ -6,8 +6,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Builder;
 
-use Doctrine\Common\Cache\ArrayCache;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultDynamicBuilder;
 
 /**
@@ -27,8 +25,6 @@ class DefaultDynamicBuilderTest extends \/* Replaced /* Replaced /* Replaced Guz
             'password' => 'test',
             'subdomain' => 'michael'
         ));
-
-        $this->assertEquals('Test Service Builder', $builder->getName());
         $this->assertEquals('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Client', $builder->getClass());
     }
 

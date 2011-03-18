@@ -222,11 +222,11 @@ Create a services.xml that your ServiceBuilder will use to create service /* Rep
         </* Replaced /* Replaced /* Replaced client */ */ */s>
             <!-- Abstract service to store AWS account credentials -->
             </* Replaced /* Replaced /* Replaced client */ */ */ name="test.abstract.aws">
-                <param name="access_key_id" value="12345" />
-                <param name="secret_access_key" value="abcd" />
+                <param name="access_key" value="12345" />
+                <param name="secret_key" value="abcd" />
             <//* Replaced /* Replaced /* Replaced client */ */ */>
             <!-- Concrete Amazon S3 /* Replaced /* Replaced /* Replaced client */ */ */ -->
-            </* Replaced /* Replaced /* Replaced client */ */ */ name="test.s3" builder="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Aws.S3.S3Builder" extends="test.abstract.aws" />
+            </* Replaced /* Replaced /* Replaced client */ */ */ name="test.s3" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Aws.S3.S3Client" extends="test.abstract.aws" />
         <//* Replaced /* Replaced /* Replaced client */ */ */s>
     <//* Replaced /* Replaced /* Replaced guzzle */ */ */>
 
@@ -241,7 +241,7 @@ Create a services.xml that your ServiceBuilder will use to create service /* Rep
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Aws\S3\Command\Object\GetObject;
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = $serviceBuilder->getClient('test.s3');
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = $serviceBuilder->get('test.s3');
     $command = new GetObject();
     $command->setBucket('mybucket')->setKey('mykey');
 

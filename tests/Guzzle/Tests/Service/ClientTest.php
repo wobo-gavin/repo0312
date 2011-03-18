@@ -133,6 +133,20 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::factory
+     */
+    public function testFactoryCreatesClient()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = Client::factory(array(
+            'base_url' => 'http://www.test.com/',
+            'test' => '123'
+        ));
+
+        $this->assertEquals('http://www.test.com/', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
+        $this->assertEquals('123', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('test'));
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client
      */
     public function testInjectConfig()

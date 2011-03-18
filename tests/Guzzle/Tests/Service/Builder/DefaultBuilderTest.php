@@ -9,189 +9,78 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Buil
 use Doctrine\Common\Cache\ArrayCache;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultBuilder;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient;
 
 /**
- * @group Builder
- *
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class DefaultBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::__construct
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultBuilder::getConfig
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::getName
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::setName
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::validate
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultBuilder::prepareConfig
      */
-    public function testConstructor()
+    public function testPreparesConfig()
     {
-        $builder = new DefaultBuilder(array(
-            'base_url' => 'http://www.test.com/',
-            'key' => 'value'
-        ), 'test');
+        $c = DefaultBuilder::prepareConfig(array(
+            'a' => '123',
+            'base_url' => 'http://www.test.com/'
+        ), array(
+            'a' => 'xyz',
+            'b' => 'lol'
+        ), array('a'));
 
-        // Test the name of the builder
-        $this->assertEquals('test', $builder->getName());
-        $this->assertEquals($builder, $builder->setName('whodat'));
-        $this->assertEquals('whodat', $builder->getName());
-
+        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection', $c);
         $this->assertEquals(array(
-            'base_url' => 'http://www.test.com/',
-            'key' => 'value'
-        ), $builder->getConfig()->getAll());
-
-        $builder->validate();
+            'a' => '123',
+            'b' => 'lol',
+            'base_url' => 'http://www.test.com/'
+        ), $c->getAll());
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::__construct
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultBuilder::prepareConfig
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Client config must contain a 'a' key
      */
-    public function testConstructorEnsuresBaseUrlIsSet()
+    public function testValidatesConfig()
     {
-        $builder = new DefaultBuilder(array(
-            'key' => 'value'
-        ), 'test');
+        $c = DefaultBuilder::prepareConfig(array(), array(), array('a'));
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::setCache
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultBuilder::prepareConfig
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage No base_url is set in the builder config
      */
-    public function testHasCache()
+    public function testValidatesConfigContainsBaseUrl()
     {
-        $builder = new DefaultBuilder(array(
-            'base_url' => 'http://www.test.com/',
-            'key' => 'value'
-        ), 'test');
-
-        $cacheAdapter = new DoctrineCacheAdapter(new ArrayCache());
-
-        // Test the name of the builder
-        $this->assertSame($builder, $builder->setCache($cacheAdapter, 1234));
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultBuilder::getClass
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultBuilder::setClass
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultBuilder::build
-     */
-    public function testDefaultBuilderHasClass()
-    {
-        $builder = new DefaultBuilder(array(
-            'base_url' => 'http://www.test.com/',
-            'key' => 'value'
-        ), 'test');
-
-        try {
-            $builder->build();
-            $this->fail('Exception not thrown when building without a class when using the default builder');
-        } catch (\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException $e) {}
-
-        $this->assertEquals($builder, $builder->setClass('abc.123'));
-
-        // The builder will convert lowercase and periods
-        $this->assertEquals('Abc\\123', $builder->getClass());
-
-        try {
-            $builder->build();
-            $this->fail('Exception not thrown when building with an invalid class');
-        } catch (\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException $e) {}
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::__construct
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::validate
-     * @expectedException Exception
-     */
-    public function testAddsDefaultsAndValidatesConfig()
-    {
-        $b = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockBuilder(array(
-            'username' => 'a',
-            'password' => 'b'
-        ));
-
-        $this->assertEquals('a', $b->getConfig()->get('username'));
-        $this->assertEquals('b', $b->getConfig()->get('password'));
-        $this->assertEquals('http', $b->getConfig()->get('protocol'));
-
-        $b->validate();
+        $c = DefaultBuilder::prepareConfig(array());
     }
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultBuilder::build
      */
-    public function testBuildsClients()
+    public function testAddsFactoryAndServiceToClientAndUsesCache()
     {
-        $builder = new DefaultBuilder(array(
-            'base_url' => 'http://www.test.com/',
-            'username' => 'michael',
-            'password' => 'test',
-            'subdomain' => 'michael'
-        ), 'michael.unfuddle');
+        $adapter = new DoctrineCacheAdapter(new ArrayCache());
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = MockClient::factory(array(
+            'password' => 'abc',
+            'username' => '123',
+            'subdomain' => 'me'
+        ), $adapter);
 
-        $builder->setClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient');
+        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient', $/* Replaced /* Replaced /* Replaced client */ */ */);
+        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceDescription', $/* Replaced /* Replaced /* Replaced client */ */ */->getService());
+        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('mock_command'));
 
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = $builder->build();
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $/* Replaced /* Replaced /* Replaced client */ */ */);
+        // make sure that the adapter cached the service description
+        $this->assertTrue($adapter->contains('/* Replaced /* Replaced /* Replaced guzzle */ */ */_/* Replaced /* Replaced /* Replaced guzzle */ */ */_tests_service_mock_mock/* Replaced /* Replaced /* Replaced client */ */ */'));
 
-        // make sure a service was created correctly
-        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getService()->hasCommand('sub.sub'));
-        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getService()->hasCommand('mock_command'));
-        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getService()->hasCommand('other_command'));
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\AbstractBuilder::__toString
-     */
-    public function testConvertsToXmlString()
-    {
-        $builder = new DefaultBuilder(array(
-            'base_url' => 'http://www.test.com/',
-            'username' => 'michael',
-            'password' => 'test',
-            'subdomain' => 'michael'
-        ), 'mock');
-
-        $builder->setClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient');
-
-        $xml = <<<EOT
-</* Replaced /* Replaced /* Replaced client */ */ */ name="mock" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockClient">
-    <param name="base_url" value="http://www.test.com/" />
-    <param name="username" value="michael" />
-    <param name="password" value="test" />
-    <param name="subdomain" value="michael" />
-<//* Replaced /* Replaced /* Replaced client */ */ */>
-EOT;
-        $xml = trim($xml);
-
-        $this->assertEquals($xml, (string) $builder);
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultBuilder
-     */
-    public function testUsesCache()
-    {
-        $cache = new ArrayCache();
-        $adapter = new DoctrineCacheAdapter($cache);
-        $this->assertEmpty($cache->getIds());
-        $builder = new DefaultBuilder(array(
-            'base_url' => 'http://www.test.com/',
-            'username' => 'michael',
-            'password' => 'test',
-            'subdomain' => 'michael'
-        ), 'michael.unfuddle');
-
-        $builder->setClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient');
-        $this->assertSame($builder, $builder->setCache($adapter));
-
-        $/* Replaced /* Replaced /* Replaced client */ */ */1 = $builder->build();
-
-        $this->assertNotEmpty($cache->getIds());
-
-        $/* Replaced /* Replaced /* Replaced client */ */ */2 = $builder->build();
-        $this->assertEquals($/* Replaced /* Replaced /* Replaced client */ */ */1, $/* Replaced /* Replaced /* Replaced client */ */ */2);
-        $this->assertNotNull($/* Replaced /* Replaced /* Replaced client */ */ */2->getConfig('_service_from_cache'));
+        // Get the service description from cache
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = MockClient::factory(array(
+            'password' => 'abc',
+            'username' => '123',
+            'subdomain' => 'me'
+        ), $adapter);
     }
 }

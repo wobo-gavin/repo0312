@@ -17,7 +17,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicC
  *
  * @author  michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org
  */
-class DefaultDynamicBuilder extends AbstractBuilder
+class DefaultDynamicBuilder
 {
     /**
      * @var CommandFactory Factory to build commands based on a description
@@ -35,6 +35,11 @@ class DefaultDynamicBuilder extends AbstractBuilder
     protected $class;
 
     /**
+     * @var Collection Configuration object that should hold all config settings
+     */
+    protected $config;
+
+    /**
      * Construct the DynamicClient builder using an XML document
      *
      * @param string $filename Full path to the service description document
@@ -47,7 +52,6 @@ class DefaultDynamicBuilder extends AbstractBuilder
         $/* Replaced /* Replaced /* Replaced client */ */ */Args = $this->service->getClientArgs();
         $this->class = $/* Replaced /* Replaced /* Replaced client */ */ */Args['_/* Replaced /* Replaced /* Replaced client */ */ */_class']['value'];
         $this->commandFactory = new DynamicCommandFactory($this->service);
-        $this->name = $this->service->getName() . ' Builder';
         $this->config = $config ?: array();
     }
 
@@ -58,7 +62,7 @@ class DefaultDynamicBuilder extends AbstractBuilder
      */
     public function build()
     {
-        $class = $this->getClass();
+        $class = $this->class;
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new $class($this->service->getBaseUrl());
         $/* Replaced /* Replaced /* Replaced client */ */ */->setConfig($this->config)
                ->setService($this->service)
@@ -68,7 +72,9 @@ class DefaultDynamicBuilder extends AbstractBuilder
     }
 
     /**
-     * {@inheritdoc}
+     * Get the dynamic builder's class
+     *
+     * @return string
      */
     public function getClass()
     {
