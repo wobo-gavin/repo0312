@@ -12,13 +12,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ClosureLogAda
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ApiCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSet;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ConcreteCommandFactory;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\DescriptionBuilder\XmlDescriptionBuilder;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceDescription;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\XmlDescriptionBuilder;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
 
 /**
@@ -33,13 +32,13 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     public function setUp()
     {
-        $this->serviceTest = new ServiceDescription('test', 'Test service', 'http://www.test.com/', array(
+        $this->serviceTest = new ServiceDescription(array(
             new ApiCommand(array(
                 'name' => 'test_command',
                 'doc' => 'documentationForCommand',
                 'method' => 'DELETE',
                 'can_batch' => true,
-                'concrete_command_class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand',
+                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand',
                 'args' => array(
                     'bucket' => array(
                         'required' => true
@@ -49,23 +48,10 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
                     )
                 )
             ))
-        ), array(
-            'foo' => array(
-                'default' => 'bar',
-                'required' => 'true'
-            ),
-            'base_url' => array(
-                'required' => 'true'
-            ),
-            'api' => array(
-                'required' => 'true'
-            )
         ));
 
         $builder = new XmlDescriptionBuilder(__DIR__ . DIRECTORY_SEPARATOR . 'test_service.xml');
         $this->service = $builder->build();
-
-        $this->factory = new ConcreteCommandFactory($this->service);
     }
 
     /**
@@ -246,7 +232,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException
+     * @expectedException InvalidArgumentException
      */
     public function testThrowsExceptionWhenExecutingInvalidCommandSets()
     {
@@ -278,29 +264,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertTrue($cmd->isExecuted());
         $this->assertTrue($cmd->isPrepared());
         $this->assertEquals(200, $cmd->getResponse()->getStatusCode());
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setService
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getService
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommand
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setCommandFactory
-     */
-    public function testClientUsesCommandFactory()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/', array(
-            'api' => 'v1'
-        ));
-
-        $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $/* Replaced /* Replaced /* Replaced client */ */ */->setService($this->service));
-        $this->assertSame($this->service, $/* Replaced /* Replaced /* Replaced client */ */ */->getService());
-        $factory = new ConcreteCommandFactory($this->serviceTest);
-        $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $/* Replaced /* Replaced /* Replaced client */ */ */->setCommandFactory($factory));
-
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\CommandInterface', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test_command', array(
-            'bucket' => 'test',
-            'key' => 'keyTest'
-        )));
     }
 
     /**
@@ -355,12 +318,28 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommand
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException
+     * @expectedException InvalidArgumentException
      */
     public function testThrowsExceptionWhenNoCommandFactoryIsSetAndGettingCommand()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
         $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test');
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommand
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getDescription
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setDescription
+     */
+    public function testRetrievesCommandsFromConcreteAndService()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient('http://www.example.com/');
+        $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->serviceTest));
+        $this->assertSame($this->serviceTest, $/* Replaced /* Replaced /* Replaced client */ */ */->getDescription());
+        // Creates service commands
+        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test_command'));
+        // Creates concrete commands
+        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\OtherCommand', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('other_command'));
     }
 
     /**
@@ -467,7 +446,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getBaseUrl
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException
+     * @expectedException RuntimeException
      */
     public function testClientEnsuresBaseUrlIsSetWhenRetrievingIt()
     {

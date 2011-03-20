@@ -6,10 +6,10 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Command;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
 
 /**
@@ -35,7 +35,7 @@ class CommandTest extends AbstractCommandTest
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::getRequest
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandException
+     * @expectedException RuntimeException
      */
     public function testGetRequestThrowsExceptionBeforePreparation()
     {
@@ -45,7 +45,7 @@ class CommandTest extends AbstractCommandTest
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::getResponse
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandException
+     * @expectedException RuntimeException
      */
     public function testGetResponseThrowsExceptionBeforePreparation()
     {
@@ -55,7 +55,7 @@ class CommandTest extends AbstractCommandTest
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::getResult
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandException
+     * @expectedException RuntimeException
      */
     public function testGetResultThrowsExceptionBeforePreparation()
     {
@@ -154,7 +154,7 @@ class CommandTest extends AbstractCommandTest
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::execute
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandException
+     * @expectedException RuntimeException
      */
     public function testExecuteThrowsExceptionWhenNoClientIsSet()
     {
@@ -164,7 +164,7 @@ class CommandTest extends AbstractCommandTest
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::prepare
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandException
+     * @expectedException RuntimeException
      */
     public function testPrepareThrowsExceptionWhenNoClientIsSet()
     {

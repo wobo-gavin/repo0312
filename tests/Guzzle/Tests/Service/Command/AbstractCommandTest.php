@@ -7,8 +7,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Command;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\DescriptionBuilder\XmlDescriptionBuilder;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ConcreteCommandFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\XmlDescriptionBuilder;
 
 /**
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
@@ -19,11 +18,8 @@ abstract class AbstractCommandTest extends \/* Replaced /* Replaced /* Replaced 
     {
         $builder = new XmlDescriptionBuilder(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'test_service.xml');
         $service = $builder->build();
-        $factory = new ConcreteCommandFactory($service);
-
         $/* Replaced /* Replaced /* Replaced client */ */ */ =  new Client('http://www.google.com/');
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setService($service)
-               ->setCommandFactory($factory);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($service);
 
         return $/* Replaced /* Replaced /* Replaced client */ */ */;
     }

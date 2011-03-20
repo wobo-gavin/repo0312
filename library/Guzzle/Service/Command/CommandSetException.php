@@ -6,14 +6,12 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException;
-
 /**
  * Command Set exception
  *
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
-class CommandSetException extends ServiceException
+class CommandSetException extends \RuntimeException
 {
     /**
      * @var array Commands with an invalid /* Replaced /* Replaced /* Replaced client */ */ */

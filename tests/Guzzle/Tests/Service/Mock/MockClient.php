@@ -6,8 +6,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\CacheAdapterInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\DefaultBuilder;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inspector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 
 /**
@@ -27,21 +26,17 @@ class MockClient extends Client
      *  * username - API username
      *  * password - API password
      *  * subdomain - Unfuddle account subdomain
-     * @param CacheAdapterInterface $cacheAdapter (optional) Pass a cache
-     *      adapter to cache the service configuration settings
-     * @param int $cacheTtl (optional) How long to cache data
      *
      * @return MockClient
      */
-    public static function factory($config, CacheAdapterInterface $cache = null, $ttl = 86400)
+    public static function factory($config)
     {
-        $config = DefaultBuilder::prepareConfig($config, array(
+        $config = Inspector::prepareConfig($config, array(
             'base_url' => '{{scheme}}://127.0.0.1:8124/{{api_version}}/{{subdomain}}',
             'scheme' => 'http',
             'api_version' => 'v1'
         ), array('username', 'password', 'subdomain'));
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new self($config->get('base_url'), $config);
 
-        return DefaultBuilder::build($/* Replaced /* Replaced /* Replaced client */ */ */, $cache, $ttl);
+        return new self($config->get('base_url'), $config);
     }
 }

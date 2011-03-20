@@ -4,15 +4,15 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inspector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand;
 
 /**
  * Build /* Replaced /* Replaced /* Replaced Guzzle */ */ */ commands based on a service document using dynamically created
@@ -20,15 +20,20 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
  *
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
-class DynamicCommandFactory extends AbstractCommandFactory
+class DynamicCommandFactory implements CommandFactoryInterface
 {
     /**
      * {@inheritdoc}
      */
-    protected function createCommand(ApiCommand $command, Collection $args)
+    public function createCommand(ApiCommand $command, array $args)
     {
+        if ($command->getConcreteClass() != '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\ClosureCommand') {
+            $class = $command->getConcreteClass();
+            return new $class($args);
+        }
+
         // Build the command based on the service doc and supplied arguments
-        return new ClosureCommand(array_merge($args->getAll(), array(
+        return new ClosureCommand(array_merge($args, array(
             
             // Generate a dynamically created command using a closure to
             // prepare the command

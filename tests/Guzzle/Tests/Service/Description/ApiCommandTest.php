@@ -4,11 +4,11 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Description;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ApiCommand;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceDescription;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 
 /**
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
@@ -16,7 +16,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceDescripti
 class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ApiCommand
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand
      */
     public function testApiCommandIsDataObject()
     {
@@ -27,7 +27,6 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
             'path' => '/api/v1',
             'min_args' => 2,
             'can_batch' => true,
-            'concrete_command_class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\ClosureCommand',
             'args' => array(
                 'key' => array(
                     'required' => 'true',
@@ -75,5 +74,18 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         ), $c->validate(new Collection(array())));
 
         $this->assertNull($c->getArg('afefwef'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::__construct
+     */
+    public function testAllowsConcreteCommands()
+    {
+        $c = new ApiCommand(array(
+            'name' => 'test',
+            'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\ClosureCommand',
+            'args' => array()
+        ));
+        $this->assertEquals('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\ClosureCommand', $c->getConcreteClass());
     }
 }

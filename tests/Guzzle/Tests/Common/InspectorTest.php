@@ -48,6 +48,27 @@ class InspectorTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inspector::prepareConfig
+     */
+    public function testPreparesConfig()
+    {
+        $c = Inspector::prepareConfig(array(
+            'a' => '123',
+            'base_url' => 'http://www.test.com/'
+        ), array(
+            'a' => 'xyz',
+            'b' => 'lol'
+        ), array('a'));
+
+        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection', $c);
+        $this->assertEquals(array(
+            'a' => '123',
+            'b' => 'lol',
+            'base_url' => 'http://www.test.com/'
+        ), $c->getAll());
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inspector
      */
     public function testAddsDefaultAndInjectsConfigs()

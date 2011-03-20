@@ -54,6 +54,7 @@ class ClosureCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand::prepare
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand::build
      */
     public function testExecutesClosure()
     {
@@ -74,7 +75,7 @@ class ClosureCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceException
+     * @expectedException UnexpectedValueException
      * @expectedExceptionMessage Closure command did not return a RequestInterface object
      */
     public function testMustReturnRequest()
