@@ -174,13 +174,12 @@ class CommandTest extends AbstractCommandTest
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::prepare
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::setRequestHeader
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::getRequestHeaders
      */
     public function testCommandsAllowsCustomRequestHeaders()
     {
         $command = new MockCommand();
-        $command->setRequestHeader('test', '123');
+        $command->getRequestHeaders()->set('test', '123');
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection', $command->getRequestHeaders());
         $this->assertEquals('123', $command->getRequestHeaders()->get('test'));
 
@@ -213,8 +212,6 @@ class CommandTest extends AbstractCommandTest
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
         $command->prepare($/* Replaced /* Replaced /* Replaced client */ */ */);
         $this->assertEquals('123', $command->get('test'));
-
-        $this->assertSame($command, $command->setApiCommand($api));
         $this->assertSame($api, $command->getApiCommand($api));
     }
 }

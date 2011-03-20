@@ -10,6 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
 
 /**
  * Command object to handle preparing and processing /* Replaced /* Replaced /* Replaced client */ */ */ requests and
@@ -24,8 +25,16 @@ interface CommandInterface
      *
      * @param array|Collection $parameters (optional) Collection of parameters
      *      to set on the command
+     * @param ApiCommand $apiCommand (optional) Command definition from description
      */
-    public function __construct($parameters = null);
+    public function __construct($parameters = null, ApiCommand $apiCommand = null);
+
+    /**
+     * Get the API command information about the command
+     *
+     * @return ApiCommand|NullObject
+     */
+    public function getApiCommand();
 
     /**
      * Get whether or not the command can be batched
@@ -48,6 +57,15 @@ interface CommandInterface
      * @return Client|null
      */
     public function getClient();
+
+    /**
+     * Set the /* Replaced /* Replaced /* Replaced client */ */ */ objec that will execute the command
+     *
+     * @param Client $/* Replaced /* Replaced /* Replaced client */ */ */ The /* Replaced /* Replaced /* Replaced client */ */ */ objec that will execute the command
+     *
+     * @return Command
+     */
+    public function setClient(Client $/* Replaced /* Replaced /* Replaced client */ */ */);
 
     /**
      * Get the request object associated with the command
@@ -95,33 +113,15 @@ interface CommandInterface
      *
      * @param Client $/* Replaced /* Replaced /* Replaced client */ */ */ (optional) The /* Replaced /* Replaced /* Replaced client */ */ */ object used to execute the command
      *
-     * @return Command Provides a fluent interface.
+     * @return RequestInterface Returns the generated request
      * @throws RuntimeException if a /* Replaced /* Replaced /* Replaced client */ */ */ object has not been set previously
      *      or in the prepare()
      */
     public function prepare(Client $/* Replaced /* Replaced /* Replaced client */ */ */ = null);
 
     /**
-     * Set the /* Replaced /* Replaced /* Replaced client */ */ */ objec that will execute the command
-     *
-     * @param Client $/* Replaced /* Replaced /* Replaced client */ */ */ The /* Replaced /* Replaced /* Replaced client */ */ */ objec that will execute the command
-     *
-     * @return Command
-     */
-    public function setClient(Client $/* Replaced /* Replaced /* Replaced client */ */ */);
-
-    /**
-     * Set an HTTP header on the outbound request
-     *
-     * @param string $header The name of the header to set
-     * @param string $value The value to set on the header
-     *
-     * @return AbstractCommand
-     */
-    public function setRequestHeader($header, $value);
-
-    /**
-     * Get the object that manages the request headers
+     * Get the object that manages the request headers that will be set on any
+     * outbound requests from the command
      *
      * @return Collection
      */
