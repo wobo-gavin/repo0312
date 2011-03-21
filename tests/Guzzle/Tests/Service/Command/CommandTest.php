@@ -11,6 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandI
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\Sub\Sub;
 
 /**
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
@@ -31,6 +32,24 @@ class CommandTest extends AbstractCommandTest
         $this->assertTrue($command->canBatch());
         $this->assertFalse($command->isPrepared());
         $this->assertFalse($command->isExecuted());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command::getName
+     */
+    public function testDeterminesShortName()
+    {
+        $api = new ApiCommand(array(
+            'name' => 'foobar'
+        ));
+        $command = new MockCommand(array(), $api);
+        $this->assertEquals('foobar', $command->getName());
+
+        $command = new MockCommand();
+        $this->assertEquals('mock_command', $command->getName());
+
+        $command = new Sub();
+        $this->assertEquals('sub.sub', $command->getName());
     }
 
     /**
@@ -199,7 +218,7 @@ class CommandTest extends AbstractCommandTest
             'method' => 'POST',
             'min_args' => 1,
             'can_batch' => true,
-            'concrete_command_class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand',
+            'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand',
             'args' => array(
                 'test' => array(
                     'default' => '123',
