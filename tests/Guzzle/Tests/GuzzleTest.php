@@ -70,4 +70,15 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Test extends /* Replace
     {
         $this->assertEquals($output, /* Replaced /* Replaced /* Replaced Guzzle */ */ */::inject($input, new Collection($config)));
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */::getCurlInfo
+     */
+    public function testCachesCurlInfo()
+    {
+        $c = curl_version();
+        $this->assertInternalType('array', /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getCurlInfo());
+        $this->assertEquals(false, /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getCurlInfo('ewfewfewfe'));
+        $this->assertEquals($c['version'], /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getCurlInfo('version'));
+    }
 }
