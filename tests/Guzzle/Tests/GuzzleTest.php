@@ -81,4 +81,18 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Test extends /* Replace
         $this->assertEquals(false, /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getCurlInfo('ewfewfewfe'));
         $this->assertEquals($c['version'], /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getCurlInfo('version'));
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */::getCurlInfo
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */::reset
+     */
+    public function testDeterminesIfCurlCanFollowLocation()
+    {
+        /* Replaced /* Replaced /* Replaced Guzzle */ */ */::reset();
+        if (!ini_get('open_basedir')) {
+            $this->assertTrue(/* Replaced /* Replaced /* Replaced Guzzle */ */ */::getCurlInfo('follow_location'));
+        } else {
+            $this->assertFalse(/* Replaced /* Replaced /* Replaced Guzzle */ */ */::getCurlInfo('follow_location'));
+        }
+    }
 }
