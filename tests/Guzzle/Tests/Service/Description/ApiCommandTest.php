@@ -84,7 +84,11 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $c = new ApiCommand(array(
             'name' => 'test',
             'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\ClosureCommand',
-            'args' => array()
+            'args' => array(
+                'p' => new Collection(array(
+                    'name' => 'foo'
+                ))
+            )
         ));
         $this->assertEquals('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\ClosureCommand', $c->getConcreteClass());
     }
