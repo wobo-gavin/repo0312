@@ -423,6 +423,6 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $request->send();
         $request2->send();
 
-        $this->assertTrue($request2->getResponse()->hasHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Cache'));
+        $this->assertEquals('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Cache', $request2->getResponse()->hasHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Cache'));
     }
 }
