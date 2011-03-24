@@ -22,6 +22,7 @@ class EventManagerTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\EventManager::getAttached
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\EventManager::__construct
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\EventManager::getSubject
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\EventManager::getPriority
      */
     public function testAttachesObservers()
     {
@@ -42,6 +43,11 @@ class EventManagerTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
 
         $this->assertType('Closure', $closure);
         $this->assertEquals(array($observer, $closure), $subject->getAttached());
+
+        $this->assertEquals(0, $subject->getPriority($observer));
+        $this->assertEquals(-10, $subject->getPriority($closure));
+        $this->assertNull($subject->getPriority(new \stdClass()));
+        $this->assertNull($subject->getPriority('abc'));
     }
 
     /**
