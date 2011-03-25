@@ -37,10 +37,7 @@ class FileCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
     protected function addCookies()
     {
         $this->jar->save(array(
-            'cookies' => array(
-                'foo' => 'bar',
-                'baz' => 'foobar'
-            ),
+            'cookie' => array('foo', 'bar'),
             'domain' => 'example.com',
             'path' => '/',
             'max_age' => '86400',
@@ -48,26 +45,20 @@ class FileCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
             'version' => '1',
             'secure' => true
         ))->save(array(
-            'cookies' => array(
-                'test' => '123'
-            ),
+            'cookie' => array('test', '123'),
             'domain' => 'www.foobar.com',
             'path' => '/path/',
             'discard' => true
         ))->save(array(
             'domain' => '.y.example.com',
             'path' => '/acme/',
-            'cookies' => array(
-                'muppet' => 'cookie_monster'
-            ),
+            'cookie' => array('muppet', 'cookie_monster'),
             'comment' => 'Comment goes here...',
             'expires' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('+1 day')
         ))->save(array(
             'domain' => '.example.com',
             'path' => '/test/acme/',
-            'cookies' => array(
-                'googoo' => 'gaga'
-            ),
+            'cookie' => array('googoo', 'gaga'),
             'max_age' => 1500,
             'version' => 2
         ));
@@ -101,7 +92,9 @@ class FileCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
 
         // Load the jar from the file
         $jar = new FileCookieJar($this->file);
-        $this->assertEquals(4, count($jar->getCookies()));
+
+        // Weeds out temporary and session cookies
+        $this->assertEquals(3, count($jar->getCookies()));
         unset($jar);
         unlink($this->file);
     }
