@@ -43,8 +43,7 @@ class InspectorTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
      */
     public function testValidatesRequiredArgs()
     {
-        $col = new Collection();
-        Inspector::getInstance()->validateClass(__CLASS__, $col);
+        Inspector::getInstance()->validateClass(__CLASS__, new Collection());
     }
 
     /**
@@ -144,10 +143,6 @@ class InspectorTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 EOT;
 
         $params = Inspector::getInstance()->parseDocBlock($doc);
-
-        $this->assertEquals('Client for interacting with the Unfuddle webservice', $params['doc']);
-
-        $params = $params['args'];
 
         $this->assertEquals(array(
             'required' => 'true',
