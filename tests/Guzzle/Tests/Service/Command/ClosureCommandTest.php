@@ -68,7 +68,7 @@ class ClosureCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         ));
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getServiceBuilder()->get('mock');
-        $c->prepare($/* Replaced /* Replaced /* Replaced client */ */ */);
+        $c->setClient($/* Replaced /* Replaced /* Replaced client */ */ */)->prepare();
         $this->assertEquals('123', $c->get('testing'));
         $this->assertEquals('http://www.test.com/', $c->getRequest()->getUrl());
     }
@@ -88,6 +88,6 @@ class ClosureCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         ));
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getServiceBuilder()->get('mock');
-        $c->prepare($/* Replaced /* Replaced /* Replaced client */ */ */);
+        $c->setClient($/* Replaced /* Replaced /* Replaced client */ */ */)->prepare();
     }
 }

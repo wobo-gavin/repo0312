@@ -102,7 +102,7 @@ class CommandTest extends AbstractCommandTest
         $command = new MockCommand();
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
 
-        $command->prepare($/* Replaced /* Replaced /* Replaced client */ */ */);
+        $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */)->prepare();
         $this->assertEquals($/* Replaced /* Replaced /* Replaced client */ */ */, $command->getClient());
         $this->assertTrue($command->isPrepared());
     }
@@ -202,9 +202,7 @@ class CommandTest extends AbstractCommandTest
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection', $command->getRequestHeaders());
         $this->assertEquals('123', $command->getRequestHeaders()->get('test'));
 
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
-
-        $command->prepare($/* Replaced /* Replaced /* Replaced client */ */ */);
+        $command->setClient($this->getClient())->prepare();
         $this->assertEquals('123', $command->getRequest()->getHeaders()->get('test'));
     }
 
@@ -228,8 +226,7 @@ class CommandTest extends AbstractCommandTest
 
         $command = new MockCommand(array(), $api);
         $this->assertSame($api, $command->getApiCommand());
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
-        $command->prepare($/* Replaced /* Replaced /* Replaced client */ */ */);
+        $command->setClient($this->getClient())->prepare();
         $this->assertEquals('123', $command->get('test'));
         $this->assertSame($api, $command->getApiCommand($api));
     }

@@ -104,8 +104,7 @@ class DynamicCommandFactoryTest extends \/* Replaced /* Replaced /* Replaced Guz
             'bucket' => 'test',
             'key' => 'key'
         ));
-
-        $request = $command->prepare($/* Replaced /* Replaced /* Replaced client */ */ */);
+        $request = $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */)->prepare();
 
         // Ensure that the path values were injected into the path and base_url
         $this->assertEquals('/key', $request->getPath());
@@ -149,7 +148,7 @@ class DynamicCommandFactoryTest extends \/* Replaced /* Replaced /* Replaced Guz
             'h' => 'haha'
         ));
 
-        $request = $command->prepare($/* Replaced /* Replaced /* Replaced client */ */ */);
+        $request = $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */)->prepare();
 
         $this->assertEquals(
             "PUT /?test=abc&i=test HTTP/1.1\r\n" .
@@ -171,7 +170,7 @@ class DynamicCommandFactoryTest extends \/* Replaced /* Replaced /* Replaced Guz
             'i' => 'does not change the value because it\'s static'
         ));
 
-        $request = $command->prepare($/* Replaced /* Replaced /* Replaced client */ */ */);
+        $request = $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */)->prepare();
         
         $this->assertEquals(
             "PUT /?test=abc&i=test HTTP/1.1\r\n" .
