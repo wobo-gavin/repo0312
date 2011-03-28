@@ -42,62 +42,52 @@ class ServiceBuilder
     public static function factory($filename, CacheAdapterInterface $cacheAdapter = null, $ttl = 86400)
     {
         // Compute the cache key for this service and check if it exists in cache
-        $key = 'guz_service_' . md5($filename);
-        $cached = $cacheAdapter ? $cacheAdapter->fetch($key) : false;
-
-        if ($cached) {
-
-            // Load the config from cache
-            $config = unserialize($cached);
-
-        } else {
-
-            // Build the service config from the XML file if the file exists
-            if (!is_file($filename)) {
-                throw new \RuntimeException('Unable to open service configuration file ' . $filename);
-            }
-
-            $config = array();
-            $xml = new \SimpleXMLElement($filename, null, true);
-
-            // Create a /* Replaced /* Replaced /* Replaced client */ */ */ entry for each /* Replaced /* Replaced /* Replaced client */ */ */ in the XML file
-            foreach ($xml->/* Replaced /* Replaced /* Replaced client */ */ */s->/* Replaced /* Replaced /* Replaced client */ */ */ as $/* Replaced /* Replaced /* Replaced client */ */ */) {
-
-                $row = array();
-                $name = (string) $/* Replaced /* Replaced /* Replaced client */ */ */->attributes()->name;
-                $class = (string) $/* Replaced /* Replaced /* Replaced client */ */ */->attributes()->class;
-
-                // Check if this /* Replaced /* Replaced /* Replaced client */ */ */ builder extends another /* Replaced /* Replaced /* Replaced client */ */ */
-                if ($extends = (string) $/* Replaced /* Replaced /* Replaced client */ */ */->attributes()->extends) {
-                    // Make sure that the service it's extending has been defined
-                    if (!isset($config[$extends])) {
-                        throw new \LogicException($name . ' is trying to extend a non-existent or not yet defined service: ' . $extends);
-                    }
-
-                    $class = $class ?: $config[$extends]['class'];
-                    $row = $config[$extends]['params'];
-                }
-
-                // Add attributes to the row's parameters
-                foreach ($/* Replaced /* Replaced /* Replaced client */ */ */->param as $param) {
-                    $row[(string) $param->attributes()->name] = (string) $param->attributes()->value;
-                }
-
-                // Add this /* Replaced /* Replaced /* Replaced client */ */ */ builder
-                $config[$name] = array(
-                    'class' => str_replace('.', '\\', $class),
-                    'params' => $row
-                );
-            }
-
-            if ($cacheAdapter) {
-                $cacheAdapter->save($key, serialize($config), $ttl);
+        if ($cacheAdapter) {
+            $key = 'guz_service_' . md5($filename);
+            $cached = $cacheAdapter ? $cacheAdapter->fetch($key) : false;
+            if ($cached) {
+                return new self(unserialize($cached));
             }
         }
+            
+        // Build the service config from the XML file if the file exists
+        if (!is_file($filename)) {
+            throw new \RuntimeException('Unable to open service configuration file ' . $filename);
+        }
 
-        $builder = new self($config);
+        $config = array();
+        $xml = new \SimpleXMLElement($filename, null, true);
 
-        return $builder;
+        // Create a /* Replaced /* Replaced /* Replaced client */ */ */ entry for each /* Replaced /* Replaced /* Replaced client */ */ */ in the XML file
+        foreach ($xml->/* Replaced /* Replaced /* Replaced client */ */ */s->/* Replaced /* Replaced /* Replaced client */ */ */ as $/* Replaced /* Replaced /* Replaced client */ */ */) {
+            $row = array();
+            $name = (string) $/* Replaced /* Replaced /* Replaced client */ */ */->attributes()->name;
+            $class = (string) $/* Replaced /* Replaced /* Replaced client */ */ */->attributes()->class;
+            // Check if this /* Replaced /* Replaced /* Replaced client */ */ */ builder extends another /* Replaced /* Replaced /* Replaced client */ */ */
+            if ($extends = (string) $/* Replaced /* Replaced /* Replaced client */ */ */->attributes()->extends) {
+                // Make sure that the service it's extending has been defined
+                if (!isset($config[$extends])) {
+                    throw new \LogicException($name . ' is trying to extend a non-existent or not yet defined service: ' . $extends);
+                }
+                $class = $class ?: $config[$extends]['class'];
+                $row = $config[$extends]['params'];
+            }
+            // Add attributes to the row's parameters
+            foreach ($/* Replaced /* Replaced /* Replaced client */ */ */->param as $param) {
+                $row[(string) $param->attributes()->name] = (string) $param->attributes()->value;
+            }
+            // Add this /* Replaced /* Replaced /* Replaced client */ */ */ builder
+            $config[$name] = array(
+                'class' => str_replace('.', '\\', $class),
+                'params' => $row
+            );
+        }
+
+        if ($cacheAdapter) {
+            $cacheAdapter->save($key, serialize($config), $ttl);
+        }
+        
+        return new self($config);
     }
 
     /**
