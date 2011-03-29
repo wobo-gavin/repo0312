@@ -48,19 +48,6 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::shouldCompress
-     */
-    public function testDeterminesIfTheBodyShouldBeCompress()
-    {
-        $this->assertTrue(EntityBody::shouldCompress('test.txt'));
-        $this->assertTrue(EntityBody::shouldCompress('.txt'));
-        $this->assertFalse(EntityBody::shouldCompress('test.txt.jpg'));
-        $this->assertFalse(EntityBody::shouldCompress('test.txtjpg'));
-        $this->assertFalse(EntityBody::shouldCompress('test'));
-        $this->assertFalse(EntityBody::shouldCompress('test.gz'));
-    }
-
-    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::compress
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::uncompress
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::getContentEncoding
