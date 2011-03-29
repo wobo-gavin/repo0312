@@ -11,7 +11,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Subject;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Observer;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\MultipartFormData;
 
 /**
  * HTTP request that sends an entity-body in the request message (POST, PUT)
