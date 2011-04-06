@@ -16,7 +16,7 @@ require_once __DIR__ . '/../vendor/Symfony/Component/ClassLoader/UniversalClassL
 $classLoader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
 $classLoader->registerNamespaces(array(
     '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests' => __DIR__,
-    '/* Replaced /* Replaced /* Replaced Guzzle */ */ */' => __DIR__ . '/../library',
+    '/* Replaced /* Replaced /* Replaced Guzzle */ */ */' => __DIR__ . '/../src',
     'Doctrine' => __DIR__ . '/../vendor/Doctrine/lib'
 ));
 
