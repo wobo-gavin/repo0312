@@ -14,7 +14,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\CacheAdapte
  *
  * @author  michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org
  */
-class ServiceBuilder
+class ServiceBuilder implements \ArrayAccess
 {
     /**
      * @var array Service builder configuration data
@@ -133,5 +133,60 @@ class ServiceBuilder
         }
 
         return $/* Replaced /* Replaced /* Replaced client */ */ */;
+    }
+
+    /**
+     * Register a /* Replaced /* Replaced /* Replaced client */ */ */ by name with the service builder
+     *
+     * @param string $offset Name of the /* Replaced /* Replaced /* Replaced client */ */ */ to register
+     * @param Client $value Client to register
+     *
+     * @return ServiceBuilder
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->builderConfig[$offset] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Remove a registered /* Replaced /* Replaced /* Replaced client */ */ */ by name
+     *
+     * @param string $offset Client to remove by name
+     *
+     * @return ServiceBuilder
+     */
+    public function offsetUnset($offset)
+    {
+        if (isset($this->builderConfig[$offset])) {
+            unset($this->builderConfig[$offset]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Check if a /* Replaced /* Replaced /* Replaced client */ */ */ is registered with the service builder by name
+     *
+     * @param string $offset Name to check to see if a /* Replaced /* Replaced /* Replaced client */ */ */ exists
+     *
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->builderConfig[$offset]);
+    }
+
+    /**
+     * Get a registered /* Replaced /* Replaced /* Replaced client */ */ */ by name
+     *
+     * @param string $offset Registered /* Replaced /* Replaced /* Replaced client */ */ */ name to retrieve
+     *
+     * @return Client
+     */
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
     }
 }

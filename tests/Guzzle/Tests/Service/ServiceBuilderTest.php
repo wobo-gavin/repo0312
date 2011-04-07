@@ -9,6 +9,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
 use Doctrine\Common\Cache\ArrayCache;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 
 /**
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
@@ -206,5 +207,25 @@ EOT;
 
         $c = $s->get('michael.mock');
         $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $c);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::offsetSet
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::offsetGet
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::offsetUnset
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::offsetExists
+     */
+    public function testUsedAsArray()
+    {
+        $b = ServiceBuilder::factory($this->tempFile);
+        $this->assertTrue($b->offsetExists('michael.mock'));
+        $this->assertFalse($b->offsetExists('not_there'));
+        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Client', $b['michael.mock']);
+
+        unset($b['michael.mock']);
+        $this->assertFalse($b->offsetExists('michael.mock'));
+
+        $b['michael.mock'] = new Client('http://www.test.com/');
+        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Client', $b['michael.mock']);
     }
 }
