@@ -59,7 +59,7 @@ class InspectorTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
             'b' => 'lol'
         ), array('a'));
 
-        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection', $c);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection', $c);
         $this->assertEquals(array(
             'a' => '123',
             'b' => 'lol',

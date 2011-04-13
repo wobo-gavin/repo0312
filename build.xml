@@ -28,7 +28,7 @@
     <!-- Target: phar                                  -->
     <!-- ============================================  -->
     <target name="phar">
-        <pharpackage destfile=".//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar" basedir="./" compression="gzip">
+        <pharpackage destfile=".//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar" basedir="./src" compression="gzip">
             <fileset dir="./src">
                 <include name="**/**" />
             </fileset>
