@@ -87,6 +87,7 @@ Features
 * Allows full access to request HTTP headers
 * Responses can be cached and served from cache using the CachePlugin
 * Failed requests can be retried using truncated exponential backoff using the ExponentialBackoffPlugin
+* Entity bodies can be validated automatically using Content-MD5 headers
 * All data sent over the wire can be logged using the LogPlugin
 * Cookie sessions can be maintained between requests using the CookiePlugin
 * Send requests in parallel
@@ -101,8 +102,7 @@ Features
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ makes writing services an easy task by providing a simple pattern to follow:
 
 #. Extend the default /* Replaced /* Replaced /* Replaced client */ */ */ class
-#. Create a /* Replaced /* Replaced /* Replaced client */ */ */ builder if needed
-#. Create commands for each API action.  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ uses the command pattern.
+#. Create commands for each API action or generate commands dynamically using an XML service description.
 #. Add the service definition to your services.xml file
 
 Most web service /* Replaced /* Replaced /* Replaced client */ */ */s follow a specific pattern: create a /* Replaced /* Replaced /* Replaced client */ */ */ class, create methods for each action that can be taken on the API, create a cURL handle to transfer an HTTP request to the /* Replaced /* Replaced /* Replaced client */ */ */, parse the response, implement error handling, and return the result. You've probably had to interact with an API that either doesn't have a PHP /* Replaced /* Replaced /* Replaced client */ */ */ or the currently available PHP /* Replaced /* Replaced /* Replaced client */ */ */s are not up to an acceptable level of quality. When facing these types of situations, you probably find yourself writing a webservice that lacks most of the advanced features mentioned by Michael. It wouldn't make sense to spend all that time writing those features-- it's just a simple webservice /* Replaced /* Replaced /* Replaced client */ */ */ for just one API... But then you build another /* Replaced /* Replaced /* Replaced client */ */ */... and another. Suddenly you find yourself with several web service /* Replaced /* Replaced /* Replaced client */ */ */s to maintain, each /* Replaced /* Replaced /* Replaced client */ */ */ a God class, each reeking of code duplication and lacking most, if not all, of the aforementioned features. Enter /* Replaced /* Replaced /* Replaced Guzzle */ */ */.
@@ -158,10 +158,7 @@ All requests in the above /* Replaced /* Replaced /* Replaced client */ */ */ wo
 Installing /* Replaced /* Replaced /* Replaced Guzzle */ */ */
 -----------------
 
-Install /* Replaced /* Replaced /* Replaced Guzzle */ */ */ using pear when using /* Replaced /* Replaced /* Replaced Guzzle */ */ */ in production::
-
-    pear channel-discover pearhub.org
-    pear install pearhub//* Replaced /* Replaced /* Replaced guzzle */ */ */
+    git clone http://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */
 
 You will need to add /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to your application's autoloader.  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ ships with a few select classes from other vendors, one of which is the Symfony2 universal class loader.  If your application does not already use an autoloader, you can use the autoloader distributed with /* Replaced /* Replaced /* Replaced Guzzle */ */ */::
 
@@ -171,11 +168,9 @@ You will need to add /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to your
 
     $classLoader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
     $classLoader->registerNamespaces(array(
-        '/* Replaced /* Replaced /* Replaced Guzzle */ */ */' => '/path/to//* Replaced /* Replaced /* Replaced guzzle */ */ *//library'
+        '/* Replaced /* Replaced /* Replaced Guzzle */ */ */' => '/path/to//* Replaced /* Replaced /* Replaced guzzle */ */ *//src'
     ));
     $classLoader->register();
-
-Substitute '/path/to/' with the full path to your /* Replaced /* Replaced /* Replaced Guzzle */ */ */ installation.  You can find the PEAR installation folder using pear config-get php_dir
 
 Installing services
 -------------------
@@ -195,13 +190,12 @@ Current Services
 * `Unfuddle <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-unfuddle>`_
 * `Cardinal Commerce <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-cardinal-commerce>`_
 
-When installing a /* Replaced /* Replaced /* Replaced Guzzle */ */ */ service, check the service's installation instructions for specific examples on how to install the service.  Most services can be installed using a git submodule or, if available, a PEAR package through pearhub.org::
+When installing a /* Replaced /* Replaced /* Replaced Guzzle */ */ */ service, check the service's installation instructions for specific examples on how to install the service.
 
-    pear install pearhub//* Replaced /* Replaced /* Replaced guzzle */ */ */-aws # Note: this might not work while we're still finalizing our deployment methods
+Services can be installed using git submodules::
 
-Services can also be installed using git submodules::
-
-    git submodule add git://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-aws.git /path/to//* Replaced /* Replaced /* Replaced guzzle */ */ *//library//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service/Aws
+    cd /path/to//* Replaced /* Replaced /* Replaced guzzle */ */ */
+    git submodule add git://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-aws.git src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service/Aws
 
 Autoloading Services
 ~~~~~~~~~~~~~~~~~~~~
@@ -239,22 +233,18 @@ Create a services.xml that your ServiceBuilder will use to create service /* Rep
 
 3. Get the Amazon S3 /* Replaced /* Replaced /* Replaced client */ */ */ from the ServiceBuilder and execute a command::
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Aws\S3\Command\Object\GetObject;
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = $serviceBuilder['test.s3'];
+    $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('object.get_object')
+        ->setBucket('mybucket')
+        ->setKey('mykey');
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = $serviceBuilder->get('test.s3');
-    $command = new GetObject();
-    $command->setBucket('mybucket')->setKey('mykey');
-
-    // The result of the GetObject command returns the HTTP response object
+    // The result of the GetObject command returns an HTTP response object
     $httpResponse = $/* Replaced /* Replaced /* Replaced client */ */ */->execute($command);
     echo $httpResponse->getBody();
 
 The GetObject command just returns the HTTP response object when it is executed.  Other commands might return more valuable information when executed::
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Aws\S3\Command\Bucket\ListBucket;
-
-    $command = new ListBucket();
-    $command->setBucket('mybucket');
+    $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('bucket.list_bucket')->setBucket('mybucket');
     $objects = $/* Replaced /* Replaced /* Replaced client */ */ */->execute($command);
 
     // Iterate over every single object in the bucket
@@ -269,16 +259,6 @@ The GetObject command just returns the HTTP response object when it is executed.
     echo $command->getResponse();
 
 The ListBucket command above returns a BucketIterator which will iterate over the entire contents of a bucket.  As you can see, commands can be as simple or complex as you want.
-
-If the above code samples seem a little verbose to you, you can take some shortcuts in your code by leveraging the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ command factory inherent to each /* Replaced /* Replaced /* Replaced client */ */ */::
-
-    // Most succinctly
-    $objects = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('bucket.list_bucket', array('bucket' => 'my_bucket'))->execute();
-
-    // The best blend of verbose and succinct
-    $objects = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('bucket.list_bucket')
-        ->setBucket('my_bucket')
-        ->execute();
 
 Send a request and retry using exponential backoff
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -383,4 +363,4 @@ PHP-based caching forward proxy
     // served from cache
     $request->setState('new')->$request->send();
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ doesn't try to reinvent the wheel when it comes to caching or logging.  Plenty of other frameworks, namely the `Zend Framework <http://framework.zend.com/>`_, have excellent solutions in place that you are probably already using in your applications.  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ uses adapters for caching and logging.  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ currently supports log adapters for the Zend Framework and cache adapters for `Doctrine 2.0 <http://www.doctrine-project.org/>`_ and the Zend Framework.
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ doesn't try to reinvent the wheel when it comes to caching or logging.  Plenty of other frameworks, namely the `Zend Framework <http://framework.zend.com/>`_, have excellent solutions in place that you are probably already using in your applications.  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ uses adapters for caching and logging.  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ currently supports log adapters for the Zend Framework and Monolog, and cache adapters for `Doctrine 2.0 <http://www.doctrine-project.org/>`_ and the Zend Framework.
