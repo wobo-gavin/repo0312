@@ -38,26 +38,11 @@ class ZendLogAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
-     * Check for the existence of the Zend_Framework in your path
-     */
-    protected function zfSkip()
-    {
-        if (!class_exists('\Zend_Log')) {
-            $this->markTestSkipped(
-                'The Zend Framework is not present in your path'
-            );
-            return;
-        }
-    }
-
-    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\AbstractLogAdapter::__construct
      * @expectedException InvalidArgumentException
      */
-    public function testConstruct()
+    public function testEnforcesType()
     {
-        $this->zfSkip();
-        
         // A successful construction
         $this->adapter = new ZendLogAdapter($this->log, new Collection());
         
@@ -71,8 +56,6 @@ class ZendLogAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
      */
     public function testLogsMessagesToAdaptedObject()
     {
-        $this->zfSkip();
-        
         // Test without a priority
         $this->adapter->log('test', \LOG_NOTICE, '/* Replaced /* Replaced /* Replaced guzzle */ */ */.common.log.adapter.zend_log_adapter', 'localhost');
         $this->assertEquals(1, substr_count(ob_get_contents(), 'test'));
@@ -87,8 +70,6 @@ class ZendLogAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
      */
     public function testExposesAdaptedLogObject()
     {
-        $this->zfSkip();
-        
         $this->assertEquals($this->log, $this->adapter->getLogObject());
     }
 }

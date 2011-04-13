@@ -17,7 +17,8 @@ $classLoader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
 $classLoader->registerNamespaces(array(
     '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests' => __DIR__,
     '/* Replaced /* Replaced /* Replaced Guzzle */ */ */' => __DIR__ . '/../src',
-    'Doctrine' => __DIR__ . '/../vendor/Doctrine/lib'
+    'Doctrine' => __DIR__ . '/../vendor/Doctrine/lib',
+    'Monolog' => __DIR__ . '/../vendor/Monolog/src'
 ));
 
 $classLoader->registerPrefix('Zend_',  __DIR__ . '/../vendor');
