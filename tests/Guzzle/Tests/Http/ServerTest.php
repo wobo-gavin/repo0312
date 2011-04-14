@@ -8,7 +8,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\EventManager;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Observer;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\BadResponseException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
@@ -35,9 +35,9 @@ class ServerTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server::__construct
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server::getPort
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server::getUrl
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server::__construct
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server::getPort
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server::getUrl
      */
     public function testConstructorSetsPort()
     {
@@ -47,7 +47,7 @@ class ServerTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server::enqueue
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server::enqueue
      */
     public function testEnqueuesResponses()
     {
@@ -57,7 +57,7 @@ class ServerTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server
      */
     public function testServerReceivesRequests()
     {
@@ -84,7 +84,7 @@ class ServerTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server::isRunning
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server::isRunning
      * @depends testServerReceivesRequests
      */
     public function testChecksIfAnotherServerIsAlreadyRunning()
@@ -94,7 +94,7 @@ class ServerTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server::enqueue
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server::enqueue
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\HttpException
      * @expectedExceptionMessage Responses must be strings or implement Response
      */
@@ -104,11 +104,11 @@ class ServerTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server::start
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server::isRunning
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server::stop
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server::getPort
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server::flush
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server::start
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server::isRunning
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server::stop
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server::getPort
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server::flush
      */
     public function testStartsAndStopsListening()
     {

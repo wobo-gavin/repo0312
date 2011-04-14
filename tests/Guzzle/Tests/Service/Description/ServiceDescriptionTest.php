@@ -51,7 +51,7 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
             'key' => 'abc'
         ));
 
-        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand', $c);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand', $c);
         $this->assertEquals('123', $c->get('bucket'));
         $this->assertEquals('abc', $c->get('key'));
 

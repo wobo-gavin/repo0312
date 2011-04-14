@@ -440,7 +440,7 @@ class CurlFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     {
         $request = RequestFactory::create($method, $url, $headers, $body);
         $handle = $request->getCurlHandle();
-        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Curl\\CurlHandle', $handle);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Curl\\CurlHandle', $handle);
         $o = $request->getCurlOptions()->getAll();
 
         foreach ($options as $key => $value) {

@@ -337,9 +337,9 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->serviceTest));
         $this->assertSame($this->serviceTest, $/* Replaced /* Replaced /* Replaced client */ */ */->getDescription());
         // Creates service commands
-        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test_command'));
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test_command'));
         // Creates concrete commands
-        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\OtherCommand', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('other_command'));
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\OtherCommand', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('other_command'));
     }
 
     /**

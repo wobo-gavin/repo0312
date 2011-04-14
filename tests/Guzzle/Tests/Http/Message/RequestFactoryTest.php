@@ -98,7 +98,7 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
     {
         $request = RequestFactory::options('http://www.example.com/');
         $this->assertEquals('OPTIONS', $request->getMethod());
-        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\Request', $request);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\Request', $request);
     }
 
     /**

@@ -19,7 +19,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\BadResponseException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Mock\MockObserver;
 
 /**

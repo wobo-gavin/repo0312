@@ -4,8 +4,9 @@
  * @license See the LICENSE file that was distributed with this source code.
  */
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\HttpException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;

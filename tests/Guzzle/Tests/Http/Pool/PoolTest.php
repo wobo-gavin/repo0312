@@ -9,7 +9,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Pool;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Subject;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Observer;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\PoolInterface;

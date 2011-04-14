@@ -71,7 +71,7 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         fwrite($r, 'test');
         $this->assertEquals('test', $h->getStderr(false));
 
-        $this->assertType('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Url', $h->getUrl());
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Url', $h->getUrl());
         $this->assertEquals($this->getServer()->getUrl(), (string) $h->getUrl());
         $this->assertSame($handle, $h->getHandle());
 
