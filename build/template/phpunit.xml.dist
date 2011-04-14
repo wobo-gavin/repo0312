@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="./Tests/bootstrap.php" colors="true">
+    <php>
+        <!--
+            Change the following value to the path of your /* Replaced /* Replaced /* Replaced Guzzle */ */ */ installation
+            e.g. /Users/michael/projects//* Replaced /* Replaced /* Replaced guzzle */ */ */
+        -->
+        <server name="GUZZLE" value="${path_to_/* Replaced /* Replaced /* Replaced guzzle */ */ */}" />
+
+        <!--
+            This value specifies the path to the test services.xml file that
+            passes arguments to a service builder
+        -->
+        <server name="GUZZLE_SERVICE_FILE" value="./Tests/services.xml" />
+
+        <!--
+            /* Replaced /* Replaced /* Replaced Guzzle */ */ */ tries to figure out the path to mock files automatically.
+            Set the following value to "1" if your /* Replaced /* Replaced /* Replaced Guzzle */ */ */ service contains
+            multiple /* Replaced /* Replaced /* Replaced client */ */ */s under one service namespace (e.g. Aws\S3, Aws\Sqs)
+        -->
+        <server name="GUZZLE_SERVICE_MULTI" value="0" />
+    </php>
+
+    <testsuites>
+        <testsuite name="/* Replaced /* Replaced /* Replaced guzzle */ */ */-service">
+            <directory suffix="Test.php">./Tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./</directory>
+            <exclude>
+                <directory>./Tests</directory>
+                <directory>./docs</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
