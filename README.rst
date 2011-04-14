@@ -1,7 +1,7 @@
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */
-======
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ - a PHP framework for building RESTful webservice /* Replaced /* Replaced /* Replaced client */ */ */s
+================================================================
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP framework for building REST webservice /* Replaced /* Replaced /* Replaced client */ */ */s.  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides the tools necessary to quickly build a testable webservice /* Replaced /* Replaced /* Replaced client */ */ */ with complete control over preparing HTTP requests and processing HTTP responses::
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a RESTful web service /* Replaced /* Replaced /* Replaced client */ */ */ framework that enables PHP developers to quickly build testable web service /* Replaced /* Replaced /* Replaced client */ */ */s utilizing HTTP/1.1 best practices.
 
     <?php
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
@@ -192,11 +192,6 @@ Current Services
 
 When installing a /* Replaced /* Replaced /* Replaced Guzzle */ */ */ service, check the service's installation instructions for specific examples on how to install the service.
 
-Services can be installed using git submodules::
-
-    cd /path/to//* Replaced /* Replaced /* Replaced guzzle */ */ */
-    git submodule add git://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-aws.git src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service/Aws
-
 Autoloading Services
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -220,7 +215,7 @@ Create a services.xml that your ServiceBuilder will use to create service /* Rep
                 <param name="secret_key" value="abcd" />
             <//* Replaced /* Replaced /* Replaced client */ */ */>
             <!-- Concrete Amazon S3 /* Replaced /* Replaced /* Replaced client */ */ */ -->
-            </* Replaced /* Replaced /* Replaced client */ */ */ name="test.s3" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Aws.S3.S3Client" extends="test.abstract.aws" />
+            </* Replaced /* Replaced /* Replaced client */ */ */ name="test.s3" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Aws.S3.S3Client" extends="test.abstract.aws" />
         <//* Replaced /* Replaced /* Replaced client */ */ */s>
     <//* Replaced /* Replaced /* Replaced guzzle */ */ */>
 
