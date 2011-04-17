@@ -88,7 +88,7 @@ class ServiceBuilder implements \ArrayAccess
         if ($cacheAdapter) {
             $cacheAdapter->save($key, serialize($config), $ttl);
         }
-        
+
         return new self($config);
     }
 
@@ -112,7 +112,7 @@ class ServiceBuilder implements \ArrayAccess
      * @param bool $throwAway (optional) Set to TRUE to not store the /* Replaced /* Replaced /* Replaced client */ */ */
      *     for later retrieval from the ServiceBuilder
      *
-     * @return Client
+     * @return ClientInterface
      * @throws InvalidArgumentException when a /* Replaced /* Replaced /* Replaced client */ */ */ cannot be found by name
      */
     public function get($name, $throwAway = false)
@@ -141,7 +141,7 @@ class ServiceBuilder implements \ArrayAccess
      * Register a /* Replaced /* Replaced /* Replaced client */ */ */ by name with the service builder
      *
      * @param string $offset Name of the /* Replaced /* Replaced /* Replaced client */ */ */ to register
-     * @param Client $value Client to register
+     * @param ClientInterface $value Client to register
      *
      * @return ServiceBuilder
      */
@@ -185,7 +185,7 @@ class ServiceBuilder implements \ArrayAccess
      *
      * @param string $offset Registered /* Replaced /* Replaced /* Replaced client */ */ */ name to retrieve
      *
-     * @return Client
+     * @return ClientInterface
      */
     public function offsetGet($offset)
     {

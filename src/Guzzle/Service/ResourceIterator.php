@@ -7,7 +7,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\AbstractSubject;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 
 /**
  * Iterate over a paginated set of resources that requires subsequent paginated
@@ -28,7 +27,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 abstract class ResourceIterator extends AbstractSubject implements \Iterator, \Countable
 {
     /**
-     * @var Client
+     * @var ClientInterface
      */
     protected $/* Replaced /* Replaced /* Replaced client */ */ */;
 
@@ -78,9 +77,9 @@ abstract class ResourceIterator extends AbstractSubject implements \Iterator, \C
     protected $data = array();
 
     /**
-     * Constructor. This should only be invoked by a {@see Client} object.
+     * This should only be invoked by a {@see ClientInterface} object.
      *
-     * @param Client $/* Replaced /* Replaced /* Replaced client */ */ */ Client responsible for sending subsquent requests
+     * @param ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */ Client responsible for sending requests
      *
      * @param array $data Associative array of additional parameters, including
      *      any initial data to be iterated.
@@ -91,7 +90,7 @@ abstract class ResourceIterator extends AbstractSubject implements \Iterator, \C
      *      <li>next_token => The value used to mark the beginning of a subsequent result set.</li>
      *      </ul>
      */
-    public function __construct(Client $/* Replaced /* Replaced /* Replaced client */ */ */, array $data)
+    public function __construct(ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */, array $data)
     {
         $this->/* Replaced /* Replaced /* Replaced client */ */ */ = $/* Replaced /* Replaced /* Replaced client */ */ */;
         $this->data = $data;

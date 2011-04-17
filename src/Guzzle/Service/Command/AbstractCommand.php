@@ -12,7 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\NullObject;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
 
 /**
  * Command object to handle preparing and processing /* Replaced /* Replaced /* Replaced client */ */ */ requests and
@@ -23,7 +23,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 abstract class AbstractCommand extends Collection implements CommandInterface
 {
     /**
-     * @var Client The /* Replaced /* Replaced /* Replaced client */ */ */ object used to execute the command
+     * @var ClientInterface Client object used to execute the command
      */
     protected $/* Replaced /* Replaced /* Replaced client */ */ */;
 
@@ -132,7 +132,7 @@ abstract class AbstractCommand extends Collection implements CommandInterface
     /**
      * Get the /* Replaced /* Replaced /* Replaced client */ */ */ object that will execute the command
      *
-     * @return Client|null
+     * @return ClientInterface|null
      */
     public function getClient()
     {
@@ -142,11 +142,11 @@ abstract class AbstractCommand extends Collection implements CommandInterface
     /**
      * Set the /* Replaced /* Replaced /* Replaced client */ */ */ objec that will execute the command
      *
-     * @param Client $/* Replaced /* Replaced /* Replaced client */ */ */ The /* Replaced /* Replaced /* Replaced client */ */ */ objec that will execute the command
+     * @param ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */ The /* Replaced /* Replaced /* Replaced client */ */ */ objec that will execute the command
      *
      * @return Command
      */
-    public function setClient(Client $/* Replaced /* Replaced /* Replaced client */ */ */)
+    public function setClient(ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */)
     {
         $this->/* Replaced /* Replaced /* Replaced client */ */ */ = $/* Replaced /* Replaced /* Replaced client */ */ */;
 

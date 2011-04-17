@@ -22,5 +22,5 @@ interface CommandFactoryInterface
      * @return /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface
      * @throws InvalidArgumentException if the command was not found
      */
-    public function createCommand(ApiCommand $command, array $args);
+    function createCommand(ApiCommand $command, array $args);
 }
