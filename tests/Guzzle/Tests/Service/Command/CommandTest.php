@@ -6,6 +6,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Command;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand;
@@ -158,9 +159,9 @@ class CommandTest extends AbstractCommandTest
         // Set a mock response
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(function($subject, $event, $context) {
             if ($event == 'request.create') {
-                $context->setResponse(new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response(200, array(
+                $context->setResponse(new Response(200, array(
                     'Content-Type' => 'application/octect-stream'
-                ), 'abc,def,ghi'));
+                ), 'abc,def,ghi'), true);
             }
         });
 
