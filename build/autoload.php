@@ -1,8 +1,5 @@
 <?php
 /**
- * @package /* Replaced /* Replaced /* Replaced Guzzle */ */ */ PHP <http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
- * @license See the LICENSE file that was distributed with this source code.
- *
  * Autoloader stub for /* Replaced /* Replaced /* Replaced guzzle */ */ */.phar to autoload /* Replaced /* Replaced /* Replaced Guzzle */ */ */\* classes.
  *
  * Note: this autoloader does not load other PSR-0 libraries.  If you need to

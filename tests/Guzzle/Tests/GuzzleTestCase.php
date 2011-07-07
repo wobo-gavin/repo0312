@@ -1,8 +1,4 @@
 <?php
-/**
- * @package /* Replaced /* Replaced /* Replaced Guzzle */ */ */ PHP <http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
- * @license See the LICENSE file that was distributed with this source code.
- */
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests;
 
@@ -105,7 +101,7 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
      */
     public function getMockResponse(Client $/* Replaced /* Replaced /* Replaced client */ */ */, $filename)
     {
-        
+
         $reflection = new \ReflectionClass(get_class($/* Replaced /* Replaced /* Replaced client */ */ */));
         $path = str_replace(array(
             str_replace($reflection->getNamespaceName() . '\\', '', $reflection->getName()),
