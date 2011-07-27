@@ -1,7 +1,7 @@
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ - a PHP framework for building RESTful webservice /* Replaced /* Replaced /* Replaced client */ */ */s
-================================================================
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ - a PHP framework for HTTP and building RESTful webservice /* Replaced /* Replaced /* Replaced client */ */ */s
+=========================================================================
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a RESTful web service /* Replaced /* Replaced /* Replaced client */ */ */ framework that enables PHP developers to quickly build testable web service /* Replaced /* Replaced /* Replaced client */ */ */s utilizing HTTP/1.1 best practices::
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is an HTTP /* Replaced /* Replaced /* Replaced client */ */ */ for PHP that ships with a RESTful web service /* Replaced /* Replaced /* Replaced client */ */ */ framework that will help you quickly build web service /* Replaced /* Replaced /* Replaced client */ */ */s::
 
     <?php
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
