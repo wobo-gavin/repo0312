@@ -21,8 +21,8 @@ Features
 * Supports all of the features of libcurl including authentication, redirects, SSL, proxies, etc
 * Web service /* Replaced /* Replaced /* Replaced client */ */ */ framework for building future-proof interfaces to web services
 
-Code samples:
--------------
+Code samples::
+--------------
 
     <?php
 
@@ -96,7 +96,7 @@ Send requests in parallel::
         }
     }
 
-Find out more
+Documentation
 -------------
 
-Find out more at `www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org <http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>`_
+Read the full documentation at `www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org <http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>`_
