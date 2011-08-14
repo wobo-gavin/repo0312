@@ -21,8 +21,10 @@ Features
 * Supports all of the features of libcurl including authentication, redirects, SSL, proxies, etc
 * Web service /* Replaced /* Replaced /* Replaced client */ */ */ framework for building future-proof interfaces to web services
 
-Code samples::
---------------
+Code samples
+------------
+
+HTTP basics::
 
     <?php
 
@@ -95,6 +97,17 @@ Send requests in parallel::
             echo $exception->getRequest() . "\n" . $exception->getMessage() . "\n";
         }
     }
+
+Web service /* Replaced /* Replaced /* Replaced client */ */ */s::
+
+    <?php
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client('http://www.example.com/api/v1');
+
+    // Relative URL of a nested resource
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('index.php');
+    // Relative URL that overwrites the path of the base URL
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/test/123.php?a=b');
 
 Documentation
 -------------
