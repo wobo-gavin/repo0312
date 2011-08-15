@@ -52,7 +52,7 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
     {
         return isset($_SERVER['GUZZLE_SERVICE_FILE'])
             ? $_SERVER['GUZZLE_SERVICE_FILE']
-            : __DIR__ . DIRECTORY_SEPARATOR . 'services.xml';
+            : __DIR__ . DIRECTORY_SEPARATOR . 'TestData' . DIRECTORY_SEPARATOR . 'services.xml';
     }
 
     /**
