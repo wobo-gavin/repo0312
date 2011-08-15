@@ -12,7 +12,7 @@ abstract class AbstractCommandTest extends \/* Replaced /* Replaced /* Replaced 
 {
     protected function getClient()
     {
-        $builder = new XmlDescriptionBuilder(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'test_service.xml');
+        $builder = new XmlDescriptionBuilder(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'TestData' . DIRECTORY_SEPARATOR . 'test_service.xml');
         $service = $builder->build();
         $/* Replaced /* Replaced /* Replaced client */ */ */ =  new Client('http://www.google.com/');
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($service);
