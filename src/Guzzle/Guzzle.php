@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
  */
 class /* Replaced /* Replaced /* Replaced Guzzle */ */ */
 {
-    const VERSION = '1.0b';
+    const VERSION = '1.1';
 
     /**
      * @var string Default /* Replaced /* Replaced /* Replaced Guzzle */ */ */ User-Agent header
