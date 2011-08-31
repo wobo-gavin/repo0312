@@ -428,6 +428,11 @@ class CurlFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         );
     }
 
+    public function setUp()
+    {
+        CurlFactory::getInstance()->releaseAllHandles(true);
+    }
+
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlFactory::releaseAllHandles
      */
@@ -599,7 +604,6 @@ class CurlFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     public function testClosesHandlesWhenHandlesAreReleasedAndNeedToBeClosed()
     {
         $f = CurlFactory::getInstance();
-        $f->releaseAllHandles(true);
         $baseline = $f->getConnectionsPerHost(true, '127.0.0.1:8124');
         $request1 = RequestFactory::get($this->getServer()->getUrl());
         $request1->getCurlHandle();
@@ -658,7 +662,6 @@ class CurlFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     public function testPurgesConnectionsThatAreTooStaleBasedOnMaxIdleTime()
     {
         $f = CurlFactory::getInstance();
-        $f->releaseAllHandles(true);
         $this->assertSame($f, $f->setMaxIdleTime(0));
         $request = RequestFactory::head($this->getServer()->getUrl());
         $request->getCurlHandle();
