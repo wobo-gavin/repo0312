@@ -88,7 +88,7 @@ class ServiceBuilder implements \ArrayAccess
                     $row[(string) $param->attributes()->name] = (string) $param->attributes()->value;
                 }
                 $config[$name] = array(
-                    'class'   => str_replace('.', '\\', $class),
+                    'class'   => $class,
                     'extends' => (string) $/* Replaced /* Replaced /* Replaced client */ */ */->attributes()->extends,
                     'params'  => $row
                 );
@@ -97,6 +97,9 @@ class ServiceBuilder implements \ArrayAccess
 
         // Validate the configuration and handle extensions
         foreach ($config as $name => &$/* Replaced /* Replaced /* Replaced client */ */ */) {
+            if (!isset($/* Replaced /* Replaced /* Replaced client */ */ */['params'])) {
+                $/* Replaced /* Replaced /* Replaced client */ */ */['params'] = array();
+            }
             // Check if this /* Replaced /* Replaced /* Replaced client */ */ */ builder extends another /* Replaced /* Replaced /* Replaced client */ */ */
             if (isset($/* Replaced /* Replaced /* Replaced client */ */ */['extends']) && trim($/* Replaced /* Replaced /* Replaced client */ */ */['extends'])) {
                 // Make sure that the service it's extending has been defined
@@ -108,6 +111,7 @@ class ServiceBuilder implements \ArrayAccess
                 }
                 $/* Replaced /* Replaced /* Replaced client */ */ */['params'] = array_merge($config[$/* Replaced /* Replaced /* Replaced client */ */ */['extends']]['params'], $/* Replaced /* Replaced /* Replaced client */ */ */['params']);
             }
+            $/* Replaced /* Replaced /* Replaced client */ */ */['class'] = str_replace('.', '\\', $/* Replaced /* Replaced /* Replaced client */ */ */['class']);
         }
 
         if ($cacheAdapter) {
