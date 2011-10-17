@@ -34,7 +34,7 @@ class XmlDescriptionBuilderTest extends \/* Replaced /* Replaced /* Replaced Guz
         $this->assertTrue($service->hasCommand('geo.id'));
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Description\\ApiCommand', $service->getCommand('search'));
         $this->assertInternalType('array', $service->getCommands());
-        $this->assertEquals(4, count($service->getCommands()));
+        $this->assertEquals(5, count($service->getCommands()));
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\NullObject', $service->getCommand('missing'));
 
         $command = $service->getCommand('test');

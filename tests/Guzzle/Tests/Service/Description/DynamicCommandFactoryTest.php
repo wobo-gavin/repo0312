@@ -187,4 +187,48 @@ class DynamicCommandFactoryTest extends \/* Replaced /* Replaced /* Replaced Guz
         $c = $this->service->createCommand('concrete');
         $this->assertEquals('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand', get_class($c));
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\DynamicCommandFactory::createCommand
+     */
+    public function testUsesAbsolutePaths()
+    {
+        $service = new ServiceDescription(
+            array(
+                new ApiCommand(array(
+                    'name' => 'test_path',
+                    'method' => 'GET',
+                    'path' => '/test',
+                ))
+            )
+        );
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($service);
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test_path');
+        $request = $command->prepare();
+        $this->assertEquals('/test', $request->getPath());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\DynamicCommandFactory::createCommand
+     */
+    public function testUsesRelativePaths()
+    {
+        $service = new ServiceDescription(
+            array(
+                new ApiCommand(array(
+                    'name' => 'test_path',
+                    'method' => 'GET',
+                    'path' => 'test/abc',
+                ))
+            )
+        );
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/api/v2');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($service);
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test_path');
+        $request = $command->prepare();
+        $this->assertEquals('/api/v2/test/abc', $request->getPath());
+    }
 }

@@ -8,6 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inspector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand;
 
 /**
@@ -52,9 +53,16 @@ class DynamicCommandFactory implements CommandFactoryInterface
                 // Build a custom URL if there are path values
                 if ($foundPath) {
                     $path = str_replace('//', '', /* Replaced /* Replaced /* Replaced Guzzle */ */ */::inject($api->getPath(), $pathValues));
-                    $url = /* Replaced /* Replaced /* Replaced Guzzle */ */ */::inject($that->getClient()->getBaseUrl(false), $pathValues) . $path;
                 } else {
-                    $url = $that->getClient()->getBaseUrl() . $arg->get('path');
+                    $path = $api->getPath();
+                }
+
+                if (!$path) {
+                    $url = $that->getClient()->getBaseUrl();
+                } else {
+                    $url = Url::factory($that->getClient()->getBaseUrl());
+                    $url->combine($path);
+                    $url = (string) $url;
                 }
 
                 // Inject path and base_url values into the URL
