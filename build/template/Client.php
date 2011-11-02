@@ -5,10 +5,8 @@ namespace ${service.namespace};
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inspector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\XmlDescriptionBuilder;
 
-/**
- * @author ${service.author} <${service.email}>
- */
 class ${service./* Replaced /* Replaced /* Replaced client */ */ */_class} extends Client
 {
     /**
@@ -29,6 +27,11 @@ class ${service./* Replaced /* Replaced /* Replaced client */ */ */_class} exten
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new self($config->get('base_url'));
         $/* Replaced /* Replaced /* Replaced client */ */ */->setConfig($config);
+
+        // Add the XML service description to the /* Replaced /* Replaced /* Replaced client */ */ */
+        // Uncomment the following two lines to use an XML service description
+        // $builder = new XmlDescriptionBuilder(__DIR__ . DIRECTORY_SEPARATOR . '/* Replaced /* Replaced /* Replaced client */ */ */.xml');
+        // $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($builder->build());
 
         return $/* Replaced /* Replaced /* Replaced client */ */ */;
     }

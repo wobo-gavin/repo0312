@@ -86,15 +86,9 @@
     <!-- ============================================  -->
     <target name="template">
         <input propertyname="service.path" promptChar=":">Enter the path where you want to install your web service /* Replaced /* Replaced /* Replaced client */ */ */</input>
-        <input propertyname="service.name" promptChar=":">Enter the name of your /* Replaced /* Replaced /* Replaced client */ */ */ project (e.g. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ AWS)</input>
-        <input propertyname="service./* Replaced /* Replaced /* Replaced client */ */ */_class" promptChar=":">Enter the name of your /* Replaced /* Replaced /* Replaced client */ */ */ class (e.g. UnfuddleClient)</input>
-        <input propertyname="service.xml" promptChar=":" defaultValue="n" validArgs="y,n">Will your /* Replaced /* Replaced /* Replaced client */ */ */ use an XML file for dynamic commands?</input>
         <input propertyname="service.short_name" promptChar=":">Enter the short name of your /* Replaced /* Replaced /* Replaced client */ */ */ (e.g. /* Replaced /* Replaced /* Replaced guzzle */ */ */-aws)</input>
+        <input propertyname="service./* Replaced /* Replaced /* Replaced client */ */ */_class" promptChar=":">Enter the name of your /* Replaced /* Replaced /* Replaced client */ */ */ class (e.g. UnfuddleClient)</input>
         <input propertyname="service.namespace" promptChar=":">Enter the root namespace of your /* Replaced /* Replaced /* Replaced client */ */ */ (e.g. /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Aws)</input>
-        <input propertyname="service.relative_path" promptChar=":">Enter the relative path of where your /* Replaced /* Replaced /* Replaced client */ */ */ should be installed relative to the /* Replaced /* Replaced /* Replaced Guzzle */ */ */\ namespace folder (e.g. /* Replaced /* Replaced /* Replaced Guzzle */ */ *//Aws)</input>
-        <input propertyname="service.author" promptChar=":">Enter your full name</input>
-        <input propertyname="service.email" promptChar=":">Enter your email address</input>
-        <input propertyname="service.git_url" promptChar=":" defaultValue="">Enter the URL to the project git repository</input>
 
         <echo msg="Creating web service /* Replaced /* Replaced /* Replaced client */ */ */ project" />
 
@@ -113,24 +107,6 @@
             </filterchain>
         </copy>
 
-        <if>
-            <equals arg1="${service.xml}" arg2="y" />
-            <then>
-                <delete file="${service.path}/Client.php" />
-                <move file="${service.path}/Client-Xml.php" toFile="${service.path}/${service./* Replaced /* Replaced /* Replaced client */ */ */_class}.php" />
-                <echo file="${service.path}//* Replaced /* Replaced /* Replaced client */ */ */.xml">
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;/* Replaced /* Replaced /* Replaced client */ */ */s&gt;
-  &lt;/* Replaced /* Replaced /* Replaced client */ */ */&gt;
-    &lt;commands&gt;&lt;/commands&gt;
-  &lt;//* Replaced /* Replaced /* Replaced client */ */ */&gt;
-&lt;//* Replaced /* Replaced /* Replaced client */ */ */s&gt;
-                </echo>
-            </then>
-            <else>
-                <delete file="${service.path}/Client-Xml.php" />
-                <move file="${service.path}/Client.php" toFile="${service.path}/${service./* Replaced /* Replaced /* Replaced client */ */ */_class}.php" />
-            </else>
-        </if>
+        <move file="${service.path}/Client.php" toFile="${service.path}/${service./* Replaced /* Replaced /* Replaced client */ */ */_class}.php" />
     </target>
 </project>
