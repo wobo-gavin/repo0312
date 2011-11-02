@@ -13,12 +13,6 @@
         <server name="GUZZLE" value="/path/to//* Replaced /* Replaced /* Replaced guzzle */ */ */" />
 
         <!--
-          -- This value specifies the path to the test services.xml file that
-          --  passes arguments to a service builder
-          -->
-        <server name="GUZZLE_SERVICE_FILE" value="./Tests/TestData/services.xml" />
-
-        <!--
           -- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ tries to figure out the path to mock files automatically.
           -- Set the following value to "1" if your /* Replaced /* Replaced /* Replaced Guzzle */ */ */ service contains
           -- multiple /* Replaced /* Replaced /* Replaced client */ */ */s under one service namespace (e.g. Aws\S3, Aws\Sqs)
