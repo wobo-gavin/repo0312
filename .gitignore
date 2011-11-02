@@ -5,3 +5,5 @@ build//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar
 src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Aws/
 src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//CardinalCommerce/
 src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Unfuddle/
+composer.lock
+vendor/.composer
