@@ -1,12 +1,5 @@
 <?php
 
-/**
- * This class was generated using the /* Replaced /* Replaced /* Replaced guzzle */ */ */ /* Replaced /* Replaced /* Replaced client */ */ */ template.  Be sure to
- * update the docblocks, factory method, and add a constructor if needed.
- *
- * @TODO Remove this docblock
- */
-
 namespace ${service.namespace};
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inspector;
@@ -15,8 +8,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\XmlDescriptionBuilder;
 
 /**
- * @TODO Update description
- *
  * @author ${service.author} <${service.email}>
  */
 class ${service./* Replaced /* Replaced /* Replaced client */ */ */_class} extends Client

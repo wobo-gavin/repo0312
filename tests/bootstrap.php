@@ -14,7 +14,8 @@ $classLoader->registerNamespaces(array(
     'Doctrine' => __DIR__ . '/../vendor/Doctrine/lib',
     'Monolog' => __DIR__ . '/../vendor/Monolog/src'
 ));
-
 $classLoader->registerPrefix('Zend_',  __DIR__ . '/../vendor');
-
 $classLoader->register();
+
+$servicesFile = __DIR__ . '//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Tests/TestData/services.xml';
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase::setServiceBuilder(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory($servicesFile));
