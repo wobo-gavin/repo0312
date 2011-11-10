@@ -20,7 +20,8 @@ spl_autoload_register(function($class) {
 });
 
 // Register services with the /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase::setServiceBuilder(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory(array(
+\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase::setMockBasePath(__DIR__ . DIRECTORY_SEPARATOR . 'mock');
+\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase::setServiceBuilder(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory(array(
     'test.${service.short_name}' => array(
         'class' => '${service.namespace}\${service./* Replaced /* Replaced /* Replaced client */ */ */_class}'
     )
