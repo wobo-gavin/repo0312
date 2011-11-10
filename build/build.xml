@@ -47,38 +47,6 @@
         </pharpackage>
     </target>
 
-    <target name="service" description="Clone a /* Replaced /* Replaced /* Replaced Guzzle */ */ */ service">
-        <fail unless="repo" message="You must specify the URL to a git repository" />
-        <fail unless="path" message="You must specify the path to clone the repository" />
-        <property name="exists" value="0" />
-        <available file="../${path}" type="dir" property="exists" value="1"/>
-        <if>
-            <equals arg1="${exists}" arg2="0" />
-            <then>
-                <exec passthru="true" command="git clone ${repo} ${path}" dir="../" checkreturn="true" />
-            </then>
-            <else>
-                <exec passthru="true" command="git fetch origin" dir="../${path}" checkreturn="true" />
-                <exec passthru="true" command="git reset --hard" dir="../${path}" checkreturn="true" />
-            </else>
-        </if>
-    </target>
-
-    <target name="all-services" description="Clone all known /* Replaced /* Replaced /* Replaced Guzzle */ */ */ services">
-        <phingcall target="service">
-            <property name="repo" value="git://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-aws.git" />
-            <property name="path" value="./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Aws" />
-        </phingcall>
-        <phingcall target="service">
-            <property name="repo" value="git://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-cardinal-commerce.git" />
-            <property name="path" value="./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//CardinalCommerce" />
-        </phingcall>
-        <phingcall target="service">
-            <property name="repo" value="git://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-unfuddle.git" />
-            <property name="path" value="./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Unfuddle" />
-        </phingcall>
-    </target>
-
     <target name="template" description="Create a /* Replaced /* Replaced /* Replaced client */ */ */ project skeleton">
         <input propertyname="service.path" promptChar=":">Enter the path where you want to install your web service /* Replaced /* Replaced /* Replaced client */ */ */</input>
         <input propertyname="service.short_name" promptChar=":">Enter the short name of your /* Replaced /* Replaced /* Replaced client */ */ */ (e.g. /* Replaced /* Replaced /* Replaced guzzle */ */ */-aws)</input>
