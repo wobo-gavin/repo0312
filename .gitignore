@@ -2,6 +2,7 @@
 coverage
 phpunit.xml
 build//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar
+build//* Replaced /* Replaced /* Replaced guzzle */ */ */-na.phar
 src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Aws/
 src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//CardinalCommerce/
 src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Unfuddle/
