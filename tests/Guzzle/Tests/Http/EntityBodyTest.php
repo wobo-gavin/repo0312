@@ -44,6 +44,19 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory
+     */
+    public function testFactoryCreatesTempStreamByDefault()
+    {
+        $body = EntityBody::factory('');
+        $this->assertEquals('php', $body->getWrapper());
+        $this->assertEquals('temp', $body->getStreamType());
+        $body = EntityBody::factory();
+        $this->assertEquals('php', $body->getWrapper());
+        $this->assertEquals('temp', $body->getStreamType());
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::compress
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::uncompress
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::getContentEncoding
