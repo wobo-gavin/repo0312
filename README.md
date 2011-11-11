@@ -38,7 +38,7 @@ $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.ex
 
 // Issue a path using a relative URL to the /* Replaced /* Replaced /* Replaced client */ */ */'s base URL
 // Sends to http://www.example.com/api/v1/key/***/users
-$request = $cliet->get('users');
+$request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('users');
 $response = $request->send();
 
 // Relative URL that overwrites the path of the base URL
@@ -46,7 +46,6 @@ $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/test/123.
 
 // Issue a head request on the base URL
 $response = $/* Replaced /* Replaced /* Replaced client */ */ */->head()->send();
-
 // Delete user 123
 $response = $/* Replaced /* Replaced /* Replaced client */ */ */->delete('users/123')->send();
 
