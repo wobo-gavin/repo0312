@@ -459,4 +459,14 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('relative/{{test}}');
         $this->assertEquals('http://www.test.com/api/v1/relative/123', $request->getUrl());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client
+     */
+    public function testAllowsEmptyBaseUrl()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://www.google.com/');
+        $this->assertEquals('http://www.google.com/', $request->getUrl());
+    }
 }
