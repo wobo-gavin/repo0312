@@ -64,7 +64,12 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */
     public static function getCurlInfo($type = null)
     {
         if (!self::$curl) {
-            self::$curl = curl_version();
+            self::$curl = @curl_version();
+            // @codeCoverageIgnoreStart
+            if (!self::$curl) {
+                throw new \RuntimeException('/* Replaced /* Replaced /* Replaced Guzzle */ */ */ requires curl');
+            }
+            // @codeCoverageIgnoreEnd
             // Check if CURLOPT_FOLLOWLOCATION is available
             self::$curl['follow_location'] = !ini_get('open_basedir');
         }
