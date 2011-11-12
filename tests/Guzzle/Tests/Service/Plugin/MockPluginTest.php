@@ -22,7 +22,7 @@ class MockPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     {
         $plugin = new MockPlugin();
         $this->assertFalse($plugin->isTemporary());
-        $plugin = new MockPlugin(true);
+        $plugin = new MockPlugin(null, true);
         $this->assertTrue($plugin->isTemporary());
     }
     
@@ -160,7 +160,7 @@ class MockPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
      */
     public function testDetachesTemporaryWhenEmpty()
     {
-        $p = new MockPlugin(true);
+        $p = new MockPlugin(null, true);
         $p->addResponse(MockPlugin::getMockFile(__DIR__ . '/../../TestData/mock_response'));
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://localhost:123/');
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach($p, 9999);
@@ -168,5 +168,14 @@ class MockPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $request->send();
 
         $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->hasObserver($p));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Plugin\MockPlugin::__construct
+     */
+    public function testLoadsResponsesFromConstructor()
+    {
+        $p = new MockPlugin(array(new Response(200)));
+        $this->assertEquals(1, $p->count());
     }
 }
