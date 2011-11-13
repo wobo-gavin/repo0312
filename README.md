@@ -5,7 +5,8 @@ PHP framework for HTTP and building RESTful webservice /* Replaced /* Replaced /
 
 - Docs: [www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org](http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/)
 - Forum: https://groups.google.com/forum/?hl=en#!forum//* Replaced /* Replaced /* Replaced guzzle */ */ */
-- Travis-CI: [![Build Status](https://secure.travis-ci.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.png)](http://travis-ci.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */)
+
+[![Build Status](https://secure.travis-ci.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.png)](http://travis-ci.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */)
 
 Features
 --------
