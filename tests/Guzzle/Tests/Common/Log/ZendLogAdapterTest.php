@@ -10,6 +10,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
  * Test class for ZendLogAdapter
  *
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\AbstractLogAdapter
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ZendLogAdapter
  */
 class ZendLogAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {

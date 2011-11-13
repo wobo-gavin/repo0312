@@ -13,6 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Mock\MockFi
 
 /**
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inspector
  *
  * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ test type="class:/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase"
  * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ bool_1 default="true" type="boolean"
@@ -284,5 +285,16 @@ The supplied value is not an instance of stdClass: <string:123> supplied", $e->g
         $this->assertEquals("The supplied value is not a string: integer supplied
 Requires that the min argument be >= 2 characters.
 Requires that the max argument be <= 2 characters.", implode("\n", $result));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inspector::parseDocBlock
+     */
+    public function testVerifies/* Replaced /* Replaced /* Replaced Guzzle */ */ */Annotations()
+    {
+        $this->assertEquals(
+            array(),
+            Inspector::getInstance()->parseDocBlock('testing')
+        );
     }
 }
