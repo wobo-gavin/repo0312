@@ -18,6 +18,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\BadResponse
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Mock\MockObserver;
 
 /**
+ * @group server
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase

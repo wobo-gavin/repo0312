@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockResourceIterator;
 
 /**
+ * @group server
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class ResourceIteratorTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase

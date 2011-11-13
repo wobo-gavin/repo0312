@@ -8,6 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFact
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\Pool;
 
 /**
+ * @group server
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class ExponentialBackoffPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase

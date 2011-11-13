@@ -12,6 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\Pool;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\PoolRequestException;
 
 /**
+ * @group server
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class PoolTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase implements Observer
