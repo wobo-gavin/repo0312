@@ -94,16 +94,15 @@ Send requests in parallel
 
 ```php
 <?php
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\Pool;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\PoolRequestException;
 
-$pool = new Pool();
-$pool->add($/* Replaced /* Replaced /* Replaced client */ */ */->get('http://www.google.com/'));
-$pool->add($/* Replaced /* Replaced /* Replaced client */ */ */->head('http://www.google.com/'));
-$pool->add($/* Replaced /* Replaced /* Replaced client */ */ */->get('https://www.github.com/'));
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 
 try {
-    $pool->send();
+    $responses = $/* Replaced /* Replaced /* Replaced client */ */ */->batch(array(
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://www.google.com/'),
+        $/* Replaced /* Replaced /* Replaced client */ */ */->head('http://www.google.com/'),
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('https://www.github.com/')
+    ));
 } catch (PoolRequestException $e) {
     echo "The following requests encountered an exception: \n";
     foreach ($e as $exception) {

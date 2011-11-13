@@ -7,6 +7,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Subject;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\NullObject;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\PoolInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\Pool;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSet;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
@@ -237,4 +239,29 @@ interface ClientInterface extends Subject
      * @return RequestInterface
      */
     function options($uri = null);
+
+    /**
+     * Sends multiple requests in parallel
+     *
+     * @param array $requests Requests to send in parallel
+     *
+     * @return array Returns the responses
+     */
+    public function batch(array $requests);
+
+    /**
+     * Set a Pool object to be used internally by the /* Replaced /* Replaced /* Replaced client */ */ */ for batch requests
+     *
+     * @param PoolInterface $pool Pool object to use for batch requests
+     *
+     * @return ClientInterface
+     */
+    public function setPool(PoolInterface $pool);
+
+    /**
+     * Get the Pool object used with the /* Replaced /* Replaced /* Replaced client */ */ */
+     *
+     * @return PoolInterface
+     */
+    public function getPool();
 }

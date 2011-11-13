@@ -9,12 +9,14 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\Pool;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSet;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\XmlDescriptionBuilder;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Plugin\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
 
 /**
@@ -244,13 +246,9 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     public function testExecutesCommandSets()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/');
-
-        // Set a mock response for each request from the Client
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(function($subject, $event, $context) {
-            if ($event == 'request.create') {
-                $context->setResponse(new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response(200), true);
-            }
-        });
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(new MockPlugin(array(
+            new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response(200)
+        )));
 
         // Create a command set and a command
         $set = new CommandSet();
@@ -472,5 +470,42 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('http://www.google.com/', $request->getUrl());
         $request->setResponse(new Response(200), true);
         $request->send();
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::batch
+     */
+    public function testManagesRequestPool()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://localhost/');
+        $plugin = new MockPlugin();
+        $plugin->addResponse(new Response(200));
+        $plugin->addResponse(new Response(200));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach($plugin);
+
+        $responses = $/* Replaced /* Replaced /* Replaced client */ */ */->batch(array(
+            $/* Replaced /* Replaced /* Replaced client */ */ */->get('/'),
+            $/* Replaced /* Replaced /* Replaced client */ */ */->head('/users')
+        ));
+
+        $this->assertInternalType('array', $responses);
+        $this->assertEquals(2, count($responses));
+        $this->assertEquals(200, $responses[0]->getStatusCode());
+        $this->assertEquals(200, $responses[1]->getStatusCode());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setPool
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getPool
+     */
+    public function testManagesInternalPoolObject()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $pool = $/* Replaced /* Replaced /* Replaced client */ */ */->getPool();
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Pool\\PoolInterface', $pool);
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setPool(new Pool());
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Pool\\PoolInterface', $/* Replaced /* Replaced /* Replaced client */ */ */->getPool());
+        $this->assertNotSame($pool, $/* Replaced /* Replaced /* Replaced client */ */ */->getPool());
     }
 }

@@ -10,6 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\DescriptionBuilder\XmlDescriptionBuilder;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ConcreteCommandFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Plugin\MockPlugin;
 
 /**
  * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
@@ -109,12 +110,11 @@ class CommandSetTest extends AbstractCommandTest
             'Content-Type' => 'application/xml'
         ), '<xml><data>123</data></xml>');
 
-        // Set a mock response for each request from the Client
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(function($subject, $event, $context) use ($response) {
-            if ($event == 'request.create') {
-                $context->setResponse($response, true);
-            }
-        });
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(new MockPlugin(array(
+            $response,
+            $response,
+            $response
+        )));
 
         $command1 = new MockCommand();
         $command1->setClient($/* Replaced /* Replaced /* Replaced client */ */ */);

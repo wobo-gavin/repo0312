@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Plugin\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\Sub\Sub;
 
@@ -125,11 +126,9 @@ class CommandTest extends AbstractCommandTest
         ), '<xml><data>123</data></xml>');
 
         // Set a mock response
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(function($subject, $event, $context) use ($response) {
-            if ($event == 'request.create') {
-                $context->setResponse($response, true);
-            }
-        });
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(new MockPlugin(array(
+            $response
+        )));
 
         $command = new MockCommand();
 
@@ -152,14 +151,11 @@ class CommandTest extends AbstractCommandTest
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
 
-        // Set a mock response
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(function($subject, $event, $context) {
-            if ($event == 'request.create') {
-                $context->setResponse(new Response(200, array(
-                    'Content-Type' => 'application/octect-stream'
-                ), 'abc,def,ghi'), true);
-            }
-        });
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(new MockPlugin(array(
+            new Response(200, array(
+                'Content-Type' => 'application/octect-stream'
+            ), 'abc,def,ghi')
+        )));
 
         $command = new MockCommand();
         $/* Replaced /* Replaced /* Replaced client */ */ */->execute($command);
