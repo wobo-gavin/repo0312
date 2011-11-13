@@ -50,30 +50,4 @@
             </else>
         </if>
     </target>
-
-    <target name="template" description="Create a /* Replaced /* Replaced /* Replaced client */ */ */ project skeleton">
-        <input propertyname="service.path" promptChar=":">Enter the path where you want to install your web service /* Replaced /* Replaced /* Replaced client */ */ */</input>
-        <input propertyname="service.short_name" promptChar=":">Enter the short name of your /* Replaced /* Replaced /* Replaced client */ */ */ (e.g. /* Replaced /* Replaced /* Replaced guzzle */ */ */-aws)</input>
-        <input propertyname="service./* Replaced /* Replaced /* Replaced client */ */ */_class" promptChar=":">Enter the name of your /* Replaced /* Replaced /* Replaced client */ */ */ class (e.g. UnfuddleClient)</input>
-        <input propertyname="service.namespace" promptChar=":">Enter the root namespace of your /* Replaced /* Replaced /* Replaced client */ */ */ (e.g. /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Aws)</input>
-
-        <echo msg="Creating web service /* Replaced /* Replaced /* Replaced client */ */ */ project" />
-
-        <fileset id="skeleton" dir="./template">
-            <include name="**/**"/>
-        </fileset>
-
-        <echo msg="Creating folder for project at ${service.path}" />
-        <mkdir dir="${service.path}" />
-
-        <echo msg="Copying files to folder" />
-        <copy todir="${service.path}" overwrite="true">
-            <fileset refid="skeleton" />
-            <filterchain>
-                <expandproperties />
-            </filterchain>
-        </copy>
-
-        <move file="${service.path}/Client.php" toFile="${service.path}/${service./* Replaced /* Replaced /* Replaced client */ */ */_class}.php" />
-    </target>
 </project>
