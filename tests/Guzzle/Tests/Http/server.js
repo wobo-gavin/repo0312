@@ -35,6 +35,7 @@ var http = require("http");
 var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port) {
 
     this.port = port;
+    this.log = log;
     this.responses = [];
     this.requests = [];
     var that = this;
@@ -56,7 +57,9 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port) {
                 // Shutdown the server
                 res.writeHead(200, "OK", { "Content-Length": 0, "Connection": "close" });
                 res.end();
-                console.log("Shutting down");
+                if (this.log) {
+                    console.log("Shutting down");
+                }
                 that.server.close();
             }
         } else if (req.method == "GET") {
@@ -70,8 +73,10 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port) {
             if (req.url == "//* Replaced /* Replaced /* Replaced guzzle */ */ */-server/responses") {
                 // Received respones to queue
                 that.responses = eval("(" + request.split("\r\n\r\n")[1] + ")");
-                console.log("Adding respones:");
-                console.log(that.responses);
+                if (this.log) {
+                    console.log("Adding respones:");
+                    console.log(that.responses);
+                }
                 res.writeHead(200, "OK", { "Content-Length": 0 });
                 res.end();
             }
@@ -129,13 +134,16 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port) {
         });
         that.server.listen(port, "127.0.0.1");
 
-        console.log("Server running at http://127.0.0.1:8124/");
+        if (this.log) {
+            console.log("Server running at http://127.0.0.1:8124/");
+        }
     };
 };
 
 // Get the port from the arguments
 port = process.argv.length >= 3 ? process.argv[2] : 8124;
+log = process.argv.length >= 4 ? process.argv[3] : false;
 
 // Start the server
-server = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server(port);
+server = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server(port, log);
 server.start();
