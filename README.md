@@ -3,6 +3,7 @@ PHP framework for HTTP and building RESTful webservice /* Replaced /* Replaced /
 
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP 5.3+ HTTP /* Replaced /* Replaced /* Replaced client */ */ */ and framework for building web service /* Replaced /* Replaced /* Replaced client */ */ */s.
 
+- Download the phar to get started: http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/phar
 - Docs: [www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org](http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/)
 - Forum: https://groups.google.com/forum/?hl=en#!forum//* Replaced /* Replaced /* Replaced guzzle */ */ */
 
