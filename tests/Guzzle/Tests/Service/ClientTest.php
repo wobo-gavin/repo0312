@@ -211,6 +211,26 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
+     */
+    public function testExecutesCommandsWithArray()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(new MockPlugin(array(
+            new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response(200),
+            new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response(200)
+        )));
+
+        // Create a command set and a command
+        $set = array(new MockCommand(), new MockCommand());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->execute($set);
+
+        // Make sure it sent
+        $this->assertTrue($set[0]->isExecuted());
+        $this->assertTrue($set[1]->isExecuted());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSetException
      */
     public function testThrowsExceptionWhenExecutingMixedClientCommandSets()
