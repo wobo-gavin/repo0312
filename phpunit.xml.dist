@@ -18,6 +18,12 @@
     <filter>
         <whitelist>
             <directory suffix=".php">./src//* Replaced /* Replaced /* Replaced Guzzle */ */ */</directory>
+            <exclude>
+                <directory suffix="Interface.php">./src//* Replaced /* Replaced /* Replaced Guzzle */ */ */</directory>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common/Event/Subject.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common//* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/HttpException.php</file>
+            </exclude>
         </whitelist>
     </filter>
 
