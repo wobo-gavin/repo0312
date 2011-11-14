@@ -4,7 +4,6 @@
     "description": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ library and framework for building RESTful web service /* Replaced /* Replaced /* Replaced client */ */ */s",
     "keywords": ["framework", "http", "rest"],
     "homepage": "http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/",
-    "version": "1.0.0",
     "license": "MIT",
     "authors": [
         {
