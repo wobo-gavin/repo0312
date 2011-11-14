@@ -1,7 +1,11 @@
-PHP framework for HTTP and building RESTful webservice /* Replaced /* Replaced /* Replaced client */ */ */s
-==============================================================
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */, PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ and webservice framework
+===============================================
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP 5.3+ HTTP /* Replaced /* Replaced /* Replaced client */ */ */ and framework for building web service /* Replaced /* Replaced /* Replaced client */ */ */s.
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a game changer in the world of PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */s. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ allows you to truly reap the benefits of the HTTP/1.1 spec. No other library provides persistent connection management or makes it easier to send requests in parallel.</p>
+
+In addition to taking the pain out of HTTP, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides a lightweight framework for creating web service /* Replaced /* Replaced /* Replaced client */ */ */s.  Most web service /* Replaced /* Replaced /* Replaced client */ */ */s follow a specific pattern: create a /* Replaced /* Replaced /* Replaced client */ */ */ class, create methods for each action, create and execute a cURL handle, parse the response, implement error handling, and return the result. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ takes the redundancy out of this process and gives you the tools you need to quickly build a web service /* Replaced /* Replaced /* Replaced client */ */ */.
+
+Start <strong>truly</strong> consuming HTTP with /* Replaced /* Replaced /* Replaced Guzzle */ */ */.
 
 - Download the phar to get started: http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/phar
 - Docs: [www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org](http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/)
