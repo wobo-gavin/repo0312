@@ -130,7 +130,7 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
     {
         $this->requests = array();
         $that = $this;
-        $mock = new MockPlugin(true);
+        $mock = new MockPlugin(array(), true);
         $mock->getEventManager()->attach(function($subject, $event, $context) use ($that) {
             if ($event == 'mock.request') {
                 $that->addMockedRequest($context);
@@ -140,7 +140,7 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
         foreach ((array) $paths as $path) {
             $mock->addResponse($this->getMockResponse($path));
         }
-        
+
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach($mock, 9999);
     }
 
