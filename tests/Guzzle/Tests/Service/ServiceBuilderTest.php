@@ -328,4 +328,35 @@ EOT;
         $s = $b->get('missing_params');
         $this->assertEquals('billy', $s->getConfig('username'));
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::
+     */
+    public function testBuilderAllowsReferencesBetweenClients()
+    {
+        $builder = ServiceBuilder::factory(array(
+            'a' => array(
+                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
+                'params' => array(
+                    'other_/* Replaced /* Replaced /* Replaced client */ */ */' => '$.b',
+                    'username'     => 'x',
+                    'password'     => 'y',
+                    'subdomain'    => 'z'
+                )
+            ),
+            'b' => array(
+                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
+                'params' => array(
+                    'username'  => '1',
+                    'password'  => '2',
+                    'subdomain' => '3'
+                )
+            )
+        ));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $builder['a'];
+        $this->assertEquals('x', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('username'));
+        $this->assertSame($builder['b'], $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('other_/* Replaced /* Replaced /* Replaced client */ */ */'));
+        $this->assertEquals('1', $builder['b']->getConfig('username'));
+    }
 }
