@@ -23,7 +23,7 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
     public function setUp()
     {
         parent::setUp();
-        
+
         $this->request = new Request('GET', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/');
     }
 
@@ -34,7 +34,7 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
     {
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Collection', $this->request->getParams());
     }
-    
+
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::addHeaders
      */
@@ -87,7 +87,19 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
     {
         $this->assertFalse($this->request->hasHeader('Foo'));
         $this->request->setHeader('Foo', 'Bar');
-        $this->assertEquals('Foo', $this->request->hasHeader('Foo'));
+        $this->assertEquals(true, $this->request->hasHeader('Foo'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::hasHeader
+     */
+    public function testHasHeaderSearch()
+    {
+        $this->assertFalse($this->request->hasHeader('Foo'));
+        $this->request->setHeader('Foo', 'Bar');
+        $this->assertEquals('Foo', $this->request->hasHeader('Foo', 1));
+        $this->assertEquals('Foo', $this->request->hasHeader('/Foo/', 2));
+        $this->assertEquals(false, $this->request->hasHeader('bar', 1));
     }
 
     /**
@@ -97,7 +109,7 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
     public function testRemoveHeader()
     {
         $this->request->setHeader('Foo', 'Bar');
-        $this->assertEquals('Foo', $this->request->hasHeader('Foo'));
+        $this->assertEquals(true, $this->request->hasHeader('Foo'));
         $this->request->removeHeader('Foo');
         $this->assertFalse($this->request->hasHeader('Foo'));
     }
