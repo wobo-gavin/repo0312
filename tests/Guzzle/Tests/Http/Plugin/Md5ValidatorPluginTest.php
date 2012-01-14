@@ -7,9 +7,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFact
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Md5ValidatorPlugin;
 
-/**
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
- */
 class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
@@ -18,8 +15,8 @@ class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle
     public function testValidatesMd5()
     {
         $plugin = new Md5ValidatorPlugin();
-        $request = RequestFactory::get('http://www.test.com/');
-        $request->getEventManager()->attach($plugin);
+        $request = RequestFactory::create('GET', 'http://www.test.com/');
+        $request->getEventDispatcher()->addSubscriber($plugin);
 
         $body = 'abc';
         $hash = md5($body);
@@ -28,11 +25,15 @@ class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle
             'Content-Length' => 3
         ), 'abc');
 
-        $request->getEventManager()->notify('request.complete', $response);
+        $request->dispatch('request.complete', array(
+            'response' => $response
+        ));
 
         // Try again with no Content-MD5
         $response->removeHeader('Content-MD5');
-        $request->getEventManager()->notify('request.complete', $response);
+        $request->dispatch('request.complete', array(
+            'response' => $response
+        ));
     }
 
     /**
@@ -42,15 +43,15 @@ class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle
     public function testThrowsExceptionOnInvalidMd5()
     {
         $plugin = new Md5ValidatorPlugin();
-        $request = RequestFactory::get('http://www.test.com/');
-        $request->getEventManager()->attach($plugin);
+        $request = RequestFactory::create('GET', 'http://www.test.com/');
+        $request->getEventDispatcher()->addSubscriber($plugin);
 
-        $request->getEventManager()->notify('request.complete',
-            new Response(200, array(
+        $request->dispatch('request.complete', array(
+            'response' => new Response(200, array(
                 'Content-MD5' => 'foobar',
                 'Content-Length' => 3
             ), 'abc')
-        );
+        ));
     }
 
     /**
@@ -59,15 +60,15 @@ class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle
     public function testSkipsWhenContentLengthIsTooLarge()
     {
         $plugin = new Md5ValidatorPlugin(false, 1);
-        $request = RequestFactory::get('http://www.test.com/');
-        $request->getEventManager()->attach($plugin);
+        $request = RequestFactory::create('GET', 'http://www.test.com/');
+        $request->getEventDispatcher()->addSubscriber($plugin);
 
-        $request->getEventManager()->notify('request.complete',
-            new Response(200, array(
+        $request->dispatch('request.complete', array(
+            'response' => new Response(200, array(
                 'Content-MD5' => 'foobar',
                 'Content-Length' => 3
             ), 'abc')
-        );
+        ));
     }
 
     /**
@@ -76,8 +77,8 @@ class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle
     public function testProperlyValidatesWhenUsingContentEncoding()
     {
         $plugin = new Md5ValidatorPlugin(true);
-        $request = RequestFactory::get('http://www.test.com/');
-        $request->getEventManager()->attach($plugin);
+        $request = RequestFactory::create('GET', 'http://www.test.com/');
+        $request->getEventDispatcher()->addSubscriber($plugin);
 
         // Content-MD5 is the MD5 hash of the canonical content after all
         // content-encoding has been applied.  Because cURL will automaticall
@@ -91,7 +92,9 @@ class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle
             'Content-MD5' => $hash,
             'Content-Encoding' => 'gzip'
         ), 'abc');
-        $request->getEventManager()->notify('request.complete', $response);
+        $request->dispatch('request.complete', array(
+            'response' => $response
+        ));
         $this->assertEquals('abc', $response->getBody(true));
 
         // Try again with an unknown encoding
@@ -99,7 +102,9 @@ class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle
             'Content-MD5' => $hash,
             'Content-Encoding' => 'foobar'
         ), 'abc');
-        $request->getEventManager()->notify('request.complete', $response);
+        $request->dispatch('request.complete', array(
+            'response' => $response
+        ));
 
         // Try again with compress
         $body->compress('bzip2.compress');
@@ -107,12 +112,16 @@ class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle
             'Content-MD5' => $body->getContentMd5(),
             'Content-Encoding' => 'compress'
         ), 'abc');
-        $request->getEventManager()->notify('request.complete', $response);
+        $request->dispatch('request.complete', array(
+            'response' => $response
+        ));
 
         // Try again with encoding and disabled content-encoding checks
-        $request->getEventManager()->detach($plugin);
+        $request->getEventDispatcher()->removeSubscriber($plugin);
         $plugin = new Md5ValidatorPlugin(false);
-        $request->getEventManager()->attach($plugin);
-        $request->getEventManager()->notify('request.complete', $response);
+        $request->getEventDispatcher()->addSubscriber($plugin);
+        $request->dispatch('request.complete', array(
+            'response' => $response
+        ));
     }
 }

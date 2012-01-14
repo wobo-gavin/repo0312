@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
@@ -10,17 +11,15 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 
 /**
  * @group server
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::get
      */
     public function testCreatesNewGetRequests()
     {
-        $request = RequestFactory::get('http://www.google.com/');
+        $request = RequestFactory::create('GET', 'http://www.google.com/');
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\MessageInterface', $request);
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\RequestInterface', $request);
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\Request', $request);
@@ -33,20 +32,20 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         
         // Create a GET request with a custom receiving body
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n");
-        $b = EntityBody::factory('');
-        $request = RequestFactory::get($this->getServer()->getUrl(), null, $b);
+        $b = EntityBody::factory();
+        $request = RequestFactory::create('GET', $this->getServer()->getUrl(), null, $b);
+        $request->setClient(new Client());
         $response = $request->send();
         $this->assertSame($b, $response->getBody());
     }
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::put
      */
     public function testCreatesPutRequests()
     {
         // Test using a string
-        $request = RequestFactory::put('http://www.google.com/path?q=1&v=2', null, 'Data');
+        $request = RequestFactory::create('PUT', 'http://www.google.com/path?q=1&v=2', null, 'Data');
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\EntityEnclosingRequest', $request);
         $this->assertEquals('PUT', $request->getMethod());
         $this->assertEquals('http', $request->getScheme());
@@ -59,58 +58,55 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         unset($request);
 
         // Test using an EntityBody
-        $request = RequestFactory::put('http://www.google.com/path?q=1&v=2', null, EntityBody::factory('Data'));
+        $request = RequestFactory::create('PUT', 'http://www.google.com/path?q=1&v=2', null, EntityBody::factory('Data'));
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\EntityEnclosingRequest', $request);
         $this->assertEquals('Data', (string) $request->getBody());
 
         // Test using a resource
         $resource = fopen('php://temp', 'w+');
         fwrite($resource, 'Data');
-        $request = RequestFactory::put('http://www.google.com/path?q=1&v=2', null, $resource);
+        $request = RequestFactory::create('PUT', 'http://www.google.com/path?q=1&v=2', null, $resource);
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\EntityEnclosingRequest', $request);
         $this->assertEquals('Data', (string) $request->getBody());
 
         // Test using an object that can be cast as a string
-        $request = RequestFactory::put('http://www.google.com/path?q=1&v=2', null, Url::factory('http://www.example.com/'));
+        $request = RequestFactory::create('PUT', 'http://www.google.com/path?q=1&v=2', null, Url::factory('http://www.example.com/'));
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\EntityEnclosingRequest', $request);
         $this->assertEquals('http://www.example.com/', (string) $request->getBody());
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::head
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::delete
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
      */
     public function testCreatesHeadAndDeleteRequests()
     {
-        $request = RequestFactory::delete('http://www.test.com/');
+        $request = RequestFactory::create('DELETE', 'http://www.test.com/');
         $this->assertEquals('DELETE', $request->getMethod());
-        $request = RequestFactory::head('http://www.test.com/');
+        $request = RequestFactory::create('HEAD', 'http://www.test.com/');
         $this->assertEquals('HEAD', $request->getMethod());
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::options
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
      */
     public function testCreatesOptionsRequests()
     {
-        $request = RequestFactory::options('http://www.example.com/');
+        $request = RequestFactory::create('OPTIONS', 'http://www.example.com/');
         $this->assertEquals('OPTIONS', $request->getMethod());
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\Request', $request);
     }
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::put
      */
     public function testCreatesNewPutRequestWithBody()
     {
-        $request = RequestFactory::put('http://www.google.com/path?q=1&v=2', null, 'Data');
+        $request = RequestFactory::create('PUT', 'http://www.google.com/path?q=1&v=2', null, 'Data');
         $this->assertEquals('Data', (string) $request->getBody());
     }
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::post
      */
     public function testCreatesNewPostRequestWithFields()
     {
@@ -118,22 +114,22 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $request = RequestFactory::create('POST', 'http://www.google.com/path?q=1&v=2', null, array(
             'a' => 'b'
         ));
-        $this->assertEquals(array('a' => 'b'), $request->getPostFields()->getAll());
+        $this->assertEquals(array('a' => 'b'), $request->getPostFields());
         unset($request);
 
         // Use a collection
         $request = RequestFactory::create('POST', 'http://www.google.com/path?q=1&v=2', null, new Collection(array(
             'a' => 'b'
         )));
-        $this->assertEquals(array('a' => 'b'), $request->getPostFields()->getAll());
+        $this->assertEquals(array('a' => 'b'), $request->getPostFields());
 
         // Use a QueryString
         $request = RequestFactory::create('POST', 'http://www.google.com/path?q=1&v=2', null, new QueryString(array(
             'a' => 'b'
         )));
-        $this->assertEquals(array('a' => 'b'), $request->getPostFields()->getAll());
+        $this->assertEquals(array('a' => 'b'), $request->getPostFields());
 
-        $request = RequestFactory::post('http://www.test.com/', null, array(
+        $request = RequestFactory::create('POST', 'http://www.test.com/', null, array(
             'a' => 'b',
             'file' => '@' . __FILE__
         ));
@@ -141,7 +137,7 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertEquals(array(
             'a' => 'b',
             'file' => '@' . __FILE__
-        ), $request->getPostFields()->getAll());
+        ), $request->getPostFields());
 
         $this->assertEquals(array(
             'file' => __FILE__

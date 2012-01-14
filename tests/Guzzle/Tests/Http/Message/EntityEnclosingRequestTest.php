@@ -2,130 +2,175 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 
 /**
  * @group server
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::__construct
+     */
+    public function testConstructorConfiguresRequest()
+    {
+        $request = new EntityEnclosingRequest('PUT', 'http://test.com', array(
+            'X-Test' => '123'
+        ));
+        $this->assertEquals('123', $request->getHeader('X-Test'));
+        $this->assertEquals('100-Continue', $request->getHeader('Expect'));
+    }
+
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::__toString
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::addPostFields
      */
     public function testRequestIncludesBodyInMessage()
     {
-        $request = RequestFactory::put('http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/', null, 'data');
-        $this->assertEquals("PUT / HTTP/1.1\r\nUser-Agent: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent() . "\r\nHost: www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com\r\nContent-Length: 4\r\nExpect: 100-Continue\r\n\r\ndata", (string) $request);
-        unset($request);
-
-        // Adds POST fields and sets Content-Length
-        $request = RequestFactory::post('http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/', null, array(
-            'data' => '123'
-        ));
-        $this->assertEquals("POST / HTTP/1.1\r\nUser-Agent: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent() . "\r\nHost: www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com\r\nContent-Type: application/x-www-form-urlencoded\r\n\r\ndata=123", (string) $request);
-        unset($request);
-
-        $request = RequestFactory::post('http://www.test.com/');
-        $request->addPostFiles(array(
-            'file' => __FILE__
-        ));
-        $request->addPostFields(array(
-            'a' => 'b'
-        ));
-
-        $message = (string) $request;
-        $this->assertEquals('multipart/form-data', $request->getHeader('Content-Type'));
+        $request = RequestFactory::create('PUT', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/', null, 'data');
+        $this->assertEquals("PUT / HTTP/1.1\r\n"
+            . "Host: www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com\r\n"
+            . "User-Agent: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent() . "\r\n"
+            . "Expect: 100-Continue\r\n"
+            . "Content-Length: 4\r\n\r\n"
+            . "data", (string) $request);
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::update
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::__toString
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::addPostFields
      */
-    public function testRequestDeterminesContentBeforeSending()
+    public function testAddsPostFieldsAndSetsContentLength()
     {
-        // Tests using a POST entity body
+        $request = RequestFactory::create('POST', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/', null, array(
+            'data' => '123'
+        ));
+        $this->assertEquals("POST / HTTP/1.1\r\n"
+            . "Host: www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com\r\n"
+            . "User-Agent: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent() . "\r\n"
+            . "Expect: 100-Continue\r\n"
+            . "Content-Type: application/x-www-form-urlencoded\r\n\r\n"
+            . "data=123", (string) $request);
+    }
+    
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::__toString
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::addPostFiles
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::addPostFields
+     */
+    public function testAddsPostFilesAndSetsContentType()
+    {
+        $request = RequestFactory::create('POST', 'http://www.test.com/')
+            ->addPostFiles(array(
+                'file' => __FILE__
+            ))->addPostFields(array(
+                'a' => 'b'
+            ));
+        $message = (string) $request;
+        $this->assertEquals('multipart/form-data', $request->getHeader('Content-Type'));
+    }
+    
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::processPostFields
+     */
+    public function testRequestBodyContainsPostFiles()
+    {
         $request = RequestFactory::create('POST', 'http://www.test.com/');
         $request->addPostFields(array(
             'test' => '123'
         ));
-        $this->assertContains("\r\n\r\ntest=123", (string)$request);
-        unset($request);
-
-        // Tests using a Content-Length entity body
+        $this->assertContains("\r\n\r\ntest=123", (string) $request);
+    }
+    
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::processPostFields
+     */
+    public function testRequestBodyAddsContentLength()
+    {
         $request = RequestFactory::create('PUT', 'http://www.test.com/');
         $request->setBody(EntityBody::factory('test'));
-        $this->assertNull($request->getHeader('Content-Length'));
-        $request->getEventManager()->notify('request.prepare_entity_body');
         $this->assertEquals(4, $request->getHeader('Content-Length'));
-        unset($request);
-
-        // Tests using a Transfer-Encoding chunked entity body already set
+    }
+    
+    /**
+     * Tests using a Transfer-Encoding chunked entity body already set
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::processPostFields
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::setBody
+     */
+    public function testRequestBodyDoesNotUseContentLengthWhenChunked()
+    {
         $request = RequestFactory::create('PUT', 'http://www.test.com/');
-        $request->setBody(EntityBody::factory('test'))
-                ->setHeader('Transfer-Encoding', 'chunked');
-        $request->getEventManager()->notify('request.prepare_entity_body');
+        $request->setBody(EntityBody::factory('test'), null, true);
         $this->assertNull($request->getHeader('Content-Length'));
-
-        // Tests using a Transfer-Encoding chunked entity body with undeterminable size
+    }
+    
+    /**
+     * Tests using a Transfer-Encoding chunked entity body with undeterminable size
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::processPostFields
+     */
+    public function testUsesChunkedTranserEncodingWhenBodyLengthNotAvailable()
+    {
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\nData");
         $request = RequestFactory::create('PUT', 'http://www.test.com/');
         $request->setBody(EntityBody::factory(fopen($this->getServer()->getUrl(), 'r')));
-        $request->getEventManager()->notify('request.prepare_entity_body');
         $this->assertNull($request->getHeader('Content-Length'));
         $this->assertEquals('chunked', $request->getHeader('Transfer-Encoding'));
-
-        // Tests making sure HTTP/1.0 has a Content-Length header
+    }
+    
+    /**
+     * Tests making sure HTTP/1.0 has a Content-Length header
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::processPostFields
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestException
+     */
+    public function testContentLengthIsSetWithHttp1()
+    {
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\nData");
         $request = RequestFactory::create('PUT', 'http://www.test.com/');
-        $request->setBody(EntityBody::factory(fopen($this->getServer()->getUrl(), 'r')));
         $request->setProtocolVersion('1.0');
-        try {
-            $request->getEventManager()->notify('request.prepare_entity_body');
-            $this->fail('Expected exception due to 1.0 and no Content-Length');
-        } catch (RequestException $e) {
-        }
+        $request->setBody(EntityBody::factory(fopen($this->getServer()->getUrl(), 'r')));
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::setBody
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::getBody
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::setBody
      */
     public function testRequestHasMutableBody()
     {
         $request = RequestFactory::create('PUT', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/', null, 'data');
         $body = $request->getBody();
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\EntityBody', $body);
-        $this->assertEquals($body, $request->getBody());
+        $this->assertSame($body, $request->getBody());
 
-        $request->setBody(EntityBody::factory('foobar'));
-        $this->assertNotEquals($body, $request->getBody());
+        $newBody = EntityBody::factory('foobar');
+        $request->setBody($newBody);
         $this->assertEquals('foobar', (string) $request->getBody());
+        $this->assertSame($newBody, $request->getBody());
     }
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::addPostFields
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::getPostFields
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::getPostFiles
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::addEvent
      */
     public function testSetPostFields()
     {
         $request = RequestFactory::create('POST', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/');
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\QueryString', $request->getPostFields());
+        $this->assertInternalType('array', $request->getPostFields());
 
         $fields = new QueryString(array(
             'a' => 'b'
         ));
         $request->addPostFields($fields);
-        $this->assertEquals($fields->getAll(), $request->getPostFields()->getAll());
+        $this->assertEquals($fields->getAll(), $request->getPostFields());
         $this->assertEquals(array(), $request->getPostFiles());
     }
 
@@ -135,19 +180,23 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
      */
     public function testSetPostFiles()
     {
-        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n");
-        $request = RequestFactory::create('POST', $this->getServer()->getUrl());
-        $request->addPostFiles(array(__FILE__));
-        $request->addPostFields(array(
-            'test' => 'abc'
-        ));
+        $request = RequestFactory::create('POST', $this->getServer()->getUrl())
+            ->setClient(new Client())
+            ->addPostFiles(array(__FILE__))
+            ->addPostFields(array(
+                'test' => 'abc'
+            ));
+
         $this->assertEquals(array(
             'file' => '@' . __FILE__,
             'test' => 'abc'
-        ), $request->getPostFields()->getAll());
+        ), $request->getPostFields());
+
         $this->assertEquals(array(
             'file' => __FILE__
         ), $request->getPostFiles());
+
+        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n");
         $request->send();
         
         $this->assertNotNull($request->getHeader('Content-Length'));
@@ -160,40 +209,49 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
      */
     public function testSetPostFilesThrowsExceptionWhenFileIsNotFound()
     {
-        $request = RequestFactory::create('POST', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/');
-        $request->addPostFiles(array(
-            'file' => 'filenotfound.ini'
-        ));
+        $request = RequestFactory::create('POST', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/')
+            ->addPostFiles(array(
+                'file' => 'filenotfound.ini'
+            ));
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::update
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::setPostField
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::processPostFields
      */
-    public function testProcessMethodAddsPostBodyAndEntityBodyHeaders()
+    public function testPostRequestsUseApplicationXwwwForUrlEncodedForArrays()
     {
         $request = RequestFactory::create('POST', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/');
-        $request->getPostFields()->set('a', 'b');
+        $request->setPostField('a', 'b');
         $this->assertContains("\r\n\r\na=b", (string) $request);
         $this->assertEquals('application/x-www-form-urlencoded', $request->getHeader('Content-Type'));
-        unset($request);
+    }
 
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::processPostFields
+     */
+    public function testProcessMethodAddsPostCurlOptions()
+    {
         $request = RequestFactory::create('POST', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/');
-        $request->getPostFields()->set('a', 'b');
-        $request->getEventManager()->notify('request.prepare_entity_body');
+        $request->setPostField('a', 'b');
         $this->assertEquals('application/x-www-form-urlencoded', $request->getHeader('Content-Type'));
         $this->assertEquals('a=b', $request->getCurlOptions()->get(CURLOPT_POSTFIELDS));
-        unset($request);
+    }
 
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::processPostFields
+     */
+    public function testPostRequestsUseMultipartFormDataWithFiles()
+    {
         $request = RequestFactory::create('POST', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/');
         $request->addPostFiles(array('file' => __FILE__));
-        $request->getEventManager()->notify('request.prepare_entity_body');
         $this->assertEquals('multipart/form-data', $request->getHeader('Content-Type'));
         $this->assertEquals(array('file' => '@' . __FILE__), $request->getCurlOptions()->get(CURLOPT_POSTFIELDS));
     }
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::setBody
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::update
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::processPostFields
      */
     public function testCanSendMultipleRequestsUsingASingleRequestObject()
     {
@@ -203,19 +261,57 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
             "HTTP/1.1 201 Created\r\nContent-Length: 0\r\n\r\n",
         ));
 
-        $request = RequestFactory::put($this->getServer()->getUrl());
-        $request->setBody('test');
+        // Send the first request
+        $request = RequestFactory::create('PUT', $this->getServer()->getUrl())
+            ->setBody('test')
+            ->setClient(new Client());
         $request->send();
         $this->assertEquals(200, $request->getResponse()->getStatusCode());
 
-        $request->setBody(json_encode(array('a' => '1')), 'application/json');
+        // Send the second request
+        $request->setBody('abcdefg', 'application/json', false);
         $request->send();
+        $this->assertEquals(201, $request->getResponse()->getStatusCode());
 
+        // Ensure that the same request was sent twice with different bodies
         $requests = $this->getServer()->getReceivedRequests(true);
         $this->assertEquals(2, count($requests));
         $this->assertEquals(4, $requests[0]->getHeader('Content-Length'));
-        $this->assertNotEquals(4, $requests[1]->getHeader('Content-Length'));
+        $this->assertEquals(7, $requests[1]->getHeader('Content-Length'));
+    }
 
-        $this->assertEquals(201, $request->getResponse()->getStatusCode());
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::getPostField
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::removePostField
+     */
+    public function testRemovingPostFieldRebuildsPostFields()
+    {
+        $request = new EntityEnclosingRequest('POST', 'http://test.com');
+        $request->setPostField('test', 'value');
+        $request->removePostField('test');
+        $this->assertNull($request->getPostField('test'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::setBody
+     */
+    public function testUsesChunkedTransferWhenBodyLengthCannotBeDetermined()
+    {
+        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n");
+        $request = new EntityEnclosingRequest('PUT', 'http://test.com/');
+        $request->setBody(fopen($this->getServer()->getUrl(), 'r'));
+        $this->assertEquals('chunked', $request->getHeader('Transfer-Encoding'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::setBody
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestException
+     */
+    public function testThrowsExceptionWhenContentLengthCannotBeDeterminedAndUsingHttp1()
+    {
+        $request = new EntityEnclosingRequest('PUT', 'http://test.com/');
+        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n");
+        $request->setProtocolVersion('1.0');
+        $request->setBody(fopen($this->getServer()->getUrl(), 'r'));
     }
 }

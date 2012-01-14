@@ -11,8 +11,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiC
 /**
  * Command object to handle preparing and processing /* Replaced /* Replaced /* Replaced client */ */ */ requests and
  * responses of the requests
- *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 interface CommandInterface
 {
@@ -38,13 +36,6 @@ interface CommandInterface
      * @return ApiCommand|NullObject
      */
     function getApiCommand();
-
-    /**
-     * Get whether or not the command can be batched
-     *
-     * @return bool
-     */
-    function canBatch();
 
     /**
      * Execute the command

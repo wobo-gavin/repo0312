@@ -4,8 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar;
 
 /**
  * Interface for persisting cookies
- *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 interface CookieJarInterface
 {

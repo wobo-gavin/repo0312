@@ -1,10 +1,20 @@
+# Ingore common cruft
 .DS_STORE
 coverage
+
+# Ignore binary files
+/* Replaced /* Replaced /* Replaced guzzle */ */ */.phar
+
+# Ignore potentially sensitive phpunit file
 phpunit.xml
-build//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar
-build//* Replaced /* Replaced /* Replaced guzzle */ */ */-na.phar
-src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Aws/
-src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//CardinalCommerce/
-src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Unfuddle/
+
+# Helps to ignore services being tested
+src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//
+!src//* Replaced /* Replaced /* Replaced Guzzle */ */ *///* Replaced /* Replaced /* Replaced Guzzle */ */ */.php
+!src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common
+!src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http
+!src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service
+
+# Ignore composer generated files
 composer.lock
-vendor/.composer
+vendor/

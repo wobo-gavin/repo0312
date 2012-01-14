@@ -2,17 +2,15 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Observer;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\Subject;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Maintains a list of requests and responses sent using a request or /* Replaced /* Replaced /* Replaced client */ */ */
- *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
-class HistoryPlugin implements Observer, \IteratorAggregate, \Countable
+class HistoryPlugin implements EventSubscriberInterface, \IteratorAggregate, \Countable
 {
     /**
      * @var int The maximum number of requests to maintain in the history
@@ -23,6 +21,14 @@ class HistoryPlugin implements Observer, \IteratorAggregate, \Countable
      * @var array Requests that have passd through the plugin
      */
     protected $requests = array();
+    
+    /**
+     * {@inheritdoc} 
+     */
+    public static function getSubscribedEvents()
+    {
+        return array('request.complete' => 'onRequestComplete');
+    }
 
     /**
      * Add a request to the history
@@ -122,10 +128,8 @@ class HistoryPlugin implements Observer, \IteratorAggregate, \Countable
     /**
      * {@inheritdoc}
      */
-    public function update(Subject $subject, $event, $context = null)
+    public function onRequestComplete(Event $event)
     {
-        if ($event == 'request.complete') {
-            $this->add($subject);
-        }
+        $this->add($event['request']);
     }
 }

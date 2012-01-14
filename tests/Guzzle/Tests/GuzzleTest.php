@@ -5,9 +5,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 
-/**
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
- */
 class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Test extends /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**

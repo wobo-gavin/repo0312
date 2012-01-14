@@ -6,9 +6,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFact
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 
-/**
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
- */
 class ClosureCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
@@ -34,21 +31,6 @@ class ClosureCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand
-     */
-    public function testCanSetCanBatch()
-    {
-        $c = new ClosureCommand(array(
-            'closure' => function() {},
-            'closure_api' => true
-        ));
-
-        $this->assertTrue($c->canBatch());
-        $this->assertSame($c, $c->setCanBatch(false));
-        $this->assertFalse($c->canBatch());
-    }
-
-    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand::prepare
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand::build
      */
@@ -57,7 +39,7 @@ class ClosureCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $c = new ClosureCommand(array(
             'closure' => function($command, $api) {
                 $command->set('testing', '123');
-                $request = RequestFactory::get('http://www.test.com/');
+                $request = RequestFactory::create('GET', 'http://www.test.com/');
                 return $request;
             },
             'closure_api' => true

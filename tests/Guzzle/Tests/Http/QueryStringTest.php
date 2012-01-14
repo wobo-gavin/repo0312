@@ -4,9 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 
-/**
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
- */
 class QueryStringTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
@@ -99,7 +96,6 @@ class QueryStringTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
 
     /**
      * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString::urlEncode
-     * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString::rawUrlEncode
      * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString::encodeData
      * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString::replace
      */
@@ -133,9 +129,6 @@ class QueryStringTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         // Disable encoding of both fields and values
         $this->q->setEncodeValues(false);
         $this->assertEquals($testData, $this->q->urlEncode());
-
-
-        $this->assertEquals('one&two%3D', QueryString::rawurlencode('one&two=', array('&')));
     }
 
     /**

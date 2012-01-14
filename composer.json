@@ -2,21 +2,66 @@
     "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */",
     "type": "library",
     "description": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ library and framework for building RESTful web service /* Replaced /* Replaced /* Replaced client */ */ */s",
-    "keywords": ["framework", "http", "rest"],
+    "keywords": ["framework", "http", "rest", "web service"],
     "homepage": "http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Michael Dowling",
-            "email": "michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org"
+    "authors": [{
+        "name": "Michael Dowling",
+        "email": "mtdowling@gmail.com",
+        "homepage": "https://github.com/mtdowling"
+    },
+    {
+        "name": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Community",
+        "homepage": "https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//contributors"
+    }],
+    "repositories": {
+        "zend-log": {
+            "package": {
+                "name": "zend/zend-log",
+                "version": "2.0.0",
+                "autoload": { "psr-0": { "Zend\\Log": "" } },
+                "target-dir": "Zend/Log",
+                "dist": {
+                    "url": "https://github.com/KnpLabs/zend-log/zipball/master",
+                    "type": "zip"
+                },
+                "source": {
+                    "url": "https://github.com/KnpLabs/zend-log.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
         },
-        {
-            "name": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Community",
-            "homepage": "https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//contributors"
+        "zend-cache": {
+            "package": {
+                "name": "zend/zend-cache",
+                "version": "2.0.0",
+                "autoload": { "psr-0": { "Zend\\Cache": "" } },
+                "target-dir": "Zend/Cache",
+                "dist": {
+                    "url": "https://github.com/KnpLabs/zend-cache/zipball/master",
+                    "type": "zip"
+                },
+                "source": {
+                    "url": "https://github.com/KnpLabs/zend-cache.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
         }
-    ],
+    },
     "require": {
-        "php": ">=5.3.2"
+        "php": ">=5.3.2",
+        "ext-curl": "*",
+        "symfony/event-dispatcher": "*",
+        "symfony/validator": "*"
+    },
+    "suggest": {
+        "symfony/class-loader": "*",
+        "doctrine/common": "*",
+        "monolog/monolog": "*",
+        "zend/zend-cache": "*",
+        "zend/zend-log": "*"
     },
     "autoload": {
         "psr-0": { "/* Replaced /* Replaced /* Replaced Guzzle */ */ */": "src/" }

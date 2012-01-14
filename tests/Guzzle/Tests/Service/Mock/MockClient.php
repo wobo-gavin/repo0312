@@ -2,13 +2,11 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inspector;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inspector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 
 /**
  * Mock /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Service
- *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class MockClient extends Client
 {

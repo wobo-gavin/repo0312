@@ -5,20 +5,18 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Message;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\HttpException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\BadResponseException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 
 /**
  * @group server
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
-     * The response object to test
-     *
-     * @var /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response
+     * @var Response The response object to test
      */
     protected $response;
 
@@ -85,7 +83,7 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         try {
             $response = new Response(200, null, array('foo' => 'bar'));
             $this->fail('Response did not throw exception when passing invalid body');
-        } catch (BadResponseException $e) {
+        } catch (HttpException $e) {
         }
 
         // Make sure the proper exception is thrown when sending invalid code
@@ -645,7 +643,7 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
 
         // When an HTTPS request is sent and the Cache-Control directive does
         // not include a 'public' value, then the response is not to be cached
-        $request = RequestFactory::get('https://www.test.com/');
+        $request = RequestFactory::create('GET', 'https://www.test.com/');
         $response = new Response(200);
         $response->setRequest($request);
         $this->assertFalse($response->canCache());

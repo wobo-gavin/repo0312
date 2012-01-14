@@ -5,8 +5,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock
 /**
  * Other mock Command
  *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
- *
  * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ test default="123" required="true" doc="Test argument"
  * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ other
  * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ arg type="string

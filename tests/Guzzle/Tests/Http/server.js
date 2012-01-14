@@ -22,7 +22,6 @@
  *      Host: 127.0.0.1:8124
  *
  * @package /* Replaced /* Replaced /* Replaced Guzzle */ */ */ PHP <http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  * @license See the LICENSE file that was distributed with this source code.
  */
 
@@ -53,6 +52,9 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port) {
                 that.requests = [];
                 res.writeHead(200, "OK", { "Content-Length": 0 });
                 res.end();
+                if (this.log) {
+                    console.log("Flushing requests");
+                }
             } else if (req.url == "//* Replaced /* Replaced /* Replaced guzzle */ */ */-server") {
                 // Shutdown the server
                 res.writeHead(200, "OK", { "Content-Length": 0, "Connection": "close" });
@@ -68,6 +70,9 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port) {
                 var data = that.requests.join("\n----[request]\n");
                 res.writeHead(200, "OK", { "Content-Length": data.length });
                 res.end(data);
+                if (this.log) {
+                    console.log("Sending receiving requests");
+                }
             }
         } else if (req.method == "PUT") {
             if (req.url == "//* Replaced /* Replaced /* Replaced guzzle */ */ */-server/responses") {

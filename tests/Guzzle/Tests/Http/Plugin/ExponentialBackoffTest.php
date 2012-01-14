@@ -2,14 +2,14 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\Pool;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
 
 /**
  * @group server
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class ExponentialBackoffPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
@@ -65,10 +65,11 @@ class ExponentialBackoffPluginTest extends \/* Replaced /* Replaced /* Replaced 
 
         // Clear out other requests that have been received by the server
         $this->getServer()->flush();
-        
+
         $plugin = new ExponentialBackoffPlugin(2, null, array($this, 'delayClosure'));
-        $request = RequestFactory::get($this->getServer()->getUrl());
-        $request->getEventManager()->attach($plugin);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
         $request->send();
 
         // Make sure it eventually completed successfully
@@ -81,7 +82,8 @@ class ExponentialBackoffPluginTest extends \/* Replaced /* Replaced /* Replaced 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin::update
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin::onRequestSent
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin::onRequestPoll
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\BadResponseException
      */
@@ -95,17 +97,18 @@ class ExponentialBackoffPluginTest extends \/* Replaced /* Replaced /* Replaced 
         ));
 
         $plugin = new ExponentialBackoffPlugin(2, null, array($this, 'delayClosure'));
-        $request = RequestFactory::get($this->getServer()->getUrl());
-        $request->getEventManager()->attach($plugin);
-
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
         // This will fail because the plugin isn't retrying the request because
         // the max number of retries is exceeded (1 > 0)
         $request->send();
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin::update
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Pool\Pool
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin::onRequestSent
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin::onRequestPoll
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti
      */
     public function testRetriesPooledRequestsUsingDelayAndPollingEvent()
     {
@@ -120,13 +123,11 @@ class ExponentialBackoffPluginTest extends \/* Replaced /* Replaced /* Replaced 
         $plugin = new ExponentialBackoffPlugin(1, null, function($r) {
             return 1;
         });
-        
-        $request = RequestFactory::get($this->getServer()->getUrl());
-        $request->getEventManager()->attach($plugin);
 
-        $pool = new Pool();
-        $pool->add($request);
-        $pool->send();
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
+        $request->send();
 
         // Make sure it eventually completed successfully
         $this->assertEquals('data', $request->getResponse()->getBody(true));

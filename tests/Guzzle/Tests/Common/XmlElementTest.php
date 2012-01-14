@@ -4,10 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common;
 
 use \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\XmlElement;
 
-/**
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
- * @author Harold Asbridge <harold@shoebacca.com>
- */
 class XmlElementTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**

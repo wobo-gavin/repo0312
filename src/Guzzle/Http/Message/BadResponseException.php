@@ -4,8 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 /**
  * Http request exception thrown when a bad response is received
- *
- * @author  michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org
  */
 class BadResponseException extends RequestException
 {

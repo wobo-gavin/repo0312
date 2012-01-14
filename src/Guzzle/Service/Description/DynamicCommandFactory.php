@@ -4,8 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Descriptio
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inspector;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inspector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
@@ -14,8 +13,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureC
 /**
  * Build /* Replaced /* Replaced /* Replaced Guzzle */ */ */ commands based on a service document using dynamically created
  * commands to implement a service document's specifications.
- *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class DynamicCommandFactory implements CommandFactoryInterface
 {
@@ -26,24 +23,24 @@ class DynamicCommandFactory implements CommandFactoryInterface
     {
         if ($command->getConcreteClass() != '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\ClosureCommand') {
             $class = $command->getConcreteClass();
-            
+
             return new $class($args, $command);
         }
 
         // Build the command based on the service doc and supplied arguments
         return new ClosureCommand(array_merge($args, array(
-            
+
             // Generate a dynamically created command using a closure to
             // prepare the command
             'closure' => function(ClosureCommand $that, ApiCommand $api) {
 
                 // Validate the command with the config options
-                Inspector::getInstance()->validateConfig($api->getArgs(), $that);
+                Inspector::getInstance()->validateConfig($api->getParams(), $that);
 
                 // Get the path values and use the /* Replaced /* Replaced /* Replaced client */ */ */ config settings
                 $pathValues = $that->getClient()->getConfig();
                 $foundPath = false;
-                foreach ($api->getArgs() as $name => $arg) {
+                foreach ($api->getParams() as $name => $arg) {
                     if ($arg->get('location') == 'path') {
                         $pathValues->set($name, $arg->get('prepend') . $that->get($name) . $arg->get('append'));
                         $foundPath = true;
@@ -69,8 +66,8 @@ class DynamicCommandFactory implements CommandFactoryInterface
                 $request = RequestFactory::create($api->getMethod(), $url);
 
                 // Add arguments to the request using the location attribute
-                foreach ($api->getArgs() as $name => $arg) {
-                    
+                foreach ($api->getParams() as $name => $arg) {
+
                     if ($that->get($name)) {
 
                         // Check that a location is set
@@ -88,10 +85,10 @@ class DynamicCommandFactory implements CommandFactoryInterface
                             // Determine the location and key setting location[:key]
                             $parts = explode(':', $location);
                             $place = $parts[0];
-                            
+
                             // If a key is specified (using location:key), use it
                             $key = isset($parts[1]) ? $parts[1] : $name;
-                            
+
                             // Add the parameter to the request
                             switch ($place) {
                                 case 'body':
@@ -107,8 +104,6 @@ class DynamicCommandFactory implements CommandFactoryInterface
                         }
                     }
                 }
-
-                $that->setCanBatch($api->canBatch());
 
                 return $request;
             },

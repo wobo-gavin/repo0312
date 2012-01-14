@@ -9,8 +9,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInte
  * runtime using a closure to prepare the request.  A closure key and \Closure
  * value must be passed to the command in the constructor.  The closure must
  * accept the command object as an argument.
- *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class ClosureCommand extends AbstractCommand
 {
@@ -43,19 +41,5 @@ class ClosureCommand extends AbstractCommand
         if (!$this->request || !$this->request instanceof RequestInterface) {
             throw new \UnexpectedValueException('Closure command did not return a RequestInterface object');
         }
-    }
-
-    /**
-     * Set whether or not the command can be batched
-     *
-     * @param bool $canBatch Set to TRUE if you can batch this command or FALSE
-     *
-     * @return ClosureCommand
-     */
-    public function setCanBatch($canBatch)
-    {
-        $this->canBatch = (bool) $canBatch;
-
-        return $this;
     }
 }

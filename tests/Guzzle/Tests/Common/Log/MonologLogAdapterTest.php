@@ -6,9 +6,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\MonologLogAda
 use Monolog\Logger;
 use Monolog\Handler\TestHandler;
 
-/**
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
- */
 class MonologLogAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**

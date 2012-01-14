@@ -4,15 +4,15 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Descriptio
 
 /**
  * Build service descriptions
- *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 interface DescriptionBuilderInterface
 {
     /**
      * Builds a new ServiceDescription object
      *
+     * @param string $filename File to build
+     *
      * @return ServiceDescription
      */
-    function build();
+    static function build($filename);
 }

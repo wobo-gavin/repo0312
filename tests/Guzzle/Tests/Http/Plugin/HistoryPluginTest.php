@@ -3,14 +3,12 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\HistoryPlugin;
 
-/**
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
- */
 class HistoryPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
@@ -24,14 +22,23 @@ class HistoryPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
     protected function addRequests(HistoryPlugin $h, $num)
     {
         $requests = array();
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://localhost/');
         for ($i = 0; $i < $num; $i++) {
-            $requests[$i] = RequestFactory::get('http://localhost/');
+            $requests[$i] = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
             $requests[$i]->setResponse(new Response(200), true);
             $requests[$i]->send();
             $h->add($requests[$i]);
         }
 
         return $requests;
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\HistoryPlugin::getSubscribedEvents
+     */
+    public function testDescribesSubscribedEvents()
+    {
+        $this->assertInternalType('array', HistoryPlugin::getSubscribedEvents());
     }
 
     /**
@@ -66,7 +73,7 @@ class HistoryPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
     public function testIgnoresUnsentRequests()
     {
         $h = new HistoryPlugin();
-        $request = RequestFactory::get('http://localhost/');
+        $request = RequestFactory::create('GET', 'http://localhost/');
         $h->add($request);
         $this->assertEquals(0, count($h));
     }
@@ -122,16 +129,19 @@ class HistoryPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\HistoryPlugin::update
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\HistoryPlugin::onRequestComplete
      * @depends testAddsRequests
      */
     public function testUpdatesAddRequests()
     {
         $h = new HistoryPlugin();
-        $request = RequestFactory::get('http://localhost/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://localhost/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($h);
+
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
         $request->setResponse(new Response(200), true);
-        $request->getEventManager()->attach($h);
         $request->send();
+
         $this->assertSame($request, $h->getLastRequest());
     }
 }

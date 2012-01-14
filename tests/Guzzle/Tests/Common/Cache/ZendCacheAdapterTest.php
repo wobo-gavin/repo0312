@@ -3,16 +3,12 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Cache;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\ZendCacheAdapter;
+use Zend\Cache\Backend\TestBackend;
 
-/**
- * CacheAdapter test case
- *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
- */
 class ZendCacheAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
-     * @var \Doctrine\Common\Cache\ArrayCache
+     * @var StaticBackend
      */
     private $cache;
 
@@ -27,7 +23,7 @@ class ZendCacheAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
     protected function setUp()
     {
         parent::setUp();
-        $this->cache = new \Zend_Cache_Backend_Test();
+        $this->cache = new TestBackend();
         $this->adapter = new ZendCacheAdapter($this->cache);
     }
 
@@ -39,6 +35,15 @@ class ZendCacheAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
         $this->adapter = null;
         $this->cache = null;
         parent::tearDown();
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\ZendCacheAdapter
+     * @expectedException InvalidArgumentException
+     */
+    public function testEnforcesType()
+    {
+        $adapter = new ZendCacheAdapter('fud');
     }
 
     /**

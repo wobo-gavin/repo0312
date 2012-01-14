@@ -4,9 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator;
 
-/**
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
- */
 class MockResourceIterator extends ResourceIterator
 {
     protected function sendRequest()

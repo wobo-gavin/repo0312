@@ -6,8 +6,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Comma
 
 /**
  * Sub folder command
- *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class Sub extends MockCommand
 {

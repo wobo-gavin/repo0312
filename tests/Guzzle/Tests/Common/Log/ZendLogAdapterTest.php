@@ -5,11 +5,10 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Log;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\LogAdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ZendLogAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use Zend\Log\Logger;
+use Zend\Log\Writer\Stream;
 
 /**
- * Test class for ZendLogAdapter
- *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\AbstractLogAdapter
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ZendLogAdapter
  */
@@ -21,7 +20,7 @@ class ZendLogAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     protected $adapter;
 
     /**
-     * @var Zend_Log
+     * @var Logger
      */
     protected $log;
 
@@ -31,7 +30,7 @@ class ZendLogAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
      */
     protected function setUp()
     {        
-        $this->log = new \Zend_Log(new \Zend_Log_Writer_Stream('php://output'));
+        $this->log = new Logger(new Stream('php://output'));
         $this->adapter = new ZendLogAdapter($this->log);
     }
 

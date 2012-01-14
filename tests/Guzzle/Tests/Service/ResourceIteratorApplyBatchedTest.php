@@ -8,10 +8,17 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockR
 
 /**
  * @group server
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class ResourceIteratorApplyBatchedTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIteratorApplyBatched::getAllEvents
+     */
+    public function testDescribesEvents()
+    {
+        $this->assertInternalType('array', ResourceIteratorApplyBatched::getAllEvents());
+    }
+
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIteratorApplyBatched
      */

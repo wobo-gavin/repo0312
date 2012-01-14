@@ -1,7 +1,7 @@
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */, PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ and webservice framework
-===============================================
+================================================
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a game changer in the world of PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */s. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ allows you to truly reap the benefits of the HTTP/1.1 spec. No other library provides persistent connection management or makes it easier to send requests in parallel.</p>
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a game changer in the world of PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */s. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ allows you to truly reap the benefits of the HTTP/1.1 spec. No other library makes it easier to manage persistent connections or send requests in parallel.</p>
 
 In addition to taking the pain out of HTTP, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides a lightweight framework for creating web service /* Replaced /* Replaced /* Replaced client */ */ */s.  Most web service /* Replaced /* Replaced /* Replaced client */ */ */s follow a specific pattern: create a /* Replaced /* Replaced /* Replaced client */ */ */ class, create methods for each action, create and execute a cURL handle, parse the response, implement error handling, and return the result. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ takes the redundancy out of this process and gives you the tools you need to quickly build a web service /* Replaced /* Replaced /* Replaced client */ */ */.
 
@@ -37,7 +37,7 @@ HTTP basics
 ```php
 <?php
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 
 $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.example.com/api/v1/key/{{key}}', array(
     'key' => '***'
@@ -102,18 +102,30 @@ Send requests in parallel
 ```php
 <?php
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
-
 try {
-    $responses = $/* Replaced /* Replaced /* Replaced client */ */ */->batch(array(
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://www.google.com/'),
-        $/* Replaced /* Replaced /* Replaced client */ */ */->head('http://www.google.com/'),
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get('https://www.github.com/')
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client('http://www.myapi.com/api/v1');
+    $responses = $/* Replaced /* Replaced /* Replaced client */ */ */->send(array(
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('users'),
+        $/* Replaced /* Replaced /* Replaced client */ */ */->head('messages/123'),
+        $/* Replaced /* Replaced /* Replaced client */ */ */->delete('orders/123')
     ));
-} catch (PoolRequestException $e) {
+} catch (/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ExceptionCollection $e) {
     echo "The following requests encountered an exception: \n";
     foreach ($e as $exception) {
         echo $exception->getRequest() . "\n" . $exception->getMessage() . "\n";
     }
 }
+```
+
+Testing /* Replaced /* Replaced /* Replaced Guzzle */ */ */
+--------------
+
+Here's how to install /* Replaced /* Replaced /* Replaced Guzzle */ */ */ from source to run the unit tests:
+
+```
+git clone git@github.com:/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.git
+cd /* Replaced /* Replaced /* Replaced guzzle */ */ */
+composer.phar install --install-suggests
+cp phpunit.xml.dist phpunit.xml
+phpunit
 ```

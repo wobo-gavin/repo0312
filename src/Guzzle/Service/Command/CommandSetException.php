@@ -4,8 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command;
 
 /**
  * Command Set exception
- *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 class CommandSetException extends \RuntimeException
 {

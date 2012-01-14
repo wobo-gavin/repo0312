@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ClosureLogAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
@@ -12,7 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin;
 
 /**
  * @group server
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin
  */
 class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
@@ -25,6 +26,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
      * @var ClosureLogAdapter
      */
     private $logAdapter;
+    private $/* Replaced /* Replaced /* Replaced client */ */ */;
 
     public function setUp()
     {
@@ -35,6 +37,8 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         );
 
         $this->plugin = new LogPlugin($this->logAdapter);
+        $this->/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $this->/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($this->plugin);
     }
 
     /**
@@ -47,7 +51,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     private function parseMessage($message)
     {
         $p = explode(' - ', $message, 4);
-        
+
         $parts['host'] = trim($p[0]);
         $parts['request'] = str_replace('"', '', $p[1]);
         list($parts['code'], $parts['size']) = explode(' ', $p[2]);
@@ -67,18 +71,11 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $this->assertEquals($this->logAdapter, $plugin->getLogAdapter());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::update
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::log
-     */
     public function testLogsRequestAndResponseContext()
     {
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n");
-        $request = new Request('GET', $this->getServer()->getUrl());
 
-        $plugin = new LogPlugin($this->logAdapter);
-        $request->getEventManager()->attach($plugin);
-
+        $request = $this->/* Replaced /* Replaced /* Replaced client */ */ */->get();
         ob_start();
         $request->send();
         $message = ob_get_clean();
@@ -93,16 +90,14 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $this->assertContains('7 /* Replaced /* Replaced /* Replaced guzzle */ */ */.request', $message);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::update
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::log
-     */
     public function testLogsRequestAndResponseWireHeaders()
     {
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata");
-        $request = new Request('GET', $this->getServer()->getUrl());
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
         $plugin = new LogPlugin($this->logAdapter, LogPlugin::LOG_CONTEXT | LogPlugin::LOG_HEADERS);
-        $request->getEventManager()->attach($plugin);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
 
         ob_start();
         $request->send();
@@ -123,19 +118,16 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $this->assertContains("\n< HTTP/1.1 200 OK\r\n< Content-Length: 4", $message);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::update
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin::log
-     */
     public function testLogsRequestAndResponseWireContentAndHeaders()
     {
-        $request = new EntityEnclosingRequest('PUT', $this->getServer()->getUrl());
-        $request->setBody(EntityBody::factory('send'));
+        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata");
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
         $plugin = new LogPlugin($this->logAdapter, LogPlugin::LOG_CONTEXT | LogPlugin::LOG_HEADERS | LogPlugin::LOG_BODY);
-        $request->getEventManager()->attach($plugin);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put('', null, EntityBody::factory('send'));
 
         ob_start();
-        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata");
         $request->send();
         $message = ob_get_clean();
 
@@ -157,14 +149,12 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $this->assertContains("data", $message);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin
-     */
     public function testLogsRequestAndResponseWireContentAndHeadersNonStreamable()
     {
-        $request = new EntityEnclosingRequest('PUT', $this->getServer()->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
         $plugin = new LogPlugin($this->logAdapter, LogPlugin::LOG_CONTEXT | LogPlugin::LOG_HEADERS | LogPlugin::LOG_BODY);
-        $request->getEventManager()->attach($plugin);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put();
 
         // Send the response from the dummy server as the request body
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\nsend");
@@ -174,8 +164,8 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $tmpFile = tempnam('/tmp', 'testLogsRequestAndResponseWireContentAndHeadersNonStreamable');
         $request->setResponseBody(EntityBody::factory(fopen($tmpFile, 'w')));
 
-        ob_start();
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 8\r\n\r\nresponse");
+        ob_start();
         $request->send();
         $message = ob_get_clean();
 
@@ -197,24 +187,20 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         unlink($tmpFile);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin
-     */
     public function testLogsWhenExceptionsAreThrown()
     {
-        $request = new Request('GET', $this->getServer()->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
         $plugin = new LogPlugin($this->logAdapter, LogPlugin::LOG_VERBOSE);
-        $request->getEventManager()->attach($plugin);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
 
         $this->getServer()->enqueue("HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\n\r\n");
 
         ob_start();
-
         try {
             $request->send();
             $this->fail('Exception for 404 was not thrown');
         } catch (\Exception $e) {}
-
         $message = ob_get_clean();
 
         $this->assertContains('127.0.0.1 - "GET / HTTP/1.1" - 404 0 - ', $message);
@@ -245,31 +231,33 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin
      * @dataProvider verbosityProvider
      */
     public function testLogsTransactionsAtDifferentLevels($level, $request)
     {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $request = RequestFactory::fromMessage($request);
+        $request->setClient($/* Replaced /* Replaced /* Replaced client */ */ */);
+
         $plugin = new LogPlugin(new ClosureLogAdapter(
             function($message, $priority, $extras = null) {
                 echo $message . "\n";
             }
         ), $level);
-        $request->getEventManager()->attach($plugin);
+        $request->getEventDispatcher()->addSubscriber($plugin);
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\nresp");
 
         ob_start();
         $request->send();
         $gen = ob_get_clean();
-        
+
         $parts = explode("\n", trim($gen), 2);
 
         // Check if the context was properly logged
         if ($level & LogPlugin::LOG_CONTEXT) {
             $this->assertContains('127.0.0.1 - "' . $request->getMethod() . ' /', $gen);
         }
-        
+
         // Check if the line count is 1 when just logging the context
         if ($level == LogPlugin::LOG_CONTEXT) {
             $this->assertEquals(1, count($parts));

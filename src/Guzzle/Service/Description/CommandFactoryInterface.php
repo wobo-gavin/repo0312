@@ -4,8 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Descriptio
 
 /**
  * Interface for building /* Replaced /* Replaced /* Replaced Guzzle */ */ */ commands.
- *
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
  */
 interface CommandFactoryInterface
 {

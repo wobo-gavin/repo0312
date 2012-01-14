@@ -7,19 +7,15 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Plugin\MockPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\Sub\Sub;
 
-/**
- * @author Michael Dowling <michael@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
- */
 class CommandTest extends AbstractCommandTest
 {
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::__construct
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::init
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::canBatch
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::isPrepared
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::isExecuted
      */
@@ -27,7 +23,6 @@ class CommandTest extends AbstractCommandTest
     {
         $command = new MockCommand();
         $this->assertEquals('123', $command->get('test'));
-        $this->assertTrue($command->canBatch());
         $this->assertFalse($command->isPrepared());
         $this->assertFalse($command->isExecuted());
     }
@@ -126,7 +121,7 @@ class CommandTest extends AbstractCommandTest
         ), '<xml><data>123</data></xml>');
 
         // Set a mock response
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(new MockPlugin(array(
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(
             $response
         )));
 
@@ -151,7 +146,7 @@ class CommandTest extends AbstractCommandTest
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
 
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventManager()->attach(new MockPlugin(array(
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(
             new Response(200, array(
                 'Content-Type' => 'application/octect-stream'
             ), 'abc,def,ghi')
@@ -207,10 +202,8 @@ class CommandTest extends AbstractCommandTest
         $api = new ApiCommand(array(
             'name' => 'foobar',
             'method' => 'POST',
-            'min_args' => 1,
-            'can_batch' => true,
             'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand',
-            'args' => array(
+            'params' => array(
                 'test' => array(
                     'default' => '123',
                     'type' => 'string'
