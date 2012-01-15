@@ -4,16 +4,10 @@ coverage
 
 # Ignore binary files
 /* Replaced /* Replaced /* Replaced guzzle */ */ */.phar
+/* Replaced /* Replaced /* Replaced guzzle */ */ */-min.phar
 
 # Ignore potentially sensitive phpunit file
 phpunit.xml
-
-# Helps to ignore services being tested
-src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//
-!src//* Replaced /* Replaced /* Replaced Guzzle */ */ *///* Replaced /* Replaced /* Replaced Guzzle */ */ */.php
-!src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common
-!src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http
-!src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service
 
 # Ignore composer generated files
 composer.lock
