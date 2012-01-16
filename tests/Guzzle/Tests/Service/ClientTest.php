@@ -183,4 +183,20 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         // Creates concrete commands
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\OtherCommand', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('other_command'));
     }
+
+    public function testCreatesCommandsFromServiceDescriptions()
+    {
+        $this->getServer()->enqueue(
+            "HTTP/1.1 200 OK\r\n" .
+            "Content-Length: 0\r\n\r\n"
+        );
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient($this->getServer()->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('trends.location', array(
+            'woeid' => 123,
+            'acl' => '123'
+        ));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->execute($command);
+        $this->assertEquals('/trends/123', $command->getRequest()->getPath());
+    }
 }
