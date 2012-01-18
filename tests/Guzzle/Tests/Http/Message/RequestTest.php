@@ -717,12 +717,63 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
         })->send();
         $this->assertContains((string) $request, $out);
         $this->assertContains((string) $request->getResponse(), $out);
+    }
 
-        try {
-            $a = 'abc';
-            $request->setOnComplete($a);
-            $this->fail('Set an invalid callback for setOnComplete');
-        } catch (\InvalidArgumentException $e) {
-        }
+    /**
+     * @expectedException InvalidArgumentException
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::setOnComplete
+     */
+    public function testOnCompleteCallbacksAreValidated()
+    {
+        $a = 'abc';
+        $this->request->setOnComplete($a);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::setOnComplete
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::processResponse
+     */
+    public function testOnCompleteCallbackReturnValuesAreChecked()
+    {
+        $request = $this->request;
+        $response = new Response(200);
+        $request->setResponse($response, true);
+        $request->setOnComplete(function($request, $response, $default) {
+            return 'foo';
+        })->send();
+        $this->assertSame($response, $request->getResponse());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::processResponse
+     */
+    public function testOnCompleteCallbackCanOverrideResponse()
+    {
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 404 NOT FOUND\r\n" .
+            "Content-Length: 0\r\n" .
+            "\r\n",
+            "HTTP/1.1 200 OK\r\n" .
+            "Content-Length: 0\r\n" .
+            "\r\n"
+        ));
+
+        $newResponse = null;
+
+        $request = $this->request;
+        $request->setOnComplete(function($request, $response, $default) use (&$newResponse) {
+            if ($response->getStatusCode() == 404) {
+                $newRequest = clone $request;
+                $newResponse = $newRequest->send();
+                return $newResponse;
+            }
+
+            return call_user_func($default, $request, $response);
+        })->send();
+
+        $this->assertEquals(200, $request->getResponse()->getStatusCode());
+        $this->assertSame($newResponse, $request->getResponse());
+        $this->assertEquals(2, count($this->getServer()->getReceivedRequests()));
     }
 }
