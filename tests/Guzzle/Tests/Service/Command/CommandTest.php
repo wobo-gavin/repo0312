@@ -109,7 +109,6 @@ class CommandTest extends AbstractCommandTest
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::prepare
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::process
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::prepare
-     *
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
      */
     public function testExecute()
@@ -137,6 +136,26 @@ class CommandTest extends AbstractCommandTest
         // Make sure that the result was automatically set to a SimpleXMLElement
         $this->assertInstanceOf('SimpleXMLElement', $command->getResult());
         $this->assertEquals('123', (string)$command->getResult()->data);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::process
+     */
+    public function testConvertsJsonResponsesToArray()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(
+            new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response(200, array(
+                'Content-Type' => 'application/json'
+                ), '{ "key": "Hi!" }'
+            )
+        )));
+        $command = new MockCommand();
+        $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */);
+        $command->execute();
+        $this->assertEquals(array(
+            'key' => 'Hi!'
+        ), $command->getResult());
     }
 
     /**
