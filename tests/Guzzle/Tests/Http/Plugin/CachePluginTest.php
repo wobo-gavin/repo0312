@@ -94,6 +94,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         // The test server has no more script data, so if it actually sends a
         // request it will fail the test.
         $this->assertEquals($key, $plugin->getCacheKey($request));
+        $request->setState('new');
         $request->send();
         $this->assertEquals('data', $request->getResponse()->getBody(true));
 
@@ -325,7 +326,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
                 "HTTP/1.1 200 OK\r\nCache-Control: no-cache\r\nDate: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('-3 hours') . "\r\nContent-Length: 4\r\n\r\nData",
                 null,
                 null,
-                'decline'
+                'never'
             ),
             // Must get a fresh copy because the request is declining revalidation
             array(
@@ -334,7 +335,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
                 "HTTP/1.1 200 OK\r\nCache-Control: no-cache\r\nDate: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('-3 hours') . "\r\nContent-Length: 4\r\n\r\nData",
                 null,
                 null,
-                'accept'
+                'always'
             ),
             // Throws an exception during revalidation
             array(
@@ -412,5 +413,27 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $request2->send();
 
         $this->assertEquals(true, $request2->getResponse()->hasHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Cache'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::revalidate
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\BadResponseException
+     */
+    public function testRemovesMissingEntitesFromCacheWhenRevalidating()
+    {
+        $server = $this->getServer();
+        $server->enqueue(array(
+            "HTTP/1.1 200 OK\r\nCache-Control: max-age=1000, no-cache\r\nContent-Length: 4\r\n\r\nData",
+            "HTTP/1.1 404 NOT FOUND\r\nContent-Length: 0\r\n\r\n"
+        ));
+
+        $plugin = new CachePlugin($this->adapter, true);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($server->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
+
+        $request1 = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
+        $request1->send();
+        $this->assertTrue($this->cache->contains($plugin->getCacheKey($request1)));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/')->send();
     }
 }
