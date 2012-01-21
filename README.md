@@ -7,7 +7,7 @@ In addition to taking the pain out of HTTP, /* Replaced /* Replaced /* Replaced 
 
 Start <strong>truly</strong> consuming HTTP with /* Replaced /* Replaced /* Replaced Guzzle */ */ */.
 
-- Download the phar to get started: http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/phar
+- [Download the phar](https://github.com/downloads//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.phar) and include it in your project
 - Docs: [www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org](http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/)
 - Forum: https://groups.google.com/forum/?hl=en#!forum//* Replaced /* Replaced /* Replaced guzzle */ */ */
 - IRC: [#/* Replaced /* Replaced /* Replaced guzzle */ */ */php](irc://irc.freenode.net/#/* Replaced /* Replaced /* Replaced guzzle */ */ */php) channel on irc.freenode.net
