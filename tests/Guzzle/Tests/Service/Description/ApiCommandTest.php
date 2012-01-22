@@ -36,7 +36,7 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals('doc', $c->getDoc());
         $this->assertEquals('POST', $c->getMethod());
         $this->assertEquals('/api/v1', $c->getPath());
-        $this->assertEquals('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\ClosureCommand', $c->getConcreteClass());
+        $this->assertEquals('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\DynamicCommand', $c->getConcreteClass());
         $this->assertEquals(array(
             'key' => new Collection(array(
                 'required' => 'true',

@@ -214,6 +214,20 @@ class CommandTest extends AbstractCommandTest
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::__construct
+     */
+    public function testCommandsAllowsCustomRequestHeadersAsArray()
+    {
+        $command = new MockCommand(array(
+            'headers' => array(
+                'Foo' => 'Bar'
+            )
+        ));
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection', $command->getRequestHeaders());
+        $this->assertEquals('Bar', $command->getRequestHeaders()->get('Foo'));
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand
      */
     public function testCommandsUsesApiCommand()

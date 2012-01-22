@@ -1,15 +1,16 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Description;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Command;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\DynamicCommandFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommandFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 
-class DynamicCommandFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
      * @var ServiceDescription
@@ -82,7 +83,16 @@ class DynamicCommandFactoryTest extends \/* Replaced /* Replaced /* Replaced Guz
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\DynamicCommandFactory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand
+     * @expectedException InvalidArgumentException
+     */
+    public function testRequiresApiCommand()
+    {
+        $command = new DynamicCommand();
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand
      */
     public function testBuildsUsingPathParametersAndAppendSlashPrepend()
     {
@@ -105,16 +115,10 @@ class DynamicCommandFactoryTest extends \/* Replaced /* Replaced /* Replaced Guz
             "Host: www.example.com\r\n" .
             "User-Agent: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent() . "\r\n" .
             "\r\n", (string) $request);
-
-        // Make sure the concrete command class is used
-        $this->assertEquals(
-            '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\ClosureCommand',
-            get_class($command)
-        );
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\DynamicCommandFactory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand
      * @expectedException InvalidArgumentException
      */
     public function testValidatesArgs()
@@ -126,7 +130,7 @@ class DynamicCommandFactoryTest extends \/* Replaced /* Replaced /* Replaced Guz
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\DynamicCommandFactory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand
      */
     public function testUsesDifferentLocations()
     {
@@ -173,7 +177,7 @@ class DynamicCommandFactoryTest extends \/* Replaced /* Replaced /* Replaced Guz
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\DynamicCommandFactory::createCommand
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand::build
      */
     public function testBuildsConcreteCommands()
     {
@@ -182,7 +186,7 @@ class DynamicCommandFactoryTest extends \/* Replaced /* Replaced /* Replaced Guz
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\DynamicCommandFactory::createCommand
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand::build
      */
     public function testUsesAbsolutePaths()
     {
@@ -203,7 +207,7 @@ class DynamicCommandFactoryTest extends \/* Replaced /* Replaced /* Replaced Guz
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\DynamicCommandFactory::createCommand
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand::build
      */
     public function testUsesRelativePaths()
     {
