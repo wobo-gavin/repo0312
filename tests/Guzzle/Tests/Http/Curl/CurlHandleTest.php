@@ -391,7 +391,7 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     {
         $request = RequestFactory::create($method, $url, $headers, $body);
         $handle = CurlHandle::factory($request);
-        
+
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Curl\\CurlHandle', $handle);
         $o = $request->getParams()->get('curl.last_options');
 
@@ -405,7 +405,7 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
                 $this->assertTrue($value == $o[$key], '-> Check number ' . $check . ' - ' . var_export($value, true) . ' != ' . var_export($o[$key], true));
             }
         }
-        
+
         $request = null;
     }
 
@@ -429,10 +429,10 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->getServer()->flush();
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nhi");
 
-        $request = RequestFactory::create('PUT', $this->getServer()->getUrl());
-        $request->setClient(new Client());
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/');
         $request->setBody(EntityBody::factory('test'), 'text/plain', false);
-        
+
         $o = $this->getWildcardObserver($request);
         $request->send();
 
@@ -447,10 +447,49 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
 
         // Ensure that the request was received exactly as intended
         $r = $this->getServer()->getReceivedRequests(true);
-        
+
         $this->assertEquals((string) $request, (string) $r[0]);
+        $this->assertFalse($r[0]->hasHeader('Transfer-Encoding'));
+        $this->assertEquals(4, $r[0]->getHeader('Content-Length'));
     }
-    
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle
+     */
+    public function testUploadsPutDataUsingChunkedEncodingWhenLengthCannotBeDetermined()
+    {
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nhi"
+        ));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/');
+        $request->setBody(EntityBody::factory(fopen($this->getServer()->getUrl(), 'r')), 'text/plain');
+        $request->send();
+
+        $r = $this->getServer()->getReceivedRequests(true);
+        $this->assertEquals('chunked', $r[1]->getHeader('Transfer-Encoding'));
+        $this->assertFalse($r[1]->hasHeader('Content-Length'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle
+     */
+    public function testUploadsPutDataUsingChunkedEncodingWhenForced()
+    {
+        $this->getServer()->flush();
+        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nhi");
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/');
+        $request->setBody(EntityBody::factory('hi!'), 'text/plain', true);
+        $request->send();
+
+        $r = $this->getServer()->getReceivedRequests(true);
+        $this->assertEquals('chunked', $r[0]->getHeader('Transfer-Encoding'));
+        $this->assertFalse($r[0]->hasHeader('Content-Length'));
+    }
+
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle
      */
