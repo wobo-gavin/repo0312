@@ -31,6 +31,18 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::setBody
+     */
+    public function testCanSetBodyWithoutOverridingContentType()
+    {
+        $request = new EntityEnclosingRequest('PUT', 'http://test.com', array(
+            'Content-Type' => 'application/json'
+        ));
+        $request->setBody('{"a":"b"}');
+        $this->assertEquals('application/json', $request->getHeader('Content-Type'));
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::__toString
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::addPostFields
      */
