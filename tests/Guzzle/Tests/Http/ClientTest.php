@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ClosureLogAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\UriTemplate;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin;
@@ -101,7 +102,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client
      */
-    public function testInjectConfig()
+    public function testExpandsUriTemplatesUsingConfig()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.google.com/');
         $/* Replaced /* Replaced /* Replaced client */ */ */->setConfig(array(
@@ -109,7 +110,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
             'key' => 'value',
             'foo' => 'bar'
         ));
-        $this->assertEquals('Testing...api/v1/key/value', $/* Replaced /* Replaced /* Replaced client */ */ */->inject('Testing...api/{{api}}/key/{{key}}'));
+        $this->assertEquals('Testing...api/v1/key/value', $/* Replaced /* Replaced /* Replaced client */ */ */->expandTemplate('Testing...api/{api}/key/{{key}}'));
 
         // Make sure that the /* Replaced /* Replaced /* Replaced client */ */ */ properly validates and injects config
         $this->assertEquals('bar', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('foo'));
@@ -428,5 +429,115 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $mock->addResponse(new Response(404));
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($mock);
         $/* Replaced /* Replaced /* Replaced client */ */ */->send(array($/* Replaced /* Replaced /* Replaced client */ */ */->get(), $/* Replaced /* Replaced /* Replaced client */ */ */->head()));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client
+     */
+    public function testQueryStringsAreNotDoubleEncoded()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://test.com', array(
+            'path'  => array('foo', 'bar'),
+            'query' => 'hi there',
+            'data'  => array(
+                'test' => 'a&b'
+            )
+        ));
+
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('{/path*}{?query,data*}');
+        $this->assertEquals('http://test.com/foo/bar?query=hi%20there&test=a%26b', $request->getUrl());
+        $this->assertEquals('hi there', $request->getQuery()->get('query'));
+        $this->assertEquals('a&b', $request->getQuery()->get('test'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client
+     */
+    public function testQueryStringsAreNotDoubleEncodedUsingAbsolutePaths()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://test.com', array(
+            'path'  => array('foo', 'bar'),
+            'query' => 'hi there',
+        ));
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com{?query}');
+        $this->assertEquals('http://test.com/?query=hi%20there', $request->getUrl());
+        $this->assertEquals('hi there', $request->getQuery()->get('query'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setUriTemplate
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::getUriTemplate
+     */
+    public function testAllowsUriTemplateInjection()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://test.com', array(
+            'path'  => array('foo', 'bar'),
+            'query' => 'hi there',
+        ));
+
+        $a = $/* Replaced /* Replaced /* Replaced client */ */ */->getUriTemplate();
+        $this->assertSame($a, $/* Replaced /* Replaced /* Replaced client */ */ */->getUriTemplate());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setUriTemplate(new UriTemplate());
+        $this->assertNotSame($a, $/* Replaced /* Replaced /* Replaced client */ */ */->getUriTemplate());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::expandTemplate
+     */
+    public function testAllowsCustomVariablesWhenExpandingTemplates()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://test.com', array(
+            'test' => 'hi',
+        ));
+
+        $uri = $/* Replaced /* Replaced /* Replaced client */ */ */->expandTemplate('http://{test}{?query*}', array(
+            'query' => array(
+                'han' => 'solo'
+            )
+        ));
+
+        $this->assertEquals('http://hi?han=solo', $uri);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
+     * @expectedException InvalidArgumentException
+     */
+    public function testUriArrayMustContainExactlyTwoElements()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', array('haha!'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
+     * @expectedException InvalidArgumentException
+     */
+    public function testUriArrayMustContainAnArray()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', array('haha!', 'test'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::get
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::put
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::post
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::head
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::options
+     */
+    public function testUriArrayAllowsCustomTemplateVariables()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $vars = array(
+            'var' => 'hi'
+        );
+        $this->assertEquals('/hi', (string) $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', array('/{var}', $vars))->getUrl());
+        $this->assertEquals('/hi', (string) $/* Replaced /* Replaced /* Replaced client */ */ */->get(array('/{var}', $vars))->getUrl());
+        $this->assertEquals('/hi', (string) $/* Replaced /* Replaced /* Replaced client */ */ */->put(array('/{var}', $vars))->getUrl());
+        $this->assertEquals('/hi', (string) $/* Replaced /* Replaced /* Replaced client */ */ */->post(array('/{var}', $vars))->getUrl());
+        $this->assertEquals('/hi', (string) $/* Replaced /* Replaced /* Replaced client */ */ */->head(array('/{var}', $vars))->getUrl());
+        $this->assertEquals('/hi', (string) $/* Replaced /* Replaced /* Replaced client */ */ */->options(array('/{var}', $vars))->getUrl());
     }
 }

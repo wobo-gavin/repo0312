@@ -37,7 +37,7 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         ));
 
         $c = $d->getCommand('concrete');
-        $this->assertEquals('/test', $c->getPath());
+        $this->assertEquals('/test', $c->getUri());
         $this->assertEquals('GET', $c->getMethod());
         $params = $c->getParams();
         $param = $params['test'];
