@@ -577,4 +577,32 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
 
         $this->assertEquals('test=583551', $request->getHeader('Cookie'));
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CookiePlugin::onRequestBeforeSend
+     */
+    public function testCookiesAreNotAddedWhenParamIsSet()
+    {
+        $this->storage->clear();
+        $this->storage->save(array(
+            'domain' => 'example.com',
+            'path' => '/',
+            'cookie' => array('test', 'hi'),
+            'expires' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('+1 day')
+        ));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://example.com');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($this->plugin);
+
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
+        $request->setResponse(new Response(200), true);
+        $request->send();
+        $this->assertEquals('hi', $request->getCookie()->get('test'));
+
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
+        $request->getParams()->set('cookies.disable', true);
+        $request->setResponse(new Response(200), true);
+        $request->send();
+        $this->assertNull($request->getCookie()->get('test'));
+    }
 }
