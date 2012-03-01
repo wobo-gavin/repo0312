@@ -10,16 +10,16 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
  */
 class CurlAuthPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-	public function testAddsBasicAuthentication()
-	{
-		$plugin = new CurlAuthPlugin('michael', 'test');
-		$/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/');
-		$/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
-		$request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
-		$this->assertEquals('michael', $request->getUsername());
-		$this->assertEquals('test', $request->getPassword());
-	}
-	
+    public function testAddsBasicAuthentication()
+    {
+        $plugin = new CurlAuthPlugin('michael', 'test');
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
+        $this->assertEquals('michael', $request->getUsername());
+        $this->assertEquals('test', $request->getPassword());
+    }
+
     public function testAddsDigestAuthentication()
     {
         $plugin = new CurlAuthPlugin('julian', 'test', CURLAUTH_DIGEST);
