@@ -110,7 +110,7 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             'domain' => 'www.foobar.com',
             'path' => '/path/'
         )));
-        
+
         $this->assertEquals(array(
             array (
                 'cookie' => array('foo', 'bar'),
@@ -184,7 +184,7 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
                 $extra[] = $cookie['cookie'][0] . '=' . $cookie['cookie'][1];
             }
         }
-        
+
         $this->assertTrue(count($remaining) == 0 && count($extra) == 0, 'Unmatched: ' . implode(', ', $remaining) . ' | Extra: ' . implode(', ', $extra));
     }
 
@@ -216,10 +216,10 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             'cookie' => array('data', 'abc'),
             'domain' => '.example.com'
         ));
-        
+
         // Filters out expired cookies
         $this->hasCookies($this->jar->getCookies(), array('foo', 'baz', 'muppet', 'googoo', 'data'));
-        
+
         // Removes the expired cookie
         $this->assertEquals(1, $this->jar->clearTemporary());
         $this->hasCookies($this->jar->getCookies(), array('foo', 'baz', 'muppet', 'googoo'));
@@ -316,7 +316,7 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
 
         $this->jar->save($data);
         $this->jar->save($data);
-        
+
         $this->assertEquals(1, count($this->jar->getCookies()));
     }
 
@@ -364,7 +364,8 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar::serialize
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar::unserialize
      */
-    public function testSerialization() {
+    public function testSerialization()
+    {
         $j = $this->jar;
         static::addCookies($j);
         $c = count($j->getCookies());
