@@ -359,4 +359,19 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $c = $this->jar->getCookies();
         $this->assertNotEquals($t, $c[0]['expires']);
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar::serialize
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar::unserialize
+     */
+    public function testSerialization() {
+        $j = $this->jar;
+        static::addCookies($j);
+        $c = count($j->getCookies());
+
+        $deflate = serialize($j);
+        $inflate = unserialize($deflate);
+
+        $this->assertEquals($c, count($inflate->getCookies()));
+    }
 }
