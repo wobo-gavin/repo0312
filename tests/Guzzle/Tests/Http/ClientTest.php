@@ -542,4 +542,46 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('/hi', (string) $/* Replaced /* Replaced /* Replaced client */ */ */->head(array('/{var}', $vars))->getUrl());
         $this->assertEquals('/hi', (string) $/* Replaced /* Replaced /* Replaced client */ */ */->options(array('/{var}', $vars))->getUrl());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setDefaultHeaders
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::getDefaultHeaders
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
+     */
+    public function testAllowsDefaultHeaders()
+    {
+        $default = array(
+            'X-Test' => 'Hi!'
+        );
+        $other = array(
+            'X-Other' => 'Foo'
+        );
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultHeaders($default);
+        $this->assertEquals($default, $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultHeaders()->getAll());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultHeaders(new Collection($default));
+        $this->assertEquals($default, $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultHeaders()->getAll());
+
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', null, $other);
+        $this->assertEquals('Hi!', $request->getHeader('X-Test'));
+        $this->assertEquals('Foo', $request->getHeader('X-Other'));
+
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', null, new Collection($other));
+        $this->assertEquals('Hi!', $request->getHeader('X-Test'));
+        $this->assertEquals('Foo', $request->getHeader('X-Other'));
+
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET');
+        $this->assertEquals('Hi!', $request->getHeader('X-Test'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setDefaultHeaders
+     * @expectedException InvalidArgumentException
+     */
+    public function testValidatesDefaultHeaders()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultHeaders('foo');
+    }
 }
