@@ -236,7 +236,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
     public function testLogsTransactionsAtDifferentLevels($level, $request)
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $request = RequestFactory::fromMessage($request);
+        $request = RequestFactory::getInstance()->fromMessage($request);
         $request->setClient($/* Replaced /* Replaced /* Replaced client */ */ */);
 
         $plugin = new LogPlugin(new ClosureLogAdapter(

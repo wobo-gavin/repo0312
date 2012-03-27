@@ -11,6 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\UriTemplate;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
@@ -46,6 +47,11 @@ class Client extends AbstractHasDispatcher implements ClientInterface
     private $uriTemplate;
 
     /**
+     * @var RequestFactoryInterface Request factory used by the /* Replaced /* Replaced /* Replaced client */ */ */
+     */
+    protected $requestFactory;
+
+    /**
      * {@inheritdoc}
      */
     public static function getAllEvents()
@@ -64,6 +70,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
         $this->setConfig($config ?: new Collection());
         $this->setBaseUrl($baseUrl);
         $this->defaultHeaders = new Collection();
+        $this->setRequestFactory(RequestFactory::getInstance());
     }
 
     /**
@@ -244,7 +251,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
         }
 
         return $this->prepareRequest(
-            RequestFactory::create($method, (string) $url, $headers, $body)
+            $this->requestFactory->create($method, (string) $url, $headers, $body)
         );
     }
 
@@ -256,7 +263,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
      *
      * @return RequestInterface
      */
-    public function prepareRequest(RequestInterface $request)
+    protected function prepareRequest(RequestInterface $request)
     {
         $request->setClient($this);
 
@@ -514,5 +521,19 @@ class Client extends AbstractHasDispatcher implements ClientInterface
         }
 
         return $this->curlMulti;
+    }
+
+    /**
+     * Set the request factory to use with the /* Replaced /* Replaced /* Replaced client */ */ */ when creating requests
+     *
+     * @param RequestFactoryInterface $factory Request factory
+     *
+     * @return Client
+     */
+    public function setRequestFactory(RequestFactoryInterface $factory)
+    {
+        $this->requestFactory = $factory;
+
+        return $this;
     }
 }

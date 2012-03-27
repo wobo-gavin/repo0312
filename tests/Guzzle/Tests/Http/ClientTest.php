@@ -201,19 +201,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('query=Date', $request->getParams()->get('cache.key_filter'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::prepareRequest
-     */
-    public function testPreparesRequestsNotCreatedByTheClient()
-    {
-        $exp = new ExponentialBackoffPlugin();
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($exp);
-        $request = RequestFactory::create('GET', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
-        $this->assertSame($request, $/* Replaced /* Replaced /* Replaced client */ */ */->prepareRequest($request));
-        $this->assertTrue($this->hasSubscriber($request, $exp));
-    }
-
     public function urlProvider()
     {
         $u = $this->getServer()->getUrl() . 'base/';

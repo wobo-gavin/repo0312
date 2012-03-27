@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiInterface;
 
 /**
@@ -92,20 +93,6 @@ interface ClientInterface extends HasDispatcherInterface
      * @return RequestInterface
      */
     function createRequest($method = RequestInterface::GET, $uri = null, $headers = null, $body = null);
-
-    /**
-     * Prepare a request to be sent from the Client by adding /* Replaced /* Replaced /* Replaced client */ */ */ specific
-     * behaviors and properties to the request.
-     *
-     * This method should only be called when using the default RequestFactory
-     * is not an option and the request sent from the /* Replaced /* Replaced /* Replaced client */ */ */ must be created
-     * manually.
-     *
-     * @param RequestInterface $request Request to prepare for the /* Replaced /* Replaced /* Replaced client */ */ */
-     *
-     * @return RequestInterface
-     */
-    function prepareRequest(RequestInterface $request);
 
     /**
      * Get the /* Replaced /* Replaced /* Replaced client */ */ */'s base URL as either an expanded or raw URI template
@@ -243,7 +230,7 @@ interface ClientInterface extends HasDispatcherInterface
      *
      * @return array Returns the response(s)
      */
-    public function send($requests);
+    function send($requests);
 
     /**
      * Set a curl multi object to be used internally by the /* Replaced /* Replaced /* Replaced client */ */ */ for
@@ -253,5 +240,14 @@ interface ClientInterface extends HasDispatcherInterface
      *
      * @return Client
      */
-    public function setCurlMulti(CurlMultiInterface $curlMulti);
+    function setCurlMulti(CurlMultiInterface $curlMulti);
+
+    /**
+     * Set the request factory to use with the /* Replaced /* Replaced /* Replaced client */ */ */ when creating requests
+     *
+     * @param RequestFactoryInterface $factory Request factory
+     *
+     * @return ClientInterface
+     */
+    function setRequestFactory(RequestFactoryInterface $factory);
 }
