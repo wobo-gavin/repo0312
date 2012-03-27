@@ -514,7 +514,8 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
                     'User-Agent: ' . $userAgent,
                     'Expect: 100-Continue'
                 )
-            ), array(
+            )
+            /*, array(
                 '_Accept'          => '*',
                 '_Accept-Encoding' => '*',
                 'Host'             => '*',
@@ -523,7 +524,8 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
                 'Expect'           => '100-Continue',
                 '!Content-Type'     => null,
                 '!Transfer-Encoding' => null
-            )),
+            )*/
+            ),
         );
     }
 
