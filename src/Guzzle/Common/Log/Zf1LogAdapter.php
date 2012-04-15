@@ -2,24 +2,16 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log;
 
-use Zend\Log\Logger;
-
 /**
- * Adapts a ZF2 Logger object
+ * Adapts a Zend Framework 1 logger object
  */
-class ZendLogAdapter extends AbstractLogAdapter
+class Zf1LogAdapter extends AbstractLogAdapter
 {
     /**
      * {@inheritdoc}
      */
-    public function __construct($logObject)
+    public function __construct(\Zend_Log $logObject)
     {
-        if (!($logObject instanceof Logger)) {
-            throw new \InvalidArgumentException(
-                'Object must be an instance of Zend\\Log\\Logger'
-            );
-        }
-
         $this->log = $logObject;
     }
 

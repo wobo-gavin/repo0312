@@ -199,4 +199,51 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->execute($command);
         $this->assertEquals('/trends/123', $command->getRequest()->getPath());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__call
+     * @expectedException BadMethodCallException
+     */
+    public function testMagicCallBehaviorIsDisabledByDefault()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->foo();
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__call
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setMagicCallBehavior
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage foo command could not be found
+     */
+    public function testMagicCallBehaviorEnsuresCommandExists()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setMagicCallBehavior(Client::MAGIC_CALL_RETURN);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->foo();
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__call
+     */
+    public function testMagicCallBehaviorReturnReturnsCommands()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setMagicCallBehavior(Client::MAGIC_CALL_RETURN);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand', $/* Replaced /* Replaced /* Replaced client */ */ */->mockCommand());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__call
+     */
+    public function testMagicCallBehaviorExecuteExecutesCommands()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setMagicCallBehavior(Client::MAGIC_CALL_EXECUTE);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(new Response(200))));
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response', $/* Replaced /* Replaced /* Replaced client */ */ */->mockCommand());
+    }
 }

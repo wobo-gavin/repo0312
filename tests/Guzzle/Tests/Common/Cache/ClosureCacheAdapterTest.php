@@ -1,0 +1,114 @@
+<?php
+
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Cache;
+
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\ClosureCacheAdapter;
+
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\ClosureCacheAdapter
+ */
+class ClosureCacheAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+{
+    /**
+     * @var ClosureCacheAdapter
+     */
+    private $adapter;
+
+    /**
+     * Array of callables to use for testing
+     */
+    private $callables;
+
+    /**
+     * Cache data for testing
+     */
+    public $data = array();
+
+    /**
+     * Prepares the environment before running a test.
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $that = $this;
+        $this->callables = array(
+            'contains' => function($id, $options = array()) use ($that) {
+                return array_key_exists($id, $that->data);
+            },
+            'delete' => function($id, $options = array()) use ($that) {
+                unset($that->data[$id]);
+                return true;
+            },
+            'fetch' => function($id, $options = array()) use ($that) {
+                return array_key_exists($id, $that->data) ? $that->data[$id] : null;
+            },
+            'save' => function($id, $data, $lifeTime, $options = array()) use ($that) {
+                $that->data[$id] = $data;
+                return true;
+            }
+        );
+
+        $this->adapter = new ClosureCacheAdapter($this->callables);
+    }
+
+    /**
+     * Cleans up the environment after running a test.
+     */
+    protected function tearDown()
+    {
+        $this->cache = null;
+        $this->callables = null;
+        parent::tearDown();
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\ClosureCacheAdapter::__construct
+     * @expectedException InvalidArgumentException
+     */
+    public function testEnsuresCallablesArePresent()
+    {
+        $callables = $this->callables;
+        unset($callables['delete']);
+        $cache = new ClosureCacheAdapter($callables);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\ClosureCacheAdapter::__construct
+     */
+    public function testAllCallablesMustBePresent()
+    {
+        $cache = new ClosureCacheAdapter($this->callables);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\ClosureCacheAdapter::save
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\ClosureCacheAdapter::fetch
+     */
+    public function testCachesDataUsingCallables()
+    {
+        $this->assertTrue($this->adapter->save('test', 'data', 1000));
+        $this->assertEquals('data', $this->adapter->fetch('test'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\ClosureCacheAdapter::contains
+     */
+    public function testChecksIfCacheContainsKeys()
+    {
+        $this->adapter->save('test', 'data', 1000);
+        $this->assertTrue($this->adapter->contains('test'));
+        $this->assertFalse($this->adapter->contains('foo'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\ClosureCacheAdapter::delete
+     */
+    public function testDeletesFromCacheByKey()
+    {
+        $this->adapter->save('test', 'data', 1000);
+        $this->assertTrue($this->adapter->contains('test'));
+        $this->adapter->delete('test');
+        $this->assertFalse($this->adapter->contains('test'));
+    }
+}

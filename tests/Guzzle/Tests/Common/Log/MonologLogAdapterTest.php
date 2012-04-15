@@ -6,23 +6,11 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\MonologLogAda
 use Monolog\Logger;
 use Monolog\Handler\TestHandler;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\MonologLogAdapter
+ */
 class MonologLogAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\MonologLogAdapter::__construct
-     * @expectedException InvalidArgumentException
-     */
-    public function testEnforcesType()
-    {
-        // A successful construction
-        $log = new Logger('test');
-        $log->pushHandler(new TestHandler());
-        $adapter = new MonologLogAdapter($log);
-
-        // Throws an exception
-        $this->adapter = new MonologLogAdapter(new \stdClass());
-    }
-
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\MonologLogAdapter::log
      */
