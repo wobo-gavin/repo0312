@@ -3,11 +3,11 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\NullObject;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface as HttpClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSet;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\FactoryInterface as CommandFactoryInterface;
 
 /**
  * Client interface for executing commands on a web service.
@@ -57,16 +57,35 @@ interface ClientInterface extends HttpClientInterface
      * Set the service description of the /* Replaced /* Replaced /* Replaced client */ */ */
      *
      * @param ServiceDescription $service Service description that describes
-     *      all of the commands and information of the /* Replaced /* Replaced /* Replaced client */ */ */
+     *     all of the commands and information of the /* Replaced /* Replaced /* Replaced client */ */ */
+     * @param bool $updateFactory (optional) Set to FALSE to not update the service
+     *     description based command factory if it is not already present on
+     *     the /* Replaced /* Replaced /* Replaced client */ */ */
      *
      * @return ClientInterface
      */
-    function setDescription(ServiceDescription $service);
+    function setDescription(ServiceDescription $service, $updateFactory = true);
 
     /**
      * Get the service description of the /* Replaced /* Replaced /* Replaced client */ */ */
      *
-     * @return ServiceDescription|NullObject
+     * @return ServiceDescription|null
      */
     function getDescription();
+
+    /**
+     * Get the command factory associated with the /* Replaced /* Replaced /* Replaced client */ */ */
+     *
+     * @return CommandFactoryInterface
+     */
+    function getCommandFactory();
+
+    /**
+     * Set the command factory used to create commands by name
+     *
+     * @param CommandFactoryInterface $factory Command factory
+     *
+     * @return ClientInterface
+     */
+    function setCommandFactory(CommandFactoryInterface $factory);
 }

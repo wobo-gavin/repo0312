@@ -162,42 +162,85 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommand
      * @expectedException InvalidArgumentException
      */
-    public function testThrowsExceptionWhenNoCommandFactoryIsSetAndGettingCommand()
+    public function testThrowsExceptionWhenMissingCommand()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+
+        $mock = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\FactoryInterface');
+        $mock->expects($this->any())
+             ->method('factory')
+             ->with($this->equalTo('test'))
+             ->will($this->returnValue(null));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setCommandFactory($mock);
         $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test');
     }
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommand
+     */
+    public function testCreatesCommandsUsingCommandFactory()
+    {
+        $mockCommand = new MockCommand();
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
+        $mock = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\FactoryInterface');
+        $mock->expects($this->any())
+             ->method('factory')
+             ->with($this->equalTo('foo'))
+             ->will($this->returnValue($mockCommand));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setCommandFactory($mock);
+
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('foo', array(
+            'acl' => '123'
+        ));
+
+        $this->assertSame($mockCommand, $command);
+        $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $command->getClient());
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getDescription
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setDescription
      */
-    public function testRetrievesCommandsFromConcreteAndService()
+    public function testOwnsServiceDescription()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient('http://www.example.com/');
-        $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->serviceTest));
-        $this->assertSame($this->serviceTest, $/* Replaced /* Replaced /* Replaced client */ */ */->getDescription());
-        // Creates service commands
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test_command'));
-        // Creates concrete commands
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\OtherCommand', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('other_command'));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
+        $this->assertNull($/* Replaced /* Replaced /* Replaced client */ */ */->getDescription());
+
+        $description = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Description\\ServiceDescription');
+        $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description));
+        $this->assertSame($description, $/* Replaced /* Replaced /* Replaced client */ */ */->getDescription());
     }
 
-    public function testCreatesCommandsFromServiceDescriptions()
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setDescription
+     */
+    public function testSettingServiceDescriptionUpdatesFactories()
     {
-        $this->getServer()->enqueue(
-            "HTTP/1.1 200 OK\r\n" .
-            "Content-Length: 0\r\n\r\n"
-        );
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient($this->getServer()->getUrl());
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
-        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('trends.location', array(
-            'woeid' => 123,
-            'acl' => '123'
-        ));
-        $/* Replaced /* Replaced /* Replaced client */ */ */->execute($command);
-        $this->assertEquals('/trends/123', $command->getRequest()->getPath());
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
+        $factory = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\MapFactory')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setCommandFactory($factory);
+
+        $description = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Description\\ServiceDescription');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description);
+
+        $this->assertNotSame($factory, $/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory());
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\CompositeFactory', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory());
+        $array = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory()->getIterator()->getArrayCopy();
+        $this->assertSame($array[0], $factory);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\ServiceDescriptionFactory', $array[1]);
+        $this->assertSame($description, $array[1]->getServiceDescription());
+
+        $description2 = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Description\\ServiceDescription');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description2);
+        $array = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory()->getIterator()->getArrayCopy();
+        $this->assertSame($array[0], $factory);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\ServiceDescriptionFactory', $array[1]);
+        $this->assertSame($description2, $array[1]->getServiceDescription());
     }
 
     /**
@@ -214,7 +257,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__call
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setMagicCallBehavior
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage foo command could not be found
+     * @expectedExceptionMessage Command was not found matching foo
      */
     public function testMagicCallBehaviorEnsuresCommandExists()
     {
@@ -245,5 +288,20 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(new Response(200))));
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response', $/* Replaced /* Replaced /* Replaced client */ */ */->mockCommand());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommandFactory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setCommandFactory
+     */
+    public function testOwnsCommandFactory()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\CompositeFactory', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory());
+        $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory(), $/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory());
+
+        $mock = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\CompositeFactory');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setCommandFactory($mock);
+        $this->assertSame($mock, $/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory());
     }
 }

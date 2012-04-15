@@ -185,4 +185,11 @@ class UriTemplateTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
             'var' => 'hi'
         )));
     }
+
+    public function testAllowsTemplateChange()
+    {
+        $template = new UriTemplate('abc_<$var>');
+        $template->setTemplate('foo');
+        $this->assertEquals('foo', $template->getTemplate());
+    }
 }

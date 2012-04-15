@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\ServiceDescriptionFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommandFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
@@ -16,6 +17,11 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
      * @var ServiceDescription
      */
     protected $service;
+
+    /**
+     * @var ServiceDescriptionFactory
+     */
+    protected $factory;
 
     /**
      * Setup the service description
@@ -78,6 +84,7 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
                 ))
             )
         );
+        $this->factory = new ServiceDescriptionFactory($this->service);
     }
 
     /**
@@ -97,7 +104,7 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.example.com/');
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
 
-        $command = $this->service->createCommand('test_command', array(
+        $command = $this->factory->factory('test_command', array(
             'bucket' => 'test',
             'key' => 'key'
         ));
@@ -123,7 +130,7 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.fragilerock.com/');
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
-        $command = $this->service->createCommand('test_command', array());
+        $command = $this->factory->factory('test_command', array());
         $/* Replaced /* Replaced /* Replaced client */ */ */->execute($command);
     }
 
@@ -133,7 +140,7 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     public function testUsesDifferentLocations()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.tazmania.com/');
-        $command = $this->service->createCommand('body', array(
+        $command = $this->factory->factory('body', array(
             'b' => 'my-data',
             'q' => 'abc',
             'h' => 'haha'
@@ -154,7 +161,7 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         unset($command);
         unset($request);
 
-        $command = $this->service->createCommand('body', array(
+        $command = $this->factory->factory('body', array(
             'b' => 'my-data',
             'q' => 'abc',
             'h' => 'haha',
@@ -179,7 +186,7 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
      */
     public function testBuildsConcreteCommands()
     {
-        $c = $this->service->createCommand('concrete');
+        $c = $this->factory->factory('concrete');
         $this->assertEquals('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand', get_class($c));
     }
 
