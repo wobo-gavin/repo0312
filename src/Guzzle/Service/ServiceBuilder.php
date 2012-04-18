@@ -85,7 +85,7 @@ class ServiceBuilder implements \ArrayAccess
             $/* Replaced /* Replaced /* Replaced client */ */ */['class'] = str_replace('.', '\\', $/* Replaced /* Replaced /* Replaced client */ */ */['class']);
         }
 
-        return new self($config);
+        return new static($config);
     }
 
     /**
