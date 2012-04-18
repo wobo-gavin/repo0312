@@ -461,7 +461,6 @@ class ExceptionCollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzl
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti::reset
-     *
      */
     public function testHardResetReopensMultiHandle()
     {
@@ -486,5 +485,38 @@ class ExceptionCollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         $multi->send();
 
         $this->assertNotContains('Re-using existing connection', $message);
+    }
+    
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti::checkCurlResult
+     */
+    public function testThrowsMeaningfulExceptionsForCurlMultiErrors()
+    {
+        $multi = new CurlMulti();
+        
+        // Set the state of the multi object to sending to trigger the exception
+        $reflector = new \ReflectionMethod('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti', 'checkCurlResult');
+        $reflector->setAccessible(true);
+        
+        // Successful
+        $reflector->invoke($multi, 0);
+        
+        // Known error
+        try {
+            $reflector->invoke($multi, CURLM_BAD_HANDLE);
+            $this->fail('Expected an exception here');
+        } catch (CurlException $e) {
+            $this->assertContains('The passed-in handle is not a valid CURLM handle.', $e->getMessage());
+            $this->assertContains('CURLM_BAD_HANDLE', $e->getMessage());
+            $this->assertContains(strval(CURLM_BAD_HANDLE), $e->getMessage());
+        }
+        
+        // Unknown error
+        try {
+            $reflector->invoke($multi, 255);
+            $this->fail('Expected an exception here');
+        } catch (CurlException $e) {
+            $this->assertEquals('Unexpected cURL error: 255', $e->getMessage());
+        }
     }
 }
