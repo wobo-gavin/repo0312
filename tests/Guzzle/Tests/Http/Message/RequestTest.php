@@ -758,4 +758,15 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
         $this->assertSame($newResponse, $request->getResponse());
         $this->assertEquals(2, count($this->getServer()->getReceivedRequests()));
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request
+     */
+    public function testCanRetrieveUrlObject()
+    {
+        $request = new Request('GET', 'http://www.example.com/foo?abc=d');
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url', $request->getUrl(true));
+        $this->assertEquals('http://www.example.com/foo?abc=d', $request->getUrl());
+        $this->assertEquals('http://www.example.com/foo?abc=d', (string) $request->getUrl(true));
+    }
 }
