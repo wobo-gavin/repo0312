@@ -163,8 +163,8 @@ class CurlHandle
 
         // Check if any headers or cURL options are blacklisted
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $request->getClient();
-        if ($/* Replaced /* Replaced /* Replaced client */ */ */ && $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('curl.black_list')) {
-            foreach ($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('curl.black_list') as $value) {
+        if ($/* Replaced /* Replaced /* Replaced client */ */ */ && $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('curl.blacklist')) {
+            foreach ($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('curl.blacklist') as $value) {
                 if (strpos($value, 'header.') === 0) {
                     $curlOptions[CURLOPT_HTTPHEADER][] = substr($value, 7) . ':';
                 } else {
