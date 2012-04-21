@@ -10,7 +10,7 @@ class XmlDescriptionBuilderTest extends \/* Replaced /* Replaced /* Replaced Guz
 {
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\XmlDescriptionBuilder
-     * @expectedException InvalidArgumentException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\DescriptionBuilderException
      */
     public function testXmlBuilderThrowsExceptionWhenFileIsNotFound()
     {
@@ -31,7 +31,7 @@ class XmlDescriptionBuilderTest extends \/* Replaced /* Replaced /* Replaced Guz
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Description\\ApiCommand', $service->getCommand('search'));
         $this->assertInternalType('array', $service->getCommands());
         $this->assertEquals(7, count($service->getCommands()));
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\NullObject', $service->getCommand('missing'));
+        $this->assertNull($service->getCommand('missing'));
 
         $command = $service->getCommand('test');
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Description\\ApiCommand', $command);

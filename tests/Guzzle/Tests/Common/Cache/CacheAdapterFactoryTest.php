@@ -96,4 +96,16 @@ class CacheAdapterFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter', $cache);
         $this->assertInstanceOf('Doctrine\Common\Cache\ApcCache', $cache->getCacheObject());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\CacheAdapterFactory
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException
+     */
+    public function testWrapsExceptionsOnObjectCreation()
+    {
+        CacheAdapterFactory::factory(array(
+            'cache.provider' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\ExceptionMock',
+            'cache.adapter'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\ExceptionMock'
+        ));
+    }
 }

@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandSetException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 

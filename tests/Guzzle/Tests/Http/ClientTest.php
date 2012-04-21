@@ -394,7 +394,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::send
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\BadResponseException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException
      */
     public function testClientThrowsExceptionForSingleRequest()
     {
@@ -408,7 +408,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::send
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ExceptionCollection
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection
      */
     public function testClientThrowsExceptionForMultipleRequests()
     {

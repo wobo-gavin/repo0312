@@ -111,7 +111,7 @@ try {
         $/* Replaced /* Replaced /* Replaced client */ */ */->head('messages/123'),
         $/* Replaced /* Replaced /* Replaced client */ */ */->delete('orders/123')
     ));
-} catch (/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ExceptionCollection $e) {
+} catch (/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection $e) {
     echo "The following requests encountered an exception: \n";
     foreach ($e as $exception) {
         echo $exception->getRequest() . "\n" . $exception->getMessage() . "\n";

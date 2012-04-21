@@ -77,7 +77,7 @@ class CommandSetTest extends AbstractCommandTest
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSet::execute
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSetException
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandSetException
      */
     public function testThrowsExceptionWhenAnyCommandHasNoClient()
     {
@@ -86,7 +86,7 @@ class CommandSetTest extends AbstractCommandTest
         try {
             $commandSet->execute();
             $this->fail('CommandSetException not thrown when a command did not have a /* Replaced /* Replaced /* Replaced client */ */ */');
-        } catch (\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSetException $e) {
+        } catch (\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandSetException $e) {
             $this->assertEquals(array($cmd), $e->getCommands());
         }
     }

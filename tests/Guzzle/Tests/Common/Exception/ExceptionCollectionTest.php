@@ -1,8 +1,8 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Exception;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ExceptionCollection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection;
 
 class ExceptionCollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {

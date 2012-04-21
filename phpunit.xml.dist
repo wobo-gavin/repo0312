@@ -20,7 +20,18 @@
             <directory suffix=".php">./src//* Replaced /* Replaced /* Replaced Guzzle */ */ */</directory>
             <exclude>
                 <directory suffix="Interface.php">./src//* Replaced /* Replaced /* Replaced Guzzle */ */ */</directory>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common//* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception.php</file>
                 <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/HttpException.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common/Exception/BadMethodCallException.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common/Exception/InvalidArgumentException.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common/Exception/RuntimeException.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common/Exception/UnexpectedValueException.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service/Exception/ClientNotFoundException.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service/Exception/CommandException.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service/Exception/DescriptionBuilderException.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service/Exception/ServiceBuilderException.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service/Exception/ServiceNotFoundException.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service/Exception/ValidationException.php</file>
             </exclude>
         </whitelist>
     </filter>

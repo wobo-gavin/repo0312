@@ -11,7 +11,7 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
 {
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\HttpException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      */
     public function testFactoryThrowsException()
     {

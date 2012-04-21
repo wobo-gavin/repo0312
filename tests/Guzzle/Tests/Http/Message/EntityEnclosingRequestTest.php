@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
@@ -111,7 +111,7 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
     {
         $request = RequestFactory::getInstance()->create('PUT', 'http://www.test.com/');
         $request->setBody(EntityBody::factory('test'));
-        $this->assertEquals(4, $request->getHeader('Content-Length'));
+        $this->assertEquals(4, (string) $request->getHeader('Content-Length'));
         $this->assertFalse($request->hasHeader('Transfer-Encoding'));
     }
 
@@ -189,12 +189,12 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
         $request->send();
 
         $this->assertNotNull($request->getHeader('Content-Length'));
-        $this->assertContains('multipart/form-data; boundary=', $request->getHeader('Content-Type'), '-> cURL must add the boundary');
+        $this->assertContains('multipart/form-data; boundary=', (string) $request->getHeader('Content-Type'), '-> cURL must add the boundary');
     }
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::addPostFiles
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException
      */
     public function testSetPostFilesThrowsExceptionWhenFileIsNotFound()
     {
@@ -265,8 +265,8 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
         // Ensure that the same request was sent twice with different bodies
         $requests = $this->getServer()->getReceivedRequests(true);
         $this->assertEquals(2, count($requests));
-        $this->assertEquals(4, $requests[0]->getHeader('Content-Length'));
-        $this->assertEquals(7, $requests[1]->getHeader('Content-Length'));
+        $this->assertEquals(4, $requests[0]->getHeader('Content-Length', true));
+        $this->assertEquals(7, $requests[1]->getHeader('Content-Length', true));
     }
 
     /**
@@ -295,7 +295,7 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::setBody
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException
      */
     public function testThrowsExceptionWhenContentLengthCannotBeDeterminedAndUsingHttp1()
     {

@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
 
 /**
@@ -37,7 +38,7 @@ class AliasFactory implements FactoryInterface
         if (isset($this->aliases[$name])) {
             try {
                 return $this->/* Replaced /* Replaced /* Replaced client */ */ */->getCommand($this->aliases[$name], $args);
-            } catch (\InvalidArgumentException $e) {
+            } catch (InvalidArgumentException $e) {
                 return null;
             }
         }

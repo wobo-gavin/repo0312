@@ -1,6 +1,8 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception;
+
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 
 /**
  * Http request exception thrown when a bad response is received

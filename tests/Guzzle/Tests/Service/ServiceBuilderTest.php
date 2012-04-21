@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
 
 class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
@@ -95,7 +96,7 @@ EOT;
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
-     * @expectedException RuntimeException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException
      * @expectedExceptionMessage Unable to open foobarfile
      */
     public function testFactoryEnsuresItCanOpenFile()
@@ -127,7 +128,7 @@ EOT;
             ServiceBuilder::factory($tempFile, 'xml');
             unlink($tempFile);
             $this->fail('Test did not throw ServiceException');
-        } catch (\LogicException $e) {
+        } catch (ServiceNotFoundException $e) {
             $this->assertEquals('invalid is trying to extend a non-existent service: missing', $e->getMessage());
         }
 
@@ -136,7 +137,7 @@ EOT;
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::get
-     * @expectedException InvalidArgumentException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ClientNotFoundException
      * @expectedExceptionMessage No /* Replaced /* Replaced /* Replaced client */ */ */ is registered as foobar
      */
     public function testThrowsExceptionWhenGettingInvalidClient()
@@ -292,7 +293,7 @@ EOT;
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
-     * @expectedException InvalidArgumentException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException
      * @expectedExceptionMessage Must pass a file name, array, or SimpleXMLElement
      */
     public function testFactoryValidatesObjectTypes()

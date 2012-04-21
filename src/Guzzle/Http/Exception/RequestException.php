@@ -1,13 +1,15 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\HttpException;
 
 /**
  * Http request exception
  */
-class RequestException extends HttpException
+class RequestException extends RuntimeException implements HttpException
 {
     /**
      * @var RequestInterface

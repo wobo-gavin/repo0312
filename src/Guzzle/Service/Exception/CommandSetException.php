@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception;
 
 /**
  * Command Set exception

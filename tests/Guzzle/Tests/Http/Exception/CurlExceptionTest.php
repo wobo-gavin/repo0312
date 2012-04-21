@@ -1,11 +1,11 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Curl;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Exception;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlException;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlException
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlException
  */
 class CurlExceptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {

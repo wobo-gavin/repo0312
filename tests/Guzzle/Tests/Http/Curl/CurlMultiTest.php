@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Curl;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ExceptionCollection;;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection;;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ClosureLogAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
@@ -12,7 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\MockMulti;
 
@@ -377,7 +377,7 @@ class ExceptionCollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzl
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti::removeErroredRequest
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ExceptionCollection
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection
      * @expectedExceptionMessage Thrown before sending!
      */
     public function testCatchesExceptionsBeforeSendingRequests()
@@ -393,7 +393,7 @@ class ExceptionCollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzl
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti::removeErroredRequest
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\BadResponseException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException
      */
     public function testCatchesExceptionsWhenRemovingQueuedRequests()
     {
@@ -410,7 +410,7 @@ class ExceptionCollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzl
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti::removeErroredRequest
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\BadResponseException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException
      */
     public function testCatchesExceptionsWhenRemovingQueuedRequestsBeforeSending()
     {
@@ -427,7 +427,7 @@ class ExceptionCollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzl
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti::send
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti::removeErroredRequest
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ExceptionCollection
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection
      * @expectedExceptionMessage test
      */
     public function testCatchesRandomExceptionsThrownDuringPerform()
@@ -486,21 +486,21 @@ class ExceptionCollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzl
 
         $this->assertNotContains('Re-using existing connection', $message);
     }
-    
+
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti::checkCurlResult
      */
     public function testThrowsMeaningfulExceptionsForCurlMultiErrors()
     {
         $multi = new CurlMulti();
-        
+
         // Set the state of the multi object to sending to trigger the exception
         $reflector = new \ReflectionMethod('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti', 'checkCurlResult');
         $reflector->setAccessible(true);
-        
+
         // Successful
         $reflector->invoke($multi, 0);
-        
+
         // Known error
         try {
             $reflector->invoke($multi, CURLM_BAD_HANDLE);
@@ -510,7 +510,7 @@ class ExceptionCollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzl
             $this->assertContains('CURLM_BAD_HANDLE', $e->getMessage());
             $this->assertContains(strval(CURLM_BAD_HANDLE), $e->getMessage());
         }
-        
+
         // Unknown error
         try {
             $reflector->invoke($multi, 255);

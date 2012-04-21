@@ -2,6 +2,10 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ClientNotFoundException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
+
 /**
  * Service builder to generate service builders and service /* Replaced /* Replaced /* Replaced client */ */ */s from
  * configuration settings
@@ -31,15 +35,15 @@ class ServiceBuilder implements \ArrayAccess, \Serializable
      *      js, json)
      *
      * @return ServiceBuilder
-     * @throws \RuntimeException if a file cannot be openend
-     * @throws \LogicException when trying to extend a missing /* Replaced /* Replaced /* Replaced client */ */ */
+     * @throws ServiceBuilderException if a file cannot be openend
+     * @throws ServiceBuilderException when trying to extend a missing /* Replaced /* Replaced /* Replaced client */ */ */
      */
     public static function factory($data, $extension = null)
     {
         $config = array();
         if (is_string($data)) {
             if (!is_readable($data)) {
-                throw new \RuntimeException('Unable to open ' . $data);
+                throw new ServiceBuilderException('Unable to open ' . $data);
             }
             $extension = $extension ?: pathinfo($data, PATHINFO_EXTENSION);
             if ($extension == 'xml') {
@@ -47,12 +51,12 @@ class ServiceBuilder implements \ArrayAccess, \Serializable
             } else if ($extension == 'js' || $extension == 'json') {
                 $config = json_decode(file_get_contents($data), true);
             } else {
-                throw new \RuntimeException('Unknown file type ' . $extension);
+                throw new ServiceBuilderException('Unknown file type ' . $extension);
             }
         } else if (is_array($data)) {
             $config = $data;
         } else if (!($data instanceof \SimpleXMLElement)) {
-            throw new \InvalidArgumentException('Must pass a file name, array, or SimpleXMLElement');
+            throw new ServiceBuilderException('Must pass a file name, array, or SimpleXMLElement');
         }
 
         if ($data instanceof \SimpleXMLElement) {
@@ -76,7 +80,7 @@ class ServiceBuilder implements \ArrayAccess, \Serializable
             if (!empty($/* Replaced /* Replaced /* Replaced client */ */ */['extends'])) {
                 // Make sure that the service it's extending has been defined
                 if (!isset($config[$/* Replaced /* Replaced /* Replaced client */ */ */['extends']])) {
-                    throw new \LogicException($name . ' is trying to extend a non-existent service: ' . $/* Replaced /* Replaced /* Replaced client */ */ */['extends']);
+                    throw new ServiceNotFoundException($name . ' is trying to extend a non-existent service: ' . $/* Replaced /* Replaced /* Replaced client */ */ */['extends']);
                 }
                 $/* Replaced /* Replaced /* Replaced client */ */ */['class'] = empty($/* Replaced /* Replaced /* Replaced client */ */ */['class'])
                     ? $config[$/* Replaced /* Replaced /* Replaced client */ */ */['extends']]['class'] : $/* Replaced /* Replaced /* Replaced client */ */ */['class'];
@@ -129,12 +133,12 @@ class ServiceBuilder implements \ArrayAccess, \Serializable
      *     for later retrieval from the ServiceBuilder
      *
      * @return ClientInterface
-     * @throws \InvalidArgumentException when a /* Replaced /* Replaced /* Replaced client */ */ */ cannot be found by name
+     * @throws ClientNotFoundException when a /* Replaced /* Replaced /* Replaced client */ */ */ cannot be found by name
      */
     public function get($name, $throwAway = false)
     {
         if (!isset($this->builderConfig[$name])) {
-            throw new \InvalidArgumentException('No /* Replaced /* Replaced /* Replaced client */ */ */ is registered as ' . $name);
+            throw new ClientNotFoundException('No /* Replaced /* Replaced /* Replaced client */ */ */ is registered as ' . $name);
         }
 
         if (!$throwAway && isset($this->/* Replaced /* Replaced /* Replaced client */ */ */s[$name])) {

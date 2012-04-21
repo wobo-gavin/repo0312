@@ -124,7 +124,7 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand
-     * @expectedException InvalidArgumentException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ValidationException
      */
     public function testValidatesArgs()
     {

@@ -1,11 +1,13 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception;
+
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception;
 
 /**
  * Collection of exceptions
  */
-class ExceptionCollection extends \Exception implements /* Replaced /* Replaced /* Replaced Guzzle */ */ */ExceptionInterface, \IteratorAggregate, \Countable
+class ExceptionCollection extends \Exception implements /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception, \IteratorAggregate, \Countable
 {
     /**
      * @var array Array of Exceptions

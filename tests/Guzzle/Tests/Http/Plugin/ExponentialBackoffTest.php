@@ -85,7 +85,7 @@ class ExponentialBackoffPluginTest extends \/* Replaced /* Replaced /* Replaced 
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin::onRequestSent
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin::onRequestPoll
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\BadResponseException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException
      */
     public function testAllowsFailureOnMaxRetries()
     {

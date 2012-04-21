@@ -3,9 +3,10 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ExceptionCollection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\UriTemplate;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
@@ -98,7 +99,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
         } else if (is_array($config)) {
             $this->config = new Collection($config);
         } else {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'Config must be an array or Collection'
             );
         }
@@ -144,7 +145,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
         } else if (is_array($headers)) {
             $this->defaultHeaders = new Collection($headers);
         } else {
-            throw new \InvalidArgumentException('Headers must be an array or Collection');
+            throw new InvalidArgumentException('Headers must be an array or Collection');
         }
 
         return $this;
@@ -222,7 +223,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
             $templateVars = null;
         } else {
             if (count($uri) != 2 || !is_array($uri[1])) {
-                throw new \InvalidArgumentException('You must provide a URI'
+                throw new InvalidArgumentException('You must provide a URI'
                     . ' template followed by an array of template variables'
                     . ' when using an array for a URI template');
             }

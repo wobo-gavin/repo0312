@@ -123,7 +123,7 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
 
         // Clear all parameters
         $this->coll->clear();
-        
+
         $this->assertEquals($this->coll->getAll(), array());
     }
 
@@ -312,7 +312,7 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
             'different_key' => 'new value'
         ), $this->coll->getAll());
     }
-    
+
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::filter
      */

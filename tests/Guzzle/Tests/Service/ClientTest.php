@@ -107,7 +107,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSetException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandSetException
      */
     public function testThrowsExceptionWhenExecutingMixedClientCommandSets()
     {
@@ -128,7 +128,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
-     * @expectedException InvalidArgumentException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      */
     public function testThrowsExceptionWhenExecutingInvalidCommandSets()
     {

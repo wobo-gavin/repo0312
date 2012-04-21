@@ -4,7 +4,10 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inflector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\BadMethodCallException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client as HttpClient;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandSetException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSet;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\CompositeFactory;
@@ -75,7 +78,7 @@ class Client extends HttpClient implements ClientInterface
     public function __call($method, $args = null)
     {
         if ($this->magicMethodBehavior == self::MAGIC_CALL_DISABLED) {
-            throw new \BadMethodCallException("Missing method $method.  Enable"
+            throw new BadMethodCallException("Missing method $method.  Enable"
                 . " magic calls to use magic methods with command names.");
         }
 
@@ -114,13 +117,13 @@ class Client extends HttpClient implements ClientInterface
      * @param array $args (optional) Arguments to pass to the command
      *
      * @return CommandInterface
-     * @throws \InvalidArgumentException if no command can be found by name
+     * @throws InvalidArgumentException if no command can be found by name
      */
     public function getCommand($name, array $args = array())
     {
         $command = $this->getCommandFactory()->factory($name, $args);
         if (!$command) {
-            throw new \InvalidArgumentException("Command was not found matching {$name}");
+            throw new InvalidArgumentException("Command was not found matching {$name}");
         }
         $command->setClient($this);
         $this->dispatch('/* Replaced /* Replaced /* Replaced client */ */ */.command.create', array(
@@ -167,8 +170,8 @@ class Client extends HttpClient implements ClientInterface
      * @return mixed Returns the result of the executed command's
      *       {@see CommandInterface::getResult} method if a CommandInterface is
      *       passed, or the CommandSet itself if a CommandSet is passed
-     * @throws \InvalidArgumentException if an invalid command is passed
-     * @throws Command\CommandSetException if a set contains commands associated
+     * @throws InvalidArgumentException if an invalid command is passed
+     * @throws CommandSetException if a set contains commands associated
      *      with other /* Replaced /* Replaced /* Replaced client */ */ */s
      */
     public function execute($command)
@@ -186,7 +189,7 @@ class Client extends HttpClient implements ClientInterface
         } else if ($command instanceof CommandSet) {
             foreach ($command as $c) {
                 if ($c->getClient() && $c->getClient() !== $this) {
-                    throw new Command\CommandSetException(
+                    throw new CommandSetException(
                         'Attempting to run a mixed-Client CommandSet from a ' .
                         'Client context.  Run the set using CommandSet::execute() '
                     );
@@ -198,7 +201,7 @@ class Client extends HttpClient implements ClientInterface
             return $this->execute(new CommandSet($command));
         }
 
-        throw new \InvalidArgumentException('Invalid command sent to ' . __METHOD__);
+        throw new InvalidArgumentException('Invalid command sent to ' . __METHOD__);
     }
 
     /**

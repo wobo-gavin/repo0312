@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\UriTemplate;
@@ -19,7 +20,7 @@ class DynamicCommand extends AbstractCommand
     protected function init()
     {
         if (!$this->apiCommand) {
-            throw new \InvalidArgumentException('An API command must be passed');
+            throw new InvalidArgumentException('An API command must be passed');
         }
     }
 

@@ -1,8 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl;
-
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\BadResponseException;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception;
 
 /**
  * cURL request exception

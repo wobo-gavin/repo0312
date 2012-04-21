@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 
 /**
  * HTTP request that sends an entity-body in the request message (POST, PUT)
@@ -63,7 +64,7 @@ class EntityEnclosingRequest extends Request implements EntityEnclosingRequestIn
         $this->setHeader('Expect', '100-Continue');
 
         if ($contentType) {
-            $this->setHeader('Content-Type', $contentType);
+            $this->setHeader('Content-Type', (string) $contentType);
         }
 
         if ($tryChunkedTransfer) {
