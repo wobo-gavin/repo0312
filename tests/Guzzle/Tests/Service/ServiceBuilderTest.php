@@ -73,7 +73,8 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::__sleep
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::serialize
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::unserialize
      */
     public function testAllowsSerialization()
     {
