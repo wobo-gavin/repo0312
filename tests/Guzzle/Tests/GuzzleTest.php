@@ -14,7 +14,7 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Test extends /* Replace
     {
         /* Replaced /* Replaced /* Replaced Guzzle */ */ */::reset();
         $version = curl_version();
-        $agent = sprintf('/* Replaced /* Replaced /* Replaced Guzzle */ */ *//%s (Language=PHP/%s; curl=%s; Host=%s)', /* Replaced /* Replaced /* Replaced Guzzle */ */ */::VERSION, \PHP_VERSION, $version['version'], $version['host']);
+        $agent = sprintf('/* Replaced /* Replaced /* Replaced Guzzle */ */ *//%s (PHP=%s; curl=%s; openssl=%s)', /* Replaced /* Replaced /* Replaced Guzzle */ */ */::VERSION, \PHP_VERSION, $version['version'], $version['ssl_version']);
         $this->assertEquals($agent, /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent());
         // Get it from cache this time
         $this->assertEquals($agent, /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent());

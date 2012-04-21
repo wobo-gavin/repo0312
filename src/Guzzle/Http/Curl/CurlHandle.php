@@ -161,6 +161,18 @@ class CurlHandle
             }
         }
 
+        // Check if any headers or cURL options are blacklisted
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $request->getClient();
+        if ($/* Replaced /* Replaced /* Replaced client */ */ */ && $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('curl.black_list')) {
+            foreach ($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('curl.black_list') as $value) {
+                if (strpos($value, 'header.') === 0) {
+                    $curlOptions[CURLOPT_HTTPHEADER][] = substr($value, 7) . ':';
+                } else {
+                    unset($curlOptions[$value]);
+                }
+            }
+        }
+
         // Apply the options to the cURL handle.
         curl_setopt_array($handle, $curlOptions);
         $request->getParams()->set('curl.last_options', $curlOptions);

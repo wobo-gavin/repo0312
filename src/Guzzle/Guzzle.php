@@ -9,7 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
  */
 class /* Replaced /* Replaced /* Replaced Guzzle */ */ */
 {
-    const VERSION = '2.0';
+    const VERSION = '2.3.2';
 
     /**
      * @var array /* Replaced /* Replaced /* Replaced Guzzle */ */ */ cache
@@ -24,11 +24,11 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */
     public static function getDefaultUserAgent()
     {
         if (!isset(self::$cache['user_agent'])) {
-            self::$cache['user_agent'] = sprintf('/* Replaced /* Replaced /* Replaced Guzzle */ */ *//%s (Language=PHP/%s; curl=%s; Host=%s)',
+            self::$cache['user_agent'] = sprintf('/* Replaced /* Replaced /* Replaced Guzzle */ */ *//%s (PHP=%s; curl=%s; openssl=%s)',
                 self::VERSION,
                 \PHP_VERSION,
                 self::getCurlInfo('version'),
-                self::getCurlInfo('host')
+                self::getCurlInfo('ssl_version')
             );
         }
 
