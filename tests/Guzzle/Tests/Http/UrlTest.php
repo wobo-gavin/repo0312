@@ -272,7 +272,7 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getQuery
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::parseUrlUtf8
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::parseUrl
      */
     public function testCanUseUtf8Query()
     {
@@ -281,7 +281,7 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::parseUrlUtf8
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::parseUrl
      */
     public function testParsesUtf8UrlQueryStringsWithFragment()
     {

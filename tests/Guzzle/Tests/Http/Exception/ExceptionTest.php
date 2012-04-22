@@ -30,4 +30,37 @@ class ExceptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $e->setResponse($response);
         $this->assertEquals($response, $e->getResponse());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException::factory
+     */
+    public function testCreatesGenericErrorExceptionOnError()
+    {
+        $request = new Request('GET', 'http://www.example.com');
+        $response = new Response(307);
+        $e = BadResponseException::factory($request, $response);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException', $e);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException::factory
+     */
+    public function testCreatesClientErrorExceptionOnClientError()
+    {
+        $request = new Request('GET', 'http://www.example.com');
+        $response = new Response(404);
+        $e = BadResponseException::factory($request, $response);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\ClientErrorResponseException', $e);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException::factory
+     */
+    public function testCreatesServerErrorExceptionOnServerError()
+    {
+        $request = new Request('GET', 'http://www.example.com');
+        $response = new Response(503);
+        $e = BadResponseException::factory($request, $response);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\ServerErrorResponseException', $e);
+    }
 }

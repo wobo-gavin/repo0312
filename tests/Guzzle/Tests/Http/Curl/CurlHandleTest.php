@@ -539,6 +539,7 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle::factory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\RequestMediator
      * @dataProvider dataProvider
      */
     public function testFactoryCreatesCurlBasedOnRequest($method, $url, $headers, $body, $options, $expectedHeaders = null)
