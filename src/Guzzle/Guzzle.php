@@ -9,7 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
  */
 class /* Replaced /* Replaced /* Replaced Guzzle */ */ */
 {
-    const VERSION = '2.3.2';
+    const VERSION = '2.4.0';
 
     /**
      * @var array /* Replaced /* Replaced /* Replaced Guzzle */ */ */ cache
