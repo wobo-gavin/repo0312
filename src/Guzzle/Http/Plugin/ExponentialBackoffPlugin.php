@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -159,18 +160,27 @@ class ExponentialBackoffPlugin implements EventSubscriberInterface
         $request = $event['request'];
         $response = $event['response'];
         $exception = $event['exception'];
-        $retry = false;
+        $retry = null;
+        $failureCodes = $this->failureCodes;
 
-        // Check if the response code or reason phrase is a match the values we expect
         if (is_callable($this->failureCodes)) {
             // Use a callback to determine if the request should be retried
             $retry = call_user_func($this->failureCodes, $request, $response, $exception);
-        } else if ($event->getName() == 'request.exception' && $exception instanceof CurlException) {
-            // Handle cURL exceptions
-            $retry = in_array($exception->getErrorNo(), $this->failureCodes);
-        } else {
-            $retry = in_array($response->getStatusCode(), $this->failureCodes) ||
-                in_array($response->getReasonPhrase(), $this->failureCodes);
+            // If null is returned, then use the default check
+            if ($retry === null) {
+                $failureCodes = self::getDefaultFailureCodes();
+            }
+        }
+
+        // If a retry method hasn't decided what to do yet, then use the default check
+        if ($retry === null) {
+            if ($exception && $exception instanceof CurlException) {
+                // Handle cURL exceptions
+                $retry = in_array($exception->getErrorNo(), $failureCodes);
+            } else if ($response) {
+                $retry = in_array($response->getStatusCode(), $failureCodes) ||
+                    in_array($response->getReasonPhrase(), $failureCodes);
+            }
         }
 
         if ($retry) {

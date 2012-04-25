@@ -9,6 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialB
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
 
 /**
@@ -241,5 +242,33 @@ class ExponentialBackoffPluginTest extends \/* Replaced /* Replaced /* Replaced 
 
         // Trigger the event
         $plugin->onRequestSent($event);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin::onRequestSent
+     */
+    public function testAllowsCustomFailureMethodsToPuntToDefaultMethod()
+    {
+        $count = 0;
+
+        $plugin = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin')
+            ->setMethods(array('retryRequest'))
+            ->setConstructorArgs(array(2, function() use (&$count) {
+                $count++;
+            }, array($this, 'delayClosure')))
+            ->getMock();
+
+        $plugin->expects($this->once())
+            ->method('retryRequest')
+            ->will($this->returnValue(null));
+
+        $event = new Event(array(
+            'request' => new Request('GET', 'http://test.com'),
+            'response' => new Response(500)
+        ));
+        $event->setName('request.exception');
+
+        $plugin->onRequestSent($event);
+        $this->assertEquals(1, $count);
     }
 }
