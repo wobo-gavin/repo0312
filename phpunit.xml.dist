@@ -34,6 +34,7 @@
                 <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service/Exception/ServiceBuilderException.php</file>
                 <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service/Exception/ServiceNotFoundException.php</file>
                 <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service/Exception/ValidationException.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service/Exception/JsonException.php</file>
             </exclude>
         </whitelist>
     </filter>
