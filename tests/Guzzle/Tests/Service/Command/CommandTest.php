@@ -160,6 +160,24 @@ class CommandTest extends AbstractCommandTest
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::process
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\JsonException
+     */
+    public function testConvertsInvalidJsonResponsesToArray()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(
+            new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response(200, array(
+                'Content-Type' => 'application/json'
+                ), '{ "key": "Hi!" }invalid'
+            )
+        )));
+        $command = new MockCommand();
+        $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */);
+        $command->execute();
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::process
      */
     public function testProcessResponseIsNotXml()
     {
