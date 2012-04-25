@@ -177,13 +177,15 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
             'api' => 'v1',
             // Adds the option using the curl values
             'curl.CURLOPT_HTTPAUTH' => 'CURLAUTH_DIGEST',
-            'curl.abc' => 'not added'
+            'curl.abc' => 'not added',
+            'curl.blacklist' => 'abc'
         ));
 
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
         $options = $request->getCurlOptions();
         $this->assertEquals(CURLAUTH_DIGEST, $options->get(CURLOPT_HTTPAUTH));
         $this->assertNull($options->get('curl.abc'));
+        $this->assertNull($options->get('curl.blacklist'));
     }
 
     /**
@@ -199,6 +201,21 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
         $this->assertEquals('query=Date', $request->getParams()->get('cache.key_filter'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::prepareRequest
+     */
+    public function testClientAddsParamsToRequests()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.example.com', array(
+            'api' => 'v1',
+            'params.foo' => 'bar',
+            'params.baz' => 'jar',
+        ));
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
+        $this->assertEquals('bar', $request->getParams()->get('foo'));
+        $this->assertEquals('jar', $request->getParams()->get('baz'));
     }
 
     public function urlProvider()

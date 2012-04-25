@@ -20,7 +20,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\MockMulti;
  * @group server
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti
  */
-class ExceptionCollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
      * @var /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti
@@ -445,6 +445,48 @@ class ExceptionCollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzl
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti::send
      */
     public function testDoesNotSendRequestsDecliningToBeSent()
+    {
+        if (!defined('CURLOPT_TIMEOUT_MS')) {
+            $this->markTestSkipped('Update curl');
+        }
+
+        // Create a /* Replaced /* Replaced /* Replaced client */ */ */ that is bound to fail connecting
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://localhost:123', array(
+            'curl.CURLOPT_PORT'              => 123,
+            'curl.CURLOPT_CONNECTTIMEOUT_MS' => 1,
+        ));
+
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
+        $multi = new CurlMulti();
+        $multi->add($request);
+
+        // Listen for request exceptions, and when they occur, first change the
+        // state of the request back to transferring, and then just allow it to
+        // exception out
+        $request->getEventDispatcher()->addListener('request.exception', function(Event $event) use ($multi) {
+            $retries = $event['request']->getParams()->get('retries');
+            // Allow the first failure to retry
+            if ($retries == 0) {
+                $event['request']->setState('transfer');
+                $event['request']->getParams()->set('retries', 1);
+                // Remove the request to try again
+                $multi->remove($event['request']);
+                $multi->add($event['request'], true);
+            }
+        });
+
+        try {
+            $multi->send();
+            $this->fail('Did not throw an exception at all!?!');
+        } catch (\Exception $e) {
+            $this->assertEquals(1, $request->getParams()->get('retries'));
+        }
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti::send
+     */
+    public function testDoesNotThrowExceptionsWhenRequestsRecover()
     {
         $this->getServer()->flush();
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());

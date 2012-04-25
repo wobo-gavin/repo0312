@@ -2,10 +2,13 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
 
 /**
@@ -157,5 +160,86 @@ class ExponentialBackoffPluginTest extends \/* Replaced /* Replaced /* Replaced 
 
         // Check that two requests were made to retry this request
         $this->assertEquals(2, count($this->getServer()->getReceivedRequests(false)));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin::getDefaultFailureCodes
+     */
+    public function testReturnsDefaultFailureCodes()
+    {
+        $this->assertNotEmpty(ExponentialBackoffPlugin::getDefaultFailureCodes());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin::__construct
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin::getDefaultFailureCodes
+     */
+    public function testUsesDefaultFailureCodesByDefault()
+    {
+        $p = new ExponentialBackoffPlugin();
+        $this->assertEquals($p->getFailureCodes(), ExponentialBackoffPlugin::getDefaultFailureCodes());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin::onRequestSent
+     */
+    public function testAllowsCallableFailureCodes()
+    {
+        $a = 0;
+        $plugin = new ExponentialBackoffPlugin(1, function($request, $response) use (&$a) {
+            // Look for a Foo header
+            if ($response->hasHeader('Foo')) {
+                $a = 1;
+                return true;
+            }
+        }, array($this, 'delayClosure'));
+
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 200 OK\r\nFoo: Bar\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata"
+        ));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
+        $request->send();
+
+        // Make sure it eventually completed successfully
+        $this->assertEquals('data', $request->getResponse()->getBody(true));
+        // Check that the callback saw the request and header
+        $this->assertEquals(1, $a);
+        // Check that two requests were made to retry this request
+        $this->assertEquals(2, count($this->getServer()->getReceivedRequests(false)));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin::onRequestSent
+     */
+    public function testExponentiallyBacksOffCurlErrors()
+    {
+        $plugin = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin', array('retryRequest'));
+
+        // Mock the retryRequest method so that it does nothing, but ensure
+        // that it is called exactly once
+        $plugin->expects($this->once())
+            ->method('retryRequest')
+            ->will($this->returnValue(null));
+
+        // Create an exception that is found in the default curl exception list
+        $exception = new CurlException('Curl');
+        $exception->setError('foo', CURLE_OPERATION_TIMEOUTED);
+
+        // Create a dummy event to send to the plugin
+        $event = new Event(array(
+            'request' => new Request('GET', 'http://test.com'),
+            'response' => null,
+            'exception' => $exception
+        ));
+        // Ensure the it uses the name we're looking for
+        $event->setName('request.exception');
+
+        // Trigger the event
+        $plugin->onRequestSent($event);
     }
 }

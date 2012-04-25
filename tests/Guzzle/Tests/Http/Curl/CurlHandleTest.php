@@ -539,6 +539,7 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle::factory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle::updateRequestFromTransfer
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\RequestMediator
      * @dataProvider dataProvider
      */
@@ -716,5 +717,15 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $headers = $handle->getOptions()->get(CURLOPT_HTTPHEADER);
         $this->assertTrue(in_array('Expect:', $headers));
         $this->assertTrue(in_array('Accept:', $headers));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle::updateRequestFromTransfer
+     */
+    public function testEnsuresRequestsHaveResponsesWhenUpdatingFromTransfer()
+    {
+        $request = RequestFactory::getInstance()->create('PUT', $this->getServer()->getUrl());
+        $handle = CurlHandle::factory($request);
+        $handle->updateRequestFromTransfer($request);
     }
 }
