@@ -4,11 +4,13 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\NullObject;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\BadMethodCallException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inspector;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inflector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\JsonException;
 
@@ -62,6 +64,39 @@ abstract class AbstractCommand extends Collection implements CommandInterface
         }
 
         $this->init();
+    }
+
+    /**
+     * Enables magic methods for setting parameters.
+     *
+     * @param string $method Name of the parameter to set
+     * @param array  $args   (optional) Arguments to pass to the command
+     *
+     * @return AbstractCommand
+     * @throws BadMethodCallException when a parameter doesn't exist
+     */
+    public function __call($method, $args = null)
+    {
+        // Ensure magic method call behavior is enabled
+        if (!$this->get('command.magic_method_call')) {
+            throw new BadMethodCallException('Magic method calls are disabled '
+                . 'for this command.  Consider enabling magic method calls by '
+                . 'setting the command.magic_method_call parameter to true.');
+        }
+
+        if ($args && strpos($method, 'set') === 0) {
+            // Convert the method into the snake cased parameter key
+            $key = Inflector::snake(substr($method, 3));
+
+            // If the parameter exists, set it
+            if (array_key_exists($key, $this->apiCommand->getParams())) {
+                $this->set($key, $args[0]);
+                return $this;
+            }
+        }
+
+        // If the method is not a set method, or the parameter doesn't exist, fail
+        throw new BadMethodCallException("Missing method {$method}.");
     }
 
     /**

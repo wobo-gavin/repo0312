@@ -20,10 +20,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Serv
  */
 class Client extends HttpClient implements ClientInterface
 {
-    const MAGIC_CALL_DISABLED = 0;
-    const MAGIC_CALL_RETURN = 1;
-    const MAGIC_CALL_EXECUTE = 2;
-
     /**
      * @var ServiceDescription Description of the service and possible commands
      */
@@ -121,6 +117,11 @@ class Client extends HttpClient implements ClientInterface
      */
     public function getCommand($name, array $args = array())
     {
+        // Enable magic method calls on commands if it's enabled on the /* Replaced /* Replaced /* Replaced client */ */ */
+        if ($this->magicMethodBehavior) {
+            $args['command.magic_method_call'] = true;
+        }
+
         $command = $this->getCommandFactory()->factory($name, $args);
         if (!$command) {
             throw new InvalidArgumentException("Command was not found matching {$name}");

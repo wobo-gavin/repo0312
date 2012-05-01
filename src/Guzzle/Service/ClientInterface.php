@@ -15,11 +15,15 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\
  */
 interface ClientInterface extends HttpClientInterface
 {
+    const MAGIC_CALL_DISABLED = 0;
+    const MAGIC_CALL_RETURN = 1;
+    const MAGIC_CALL_EXECUTE = 2;
+
     /**
      * Basic factory method to create a new /* Replaced /* Replaced /* Replaced client */ */ */.  Extend this method in
      * subclasses to build more complex /* Replaced /* Replaced /* Replaced client */ */ */s.
      *
-     * @param array|Collection $config (optional) Configuartion data
+     * @param array|Collection $config (optional) Configuration data
      *
      * @return ClientInterface
      */
