@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ClientNotFoundException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
@@ -10,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\Servic
  * Service builder to generate service builders and service /* Replaced /* Replaced /* Replaced client */ */ */s from
  * configuration settings
  */
-class ServiceBuilder implements \ArrayAccess, \Serializable
+class ServiceBuilder extends AbstractHasDispatcher implements \ArrayAccess, \Serializable
 {
     /**
      * @var array Service builder configuration data
@@ -106,6 +107,14 @@ class ServiceBuilder implements \ArrayAccess, \Serializable
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public static function getAllEvents()
+    {
+        return array('service_builder.create_/* Replaced /* Replaced /* Replaced client */ */ */');
+    }
+
+    /**
      * Restores the service builder from JSON
      *
      * @param string $serialized JSON data to restore from
@@ -160,6 +169,11 @@ class ServiceBuilder implements \ArrayAccess, \Serializable
         if (!$throwAway) {
             $this->/* Replaced /* Replaced /* Replaced client */ */ */s[$name] = $/* Replaced /* Replaced /* Replaced client */ */ */;
         }
+
+        // Dispatch an event letting listeners know a /* Replaced /* Replaced /* Replaced client */ */ */ was created
+        $this->dispatch('service_builder.create_/* Replaced /* Replaced /* Replaced client */ */ */', array(
+            '/* Replaced /* Replaced /* Replaced client */ */ */' => $/* Replaced /* Replaced /* Replaced client */ */ */
+        ));
 
         return $/* Replaced /* Replaced /* Replaced client */ */ */;
     }

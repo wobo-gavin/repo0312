@@ -341,4 +341,42 @@ EOT;
         $this->assertSame($builder['b'], $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('other_/* Replaced /* Replaced /* Replaced client */ */ */'));
         $this->assertEquals('1', $builder['b']->getConfig('username'));
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::getAllEvents
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::get
+     */
+    public function testEmitsEventsWhenClientsAreCreated()
+    {
+        // Ensure that the /* Replaced /* Replaced /* Replaced client */ */ */ signals that it emits an event
+        $this->assertEquals(array('service_builder.create_/* Replaced /* Replaced /* Replaced client */ */ */'), ServiceBuilder::getAllEvents());
+
+        // Create a test service builder
+        $builder = ServiceBuilder::factory(array(
+            'a' => array(
+                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
+                'params' => array(
+                    'username'  => 'test',
+                    'password'  => '123',
+                    'subdomain' => 'z'
+                )
+            )
+        ));
+
+        $emits = 0;
+        $emitted = null;
+
+        // Add an event listener to pick up /* Replaced /* Replaced /* Replaced client */ */ */ creation events
+        $builder->getEventDispatcher()->addListener('service_builder.create_/* Replaced /* Replaced /* Replaced client */ */ */', function($event) use (&$emits, &$emitted) {
+            $emits++;
+            $emitted = $event['/* Replaced /* Replaced /* Replaced client */ */ */'];
+        });
+
+        // Get the 'a' /* Replaced /* Replaced /* Replaced client */ */ */ by name
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $builder->get('a');
+
+        // Ensure that the event was emitted once, and that the /* Replaced /* Replaced /* Replaced client */ */ */ was present
+        $this->assertEquals(1, $emits);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient', $/* Replaced /* Replaced /* Replaced client */ */ */);
+    }
 }
