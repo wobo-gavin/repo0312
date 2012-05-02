@@ -300,4 +300,14 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         $this->assertEquals('foo', $url->getHost());
         $this->assertEquals(8983, $url->getPort());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::buildUrl
+     */
+    public function testUrlOnlyContainsHashWhenHashIsNotEmpty()
+    {
+        $url = Url::factory('http://www.example.com/');
+        $url->setFragment('');
+        $this->assertEquals('http://www.example.com/', (string) $url);
+    }
 }
