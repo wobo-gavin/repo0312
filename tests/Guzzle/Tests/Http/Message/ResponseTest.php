@@ -6,7 +6,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\HttpException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
@@ -83,7 +82,7 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         try {
             //$response = new Response(200, null, array('foo' => 'bar'));
             //$this->fail('Response did not throw exception when passing invalid body');
-        } catch (HttpException $e) {
+        } catch(\Exception $e) {
         }
 
         // Make sure the proper exception is thrown when sending invalid code
