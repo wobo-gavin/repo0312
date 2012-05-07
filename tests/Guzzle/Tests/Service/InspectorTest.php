@@ -19,7 +19,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\Valida
  * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ timestamp type="time"
  * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ string type="string"
  * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ username required="true" filters="strtolower"
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ dynamic default="{{username}}_{{ string }}_{{ does_not_exist }}"
+ * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ dynamic default="{username}_{ string }_{ does_not_exist }"
  * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ test_function type="string" filters="/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\InspectorTest::strtoupper"
  */
 class InspectorTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
@@ -134,7 +134,7 @@ class InspectorTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
  * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ subdomain required="true" doc="Unfuddle project subdomain" type="string"
  * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ api_version required="true" default="v1" doc="API version" type="choice:'v1','v2',v3"
  * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ protocol required="true" default="https" doc="HTTP protocol (http or https)" type="string"
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ base_url required="true" default="{{ protocol }}://{{ subdomain }}.unfuddle.com/api/{{ api_version }}/" doc="Unfuddle API base URL" type="string"
+ * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ base_url required="true" default="{ protocol }://{ subdomain }.unfuddle.com/api/{ api_version }/" doc="Unfuddle API base URL" type="string"
  * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ class type="type:object"
  */
 EOT;
@@ -163,7 +163,7 @@ EOT;
 
         $this->assertEquals(array(
             'required' => true,
-            'default' => '{{ protocol }}://{{ subdomain }}.unfuddle.com/api/{{ api_version }}/',
+            'default' => '{ protocol }://{ subdomain }.unfuddle.com/api/{ api_version }/',
             'doc' => 'Unfuddle API base URL',
             'type' => 'string'
         ), array_filter($params['base_url']->toArray()));

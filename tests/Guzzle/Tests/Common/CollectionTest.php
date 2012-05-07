@@ -358,4 +358,13 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
             'a' => '123'
         ), $this->coll->getAll());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::getPregMatchValue
+     */
+    public function testReturnsValuesForPregMatch()
+    {
+        $c = new Collection(array('foo' => 'bar'));
+        $this->assertEquals('bar', $c->getPregMatchValue(array(1 => 'foo')));
+    }
 }
