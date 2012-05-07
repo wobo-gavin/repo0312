@@ -18,7 +18,9 @@ class Validation extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
                 throw $e;
             }
 
-            $this->assertInstanceOf($exception, $e);
+            if (!($e instanceof $exception)) {
+                throw $e;
+            }
         }
     }
 }
