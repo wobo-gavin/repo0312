@@ -93,7 +93,8 @@ class BatchQueuePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
 
         // Explicitly call flush to send the queued requests
         $plugin->flush();
-        $this->assertEquals(count($requests), count($this->getServer()->getReceivedRequests()));
+        $received = $this->getServer()->getReceivedRequests();
+        $this->assertEquals(count($requests), count($received));
         $this->assertEquals(0, count($plugin));
     }
 
@@ -114,18 +115,19 @@ class BatchQueuePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
         ));
 
         $plugin->onRequestCreate(new Event(array(
-            'request' => $/* Replaced /* Replaced /* Replaced client */ */ */->get('/')
+            'request' => $/* Replaced /* Replaced /* Replaced client */ */ */->get('/1')
         )));
 
         $plugin->onRequestCreate(new Event(array(
-            'request' => $/* Replaced /* Replaced /* Replaced client */ */ */->get('/')
+            'request' => $/* Replaced /* Replaced /* Replaced client */ */ */->get('/2')
         )));
 
         $this->assertEquals(0, count($plugin));
-        $this->assertEquals(2, count($this->getServer()->getReceivedRequests()));
+        $received = $this->getServer()->getReceivedRequests();
+        $this->assertEquals(2, count($received));
 
         $plugin->onRequestCreate(new Event(array(
-            'request' => $/* Replaced /* Replaced /* Replaced client */ */ */->get('/')
+            'request' => $/* Replaced /* Replaced /* Replaced client */ */ */->get('/3')
         )));
 
         $this->assertEquals(1, count($plugin));
