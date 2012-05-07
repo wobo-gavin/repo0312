@@ -40,8 +40,8 @@ class ArrayDescriptionBuilderTest extends \/* Replaced /* Replaced /* Replaced G
         $this->assertEquals('GET', $c->getMethod());
         $params = $c->getParams();
         $param = $params['test'];
-        $this->assertEquals('string', $param['type']);
-        $this->assertTrue($param['required']);
+        $this->assertEquals('string', $param->getType());
+        $this->assertTrue($param->getRequired());
     }
 
     /**
