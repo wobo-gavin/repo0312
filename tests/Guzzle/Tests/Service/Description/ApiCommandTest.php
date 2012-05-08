@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Desc
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiParam;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 
 class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
@@ -38,19 +39,19 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals('/api/v1', $c->getUri());
         $this->assertEquals('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\DynamicCommand', $c->getConcreteClass());
         $this->assertEquals(array(
-            'key' => new Collection(array(
+            'key' => new ApiParam(array(
                 'required' => 'true',
                 'type' => 'string',
                 'max_length' => 10
             )),
-            'key_2' => new Collection(array(
+            'key_2' => new ApiParam(array(
                 'required' => 'true',
                 'type' => 'integer',
                 'default' => 10
             ))
         ), $c->getParams());
 
-        $this->assertEquals(new Collection(array(
+        $this->assertEquals(new ApiParam(array(
             'required' => 'true',
             'type' => 'integer',
             'default' => 10
@@ -68,7 +69,7 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
             'name' => 'test',
             'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\ClosureCommand',
             'params' => array(
-                'p' => new Collection(array(
+                'p' => new ApiParam(array(
                     'name' => 'foo'
                 ))
             )
@@ -77,7 +78,7 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::getData
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::toArray
      */
     public function testConvertsToArray()
     {
@@ -88,12 +89,12 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
             'method'    => 'PUT',
             'uri'       => '/',
             'params'    => array(
-                'p' => new Collection(array(
+                'p' => new ApiParam(array(
                     'name' => 'foo'
                 ))
             )
         );
         $c = new ApiCommand($data);
-        $this->assertEquals($data, $c->getData());
+        $this->assertEquals($data, $c->toArray());
     }
 }

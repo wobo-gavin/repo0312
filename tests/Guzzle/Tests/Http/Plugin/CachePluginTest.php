@@ -216,7 +216,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
 
         $token = $response->getTokenizedHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Cache', ', ');
         $this->assertEquals(1000, $token['ttl']);
-        $this->assertEquals('key', $token->hasKey('key'));
+        $this->assertEquals(true, $token->hasKey('key'));
     }
 
     /**

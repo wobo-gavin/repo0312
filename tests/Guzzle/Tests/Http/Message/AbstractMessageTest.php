@@ -84,10 +84,6 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
             'a' => array('b'),
             'c' => array('d')
         ), $this->mock->getHeaders()->getAll());
-
-        $this->assertEquals(array(
-            'a' => array('b')
-        ), $this->mock->getHeaders(array('a'))->getAll());
     }
 
     /**
