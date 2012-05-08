@@ -10,6 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\Invalid
 abstract class AbstractConstraint implements ConstraintInterface
 {
     protected $default;
+    protected $required;
 
     /**
      * {@inheritdoc}
