@@ -42,7 +42,7 @@ class CacheAdapterFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzl
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\CacheAdapterFactory::factory
-     * @expectedException InvalidArgumentException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      * @expectedExceptionMessage cache.adapter is a required CacheAdapterFactory option
      */
     public function testEnsuresRequiredAdapterOption()
@@ -107,5 +107,14 @@ class CacheAdapterFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzl
             'cache.provider' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\ExceptionMock',
             'cache.adapter'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\ExceptionMock'
         ));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\CacheAdapterFactory
+     */
+    public function testCreatesNullCacheAdapterByDefault()
+    {
+        $adapter = CacheAdapterFactory::factory(array());
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Cache\\NullCacheAdapter', $adapter);
     }
 }
