@@ -78,7 +78,7 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::getData
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::toArray
      */
     public function testConvertsToArray()
     {
@@ -95,6 +95,6 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
             )
         );
         $c = new ApiCommand($data);
-        $this->assertEquals($data, $c->getData());
+        $this->assertEquals($data, $c->toArray());
     }
 }
