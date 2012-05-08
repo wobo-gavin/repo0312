@@ -180,4 +180,26 @@ class MockPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $p = new MockPlugin(array(new Response(200)));
         $this->assertEquals(1, $p->count());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin::getReceivedRequests
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin::flush
+     */
+    public function testStoresMockedRequests()
+    {
+        $p = new MockPlugin(array(new Response(200), new Response(200)));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://localhost:123/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($p, 9999);
+
+        $request1 = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
+        $request1->send();
+        $this->assertEquals(array($request1), $p->getReceivedRequests());
+
+        $request2 = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
+        $request2->send();
+        $this->assertEquals(array($request1, $request2), $p->getReceivedRequests());
+
+        $p->flush();
+        $this->assertEquals(array(), $p->getReceivedRequests());
+    }
 }
