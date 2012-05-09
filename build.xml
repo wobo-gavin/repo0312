@@ -28,7 +28,6 @@
                 <pharpackage
                     destfile=".//* Replaced /* Replaced /* Replaced guzzle */ */ */-min.phar"
                     basedir="."
-                    alias="/* Replaced /* Replaced /* Replaced guzzle */ */ */"
                     stub="phar-stub-min.php"
                     signature="md5">
                     <fileset dir=".">
@@ -45,7 +44,6 @@
                     destfile=".//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar"
                     basedir="."
                     stub="phar-stub.php"
-                    alias="/* Replaced /* Replaced /* Replaced guzzle */ */ */"
                     signature="md5">
                     <fileset dir=".">
                         <include name="src/**/*.php" />
