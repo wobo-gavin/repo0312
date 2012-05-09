@@ -133,4 +133,63 @@ class ResourceIteratorTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
         $this->assertEquals(6, count($ri));
         $this->assertEquals(array('d', 'e', 'f', 'g', 'h', 'i'), $data);
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator
+     */
+    public function testBailsWhenSendReturnsNoResults()
+    {
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 200 OK\r\n\r\n{ \"next_token\": \"g\", \"resources\": [\"d\", \"e\", \"f\"] }",
+            "HTTP/1.1 200 OK\r\n\r\n{ \"next_token\": \"\", \"resources\": [] }"
+        ));
+
+        $ri = new MockResourceIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'));
+
+        // Ensure that the iterator can be used as KVP array
+        $data = $ri->toArray();
+
+        // Ensure that the iterate is countable
+        $this->assertEquals(3, count($ri));
+        $this->assertEquals(array('d', 'e', 'f'), $data);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator::set
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator::get
+     */
+    public function testHoldsDataOptions()
+    {
+        $ri = new MockResourceIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'));
+        $this->assertNull($ri->get('foo'));
+        $this->assertSame($ri, $ri->set('foo', 'bar'));
+        $this->assertEquals('bar', $ri->get('foo'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator::setLimit
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator::setPageSize
+     */
+    public function testSettingLimitOrPageSizeClearsData()
+    {
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 200 OK\r\n\r\n{ \"next_token\": \"\", \"resources\": [\"d\", \"e\", \"f\"] }",
+            "HTTP/1.1 200 OK\r\n\r\n{ \"next_token\": \"\", \"resources\": [\"d\", \"e\", \"f\"] }",
+            "HTTP/1.1 200 OK\r\n\r\n{ \"next_token\": \"\", \"resources\": [\"d\", \"e\", \"f\"] }"
+        ));
+
+        $ri = new MockResourceIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'));
+        $ri->toArray();
+        $this->assertNotEmpty($this->readAttribute($ri, 'resources'));
+
+        $ri->setLimit(10);
+        $this->assertEmpty($this->readAttribute($ri, 'resources'));
+
+        $ri->toArray();
+        $this->assertNotEmpty($this->readAttribute($ri, 'resources'));
+        $ri->setPageSize(10);
+        $this->assertEmpty($this->readAttribute($ri, 'resources'));
+    }
 }
