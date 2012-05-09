@@ -173,7 +173,9 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
      * request sent by the /* Replaced /* Replaced /* Replaced client */ */ */.
      *
      * @param Client $/* Replaced /* Replaced /* Replaced client */ */ */ Client object to modify
-     * @param string $paths Path to files within the Mock folder of the service
+     * @param string $paths  Path to files within the Mock folder of the service
+     *
+     * @return MockPlugin returns the created mock plugin
      */
     public function setMockResponse(Client $/* Replaced /* Replaced /* Replaced client */ */ */, $paths)
     {
@@ -189,6 +191,8 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
         }
 
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($mock);
+
+        return $mock;
     }
 
     /**
