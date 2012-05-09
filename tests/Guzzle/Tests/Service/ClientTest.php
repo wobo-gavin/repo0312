@@ -16,6 +16,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandI
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\XmlDescriptionBuilder;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIteratorClassFactory;
 
 /**
  * @group server
@@ -228,16 +229,20 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $description = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Description\\ServiceDescription');
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description);
 
-        $this->assertNotSame($factory, $/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory());
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\CompositeFactory', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory());
-        $array = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory()->getIterator()->getArrayCopy();
+        $cf = $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'commandFactory');
+        $this->assertNotSame($factory, $cf);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\CompositeFactory', $cf);
+
+        $array = $cf->getIterator()->getArrayCopy();
         $this->assertSame($array[0], $factory);
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\ServiceDescriptionFactory', $array[1]);
         $this->assertSame($description, $array[1]->getServiceDescription());
 
         $description2 = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Description\\ServiceDescription');
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description2);
-        $array = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory()->getIterator()->getArrayCopy();
+
+        $cf = $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'commandFactory');
+        $array = $cf->getIterator()->getArrayCopy();
         $this->assertSame($array[0], $factory);
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\ServiceDescriptionFactory', $array[1]);
         $this->assertSame($description2, $array[1]->getServiceDescription());
@@ -297,12 +302,38 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     public function testOwnsCommandFactory()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\CompositeFactory', $/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory());
-        $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory(), $/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory());
+        $method = new \ReflectionMethod($/* Replaced /* Replaced /* Replaced client */ */ */, 'getCommandFactory');
+        $method->setAccessible(TRUE);
+        $cf1 = $method->invoke($/* Replaced /* Replaced /* Replaced client */ */ */);
+
+        $cf = $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'commandFactory');
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\CompositeFactory', $cf);
+        $this->assertSame($method->invoke($/* Replaced /* Replaced /* Replaced client */ */ */), $cf1);
 
         $mock = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\CompositeFactory');
         $/* Replaced /* Replaced /* Replaced client */ */ */->setCommandFactory($mock);
-        $this->assertSame($mock, $/* Replaced /* Replaced /* Replaced client */ */ */->getCommandFactory());
+        $this->assertSame($mock, $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'commandFactory'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getResourceIteratorFactory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setResourceIteratorFactory
+     */
+    public function testOwnsResourceIteratorFactory()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
+
+        $method = new \ReflectionMethod($/* Replaced /* Replaced /* Replaced client */ */ */, 'getResourceIteratorFactory');
+        $method->setAccessible(TRUE);
+        $rf1 = $method->invoke($/* Replaced /* Replaced /* Replaced client */ */ */);
+
+        $rf = $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'resourceIteratorFactory');
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Resource\\ResourceIteratorClassFactory', $rf);
+        $this->assertSame($rf1, $rf);
+
+        $rf = new ResourceIteratorClassFactory('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setResourceIteratorFactory($rf);
+        $this->assertNotSame($rf1, $rf);
     }
 
     /**
@@ -338,4 +369,37 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->execute($command);
         $this->assertEquals('I', $command->getResponse()->getBody(true));
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getIterator
+     */
+    public function testClientCreatesIterators()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
+
+        $iterator = $/* Replaced /* Replaced /* Replaced client */ */ */->getIterator('mock_command', array(
+            'foo' => 'bar'
+        ), array(
+            'limit' => 10
+        ));
+
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Model\MockCommandIterator', $iterator);
+        $this->assertEquals(10, $this->readAttribute($iterator, 'limit'));
+
+        $command = $this->readAttribute($iterator, 'originalCommand');
+        $this->assertEquals('bar', $command->get('foo'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getIterator
+     */
+    public function testClientCreatesIteratorsWithCommands()
+    {
+       $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
+       $command = new MockCommand();
+       $iterator = $/* Replaced /* Replaced /* Replaced client */ */ */->getIterator($command);
+       $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Model\MockCommandIterator', $iterator);
+       $iteratorCommand = $this->readAttribute($iterator, 'originalCommand');
+       $this->assertSame($command, $iteratorCommand);
+   }
 }

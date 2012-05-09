@@ -1,10 +1,10 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Model;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIterator;
 
-class MockResourceIterator extends ResourceIterator
+class MockCommandIterator extends ResourceIterator
 {
     protected function sendRequest()
     {

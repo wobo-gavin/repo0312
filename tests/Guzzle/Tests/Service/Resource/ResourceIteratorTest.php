@@ -1,9 +1,9 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Resource;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockResourceIterator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIterator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Model\MockCommandIterator;
 
 /**
  * @group server
@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockR
 class ResourceIteratorTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator::getAllEvents
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIterator::getAllEvents
      */
     public function testDescribesEvents()
     {
@@ -19,11 +19,11 @@ class ResourceIteratorTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
     }
 
     /**
-      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator
+      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIterator
      */
     public function testConstructorConfiguresDefaults()
     {
-        $ri = $this->getMockForAbstractClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\ResourceIterator', array(
+        $ri = $this->getMockForAbstractClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Resource\\ResourceIterator', array(
             $this->getServiceBuilder()->get('mock')->getCommand('iterable_command'),
             array(
                 'limit' => 10,
@@ -36,7 +36,7 @@ class ResourceIteratorTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIterator
      */
     public function testSendsRequestsForNextSetOfResources()
     {
@@ -49,7 +49,7 @@ class ResourceIteratorTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
         ));
 
         // Create a new resource iterator using the IteraableCommand mock
-        $ri = new MockResourceIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'), array(
+        $ri = new MockCommandIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'), array(
             'page_size' => 3
         ));
 
@@ -82,7 +82,7 @@ class ResourceIteratorTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIterator
      */
     public function testCalculatesPageSize()
     {
@@ -93,7 +93,7 @@ class ResourceIteratorTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
             "HTTP/1.1 200 OK\r\nContent-Length: 52\r\n\r\n{ \"next_token\": \"j\", \"resources\": [\"j\", \"k\"] }"
         ));
 
-        $ri = new MockResourceIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'), array(
+        $ri = new MockCommandIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'), array(
             'page_size' => 3,
             'limit' => 7
         ));
@@ -107,7 +107,7 @@ class ResourceIteratorTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIterator
      */
     public function testUseAsArray()
     {
@@ -117,7 +117,7 @@ class ResourceIteratorTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
             "HTTP/1.1 200 OK\r\nContent-Length: 52\r\n\r\n{ \"next_token\": \"\", \"resources\": [\"g\", \"h\", \"i\"] }"
         ));
 
-        $ri = new MockResourceIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'));
+        $ri = new MockCommandIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'));
 
         // Ensure that the key is never < 0
         $this->assertEquals(0, $ri->key());
@@ -135,7 +135,7 @@ class ResourceIteratorTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIterator
      */
     public function testBailsWhenSendReturnsNoResults()
     {
@@ -145,7 +145,7 @@ class ResourceIteratorTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
             "HTTP/1.1 200 OK\r\n\r\n{ \"next_token\": \"\", \"resources\": [] }"
         ));
 
-        $ri = new MockResourceIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'));
+        $ri = new MockCommandIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'));
 
         // Ensure that the iterator can be used as KVP array
         $data = $ri->toArray();
@@ -156,20 +156,20 @@ class ResourceIteratorTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator::set
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator::get
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIterator::set
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIterator::get
      */
     public function testHoldsDataOptions()
     {
-        $ri = new MockResourceIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'));
+        $ri = new MockCommandIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'));
         $this->assertNull($ri->get('foo'));
         $this->assertSame($ri, $ri->set('foo', 'bar'));
         $this->assertEquals('bar', $ri->get('foo'));
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator::setLimit
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ResourceIterator::setPageSize
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIterator::setLimit
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIterator::setPageSize
      */
     public function testSettingLimitOrPageSizeClearsData()
     {
@@ -180,7 +180,7 @@ class ResourceIteratorTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
             "HTTP/1.1 200 OK\r\n\r\n{ \"next_token\": \"\", \"resources\": [\"d\", \"e\", \"f\"] }"
         ));
 
-        $ri = new MockResourceIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'));
+        $ri = new MockCommandIterator($this->getServiceBuilder()->get('mock')->getCommand('iterable_command'));
         $ri->toArray();
         $this->assertNotEmpty($this->readAttribute($ri, 'resources'));
 
