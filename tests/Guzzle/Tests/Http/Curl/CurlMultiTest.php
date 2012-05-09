@@ -337,17 +337,19 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
             $/* Replaced /* Replaced /* Replaced client */ */ */->get()
         );
 
+        $sendHeadFunction = function($event) use ($/* Replaced /* Replaced /* Replaced client */ */ */) {
+            $/* Replaced /* Replaced /* Replaced client */ */ */->head()->send();
+        };
+
         // Sends 2 new requests in the middle of a CurlMulti loop while other requests
         // are completing.  This causes the scope of the multi handle to go up.
-        $callback = function(Event $event) use ($/* Replaced /* Replaced /* Replaced client */ */ */) {
+        $callback = function(Event $event) use ($/* Replaced /* Replaced /* Replaced client */ */ */, $sendHeadFunction) {
             $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->set('called', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('called') + 1);
-            $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
             if ($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('called') <= 2) {
-                $request->getEventDispatcher()->addListener('request.complete', function(Event $event) use ($/* Replaced /* Replaced /* Replaced client */ */ */) {
-                    $/* Replaced /* Replaced /* Replaced client */ */ */->head()->send();
-                });
+                $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
+                $request->getEventDispatcher()->addListener('request.complete', $sendHeadFunction);
+                $request->send();
             }
-            $request->send();
         };
 
         $requests[0]->getEventDispatcher()->addListener('request.complete', $callback);
@@ -356,7 +358,7 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
         $/* Replaced /* Replaced /* Replaced client */ */ */->send($requests);
 
-        $this->assertEquals(8, count($this->getServer()->getReceivedRequests(false)));
+        $this->assertEquals(7, count($this->getServer()->getReceivedRequests(false)));
     }
 
     /**
