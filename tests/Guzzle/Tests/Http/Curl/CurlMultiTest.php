@@ -353,12 +353,10 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         };
 
         $requests[0]->getEventDispatcher()->addListener('request.complete', $callback);
-        $requests[1]->getEventDispatcher()->addListener('request.complete', $callback);
-        $requests[2]->getEventDispatcher()->addListener('request.complete', $callback);
 
         $/* Replaced /* Replaced /* Replaced client */ */ */->send($requests);
 
-        $this->assertEquals(7, count($this->getServer()->getReceivedRequests(false)));
+        $this->assertEquals(5, count($this->getServer()->getReceivedRequests(false)));
     }
 
     /**
