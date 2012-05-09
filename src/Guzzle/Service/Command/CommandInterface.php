@@ -39,9 +39,9 @@ interface CommandInterface
     function getApiCommand();
 
     /**
-     * Execute the command
+     * Execute the command and return the result
      *
-     * @return Command
+     * @return mixed Returns the result of {@see CommandInterface::execute}ß
      * @throws CommandException if a /* Replaced /* Replaced /* Replaced client */ */ */ has not been associated with the command
      */
     function execute();

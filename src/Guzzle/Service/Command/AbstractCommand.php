@@ -138,9 +138,9 @@ abstract class AbstractCommand extends Collection implements CommandInterface
     }
 
     /**
-     * Execute the command
+     * Execute the command and return the result
      *
-     * @return Command
+     * @return mixed Returns the result of {@see AbstractCommand::execute}
      * @throws CommandException if a /* Replaced /* Replaced /* Replaced client */ */ */ has not been associated with the command
      */
     public function execute()
@@ -151,7 +151,7 @@ abstract class AbstractCommand extends Collection implements CommandInterface
 
         $this->/* Replaced /* Replaced /* Replaced client */ */ */->execute($this);
 
-        return $this;
+        return $this->getResult();
     }
 
     /**
