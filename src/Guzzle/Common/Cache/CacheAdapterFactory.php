@@ -24,7 +24,7 @@ class CacheAdapterFactory
         if (!isset($config['cache.adapter']) && !isset($config['cache.provider'])) {
             $config['cache.adapter'] = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Cache\\NullCacheAdapter';
             $config['cache.provider'] = null;
-        } elseif (!isset($config['cache.provider'])) { //config array instead of options
+        } else {
             // Validate that the options are valid
             foreach (array('cache.adapter', 'cache.provider') as $required) {
                 if (!isset($config[$required])) {
