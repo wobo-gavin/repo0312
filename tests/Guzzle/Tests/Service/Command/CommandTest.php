@@ -327,4 +327,41 @@ class CommandTest extends AbstractCommandTest
         $command2 = clone $command;
         $this->assertFalse($command2->isPrepared());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::setOnComplete
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::__construct
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::getResult
+     */
+    public function testHasOnCompleteMethod()
+    {
+        $that = $this;
+        $called = 0;
+
+        $testFunction = function($command) use (&$called, $that) {
+            $called++;
+            $that->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface', $command);
+        };
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
+        $command = new MockCommand(array(
+            'command.on_complete' => $testFunction
+        ), $this->getApiCommand());
+        $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */);
+
+        $command->prepare()->setResponse(new Response(200));
+        $command->execute();
+        $this->assertEquals(1, $called);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::setOnComplete
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     */
+    public function testOnCompleteMustBeCallable()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
+        $command = new MockCommand();
+        $command->setOnComplete('foo');
+    }
 }
