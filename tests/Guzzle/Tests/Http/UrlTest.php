@@ -4,41 +4,10 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\ParserRegistry;
 
 class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @return array
-     */
-    public function urlDataProvider()
-    {
-        $resp = array();
-        foreach (array(
-            'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/',
-            'http://www.google.com:8080/path?q=1&v=2',
-            'https://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/?value1=a&value2=b',
-            'https:///* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/index.html',
-            '/index.html?q=2',
-            'http://www.google.com:8080/path?q=1&v=2',
-            'http://michael:123@www.google.com:8080/path?q=1&v=2',
-            'http://michael@test.com/abc/def?q=10#test',
-        ) as $url) {
-            $parts = parse_url($url);
-            $resp[] = array($url, parse_url($url), !isset($parts['host']));
-        }
-
-        return $resp;
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::buildUrl
-     * @dataProvider urlDataProvider
-     */
-    public function testBuildsUrlsFromParts($url, $parts, $throwE)
-    {
-        $this->assertEquals($url, Url::buildUrl($parts));
-    }
-
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getPort
      */
@@ -130,6 +99,16 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::buildUrl
+     */
+    public function testAddsQueryStringIfPresent()
+    {
+        $this->assertEquals('/?foo=bar', Url::buildUrl(array(
+            'query' => 'foo=bar'
+        )));
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::addPath
      */
     public function testAddsToPath()
@@ -206,43 +185,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         $this->assertEquals('http://www.test.com/?a=b', (string) $url);
     }
 
-    public function parseQueryProvider()
-    {
-        return array(
-            // Ensure that multiple query string values are allowed per value
-            array('http://www.test.com?q=a&q=b', array(
-                'q' => array('a', 'b')
-            )),
-            // Ensure that PHP array style query string values are parsed
-            array('http://www.test.com?q[]=a&q[]=b', array(
-                'q' => array('a', 'b')
-            )),
-            // Ensure that decimals are allowed in query strings
-            array('http://www.test.com?q.a=a&q.b=b', array(
-                'q.a' => 'a',
-                'q.b' => 'b'
-            )),
-            // Ensure that query string values are percent decoded
-            array('http://www.test.com?q%20a=a%20b', array(
-                'q a' => 'a b'
-            )),
-            // Ensure that values can be set without have a value
-            array('http://www.test.com?q', array(
-                'q' => null
-            )),
-        );
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::parseQuery
-     * @dataProvider parseQueryProvider
-     */
-    public function testParsesQueryStrings($query, $data)
-    {
-        $url = Url::factory($query);
-        $this->assertEquals($data, $url->getQuery()->getAll());
-    }
-
     function urlProvider()
     {
         return array(
@@ -267,26 +209,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         $url = Url::factory('http://www.example.com/');
         $url->setPath($path)->normalizePath();
         $this->assertEquals($result, $url->getPath());
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getQuery
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::parseUrl
-     */
-    public function testCanUseUtf8Query()
-    {
-        $url = Url::factory('http://www.example.com?µ=a');
-        $this->assertEquals('a', $url->getQuery()->get('µ'));
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::parseUrl
-     */
-    public function testParsesUtf8UrlQueryStringsWithFragment()
-    {
-        $url = Url::factory('http://www.example.com?ሴ=a#fragmentishere');
-        $this->assertEquals('a', $url->getQuery()->get('ሴ'));
-        $this->assertEquals('fragmentishere', $url->getFragment());
     }
 
     /**

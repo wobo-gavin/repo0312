@@ -163,7 +163,6 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
             "Content-Type: text/html; charset=utf-8\r\n" .
             "Content-Length: 4\r\n" .
             "Server: Jetty(6.1.3)\r\n\r\n" .
-            "\r\n" .
             "data"
         ));
 
