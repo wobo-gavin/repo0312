@@ -393,6 +393,16 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getIterator
      */
+    public function testClientCreatesIteratorsWithNoOptions()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
+        $iterator = $/* Replaced /* Replaced /* Replaced client */ */ */->getIterator('mock_command');
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Model\MockCommandIterator', $iterator);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getIterator
+     */
     public function testClientCreatesIteratorsWithCommands()
     {
        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
