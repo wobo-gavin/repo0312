@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\UriTemplate;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
@@ -338,7 +339,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
     public function setUserAgent($userAgent, $includeDefault = false)
     {
         if ($includeDefault) {
-            $userAgent .= ' ' . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent();
+            $userAgent .= ' ' . Utils::getDefaultUserAgent();
         }
         $this->defaultHeaders->set('User-Agent', $userAgent);
 

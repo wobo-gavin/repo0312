@@ -2,7 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ClosureLogAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\UriTemplate;
@@ -13,6 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 
 /**
  * @group server
@@ -162,7 +162,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         ));
 
         $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $/* Replaced /* Replaced /* Replaced client */ */ */->setUserAgent('Test/1.0Ab', true));
-        $this->assertEquals('Test/1.0Ab ' . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent(), $/* Replaced /* Replaced /* Replaced client */ */ */->get()->getHeader('User-Agent'));
+        $this->assertEquals('Test/1.0Ab ' . Utils::getDefaultUserAgent(), $/* Replaced /* Replaced /* Replaced client */ */ */->get()->getHeader('User-Agent'));
         $/* Replaced /* Replaced /* Replaced client */ */ */->setUserAgent('Test/1.0Ab');
         $this->assertEquals('Test/1.0Ab', $/* Replaced /* Replaced /* Replaced client */ */ */->get()->getHeader('User-Agent'));
     }

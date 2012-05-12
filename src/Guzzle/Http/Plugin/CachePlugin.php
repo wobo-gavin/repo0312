@@ -2,10 +2,10 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\CacheAdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
@@ -362,7 +362,7 @@ class CachePlugin implements EventSubscriberInterface
             }
             // Add a Date header to the response if none is set (for validation)
             if (!$response->getDate()) {
-                $response->setHeader('Date', /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('now'));
+                $response->setHeader('Date', Utils::getHttpDate('now'));
             }
             $data = array(
                 'c' => $response->getStatusCode(),

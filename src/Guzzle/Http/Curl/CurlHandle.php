@@ -2,7 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
@@ -85,7 +84,7 @@ class CurlHandle
 
         // Account for PHP installations with safe_mode or open_basedir enabled
         // @codeCoverageIgnoreStart
-        if (/* Replaced /* Replaced /* Replaced Guzzle */ */ */::getCurlInfo('follow_location')) {
+        if (CurlVersion::getInstance()->get('follow_location')) {
             $curlOptions[CURLOPT_FOLLOWLOCATION] = true;
             $curlOptions[CURLOPT_MAXREDIRS] = 5;
         }

@@ -2,8 +2,8 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
@@ -52,7 +52,7 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
         $request = RequestFactory::getInstance()->create('PUT', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/', null, 'data');
         $this->assertEquals("PUT / HTTP/1.1\r\n"
             . "Host: www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com\r\n"
-            . "User-Agent: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent() . "\r\n"
+            . "User-Agent: " . Utils::getDefaultUserAgent() . "\r\n"
             . "Expect: 100-Continue\r\n"
             . "Content-Length: 4\r\n\r\n"
             . "data", (string) $request);
@@ -69,7 +69,7 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
         ));
         $this->assertEquals("POST / HTTP/1.1\r\n"
             . "Host: www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com\r\n"
-            . "User-Agent: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent() . "\r\n"
+            . "User-Agent: " . Utils::getDefaultUserAgent() . "\r\n"
             . "Content-Type: application/x-www-form-urlencoded\r\n\r\n"
             . "data=123", (string) $request);
     }

@@ -3,10 +3,10 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin;
 
 use Doctrine\Common\Cache\ArrayCache;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
@@ -236,7 +236,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('test');
         // Cache this response for 1000 seconds if it is cacheable
         $request->getParams()->set('cache.override_ttl', 1000);
-        $request->setResponse(Response::fromMessage("HTTP/1.1 200 OK\r\nExpires: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('-1 second') . "\r\nContent-Length: 4\r\n\r\nData"), true);
+        $request->setResponse(Response::fromMessage("HTTP/1.1 200 OK\r\nExpires: " . Utils::getHttpDate('-1 second') . "\r\nContent-Length: 4\r\n\r\nData"), true);
         $request->send();
 
         sleep(1);
@@ -275,7 +275,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
 
         // No restrictions
         $request = RequestFactory::getInstance()->create('GET', $server->getUrl());
-        $response = new Response(200, array('Date' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('now')));
+        $response = new Response(200, array('Date' => Utils::getHttpDate('now')));
         $this->assertTrue($plugin->canResponseSatisfyRequest($request, $response));
 
         // Request max-age is less than response age
@@ -285,7 +285,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $this->assertTrue($plugin->canResponseSatisfyRequest($request, $response));
 
         // Request must have something fresher than 200 seconds
-        $response->setHeader('Date', /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('-200 days'));
+        $response->setHeader('Date', Utils::getHttpDate('-200 days'));
         $response->removeHeader('Age');
         $request->setHeader('Cache-Control', 'max-age=200');
         $this->assertFalse($plugin->canResponseSatisfyRequest($request, $response));
@@ -296,7 +296,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $this->assertFalse($plugin->canResponseSatisfyRequest($request, $response));
 
         // Response is OK
-        $response->setHeader('Date', /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('-1 hour'));
+        $response->setHeader('Date', Utils::getHttpDate('-1 hour'));
         $this->assertTrue($plugin->canResponseSatisfyRequest($request, $response));
     }
 
@@ -312,22 +312,22 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
             array(
                 true,
                 "Pragma: no-cache\r\n\r\n",
-                "HTTP/1.1 200 OK\r\nDate: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('-100 hours') . "\r\nContent-Length: 4\r\n\r\nData",
+                "HTTP/1.1 200 OK\r\nDate: " . Utils::getHttpDate('-100 hours') . "\r\nContent-Length: 4\r\n\r\nData",
                 "HTTP/1.1 304 NOT MODIFIED\r\nCache-Control: max-age=2000000\r\nContent-Length: 0\r\n\r\n",
             ),
             // Forces revalidation that overwrites what is in cache
             array(
                 false,
                 "\r\n\r\n",
-                "HTTP/1.1 200 OK\r\nCache-Control: must-revalidate, no-cache\r\nDate: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('-10 hours') . "\r\nContent-Length: 4\r\n\r\nData",
+                "HTTP/1.1 200 OK\r\nCache-Control: must-revalidate, no-cache\r\nDate: " . Utils::getHttpDate('-10 hours') . "\r\nContent-Length: 4\r\n\r\nData",
                 "HTTP/1.1 200 OK\r\nContent-Length: 5\r\n\r\nDatas",
-                "HTTP/1.1 200 OK\r\nContent-Length: 5\r\nDate: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('now') . "\r\n\r\nDatas"
+                "HTTP/1.1 200 OK\r\nContent-Length: 5\r\nDate: " . Utils::getHttpDate('now') . "\r\n\r\nDatas"
             ),
             // Must get a fresh copy because the request is declining revalidation
             array(
                 false,
                 "\r\n\r\n",
-                "HTTP/1.1 200 OK\r\nCache-Control: no-cache\r\nDate: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('-3 hours') . "\r\nContent-Length: 4\r\n\r\nData",
+                "HTTP/1.1 200 OK\r\nCache-Control: no-cache\r\nDate: " . Utils::getHttpDate('-3 hours') . "\r\nContent-Length: 4\r\n\r\nData",
                 null,
                 null,
                 'never'
@@ -336,7 +336,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
             array(
                 true,
                 "\r\n\r\n",
-                "HTTP/1.1 200 OK\r\nCache-Control: no-cache\r\nDate: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('-3 hours') . "\r\nContent-Length: 4\r\n\r\nData",
+                "HTTP/1.1 200 OK\r\nCache-Control: no-cache\r\nDate: " . Utils::getHttpDate('-3 hours') . "\r\nContent-Length: 4\r\n\r\nData",
                 null,
                 null,
                 'skip'
@@ -345,14 +345,14 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
             array(
                 false,
                 "\r\n\r\n",
-                "HTTP/1.1 200 OK\r\nCache-Control: no-cache\r\nDate: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('-3 hours') . "\r\n\r\nData",
+                "HTTP/1.1 200 OK\r\nCache-Control: no-cache\r\nDate: " . Utils::getHttpDate('-3 hours') . "\r\n\r\nData",
                 "HTTP/1.1 500 INTERNAL SERVER ERROR\r\nContent-Length: 0\r\n\r\n"
             ),
             // ETag mismatch
             array(
                 false,
                 "\r\n\r\n",
-                "HTTP/1.1 200 OK\r\nCache-Control: no-cache\r\nETag: \"123\"\r\nDate: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('-10 hours') . "\r\n\r\nData",
+                "HTTP/1.1 200 OK\r\nCache-Control: no-cache\r\nETag: \"123\"\r\nDate: " . Utils::getHttpDate('-10 hours') . "\r\n\r\nData",
                 "HTTP/1.1 304 NOT MODIFIED\r\nETag: \"123456\"\r\n\r\n",
             ),
         );

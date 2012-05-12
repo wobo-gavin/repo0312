@@ -2,7 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ValidationException;
@@ -257,7 +256,7 @@ class Inspector
 
             // Inject configuration information into the config value
             if (is_string($configValue)) {
-                $configValue = /* Replaced /* Replaced /* Replaced Guzzle */ */ */::inject($configValue, $config);
+                $configValue = $config->inject($configValue);
             }
 
             // Ensure that required arguments are set

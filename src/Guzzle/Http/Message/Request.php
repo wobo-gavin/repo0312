@@ -2,11 +2,11 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException;
@@ -138,7 +138,7 @@ class Request extends AbstractMessage implements RequestInterface
         }
 
         if (!$this->hasHeader('User-Agent', true)) {
-            $this->setHeader('User-Agent', /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent());
+            $this->setHeader('User-Agent', Utils::getDefaultUserAgent());
         }
 
         $this->cookie = Cookie::factory($this->getHeader('Cookie'));

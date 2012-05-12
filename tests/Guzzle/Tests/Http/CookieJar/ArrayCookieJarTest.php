@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\CookieJar;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\CookieJarInterface;
 
@@ -49,7 +50,7 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             'path' => '/acme/',
             'cookie' => array('muppet', 'cookie_monster'),
             'comment' => 'Comment goes here...',
-            'expires' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('+1 day')
+            'expires' => Utils::getHttpDate('+1 day')
         ))->save(array(
             'domain' => '.example.com',
             'path' => '/test/acme/',
@@ -236,7 +237,7 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         // Add an expired cookie
         $this->jar->save(array(
             'cookie' => array('data', 'abc'),
-            'expires' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('-1 day'),
+            'expires' => Utils::getHttpDate('-1 day'),
             'domain' => '.example.com'
         ));
 

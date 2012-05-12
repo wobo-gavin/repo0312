@@ -2,11 +2,11 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\HttpException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
@@ -328,7 +328,7 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->response->removeHeader('Date');
         $this->assertNull($this->response->getAge());
 
-        $this->response->setHeader('Date', /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate(strtotime('-1 minute')));
+        $this->response->setHeader('Date', Utils::getHttpDate(strtotime('-1 minute')));
         // If the test runs slowly, still pass with a +5 second allowance
         $this->assertTrue($this->response->getAge() - 60 <= 5);
         $this->assertNull($this->response->getAge(true));
@@ -700,17 +700,17 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         // Uses the response's max-age
         $this->assertEquals(120, $this->getResponse(200, array(
             'Cache-Control' => 'max-age=120',
-            'Expires' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('+1 day')
+            'Expires' => Utils::getHttpDate('+1 day')
         ))->getMaxAge());
 
         // Uses the Expires date
         $this->assertGreaterThanOrEqual(82400, $this->getResponse(200, array(
-            'Expires' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('+1 day')
+            'Expires' => Utils::getHttpDate('+1 day')
         ))->getMaxAge());
 
         // Uses the Expires date
         $this->assertGreaterThanOrEqual(82400, $this->getResponse(200, array(
-            'Expires' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('+1 day')
+            'Expires' => Utils::getHttpDate('+1 day')
         ))->getMaxAge());
     }
 

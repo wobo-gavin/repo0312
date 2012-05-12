@@ -2,8 +2,8 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Command;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\ServiceDescriptionFactory;
@@ -118,7 +118,7 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertEquals(
             "HEAD /hi_key HTTP/1.1\r\n" .
             "Host: www.example.com\r\n" .
-            "User-Agent: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent() . "\r\n" .
+            "User-Agent: " . Utils::getDefaultUserAgent() . "\r\n" .
             "\r\n", (string) $request);
     }
 
@@ -151,7 +151,7 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertEquals(
             "PUT /?test=abc&i=test HTTP/1.1\r\n" .
             "Host: www.tazmania.com\r\n" .
-            "User-Agent: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent() . "\r\n" .
+            "User-Agent: " . Utils::getDefaultUserAgent() . "\r\n" .
             "Expect: 100-Continue\r\n" .
             "Content-Length: 29\r\n" .
             "X-Custom: haha\r\n" .
@@ -173,7 +173,7 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertEquals(
             "PUT /?test=abc&i=test HTTP/1.1\r\n" .
             "Host: www.tazmania.com\r\n" .
-            "User-Agent: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent() . "\r\n" .
+            "User-Agent: " . Utils::getDefaultUserAgent() . "\r\n" .
             "Expect: 100-Continue\r\n" .
             "Content-Length: 29\r\n" .
             "X-Custom: haha\r\n" .

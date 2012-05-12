@@ -9,7 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 
 /**
  * @group server
@@ -440,7 +440,7 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
             'domain' => '.y.example.com',
             'path' => '/acme/',
             'cookie' => array('secure', 'sec'),
-            'expires' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('+1 day'),
+            'expires' => Utils::getHttpDate('+1 day'),
             'secure' => true
         ));
 
@@ -450,7 +450,7 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
             'domain' => '.y.example.com',
             'path' => '/acme/',
             'cookie' => array('test', 'port'),
-            'expires' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('+1 day'),
+            'expires' => Utils::getHttpDate('+1 day'),
             'secure' => false,
             'port' => array(8192)
         ));
@@ -586,7 +586,7 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
             'domain' => 'example.com',
             'path' => '/',
             'cookie' => array('test', 'hi'),
-            'expires' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('+1 day')
+            'expires' => Utils::getHttpDate('+1 day')
         ));
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://example.com');

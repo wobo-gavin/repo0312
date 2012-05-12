@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\CookieJar;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\FileCookieJar;
 
@@ -47,7 +47,7 @@ class FileCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
             'path' => '/acme/',
             'cookie' => array('muppet', 'cookie_monster'),
             'comment' => 'Comment goes here...',
-            'expires' => /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate('+1 day')
+            'expires' => Utils::getHttpDate('+1 day')
         ))->save(array(
             'domain' => '.example.com',
             'path' => '/test/acme/',

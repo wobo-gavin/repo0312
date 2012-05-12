@@ -2,8 +2,8 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ClosureLogAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
@@ -109,7 +109,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
         // Check that the headers were logged
         $this->assertContains("GET / HTTP/1.1\r\n", $message);
-        $this->assertContains("User-Agent: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent(), $message);
+        $this->assertContains("User-Agent: " . Utils::getDefaultUserAgent(), $message);
         $this->assertContains("Accept: */*\r\n", $message);
         $this->assertContains("Accept-Encoding: deflate, gzip", $message);
         $this->assertContains("Host: 127.0.0.1:", $message);
@@ -136,7 +136,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
         // Check that the headers were logged
         $this->assertContains("PUT / HTTP/1.1\r\n", $message);
-        $this->assertContains("User-Agent: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent(), $message);
+        $this->assertContains("User-Agent: " . Utils::getDefaultUserAgent(), $message);
         $this->assertContains("Content-Length: 4", $message);
 
         // Make sure the response headers are present with a line between the request and response
@@ -174,7 +174,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
         // Check that the headers were logged
         $this->assertContains("PUT / HTTP/1.1\r\n", $message);
-        $this->assertContains("User-Agent: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent(), $message);
+        $this->assertContains("User-Agent: " . Utils::getDefaultUserAgent(), $message);
         $this->assertContains("Content-Length: 4", $message);
         // Request payload
         $this->assertContains("\r\nsend", $message);
@@ -205,7 +205,7 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
         $this->assertContains('127.0.0.1 - "GET / HTTP/1.1" - 404 0 - ', $message);
         $this->assertContains("GET / HTTP/1.1\r\n", $message);
-        $this->assertContains("User-Agent: " . /* Replaced /* Replaced /* Replaced Guzzle */ */ */::getDefaultUserAgent(), $message);
+        $this->assertContains("User-Agent: " . Utils::getDefaultUserAgent(), $message);
         $this->assertContains("\n< HTTP/1.1 404 Not Found\r\n< Content-Length: 0", $message);
     }
 
