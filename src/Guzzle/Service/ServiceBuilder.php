@@ -87,7 +87,7 @@ class ServiceBuilder extends AbstractHasDispatcher implements \ArrayAccess, \Ser
                     ? $config[$/* Replaced /* Replaced /* Replaced client */ */ */['extends']]['class'] : $/* Replaced /* Replaced /* Replaced client */ */ */['class'];
                 $/* Replaced /* Replaced /* Replaced client */ */ */['params'] = array_merge($config[$/* Replaced /* Replaced /* Replaced client */ */ */['extends']]['params'], $/* Replaced /* Replaced /* Replaced client */ */ */['params']);
             }
-            $/* Replaced /* Replaced /* Replaced client */ */ */['class'] = str_replace('.', '\\', $/* Replaced /* Replaced /* Replaced client */ */ */['class']);
+            $/* Replaced /* Replaced /* Replaced client */ */ */['class'] = !isset($/* Replaced /* Replaced /* Replaced client */ */ */['class']) ? '' : str_replace('.', '\\', $/* Replaced /* Replaced /* Replaced client */ */ */['class']);
         }
 
         return new static($config);

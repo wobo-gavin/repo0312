@@ -96,6 +96,16 @@ EOT;
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
+     */
+    public function testCanBeCreatedUsingJson()
+    {
+        $builder = ServiceBuilder::factory(__DIR__ . '/../TestData/services.json');
+        $c = $builder->get('mock');
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $c);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException
      * @expectedExceptionMessage Unable to open foobarfile
      */
