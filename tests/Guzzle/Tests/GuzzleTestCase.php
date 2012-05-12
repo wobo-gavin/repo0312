@@ -262,7 +262,7 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
             if ($k[0] == '_') {
                 // This header should be ignored
                 $ignore[] = str_replace('_', '', $k);
-            } else if ($k[0] == '!') {
+            } elseif ($k[0] == '!') {
                 // This header must not be present
                 $absent[] = str_replace('!', '', $k);
             } else {
