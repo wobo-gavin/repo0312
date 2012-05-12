@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin;
 
 use Doctrine\Common\Cache\ArrayCache;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;

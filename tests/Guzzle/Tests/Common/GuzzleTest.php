@@ -1,14 +1,14 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 
-class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Test extends /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Test extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */
      */
     public function testGetDefaultUserAgent()
     {
@@ -21,7 +21,7 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Test extends /* Replace
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */::getHttpDate
      */
     public function testGetHttpDate()
     {
@@ -55,7 +55,7 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Test extends /* Replace
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */::inject
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */::inject
      * @dataProvider dataProvider
      */
     public function testInjectsConfigData($output, $input, $config)
@@ -64,7 +64,7 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Test extends /* Replace
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */::getCurlInfo
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */::getCurlInfo
      */
     public function testCachesCurlInfo()
     {
@@ -78,8 +78,8 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Test extends /* Replace
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */::getCurlInfo
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */::reset
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */::getCurlInfo
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */::reset
      */
     public function testDeterminesIfCurlCanFollowLocation()
     {

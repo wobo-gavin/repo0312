@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\CacheAdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;

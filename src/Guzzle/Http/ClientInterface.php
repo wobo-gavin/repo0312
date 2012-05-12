@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;

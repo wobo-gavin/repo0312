@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;

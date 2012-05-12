@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\CookieJar;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\FileCookieJar;
 

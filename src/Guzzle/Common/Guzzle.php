@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 
