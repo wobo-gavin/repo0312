@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inspector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\Sub\Sub;
@@ -363,5 +364,25 @@ class CommandTest extends AbstractCommandTest
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
         $command = new MockCommand();
         $command->setOnComplete('foo');
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::setInspector
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::getInspector
+     */
+    public function testInspectorCanBeInjected()
+    {
+        $instance = Inspector::getInstance();
+        $command = new MockCommand();
+
+        $refObject = new \ReflectionObject($command);
+        $method = $refObject->getMethod('getInspector');
+        $method->setAccessible(true);
+
+        $this->assertSame($instance, $method->invoke($command));
+
+        $newInspector = new Inspector();
+        $command->setInspector($newInspector);
+        $this->assertSame($newInspector, $method->invoke($command));
     }
 }
