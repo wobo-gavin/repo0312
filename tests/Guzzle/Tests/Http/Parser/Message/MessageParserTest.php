@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\Message\Mess
 class MessageParserTest extends MessageParserProvider
 {
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\Message\MessageParser::getUrlPartsFromMessage
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\Message\AbstractMessageParser::getUrlPartsFromMessage
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\Message\MessageParser::parseMessage
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\Message\MessageParser::parseRequest
      * @dataProvider requestProvider
