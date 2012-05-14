@@ -6,7 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\/* Replaced /* Re
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\UriTemplate;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\ParserRegistry;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inspector;
 
 /**
@@ -43,8 +43,7 @@ class DynamicCommand extends AbstractCommand
             }
 
             // Expand the URI template using the URI values
-            $template = new UriTemplate($this->apiCommand->getUri());
-            $uri = $template->expand($variables);
+            $uri = ParserRegistry::get('uri_template')->expand($this->apiCommand->getUri(), $variables);
 
             // Merge the /* Replaced /* Replaced /* Replaced client */ */ */'s base URL with the URI template
             $url = Url::factory($this->getClient()->getBaseUrl());

@@ -1,11 +1,11 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Parsers\UriTemplate;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\UriTemplate;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\UriTemplate\UriTemplate;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\UriTemplate
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\UriTemplate\UriTemplate
  */
 class UriTemplateTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
@@ -120,8 +120,7 @@ class UriTemplateTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     public function testExpandsUriTemplates($template, $expansion, $params)
     {
         $uri = new UriTemplate($template);
-        $this->assertEquals($template, $uri->getTemplate());
-        $result = $uri->expand($params);
+        $result = $uri->expand($template, $params);
         $this->assertEquals($expansion, $result);
     }
 
@@ -173,12 +172,5 @@ class UriTemplateTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
 
         $exp = substr($exp, 1, -1);
         $this->assertEquals($data, $method->invokeArgs($template, array($exp)));
-    }
-
-    public function testAllowsTemplateChange()
-    {
-        $template = new UriTemplate('abc_<$var>');
-        $template->setTemplate('foo');
-        $this->assertEquals('foo', $template->getTemplate());
     }
 }

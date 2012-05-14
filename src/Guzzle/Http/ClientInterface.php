@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactoryInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\UriTemplate\UriTemplateInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiInterface;
 
 /**
@@ -55,11 +56,11 @@ interface ClientInterface extends HasDispatcherInterface
     /**
      * Set the URI template expander to use with the /* Replaced /* Replaced /* Replaced client */ */ */
      *
-     * @param UriTemplate $uriTemplate
+     * @param UriTemplateInterface $uriTemplate URI template expander
      *
      * @return ClientInterface
      */
-    function setUriTemplate(UriTemplate $uriTemplate);
+    function setUriTemplate(UriTemplateInterface $uriTemplate);
 
     /**
      * Get the URI template expander used by the /* Replaced /* Replaced /* Replaced client */ */ */
