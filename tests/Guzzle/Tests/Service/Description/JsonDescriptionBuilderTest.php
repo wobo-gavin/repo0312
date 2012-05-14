@@ -10,7 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Json
 class JsonDescriptionBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\DescriptionBuilderException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\JsonException
      */
     public function testThrowsErrorsOnOpenFailure()
     {

@@ -31,6 +31,15 @@ class CacheAdapterFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzl
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\CacheAdapterFactory::factory
      * @expectedException InvalidArgumentException
+     */
+    public function testEnsuresConfigIsArray()
+    {
+        CacheAdapterFactory::factory(new \stdClass());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\CacheAdapterFactory::factory
+     * @expectedException InvalidArgumentException
      * @expectedExceptionMessage cache.provider is a required CacheAdapterFactory option
      */
     public function testEnsuresRequiredProviderOption()

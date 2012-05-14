@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\FromConfigInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
 
@@ -10,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\Runtime
  * configuration data.  This can be useful for creating cache adapters
  * in /* Replaced /* Replaced /* Replaced client */ */ */ configuration files.
  */
-class CacheAdapterFactory
+class CacheAdapterFactory implements FromConfigInterface
 {
     /**
      * Create a /* Replaced /* Replaced /* Replaced Guzzle */ */ */ cache adapter based on an array of options
@@ -19,8 +20,12 @@ class CacheAdapterFactory
      *
      * @return CacheAdapterInterface
      */
-    public static function factory(array $config)
+    public static function factory($config)
     {
+        if (!is_array($config)) {
+            throw new InvalidArgumentException('$config must be an array');
+        }
+
         if (!isset($config['cache.adapter']) && !isset($config['cache.provider'])) {
             $config['cache.adapter'] = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Cache\\NullCacheAdapter';
             $config['cache.provider'] = null;

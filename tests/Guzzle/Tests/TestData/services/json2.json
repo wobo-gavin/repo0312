@@ -1,0 +1,11 @@
+{
+    "services": {
+        "foo": {
+            "class": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockClient",
+            "extends": "abstract",
+            "params": {
+                "baz": "bar"
+            }
+        }
+    }
+}

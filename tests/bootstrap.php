@@ -19,8 +19,8 @@ if (get_cfg_var('/* Replaced /* Replaced /* Replaced guzzle */ */ */_phar')) {
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . '.composer' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 // Add the services file to the default service builder
-$servicesFile = __DIR__ . DIRECTORY_SEPARATOR . '/* Replaced /* Replaced /* Replaced Guzzle */ */ */' . DIRECTORY_SEPARATOR . 'Tests' . DIRECTORY_SEPARATOR . 'TestData' . DIRECTORY_SEPARATOR . 'services.xml';
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase::setServiceBuilder(/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory($servicesFile));
+$servicesFile = __DIR__ . DIRECTORY_SEPARATOR . '/* Replaced /* Replaced /* Replaced Guzzle */ */ */' . DIRECTORY_SEPARATOR . 'Tests' . DIRECTORY_SEPARATOR . 'TestData' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR . 'services.xml';
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase::setServiceBuilder(/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory($servicesFile));
 
 // Modify the include path so that it can find the Zend Framework
 $paths = array('vendor/zend/zend-cache1', 'vendor/zend/zend-log1');

@@ -1,17 +1,17 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilderAbstractFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ClientNotFoundException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
 
 /**
  * Service builder to generate service builders and service /* Replaced /* Replaced /* Replaced client */ */ */s from
  * configuration settings
  */
-class ServiceBuilder extends AbstractHasDispatcher implements \ArrayAccess, \Serializable
+class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInterface, \ArrayAccess, \Serializable
 {
     /**
      * @var array Service builder configuration data
@@ -24,73 +24,33 @@ class ServiceBuilder extends AbstractHasDispatcher implements \ArrayAccess, \Ser
     protected $/* Replaced /* Replaced /* Replaced client */ */ */s = array();
 
     /**
+     * @var ServiceBuilderAbstractFactory
+     */
+    protected static $defaultFactory;
+
+    /**
      * Create a new ServiceBuilder using configuration data sourced from an
      * array, .json|.js file, SimpleXMLElement, or .xml file.
      *
      * @param array|string|\SimpleXMLElement $data An instantiated
-     *      SimpleXMLElement containing configuration data, the full path to an
-     *      .xml or .js|.json file, or an associative array of data
-     * @param string $extension (optional) When passing a string of data to load
-     *      from a file, you can set $extension to specify the file type if the
-     *      extension is not the standard extension for the file name (e.g. xml,
-     *      js, json)
+     *     SimpleXMLElement containing configuration data, the full path to an
+     *     .xml or .js|.json file, or an associative array of data
+     * @param array $globalParameters (optional) Array of global parameters to
+     *     pass to every service as it is instantiated.
      *
-     * @return ServiceBuilder
-     * @throws ServiceBuilderException if a file cannot be openend
-     * @throws ServiceBuilderException when trying to extend a missing /* Replaced /* Replaced /* Replaced client */ */ */
+     * @return ServiceBuilderInterface
+     * @throws ServiceBuilderException if a file cannot be opened
+     * @throws ServiceNotFoundException when trying to extend a missing /* Replaced /* Replaced /* Replaced client */ */ */
      */
-    public static function factory($data, $extension = null)
+    public static function factory($config, array $globalParameters = null)
     {
-        $config = array();
-        if (is_string($data)) {
-            if (!is_readable($data)) {
-                throw new ServiceBuilderException('Unable to open ' . $data);
-            }
-            $extension = $extension ?: pathinfo($data, PATHINFO_EXTENSION);
-            if ($extension == 'xml') {
-                $data = new \SimpleXMLElement($data, null, true);
-            } elseif ($extension == 'js' || $extension == 'json') {
-                $config = json_decode(file_get_contents($data), true);
-            } else {
-                throw new ServiceBuilderException('Unknown file type ' . $extension);
-            }
-        } elseif (is_array($data)) {
-            $config = $data;
-        } elseif (!($data instanceof \SimpleXMLElement)) {
-            throw new ServiceBuilderException('Must pass a file name, array, or SimpleXMLElement');
+        // @codeCoverageIgnoreStart
+        if (!self::$defaultFactory) {
+            self::$defaultFactory = new ServiceBuilderAbstractFactory();
         }
+        // @codeCoverageIgnoreEnd
 
-        if ($data instanceof \SimpleXMLElement) {
-            foreach ($data->/* Replaced /* Replaced /* Replaced client */ */ */s->/* Replaced /* Replaced /* Replaced client */ */ */ as $/* Replaced /* Replaced /* Replaced client */ */ */) {
-                $row = array();
-                foreach ($/* Replaced /* Replaced /* Replaced client */ */ */->param as $param) {
-                    $row[(string) $param->attributes()->name] = (string) $param->attributes()->value;
-                }
-                $config[(string) $/* Replaced /* Replaced /* Replaced client */ */ */->attributes()->name] = array(
-                    'class'   => (string) $/* Replaced /* Replaced /* Replaced client */ */ */->attributes()->class,
-                    'extends' => (string) $/* Replaced /* Replaced /* Replaced client */ */ */->attributes()->extends,
-                    'params'  => $row
-                );
-            }
-        }
-
-        // Validate the configuration and handle extensions
-        foreach ($config as $name => &$/* Replaced /* Replaced /* Replaced client */ */ */) {
-            $/* Replaced /* Replaced /* Replaced client */ */ */['params'] = isset($/* Replaced /* Replaced /* Replaced client */ */ */['params']) ? $/* Replaced /* Replaced /* Replaced client */ */ */['params'] : array();
-            // Check if this /* Replaced /* Replaced /* Replaced client */ */ */ builder extends another /* Replaced /* Replaced /* Replaced client */ */ */
-            if (!empty($/* Replaced /* Replaced /* Replaced client */ */ */['extends'])) {
-                // Make sure that the service it's extending has been defined
-                if (!isset($config[$/* Replaced /* Replaced /* Replaced client */ */ */['extends']])) {
-                    throw new ServiceNotFoundException($name . ' is trying to extend a non-existent service: ' . $/* Replaced /* Replaced /* Replaced client */ */ */['extends']);
-                }
-                $/* Replaced /* Replaced /* Replaced client */ */ */['class'] = empty($/* Replaced /* Replaced /* Replaced client */ */ */['class'])
-                    ? $config[$/* Replaced /* Replaced /* Replaced client */ */ */['extends']]['class'] : $/* Replaced /* Replaced /* Replaced client */ */ */['class'];
-                $/* Replaced /* Replaced /* Replaced client */ */ */['params'] = array_merge($config[$/* Replaced /* Replaced /* Replaced client */ */ */['extends']]['params'], $/* Replaced /* Replaced /* Replaced client */ */ */['params']);
-            }
-            $/* Replaced /* Replaced /* Replaced client */ */ */['class'] = !isset($/* Replaced /* Replaced /* Replaced client */ */ */['class']) ? '' : str_replace('.', '\\', $/* Replaced /* Replaced /* Replaced client */ */ */['class']);
-        }
-
-        return new static($config);
+        return self::$defaultFactory->build($config, $globalParameters);
     }
 
     /**
@@ -98,7 +58,7 @@ class ServiceBuilder extends AbstractHasDispatcher implements \ArrayAccess, \Ser
      *
      * @param array $serviceBuilderConfig Service configuration settings:
      *      name => Name of the service
-     *      class => Builder class used to create /* Replaced /* Replaced /* Replaced client */ */ */s using dot notation (/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Aws.S3builder or /* Replaced /* Replaced /* Replaced Guzzle */ */ */.Service.Builder.DefaultBuilder)
+     *      class => Client class to instantiate using a factory method
      *      params => array of key value pair configuration settings for the builder
      */
     public function __construct(array $serviceBuilderConfig)
@@ -142,12 +102,12 @@ class ServiceBuilder extends AbstractHasDispatcher implements \ArrayAccess, \Ser
      *     for later retrieval from the ServiceBuilder
      *
      * @return ClientInterface
-     * @throws ClientNotFoundException when a /* Replaced /* Replaced /* Replaced client */ */ */ cannot be found by name
+     * @throws ServiceNotFoundException when a /* Replaced /* Replaced /* Replaced client */ */ */ cannot be found by name
      */
     public function get($name, $throwAway = false)
     {
         if (!isset($this->builderConfig[$name])) {
-            throw new ClientNotFoundException('No /* Replaced /* Replaced /* Replaced client */ */ */ is registered as ' . $name);
+            throw new ServiceNotFoundException('No service is registered as ' . $name);
         }
 
         if (!$throwAway && isset($this->/* Replaced /* Replaced /* Replaced client */ */ */s[$name])) {
@@ -181,12 +141,27 @@ class ServiceBuilder extends AbstractHasDispatcher implements \ArrayAccess, \Ser
     /**
      * Register a /* Replaced /* Replaced /* Replaced client */ */ */ by name with the service builder
      *
+     * @param string $name  Name of the /* Replaced /* Replaced /* Replaced client */ */ */ to register
+     * @param mixed  $value Service to register
+     *
+     * @return ServiceBuilderInterface
+     */
+    public function set($key, $service)
+    {
+        $this->builderConfig[$key] = $service;
+
+        return $this;
+    }
+
+    /**
+     * Register a /* Replaced /* Replaced /* Replaced client */ */ */ by name with the service builder
+     *
      * @param string $offset Name of the /* Replaced /* Replaced /* Replaced client */ */ */ to register
      * @param ClientInterface $value Client to register
      */
     public function offsetSet($offset, $value)
     {
-        $this->builderConfig[$offset] = $value;
+        $this->set($offset, $value);
     }
 
     /**

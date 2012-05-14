@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+</* Replaced /* Replaced /* Replaced guzzle */ */ */>
+
+    <!-- Old style service builder -->
+
+    </* Replaced /* Replaced /* Replaced client */ */ */s>
+        </* Replaced /* Replaced /* Replaced client */ */ */ name="foo" extends="abstract">
+            <param name="baz" value="bar" />
+        <//* Replaced /* Replaced /* Replaced client */ */ */>
+    <//* Replaced /* Replaced /* Replaced client */ */ */s>
+<//* Replaced /* Replaced /* Replaced guzzle */ */ */>

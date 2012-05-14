@@ -2,15 +2,14 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter;
+use Doctrine\Common\Cache\ArrayCache;
 
 class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    protected $xmlConfig;
-    protected $tempFile;
-
     protected $arrayData = array(
         'michael.mock' => array(
             'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
@@ -39,128 +38,43 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         )
     );
 
-    public function __construct()
-    {
-        $this->xmlConfig = <<<EOT
-<?xml version="1.0" ?>
-</* Replaced /* Replaced /* Replaced guzzle */ */ */>
-    </* Replaced /* Replaced /* Replaced client */ */ */s>
-        </* Replaced /* Replaced /* Replaced client */ */ */ name="michael.mock" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockClient">
-            <param name="username" value="michael" />
-            <param name="password" value="testing123" />
-            <param name="subdomain" value="michael" />
-        <//* Replaced /* Replaced /* Replaced client */ */ */>
-        </* Replaced /* Replaced /* Replaced client */ */ */ name="billy.mock" class="/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Tests.Service.Mock.MockClient">
-            <param name="username" value="billy" />
-            <param name="password" value="passw0rd" />
-            <param name="subdomain" value="billy" />
-        <//* Replaced /* Replaced /* Replaced client */ */ */>
-        </* Replaced /* Replaced /* Replaced client */ */ */ name="billy.testing" extends="billy.mock">
-            <param name="subdomain" value="test.billy" />
-        <//* Replaced /* Replaced /* Replaced client */ */ */>
-    <//* Replaced /* Replaced /* Replaced client */ */ */s>
-<//* Replaced /* Replaced /* Replaced guzzle */ */ */>
-EOT;
-
-        $this->tempFile = tempnam('/tmp', 'config.xml');
-        file_put_contents($this->tempFile, $this->xmlConfig);
-    }
-
-    public function __destruct()
-    {
-        if (is_file($this->tempFile)) {
-            unlink($this->tempFile);
-        }
-    }
-
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::serialize
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::unserialize
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::serialize
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::unserialize
      */
     public function testAllowsSerialization()
     {
-        $builder = ServiceBuilder::factory($this->tempFile, 'xml');
+        $builder = ServiceBuilder::factory($this->arrayData);
         $cached = unserialize(serialize($builder));
         $this->assertEquals($cached, $builder);
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
      */
-    public function testCanBeCreatedUsingAnXmlFile()
+    public function testDelegatesFactoryMethodToAbstractFactory()
     {
-        $builder = ServiceBuilder::factory($this->tempFile, 'xml');
+        $builder = ServiceBuilder::factory($this->arrayData);
         $c = $builder->get('michael.mock');
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $c);
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
-     */
-    public function testCanBeCreatedUsingJson()
-    {
-        $builder = ServiceBuilder::factory(__DIR__ . '/../TestData/services.json');
-        $c = $builder->get('mock');
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $c);
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException
-     * @expectedExceptionMessage Unable to open foobarfile
-     */
-    public function testFactoryEnsuresItCanOpenFile()
-    {
-        ServiceBuilder::factory('foobarfile');
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
-     */
-    public function testFactoryCanBuildServicesThatExtendOtherServices()
-    {
-        $s = ServiceBuilder::factory($this->tempFile, 'xml');
-        $s = $s->get('billy.testing');
-        $this->assertEquals('test.billy', $s->getConfig('subdomain'));
-        $this->assertEquals('billy', $s->getConfig('username'));
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
-     */
-    public function testFactoryThrowsExceptionWhenBuilderExtendsNonExistentBuilder()
-    {
-        $xml = '<?xml version="1.0" ?>' . "\n" . '</* Replaced /* Replaced /* Replaced guzzle */ */ */></* Replaced /* Replaced /* Replaced client */ */ */s></* Replaced /* Replaced /* Replaced client */ */ */ name="invalid" extends="missing" /><//* Replaced /* Replaced /* Replaced client */ */ */s><//* Replaced /* Replaced /* Replaced guzzle */ */ */>';
-        $tempFile = tempnam('/tmp', 'config.xml');
-        file_put_contents($tempFile, $xml);
-
-        try {
-            ServiceBuilder::factory($tempFile, 'xml');
-            unlink($tempFile);
-            $this->fail('Test did not throw ServiceException');
-        } catch (ServiceNotFoundException $e) {
-            $this->assertEquals('invalid is trying to extend a non-existent service: missing', $e->getMessage());
-        }
-
-        unlink($tempFile);
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::get
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ClientNotFoundException
-     * @expectedExceptionMessage No /* Replaced /* Replaced /* Replaced client */ */ */ is registered as foobar
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::get
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException
+     * @expectedExceptionMessage No service is registered as foobar
      */
     public function testThrowsExceptionWhenGettingInvalidClient()
     {
-        ServiceBuilder::factory($this->tempFile, 'xml')->get('foobar');
+        ServiceBuilder::factory($this->arrayData)->get('foobar');
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::get
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::get
      */
     public function testStoresClientCopy()
     {
-        $builder = ServiceBuilder::factory($this->tempFile, 'xml');
+        $builder = ServiceBuilder::factory($this->arrayData);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $builder->get('michael.mock');
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $/* Replaced /* Replaced /* Replaced client */ */ */);
         $this->assertEquals('http://127.0.0.1:8124/v1/michael', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
@@ -185,7 +99,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder
      */
     public function testBuildersPassOptionsThroughToClients()
     {
@@ -207,7 +121,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder
      */
     public function testUsesTheDefaultBuilderWhenNoBuilderIsSpecified()
     {
@@ -229,14 +143,15 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::offsetSet
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::offsetGet
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::offsetUnset
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::offsetExists
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::set
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::offsetSet
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::offsetGet
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::offsetUnset
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::offsetExists
      */
     public function testUsedAsArray()
     {
-        $b = ServiceBuilder::factory($this->tempFile, 'xml');
+        $b = ServiceBuilder::factory($this->arrayData);
         $this->assertTrue($b->offsetExists('michael.mock'));
         $this->assertFalse($b->offsetExists('not_there'));
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Client', $b['michael.mock']);
@@ -249,18 +164,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
-     */
-    public function testFactoryCanCreateFromXml()
-    {
-        $b = ServiceBuilder::factory(new \SimpleXMLElement($this->xmlConfig));
-        $this->assertTrue($b->offsetExists('michael.mock'));
-        $this->assertTrue($b->offsetExists('billy.mock'));
-        $this->assertTrue($b->offsetExists('billy.testing'));
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
      */
     public function testFactoryCanCreateFromJson()
     {
@@ -274,7 +178,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
      */
     public function testFactoryCanCreateFromArray()
     {
@@ -285,9 +189,9 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage Unknown file type abc
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException
+     * @expectedExceptionMessage Unable to build service builder
      */
     public function testFactoryValidatesFileExtension()
     {
@@ -302,7 +206,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException
      * @expectedExceptionMessage Must pass a file name, array, or SimpleXMLElement
      */
@@ -312,7 +216,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::factory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
      */
     public function testFactoryDoesNotRequireParams()
     {
@@ -322,7 +226,7 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder
      */
     public function testBuilderAllowsReferencesBetweenClients()
     {
@@ -353,8 +257,8 @@ EOT;
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::getAllEvents
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder::get
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::getAllEvents
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::get
      */
     public function testEmitsEventsWhenClientsAreCreated()
     {
@@ -388,5 +292,41 @@ EOT;
         // Ensure that the event was emitted once, and that the /* Replaced /* Replaced /* Replaced client */ */ */ was present
         $this->assertEquals(1, $emits);
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient', $/* Replaced /* Replaced /* Replaced client */ */ */);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
+     */
+    public function testCanAddGlobalParametersToServicesOnLoad()
+    {
+        $builder = ServiceBuilder::factory($this->arrayData, array(
+            'username' => 'fred',
+            'new_value' => 'test'
+        ));
+
+        $data = json_decode($builder->serialize(), true);
+
+        foreach ($data as $service) {
+            $this->assertEquals('fred', $service['params']['username']);
+            $this->assertEquals('test', $service['params']['new_value']);
+        }
+    }
+
+    public function testDescriptionIsCacheable()
+    {
+        $jsonFile = __DIR__ . '/../../TestData/test_service.json';
+        $adapter = new DoctrineCacheAdapter(new ArrayCache());
+
+        $builder = ServiceBuilder::factory($jsonFile, array(
+            'cache.adapter' => $adapter
+        ));
+
+        // Ensure the cache key was set
+        $this->assertTrue($adapter->contains('/* Replaced /* Replaced /* Replaced guzzle */ */ */' . crc32($jsonFile)));
+
+        // Grab the service from the cache
+        $this->assertEquals($builder, ServiceBuilder::factory($jsonFile, array(
+            'cache.adapter' => $adapter
+        )));
     }
 }

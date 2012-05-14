@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\HeaderComparison;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ServiceBuilder;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilderInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\MockObserver;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server;
 use RuntimeException;
@@ -57,7 +57,7 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
      *
      * @param ServiceBuilder $builder Service builder
      */
-    public static function setServiceBuilder(ServiceBuilder $builder)
+    public static function setServiceBuilder(ServiceBuilderInterface $builder)
     {
         self::$serviceBuilder = $builder;
     }
