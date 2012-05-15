@@ -24,6 +24,7 @@ class BatchQueuePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BatchQueuePlugin::count
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BatchQueuePlugin::onRequestCreate
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BatchQueuePlugin::addRequest
      */
     public function testAddsRequestToQueue()
     {
@@ -101,6 +102,7 @@ class BatchQueuePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BatchQueuePlugin::__construct
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BatchQueuePlugin::onRequestCreate
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BatchQueuePlugin::addRequest
      */
     public function testImplicitlyFlushesRequests()
     {
@@ -135,6 +137,7 @@ class BatchQueuePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BatchQueuePlugin::onRequestCreate
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BatchQueuePlugin::addRequest
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BatchQueuePlugin::onRequestBeforeSend
      */
     public function testWorksUsingEvents()
