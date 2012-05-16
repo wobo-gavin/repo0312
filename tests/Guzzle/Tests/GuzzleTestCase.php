@@ -220,7 +220,7 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
      *
      * @param string $needle Search string
      * @param string $haystack Search this
-     * @param string $message (optional) Optional failure message
+     * @param string $message Optional failure message
      */
     public function assertContainsIns($needle, $haystack, $message = null)
     {

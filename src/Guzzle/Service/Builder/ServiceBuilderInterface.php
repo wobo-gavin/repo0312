@@ -15,7 +15,7 @@ interface ServiceBuilderInterface
      * Get a /* Replaced /* Replaced /* Replaced client */ */ */ using a registered builder
      *
      * @param string $name Name of the registered /* Replaced /* Replaced /* Replaced client */ */ */ to retrieve
-     * @param bool $throwAway (optional) Set to TRUE to not store the /* Replaced /* Replaced /* Replaced client */ */ */
+     * @param bool $throwAway Set to TRUE to not store the /* Replaced /* Replaced /* Replaced client */ */ */
      *     for later retrieval from the ServiceBuilder
      *
      * @return FromConfigInterface
