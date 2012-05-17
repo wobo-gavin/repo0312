@@ -8,8 +8,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache;
  * Cache adapters allow /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to utilze various frameworks for caching HTTP
  * responses.
  *
- * The CacheAdapter interface was inspired by the Doctrine 2 ORM:
- * @link http://www.doctrine-project.org/
+ * @link http://www.doctrine-project.org/ Inspired by Doctrine 2
  */
 interface CacheAdapterInterface
 {
