@@ -89,15 +89,6 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand
-     * @expectedException InvalidArgumentException
-     */
-    public function testRequiresApiCommand()
-    {
-        $command = new DynamicCommand();
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand
      */
     public function testBuildsUsingPathParametersAndAppendSlashPrepend()
     {
@@ -199,7 +190,7 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             array(
                 'test_path' => new ApiCommand(array(
                     'method' => 'GET',
-                    'path' => '/test',
+                    'uri'    => '/test',
                 ))
             )
         );
@@ -220,7 +211,7 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             array(
                 'test_path' => new ApiCommand(array(
                     'method' => 'GET',
-                    'path' => 'test/abc',
+                    'uri'    => 'test/abc',
                 ))
             )
         );

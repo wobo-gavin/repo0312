@@ -26,7 +26,7 @@ class ArrayDescriptionBuilderTest extends \/* Replaced /* Replaced /* Replaced G
                     )
                 ),
                 'abstract2' => array(
-                    'path' => '/test',
+                    'uri'     => '/test',
                     'extends' => 'abstract'
                 ),
                 'concrete' => array(

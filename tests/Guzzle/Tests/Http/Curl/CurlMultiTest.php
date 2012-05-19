@@ -332,7 +332,6 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
         $requests = array(
             $/* Replaced /* Replaced /* Replaced client */ */ */->get(),
-            $/* Replaced /* Replaced /* Replaced client */ */ */->get(),
             $/* Replaced /* Replaced /* Replaced client */ */ */->get()
         );
 
@@ -355,7 +354,7 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
         $/* Replaced /* Replaced /* Replaced client */ */ */->send($requests);
 
-        $this->assertEquals(5, count($this->getServer()->getReceivedRequests(false)));
+        $this->assertEquals(4, count($this->getServer()->getReceivedRequests(false)));
     }
 
     /**

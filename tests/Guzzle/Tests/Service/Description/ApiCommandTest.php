@@ -18,7 +18,7 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
             'name' => 'test',
             'doc' => 'doc',
             'method' => 'POST',
-            'path' => '/api/v1',
+            'uri' => '/api/v1',
             'params' => array(
                 'key' => array(
                     'required' => 'true',
