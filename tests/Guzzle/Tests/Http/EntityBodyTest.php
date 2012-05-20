@@ -147,4 +147,13 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $body = EntityBody::factory(fopen($this->getServer()->getUrl(), 'r'));
         $this->assertFalse($body->getContentMd5());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory
+     */
+    public function testGetTypeFormBodyFactoring()
+    {
+        $body = EntityBody::factory(array('key1' => 'val1', 'key2' => 'val2'));
+        $this->assertEquals('key1=val1&key2=val2', (string)$body);
+    }
 }
