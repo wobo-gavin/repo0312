@@ -21,8 +21,8 @@ class AliasFactory implements FactoryInterface
     protected $/* Replaced /* Replaced /* Replaced client */ */ */;
 
     /**
-     * @param ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */ Client used to retry with the alias
-     * @param array $aliases Associative array mapping aliases to the alias
+     * @param ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */  Client used to retry with the alias
+     * @param array           $aliases Associative array mapping aliases to the alias
      */
     public function __construct(ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */, array $aliases)
     {

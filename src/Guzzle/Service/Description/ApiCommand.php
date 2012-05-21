@@ -2,7 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 
 /**
  * Data object holding the information of an API command

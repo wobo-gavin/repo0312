@@ -3,7 +3,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\JsonLoader;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\DescriptionBuilderException;
 
 /**
  * Build service descriptions using a JSON document

@@ -3,7 +3,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\ParserRegistry;
@@ -124,9 +123,9 @@ class Response extends AbstractMessage
     /**
      * Construct the response
      *
-     * @param string $statusCode The response status code (e.g. 200, 404, etc)
-     * @param Collection|array $headers The response headers
-     * @param string|resource|EntityBody $body The body of the response
+     * @param string                     $statusCode The response status code (e.g. 200, 404, etc)
+     * @param Collection|array           $headers    The response headers
+     * @param string|resource|EntityBody $body       The body of the response
      *
      * @throws BadResponseException if an invalid response code is given
      */
@@ -248,7 +247,7 @@ class Response extends AbstractMessage
     /**
      * Set the response status
      *
-     * @param int $statusCode Response status code to set
+     * @param int    $statusCode   Response status code to set
      * @param string $reasonPhrase Response reason phrase
      *
      * @return Response

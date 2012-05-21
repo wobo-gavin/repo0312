@@ -3,7 +3,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\JsonLoader;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException;
 
 /**
  * Creates a ServiceBuilder using a JSON configuration file

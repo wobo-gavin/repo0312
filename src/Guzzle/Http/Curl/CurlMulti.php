@@ -6,7 +6,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispat
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 
 /**
  * Send {@see RequestInterface} objects in parallel using curl_multi

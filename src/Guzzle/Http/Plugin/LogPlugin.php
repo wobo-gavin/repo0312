@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\LogAdapterInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
@@ -58,7 +57,7 @@ class LogPlugin implements EventSubscriberInterface
      * Construct a new LogPlugin
      *
      * @param LogAdapterInterface $logAdapter Adapter object used to log message
-     * @param int $settings Bitwise settings to use for logging
+     * @param int                 $settings   Bitwise settings to use for logging
      */
     public function __construct(LogAdapterInterface $logAdapter, $settings = self::LOG_CONTEXT)
     {
@@ -175,8 +174,8 @@ class LogPlugin implements EventSubscriberInterface
     /**
      * Log a message based on a request and response
      *
-     * @param RequestInterface $request Request to log
-     * @param Response $response Response to log
+     * @param RequestInterface $request  Request to log
+     * @param Response         $response Response to log
      */
     private function log(RequestInterface $request, Response $response = null)
     {

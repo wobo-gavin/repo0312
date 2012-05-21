@@ -2,7 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
@@ -155,7 +154,7 @@ class EntityEnclosingRequest extends Request implements EntityEnclosingRequestIn
     /**
      * Set a POST field value
      *
-     * @param string $key Key to set
+     * @param string $key   Key to set
      * @param string $value Value to set
      *
      * @return EntityEnclosingRequest
