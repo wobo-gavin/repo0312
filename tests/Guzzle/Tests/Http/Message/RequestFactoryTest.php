@@ -146,12 +146,14 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         ));
 
         $this->assertEquals(array(
-            'a' => 'b',
-            'file' => '@' . __FILE__
+            'a' => 'b'
         ), $request->getPostFields()->getAll());
 
         $this->assertEquals(array(
-            'file' => __FILE__
+            'file' => array(array(
+                'file' => __FILE__,
+                'type' => 'text/x-php'
+            ))
         ), $request->getPostFiles());
     }
 
