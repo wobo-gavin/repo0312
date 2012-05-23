@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Desc
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 
 class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
@@ -67,5 +68,36 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $data = serialize($service);
         $d2 = unserialize($data);
         $this->assertEquals($service, $d2);
+    }
+
+    public function testAllowsForJsonBasedArrayParamsFunctionalTest()
+    {
+        $service = array(
+            'test' => new ApiCommand(array(
+                'method' => 'PUT',
+                'params' => array(
+                    'data'   => array(
+                        'required' => true,
+                        'type'     => 'type:array',
+                        'filters'  => 'json_encode',
+                        'location' => 'body'
+                    )
+                )
+            ))
+        );
+
+        $description = new ServiceDescription($service);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description);
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test', array(
+            'data' => array(
+                'foo' => 'bar'
+            )
+        ));
+
+        $request = $command->prepare();
+        $this->assertEquals(json_encode(array(
+            'foo' => 'bar'
+        )), (string) $request->getBody());
     }
 }
