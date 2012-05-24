@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\Invalid
 /**
  * Ensures that a value is of a specific type
  */
-abstract class  AbstractType extends AbstractConstraint
+abstract class AbstractType extends AbstractConstraint
 {
     protected static $typeMapping = array();
     protected $default = 'type';

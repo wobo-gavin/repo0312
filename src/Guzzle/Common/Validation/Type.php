@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Validation;
 
 /**
  * Ensures that a value is of a specific type
+ * @codeCoverageIgnore
  */
 class Type extends AbstractType
 {
