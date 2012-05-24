@@ -385,4 +385,19 @@ class CommandTest extends AbstractCommandTest
         $command->setInspector($newInspector);
         $this->assertSame($newInspector, $method->invoke($command));
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::setResult
+     */
+    public function testCanSetResultManually()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(
+            new Response(200)
+        )));
+        $command = new MockCommand();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->execute($command);
+        $command->setResult('foo!');
+        $this->assertEquals('foo!', $command->getResult());
+    }
 }
