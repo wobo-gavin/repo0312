@@ -184,6 +184,7 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
         $this->requests = array();
         $that = $this;
         $mock = new MockPlugin(null, true);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->removeSubscriber($mock);
         $mock->getEventDispatcher()->addListener('mock.request', function(Event $event) use ($that) {
             $that->addMockedRequest($event['request']);
         });
