@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiParam;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inspector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
@@ -399,5 +400,26 @@ class CommandTest extends AbstractCommandTest
         $/* Replaced /* Replaced /* Replaced client */ */ */->execute($command);
         $command->setResult('foo!');
         $this->assertEquals('foo!', $command->getResult());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::initConfig
+     */
+    public function testCanInitConfig()
+    {
+        $command = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\AbstractCommand')
+            ->setConstructorArgs(array(array(
+                'foo' => 'bar'
+            ), new ApiCommand(array(
+                'params' => array(
+                    'baz' => new ApiParam(array(
+                        'default' => 'baaar'
+                    ))
+                )
+            ))))
+            ->getMockForAbstractClass();
+
+        $this->assertEquals('bar', $command['foo']);
+        $this->assertEquals('baaar', $command['baz']);
     }
 }
