@@ -11,6 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFact
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 
 /**
@@ -205,7 +206,7 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
         ), $request->getPostFields()->getAll());
 
         $this->assertEquals(array(
-            'file' => array(array('file' => __FILE__, 'type' => 'text/x-php'))
+            'file' => array(new PostFile('file', __FILE__, 'text/x-php'))
         ), $request->getPostFiles());
 
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n");
@@ -218,7 +219,7 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::addPostFiles
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::addPostFile
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      */
     public function testSetPostFilesThrowsExceptionWhenFileIsNotFound()
     {
@@ -247,7 +248,7 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
             ->addPostFile('foo', __FILE__, 'text/plain');
 
         $this->assertEquals(array(
-            array('file' => __FILE__, 'type' => 'text/plain')
+            new PostFile('foo', __FILE__, 'text/plain')
         ), $request->getPostFile('foo'));
     }
 
@@ -260,7 +261,7 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
             ->addPostFile('foo', __FILE__);
 
         $this->assertEquals(array(
-            array('file' => __FILE__, 'type' => 'text/x-php')
+            new PostFile('foo', __FILE__, 'text/x-php')
         ), $request->getPostFile('foo'));
     }
 
@@ -269,20 +270,13 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
      */
     public function testAllowsContentDispositionFieldsInPostUploadsWhenSettingInBulk()
     {
+        $postFile = new PostFile('foo', __FILE__, 'text/x-php');
         $request = RequestFactory::getInstance()->create('POST', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/')
             ->addPostFiles(array(
-                'foo' => array(
-                    'file' => __FILE__,
-                    'type' => 'text/plain'
-                )
+                'foo' => $postFile
             ));
 
-        $this->assertEquals(array(
-            array(
-                'file' => __FILE__,
-                'type' => 'text/plain'
-            )
-        ), $request->getPostFile('foo'));
+        $this->assertEquals(array($postFile), $request->getPostFile('foo'));
     }
 
     /**
@@ -453,16 +447,16 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
     {
         $request = new EntityEnclosingRequest('POST', 'http://test.com/');
         $request->addPostFile('foo', __FILE__);
-        $request->addPostFile('foo', __FILE__);
+        $request->addPostFile(new PostFile('foo', __FILE__));
         $this->assertEquals(array(
-            array('file' => __FILE__, 'type' => 'text/x-php'),
-            array('file' => __FILE__, 'type' => 'text/x-php')
+            new PostFile('foo', __FILE__, 'text/x-php'),
+            new PostFile('foo', __FILE__, 'text/x-php')
         ), $request->getPostFile('foo'));
 
         $this->assertEquals(array(
             'foo' => array(
-                array('file' => __FILE__, 'type' => 'text/x-php'),
-                array('file' => __FILE__, 'type' => 'text/x-php')
+                new PostFile('foo', __FILE__, 'text/x-php'),
+                new PostFile('foo', __FILE__, 'text/x-php')
             )
         ), $request->getPostFiles());
 
@@ -482,10 +476,7 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
 
         $this->assertEquals(array(
             'foo' => array(
-                array(
-                    'file' => __FILE__,
-                    'type' => 'text/x-php'
-                )
+                new PostFile('foo', __FILE__, 'text/x-php'),
             )
         ), $request->getPostFiles());
     }

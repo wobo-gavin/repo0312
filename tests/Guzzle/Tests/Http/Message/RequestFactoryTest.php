@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\Message\MessageParser;
 
@@ -150,10 +151,7 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         ), $request->getPostFields()->getAll());
 
         $this->assertEquals(array(
-            'file' => array(array(
-                'file' => __FILE__,
-                'type' => 'text/x-php'
-            ))
+            'file' => array(new PostFile('file', __FILE__, 'text/x-php'))
         ), $request->getPostFiles());
     }
 
