@@ -54,4 +54,23 @@ class AbstractHasAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle
             'param' => 'abc',
         ), $data);
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher::addSubscriber
+     */
+    public function testHelperAttachesSubscribers()
+    {
+        $mock = $this->getMockForAbstractClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher');
+        $subscriber = $this->getMockForAbstractClass('Symfony\Component\EventDispatcher\EventSubscriberInterface');
+
+        $dispatcher = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcher')
+            ->setMethods(array('addSubscriber'))
+            ->getMock();
+
+        $dispatcher->expects($this->once())
+            ->method('addSubscriber');
+
+        $mock->setEventDispatcher($dispatcher);
+        $mock->addSubscriber($subscriber);
+    }
 }
