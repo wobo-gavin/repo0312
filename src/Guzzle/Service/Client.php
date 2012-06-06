@@ -8,9 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\Invalid
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\BadMethodCallException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client as HttpClient;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandSetException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSet;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\CompositeFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\ServiceDescriptionFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\FactoryInterface as CommandFactoryInterface;
@@ -192,53 +190,52 @@ class Client extends HttpClient implements ClientInterface
     }
 
     /**
-     * Execute a command and return the response
+     * Execute one or more commands
      *
-     * @param CommandInterface|CommandSet|array $command Command or set to execute
+     * @param CommandInterface|array $command Command or array of commands to execute
      *
-     * @return mixed Returns the result of the executed command's
-     *       {@see CommandInterface::getResult} method if a CommandInterface is
-     *       passed, or the CommandSet itself if a CommandSet is passed
+     * @return mixed Returns the result of the executed command or an array of
+     *               commands if an array of commands was passed.
      * @throws InvalidArgumentException if an invalid command is passed
-     * @throws CommandSetException if a set contains commands associated with other /* Replaced /* Replaced /* Replaced client */ */ */s
      */
     public function execute($command)
     {
         if ($command instanceof CommandInterface) {
+            $command = array($command);
+            $singleCommand = true;
+        } elseif (is_array($command)) {
+            $singleCommand = false;
+        } else {
+            throw new InvalidArgumentException('Command must be a command or array of commands');
+        }
 
-            $request = $command->setClient($this)->prepare();
-            $this->dispatch('command.before_send', array(
-                'command' => $command
-            ));
+        $requests = array();
 
+        foreach ($command as $c) {
+            $request = $c->setClient($this)->prepare();
             // Set the state to new if the command was previously executed
             if ($request->getState() !== RequestInterface::STATE_NEW) {
                 $request->setState(RequestInterface::STATE_NEW);
             }
-
-            $request->send();
-            $this->dispatch('command.after_send', array(
-                'command' => $command
+            $requests[] = $request;
+            $this->dispatch('command.before_send', array(
+                'command' => $c
             ));
-
-            return $command->getResult();
-        } elseif ($command instanceof CommandSet) {
-            foreach ($command as $c) {
-                if ($c->getClient() && $c->getClient() !== $this) {
-                    throw new CommandSetException(
-                        'Attempting to run a mixed-Client CommandSet from a ' .
-                        'Client context.  Run the set using CommandSet::execute() '
-                    );
-                }
-                $c->setClient($this);
-            }
-
-            return $command->execute();
-        } elseif (is_array($command)) {
-            return $this->execute(new CommandSet($command));
         }
 
-        throw new InvalidArgumentException('Invalid command sent to ' . __METHOD__);
+        if ($singleCommand) {
+            $this->send($requests[0]);
+        } else {
+            $this->send($requests);
+        }
+
+        foreach ($command as $c) {
+            $this->dispatch('command.after_send', array(
+                'command' => $c
+            ));
+        }
+
+        return $singleCommand ? end($command)->getResult() : $command;
     }
 
     /**

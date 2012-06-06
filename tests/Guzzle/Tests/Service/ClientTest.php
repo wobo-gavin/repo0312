@@ -10,7 +10,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSet;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\XmlDescriptionBuilder;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
@@ -107,55 +106,12 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandSetException
-     */
-    public function testThrowsExceptionWhenExecutingMixedClientCommandSets()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/');
-        $otherClient = new Client('http://www.test-123.com/');
-
-        // Create a command set and a command
-        $set = new CommandSet();
-        $cmd = new MockCommand();
-        $set->addCommand($cmd);
-
-        // Associate the other /* Replaced /* Replaced /* Replaced client */ */ */ with the command
-        $cmd->setClient($otherClient);
-
-        // Send the set with the wrong /* Replaced /* Replaced /* Replaced client */ */ */, causing an exception
-        $/* Replaced /* Replaced /* Replaced client */ */ */->execute($set);
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      */
-    public function testThrowsExceptionWhenExecutingInvalidCommandSets()
+    public function testThrowsExceptionWhenInvalidCommandIsExecuted()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->execute(new \stdClass());
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
-     */
-    public function testExecutesCommandSets()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/');
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(
-            new Response(200)
-        )));
-
-        // Create a command set and a command
-        $set = new CommandSet();
-        $cmd = new MockCommand();
-        $set->addCommand($cmd);
-        $this->assertSame($set, $/* Replaced /* Replaced /* Replaced client */ */ */->execute($set));
-
-        // Make sure it sent
-        $this->assertTrue($cmd->isExecuted());
-        $this->assertTrue($cmd->isPrepared());
-        $this->assertEquals(200, $cmd->getResponse()->getStatusCode());
     }
 
     /**
