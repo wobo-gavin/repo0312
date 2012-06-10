@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+* 2.6.6 (06-10-2012)
+
+ * BC: Removing /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BatchQueuePlugin
+ * BC: Removing /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandSet
+ * Adding generic batching system (replaces the batch queue plugin and command set)
+ * Updating ZF cache and log adapters and now using ZF's composer repository
+ * Bug: Setting the name of each ApiParam when creating through an ApiCommand
+ * Adding result_type, result_doc, deprecated, and doc_url to service descriptions
+ * Bug: Changed the default cookie header casing back to 'Cookie'
+
 * 2.6.5 (06-03-2012)
 
  * BC: Renaming /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface::getResourceUri() to getResource()
