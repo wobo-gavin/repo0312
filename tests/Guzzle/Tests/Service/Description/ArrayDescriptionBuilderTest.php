@@ -12,7 +12,7 @@ class ArrayDescriptionBuilderTest extends \/* Replaced /* Replaced /* Replaced G
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription::factory
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ArrayDescriptionBuilder::build
      */
-    public function testAllowsDeepNestedInheritence()
+    public function testAllowsDeepNestedInheritance()
     {
         $d = ServiceDescription::factory(array(
             'commands' => array(

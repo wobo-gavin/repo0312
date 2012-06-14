@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log;
 
 /**
- * Adapter class that allows /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to log dato to various logging
+ * Adapter class that allows /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to log data to various logging
  * implementations so that you may use the log classes of your favorite
  * framework.
  */

@@ -88,7 +88,7 @@ class MockPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin::getMockFile
      * @expectedException InvalidArgumentException
      */
-    public function testThrowsExcpetionWhenResponseFileIsNotFound()
+    public function testThrowsExceptionWhenResponseFileIsNotFound()
     {
         MockPlugin::getMockFile('missing/filename');
     }

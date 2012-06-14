@@ -188,9 +188,9 @@ abstract class AbstractCommand extends Collection implements CommandInterface
     }
 
     /**
-     * Set the /* Replaced /* Replaced /* Replaced client */ */ */ objec that will execute the command
+     * Set the /* Replaced /* Replaced /* Replaced client */ */ */ object that will execute the command
      *
-     * @param ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */ The /* Replaced /* Replaced /* Replaced client */ */ */ objec that will execute the command
+     * @param ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */ The /* Replaced /* Replaced /* Replaced client */ */ */ object that will execute the command
      *
      * @return Command
      */

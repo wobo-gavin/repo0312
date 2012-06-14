@@ -244,8 +244,8 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
             $this->assertEquals(1, count($e));
 
             // Test the IteratorAggregate functionality
-            foreach ($e as $excep) {
-                $this->assertEquals($failed, $excep->getResponse());
+            foreach ($e as $except) {
+                $this->assertEquals($failed, $except->getResponse());
             }
         }
     }

@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache;
 /**
  * Interface for cache adapters.
  *
- * Cache adapters allow /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to utilze various frameworks for caching HTTP
+ * Cache adapters allow /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to utilize various frameworks for caching HTTP
  * responses.
  *
  * @link http://www.doctrine-project.org/ Inspired by Doctrine 2
