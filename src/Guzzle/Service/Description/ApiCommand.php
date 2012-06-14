@@ -4,8 +4,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Descriptio
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\Inflector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ValidationException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inflector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inspector;
 
 /**
@@ -183,8 +183,9 @@ class ApiCommand
                 }
             }
 
+
             self::$apiCommandCache[$className] = new ApiCommand(array(
-                'name'   => str_replace('\\_', '.', Inflector::snake(substr($className, strpos($className, 'Command') + 8))),
+                'name'   => str_replace('\\_', '.', Inflector::getDefault()->snake(substr($className, strpos($className, 'Command') + 8))),
                 'class'  => $className,
                 'params' => $params
             ));

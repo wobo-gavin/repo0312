@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ClosureLogAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\Inflector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
@@ -292,21 +293,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommand
-     * @depends testMagicCallBehaviorExecuteExecutesCommands
-     */
-    public function testEnablesMagicMethodCallsOnCommandsIfEnabledOnClient()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
-        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('other_command');
-        $this->assertNull($command->get('command.magic_method_call'));
-
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setMagicCallBehavior(Client::MAGIC_CALL_EXECUTE);
-        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('other_command');
-        $this->assertTrue($command->get('command.magic_method_call'));
-    }
-
-    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
      */
     public function testClientResetsRequestsBeforeExecutingCommands()
@@ -360,11 +346,25 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
      */
     public function testClientCreatesIteratorsWithCommands()
     {
-       $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
-       $command = new MockCommand();
-       $iterator = $/* Replaced /* Replaced /* Replaced client */ */ */->getIterator($command);
-       $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Model\MockCommandIterator', $iterator);
-       $iteratorCommand = $this->readAttribute($iterator, 'originalCommand');
-       $this->assertSame($command, $iteratorCommand);
-   }
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
+        $command = new MockCommand();
+        $iterator = $/* Replaced /* Replaced /* Replaced client */ */ */->getIterator($command);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Model\MockCommandIterator', $iterator);
+        $iteratorCommand = $this->readAttribute($iterator, 'originalCommand');
+        $this->assertSame($command, $iteratorCommand);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getInflector
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setInflector
+     */
+    public function testClientHoldsInflector()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\MemoizingInflector', $/* Replaced /* Replaced /* Replaced client */ */ */->getInflector());
+
+        $inflector = new Inflector();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setInflector($inflector);
+        $this->assertSame($inflector, $/* Replaced /* Replaced /* Replaced client */ */ */->getInflector());
+    }
 }

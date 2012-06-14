@@ -2,8 +2,9 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\InflectorInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\Inflector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inflector;
 
 /**
  * Command factory used to create commands referencing concrete command classes
@@ -16,11 +17,18 @@ class ConcreteClassFactory implements FactoryInterface
     protected $/* Replaced /* Replaced /* Replaced client */ */ */;
 
     /**
-     * @param ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */ Client that owns the commands
+     * @var InflectorInterface
      */
-    public function __construct(ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */)
+    protected $inflector;
+
+    /**
+     * @param ClientInterface    $/* Replaced /* Replaced /* Replaced client */ */ */    Client that owns the commands
+     * @param InflectorInterface $inflector Inflector used to resolve class names
+     */
+    public function __construct(ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */, InflectorInterface $inflector = null)
     {
         $this->/* Replaced /* Replaced /* Replaced client */ */ */ = $/* Replaced /* Replaced /* Replaced client */ */ */;
+        $this->inflector = $inflector ?: Inflector::getDefault();
     }
 
     /**
@@ -37,7 +45,7 @@ class ConcreteClassFactory implements FactoryInterface
             $this->/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->set('command.prefix', $prefix);
         }
 
-        $class = $prefix . str_replace(' ', '\\', ucwords(str_replace('.', ' ', Inflector::camel($name))));
+        $class = $prefix . str_replace(' ', '\\', ucwords(str_replace('.', ' ', $this->inflector->camel($name))));
 
         // Create the concrete command if it exists
         if (class_exists($class)) {

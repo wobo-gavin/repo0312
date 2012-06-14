@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\FromConfigInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\InflectorInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface as HttpClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
@@ -91,4 +92,20 @@ interface ClientInterface extends HttpClientInterface, FromConfigInterface
      * @return ClientInterface
      */
     function setResourceIteratorFactory(ResourceIteratorFactoryInterface $factory);
+
+    /**
+     * Set the inflector used with the /* Replaced /* Replaced /* Replaced client */ */ */
+     *
+     * @param InflectorInterface $inflector Inflection object
+     *
+     * @return ClientInterface
+     */
+    function setInflector(InflectorInterface $inflector);
+
+    /**
+     * Get the inflector used with the /* Replaced /* Replaced /* Replaced client */ */ */
+     *
+     * @return InflectorInterface
+     */
+    function getInflector();
 }

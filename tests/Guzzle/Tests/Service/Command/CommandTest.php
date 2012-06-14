@@ -277,50 +277,12 @@ class CommandTest extends AbstractCommandTest
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::__call
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\BadMethodCallException
-     * @expectedExceptionMessage Magic method calls are disabled for this command.  Consider enabling magic method calls by setting the command.magic_method_call parameter to true.
-     */
-    public function testMissingMethodCallsThrowExceptionsWhenMagicIsDisabled()
-    {
-        $command = new MockCommand(array());
-        $command->setFooBarBaz('123');
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::__call
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\BadMethodCallException
-     * @expectedExceptionMessage Missing method setFoo
-     */
-    public function testMissingMethodCallsThrowExceptionsWhenParameterIsInvalid()
-    {
-        $command = new MockCommand(array(
-            'command.magic_method_call' => true
-        ), $this->getApiCommand());
-        $command->setFoo('bar_baz');
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::__call
-     */
-    public function testMissingMethodCallsAllowedWhenEnabled()
-    {
-        $command = new MockCommand(array(
-            'command.magic_method_call' => true
-        ), $this->getApiCommand());
-        $command->setTest('foo');
-        $this->assertEquals('foo', $command->get('test'));
-    }
-
-    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::__clone
      */
     public function testCloneMakesNewRequest()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
-        $command = new MockCommand(array(
-            'command.magic_method_call' => true
-        ), $this->getApiCommand());
+        $command = new MockCommand(array(), $this->getApiCommand());
         $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */);
 
         $command->prepare();
