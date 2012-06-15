@@ -15,7 +15,9 @@ class BatchSizeDivisorTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
         $queue[] = 'foo';
         $queue[] = 'baz';
         $queue[] = 'bar';
-        $d = new BatchSizeDivisor(2);
+        $d = new BatchSizeDivisor(3);
+        $this->assertEquals(3, $d->getSize());
+        $d->setSize(2);
         $batches = $d->createBatches($queue);
         $this->assertEquals(array(array('foo', 'baz'), array('bar')), $batches);
     }
