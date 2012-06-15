@@ -39,7 +39,7 @@ class AsyncPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\AsyncPlugin::onCurlProgess
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\AsyncPlugin::onCurlProgress
      */
     public function testAddsTimesOutAfterSending()
     {
@@ -53,13 +53,13 @@ class AsyncPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
             'upload_size' => 10,
             'downloaded'  => 0
         ));
-        $p->onCurlProgess($event);
+        $p->onCurlProgress($event);
         $this->assertEquals(1, $handle->getOptions()->get(CURLOPT_TIMEOUT_MS));
         $this->assertEquals(true, $handle->getOptions()->get(CURLOPT_NOBODY));
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\AsyncPlugin::onCurlProgess
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\AsyncPlugin::onCurlProgress
      */
     public function testEnsuresRequestIsSet()
     {
@@ -69,7 +69,7 @@ class AsyncPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
             'upload_size' => 10,
             'downloaded'  => 0
         ));
-        $p->onCurlProgess($event);
+        $p->onCurlProgress($event);
     }
 
     /**
