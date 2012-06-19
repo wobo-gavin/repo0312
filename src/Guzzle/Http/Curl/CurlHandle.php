@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\ParserRegistry;
@@ -78,6 +79,11 @@ class CurlHandle
         // Enable curl debug information if the 'debug' param was set
         if (!$requestCurlOptions->get('disable_wire')) {
             $curlOptions[CURLOPT_STDERR] = fopen('php://temp', 'r+');
+            // @codeCoverageIgnoreStart
+            if (false === $curlOptions[CURLOPT_STDERR]) {
+                throw new RuntimeException('Unable to create a stream for CURLOPT_STDERR');
+            }
+            // @codeCoverageIgnoreEnd
             $curlOptions[CURLOPT_VERBOSE] = true;
         }
 
