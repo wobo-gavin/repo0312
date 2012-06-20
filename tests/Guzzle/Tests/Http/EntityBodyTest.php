@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 
 /**
  * @group server
@@ -20,6 +21,7 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::fromString
      */
     public function testFactory()
     {
@@ -54,6 +56,24 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $body = EntityBody::factory();
         $this->assertEquals('php', $body->getWrapper());
         $this->assertEquals('temp', $body->getStreamType());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory
+     */
+    public function testFactoryCanCreateFromObject()
+    {
+        $body = EntityBody::factory(new QueryString(array('foo' => 'bar')));
+        $this->assertEquals('?foo=bar', (string) $body);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     */
+    public function testFactoryEnsuresObjectsHaveToStringMethod()
+    {
+        EntityBody::factory(new \stdClass('a'));
     }
 
     /**
