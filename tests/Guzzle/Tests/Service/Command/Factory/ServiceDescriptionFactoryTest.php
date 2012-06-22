@@ -4,34 +4,28 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Comm
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\ServiceDescriptionFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\Inflector;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\ServiceDescriptionFactory
+ */
 class ServiceDescriptionFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     public function testProvider()
     {
         return array(
             array('foo', null),
-            array('jarjar', '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand'),
+            array('jar_jar', '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand'),
             array('binks', '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\OtherCommand')
         );
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\ServiceDescriptionFactory
      * @dataProvider testProvider
      */
     public function testCreatesCommandsUsingServiceDescriptions($key, $result)
     {
-        $d = ServiceDescription::factory(array(
-            'commands' => array(
-                'jarjar' => array(
-                    'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand'
-                ),
-                'binks' => array(
-                    'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\OtherCommand'
-                )
-            )
-        ));
+        $d = $this->getDescription();
 
         $factory = new ServiceDescriptionFactory($d);
         $this->assertSame($d, $factory->getServiceDescription());
@@ -41,5 +35,29 @@ class ServiceDescriptionFactoryTest extends \/* Replaced /* Replaced /* Replaced
         } else {
             $this->assertInstanceof($result, $factory->factory($key));
         }
+    }
+
+    public function testUsesInflectionIfNoExactMatch()
+    {
+        $d = $this->getDescription();
+        $factory = new ServiceDescriptionFactory($d, new Inflector());
+        $this->assertInstanceof('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\OtherCommand', $factory->factory('Binks'));
+        $this->assertInstanceof('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\OtherCommand', $factory->factory('binks'));
+        $this->assertInstanceof('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand', $factory->factory('JarJar'));
+        $this->assertInstanceof('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand', $factory->factory('jar_jar'));
+    }
+
+    protected function getDescription()
+    {
+        return ServiceDescription::factory(array(
+            'commands' => array(
+                'jar_jar' => array(
+                    'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand'
+                ),
+                'binks' => array(
+                    'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\OtherCommand'
+                )
+            )
+        ));
     }
 }
