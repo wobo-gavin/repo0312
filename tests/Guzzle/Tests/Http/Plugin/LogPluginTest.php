@@ -147,6 +147,9 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
         // Response body
         $this->assertContains("data", $message);
+
+        // Ensure that the debug option was set
+        $this->assertTrue($request->getCurlOptions()->get('debug'));
     }
 
     public function testLogsRequestAndResponseWireContentAndHeadersNonStreamable()
