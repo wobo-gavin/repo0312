@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\ParserRegistry;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\PostFileInterface;
 
 /**
  * A command that creates requests based on ApiCommands
@@ -71,6 +72,16 @@ class DynamicCommand extends AbstractCommand
                     break;
                 case 'query':
                     $this->request->getQuery()->set($key, $value);
+                    break;
+                case 'post_field':
+                    $this->request->setPostField($key, $value);
+                    break;
+                case 'post_file':
+                    if ($value instanceof PostFileInterface) {
+                        $this->request->addPostFile($value);
+                    } else {
+                        $this->request->addPostFile($key, $value);
+                    }
                     break;
             }
         }

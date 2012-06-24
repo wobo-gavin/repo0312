@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Comm
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\ServiceDescriptionFactory;
@@ -221,5 +222,50 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test_path');
         $request = $command->prepare();
         $this->assertEquals('/api/v2/test/abc', $request->getPath());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand::build
+     */
+    public function testAllowsPostFieldsAndFiles()
+    {
+        $service = new ServiceDescription(
+            array(
+                'post_command' => new ApiCommand(array(
+                    'method' => 'POST',
+                    'uri'    => '/key',
+                    'params' => array(
+                        'test' => array(
+                            'location' => 'post_field'
+                        ),
+                        'test_2' => array(
+                            'location' => 'post_field:foo'
+                        ),
+                        'test_3' => array(
+                            'location' => 'post_file'
+                        )
+                    )
+                ))
+            )
+        );
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/api/v2');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($service);
+
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('post_command', array(
+            'test'   => 'Hi!',
+            'test_2' => 'There',
+            'test_3' => __FILE__
+        ));
+        $request = $command->prepare();
+        $this->assertEquals('Hi!', $request->getPostField('test'));
+        $this->assertEquals('There', $request->getPostField('foo'));
+        $this->assertInternalType('array', $request->getPostFile('test_3'));
+
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('post_command', array(
+            'test_3' => new PostFile('baz', __FILE__)
+        ));
+        $request = $command->prepare();
+        $this->assertInternalType('array', $request->getPostFile('baz'));
     }
 }
