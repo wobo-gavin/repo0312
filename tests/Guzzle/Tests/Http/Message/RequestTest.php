@@ -785,4 +785,15 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
         $request->receiveResponseHeader('HTTP/1.1 503 Service Unavailable');
         $this->assertNotSame($body, $request->getResponse()->getBody());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::receiveResponseHeader
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException
+     * @expectedExceptionMessage Received message-header before receiving start-line: foo: baz
+     */
+    public function testResponseHeaderBeforeStartLineThrowsException()
+    {
+        $request = new Request('GET', $this->getServer()->getUrl());
+        $request->receiveResponseHeader('foo: baz');
+    }
 }
