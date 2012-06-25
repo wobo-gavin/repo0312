@@ -27,7 +27,7 @@ class BatchClosureTransferTest extends \/* Replaced /* Replaced /* Replaced Guzz
         $this->transferStrategy = new BatchClosureTransfer(function (array $batch) use (&$itemsTransferred) {
             $itemsTransferred = $batch;
             return;
-        });;
+        });
     }
 
     public function testTransfersBatch()
@@ -44,5 +44,13 @@ class BatchClosureTransferTest extends \/* Replaced /* Replaced /* Replaced Guzz
         $this->transferStrategy->transfer($batchedItems);
 
         $this->assertNull($this->itemsTransferred);
+    }
+
+    /**
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     */
+    public function testEnsuresCallableIsCallable()
+    {
+        $foo = new BatchClosureTransfer('uh oh!');
     }
 }
