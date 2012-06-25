@@ -1,6 +1,23 @@
 CHANGELOG
 =========
 
+* 2.7.0 (06-10-2012)
+
+ * BC: Inflection classes moved to /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection. No longer static methods. Can now inject custom inflectors into classes.
+ * BC: Removed magic setX methods from commands
+ * BC: Magic methods mapped to service description commands are now inflected in the command factory rather than the /* Replaced /* Replaced /* Replaced client */ */ */ __call() method
+ * Verbose cURL options are no longer enabled by default. Set curl.debug to true on a /* Replaced /* Replaced /* Replaced client */ */ */ to enable.
+ * Bug: Now allowing colons in a response start-line (e.g. HTTP/1.1 503 Service Unavailable: Back-end server is at capacity)
+ * /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIteratorApplyBatched now internally uses the /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Batch namespace
+ * Added /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Plugin namespace and a PluginCollectionPlugin
+ * Added the ability to set POST fields and files in a service description
+ * /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory() now accepts objects with a __toString() method
+ * Adding a command.before_prepare event to /* Replaced /* Replaced /* Replaced client */ */ */s
+ * Added BatchClosureTransfer and BatchClosureDivisor
+ * BatchTransferException now includes references to the batch divisor and transfer strategies
+ * Fixed some tests so that they pass more reliably
+ * Added /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ArrayLogAdapter
+
 * 2.6.6 (06-10-2012)
 
  * BC: Removing /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BatchQueuePlugin
