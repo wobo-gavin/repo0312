@@ -116,7 +116,7 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::__toString
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::getRawHeaders
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::getHeaderString
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::getHeaderLines
      */
     public function testRequestsCanBeConvertedToRawMessageStrings()
     {
