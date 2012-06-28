@@ -9,7 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\Message\MessageParser;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\MessageParser;
 
 /**
  * @group server

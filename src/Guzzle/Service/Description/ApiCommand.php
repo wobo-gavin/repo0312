@@ -4,7 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Descriptio
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\Inflector;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inflection\Inflector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ValidationException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inspector;
 

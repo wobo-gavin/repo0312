@@ -1,0 +1,14 @@
+{
+    "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ *//parser",
+    "homepage": "http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/",
+    "description": "Interchangeable parsers used by /* Replaced /* Replaced /* Replaced Guzzle */ */ */",
+    "keywords": ["HTTP", "message", "cookie", "URL", "URI Template"],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "autoload": {
+        "psr-0": { "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Parser": "" }
+    },
+    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Parser"
+}

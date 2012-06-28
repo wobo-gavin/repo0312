@@ -3,8 +3,8 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\InflectorInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\Inflector;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inflection\InflectorInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inflection\Inflector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 
 /**

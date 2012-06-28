@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Parser\ParserRegistry;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\ParserRegistry;
 
 /**
  * /* Replaced /* Replaced /* Replaced Guzzle */ */ */ HTTP response object

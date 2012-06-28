@@ -1,0 +1,16 @@
+{
+    "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ *//http",
+    "homepage": "http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/",
+    "description": "HTTP libraries used by /* Replaced /* Replaced /* Replaced Guzzle */ */ */",
+    "keywords": ["http /* Replaced /* Replaced /* Replaced client */ */ */", "http", "/* Replaced /* Replaced /* Replaced client */ */ */", "/* Replaced /* Replaced /* Replaced Guzzle */ */ */", "curl"],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3.2",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//common": "*",
+        "symfony/event-dispatcher": "2.*"
+    },
+    "autoload": {
+        "psr-0": { "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http": "" }
+    },
+    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http"
+}
