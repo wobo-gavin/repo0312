@@ -2,16 +2,16 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin;
 
-use Doctrine\Common\Cache\ArrayCache;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin;
+use Doctrine\Common\Cache\ArrayCache;
 
 /**
  * @group server
@@ -49,13 +49,12 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::__construct
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\CachePlugin::getCacheAdapter
      */
     public function testConstructorSetsValues()
     {
-        $plugin = new CachePlugin($this->adapter, true, true, 1200);
+        $plugin = new CachePlugin($this->adapter, 1200);
 
-        $this->assertEquals($this->adapter, $plugin->getCacheAdapter());
+        $this->assertEquals($this->adapter, $this->readAttribute($plugin, 'adapter'));
     }
 
     /**
@@ -74,7 +73,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         ));
 
         // Create a new Cache plugin
-        $plugin = new CachePlugin($this->adapter, true);
+        $plugin = new CachePlugin($this->adapter);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
         $/* Replaced /* Replaced /* Replaced client */ */ */->setCurlMulti(new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti());
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
@@ -113,7 +112,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata");
 
         // Create a new Cache plugin
-        $plugin = new CachePlugin($this->adapter, true);
+        $plugin = new CachePlugin($this->adapter);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
 
@@ -138,10 +137,10 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     public function cacheKeyDataProvider()
     {
         $r = array(
-            array('', 'gz_http_www.test.com/path?q=abc_host=www.test.com&date=123', 'http://www.test.com/path?q=abc', "Host: www.test.com\r\nDate: 123"),
-            array('query = q', 'gz_http_www.test.com/path_host=www.test.com&date=123', 'http://www.test.com/path?q=abc', "Host: www.test.com\r\nDate: 123"),
-            array('query=q; header=Date;', 'gz_http_www.test.com/path_host=www.test.com', 'http://www.test.com/path?q=abc', "Host: www.test.com\r\nDate: 123"),
-            array('query=a,  q; header=Date, Host;', 'gz_http_www.test.com/path_', 'http://www.test.com/path?q=abc&a=123', "Host: www.test.com\r\nDate: 123"),
+            array('', 'gz_get_http_www.test.com/path?q=abc_host=www.test.com&date=123', 'http://www.test.com/path?q=abc', "Host: www.test.com\r\nDate: 123"),
+            array('query = q', 'gz_get_http_www.test.com/path_host=www.test.com&date=123', 'http://www.test.com/path?q=abc', "Host: www.test.com\r\nDate: 123"),
+            array('query=q; header=Date;', 'gz_get_http_www.test.com/path_host=www.test.com', 'http://www.test.com/path?q=abc', "Host: www.test.com\r\nDate: 123"),
+            array('query=a,  q; header=Date, Host;', 'gz_get_http_www.test.com/path_', 'http://www.test.com/path?q=abc&a=123', "Host: www.test.com\r\nDate: 123"),
         );
 
         return $r;
@@ -154,7 +153,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     public function testCreatesCacheKeysUsingFilters($filter, $key, $url, $headers = null)
     {
         // Create a new Cache plugin
-        $plugin = new CachePlugin($this->adapter, true);
+        $plugin = new CachePlugin($this->adapter);
 
         // Generate the header array
         $h = null;
@@ -182,7 +181,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
      */
     public function testCreatesEncodedKeys()
     {
-        $plugin = new CachePlugin($this->adapter, true);
+        $plugin = new CachePlugin($this->adapter);
         $request = RequestFactory::getInstance()->fromMessage(
             "GET / HTTP/1.1\r\nHost: www.test.com\r\nCache-Control: no-cache, no-store, max-age=120"
         );
@@ -202,7 +201,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
      */
     public function testRequestsCanOverrideTtlUsingCacheParam()
     {
-        $plugin = new CachePlugin($this->adapter, true);
+        $plugin = new CachePlugin($this->adapter);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
 
@@ -230,7 +229,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $server = $this->getServer();
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $plugin = new CachePlugin($this->adapter, true);
+        $plugin = new CachePlugin($this->adapter);
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
 
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('test');
@@ -268,7 +267,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
      */
     public function testChecksIfResponseCanSatisfyRequest()
     {
-        $plugin = new CachePlugin($this->adapter, true);
+        $plugin = new CachePlugin($this->adapter);
 
         // Send some responses to the test server for cache validation
         $server = $this->getServer();
@@ -381,7 +380,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
             $request->getParams()->set('cache.revalidate', $param);
         }
 
-        $plugin = new CachePlugin($this->adapter, true);
+        $plugin = new CachePlugin($this->adapter);
         $this->assertEquals($can, $plugin->canResponseSatisfyRequest($request, $response), '-> ' . $request . "\n" . $response);
 
         if ($result) {
@@ -406,7 +405,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $server->flush();
         $server->enqueue("HTTP/1.1 200 OK\r\nCache-Control: max-age=1000\r\nContent-Length: 4\r\n\r\nData");
 
-        $plugin = new CachePlugin($this->adapter, true);
+        $plugin = new CachePlugin($this->adapter);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($server->getUrl());
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
 
@@ -433,7 +432,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
             "HTTP/1.1 404 NOT FOUND\r\nContent-Length: 0\r\n\r\n"
         ));
 
-        $plugin = new CachePlugin($this->adapter, true);
+        $plugin = new CachePlugin($this->adapter);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($server->getUrl());
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
 
@@ -441,5 +440,31 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $request1->send();
         $this->assertTrue($this->cache->contains($plugin->getCacheKey($request1)));
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('/')->send();
+    }
+
+    public function testOnlyCachesCacheableRequests()
+    {
+        $plugin = new CachePlugin($this->adapter);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $plugin->onRequestBeforeSend(new Event(array('request' => $/* Replaced /* Replaced /* Replaced client */ */ */->post('/'))));
+        $this->assertEquals(0, count($this->readAttribute($plugin, 'cached')));
+    }
+
+    public function testAllowsCustomCacheFilterStrategies()
+    {
+        $plugin = new CachePlugin($this->adapter);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl(), array(
+            'params.cache.filter_strategy' => function ($request) {
+                return true;
+            }
+        ));
+        $plugin->onRequestBeforeSend(new Event(array('request' => $/* Replaced /* Replaced /* Replaced client */ */ */->post('/'))));
+        $this->assertEquals(1, count($this->readAttribute($plugin, 'cached')));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->set('params.cache.filter_strategy', function ($request) {
+            return false;
+        });
+        $plugin->onRequestBeforeSend(new Event(array('request' => $/* Replaced /* Replaced /* Replaced client */ */ */->get('/'))));
+        $this->assertEquals(1, count($this->readAttribute($plugin, 'cached')));
     }
 }
