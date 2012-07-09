@@ -482,4 +482,14 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
             )
         ), $request->getPostFiles());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::setState
+     */
+    public function testSetStateToTransferWithEmptyBodySetsContentLengthToZero()
+    {
+        $request = new EntityEnclosingRequest('POST', 'http://test.com/');
+        $request->setState($request::STATE_TRANSFER);
+        $this->assertEquals('0', (string) $request->getHeader('Content-Length'));
+    }
 }
