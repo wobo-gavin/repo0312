@@ -384,4 +384,19 @@ class CommandTest extends AbstractCommandTest
         $this->assertEquals('bar', $command['foo']);
         $this->assertEquals('baaar', $command['baz']);
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::prepare
+     */
+    public function testAddsCurlOptionsToRequestsWhenPreparing()
+    {
+        $command = new MockCommand(array(
+            'foo' => 'bar',
+            'curl.options' => array(CURLOPT_PROXYPORT => 8080)
+        ));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */);
+        $request = $command->prepare();
+        $this->assertEquals(8080, $request->getCurlOptions()->get(CURLOPT_PROXYPORT));
+    }
 }
