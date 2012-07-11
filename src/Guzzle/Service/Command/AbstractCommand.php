@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\BadMeth
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inspector;
@@ -20,7 +21,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\JsonEx
 abstract class AbstractCommand extends Collection implements CommandInterface
 {
     const HEADERS_OPTION = 'headers';
-    const CURL_OPTIONS = 'curl.options';
 
     /**
      * @var ClientInterface Client object used to execute the command
@@ -281,10 +281,11 @@ abstract class AbstractCommand extends Collection implements CommandInterface
                     $this->request->setHeader($key, $value);
                 }
             }
-
-            // Add custom curl options to requests if set
-            if ($curlOptions = $this->get(self::CURL_OPTIONS)) {
-                $this->request->getCurlOptions()->merge($curlOptions);
+            // Add any curl options to the request
+            $curlOptions = CurlHandle::parseCurlConfig($this->getAll());
+            // Override globals
+            foreach ($curlOptions as $key => $value) {
+                $this->request->getCurlOptions()->set($key, $value);
             }
         }
 
