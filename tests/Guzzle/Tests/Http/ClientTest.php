@@ -200,6 +200,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
             'curl.foo' => 'bar'
         ));
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
+
         $this->assertTrue($request->getCurlOptions()->get('debug'));
         $this->assertEquals('bar', $request->getCurlOptions()->get('foo'));
     }
