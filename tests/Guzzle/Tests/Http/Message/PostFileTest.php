@@ -48,6 +48,6 @@ class PostFileTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
     public function testReturnsCurlValueString()
     {
         $file = new PostFile('foo', __FILE__);
-        $this->assertEquals('@' . __FILE__ . ';type=text/x-php', $file->getCurlString());
+        $this->assertContains('@' . __FILE__ . ';type=text/x-', $file->getCurlString());
     }
 }

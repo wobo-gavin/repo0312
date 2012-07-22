@@ -147,7 +147,7 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
 
         // Use a local file
         $body = EntityBody::factory(fopen(__FILE__, 'r'));
-        $this->assertEquals('text/x-php', $body->getContentType());
+        $this->assertContains('text/x-', $body->getContentType());
     }
 
     /**

@@ -150,9 +150,8 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
             'a' => 'b'
         ), $request->getPostFields()->getAll());
 
-        $this->assertEquals(array(
-            'file' => array(new PostFile('file', __FILE__, 'text/x-php'))
-        ), $request->getPostFiles());
+        $files = $request->getPostFiles();
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\PostFile', $files['file'][0]);
     }
 
     /**
