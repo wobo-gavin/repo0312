@@ -42,15 +42,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::__toString
-     */
-    public function testCollectionCanBeConvertingIntoString()
-    {
-        $data = new Collection();
-        $this->assertEquals('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection@' . spl_object_hash($data), (string) $data, '-> __toString() must represent the collection');
-    }
-
-    /**
      * Test the IteratorAggregate implementation of theCollection object
      *
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::getIterator
