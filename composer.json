@@ -34,6 +34,7 @@
 
     "autoload": {
         "psr-0": {
+            "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests": "tests/",
             "/* Replaced /* Replaced /* Replaced Guzzle */ */ */": "src/"
         }
     },
