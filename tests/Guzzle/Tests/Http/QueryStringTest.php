@@ -257,6 +257,16 @@ class QueryStringTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString::fromString
+     * @see https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//issues/108
+     */
+    public function testFromStringDoesntMangleZeroes()
+    {
+        $query = QueryString::fromString('var=0');
+        $this->assertSame('0', $query->get('var'));
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString::__toString
      */
     public function testAllowsZeroValues()
