@@ -255,4 +255,18 @@ class QueryStringTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $query = QueryString::fromString('var=foo+bar');
         $this->assertEquals('foo bar', $query->get('var'));
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString::__toString
+     */
+    public function testAllowsZeroValues()
+    {
+        $query = new QueryString(array(
+            'foo' => 0,
+            'baz' => '0',
+            'bar' => null,
+            'boo' => false
+        ));
+        $this->assertEquals('?foo=0&baz=0&bar=&boo=', (string) $query);
+    }
 }
