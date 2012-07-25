@@ -7,11 +7,11 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFact
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Md5ValidatorPlugin;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Md5ValidatorPlugin
+ */
 class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Md5ValidatorPlugin
-     */
     public function testValidatesMd5()
     {
         $plugin = new Md5ValidatorPlugin();
@@ -37,7 +37,6 @@ class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Md5ValidatorPlugin
      * @expectedException UnexpectedValueException
      */
     public function testThrowsExceptionOnInvalidMd5()
@@ -54,9 +53,6 @@ class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         ));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Md5ValidatorPlugin
-     */
     public function testSkipsWhenContentLengthIsTooLarge()
     {
         $plugin = new Md5ValidatorPlugin(false, 1);
@@ -71,9 +67,6 @@ class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         ));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Md5ValidatorPlugin
-     */
     public function testProperlyValidatesWhenUsingContentEncoding()
     {
         $plugin = new Md5ValidatorPlugin(true);
