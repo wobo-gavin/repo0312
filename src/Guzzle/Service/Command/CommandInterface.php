@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\Invalid
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandException;
 
 /**
@@ -16,15 +16,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\Comman
  */
 interface CommandInterface
 {
-    /**
-     * Constructor
-     *
-     * @param array|Collection $parameters Collection of parameters
-     *      to set on the command
-     * @param ApiCommand $apiCommand Command definition from description
-     */
-    function __construct($parameters = null, ApiCommand $apiCommand = null);
-
     /**
      * Specify a callable to execute when the command completes
      *
@@ -47,7 +38,7 @@ interface CommandInterface
     /**
      * Get the API command information about the command
      *
-     * @return ApiCommand
+     * @return ApiCommandInterface
      */
     function getApiCommand();
 

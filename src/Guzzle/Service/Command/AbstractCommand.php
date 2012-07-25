@@ -9,6 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inspector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandException;
@@ -38,7 +39,7 @@ abstract class AbstractCommand extends Collection implements CommandInterface
     protected $result;
 
     /**
-     * @var ApiCommand API information about the command
+     * @var ApiCommandInterface API information about the command
      */
     protected $apiCommand;
 
@@ -55,10 +56,10 @@ abstract class AbstractCommand extends Collection implements CommandInterface
     /**
      * Constructor
      *
-     * @param array|Collection $parameters Collection of parameters to set on the command
-     * @param ApiCommand       $apiCommand Command definition from description
+     * @param array|Collection    $parameters Collection of parameters to set on the command
+     * @param ApiCommandInterface $apiCommand Command definition from description
      */
-    public function __construct($parameters = null, ApiCommand $apiCommand = null)
+    public function __construct($parameters = null, ApiCommandInterface $apiCommand = null)
     {
         parent::__construct($parameters);
         $this->apiCommand = $apiCommand ?: ApiCommand::fromCommand(get_class($this));
@@ -102,7 +103,7 @@ abstract class AbstractCommand extends Collection implements CommandInterface
     /**
      * Get the API command information about the command
      *
-     * @return ApiCommand
+     * @return ApiCommandInterface
      */
     public function getApiCommand()
     {
