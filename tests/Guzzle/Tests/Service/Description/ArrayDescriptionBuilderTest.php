@@ -6,6 +6,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inspector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ArrayDescriptionBuilder;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ArrayDescriptionBuilder
+ */
 class ArrayDescriptionBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
@@ -60,9 +63,6 @@ class ArrayDescriptionBuilderTest extends \/* Replaced /* Replaced /* Replaced G
         ));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ArrayDescriptionBuilder::build
-     */
     public function testRegistersCustomTypes()
     {
         ServiceDescription::factory(array(
@@ -79,7 +79,6 @@ class ArrayDescriptionBuilderTest extends \/* Replaced /* Replaced /* Replaced G
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ArrayDescriptionBuilder::build
      * @expectedException RuntimeException
      * @expectedExceptionMessage Custom types require a class attribute
      */
@@ -92,4 +91,56 @@ class ArrayDescriptionBuilderTest extends \/* Replaced /* Replaced /* Replaced G
         ));
     }
 
+    public function testAllowsMultipleInheritance()
+    {
+        $description = ServiceDescription::factory(array(
+            'commands' => array(
+                'a' => array(
+                    'method' => 'GET',
+                    'params' => array(
+                        'a1' => array(
+                            'default'  => 'foo',
+                            'required' => true,
+                            'prepend'  => 'hi'
+                        )
+                    )
+                ),
+                'b' => array(
+                    'extends' => 'a',
+                    'params' => array(
+                        'b2' => array()
+                    )
+                ),
+                'c' => array(
+                    'params' => array(
+                        'a1' => array(
+                            'default'  => 'bar',
+                            'required' => true,
+                            'doc'      => 'test'
+                        ),
+                        'c3' => array()
+                    )
+                ),
+                'd' => array(
+                    'method'  => 'DELETE',
+                    'extends' => array('b', 'c'),
+                    'params'  => array(
+                        'test' => array()
+                    )
+                )
+            )
+        ));
+
+        $command = $description->getCommand('d');
+        $this->assertEquals('DELETE', $command->getMethod());
+        $this->assertContains('a1', $command->getParamNames());
+        $this->assertContains('b2', $command->getParamNames());
+        $this->assertContains('c3', $command->getParamNames());
+        $this->assertContains('test', $command->getParamNames());
+
+        $this->assertTrue($command->getParam('a1')->getRequired());
+        $this->assertEquals('bar', $command->getParam('a1')->getDefault());
+        $this->assertEquals('test', $command->getParam('a1')->getDoc());
+        $this->assertNull($command->getParam('a1')->getPrepend());
+    }
 }
