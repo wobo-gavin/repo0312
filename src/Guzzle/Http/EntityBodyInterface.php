@@ -3,7 +3,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\StreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 
 /**
  * Entity body used with an HTTP request or response

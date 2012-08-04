@@ -4,13 +4,11 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBodyInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
@@ -59,12 +57,12 @@ class Request extends AbstractMessage implements RequestInterface
     protected $state;
 
     /**
-     * @param string Auth username
+     * @var string Authentication username
      */
     protected $username;
 
     /**
-     * @param string Auth password
+     * @var string Auth password
      */
     protected $password;
 
@@ -494,7 +492,7 @@ class Request extends AbstractMessage implements RequestInterface
 
         if (strpos($data, 'HTTP/') === 0) {
 
-            list($dummy, $code, $status) = explode(' ', $data, 3);
+            list( , $code, $status) = explode(' ', $data, 3);
 
             // Only download the body of the response to the specified response
             // body when a successful response is received.

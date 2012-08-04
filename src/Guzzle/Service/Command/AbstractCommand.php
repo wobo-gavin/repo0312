@@ -3,7 +3,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\BadMethodCallException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
@@ -117,7 +116,7 @@ abstract class AbstractCommand extends Collection implements CommandInterface
      *     The callable must accept a {@see CommandInterface} object as the
      *     only argument.
      *
-     * @return Command
+     * @return self
      * @throws InvalidArgumentException
      */
     public function setOnComplete($callable)
@@ -161,7 +160,7 @@ abstract class AbstractCommand extends Collection implements CommandInterface
      *
      * @param ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */ The /* Replaced /* Replaced /* Replaced client */ */ */ object that will execute the command
      *
-     * @return Command
+     * @return self
      */
     public function setClient(ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */)
     {

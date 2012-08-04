@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilderAbstractFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
@@ -114,7 +115,7 @@ class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInte
         }
 
         // Convert references to the actual /* Replaced /* Replaced /* Replaced client */ */ */
-        foreach ($this->builderConfig[$name]['params'] as $k => &$v) {
+        foreach ($this->builderConfig[$name]['params'] as &$v) {
             if (0 === strpos($v, '{') && strlen($v) - 1 == strrpos($v, '}')) {
                 $v = $this->get(trim(str_replace(array('{', '}'), '', $v)));
             }

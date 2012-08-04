@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\ParserRegistry;
 
 /**
@@ -298,7 +299,6 @@ class Url
 
             // Remove trailing relative paths if possible
             $segments = $this->getPathSegments();
-            $totalSegments = count($segments);
             $last = end($segments);
             $trailingSlash = false;
             if ($last === '') {

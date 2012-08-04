@@ -11,7 +11,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\UriTemplate\UriTe
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactoryInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle;
@@ -84,7 +83,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public final function setConfig($config)
+    final public function setConfig($config)
     {
         // Set the configuration object
         if ($config instanceof Collection) {
@@ -103,7 +102,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public final function getConfig($key = false)
+    final public function getConfig($key = false)
     {
         return $key ? $this->config->get($key) : $this->config;
     }

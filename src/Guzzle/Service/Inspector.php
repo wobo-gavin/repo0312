@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Validation\ConstraintInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ValidationException;
 
 /**
@@ -24,7 +25,7 @@ class Inspector
     protected $constraints = array();
 
     /**
-     * @var Cache of instantiated constraints
+     * @var array Cache of instantiated constraints
      */
     protected $constraintCache = array();
 
