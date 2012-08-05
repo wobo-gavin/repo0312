@@ -25,13 +25,13 @@ class ReadLimitEntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         $this->assertEquals(3, $this->body->ftell());
     }
 
-    /**
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException
-     */
-    public function testThrowsExceptionWhenAttemptingToSeek()
+    public function testAllowsBoundedSeek()
     {
-        $this->assertFalse($this->body->isSeekable());
-        $this->body->seek(10);
+        $this->body->seek(100);
+        $this->assertEquals(13, $this->body->ftell());
+        $this->body->seek(0);
+        $this->assertEquals(3, $this->body->ftell());
+        $this->assertEquals(false, $this->body->seek(1000, SEEK_END));
     }
 
     public function testReadsOnlySubsetOfData()
