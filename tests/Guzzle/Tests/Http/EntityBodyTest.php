@@ -152,6 +152,7 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::getContentMd5
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::calculateMd5
      */
     public function testCreatesMd5Checksum()
     {
