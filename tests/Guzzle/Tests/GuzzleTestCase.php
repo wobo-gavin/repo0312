@@ -163,7 +163,9 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
      */
     public function getMockResponse($path)
     {
-        return MockPlugin::getMockFile(self::$mockBasePath . DIRECTORY_SEPARATOR . $path);
+        return $path instanceof Response
+            ? $path
+            : MockPlugin::getMockFile(self::$mockBasePath . DIRECTORY_SEPARATOR . $path);
     }
 
     /**

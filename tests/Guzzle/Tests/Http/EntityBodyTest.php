@@ -170,6 +170,19 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::getContentMd5
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::calculateMd5
+     */
+    public function testSeeksToOriginalPosAfterMd5()
+    {
+        $body = EntityBody::factory('testing 123');
+        $body->seek(4);
+        $this->assertEquals(md5('testing 123'), $body->getContentMd5());
+        $this->assertEquals(4, $body->ftell());
+        $this->assertEquals('ing 123', $body->read(1000));
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory
      */
     public function testGetTypeFormBodyFactoring()

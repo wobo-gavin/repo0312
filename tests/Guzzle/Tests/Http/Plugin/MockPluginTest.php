@@ -202,4 +202,22 @@ class MockPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $p->flush();
         $this->assertEquals(array(), $p->getReceivedRequests());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin::readBodies
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin::dequeue
+     */
+    public function testReadsBodiesFromMockedRequests()
+    {
+        $p = new MockPlugin(array(new Response(200)));
+        $p->readBodies(true);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://localhost:123/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($p, 9999);
+
+        $body = EntityBody::factory('foo');
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put();
+        $request->setBody($body);
+        $request->send();
+        $this->assertEquals(3, $body->ftell());
+    }
 }
