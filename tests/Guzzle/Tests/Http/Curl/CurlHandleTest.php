@@ -929,4 +929,23 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals(2, count($received));
         $this->assertEquals($method, $received[1]->getMethod());
     }
+
+    public function testSeeksToBeginningOfStreamWhenSending()
+    {
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
+        ));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', null, 'test');
+        $request->send();
+        $request->send();
+
+        $received = $this->getServer()->getReceivedRequests(true);
+        $this->assertEquals(2, count($received));
+        $this->assertEquals('test', (string) $received[0]->getBody());
+        $this->assertEquals('test', (string) $received[1]->getBody());
+    }
 }
