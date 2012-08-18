@@ -9,6 +9,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\OauthPlugin
+ */
 class OauthPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     const TIMESTAMP = '1327274290';
@@ -27,18 +30,12 @@ class OauthPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         ));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\OauthPlugin::getSubscribedEvents
-     */
     public function testSubscribesToEvents()
     {
         $events = OauthPlugin::getSubscribedEvents();
         $this->assertArrayHasKey('request.before_send', $events);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\OauthPlugin::__construct
-     */
     public function testAcceptsConfigurationData()
     {
         $p = new OauthPlugin($this->config);
@@ -57,9 +54,6 @@ class OauthPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $this->assertEquals('HMAC-SHA1', $config['signature_method']);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\OauthPlugin::getStringToSign
-     */
     public function testCreatesStringToSignFromPostRequest()
     {
         $p = new OauthPlugin($this->config);
@@ -76,9 +70,6 @@ class OauthPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         );
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\OauthPlugin::getStringToSign
-     */
     public function testCreatesStringToSignFromPostRequestWithCustomContentType()
     {
         $p = new OauthPlugin($this->config);
@@ -97,7 +88,6 @@ class OauthPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\OauthPlugin::getStringToSign
      * @depends testCreatesStringToSignFromPostRequest
      */
     public function testConvertsBooleansToStrings()
@@ -110,7 +100,6 @@ class OauthPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\OauthPlugin::getSignature
      * @depends testCreatesStringToSignFromPostRequest
      */
     public function testSignsStrings()
@@ -131,10 +120,6 @@ class OauthPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         );
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\OauthPlugin::onRequestBeforeSend
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\OauthPlugin::__construct
-     */
     public function testSignsOauthRequests()
     {
         $p = new OauthPlugin($this->config);
@@ -156,9 +141,6 @@ class OauthPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         );
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\OauthPlugin::generateNonce
-     */
     public function testGeneratesUniqueNonce()
     {
         $p = new OauthPlugin($this->config);

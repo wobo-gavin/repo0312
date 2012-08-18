@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Command;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
@@ -9,7 +10,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Abstract
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiParam;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Inspector;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\Sub\Sub;
 
@@ -116,18 +116,11 @@ class CommandTest extends AbstractCommandTest
     public function testExecute()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
-
-        $response = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response(200, array(
+        $response = new Response(200, array(
             'Content-Type' => 'application/xml'
         ), '<xml><data>123</data></xml>');
-
-        // Set a mock response
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(
-            $response
-        )));
-
+        $this->setMockResponse($/* Replaced /* Replaced /* Replaced client */ */ */, array($response));
         $command = new MockCommand();
-
         $this->assertSame($command, $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */));
 
         // Returns the result of the command
@@ -148,12 +141,12 @@ class CommandTest extends AbstractCommandTest
     public function testConvertsJsonResponsesToArray()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(
+        $this->setMockResponse($/* Replaced /* Replaced /* Replaced client */ */ */, array(
             new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response(200, array(
                 'Content-Type' => 'application/json'
                 ), '{ "key": "Hi!" }'
             )
-        )));
+        ));
         $command = new MockCommand();
         $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */);
         $command->execute();
@@ -169,12 +162,12 @@ class CommandTest extends AbstractCommandTest
     public function testConvertsInvalidJsonResponsesToArray()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(
+        $this->setMockResponse($/* Replaced /* Replaced /* Replaced client */ */ */, array(
             new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response(200, array(
                 'Content-Type' => 'application/json'
                 ), '{ "key": "Hi!" }invalid'
             )
-        )));
+        ));
         $command = new MockCommand();
         $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */);
         $command->execute();
@@ -186,13 +179,11 @@ class CommandTest extends AbstractCommandTest
     public function testProcessResponseIsNotXml()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
-
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(
+        $this->setMockResponse($/* Replaced /* Replaced /* Replaced client */ */ */, array(
             new Response(200, array(
                 'Content-Type' => 'application/octet-stream'
             ), 'abc,def,ghi')
-        )));
-
+        ));
         $command = new MockCommand();
         $/* Replaced /* Replaced /* Replaced client */ */ */->execute($command);
 
@@ -398,5 +389,19 @@ class CommandTest extends AbstractCommandTest
         $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */);
         $request = $command->prepare();
         $this->assertEquals(8080, $request->getCurlOptions()->get(CURLOPT_PROXYPORT));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::__invoke
+     */
+    public function testIsInvokable()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getClient();
+        $response = new Response(200);
+        $this->setMockResponse($/* Replaced /* Replaced /* Replaced client */ */ */, array($response));
+        $command = new MockCommand();
+        $command->setClient($/* Replaced /* Replaced /* Replaced client */ */ */);
+        // Returns the result of the command
+        $this->assertSame($response, $command());
     }
 }
