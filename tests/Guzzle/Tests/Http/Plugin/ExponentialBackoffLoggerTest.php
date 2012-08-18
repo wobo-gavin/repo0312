@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Plugin;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ClosureLogAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffLogger;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
@@ -38,18 +39,7 @@ class ExponentialBackoffLoggerTest extends \/* Replaced /* Replaced /* Replaced 
             ->method('getInfo')
             ->will($this->returnValue(2));
 
-        $handle = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle')
-            ->disableOriginalConstructor()
-            ->setMethods(array('getError', 'getErrorNo'))
-            ->getMock();
-
-        $handle->expects($this->once())
-            ->method('getError')
-            ->will($this->returnValue('Foo'));
-
-        $handle->expects($this->once())
-            ->method('getErrorNo')
-            ->will($this->returnValue(30));
+        $handle = $this->getMockHandle();
 
         $event = new Event(array(
             'request'  => $request,
@@ -78,6 +68,18 @@ class ExponentialBackoffLoggerTest extends \/* Replaced /* Replaced /* Replaced 
         $this->assertEquals("Foo: Bar, Method: PUT\n", $this->message);
     }
 
+    public function testUsesCurlHandleForTimesWhenResponseNotAvailable()
+    {
+        list($logPlugin, $request, $response) = $this->getMocks();
+        $logPlugin->setTemplate('{method}: {connect_time}, {total_time}');
+        $event = new Event(array(
+            'request' => $request,
+            'handle'  => $this->getMockHandle()
+        ));
+        $logPlugin->onRequestRetry($event);
+        $this->assertEquals("PUT: 2, 2\n", $this->message);
+    }
+
     /**
      * @return array
      */
@@ -95,5 +97,30 @@ class ExponentialBackoffLoggerTest extends \/* Replaced /* Replaced /* Replaced 
         ));
 
         return array($logPlugin, $request, $response);
+    }
+
+    /**
+     * @return CurlHandle
+     */
+    protected function getMockHandle()
+    {
+        $handle = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getError', 'getErrorNo', 'getInfo'))
+            ->getMock();
+
+        $handle->expects($this->once())
+            ->method('getError')
+            ->will($this->returnValue('Foo'));
+
+        $handle->expects($this->once())
+            ->method('getErrorNo')
+            ->will($this->returnValue(30));
+
+        $handle->expects($this->any())
+            ->method('getInfo')
+            ->will($this->returnValue(2));
+
+        return $handle;
     }
 }

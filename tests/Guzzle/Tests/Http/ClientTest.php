@@ -65,16 +65,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::__toString
-     */
-    public function testConvertsToString()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $hash = spl_object_hash($/* Replaced /* Replaced /* Replaced client */ */ */);
-        $this->assertEquals($hash, (string) $/* Replaced /* Replaced /* Replaced client */ */ */);
-    }
-
-    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::__construct
      */
     public function testConstructorCanAcceptConfig()

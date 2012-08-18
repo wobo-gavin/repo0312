@@ -16,6 +16,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiInter
  */
 interface ClientInterface extends HasDispatcherInterface
 {
+    const CREATE_REQUEST = '/* Replaced /* Replaced /* Replaced client */ */ */.create_request';
+
     /**
      * Set the configuration object to use with the /* Replaced /* Replaced /* Replaced client */ */ */
      *
