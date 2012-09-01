@@ -11,6 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommandFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\HeaderVisitor;
 
 class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
@@ -29,62 +30,60 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
      */
     public function setUp()
     {
-        $this->service = new ServiceDescription(
-            array(
-                'test_command' => new ApiCommand(array(
-                    'doc' => 'documentationForCommand',
-                    'method' => 'HEAD',
-                    'uri'    => '{/key}',
-                    'params' => array(
-                        'bucket' => array(
-                            'required' => true,
-                            'append' => '.'
-                        ),
-                        'key' => array(
-                            'prepend' => 'hi_'
-                        ),
-                        'acl' => array(
-                            'location' => 'query'
-                        ),
-                        'meta' => array(
-                            'location' => 'header:X-Amz-Meta',
-                            'append' => ':meta'
-                        )
+        $this->service = new ServiceDescription(array(
+            'test_command' => new ApiCommand(array(
+                'doc' => 'documentationForCommand',
+                'method' => 'HEAD',
+                'uri'    => '{/key}',
+                'params' => array(
+                    'bucket' => array(
+                        'required' => true,
+                        'append' => '.'
+                    ),
+                    'key' => array(
+                        'prepend' => 'hi_'
+                    ),
+                    'acl' => array(
+                        'location' => 'query'
+                    ),
+                    'meta' => array(
+                        'location' => 'header:X-Amz-Meta',
+                        'append' => ':meta'
                     )
-                )),
-                'body' => new ApiCommand(array(
-                    'doc' => 'doc',
-                    'method' => 'PUT',
-                    'params' => array(
-                        'b' => array(
-                            'required' => true,
-                            'prepend' => 'begin_body::',
-                            'append' => '::end_body',
-                            'location' => 'body'
-                        ),
-                        'q' => array(
-                            'location' => 'query:test'
-                        ),
-                        'h' => array(
-                            'location' => 'header:X-Custom'
-                        ),
-                        'i' => array(
-                            'static' => 'test',
-                            'location' => 'query'
-                        ),
-                        // Data locations means the argument is just a placeholder for data
-                        // that can be referenced by other arguments
-                        'data' => array(
-                            'location' => 'data'
-                        )
+                )
+            )),
+            'body' => new ApiCommand(array(
+                'doc' => 'doc',
+                'method' => 'PUT',
+                'params' => array(
+                    'b' => array(
+                        'required' => true,
+                        'prepend' => 'begin_body::',
+                        'append' => '::end_body',
+                        'location' => 'body'
+                    ),
+                    'q' => array(
+                        'location' => 'query:test'
+                    ),
+                    'h' => array(
+                        'location' => 'header:X-Custom'
+                    ),
+                    'i' => array(
+                        'static' => 'test',
+                        'location' => 'query'
+                    ),
+                    // Data locations means the argument is just a placeholder for data
+                    // that can be referenced by other arguments
+                    'data' => array(
+                        'location' => 'data'
                     )
-                )),
-                'concrete' => new ApiCommand(array(
-                    'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand',
-                    'params' => array()
-                ))
-            )
-        );
+                )
+            )),
+            'concrete' => new ApiCommand(array(
+                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand',
+                'params' => array()
+            ))
+        ));
         $this->factory = new ServiceDescriptionFactory($this->service);
     }
 
@@ -187,14 +186,12 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
      */
     public function testUsesAbsolutePaths()
     {
-        $service = new ServiceDescription(
-            array(
-                'test_path' => new ApiCommand(array(
-                    'method' => 'GET',
-                    'uri'    => '/test',
-                ))
-            )
-        );
+        $service = new ServiceDescription(array(
+            'test_path' => new ApiCommand(array(
+                'method' => 'GET',
+                'uri'    => '/test',
+            ))
+        ));
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/');
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($service);
@@ -208,14 +205,12 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
      */
     public function testUsesRelativePaths()
     {
-        $service = new ServiceDescription(
-            array(
-                'test_path' => new ApiCommand(array(
-                    'method' => 'GET',
-                    'uri'    => 'test/abc',
-                ))
-            )
-        );
+        $service = new ServiceDescription(array(
+            'test_path' => new ApiCommand(array(
+                'method' => 'GET',
+                'uri'    => 'test/abc',
+            ))
+        ));
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/api/v2');
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($service);
@@ -229,25 +224,23 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
      */
     public function testAllowsPostFieldsAndFiles()
     {
-        $service = new ServiceDescription(
-            array(
-                'post_command' => new ApiCommand(array(
-                    'method' => 'POST',
-                    'uri'    => '/key',
-                    'params' => array(
-                        'test' => array(
-                            'location' => 'post_field'
-                        ),
-                        'test_2' => array(
-                            'location' => 'post_field:foo'
-                        ),
-                        'test_3' => array(
-                            'location' => 'post_file'
-                        )
+        $service = new ServiceDescription(array(
+            'post_command' => new ApiCommand(array(
+                'method' => 'POST',
+                'uri'    => '/key',
+                'params' => array(
+                    'test' => array(
+                        'location' => 'post_field'
+                    ),
+                    'test_2' => array(
+                        'location' => 'post_field:foo'
+                    ),
+                    'test_3' => array(
+                        'location' => 'post_file'
                     )
-                ))
-            )
-        );
+                )
+            ))
+        ));
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/api/v2');
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($service);
@@ -267,5 +260,29 @@ class DynamicCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         ));
         $request = $command->prepare();
         $this->assertInternalType('array', $request->getPostFile('baz'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DynamicCommand::addVisitor
+     */
+    public function testAllowsCustomVisitor()
+    {
+        $service = new ServiceDescription(array(
+            'foo' => new ApiCommand(array(
+                'params' => array(
+                    'test' => array(
+                        'location' => 'query'
+                    )
+                )
+            ))
+        ));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($service);
+
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('foo', array('test' => 'hi'));
+        // Flip query and header
+        $command->addVisitor('query', new HeaderVisitor());
+        $request = $command->prepare();
+        $this->assertEquals('hi', (string) $request->getHeader('test'));
     }
 }
