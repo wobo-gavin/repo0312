@@ -2,7 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common\Log;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\LogAdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\Zf1LogAdapter;
 
 // Until I can figure out how to get this to work with composer, this is the

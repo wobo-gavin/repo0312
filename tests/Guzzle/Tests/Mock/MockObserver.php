@@ -3,8 +3,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\EventManager;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event\ObserverInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MockObserver implements \Countable, EventSubscriberInterface

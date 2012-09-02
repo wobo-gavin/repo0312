@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\ParserRegistry;
 
 class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
@@ -185,7 +184,7 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         $this->assertEquals('http://www.test.com/?a=b', (string) $url);
     }
 
-    function urlProvider()
+    public function urlProvider()
     {
         return array(
             array('/foo/..', '/'),

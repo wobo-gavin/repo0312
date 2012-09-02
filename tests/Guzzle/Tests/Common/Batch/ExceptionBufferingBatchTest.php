@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Batch\ExceptionBufferingBatch;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Batch\Batch;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\BatchTransferException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Batch\BatchSizeDivisor;
 
 /**

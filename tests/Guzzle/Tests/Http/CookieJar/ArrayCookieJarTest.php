@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\CookieJ
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Cookie;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\CookieJarInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 
