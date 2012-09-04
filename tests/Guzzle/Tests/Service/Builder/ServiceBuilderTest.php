@@ -39,8 +39,8 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         'cache.adapter' => array(
             'class'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\CacheAdapterFactory',
             'params' => array(
-                'cache.adapter'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter',
-                'cache.provider' => 'Doctrine\Common\Cache\ArrayCache'
+                'cache.adapter'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Common.Cache.DoctrineCacheAdapter',
+                'cache.provider' => 'Doctrine.Common.Cache.ArrayCache'
             )
         ),
         'service_uses_cache' => array(
