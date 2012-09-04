@@ -2,10 +2,10 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter;
 use Doctrine\Common\Cache\ArrayCache;
 
 class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
@@ -35,6 +35,22 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         ),
         'missing_params' => array(
             'extends' => 'billy.mock'
+        ),
+        'cache.adapter' => array(
+            'class'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\CacheAdapterFactory',
+            'params' => array(
+                'cache.adapter'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter',
+                'cache.provider' => 'Doctrine\Common\Cache\ArrayCache'
+            )
+        ),
+        'service_uses_cache' => array(
+            'class'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
+            'params' => array(
+                'cache'     => '{cache.adapter}',
+                'username'  => 'foo',
+                'password'  => 'bar',
+                'subdomain' => 'baz'
+            )
         )
     );
 
@@ -277,13 +293,10 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             )
         ));
 
-        $emits = 0;
-        $emitted = null;
-
         // Add an event listener to pick up /* Replaced /* Replaced /* Replaced client */ */ */ creation events
-        $builder->getEventDispatcher()->addListener('service_builder.create_/* Replaced /* Replaced /* Replaced client */ */ */', function($event) use (&$emits, &$emitted) {
+        $emits = 0;
+        $builder->getEventDispatcher()->addListener('service_builder.create_/* Replaced /* Replaced /* Replaced client */ */ */', function($event) use (&$emits) {
             $emits++;
-            $emitted = $event['/* Replaced /* Replaced /* Replaced client */ */ */'];
         });
 
         // Get the 'a' /* Replaced /* Replaced /* Replaced client */ */ */ by name
@@ -300,7 +313,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     public function testCanAddGlobalParametersToServicesOnLoad()
     {
         $builder = ServiceBuilder::factory($this->arrayData, array(
-            'username' => 'fred',
+            'username'  => 'fred',
             'new_value' => 'test'
         ));
 
@@ -316,17 +329,34 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     {
         $jsonFile = __DIR__ . '/../../TestData/test_service.json';
         $adapter = new DoctrineCacheAdapter(new ArrayCache());
-
-        $builder = ServiceBuilder::factory($jsonFile, array(
-            'cache.adapter' => $adapter
-        ));
-
+        $builder = ServiceBuilder::factory($jsonFile, array('cache.adapter' => $adapter));
         // Ensure the cache key was set
         $this->assertTrue($adapter->contains('/* Replaced /* Replaced /* Replaced guzzle */ */ */' . crc32($jsonFile)));
-
         // Grab the service from the cache
-        $this->assertEquals($builder, ServiceBuilder::factory($jsonFile, array(
-            'cache.adapter' => $adapter
-        )));
+        $this->assertEquals($builder, ServiceBuilder::factory($jsonFile, array('cache.adapter' => $adapter)));
+    }
+
+    public function testCacheServiceCanBeCreatedAndInjectedIntoOtherServices()
+    {
+        $builder = ServiceBuilder::factory($this->arrayData);
+        $usesCache = $builder['service_uses_cache'];
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter', $usesCache->getConfig('cache'));
+    }
+
+    public function testServicesCanBeAddedToBuilderAfterInstantiationAndInjectedIntoServices()
+    {
+        // Grab the cache adapter and remove it from the config
+        $cache = $this->arrayData['cache.adapter'];
+        $data = $this->arrayData;
+        unset($data['cache.adapter']);
+
+        // Create the builder and add the cache adapter
+        $builder = ServiceBuilder::factory($data);
+        $builder['cache.adapter'] = $cache;
+
+        $this->assertInstanceOf(
+            '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter',
+            $builder['service_uses_cache']->getConfig('cache')
+        );
     }
 }
