@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Builder;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ArrayServiceBuilderFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\XmlServiceBuilderFactory;
 
 /**
@@ -12,7 +13,7 @@ class XmlServiceBuilderFactoryTest extends \/* Replaced /* Replaced /* Replaced 
 {
     public function testBuildsServiceBuilders()
     {
-        $xmlFactory = new XmlServiceBuilderFactory();
+        $xmlFactory = new XmlServiceBuilderFactory(new ArrayServiceBuilderFactory);
         $file = __DIR__ . '/../../TestData/services/new_style.xml';
 
         $builder = $xmlFactory->build($file);
@@ -26,7 +27,7 @@ class XmlServiceBuilderFactoryTest extends \/* Replaced /* Replaced /* Replaced 
 
     public function testBuildsServiceBuildersUsingSimpleXmlElement()
     {
-        $xmlFactory = new XmlServiceBuilderFactory();
+        $xmlFactory = new XmlServiceBuilderFactory(new ArrayServiceBuilderFactory);
         $file = __DIR__ . '/../../TestData/services/new_style.xml';
         $xml = new \SimpleXMLElement(file_get_contents($file));
         $xml->includes = null;
@@ -38,7 +39,7 @@ class XmlServiceBuilderFactoryTest extends \/* Replaced /* Replaced /* Replaced 
      */
     public function testCannotExtendWhenUsingSimpleXMLElement()
     {
-        $xmlFactory = new XmlServiceBuilderFactory();
+        $xmlFactory = new XmlServiceBuilderFactory(new ArrayServiceBuilderFactory());
         $file = __DIR__ . '/../../TestData/services/new_style.xml';
         $xml = new \SimpleXMLElement(file_get_contents($file));
         $xmlFactory->build($xml);

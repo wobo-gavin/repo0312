@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCac
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\AbstractFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\JsonServiceBuilderFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ArrayServiceBuilderFactory;
 use Doctrine\Common\Cache\ArrayCache;
 
 /**
@@ -29,7 +30,7 @@ class AbstractFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
 
         $factory->expects($this->once())
             ->method('getFactory')
-            ->will($this->returnValue(new JsonServiceBuilderFactory()));
+            ->will($this->returnValue(new JsonServiceBuilderFactory(new ArrayServiceBuilderFactory())));
 
         // Create a service and add it to the cache
         $service = $factory->build($jsonFile, array(

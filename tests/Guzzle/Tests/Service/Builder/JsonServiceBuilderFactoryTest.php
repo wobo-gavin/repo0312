@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Builder;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ArrayServiceBuilderFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\JsonServiceBuilderFactory;
 
@@ -13,7 +14,7 @@ class JsonServiceBuilderFactoryTest extends \/* Replaced /* Replaced /* Replaced
 {
     public function testBuildsServiceBuilders()
     {
-        $j = new JsonServiceBuilderFactory();
+        $j = new JsonServiceBuilderFactory(new ArrayServiceBuilderFactory());
         $file = __DIR__ . '/../../TestData/services/json1.json';
 
         // Initial build
