@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inflection\InflectorInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\InflectorInterface;
 
 /**
  * Command factory used to create commands based on service descriptions

@@ -2,9 +2,9 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inflection\Inflector;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\Inflector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
@@ -355,7 +355,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     public function testClientHoldsInflector()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inflection\MemoizingInflector', $/* Replaced /* Replaced /* Replaced client */ */ */->getInflector());
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\MemoizingInflector', $/* Replaced /* Replaced /* Replaced client */ */ */->getInflector());
 
         $inflector = new Inflector();
         $/* Replaced /* Replaced /* Replaced client */ */ */->setInflector($inflector);

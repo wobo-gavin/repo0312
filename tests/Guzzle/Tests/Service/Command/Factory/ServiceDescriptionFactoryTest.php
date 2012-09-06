@@ -4,7 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Comm
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\ServiceDescriptionFactory;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inflection\Inflector;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\Inflector;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\ServiceDescriptionFactory

@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
@@ -37,9 +37,9 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             'extends' => 'billy.mock'
         ),
         'cache.adapter' => array(
-            'class'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\CacheAdapterFactory',
+            'class'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory',
             'params' => array(
-                'cache.adapter'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Common.Cache.DoctrineCacheAdapter',
+                'cache.adapter'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Cache.DoctrineCacheAdapter',
                 'cache.provider' => 'Doctrine.Common.Cache.ArrayCache'
             )
         ),
@@ -340,7 +340,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     {
         $builder = ServiceBuilder::factory($this->arrayData);
         $usesCache = $builder['service_uses_cache'];
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter', $usesCache->getConfig('cache'));
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter', $usesCache->getConfig('cache'));
     }
 
     public function testServicesCanBeAddedToBuilderAfterInstantiationAndInjectedIntoServices()
@@ -355,7 +355,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $builder['cache.adapter'] = $cache;
 
         $this->assertInstanceOf(
-            '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter',
+            '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter',
             $builder['service_uses_cache']->getConfig('cache')
         );
     }

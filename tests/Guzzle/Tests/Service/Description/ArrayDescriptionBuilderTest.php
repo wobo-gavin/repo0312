@@ -68,7 +68,7 @@ class ArrayDescriptionBuilderTest extends \/* Replaced /* Replaced /* Replaced G
         ServiceDescription::factory(array(
             'types' => array(
                 'foo' => array(
-                    'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Validation\\Regex',
+                    'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Validation\\Regex',
                     'pattern' => '/[0-9]+/'
                 )
             )

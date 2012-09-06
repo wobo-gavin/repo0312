@@ -19,9 +19,28 @@
     ],
 
     "replace": {
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//batch": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//cache": "self.version",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//common": "self.version",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//http": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//parser": "self.version"
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//inflection": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//iterator": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//log": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//parser": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-async": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-backoff": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-cache": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-cookie": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-curlauth": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-history": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-log": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-md5validator": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-mock": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-oauth": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//service": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//stream": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//validation": "self.version"
     },
 
     "require": {

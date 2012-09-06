@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 
 /**

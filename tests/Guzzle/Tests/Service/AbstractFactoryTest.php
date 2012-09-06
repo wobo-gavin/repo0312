@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Cache\DoctrineCacheAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\AbstractFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\JsonServiceBuilderFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException;

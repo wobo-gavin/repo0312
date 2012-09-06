@@ -13,11 +13,11 @@
         }
     ],
     "require": {
-        "php": ">=5.3.2"
+        "php": ">=5.3.2",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//common": ">=2.8.*"
     },
     "autoload": {
-        "psr-0": {
-            "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Iterator": "src/"
-        }
-    }
+        "psr-0": { "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Iterator": "/" }
+    },
+    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Log"
 }

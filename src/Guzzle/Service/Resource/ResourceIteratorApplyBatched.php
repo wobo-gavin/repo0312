@@ -3,9 +3,9 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Batch\BatchBuilder;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Batch\BatchSizeDivisor;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Batch\BatchClosureTransfer;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch\BatchBuilder;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch\BatchSizeDivisor;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch\BatchClosureTransfer;
 
 /**
  * Apply a callback to the contents of a {@see ResourceIteratorInterface}

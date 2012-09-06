@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\HeaderComparison;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilderInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\MockObserver;

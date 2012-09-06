@@ -4,7 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\FromConfigInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inflection\InflectorInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\InflectorInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface as HttpClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;

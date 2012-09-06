@@ -2,10 +2,12 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
+
 /**
  * Command transfer exception when commands do not all use the same /* Replaced /* Replaced /* Replaced client */ */ */
  */
-class InconsistentClientTransferException extends \RuntimeException
+class InconsistentClientTransferException extends RuntimeException
 {
     /**
      * @var array Commands with an invalid /* Replaced /* Replaced /* Replaced client */ */ */
