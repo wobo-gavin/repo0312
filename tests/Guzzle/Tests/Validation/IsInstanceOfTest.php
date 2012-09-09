@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Validation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Validation\IsInstanceOf;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\IsInstanceOf
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Validation\IsInstanceOf
  */
 class IsInstanceOfTest extends Validation
 {

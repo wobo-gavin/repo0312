@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\BatchRequestTransfer
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch\BatchRequestTransfer
  */
 class BatchRequestTransferTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {

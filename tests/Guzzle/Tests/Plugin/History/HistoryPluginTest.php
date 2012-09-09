@@ -9,7 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\History\HistoryPlugin;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\HistoryPlugin
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\History\HistoryPlugin
  */
 class HistoryPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {

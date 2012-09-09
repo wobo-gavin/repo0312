@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand as Mc;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\BatchCommandTransfer
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch\BatchCommandTransfer
  */
 class BatchCommandTransferTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {

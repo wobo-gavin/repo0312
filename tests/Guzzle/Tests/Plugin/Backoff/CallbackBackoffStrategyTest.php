@@ -9,6 +9,14 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\CallbackB
  */
 class CallbackBackoffStrategyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
+    /**
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     */
+    public function testEnsuresIsCallable()
+    {
+        $strategy = new CallbackBackoffStrategy(new \stdClass());
+    }
+
     public function testRetriesWithCallable()
     {
         $strategy = new CallbackBackoffStrategy(function () {

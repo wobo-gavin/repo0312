@@ -36,4 +36,11 @@ class HttpBackoffStrategyTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         $response->setStatus(500);
         $this->assertEquals(false, $strategy->getBackoffPeriod(0, $request, $response));
     }
+
+    public function testIgnoresNonErrors()
+    {
+        $strategy = new HttpBackoffStrategy();
+        $request = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request', array(), array(), '', false);
+        $this->assertEquals(false, $strategy->getBackoffPeriod(0, $request));
+    }
 }

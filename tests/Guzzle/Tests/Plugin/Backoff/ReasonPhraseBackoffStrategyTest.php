@@ -6,7 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\ReasonPhr
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\ReasonPhraseCodeBackoffStrategy
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\ReasonPhraseBackoffStrategy
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\AbstractErrorCodeBackoffStrategy
  */
 class ReasonPhraseBackoffStrategyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
@@ -20,5 +20,12 @@ class ReasonPhraseBackoffStrategyTest extends \/* Replaced /* Replaced /* Replac
         $this->assertEquals(false, $strategy->getBackoffPeriod(0, $request, $response));
         $response->setStatus(200, 'Foo');
         $this->assertEquals(0, $strategy->getBackoffPeriod(0, $request, $response));
+    }
+
+    public function testIgnoresNonErrors()
+    {
+        $strategy = new ReasonPhraseBackoffStrategy();
+        $request = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request', array(), array(), '', false);
+        $this->assertEquals(false, $strategy->getBackoffPeriod(0, $request));
     }
 }
