@@ -4,17 +4,10 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Plugin\Cache
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CachePlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCacheStorage;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCacheKeyProvider;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCanCacheStrategy;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultRevalidation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CallbackCanCacheStrategy;
 use Doctrine\Common\Cache\ArrayCache;
 
@@ -52,6 +45,38 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
             '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\RevalidationInterface',
             $this->readAttribute($plugin, 'revalidation')
         );
+    }
+
+    public function testAddsCallbackCollaborators()
+    {
+        $this->assertNotEmpty(CachePlugin::getSubscribedEvents());
+        $plugin = new CachePlugin(array(
+            'storage' => $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CacheStorageInterface')->getMockForAbstractClass(),
+            'can_cache'    => function () {},
+            'key_provider' => function () {}
+        ));
+        $this->assertInstanceOf(
+            '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CallbackCacheKeyProvider',
+            $this->readAttribute($plugin, 'keyProvider')
+        );
+        $this->assertInstanceOf(
+            '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CallbackCanCacheStrategy',
+            $this->readAttribute($plugin, 'canCache')
+        );
+    }
+
+    public function testCanPassCacheAsOnlyArgumentToConstructor()
+    {
+        $p = new CachePlugin(new DoctrineCacheAdapter(new ArrayCache()));
+        $p = new CachePlugin(new DefaultCacheStorage(new DoctrineCacheAdapter(new ArrayCache())));
+    }
+
+    /**
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     */
+    public function testEnsuresArgIsValid()
+    {
+        $p = new CachePlugin(new \stdClass());
     }
 
     public function testUsesCreatedCacheStorage()
