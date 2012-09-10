@@ -1,6 +1,5 @@
 {
     "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ *//log",
-    "type": "component",
     "description": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ log adapter component",
     "homepage": "http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/",
     "keywords": ["log", "adapter", "/* Replaced /* Replaced /* Replaced guzzle */ */ */"],
@@ -17,6 +16,9 @@
     },
     "autoload": {
         "psr-0": { "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Log": "" }
+    },
+    "suggest": {
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//http": "self.version"
     },
     "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Log"
 }

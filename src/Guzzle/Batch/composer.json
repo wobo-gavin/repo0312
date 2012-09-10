@@ -1,6 +1,5 @@
 {
     "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ *//batch",
-    "type": "component",
     "description": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ batch component for batching requests, commands, or custom transfers",
     "homepage": "http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/",
     "keywords": ["batch", "HTTP", "REST", "/* Replaced /* Replaced /* Replaced guzzle */ */ */"],
