@@ -17,13 +17,10 @@ use Doctrine\Common\Cache\ArrayCache;
  */
 class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
-     * @expectedExceptionMessage A storage or adapter option is required
-     */
-    public function testConstructorEnsuresStorageOrAdapterIsSet()
+    public function testAddsDefaultStorage()
     {
-        $plugin = new CachePlugin(array());
+        $plugin = new CachePlugin();
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CacheStorageInterface', $this->readAttribute($plugin, 'storage'));
     }
 
     public function testAddsDefaultCollaborators()
@@ -69,14 +66,6 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     {
         $p = new CachePlugin(new DoctrineCacheAdapter(new ArrayCache()));
         $p = new CachePlugin(new DefaultCacheStorage(new DoctrineCacheAdapter(new ArrayCache())));
-    }
-
-    /**
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
-     */
-    public function testEnsuresArgIsValid()
-    {
-        $p = new CachePlugin(new \stdClass());
     }
 
     public function testUsesCreatedCacheStorage()
