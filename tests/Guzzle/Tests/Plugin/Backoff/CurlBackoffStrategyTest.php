@@ -16,6 +16,7 @@ class CurlBackoffStrategyTest extends \/* Replaced /* Replaced /* Replaced Guzzl
     {
         $this->assertNotEmpty(CurlBackoffStrategy::getDefaultFailureCodes());
         $strategy = new CurlBackoffStrategy();
+        $this->assertTrue($strategy->makesDecision());
         $request = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request', array(), array(), '', false);
         $e = new CurlException();
         $e->setError('foo', CURLE_BAD_CALLING_ORDER);

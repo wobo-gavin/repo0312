@@ -12,6 +12,7 @@ class LinearBackoffStrategyTest extends \/* Replaced /* Replaced /* Replaced Guz
     public function testRetriesWithLinearDelay()
     {
         $strategy = new LinearBackoffStrategy(5);
+        $this->assertFalse($strategy->makesDecision());
         $request = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request', array(), array(), '', false);
         $this->assertEquals(0, $strategy->getBackoffPeriod(0, $request));
         $this->assertEquals(5, $strategy->getBackoffPeriod(1, $request));

@@ -15,6 +15,7 @@ class HttpBackoffStrategyTest extends \/* Replaced /* Replaced /* Replaced Guzzl
     {
         $this->assertNotEmpty(HttpBackoffStrategy::getDefaultFailureCodes());
         $strategy = new HttpBackoffStrategy();
+        $this->assertTrue($strategy->makesDecision());
         $request = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request', array(), array(), '', false);
 
         $response = new Response(200);
