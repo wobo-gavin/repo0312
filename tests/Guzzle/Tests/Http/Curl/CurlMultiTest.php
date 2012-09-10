@@ -12,7 +12,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Log\LogPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\MockMulti;
 
 /**
@@ -532,12 +531,9 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
         ));
 
+        $stream = fopen('php://temp', 'w+');
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $message = '';
-        $plugin = new LogPlugin(new ClosureLogAdapter(function($msg) use (&$message) {
-            $message .= $msg . "\n";
-        }), LogPlugin::LOG_VERBOSE);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->set('curl.CURLOPT_VERBOSE', true)->set('curl.CURLOPT_STDERR', $stream);
 
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
         $multi = new CurlMulti();
@@ -547,7 +543,8 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $multi->add($request);
         $multi->send();
 
-        $this->assertNotContains('Re-using existing connection', $message);
+        rewind($stream);
+        $this->assertNotContains('Re-using existing connection', stream_get_contents($stream));
     }
 
     /**
