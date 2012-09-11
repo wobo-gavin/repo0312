@@ -13,6 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\ConstantBackoffStrategy;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\CurlBackoffStrategy;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\HttpBackoffStrategy;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\TruncatedBackoffStrategy;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -136,7 +137,13 @@ class BackoffPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
         ));
 
         $plugin = new BackoffPlugin(
-            new HttpBackoffStrategy(null, new TruncatedBackoffStrategy(3, new ConstantBackoffStrategy(0.2)))
+            new HttpBackoffStrategy(null,
+                new TruncatedBackoffStrategy(3,
+                    new CurlBackoffStrategy(null,
+                        new ConstantBackoffStrategy(0.2)
+                    )
+                )
+            )
         );
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
@@ -151,6 +158,48 @@ class BackoffPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
         // Check that three requests were made to retry this request
         $this->assertEquals(3, count($this->getServer()->getReceivedRequests(false)));
         $this->assertEquals(2, $request->getParams()->get(BackoffPlugin::RETRY_PARAM));
+    }
+
+    public function testRetriesRequestsWhenInParallel()
+    {
+        // Create a script to return several 500 and 503 response codes
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 500 Internal Server Error\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 500 Internal Server Error\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 500 Internal Server Error\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 500 Internal Server Error\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 500 Internal Server Error\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 500 Internal Server Error\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 500 Internal Server Error\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 500 Internal Server Error\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 500 Internal Server Error\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 500 Internal Server Error\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata",
+            "HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata",
+            "HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata",
+            "HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata",
+            "HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata"
+        ));
+
+        $plugin = new BackoffPlugin(
+            new HttpBackoffStrategy(null,
+                new TruncatedBackoffStrategy(3,
+                    new CurlBackoffStrategy(null,
+                        new ConstantBackoffStrategy(0.1)
+                    )
+                )
+            )
+        );
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
+        $requests = array();
+        for ($i = 0; $i < 5; $i++) {
+            $requests[] = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
+        }
+        $/* Replaced /* Replaced /* Replaced client */ */ */->send($requests);
+
+        $this->assertEquals(15, count($this->getServer()->getReceivedRequests(false)));
     }
 
     /**
