@@ -30,6 +30,17 @@ class CommandTest extends AbstractCommandTest
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::getApi
+     */
+    public function testReturnsDefaultApiParamWhenNoneIsExtended()
+    {
+        $command = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand')
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand', $command::getApi());
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::getName
      */
     public function testDeterminesShortName()

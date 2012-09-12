@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiParam;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 
 /**
@@ -25,6 +26,7 @@ interface LocationVisitorInterface
      * @param RequestInterface $request Request being prepared
      * @param string           $key     Location key
      * @param string           $value   Value to set
+     * @param ApiParam         $param   Parameter being visited
      */
-    public function visit(CommandInterface $command, RequestInterface $request, $key, $value);
+    public function visit(CommandInterface $command, RequestInterface $request, $key, $value, ApiParam $param = null);
 }

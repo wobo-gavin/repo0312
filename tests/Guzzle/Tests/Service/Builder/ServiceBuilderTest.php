@@ -207,7 +207,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException
-     * @expectedExceptionMessage Unable to determine which factory to use based on the file extension of
+     * @expectedExceptionMessage Must pass the name of a .js or .json file or array
      */
     public function testFactoryValidatesFileExtension()
     {
@@ -224,7 +224,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException
-     * @expectedExceptionMessage Must pass a file name, array, or SimpleXMLElement
+     * @expectedExceptionMessage Must pass the name of a .js or .json file or array
      */
     public function testFactoryValidatesObjectTypes()
     {

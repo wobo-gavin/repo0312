@@ -9,8 +9,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\Invalid
  */
 abstract class AbstractType extends AbstractConstraint
 {
+    protected static $defaultOption = 'type';
     protected static $typeMapping = array();
-    protected $default = 'type';
     protected $required = 'type';
 
     /**
@@ -18,7 +18,7 @@ abstract class AbstractType extends AbstractConstraint
      */
     protected function validateValue($value, array $options = array())
     {
-        $type = $options['type'];
+        $type = $options[self::$defaultOption];
 
         if (!isset(static::$typeMapping[$type])) {
             throw new InvalidArgumentException("{$type} is not one of the "

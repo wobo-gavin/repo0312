@@ -35,9 +35,7 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
      */
     public function testFactoryDelegatesToConcreteFactories()
     {
-        $xmlFile = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'TestData' . DIRECTORY_SEPARATOR . 'test_service.xml';
-        $jsonFile = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'TestData' . DIRECTORY_SEPARATOR . 'test_service.json';
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription', ServiceDescription::factory($xmlFile));
+        $jsonFile = __DIR__ . '/../../TestData/test_service.json';
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription', ServiceDescription::factory($jsonFile));
     }
 
@@ -63,7 +61,6 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
     public function testIsSerializable()
     {
         $service = new ServiceDescription($this->serviceData);
-
         $data = serialize($service);
         $d2 = unserialize($data);
         $this->assertEquals($service, $d2);

@@ -2,14 +2,24 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
+
 /**
  * Iterable mock command
- *
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ page_size type="integer"
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ next_token type="string"
  */
 class IterableCommand extends MockCommand
 {
+    public static function getApi()
+    {
+        return array(
+            'name'   => 'iterable_command',
+            'params' => array(
+                'page_size' => array('type' => 'integer'),
+                'next_token' => array('type' => 'string')
+            )
+        );
+    }
+
     /**
      * {@inheritdoc}
      */

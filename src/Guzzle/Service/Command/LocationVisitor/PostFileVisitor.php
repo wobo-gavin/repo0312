@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Lo
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\PostFileInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiParam;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 
 /**
@@ -14,7 +15,7 @@ class PostFileVisitor extends AbstractVisitor
     /**
      * {@inheritdoc}
      */
-    public function visit(CommandInterface $command, RequestInterface $request, $key, $value)
+    public function visit(CommandInterface $command, RequestInterface $request, $key, $value, ApiParam $param = null)
     {
         if ($value instanceof PostFileInterface) {
             $request->addPostFile($value);

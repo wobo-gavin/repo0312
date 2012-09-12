@@ -9,17 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiP
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ValidationException;
 
 /**
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ test type="type:object"
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ bool_1 default="true" type="boolean"
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ bool_2 default="false"
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ float type="float"
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ int type="integer"
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ date type="date"
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ timestamp type="time"
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ string type="string"
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ username required="true" filters="strtolower"
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ dynamic default="{username}_{ string }_{ does_not_exist }"
- * @/* Replaced /* Replaced /* Replaced guzzle */ */ */ test_function type="string" filters="/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Description\ApiCommandTest::strtoupper"
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand
  */
 class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
@@ -28,9 +18,6 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         return strtoupper($string);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand
-     */
     public function testApiCommandIsDataObject()
     {
         $c = new ApiCommand(array(
@@ -44,12 +31,12 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
             'deprecated'  => true,
             'params' => array(
                 'key' => array(
-                    'required'   => 'true',
+                    'required'   => true,
                     'type'       => 'string',
                     'max_length' => 10
                 ),
                 'key_2' => array(
-                    'required' => 'true',
+                    'required' => true,
                     'type'     => 'integer',
                     'default'  => 10
                 )
@@ -68,13 +55,13 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals(array(
             'key' => new ApiParam(array(
                 'name' => 'key',
-                'required' => 'true',
+                'required' => true,
                 'type' => 'string',
                 'max_length' => 10
             )),
             'key_2' => new ApiParam(array(
                 'name' => 'key_2',
-                'required' => 'true',
+                'required' => true,
                 'type' => 'integer',
                 'default' => 10
             ))
@@ -82,7 +69,7 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
 
         $this->assertEquals(new ApiParam(array(
             'name' => 'key_2',
-            'required' => 'true',
+            'required' => true,
             'type' => 'integer',
             'default' => 10
         )), $c->getParam('key_2'));
@@ -90,9 +77,6 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertNull($c->getParam('afefwef'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::__construct
-     */
     public function testAllowsConcreteCommands()
     {
         $c = new ApiCommand(array(
@@ -107,9 +91,6 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\ClosureCommand', $c->getConcreteClass());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::toArray
-     */
     public function testConvertsToArray()
     {
         $data = array(
@@ -139,54 +120,6 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals($data, $toArray);
     }
 
-    /**
-     * Clear the class cache of the ApiCommand static factory method
-     */
-    protected function clearCommandCache()
-    {
-        $refObject = new \ReflectionClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand');
-        $refProperty = $refObject->getProperty('apiCommandCache');
-        $refProperty->setAccessible(true);
-        $refProperty->setValue(null, array());
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::fromCommand
-     */
-    public function testDoesNotErrorWhenNoAnnotationsArePresent()
-    {
-        $this->clearCommandCache();
-
-        $command = ApiCommand::fromCommand('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\Sub\\Sub');
-        $this->assertEquals(array(), $command->getParams());
-
-        // Ensure that the cache returns the same value
-        $this->assertSame($command, ApiCommand::fromCommand('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\Sub\\Sub'));
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::fromCommand
-     */
-    public function testBuildsApiParamFromClassDocBlock()
-    {
-        $command = ApiCommand::fromCommand('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand');
-        $this->assertEquals(3, count($command->getParams()));
-
-        $this->assertTrue($command->getParam('test')->getRequired());
-        $this->assertEquals('123', $command->getParam('test')->getDefault());
-        $this->assertEquals('Test argument', $command->getParam('test')->getDoc());
-
-        $this->assertEquals('abc', $command->getParam('_internal')->getDefault());
-    }
-
-    protected function getApiCommand()
-    {
-        return ApiCommand::fromCommand(get_class($this));
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::validate
-     */
     public function testAddsDefaultAndInjectsConfigs()
     {
         $col = new Collection(array(
@@ -202,7 +135,6 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::validate
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ValidationException
      */
     public function testValidatesTypeHints()
@@ -213,9 +145,6 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         )));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::validate
-     */
     public function testConvertsBooleanDefaults()
     {
         $c = new Collection(array(
@@ -228,9 +157,6 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertFalse($c->get('bool_2'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::validate
-     */
     public function testValidatesArgs()
     {
         $config = new Collection(array(
@@ -242,13 +168,16 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $command = new ApiCommand(array(
             'params' => array(
                 'data' => new ApiParam(array(
+                    'name' => 'data',
                     'type' => 'string'
                 )),
                 'min' => new ApiParam(array(
+                    'name' => 'min',
                     'type' => 'string',
                     'min_length' => 2
                 )),
                 'max' => new ApiParam(array(
+                    'name' => 'max',
                     'type' => 'string',
                     'max_length' => 2
                 ))
@@ -261,14 +190,11 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         } catch (ValidationException $e) {
             $concat = implode("\n", $e->getErrors());
             $this->assertContains("Value must be of type string", $concat);
-            $this->assertContains("Requires that the min argument be >= 2 characters", $concat);
-            $this->assertContains("Requires that the max argument be <= 2 characters", $concat);
+            $this->assertContains("[min] Length must be >= 2", $concat);
+            $this->assertContains("[max] Length must be <= 2", $concat);
         }
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::validate
-     */
     public function testRunsValuesThroughFilters()
     {
         $data = new Collection(array(
@@ -281,9 +207,6 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals('FOO', $data->get('test_function'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::validate
-     */
     public function testTypeValidationCanBeDisabled()
     {
         $i = Inspector::getInstance();
@@ -295,9 +218,6 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         )), $i);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::validate
-     */
     public function testSkipsFurtherValidationIfNotSet()
     {
         $command = $this->getTestCommand();
@@ -305,15 +225,15 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::validate
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ValidationException
-     * @expectedExceptionMessage Validation errors: Requires that the data argument be supplied.
+     * @expectedExceptionMessage Validation errors: [data] is required.
      */
     public function testValidatesRequiredFieldsAreSet()
     {
         $command = new ApiCommand(array(
             'params' => array(
                 'data' => new ApiParam(array(
+                    'name'     => 'data',
                     'required' => true
                 ))
             )
@@ -322,9 +242,6 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $command->validate(new Collection());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::hasParam
-     */
     public function testDeterminesIfHasParam()
     {
         $command = $this->getTestCommand();
@@ -332,18 +249,12 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertFalse($command->hasParam('baz'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::getParamNames
-     */
     public function testReturnsParamNames()
     {
         $command = $this->getTestCommand();
         $this->assertEquals(array('data'), $command->getParamNames());
     }
 
-    /**
-     * @return ApiCommand
-     */
     protected function getTestCommand()
     {
         return new ApiCommand(array(
@@ -355,9 +266,6 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         ));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand
-     */
     public function testCanBuildUpCommands()
     {
         $c = new ApiCommand(array());
@@ -386,17 +294,104 @@ class ApiCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals(array('test'), $c->getParamNames());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand::removeParam
-     */
     public function testCanRemoveParams()
     {
         $c = new ApiCommand(array());
-        $c->addParam(new ApiParam(array(
-            'name' => 'foo'
-        )));
+        $c->addParam(new ApiParam(array('name' => 'foo')));
         $this->assertTrue($c->hasParam('foo'));
         $c->removeParam('foo');
         $this->assertFalse($c->hasParam('foo'));
+    }
+
+    public function testRecursivelyValidatesAndFormatsInput()
+    {
+        $command = new ApiCommand(array(
+            'params' => array(
+                'foo' => new ApiParam(array(
+                    'name'      => 'foo',
+                    'type'      => 'array',
+                    'location'  => 'query',
+                    'required'  => true,
+                    'structure' => array(
+                        array(
+                            'name'      => 'baz',
+                            'type'      => 'array',
+                            'required'  => true,
+                            'structure' => array(
+                                array(
+                                    'name'    => 'bam',
+                                    'type'    => 'bool',
+                                    'default' => true
+                                ),
+                                array(
+                                    'name'     => 'boo',
+                                    'type'     => 'string',
+                                    'filters'  => 'strtoupper',
+                                    'defaut'   => 'mesa'
+                                )
+                            )
+                        ),
+                        array(
+                            'name'    => 'bar',
+                            'default' => '123'
+                        )
+                    )
+                ))
+            )
+        ));
+
+        $input = new Collection(array());
+        $command->validate($input);
+        $this->assertEquals(array(
+            'foo' => array(
+                'baz' => array(
+                    'bam' => true
+                ),
+                'bar' => '123'
+            )
+        ), $input->getAll());
+    }
+
+    public function testAddsNameToApiParamsIfNeeded()
+    {
+        $command = new ApiCommand(array('params' => array('foo' => new ApiParam(array()))));
+        $this->assertEquals('foo', $command->getParam('foo')->getName());
+    }
+
+    /**
+     * @return ApiCommand
+     */
+    protected function getApiCommand()
+    {
+        return new ApiCommand(array(
+            'name' => 'ApiCommandTest',
+            'class' => get_class($this),
+            'params' => array(
+                'test' => array(
+                    'type' => 'type:object'
+                ),
+                'bool_1' => array(
+                    'default' => true,
+                    'type'    => 'boolean'
+                ),
+                'bool_2' => array('default' => false),
+                'float' => array('type' => 'float'),
+                'int' => array('type' => 'integer'),
+                'date' => array('type' => 'date'),
+                'timestamp' => array('type' => 'time'),
+                'string' => array('type' => 'string'),
+                'username' => array(
+                    'required' => true,
+                    'filters' => 'strtolower'
+                ),
+                'dynamic' => array(
+                    'default' => '{username}_{ string }_{ does_not_exist }'
+                ),
+                'test_function' => array(
+                    'type'    => 'string',
+                    'filters' => __CLASS__ . '::strtoupper'
+                )
+            )
+        ));
     }
 }
