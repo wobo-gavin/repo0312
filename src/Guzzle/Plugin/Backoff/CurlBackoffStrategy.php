@@ -9,7 +9,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlExcep
 
 /**
  * Strategy used to retry when certain cURL error codes are encountered.
- * If no other strategies are in the chain, it will retry immediately.
  */
 class CurlBackoffStrategy extends AbstractErrorCodeBackoffStrategy
 {

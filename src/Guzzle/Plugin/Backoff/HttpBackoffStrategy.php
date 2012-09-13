@@ -8,7 +8,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\HttpExcep
 
 /**
  * Strategy used to retry HTTP requests based on the response code.
- * Retries 500 and 503 error by default. If no other strategies are in the chain, it will retry immediately.
+ *
+ * Retries 500 and 503 error by default.
  */
 class HttpBackoffStrategy extends AbstractErrorCodeBackoffStrategy
 {

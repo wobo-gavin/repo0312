@@ -7,9 +7,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\Invalid
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
 
 /**
- * Generates cache adapters and cache providers objects using an array of
- * configuration data.  This can be useful for creating cache adapters
- * in /* Replaced /* Replaced /* Replaced client */ */ */ configuration files.
+ * Generates cache adapters and cache providers objects using an array of configuration data.  This can be useful for
+ * creating cache adapters in /* Replaced /* Replaced /* Replaced client */ */ */ builder configuration files.
  */
 class CacheAdapterFactory implements FromConfigInterface
 {

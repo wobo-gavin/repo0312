@@ -6,8 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\FromConfigInterfa
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
 
 /**
- * Service builder to generate service builders and service /* Replaced /* Replaced /* Replaced client */ */ */s from
- * configuration settings
+ * Service builder to generate service builders and service /* Replaced /* Replaced /* Replaced client */ */ */s from configuration settings
  */
 interface ServiceBuilderInterface
 {

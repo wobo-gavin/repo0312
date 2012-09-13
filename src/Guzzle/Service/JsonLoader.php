@@ -5,8 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\JsonException;
 
 /**
- * Used to load JSON files that have an "includes" array.  Each file in the
- * array is then loaded and merged into the configuration.
+ * Used to load JSON files that have an "includes" array. Each file in the array is then loaded and merged.
  */
 class JsonLoader
 {

@@ -6,8 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Service builder plugin used to add plugins to all /* Replaced /* Replaced /* Replaced client */ */ */s created by a
- * {@see /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder}
+ * Service builder plugin used to add plugins to all /* Replaced /* Replaced /* Replaced client */ */ */s created by a {@see /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder}
  *
  * @author Gordon Franke <info@nevalon.de>
  */
