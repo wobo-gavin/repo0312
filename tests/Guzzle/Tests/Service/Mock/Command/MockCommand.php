@@ -2,16 +2,15 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command;
 
-/**
- * Mock Command
- */
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
+
 class MockCommand extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand
 {
-    public static function getApi()
+    protected function createOperation()
     {
-        return array(
-            'name' => get_called_class() == __CLASS__ ? 'mock_command' : 'sub.sub',
-            'params' => array(
+        return new Operation(array(
+            'name'       => get_called_class() == __CLASS__ ? 'mock_command' : 'sub.sub',
+            'parameters' => array(
                 'test' => array(
                     'default'  => 123,
                     'required' => true,
@@ -21,12 +20,9 @@ class MockCommand extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\S
                     'default' => 'abc'
                 )
             )
-        );
+        ));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function build()
     {
         $this->request = $this->/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();

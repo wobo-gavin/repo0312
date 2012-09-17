@@ -7,7 +7,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Log\LogAdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Log\MessageFormatter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

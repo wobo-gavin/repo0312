@@ -50,7 +50,7 @@ class ServiceDescriptionFactoryTest extends \/* Replaced /* Replaced /* Replaced
     protected function getDescription()
     {
         return ServiceDescription::factory(array(
-            'commands' => array(
+            'operations' => array(
                 'jar_jar' => array(
                     'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand'
                 ),

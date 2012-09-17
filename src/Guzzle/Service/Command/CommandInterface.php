@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\Invalid
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommandInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\OperationInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandException;
 
 /**
@@ -16,17 +16,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\Comman
 interface CommandInterface
 {
     /**
-     * Specify a callable to execute when the command completes
-     *
-     * @param mixed $callable Callable to execute when the command completes. The callable must accept a
-     *                        {@see CommandInterface} object as the only argument.
-     *
-     * @return CommandInterface
-     * @throws InvalidArgumentException
-     */
-    public function setOnComplete($callable);
-
-    /**
      * Get the short form name of the command
      *
      * @return string
@@ -34,11 +23,11 @@ interface CommandInterface
     public function getName();
 
     /**
-     * Get the API command information about the command
+     * Get the API operation information about the command
      *
-     * @return ApiCommandInterface
+     * @return OperationInterface
      */
-    public function getApiCommand();
+    public function getOperation();
 
     /**
      * Execute the command and return the result
@@ -125,4 +114,14 @@ interface CommandInterface
      * @return Collection
      */
     public function getRequestHeaders();
+
+    /**
+     * Specify a callable to execute when the command completes
+     *
+     * @param mixed $callable Callable to execute when the command completes. The callable must accept a
+     *                        {@see CommandInterface} object as the only argument.
+     * @return CommandInterface
+     * @throws InvalidArgumentException
+     */
+    public function setOnComplete($callable);
 }

@@ -2,11 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\HttpException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlException;
-
 /**
  * Strategy used to retry when certain error codes are encountered
  */
