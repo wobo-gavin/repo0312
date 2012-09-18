@@ -56,7 +56,7 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
      */
     public function testIsSerializable()
     {
-        $service = new ServiceDescription($this->serviceData);
+        $service = new ServiceDescription(array('operations' => $this->serviceData));
         $data = serialize($service);
         $d2 = unserialize($data);
         $this->assertEquals(serialize($service), serialize($d2));
@@ -77,21 +77,21 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
 
     public function testAllowsForJsonBasedArrayParamsFunctionalTest()
     {
-        $service = array(
-            'test' => new Operation(array(
-                'httpMethod' => 'PUT',
-                'parameters' => array(
-                    'data'   => array(
-                        'required' => true,
-                        'type'     => 'array',
-                        'filters'  => 'json_encode',
-                        'location' => 'body'
+        $description = new ServiceDescription(array(
+            'operations' => array(
+                'test' => new Operation(array(
+                    'httpMethod' => 'PUT',
+                    'parameters' => array(
+                        'data'   => array(
+                            'required' => true,
+                            'type'     => 'array',
+                            'filters'  => 'json_encode',
+                            'location' => 'body'
+                        )
                     )
-                )
-            ))
-        );
-
-        $description = new ServiceDescription(array('operations' => $service));
+                ))
+            )
+        ));
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description);
         $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test', array('data' => array('foo' => 'bar')));
@@ -139,5 +139,21 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertEquals('Name', $d->getName());
         $this->assertEquals('Description', $d->getDescription());
         $this->assertEquals('1.24', $d->getApiVersion());
+    }
+
+    public function testPersistsCustomAttributes()
+    {
+        $data = array(
+            'operations'  => array('foo' => array('class' => 'foo', 'parameters' => array())),
+            'name'        => 'Name',
+            'description' => 'Test',
+            'apiVersion'  => '1.24',
+            'auth'        => 'foo',
+            'keyParam'    => 'bar'
+        );
+        $d = new ServiceDescription($data);
+        $this->assertEquals('foo', $d->getData('auth'));
+        $this->assertEquals('bar', $d->getData('keyParam'));
+        $this->assertEquals($data, json_decode($d->serialize(), true));
     }
 }
