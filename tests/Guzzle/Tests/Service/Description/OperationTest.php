@@ -116,6 +116,9 @@ class OperationTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         // Normalize the array
         unset($data['parameters']);
         unset($toArray['parameters']);
+
+        $data['responseType'] = 'primitive';
+        $data['responseClass'] = 'array';
         $this->assertEquals($data, $toArray);
     }
 
@@ -359,9 +362,11 @@ class OperationTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $this->assertEquals(123, $o->getData('bar'));
         $this->assertNull($o->getData('wfefwe'));
         $this->assertEquals(array(
-            'parameters' => array(),
-            'class'      => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\OperationCommand',
-            'data'       => array('foo' => 'baz', 'bar' => 123, 'test' => false)
+            'parameters'    => array(),
+            'class'         => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\OperationCommand',
+            'data'          => array('foo' => 'baz', 'bar' => 123, 'test' => false),
+            'responseClass' => 'array',
+            'responseType'  => 'primitive'
         ), $o->toArray());
     }
 
@@ -370,6 +375,25 @@ class OperationTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $s = new ServiceDescription();
         $o = new Operation(array(), $s);
         $this->assertSame($s, $o->getServiceDescription());
+    }
+
+    /**
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     */
+    public function testValidatesResponseType()
+    {
+        $o = new Operation(array('responseClass' => 'array', 'responseType' => 'foo'));
+    }
+
+    public function testInfersResponseType()
+    {
+        $o = $this->getOperation();
+        $o->setServiceDescription(new ServiceDescription(array('models' => array('Foo' => array()))));
+        $this->assertEquals('primitive', $o->getResponseType());
+        $this->assertEquals('primitive', $o->setResponseClass('foo')->getResponseType());
+        $this->assertEquals('primitive', $o->setResponseClass('boolean')->getResponseType());
+        $this->assertEquals('class', $o->setResponseClass(__CLASS__)->getResponseType());
+        $this->assertEquals('model', $o->setResponseClass('Foo')->getResponseType());
     }
 
     /**
