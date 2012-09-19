@@ -14,7 +14,7 @@ class DefaultProcessorTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
     {
         $value = array(array(1));
         $this->assertEquals(
-            array('[Foo][0] must be an associative array of properties. Got a numerically indexed array.'),
+            array('[Foo][0] must be an array of properties. Got a numerically indexed array.'),
             $this->getComplexParam()->process($value)
         );
     }
