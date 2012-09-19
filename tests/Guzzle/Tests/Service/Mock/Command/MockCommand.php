@@ -10,6 +10,7 @@ class MockCommand extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\S
     {
         return new Operation(array(
             'name'       => get_called_class() == __CLASS__ ? 'mock_command' : 'sub.sub',
+            'httpMethod' => 'POST',
             'parameters' => array(
                 'test' => array(
                     'default'  => 123,
