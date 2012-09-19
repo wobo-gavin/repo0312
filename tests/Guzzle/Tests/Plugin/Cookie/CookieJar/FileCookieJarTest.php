@@ -1,15 +1,15 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\CookieJar;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Plugin\Cookie\CookieJar;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Cookie;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\FileCookieJar;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\Cookie;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookieJar\FileCookieJar;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookieJar\FileCookieJar
+ */
 class FileCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var string
-     */
     private $file;
 
     public function setUp()
@@ -17,9 +17,6 @@ class FileCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
         $this->file = tempnam('/tmp', 'file-cookies');
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\FileCookieJar
-     */
     public function testLoadsFromFileFile()
     {
         $jar = new FileCookieJar($this->file);
@@ -27,9 +24,6 @@ class FileCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
         unlink($this->file);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\FileCookieJar
-     */
     public function testPersistsToFileFile()
     {
         $jar = new FileCookieJar($this->file);

@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookieJar;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
 

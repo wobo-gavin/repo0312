@@ -1,8 +1,8 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookieJar;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Cookie;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\Cookie;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\ParserRegistry;

@@ -1,14 +1,14 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\CookieJar;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Plugin\Cookie\CookieJar;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Cookie;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\Cookie;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookieJar\ArrayCookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookieJar\ArrayCookieJar
  */
 class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
@@ -138,9 +138,6 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         ))));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar
-     */
     public function testOverwritesCookiesThatAreOlderOrDiscardable()
     {
         $t = time() + 1000;
@@ -179,9 +176,6 @@ class ArrayCookieJarTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertNotEquals($t, $c[0]->getExpires());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar
-     */
     public function testOverwritesCookiesThatHaveChanged()
     {
         $t = time() + 1000;

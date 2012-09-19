@@ -3,8 +3,8 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Plugin\Cookie;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Cookie;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\Cookie;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookieJar\ArrayCookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookiePlugin;
@@ -18,7 +18,7 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
     public function testExtractsAndStoresCookies()
     {
         $response = new Response(200);
-        $mock = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\CookieJar\\ArrayCookieJar')
+        $mock = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookieJar\ArrayCookieJar')
             ->setMethods(array('addCookiesFromResponse'))
             ->getMock();
 
@@ -39,7 +39,7 @@ class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
             'value' => 'bar'
         ));
 
-        $mock = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\CookieJar\\ArrayCookieJar')
+        $mock = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookieJar\ArrayCookieJar')
             ->setMethods(array('getMatchingCookies'))
             ->getMock();
 
