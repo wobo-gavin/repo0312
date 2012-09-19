@@ -434,4 +434,24 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         } catch (InvalidArgumentException $e) {
         }
     }
+
+    function falseyDataProvider()
+    {
+        return array(
+            array(false, false),
+            array(null, null),
+            array('', ''),
+            array(array(), array()),
+            array(0, 0),
+        );
+    }
+
+    /**
+     * @dataProvider falseyDataProvider
+     */
+    public function testReturnsCorrectData($a, $b)
+    {
+        $c = new Collection(array('value' => $a));
+        $this->assertSame($b, $c->get('value'));
+    }
 }
