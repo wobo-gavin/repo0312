@@ -17,10 +17,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\Resourc
  */
 interface ClientInterface extends HttpClientInterface, FromConfigInterface
 {
-    const MAGIC_CALL_DISABLED = 0;
-    const MAGIC_CALL_RETURN = 1;
-    const MAGIC_CALL_EXECUTE = 2;
-
     /**
      * Get a command by name.  First, the /* Replaced /* Replaced /* Replaced client */ */ */ will see if it has a service description and if the service description
      * defines a command by the supplied name.  If no dynamic command is found, the /* Replaced /* Replaced /* Replaced client */ */ */ will look for a concrete

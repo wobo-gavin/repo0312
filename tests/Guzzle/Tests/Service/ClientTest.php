@@ -210,7 +210,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__call
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setMagicCallBehavior
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::enableMagicMethods
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage Command was not found matching foo
      */
@@ -218,19 +218,8 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setMagicCallBehavior(Client::MAGIC_CALL_RETURN);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->enableMagicMethods(true);
         $/* Replaced /* Replaced /* Replaced client */ */ */->foo();
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__call
-     */
-    public function testMagicCallBehaviorReturnReturnsCommands()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setMagicCallBehavior(Client::MAGIC_CALL_RETURN);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand', $/* Replaced /* Replaced /* Replaced client */ */ */->mockCommand());
     }
 
     /**
@@ -239,10 +228,12 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     public function testMagicCallBehaviorExecuteExecutesCommands()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setMagicCallBehavior(Client::MAGIC_CALL_EXECUTE);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->enableMagicMethods(true);
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(new Response(200))));
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response', $/* Replaced /* Replaced /* Replaced client */ */ */->mockCommand());
+        $cmd = $/* Replaced /* Replaced /* Replaced client */ */ */->mockCommand();
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand', $cmd);
+        $this->assertTrue($cmd->isExecuted());
     }
 
     /**
