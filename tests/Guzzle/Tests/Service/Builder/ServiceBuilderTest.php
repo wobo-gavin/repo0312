@@ -8,6 +8,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
 use Doctrine\Common\Cache\ArrayCache;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder
+ */
 class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     protected $arrayData = array(
@@ -54,10 +57,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         )
     );
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::serialize
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::unserialize
-     */
     public function testAllowsSerialization()
     {
         $builder = ServiceBuilder::factory($this->arrayData);
@@ -65,9 +64,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertEquals($cached, $builder);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
-     */
     public function testDelegatesFactoryMethodToAbstractFactory()
     {
         $builder = ServiceBuilder::factory($this->arrayData);
@@ -76,7 +72,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::get
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException
      * @expectedExceptionMessage No service is registered as foobar
      */
@@ -85,9 +80,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         ServiceBuilder::factory($this->arrayData)->get('foobar');
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::get
-     */
     public function testStoresClientCopy()
     {
         $builder = ServiceBuilder::factory($this->arrayData);
@@ -114,9 +106,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */2 === $builder->get('billy.mock'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder
-     */
     public function testBuildersPassOptionsThroughToClients()
     {
         $s = new ServiceBuilder(array(
@@ -136,9 +125,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertEquals(8080, $c->getConfig('curl.curlopt_proxyport'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder
-     */
     public function testUsesTheDefaultBuilderWhenNoBuilderIsSpecified()
     {
         $s = new ServiceBuilder(array(
@@ -158,13 +144,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $c);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::set
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::offsetSet
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::offsetGet
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::offsetUnset
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::offsetExists
-     */
     public function testUsedAsArray()
     {
         $b = ServiceBuilder::factory($this->arrayData);
@@ -179,9 +158,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Client', $b['michael.mock']);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
-     */
     public function testFactoryCanCreateFromJson()
     {
         $tmp = sys_get_temp_dir() . '/test.js';
@@ -193,9 +169,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertEquals('billy', $s->getConfig('username'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
-     */
     public function testFactoryCanCreateFromArray()
     {
         $b = ServiceBuilder::factory($this->arrayData);
@@ -204,36 +177,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertEquals('billy', $s->getConfig('username'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException
-     * @expectedExceptionMessage Must pass the name of a .js or .json file or array
-     */
-    public function testFactoryValidatesFileExtension()
-    {
-        $tmp = sys_get_temp_dir() . '/test.abc';
-        file_put_contents($tmp, 'data');
-        try {
-            ServiceBuilder::factory($tmp);
-        } catch (\RuntimeException $e) {
-            unlink($tmp);
-            throw $e;
-        }
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException
-     * @expectedExceptionMessage Must pass the name of a .js or .json file or array
-     */
-    public function testFactoryValidatesObjectTypes()
-    {
-        ServiceBuilder::factory(new \stdClass());
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
-     */
     public function testFactoryDoesNotRequireParams()
     {
         $b = ServiceBuilder::factory($this->arrayData);
@@ -241,9 +184,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertEquals('billy', $s->getConfig('username'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder
-     */
     public function testBuilderAllowsReferencesBetweenClients()
     {
         $builder = ServiceBuilder::factory(array(
@@ -272,10 +212,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertEquals('1', $builder['b']->getConfig('username'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::getAllEvents
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::get
-     */
     public function testEmitsEventsWhenClientsAreCreated()
     {
         // Ensure that the /* Replaced /* Replaced /* Replaced client */ */ */ signals that it emits an event
@@ -307,9 +243,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient', $/* Replaced /* Replaced /* Replaced client */ */ */);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory
-     */
     public function testCanAddGlobalParametersToServicesOnLoad()
     {
         $builder = ServiceBuilder::factory($this->arrayData, array(
@@ -323,17 +256,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             $this->assertEquals('fred', $service['params']['username']);
             $this->assertEquals('test', $service['params']['new_value']);
         }
-    }
-
-    public function testDescriptionIsCacheable()
-    {
-        $jsonFile = __DIR__ . '/../../TestData/test_service.json';
-        $adapter = new DoctrineCacheAdapter(new ArrayCache());
-        $builder = ServiceBuilder::factory($jsonFile, array('cache.adapter' => $adapter));
-        // Ensure the cache key was set
-        $this->assertTrue($adapter->contains('/* Replaced /* Replaced /* Replaced guzzle */ */ */' . crc32($jsonFile)));
-        // Grab the service from the cache
-        $this->assertEquals($builder, ServiceBuilder::factory($jsonFile, array('cache.adapter' => $adapter)));
     }
 
     public function testCacheServiceCanBeCreatedAndInjectedIntoOtherServices()

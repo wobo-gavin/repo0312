@@ -6,6 +6,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Serv
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription
+ */
 class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     protected $serviceData;
@@ -28,7 +31,7 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription::factory
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ArrayDescriptionBuilder::build
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescriptionLoader::build
      */
     public function testFactoryDelegatesToConcreteFactories()
     {
@@ -36,12 +39,6 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription', ServiceDescription::factory($jsonFile));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription::__construct
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription::getOperations
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription::getOperation
-     */
     public function testConstructor()
     {
         $service = new ServiceDescription(array('operations' => $this->serviceData));
@@ -50,10 +47,6 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertTrue($service->hasOperation('test_command'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription::serialize
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription::unserialize
-     */
     public function testIsSerializable()
     {
         $service = new ServiceDescription(array('operations' => $this->serviceData));

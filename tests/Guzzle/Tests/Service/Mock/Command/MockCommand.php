@@ -19,7 +19,8 @@ class MockCommand extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\S
                 ),
                 '_internal' => array(
                     'default' => 'abc'
-                )
+                ),
+                'foo' => array('filters' => array('strtoupper'))
             )
         ));
     }
