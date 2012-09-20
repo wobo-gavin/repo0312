@@ -2,7 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 
 /**

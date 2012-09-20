@@ -233,7 +233,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(new Response(200))));
         $cmd = $/* Replaced /* Replaced /* Replaced client */ */ */->mockCommand();
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand', $cmd);
-        $this->assertTrue($cmd->isExecuted());
+        $this->assertFalse($cmd->isExecuted());
     }
 
     /**

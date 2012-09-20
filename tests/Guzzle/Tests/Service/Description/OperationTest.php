@@ -2,11 +2,9 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Description;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ValidationException;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation

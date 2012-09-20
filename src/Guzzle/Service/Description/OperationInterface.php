@@ -2,8 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-
 /**
  * Interface defining data objects that hold the information of an API operation
  */

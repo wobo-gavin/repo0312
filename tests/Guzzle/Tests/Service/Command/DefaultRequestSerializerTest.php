@@ -3,15 +3,11 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Command;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DefaultRequestSerializer;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\OperationCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\HeaderVisitor;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\BodyVisitor;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DefaultRequestSerializer
