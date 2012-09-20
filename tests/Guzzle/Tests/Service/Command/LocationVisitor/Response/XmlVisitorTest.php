@@ -1,8 +1,54 @@
 <?php
+
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Command\LocationVisitor\Response;
+
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Response\XmlVisitor as Visitor;
+
 /**
- * Created by JetBrains PhpStorm.
- * User: dowling
- * Date: 9/16/12
- * Time: 6:28 PM
- * To change this template use File | Settings | File Templates.
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Response\XmlVisitor
  */
+class XmlVisitorTest extends AbstractResponseVisitorTest
+{
+    public function testCanExtractAndRenameTopLevelXmlValues()
+    {
+        $visitor = new Visitor();
+        $param = new Parameter(array('location' => 'xml', 'name' => 'foo', 'rename' => 'Bar'));
+        $value = array('Bar' => 'test');
+        $visitor->visit($this->command, $this->response, $param, $value);
+        $this->assertArrayHasKey('foo', $value);
+        $this->assertEquals('test', $value['foo']);
+    }
+
+    public function testEnsuresArraysAreInCorrectLocations()
+    {
+        $visitor = new Visitor();
+        $param = new Parameter(array(
+            'location' => 'xml',
+            'name'     => 'foo',
+            'rename'   => 'Foo',
+            'type'     => 'array',
+            'items'    => array(
+                'type' => 'object',
+                'properties' => array(
+                    'Bar' => array('type' => 'string'),
+                    'Baz' => array('type' => 'string')
+                )
+            )
+        ));
+
+        $xml = new \SimpleXMLElement('<Test><Foo><Bar>1</Bar><Baz>2</Baz></Foo></Test>');
+        $value = json_decode(json_encode($xml), true);
+        $visitor->visit($this->command, $this->response, $param, $value);
+        $this->assertEquals(array(
+            'foo' => array(
+                array (
+                    'Bar' => '1',
+                    'Baz' => '2'
+                )
+            )
+        ), $value);
+    }
+}
