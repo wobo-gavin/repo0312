@@ -93,4 +93,15 @@ class ArrayServiceBuilderFactoryTest extends \/* Replaced /* Replaced /* Replace
             'far' => 'car'
         ), $compiled['foo']['params']);
     }
+
+    public function tstDoesNotErrorOnCircularReferences()
+    {
+        $arrayFactory = new ArrayServiceBuilderFactory();
+        $arrayFactory->build(array(
+            'services' => array(
+                'too' => array('extends' => 'ball'),
+                'ball' => array('extends' => 'too'),
+            )
+        ));
+    }
 }
