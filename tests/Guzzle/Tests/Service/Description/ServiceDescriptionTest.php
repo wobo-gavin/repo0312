@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Desc
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 
 /**
@@ -110,6 +111,14 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertContains('"models":{', serialize($d));
     }
 
+    public function testCanAddModels()
+    {
+        $d = new ServiceDescription(array());
+        $this->assertFalse($d->hasModel('Foo'));
+        $d->addModel(new Parameter(array('name' => 'Foo')));
+        $this->assertTrue($d->hasModel('Foo'));
+    }
+
     public function testHasAttributes()
     {
         $d = new ServiceDescription(array(
@@ -151,5 +160,29 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $data['operations']['foo']['responseClass'] = 'array';
         $data['operations']['foo']['responseType'] = 'primitive';
         $this->assertEquals($data, json_decode($d->serialize(), true));
+    }
+
+    public function testReturnsNullWhenRetrievingMissingOperation()
+    {
+        $s = new ServiceDescription(array());
+        $this->assertNull($s->getOperation('foo'));
+    }
+
+    public function testCanAddOperations()
+    {
+        $s = new ServiceDescription(array());
+        $this->assertFalse($s->hasOperation('Foo'));
+        $s->addOperation(new Operation(array('name' => 'Foo')));
+        $this->assertTrue($s->hasOperation('Foo'));
+    }
+
+    /**
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     */
+    public function testValidatesOperationTypes()
+    {
+        $s = new ServiceDescription(array(
+            'operations' => array('foo' => new \stdClass())
+        ));
     }
 }

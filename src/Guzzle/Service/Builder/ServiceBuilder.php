@@ -116,10 +116,8 @@ class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInte
             }
         }
 
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = call_user_func(
-            array($this->builderConfig[$name]['class'], 'factory'),
-            $this->builderConfig[$name]['params']
-        );
+        $class = $this->builderConfig[$name]['class'];
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $class::factory($this->builderConfig[$name]['params']);
 
         if (!$throwAway) {
             $this->/* Replaced /* Replaced /* Replaced client */ */ */s[$name] = $/* Replaced /* Replaced /* Replaced client */ */ */;
