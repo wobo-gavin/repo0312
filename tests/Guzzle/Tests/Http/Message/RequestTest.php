@@ -176,7 +176,7 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::send
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      * @expectedExceptionMessage A /* Replaced /* Replaced /* Replaced client */ */ */ must be set on the request
      */
     public function testRequestsRequireClients()
@@ -810,5 +810,27 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
         $request->receiveResponseHeader('HTTP/1.1 200');
         $this->assertSame(200, $request->getResponse()->getStatusCode());
         $this->assertSame('OK', $request->getResponse()->getReasonPhrase());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::receiveResponseHeader
+     */
+    public function testAddsPreviousResponseToResponseWhenRedirecting()
+    {
+        $url = $this->getServer()->getUrl();
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 303 SEE OTHER\r\n" .
+            "Content-Length: 0\r\n" .
+            "Location: {$url}/foo\r\n\r\n",
+            "HTTP/1.1 200 OK\r\n" .
+            "Content-Length: 0\r\n\r\n"
+        ));
+
+        $request = $this->request;
+        $request->send();
+        $this->assertEquals(2, count($this->getServer()->getReceivedRequests()));
+        $this->assertEquals(200, $request->getResponse()->getStatusCode());
+        $this->assertEquals(303, $request->getResponse()->getPreviousResponse()->getStatusCode());
     }
 }
