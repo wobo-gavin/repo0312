@@ -24,8 +24,8 @@ interface ServiceBuilderInterface
     /**
      * Register a /* Replaced /* Replaced /* Replaced client */ */ */ by name with the service builder
      *
-     * @param string $name  Name of the /* Replaced /* Replaced /* Replaced client */ */ */ to register
-     * @param mixed  $value Service to register
+     * @param string $key     Name of the /* Replaced /* Replaced /* Replaced client */ */ */ to register
+     * @param mixed  $service Service to register
      *
      * @return ServiceBuilderInterface
      */
