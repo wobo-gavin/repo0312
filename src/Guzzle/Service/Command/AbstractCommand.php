@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\Invalid
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\OperationInterface;
@@ -21,7 +22,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\Valida
 abstract class AbstractCommand extends Collection implements CommandInterface
 {
     // Option used to specify custom headers to add to the generated request
-    const HEADERS_OPTION = 'headers';
+    const HEADERS_OPTION = 'command.headers';
     // Option used to add an onComplete method to a command
     const ON_COMPLETE = 'command.on_complete';
     // Option used to disable any pre-sending command validation
@@ -275,8 +276,8 @@ abstract class AbstractCommand extends Collection implements CommandInterface
             }
 
             // Add any curl options to the request
-            if ($options = CurlHandle::parseCurlConfig($this->getAll())) {
-                $this->request->getCurlOptions()->merge($options);
+            if ($options = $this->get(Client::CURL_OPTIONS)) {
+                $this->request->getCurlOptions()->merge(CurlHandle::parseCurlConfig($options));
             }
         }
 

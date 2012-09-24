@@ -164,33 +164,21 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/', array(
             'api' => 'v1',
             // Adds the option using the curl values
-            'curl.CURLOPT_HTTPAUTH' => 'CURLAUTH_DIGEST',
-            'curl.abc' => 'not added',
-            'curl.blacklist' => 'abc'
+            'curl.options' => array(
+                'CURLOPT_HTTPAUTH'     => 'CURLAUTH_DIGEST',
+                'abc'                  => 'foo',
+                'blacklist'            => 'abc',
+                'debug'                => true,
+                CURLOPT_SSL_VERIFYPEER => false
+            )
         ));
 
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
         $options = $request->getCurlOptions();
         $this->assertEquals(CURLAUTH_DIGEST, $options->get(CURLOPT_HTTPAUTH));
-        $this->assertNull($options->get('curl.abc'));
-        $this->assertNull($options->get('curl.blacklist'));
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::prepareRequest
-     */
-    public function testClientAddsCustomCurlOptionsToRequests()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/', array(
-            'api' => 'v1',
-            'curl.debug' => true,
-            'curl.foo' => 'bar'
-        ));
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
-
-        $this->assertTrue($request->getCurlOptions()->get('debug'));
-        $this->assertEquals('bar', $request->getCurlOptions()->get('foo'));
+        $this->assertEquals('foo', $options->get('abc'));
+        $this->assertEquals('abc', $options->get('blacklist'));
+        $this->assertFalse($options->get(CURLOPT_SSL_VERIFYPEER));
     }
 
     /**
@@ -200,8 +188,10 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.example.com', array(
             'api' => 'v1',
-            'params.foo' => 'bar',
-            'params.baz' => 'jar',
+            'request.params' => array(
+                'foo' => 'bar',
+                'baz' => 'jar'
+            )
         ));
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
         $this->assertEquals('bar', $request->getParams()->get('foo'));

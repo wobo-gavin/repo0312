@@ -352,4 +352,18 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->setInflector($inflector);
         $this->assertSame($inflector, $/* Replaced /* Replaced /* Replaced client */ */ */->getInflector());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommand
+     */
+    public function testClientAddsGlobalCommandOptions()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient('http://www.foo.com', array(
+            Client::COMMAND_PARAMS => array(
+                'mesa' => 'bar'
+            )
+        ));
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('mock_command');
+        $this->assertEquals('bar', $command->get('mesa'));
+    }
 }
