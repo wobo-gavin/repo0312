@@ -163,6 +163,23 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle::getInfo
+     */
+    public function testGetInfoWithoutDebugMode()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ndata");
+        $request = RequestFactory::getInstance()->create('PUT', $this->getServer()->getUrl());
+        $request->getCurlOptions()->set('debug', false);
+        $request->setClient($/* Replaced /* Replaced /* Replaced client */ */ */);
+        $response = $request->send();
+
+        $info = $response->getInfo();
+        $this->assertFalse(empty($info));
+        $this->assertEquals($this->getServer()->getUrl(), $info['url']);
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle::getOptions
      */
     public function testWrapsCurlOptions()
