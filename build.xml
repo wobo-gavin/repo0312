@@ -3,6 +3,10 @@
 
     <property name="dir.output" value="${project.basedir}/build/artifacts" />
 
+    <fileset id="sources" dir="./src">
+        <include name="**"/>
+    </fileset>
+
     <target name="tag">
         <echo>Not yet implemented</echo>
     </target>
@@ -94,14 +98,20 @@
     <target name="build-pear">
 
         <exec command="git describe --abbrev=0 --tags | tail -c6" outputProperty="version" />
-        <delete file="${project.basedir}/src/package.xml" />
+        <delete file="${project.basedir}/src/package2.xml" />
         <delete file="${dir.output}//* Replaced /* Replaced /* Replaced guzzle */ */ */-${version}.tgz" />
 
-        <pearpkg2 name="/* Replaced /* Replaced /* Replaced guzzle */ */ */" dir="/* Replaced /* Replaced /* Replaced Guzzle */ */ */">
-            <option name="outputdirectory" value="${project.basedir}/src"/>
+        <delete dir="${dir.output}/pear" />
+        <mkdir dir="${dir.output}/pear" />
+        <copy todir="${dir.output}/pear">
+            <fileset refid="sources"/>
+        </copy>
+
+        <pearpkg2 name="/* Replaced /* Replaced /* Replaced Guzzle */ */ */" dir="${dir.output}/pear">
+            <option name="outputdirectory" value="${dir.output}/pear"/>
             <option name="packagefile" value="package.xml"/>
-            <option name="packagedirectory" value="${project.basedir}/src"/>
-            <option name="baseinstalldir" value="."/>
+            <option name="packagedirectory" value="${dir.output}/pear"/>
+            <option name="baseinstalldir" value="/"/>
             <option name="channel" value="/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/pear"/>
             <option name="summary" value="/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP 5.3+ HTTP /* Replaced /* Replaced /* Replaced client */ */ */ and framework for building RESTful web service /* Replaced /* Replaced /* Replaced client */ */ */s"/>
             <option name="description" value="PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */"/>
@@ -128,14 +138,9 @@
             </fileset>
         </pearpkg2>
 
-        <tar destfile="${dir.output}//* Replaced /* Replaced /* Replaced guzzle */ */ */-${version}.tgz" compression="gzip" basedir="${project.basedir}/src">
-            <fileset dir="${project.basedir}/src">
-                <include name="**/*.php" />
-                <include name="*.xml" />
-            </fileset>
-        </tar>
-
-        <delete file="${project.basedir}/src/package.xml" />
+        <exec dir="${dir.output}/pear" command="pear package" />
+        <delete dir="${dir.output}/pear//* Replaced /* Replaced /* Replaced Guzzle */ */ */" />
+        <delete file="${dir.output}/pear/package.xml" />
 
     </target>
 
