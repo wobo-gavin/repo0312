@@ -309,8 +309,11 @@ class Client extends HttpClient implements ClientInterface
         if (!$this->resourceIteratorFactory) {
             // Build the default resource iterator factory if one is not set
             $/* Replaced /* Replaced /* Replaced client */ */ */Class = get_class($this);
-            $namespace = substr($/* Replaced /* Replaced /* Replaced client */ */ */Class, 0, strrpos($/* Replaced /* Replaced /* Replaced client */ */ */Class, '\\')) . '\\Model';
-            $this->resourceIteratorFactory = new ResourceIteratorClassFactory($namespace);
+            $prefix = substr($/* Replaced /* Replaced /* Replaced client */ */ */Class, 0, strrpos($/* Replaced /* Replaced /* Replaced client */ */ */Class, '\\'));
+            $this->resourceIteratorFactory = new ResourceIteratorClassFactory(array(
+                "{$prefix}\\Iterator",
+                "{$prefix}\\Model"
+            ));
         }
 
         return $this->resourceIteratorFactory;
