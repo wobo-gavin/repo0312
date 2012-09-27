@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\History\HistoryPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
@@ -15,7 +15,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
 {
     protected $arrayData = array(
         'michael.mock' => array(
-            'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
+            'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient',
             'params' => array(
                 'username' => 'michael',
                 'password' => 'testing123',
@@ -23,7 +23,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             ),
         ),
         'billy.mock' => array(
-            'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
+            'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient',
             'params' => array(
                 'username' => 'billy',
                 'password' => 'passw0rd',
@@ -42,12 +42,12 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         'cache.adapter' => array(
             'class'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory',
             'params' => array(
-                'cache.adapter'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */.Cache.DoctrineCacheAdapter',
-                'cache.provider' => 'Doctrine.Common.Cache.ArrayCache'
+                'cache.adapter'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter',
+                'cache.provider' => 'Doctrine\Common\Cache\ArrayCache'
             )
         ),
         'service_uses_cache' => array(
-            'class'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
+            'class'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient',
             'params' => array(
                 'cache'     => '{cache.adapter}',
                 'username'  => 'foo',
@@ -68,7 +68,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     {
         $builder = ServiceBuilder::factory($this->arrayData);
         $c = $builder->get('michael.mock');
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $c);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient', $c);
     }
 
     /**
@@ -84,13 +84,13 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     {
         $builder = ServiceBuilder::factory($this->arrayData);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $builder->get('michael.mock');
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $/* Replaced /* Replaced /* Replaced client */ */ */);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient', $/* Replaced /* Replaced /* Replaced client */ */ */);
         $this->assertEquals('http://127.0.0.1:8124/v1/michael', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
         $this->assertEquals($/* Replaced /* Replaced /* Replaced client */ */ */, $builder->get('michael.mock'));
 
         // Get another /* Replaced /* Replaced /* Replaced client */ */ */ but throw this one away
         $/* Replaced /* Replaced /* Replaced client */ */ */2 = $builder->get('billy.mock', true);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $/* Replaced /* Replaced /* Replaced client */ */ */2);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient', $/* Replaced /* Replaced /* Replaced client */ */ */2);
         $this->assertEquals('http://127.0.0.1:8124/v1/billy', $/* Replaced /* Replaced /* Replaced client */ */ */2->getBaseUrl());
 
         // Make sure the original /* Replaced /* Replaced /* Replaced client */ */ */ is still there and set
@@ -110,7 +110,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     {
         $s = new ServiceBuilder(array(
             'michael.mock' => array(
-                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
+                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient',
                 'params' => array(
                     'base_url' => 'http://www.test.com/',
                     'subdomain' => 'michael',
@@ -129,7 +129,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     {
         $s = new ServiceBuilder(array(
             'michael.mock' => array(
-                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
+                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient',
                 'params' => array(
                     'base_url' => 'http://www.test.com/',
                     'subdomain' => 'michael',
@@ -141,7 +141,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         ));
 
         $c = $s->get('michael.mock');
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient', $c);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient', $c);
     }
 
     public function testUsedAsArray()
@@ -149,13 +149,13 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $b = ServiceBuilder::factory($this->arrayData);
         $this->assertTrue($b->offsetExists('michael.mock'));
         $this->assertFalse($b->offsetExists('not_there'));
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Client', $b['michael.mock']);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client', $b['michael.mock']);
 
         unset($b['michael.mock']);
         $this->assertFalse($b->offsetExists('michael.mock'));
 
         $b['michael.mock'] = new Client('http://www.test.com/');
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Client', $b['michael.mock']);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client', $b['michael.mock']);
     }
 
     public function testFactoryCanCreateFromJson()
@@ -188,7 +188,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     {
         $builder = ServiceBuilder::factory(array(
             'a' => array(
-                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
+                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient',
                 'params' => array(
                     'other_/* Replaced /* Replaced /* Replaced client */ */ */' => '{{ b }}',
                     'username'     => 'x',
@@ -197,7 +197,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
                 )
             ),
             'b' => array(
-                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
+                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient',
                 'params' => array(
                     'username'  => '1',
                     'password'  => '2',
@@ -220,7 +220,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         // Create a test service builder
         $builder = ServiceBuilder::factory(array(
             'a' => array(
-                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\MockClient',
+                'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient',
                 'params' => array(
                     'username'  => 'test',
                     'password'  => '123',
@@ -280,5 +280,13 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter',
             $builder['service_uses_cache']->getConfig('cache')
         );
+    }
+
+    public function testAddsGlobalPlugins()
+    {
+        $b = new ServiceBuilder($this->arrayData);
+        $b->addGlobalPlugin(new HistoryPlugin());
+        $s = $b->get('michael.mock');
+        $this->assertTrue($s->getEventDispatcher()->hasListeners('request.complete'));
     }
 }

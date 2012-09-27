@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispat
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Service builder to generate service builders and service /* Replaced /* Replaced /* Replaced client */ */ */s from configuration settings
@@ -26,6 +27,11 @@ class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInte
      * @var ServiceBuilderLoader Cached instance of the service builder loader
      */
     protected static $cachedFactory;
+
+    /**
+     * @var array Plugins to attach to each /* Replaced /* Replaced /* Replaced client */ */ */ created by the service builder
+     */
+    protected $plugins = array();
 
     /**
      * Create a new ServiceBuilder using configuration data sourced from an
@@ -91,6 +97,20 @@ class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInte
     }
 
     /**
+     * Attach a plugin to every /* Replaced /* Replaced /* Replaced client */ */ */ created by the builder
+     *
+     * @param EventSubscriberInterface $plugin Plugin to attach to each /* Replaced /* Replaced /* Replaced client */ */ */
+     *
+     * @return self
+     */
+    public function addGlobalPlugin(EventSubscriberInterface $plugin)
+    {
+        $this->plugins[] = $plugin;
+
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function get($name, $throwAway = false)
@@ -115,6 +135,10 @@ class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInte
 
         if (!$throwAway) {
             $this->/* Replaced /* Replaced /* Replaced client */ */ */s[$name] = $/* Replaced /* Replaced /* Replaced client */ */ */;
+        }
+
+        foreach ($this->plugins as $plugin) {
+            $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($plugin);
         }
 
         // Dispatch an event letting listeners know a /* Replaced /* Replaced /* Replaced client */ */ */ was created
