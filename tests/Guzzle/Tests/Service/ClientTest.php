@@ -366,4 +366,12 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('mock_command');
         $this->assertEquals('bar', $command->get('mesa'));
     }
+
+    public function testSupportsServiceDescriptionBaseUrls()
+    {
+        $description = new ServiceDescription(array('baseUrl' => 'http://foo.com'));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description);
+        $this->assertEquals('http://foo.com', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
+    }
 }
