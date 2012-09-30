@@ -8,7 +8,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Abstract
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\OperationResponseParser;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\OperationCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Response\StatusCodeVisitor;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Response\ReasonPhraseVisitor;
