@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Log;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Log\LogAdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Log\MessageFormatter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Log\ClosureLogAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
@@ -50,6 +51,20 @@ class LogPlugin implements EventSubscriberInterface
         $this->logAdapter = $logAdapter;
         $this->formatter = $formatter instanceof MessageFormatter ? $formatter : new MessageFormatter($formatter);
         $this->wireBodies = $wireBodies;
+    }
+
+    /**
+     * Get a log plugin that outputs full request, response, and curl error information to stdout
+     *
+     * @param bool $wireBodies Set to false to disable request/response body output when they use are not repeatable
+     *
+     * @return self
+     */
+    public static function getDebugPlugin($wireBodies = true)
+    {
+        return new self(new ClosureLogAdapter(function ($m) {
+            echo $m . PHP_EOL;
+        }), "# Request:\n{request}\n\n# Response:\n{response}\n\n# Errors: {curl_code} {curl_error}", $wireBodies);
     }
 
     /**

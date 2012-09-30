@@ -75,4 +75,20 @@ class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $this->assertContains("send", $message);
         $this->assertContains("response", $message);
     }
+
+    public function testHasHelpfulStaticFactoryMethod()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber(LogPlugin::getDebugPlugin());
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put('http://foo.com', array('Content-Type' => 'Foo'), 'Bar');
+        $request->setresponse(new Response(200), true);
+        ob_start();
+        $request->send();
+        $contents = ob_get_clean();
+        $this->assertContains('# Request:', $contents);
+        $this->assertContainsIns('PUT / HTTP/1.1', $contents);
+        $this->assertContains('# Response:', $contents);
+        $this->assertContainsIns('HTTP/1.1 200 OK', $contents);
+        $this->assertContains('# Errors:', $contents);
+    }
 }
