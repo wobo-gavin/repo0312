@@ -9,6 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Operatio
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DefaultRequestSerializer;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\Model;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\OperationCommand
@@ -66,9 +67,9 @@ class OperationCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
         $request->setResponse(new Response(200, array(
             'Content-Type' => 'application/xml'
         ), '<Foo><Baz>Bar</Baz></Foo>'), true);
-        $this->assertEquals(array(
+        $this->assertEquals(new Model(array(
             'Baz' => 'Bar'
-        ), $op->execute());
+        ), $description->getModel('bar')), $op->execute());
     }
 
     public function testAllowsRawResponses()

@@ -4,13 +4,16 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Comm
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\OperationResponseParser;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\OperationCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Response\StatusCodeVisitor;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Response\ReasonPhraseVisitor;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Response\BodyVisitor;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\Model;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\OperationResponseParser
@@ -42,7 +45,20 @@ class OperationResponseParserTest extends \/* Replaced /* Replaced /* Replaced G
         $op = new OperationCommand(array(), $this->getDescription()->getOperation('test'));
         $op->setResponseParser($parser)->setClient(new Client());
         $op->prepare()->setResponse(new Response(200, array('Content-Type' => 'application/xml'), '<F><B>C</B></F>'), true);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\Model', $op->execute());
+        $this->assertEquals('C', $op->getResult()->get('B'));
+    }
+
+    public function testUsesRawArraysWhenInstructed()
+    {
+        $parser = new OperationResponseParser();
+        $op = new OperationCommand(array(), $this->getDescription()->getOperation('test'));
+        $op->setResponseParser($parser)->setClient(new Client());
+        $op->prepare()->setResponse(new Response(200, array('Content-Type' => 'application/xml'), '<F><B>C</B></F>'), true);
+        $op->set(AbstractCommand::RESPONSE_MODEL_ARRAY, true);
         $this->assertInternalType('array', $op->execute());
+        $result = $op->getResult();
+        $this->assertEquals('C', $result['B']);
     }
 
     public function testVisitsLocations()
