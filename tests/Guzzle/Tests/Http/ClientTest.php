@@ -184,9 +184,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
      */
     public function testClientAllowsFineGrainedSslControlButIsSecureByDefault()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/', array(
-            'api' => 'v1'
-        ));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/');
 
         // secure by default
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
@@ -194,14 +192,26 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertTrue($options->get(CURLOPT_SSL_VERIFYPEER));
 
         // set a capath if you prefer
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/', array(
-            'api' => 'v1'
-        ));
-
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/');
         $/* Replaced /* Replaced /* Replaced client */ */ */->setSslVerification(__DIR__);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
         $options = $request->getCurlOptions();
         $this->assertSame(__DIR__, $options->get(CURLOPT_CAPATH));
+    }
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::__construct
+     */
+    public function testConfigSettingsControlSslConfiguration()
+    {
+        // Use the default ca certs on the system
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/', array('ssl.certificate_authority' => 'system'));
+        $this->assertNull($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('curl.options'));
+        // Can set the cacert value as well
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/', array('ssl.certificate_authority' => false));
+        $options = $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('curl.options');
+        $this->assertArrayNotHasKey(CURLOPT_CAINFO, $options);
+        $this->assertSame(false, $options[CURLOPT_SSL_VERIFYPEER]);
+        $this->assertSame(1, $options[CURLOPT_SSL_VERIFYHOST]);
     }
 
     /**
