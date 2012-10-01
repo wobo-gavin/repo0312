@@ -722,10 +722,12 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
      */
     public function testHeadersCanBeBlacklisted()
     {
-        $request = RequestFactory::getInstance()->create('PUT', $this->getServer()->getUrl());
-        $request->setClient(new Client('http://www.example.com', array(
-            'curl.blacklist' => array('header.Foo', CURLOPT_FOLLOWLOCATION)
-        )));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl(), array(
+            'curl.options' => array(
+                'blacklist' => array('header.Foo', CURLOPT_FOLLOWLOCATION)
+            )
+        ));
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put();
         $request->setHeader('Foo', 'Bar');
         $handle = CurlHandle::factory($request);
         $headers = $handle->getOptions()->get(CURLOPT_HTTPHEADER);
