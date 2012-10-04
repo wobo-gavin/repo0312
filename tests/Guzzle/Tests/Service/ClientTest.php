@@ -374,4 +374,17 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description);
         $this->assertEquals('http://foo.com', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
     }
+
+    public function testMergesDefaultCommandParamsCorrectly()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient('http://www.foo.com', array(
+            Client::COMMAND_PARAMS => array(
+                'mesa' => 'bar',
+                'jar'  => 'jar'
+            )
+        ));
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('mock_command', array('jar' => 'test'));
+        $this->assertEquals('bar', $command->get('mesa'));
+        $this->assertEquals('test', $command->get('jar'));
+    }
 }
