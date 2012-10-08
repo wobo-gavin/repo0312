@@ -20,12 +20,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\MockMulti;
 class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
-     * @var /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti
+     * @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti
      */
     private $multi;
 
     /**
-     * @var /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection
+     * @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection
      */
     private $updates;
 
@@ -92,7 +92,6 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
         $this->assertTrue($mock->has(CurlMulti::ADD_REQUEST));
         $this->assertFalse($mock->has(CurlMulti::REMOVE_REQUEST));
-        $this->assertFalse($mock->has(CurlMulti::POLLING));
         $this->assertFalse($mock->has(CurlMulti::COMPLETE));
     }
 
@@ -283,7 +282,6 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $this->multi->add($request);
         $this->multi->send();
         $this->assertTrue($this->mock->has(CurlMulti::ADD_REQUEST));
-        $this->assertTrue($this->mock->has(CurlMulti::POLLING) === false);
         $this->assertTrue($this->mock->has(CurlMulti::COMPLETE) !== false);
     }
 
