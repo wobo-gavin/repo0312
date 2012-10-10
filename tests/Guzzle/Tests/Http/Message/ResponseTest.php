@@ -503,6 +503,18 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getSetCookie
      */
+    public function testGetMultipleSetCookie()
+    {
+        $this->response->addHeader('Set-Cookie', 'UserID=Mike; Max-Age=200');
+        $this->assertEquals(array(
+            'UserID=JohnDoe; Max-Age=3600; Version=1',
+            'UserID=Mike; Max-Age=200',
+        ), $this->response->getSetCookie()->toArray());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getSetCookie
+     */
     public function testGetSetCookieNormalizesHeaders()
     {
         $this->response->addHeaders(array(
