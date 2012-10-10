@@ -1,6 +1,6 @@
 {
-    "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-md5validator",
-    "description": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ MD5 validator plugin",
+    "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-md5",
+    "description": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ MD5 plugins",
     "homepage": "http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/",
     "keywords": ["plugin", "/* Replaced /* Replaced /* Replaced guzzle */ */ */"],
     "license": "MIT",
@@ -16,7 +16,7 @@
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//http": "self.version"
     },
     "autoload": {
-        "psr-0": { "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Plugin\\Md5Validator": "" }
+        "psr-0": { "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Plugin\\Md5": "" }
     },
-    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Plugin/Md5Validator"
+    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Plugin/Md5"
 }

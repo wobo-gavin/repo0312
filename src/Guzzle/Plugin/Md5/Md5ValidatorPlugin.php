@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Md5Validator;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Md5;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\UnexpectedValueException;

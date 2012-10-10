@@ -1,14 +1,14 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Plugin\Md5Validator;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Plugin\Md5;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Md5Validator\Md5ValidatorPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Md5\Md5ValidatorPlugin;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Md5Validator\Md5ValidatorPlugin
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Md5\Md5ValidatorPlugin
  */
 class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
