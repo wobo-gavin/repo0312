@@ -11,7 +11,7 @@
     <taskdef name="composerlint" classname="phing.tasks.ComposerLintTask" />
     <taskdef name="testserver" classname="phing.tasks.NodeServerTask" />
     <taskdef name="/* Replaced /* Replaced /* Replaced guzzle */ */ */subsplit" classname="phing.tasks./* Replaced /* Replaced /* Replaced Guzzle */ */ */SubSplitTask" />
-    <taskdef name="/* Replaced /* Replaced /* Replaced guzzle */ */ */pear" classname="phing.tasks./* Replaced /* Replaced /* Replaced Guzzle */ */ */PEARPackageTask" />
+    <taskdef name="/* Replaced /* Replaced /* Replaced guzzle */ */ */pear" classname="phing.tasks./* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask" />
     
     <!-- 
     Handle locating composer (global) or composer.phar, and 
