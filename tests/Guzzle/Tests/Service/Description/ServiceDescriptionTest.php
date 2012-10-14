@@ -78,7 +78,6 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
                     'parameters' => array(
                         'data'   => array(
                             'required' => true,
-                            'type'     => 'array',
                             'filters'  => 'json_encode',
                             'location' => 'body'
                         )
@@ -88,10 +87,14 @@ class ServiceDescriptionTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         ));
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description);
-        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test', array('data' => array('foo' => 'bar')));
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test', array(
+            'data' => array(
+                'foo' => 'bar'
+            )
+        ));
 
         $request = $command->prepare();
-        $this->assertEquals(json_encode(array('foo' => 'bar')), (string) $request->getBody());
+        $this->assertEquals('{"foo":"bar"}', (string) $request->getBody());
     }
 
     public function testContainsModels()
