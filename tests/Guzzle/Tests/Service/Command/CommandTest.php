@@ -3,9 +3,9 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Command;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
@@ -429,7 +429,7 @@ class CommandTest extends AbstractCommandTest
     }
 
     /**
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ValidationException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ValidationException
      * @expectedExceptionMessage [Foo] Baz
      */
     public function testValidatesCommandBeforeSending()
@@ -443,5 +443,15 @@ class CommandTest extends AbstractCommandTest
         $v->expects($this->any())->method('getErrors')->will($this->returnValue(array('[Foo] Baz', '[Bar] Boo')));
         $command->setValidator($v);
         $command->prepare();
+    }
+
+    public function testCanChangeResponseBody()
+    {
+        $body = EntityBody::factory();
+        $command = new MockCommand();
+        $command->setClient(new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client());
+        $command->set(AbstractCommand::RESPONSE_BODY, $body);
+        $request = $command->prepare();
+        $this->assertSame($body, $this->readAttribute($request, 'responseBody'));
     }
 }
