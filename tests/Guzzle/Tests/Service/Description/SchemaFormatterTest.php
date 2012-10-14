@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Sche
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\SchemaFormatter
  */
-class FormatFiltersTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class SchemaFormatterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     public function dateTimeProvider()
     {
@@ -24,7 +24,11 @@ class FormatFiltersTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
             array(new \DateTime($d), 'timestamp', strtotime($d)),
             array($d, 'time', '16:15:46'),
             array(strtotime($d), 'time', '16:15:46'),
-            array(strtotime($d), 'timestamp', strtotime($d))
+            array(strtotime($d), 'timestamp', strtotime($d)),
+            array('true', 'boolean-string', 'true'),
+            array(true, 'boolean-string', 'true'),
+            array('false', 'boolean-string', 'false'),
+            array(false, 'boolean-string', 'false')
         );
     }
 
