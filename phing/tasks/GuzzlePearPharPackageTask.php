@@ -111,7 +111,11 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask ext
         passthru('git clone git@github.com:/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.github.com');
 
         // add PEAR packages
-        passthru('pirum add /* Replaced /* Replaced /* Replaced guzzle */ */ */.github.com/pear *.tgz');
+        foreach (scandir($basedir . '/build/pearwork') as $file) {
+            if (substr($file, -4) == '.tgz') {
+                passthru('pirum add /* Replaced /* Replaced /* Replaced guzzle */ */ */.github.com/pear '.$file);
+            }
+        }
 
         // if we have a new phar, add it
         if ($this->getMakephar() && file_exists($basedir.'/build/artifacts//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar')) {
