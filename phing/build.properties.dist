@@ -1,0 +1,16 @@
+# you may need to update this if you're working on a fork.
+/* Replaced /* Replaced /* Replaced guzzle */ */ */.remote=git@github.com:/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.git
+
+# github credentials -- only used by GitHub API calls to create subtree repos
+github.basicauth=username:password
+# for the subtree split and testing
+github.org=/* Replaced /* Replaced /* Replaced guzzle */ */ */
+
+# your git path
+cmd.git=git
+
+# your composer command
+cmd.composer=composer
+
+# test server start
+cmd.testserver=node

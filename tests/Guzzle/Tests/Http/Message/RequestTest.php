@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\ExponentialBackoffPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Async\AsyncPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
@@ -124,7 +124,6 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
             . "Host: www.google.com\r\n"
             . "Authorization: Basic {$auth}\r\n"
             . "User-Agent: " . Utils::getDefaultUserAgent() . "\r\n"
-            . "Expect: 100-Continue\r\n"
             . "Content-Length: 4\r\n\r\nData";
 
         $request = RequestFactory::getInstance()->create('PUT', 'http://www.google.com/path?q=1&v=2', array(
@@ -176,7 +175,7 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::send
-     * @expectedException RuntimeException
+     * @expectedException \RuntimeException
      * @expectedExceptionMessage A /* Replaced /* Replaced /* Replaced client */ */ */ must be set on the request
      */
     public function testRequestsRequireClients()
@@ -563,7 +562,7 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
      */
     public function testClonedRequestsUseNewInternalState()
     {
-        $p = new ExponentialBackoffPlugin();
+        $p = new AsyncPlugin();
         $this->request->getEventDispatcher()->addSubscriber($p);
         $h = $this->request->getHeader('Host');
 
@@ -810,5 +809,27 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
         $request->receiveResponseHeader('HTTP/1.1 200');
         $this->assertSame(200, $request->getResponse()->getStatusCode());
         $this->assertSame('OK', $request->getResponse()->getReasonPhrase());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::receiveResponseHeader
+     */
+    public function testAddsPreviousResponseToResponseWhenRedirecting()
+    {
+        $url = $this->getServer()->getUrl();
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 303 SEE OTHER\r\n" .
+            "Content-Length: 0\r\n" .
+            "Location: {$url}/foo\r\n\r\n",
+            "HTTP/1.1 200 OK\r\n" .
+            "Content-Length: 0\r\n\r\n"
+        ));
+
+        $request = $this->request;
+        $request->send();
+        $this->assertEquals(2, count($this->getServer()->getReceivedRequests()));
+        $this->assertEquals(200, $request->getResponse()->getStatusCode());
+        $this->assertEquals(303, $request->getResponse()->getPreviousResponse()->getStatusCode());
     }
 }

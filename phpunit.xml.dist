@@ -24,8 +24,8 @@
             <directory suffix=".php">./src//* Replaced /* Replaced /* Replaced Guzzle */ */ */</directory>
             <exclude>
                 <directory suffix="Interface.php">./src//* Replaced /* Replaced /* Replaced Guzzle */ */ */</directory>
-                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common//* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception.php</file>
-                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/HttpException.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common/Exception//* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/Exception/HttpException.php</file>
                 <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/Exception/ServerErrorResponseException.php</file>
                 <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/Exception/ClientErrorResponseException.php</file>
                 <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common/Exception/BadMethodCallException.php</file>

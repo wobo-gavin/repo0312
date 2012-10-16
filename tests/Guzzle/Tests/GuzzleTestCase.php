@@ -7,9 +7,10 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\HeaderComparison;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilderInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\MockObserver;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server;
 use RuntimeException;
@@ -53,7 +54,7 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
     /**
      * Set the service builder to use for tests
      *
-     * @param ServiceBuilder $builder Service builder
+     * @param ServiceBuilderInterface $builder Service builder
      */
     public static function setServiceBuilder(ServiceBuilderInterface $builder)
     {
@@ -102,7 +103,7 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
     /**
      * Get a wildcard observer for an event dispatcher
      *
-     * @param HasEventDispatcherInterface $hasEvent
+     * @param HasDispatcherInterface $hasEvent
      *
      * @return MockObserver
      */
@@ -134,6 +135,8 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
      * Mark a request as being mocked
      *
      * @param RequestInterface $request
+     *
+     * @return self
      */
     public function addMockedRequest(RequestInterface $request)
     {
@@ -207,7 +210,7 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
      * @param array $filteredHeaders Array of special headers
      * @param array $actualHeaders Array of headers to check against
      *
-     * @return array|false Returns an array of the differences or FALSE if none
+     * @return array|bool Returns an array of the differences or FALSE if none
      */
     public function compareHeaders($filteredHeaders, $actualHeaders)
     {

@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 
 class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
@@ -405,5 +406,52 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals('foo', $collection->keySearch('FOO'));
         $this->assertEquals('BaZ', $collection->keySearch('baz'));
         $this->assertEquals(false, $collection->keySearch('Bar'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::fromConfig
+     */
+    public function testPreparesFromConfig()
+    {
+        $c = Collection::fromConfig(array(
+            'a' => '123',
+            'base_url' => 'http://www.test.com/'
+        ), array(
+            'a' => 'xyz',
+            'b' => 'lol'
+        ), array('a'));
+
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection', $c);
+        $this->assertEquals(array(
+            'a' => '123',
+            'b' => 'lol',
+            'base_url' => 'http://www.test.com/'
+        ), $c->getAll());
+
+        try {
+            $c = Collection::fromConfig(null, null, array('a'));
+            $this->fail('Exception not throw when missing config');
+        } catch (InvalidArgumentException $e) {
+        }
+    }
+
+    function falseyDataProvider()
+    {
+        return array(
+            array(false, false),
+            array(null, null),
+            array('', ''),
+            array(array(), array()),
+            array(0, 0),
+        );
+    }
+
+    /**
+     * @dataProvider falseyDataProvider
+     */
+    public function testReturnsCorrectData($a, $b)
+    {
+        $c = new Collection(array('value' => $a));
+        $this->assertSame($b, $c->get('value'));
     }
 }

@@ -4,9 +4,4 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
 
-/**
- * Sub folder command
- */
-class Sub extends MockCommand
-{
-}
+class Sub extends MockCommand {}

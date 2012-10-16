@@ -33,9 +33,9 @@ class HeaderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     public function testConvertsToString()
     {
         $i = new Header('Zoo', $this->test);
-        $this->assertEquals('foo; Foo; bar', (string) $i);
-        $i->setGlue(', ');
         $this->assertEquals('foo, Foo, bar', (string) $i);
+        $i->setGlue('; ');
+        $this->assertEquals('foo; Foo; bar', (string) $i);
     }
 
     public function testNormalizesCases()

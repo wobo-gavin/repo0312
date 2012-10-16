@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Comma
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIteratorClassFactory
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\AbstractResourceIteratorFactory
  */
 class ResourceIteratorClassFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
@@ -22,7 +23,7 @@ class ResourceIteratorClassFactoryTest extends \/* Replaced /* Replaced /* Repla
 
     /**
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Iterator was not found matching MockCommandIterator
+     * @expectedExceptionMessage Iterator was not found for mock_command
      */
     public function testEnsuresIteratorClassExists()
     {

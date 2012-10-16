@@ -1,0 +1,22 @@
+{
+    "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-oauth",
+    "description": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ OAuth plugin",
+    "homepage": "http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/",
+    "keywords": ["oauth", "plugin", "/* Replaced /* Replaced /* Replaced guzzle */ */ */"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Dowling",
+            "email": "mtdowling@gmail.com",
+            "homepage": "https://github.com/mtdowling"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//http": "self.version"
+    },
+    "autoload": {
+        "psr-0": { "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Plugin\\Oauth": "" }
+    },
+    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Plugin/Oauth"
+}

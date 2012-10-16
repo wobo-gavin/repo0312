@@ -3,11 +3,11 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ClosureLogAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Log\ClosureLogAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\UriTemplate\UriTemplate;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Log\LogPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
@@ -164,33 +164,113 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/', array(
             'api' => 'v1',
             // Adds the option using the curl values
-            'curl.CURLOPT_HTTPAUTH' => 'CURLAUTH_DIGEST',
-            'curl.abc' => 'not added',
-            'curl.blacklist' => 'abc'
+            'curl.options' => array(
+                'CURLOPT_HTTPAUTH'     => 'CURLAUTH_DIGEST',
+                'abc'                  => 'foo',
+                'blacklist'            => 'abc',
+                'debug'                => true
+            )
         ));
 
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
         $options = $request->getCurlOptions();
         $this->assertEquals(CURLAUTH_DIGEST, $options->get(CURLOPT_HTTPAUTH));
-        $this->assertNull($options->get('curl.abc'));
-        $this->assertNull($options->get('curl.blacklist'));
+        $this->assertEquals('foo', $options->get('abc'));
+        $this->assertEquals('abc', $options->get('blacklist'));
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::prepareRequest
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setSslVerification
      */
-    public function testClientAddsCustomCurlOptionsToRequests()
+    public function testClientAllowsFineGrainedSslControlButIsSecureByDefault()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/', array(
-            'api' => 'v1',
-            'curl.debug' => true,
-            'curl.foo' => 'bar'
-        ));
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/');
 
-        $this->assertTrue($request->getCurlOptions()->get('debug'));
-        $this->assertEquals('bar', $request->getCurlOptions()->get('foo'));
+        // secure by default
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
+        $options = $request->getCurlOptions();
+        $this->assertTrue($options->get(CURLOPT_SSL_VERIFYPEER));
+
+        // set a capath if you prefer
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setSslVerification(__DIR__);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
+        $options = $request->getCurlOptions();
+        $this->assertSame(__DIR__, $options->get(CURLOPT_CAPATH));
+    }
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::__construct
+     */
+    public function testConfigSettingsControlSslConfiguration()
+    {
+        // Use the default ca certs on the system
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/', array('ssl.certificate_authority' => 'system'));
+        $this->assertNull($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('curl.options'));
+        // Can set the cacert value as well
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/', array('ssl.certificate_authority' => false));
+        $options = $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('curl.options');
+        $this->assertArrayNotHasKey(CURLOPT_CAINFO, $options);
+        $this->assertSame(false, $options[CURLOPT_SSL_VERIFYPEER]);
+        $this->assertSame(1, $options[CURLOPT_SSL_VERIFYHOST]);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setSslVerification
+     */
+    public function testClientAllowsUnsafeOperationIfRequested()
+    {
+        // be really unsafe if you insist
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/', array(
+            'api' => 'v1'
+        ));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setSslVerification(false);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
+        $options = $request->getCurlOptions();
+        $this->assertFalse($options->get(CURLOPT_SSL_VERIFYPEER));
+        $this->assertNull($options->get(CURLOPT_CAINFO));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setSslVerification
+     */
+    public function testClientAllowsSettingSpecificSslCaInfo()
+    {
+        // set a file other than the provided cacert.pem
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/', array(
+            'api' => 'v1'
+        ));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setSslVerification(__FILE__);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
+        $options = $request->getCurlOptions();
+        $this->assertSame(__FILE__, $options->get(CURLOPT_CAINFO));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setSslVerification
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     */
+    public function testClientPreventsInadvertentInsecureVerifyHostSetting()
+    {
+        // set a file other than the provided cacert.pem
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/', array(
+            'api' => 'v1'
+        ));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setSslVerification(__FILE__, true, true);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setSslVerification
+     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     */
+    public function testClientPreventsInvalidVerifyPeerSetting()
+    {
+        // set a file other than the provided cacert.pem
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/', array(
+            'api' => 'v1'
+        ));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setSslVerification(__FILE__, 'yes');
     }
 
     /**
@@ -200,8 +280,10 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.example.com', array(
             'api' => 'v1',
-            'params.foo' => 'bar',
-            'params.baz' => 'jar',
+            'request.params' => array(
+                'foo' => 'bar',
+                'baz' => 'jar'
+            )
         ));
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
         $this->assertEquals('bar', $request->getParams()->get('foo'));

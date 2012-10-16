@@ -9,10 +9,8 @@ abstract class AbstractCommandTest extends \/* Replaced /* Replaced /* Replaced 
 {
     protected function getClient()
     {
-        $service = ServiceDescription::factory(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'TestData' . DIRECTORY_SEPARATOR . 'test_service.xml');
-        $/* Replaced /* Replaced /* Replaced client */ */ */ =  new Client('http://www.google.com/');
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($service);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.google.com/');
 
-        return $/* Replaced /* Replaced /* Replaced client */ */ */;
+        return $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription(ServiceDescription::factory(__DIR__ . '/../../TestData/test_service.json'));
     }
 }

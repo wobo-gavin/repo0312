@@ -4,13 +4,12 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilderAbstractFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Service builder to generate service builders and service /* Replaced /* Replaced /* Replaced client */ */ */s from
- * configuration settings
+ * Service builder to generate service builders and service /* Replaced /* Replaced /* Replaced client */ */ */s from configuration settings
  */
 class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInterface, \ArrayAccess, \Serializable
 {
@@ -25,33 +24,35 @@ class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInte
     protected $/* Replaced /* Replaced /* Replaced client */ */ */s = array();
 
     /**
-     * @var ServiceBuilderAbstractFactory Cached instance of the abstract factory
+     * @var ServiceBuilderLoader Cached instance of the service builder loader
      */
     protected static $cachedFactory;
+
+    /**
+     * @var array Plugins to attach to each /* Replaced /* Replaced /* Replaced client */ */ */ created by the service builder
+     */
+    protected $plugins = array();
 
     /**
      * Create a new ServiceBuilder using configuration data sourced from an
      * array, .json|.js file, SimpleXMLElement, or .xml file.
      *
-     * @param array|string|\SimpleXMLElement $data An instantiated
-     *     SimpleXMLElement containing configuration data, the full path to an
-     *     .xml or .js|.json file, or an associative array of data
-     * @param array $globalParameters Array of global parameters to
-     *     pass to every service as it is instantiated.
+     * @param array|string $config           The full path to an .xml or .js|.json file, or an associative array
+     * @param array        $globalParameters Array of global parameters to pass to every service as it is instantiated.
      *
      * @return ServiceBuilderInterface
      * @throws ServiceBuilderException if a file cannot be opened
      * @throws ServiceNotFoundException when trying to extend a missing /* Replaced /* Replaced /* Replaced client */ */ */
      */
-    public static function factory($config = null, array $globalParameters = null)
+    public static function factory($config = null, array $globalParameters = array())
     {
         // @codeCoverageIgnoreStart
         if (!static::$cachedFactory) {
-            static::$cachedFactory = new ServiceBuilderAbstractFactory();
+            static::$cachedFactory = new ServiceBuilderLoader();
         }
         // @codeCoverageIgnoreEnd
 
-        return self::$cachedFactory->build($config, $globalParameters);
+        return self::$cachedFactory->load($config, $globalParameters);
     }
 
     /**
@@ -96,13 +97,21 @@ class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInte
     }
 
     /**
-     * Get a /* Replaced /* Replaced /* Replaced client */ */ */ using a registered builder
+     * Attach a plugin to every /* Replaced /* Replaced /* Replaced client */ */ */ created by the builder
      *
-     * @param string $name      Name of the registered /* Replaced /* Replaced /* Replaced client */ */ */ to retrieve
-     * @param bool   $throwAway Set to TRUE to not store the /* Replaced /* Replaced /* Replaced client */ */ */ for later retrieval from the ServiceBuilder
+     * @param EventSubscriberInterface $plugin Plugin to attach to each /* Replaced /* Replaced /* Replaced client */ */ */
      *
-     * @return ClientInterface
-     * @throws ServiceNotFoundException when a /* Replaced /* Replaced /* Replaced client */ */ */ cannot be found by name
+     * @return self
+     */
+    public function addGlobalPlugin(EventSubscriberInterface $plugin)
+    {
+        $this->plugins[] = $plugin;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function get($name, $throwAway = false)
     {
@@ -121,13 +130,15 @@ class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInte
             }
         }
 
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = call_user_func(
-            array($this->builderConfig[$name]['class'], 'factory'),
-            $this->builderConfig[$name]['params']
-        );
+        $class = $this->builderConfig[$name]['class'];
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $class::factory($this->builderConfig[$name]['params']);
 
         if (!$throwAway) {
             $this->/* Replaced /* Replaced /* Replaced client */ */ */s[$name] = $/* Replaced /* Replaced /* Replaced client */ */ */;
+        }
+
+        foreach ($this->plugins as $plugin) {
+            $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($plugin);
         }
 
         // Dispatch an event letting listeners know a /* Replaced /* Replaced /* Replaced client */ */ */ was created
@@ -139,12 +150,7 @@ class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInte
     }
 
     /**
-     * Register a /* Replaced /* Replaced /* Replaced client */ */ */ by name with the service builder
-     *
-     * @param string $name  Name of the /* Replaced /* Replaced /* Replaced client */ */ */ to register
-     * @param mixed  $value Service to register
-     *
-     * @return ServiceBuilderInterface
+     * {@inheritdoc}
      */
     public function set($key, $service)
     {

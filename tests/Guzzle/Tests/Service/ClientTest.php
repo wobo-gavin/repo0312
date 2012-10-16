@@ -2,10 +2,10 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inflection\Inflector;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\Inflector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\MockPlugin;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ApiCommand;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
@@ -22,7 +22,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     public function setUp()
     {
         $this->serviceTest = new ServiceDescription(array(
-            'test_command' => new ApiCommand(array(
+            'test_command' => new Operation(array(
                 'doc' => 'documentationForCommand',
                 'method' => 'DELETE',
                 'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests\\Service\\Mock\\Command\\MockCommand',
@@ -37,7 +37,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
             ))
         ));
 
-        $this->service = ServiceDescription::factory(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'TestData' . DIRECTORY_SEPARATOR . 'test_service.xml');
+        $this->service = ServiceDescription::factory(__DIR__ . '/../TestData/test_service.json');
     }
 
     /**
@@ -210,7 +210,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__call
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setMagicCallBehavior
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::enableMagicMethods
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage Command was not found matching foo
      */
@@ -218,19 +218,8 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setMagicCallBehavior(Client::MAGIC_CALL_RETURN);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->enableMagicMethods(true);
         $/* Replaced /* Replaced /* Replaced client */ */ */->foo();
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__call
-     */
-    public function testMagicCallBehaviorReturnReturnsCommands()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setMagicCallBehavior(Client::MAGIC_CALL_RETURN);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand', $/* Replaced /* Replaced /* Replaced client */ */ */->mockCommand());
     }
 
     /**
@@ -239,10 +228,12 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     public function testMagicCallBehaviorExecuteExecutesCommands()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setMagicCallBehavior(Client::MAGIC_CALL_EXECUTE);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->enableMagicMethods(true);
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(new Response(200))));
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response', $/* Replaced /* Replaced /* Replaced client */ */ */->mockCommand());
+        $cmd = $/* Replaced /* Replaced /* Replaced client */ */ */->mockCommand();
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand', $cmd);
+        $this->assertFalse($cmd->isExecuted());
     }
 
     /**
@@ -355,10 +346,45 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     public function testClientHoldsInflector()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Inflection\MemoizingInflector', $/* Replaced /* Replaced /* Replaced client */ */ */->getInflector());
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\MemoizingInflector', $/* Replaced /* Replaced /* Replaced client */ */ */->getInflector());
 
         $inflector = new Inflector();
         $/* Replaced /* Replaced /* Replaced client */ */ */->setInflector($inflector);
         $this->assertSame($inflector, $/* Replaced /* Replaced /* Replaced client */ */ */->getInflector());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommand
+     */
+    public function testClientAddsGlobalCommandOptions()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient('http://www.foo.com', array(
+            Client::COMMAND_PARAMS => array(
+                'mesa' => 'bar'
+            )
+        ));
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('mock_command');
+        $this->assertEquals('bar', $command->get('mesa'));
+    }
+
+    public function testSupportsServiceDescriptionBaseUrls()
+    {
+        $description = new ServiceDescription(array('baseUrl' => 'http://foo.com'));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description);
+        $this->assertEquals('http://foo.com', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
+    }
+
+    public function testMergesDefaultCommandParamsCorrectly()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient('http://www.foo.com', array(
+            Client::COMMAND_PARAMS => array(
+                'mesa' => 'bar',
+                'jar'  => 'jar'
+            )
+        ));
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('mock_command', array('jar' => 'test'));
+        $this->assertEquals('bar', $command->get('mesa'));
+        $this->assertEquals('test', $command->get('jar'));
     }
 }

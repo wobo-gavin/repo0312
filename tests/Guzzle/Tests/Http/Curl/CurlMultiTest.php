@@ -5,14 +5,12 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Curl;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection;;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Log\ClosureLogAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\LogPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\MockMulti;
 
 /**
@@ -22,12 +20,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\MockMulti;
 class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
-     * @var /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti
+     * @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti
      */
     private $multi;
 
     /**
-     * @var /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection
+     * @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection
      */
     private $updates;
 
@@ -94,7 +92,6 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
         $this->assertTrue($mock->has(CurlMulti::ADD_REQUEST));
         $this->assertFalse($mock->has(CurlMulti::REMOVE_REQUEST));
-        $this->assertFalse($mock->has(CurlMulti::POLLING));
         $this->assertFalse($mock->has(CurlMulti::COMPLETE));
     }
 
@@ -285,7 +282,6 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $this->multi->add($request);
         $this->multi->send();
         $this->assertTrue($this->mock->has(CurlMulti::ADD_REQUEST));
-        $this->assertTrue($this->mock->has(CurlMulti::POLLING) === false);
         $this->assertTrue($this->mock->has(CurlMulti::COMPLETE) !== false);
     }
 
@@ -532,12 +528,9 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
         ));
 
+        $stream = fopen('php://temp', 'w+');
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $message = '';
-        $plugin = new LogPlugin(new ClosureLogAdapter(function($msg) use (&$message) {
-            $message .= $msg . "\n";
-        }), LogPlugin::LOG_VERBOSE);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->set('curl.CURLOPT_VERBOSE', true)->set('curl.CURLOPT_STDERR', $stream);
 
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
         $multi = new CurlMulti();
@@ -547,7 +540,8 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $multi->add($request);
         $multi->send();
 
-        $this->assertNotContains('Re-using existing connection', $message);
+        rewind($stream);
+        $this->assertNotContains('Re-using existing connection', stream_get_contents($stream));
     }
 
     /**
