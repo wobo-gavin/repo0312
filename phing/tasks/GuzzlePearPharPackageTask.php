@@ -83,9 +83,9 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask ext
             $this->log('building single PEAR package');
             $this->buildSinglePackage();
         } else {
-            $this->log("building PEAR subpackages");
-            $this->createSubPackages();
-            $this->log("building PEAR bundle package");
+            // $this->log("building PEAR subpackages");
+            // $this->createSubPackages();
+            // $this->log("building PEAR bundle package");
             $this->buildSinglePackage();
         }
 
