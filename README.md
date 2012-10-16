@@ -192,31 +192,3 @@ $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get(array('/{?a
 
 The resulting URL would become ``http://test.com?a=hi&b=there``
 
-Unit testing
-------------
-
-[![Build Status](https://secure.travis-ci.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.png?branch=master)](http://travis-ci.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */)
-
-You will first need to clone the GitHub repository:
-
-```
-git clone git@github.com:/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.git
-cd /* Replaced /* Replaced /* Replaced guzzle */ */ */
-```
-
-Next you will need to make sure PHPUnit is configured, Composer is installed, and you have installed /* Replaced /* Replaced /* Replaced Guzzle */ */ */'s
-testing dependencies.  This can be achieved using the `test-init` Phing task.  After running this task, run `phpunit`.
-
-```
-phing test-init
-phpunit
-```
-
-If you do not have Phing installed, you will need to perform the installation steps manually:
-
-```
-curl -s http://getcomposer.org/installer | php
-php composer.phar install --dev
-cp phpunit.xml.dist phpunit.xml
-phpunit
-```
