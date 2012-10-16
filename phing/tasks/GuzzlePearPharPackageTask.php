@@ -72,7 +72,7 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask ext
         if (!is_dir($pearwork)) {
             mkdir($pearwork, 0777, true);
         }
-        $pearlogs = (string) $this->basedir . '/build/logs';
+        $pearlogs = (string) $this->basedir . '/build/artifacts/logs';
         if (!is_dir($pearlogs)) {
             mkdir($pearlogs, 0777, true);
         }
@@ -164,12 +164,12 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask ext
         $pfm->setPhpDep($phpdep);
         $pfm->addExtensionDep('required', 'curl');
         $pfm->setPearinstallerDep('1.4.6');
-        $pfm->addPackageDepWithChannel('required', 'EventDispatcher', 'symfony2', '2.1.0');
+        $pfm->addPackageDepWithChannel('required', 'EventDispatcher', 'pear.symfony.com', '2.1.0');
         if (!empty($this->subpackages)) {
             foreach ($this->subpackages as $package) {
                 $pkg = dirname($package);
                 $pkg = str_replace('/', '_', $pkg);
-                $pfm->addConflictingPackageDepWithChannel($pkg, '/* Replaced /* Replaced /* Replaced guzzle */ */ */', false, $apiversion);
+                $pfm->addConflictingPackageDepWithChannel($pkg, '/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/pear', false, $apiversion);
             }
         }
 
@@ -186,16 +186,16 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask ext
             // load up package file and build package
             $packager = new PEAR_Packager();
             echo "\n\n\nBUILDING PACKAGE FROM PACKAGE FILE:\n";
-            $dest_package = $packager->package($opts['packagedirectory'].'/package.xml');
+            $dest_package = $packager->package($opts['packagedirectory'].'package.xml');
             var_dump($dest_package);
         } else {
             echo "\n\n\nDEBUGGING RESULT:\n";
             var_dump($result);
         }
         echo "removing package.xml";
-        unlink($opts['packagedirectory'].'/package.xml');
+        unlink($opts['packagedirectory'].'package.xml');
         $log = ob_get_clean();
-        file_put_contents((string) $this->basedir . '/build/logs/pear_package.log', $log);
+        file_put_contents((string) $this->basedir . '/build/artifacts/logs/pear_package.log', $log);
         chdir($startdir);
     }
 
@@ -252,7 +252,7 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask ext
                 continue;
             }
             if ($type == 'symfony/event-dispatcher') {
-                $pfm->addPackageDepWithChannel('required', 'EventDispatcher', 'symfony2', '2.1.0');
+                $pfm->addPackageDepWithChannel('required', 'EventDispatcher', 'pear.symfony.com', '2.1.0');
             }
             if ($type == 'ext-curl') {
                 $pfm->addExtensionDep('required', 'curl');
@@ -261,12 +261,12 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask ext
                 $gdep = str_replace('/', ' ', $type);
                 $gdep = ucwords($gdep);
                 $gdep = str_replace(' ', '_', $gdep);
-                $pfm->addPackageDepWithChannel('required', $gdep, '/* Replaced /* Replaced /* Replaced guzzle */ */ */', $this->getVersion());
+                $pfm->addPackageDepWithChannel('required', $gdep, '/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/pear', $this->getVersion());
             }
         }
 
         // can't have main /* Replaced /* Replaced /* Replaced Guzzle */ */ */ package AND sub-packages
-        $pfm->addConflictingPackageDepWithChannel('/* Replaced /* Replaced /* Replaced Guzzle */ */ */', '/* Replaced /* Replaced /* Replaced guzzle */ */ */', false, $apiversion);
+        $pfm->addConflictingPackageDepWithChannel('/* Replaced /* Replaced /* Replaced Guzzle */ */ */', '/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/pear', false, $apiversion);
 
         ob_start();
         $startdir = getcwd();
@@ -290,7 +290,7 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask ext
         echo "removing package.xml";
         unlink($opts['packagedirectory'].'/package.xml');
         $log = ob_get_clean();
-        file_put_contents((string) $this->basedir . '/build/logs/pear_package_'.$package.'.log', $log);
+        file_put_contents((string) $this->basedir . '/build/artifacts/logs/pear_package_'.$package.'.log', $log);
         chdir($startdir);
     }
 
