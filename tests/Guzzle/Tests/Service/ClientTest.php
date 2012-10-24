@@ -55,6 +55,14 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::factory
+     */
+    public function testFactoryDoesNotRequireBaseUrl()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = Client::factory();
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getAllEvents
      */
     public function testDescribesEvents()
