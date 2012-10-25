@@ -210,9 +210,10 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__call
      * @expectedException BadMethodCallException
      */
-    public function testMagicCallBehaviorIsDisabledByDefault()
+    public function testMagicCallBehaviorCanBeDisabled()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->enableMagicMethods(false);
         $/* Replaced /* Replaced /* Replaced client */ */ */->foo();
     }
 
@@ -236,12 +237,10 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     public function testMagicCallBehaviorExecuteExecutesCommands()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->enableMagicMethods(true);
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(new Response(200))));
-        $cmd = $/* Replaced /* Replaced /* Replaced client */ */ */->mockCommand();
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand', $cmd);
-        $this->assertFalse($cmd->isExecuted());
+        $result = $/* Replaced /* Replaced /* Replaced client */ */ */->mockCommand();
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response', $result);
     }
 
     /**
