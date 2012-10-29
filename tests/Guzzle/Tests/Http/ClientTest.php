@@ -44,9 +44,9 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         )));
         $this->assertEquals(array('test' => '123'), $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->getAll());
         $this->assertEquals('123', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('test'));
-        $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $/* Replaced /* Replaced /* Replaced client */ */ */->setBaseUrl('http://www.test.com/{{test}}'));
+        $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $/* Replaced /* Replaced /* Replaced client */ */ */->setBaseUrl('http://www.test.com/{test}'));
         $this->assertEquals('http://www.test.com/123', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
-        $this->assertEquals('http://www.test.com/{{test}}', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl(false));
+        $this->assertEquals('http://www.test.com/{test}', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl(false));
 
         try {
             $/* Replaced /* Replaced /* Replaced client */ */ */->setConfig(false);
@@ -98,7 +98,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
             'key' => 'value',
             'foo' => 'bar'
         ));
-        $this->assertEquals('Testing...api/v1/key/value', $/* Replaced /* Replaced /* Replaced client */ */ */->expandTemplate('Testing...api/{api}/key/{{key}}'));
+        $this->assertEquals('Testing...api/v1/key/value', $/* Replaced /* Replaced /* Replaced client */ */ */->expandTemplate('Testing...api/{api}/key/{key}'));
 
         // Make sure that the /* Replaced /* Replaced /* Replaced client */ */ */ properly validates and injects config
         $this->assertEquals('bar', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('foo'));
@@ -129,7 +129,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
      */
     public function testClientReturnsValidBaseUrls()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.{{foo}}.{{data}}/', array(
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.{foo}.{data}/', array(
             'data' => '123',
             'foo' => 'bar'
         ));
@@ -321,9 +321,9 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
      */
     public function testAllowsConfigsToBeChangedAndInjectedInBaseUrl()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://{{a}}/{{b}}');
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://{a}/{b}');
         $this->assertEquals('http:///', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
-        $this->assertEquals('http://{{a}}/{{b}}', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl(false));
+        $this->assertEquals('http://{a}/{b}', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl(false));
         $/* Replaced /* Replaced /* Replaced client */ */ */->setConfig(array(
             'a' => 'test.com',
             'b' => 'index.html'
@@ -359,7 +359,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
         // Create a PUT request with injected config
         $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->set('a', 1)->set('b', 2);
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('PUT', '/path/{{a}}?q={{b}}');
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('PUT', '/path/{a}?q={b}');
         $this->assertEquals($request->getUrl(), $this->getServer()->getUrl() . 'path/1?q=2');
     }
 
@@ -398,7 +398,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/api/v1', array(
             'test' => '123'
         ));
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('relative/{{test}}');
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('relative/{test}');
         $this->assertEquals('http://www.test.com/api/v1/relative/123', $request->getUrl());
     }
 

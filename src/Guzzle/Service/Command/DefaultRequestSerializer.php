@@ -95,7 +95,7 @@ class DefaultRequestSerializer implements RequestSerializerInterface
             }
             // Merge the /* Replaced /* Replaced /* Replaced client */ */ */'s base URL with an expanded URI template
             $url = (string) Url::factory($/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl())
-                ->combine(ParserRegistry::get('uri_template')->expand($uri, $variables));
+                ->combine(ParserRegistry::getInstance()->getParser('uri_template')->expand($uri, $variables));
         }
 
         // Inject path and base_url values into the URL

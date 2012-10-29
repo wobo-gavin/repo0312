@@ -190,7 +190,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             'a' => array(
                 'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient',
                 'params' => array(
-                    'other_/* Replaced /* Replaced /* Replaced client */ */ */' => '{{ b }}',
+                    'other_/* Replaced /* Replaced /* Replaced client */ */ */' => '{b}',
                     'username'     => 'x',
                     'password'     => 'y',
                     'subdomain'    => 'z'
