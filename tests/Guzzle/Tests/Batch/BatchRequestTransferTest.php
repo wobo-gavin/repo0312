@@ -41,7 +41,7 @@ class BatchRequestTransferTest extends \/* Replaced /* Replaced /* Replaced Guzz
     }
 
     /**
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      */
     public function testEnsuresAllItemsAreRequests()
     {
@@ -55,6 +55,10 @@ class BatchRequestTransferTest extends \/* Replaced /* Replaced /* Replaced Guzz
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://localhost:123');
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
+        // For some reason... PHP unit clones the request, which emits a request.clone event. This causes the
+        // 'sorted' property of the event dispatcher to contain an array in the cloned request that is not present in
+        // the original.
+        $request->dispatch('request.clone');
 
         $multi = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiInterface');
         $/* Replaced /* Replaced /* Replaced client */ */ */->setCurlMulti($multi);
