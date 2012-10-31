@@ -28,6 +28,8 @@
                 <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/Exception/HttpException.php</file>
                 <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/Exception/ServerErrorResponseException.php</file>
                 <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/Exception/ClientErrorResponseException.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/Exception/TooManyRedirectsException.php</file>
+                <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/Exception/CouldNotRewindStreamException.php</file>
                 <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common/Exception/BadMethodCallException.php</file>
                 <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common/Exception/InvalidArgumentException.php</file>
                 <file>./src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Common/Exception/RuntimeException.php</file>
