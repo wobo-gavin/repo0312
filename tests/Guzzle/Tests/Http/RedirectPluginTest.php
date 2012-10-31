@@ -153,4 +153,14 @@ class RedirectPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $body->read(1);
         $request->setBody($body)->send();
     }
+
+    public function testRedirectsCanBeDisabledPerRequest()
+    {
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array("HTTP/1.1 301 Foo\r\nLocation: /foo\r\nContent-Length: 0\r\n\r\n"));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put();
+        $request->getParams()->set(RedirectPlugin::DISABLE, true);
+        $this->assertEquals(301, $request->send()->getStatusCode());
+    }
 }

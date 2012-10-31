@@ -12,7 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\RedirectPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException;
 
 /**
@@ -831,5 +831,18 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
         $this->assertEquals(2, count($this->getServer()->getReceivedRequests()));
         $this->assertEquals(200, $request->getResponse()->getStatusCode());
         $this->assertEquals(303, $request->getResponse()->getPreviousResponse()->getStatusCode());
+    }
+
+    public function testUnresolvedRedirectsReturnResponse()
+    {
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 303 SEE OTHER\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 301 Foo\r\nLocation: /foo\r\nContent-Length: 0\r\n\r\n"
+        ));
+        $request = $this->request;
+        $this->assertEquals(303, $request->send()->getStatusCode());
+        $request->getParams()->set(RedirectPlugin::DISABLE, true);
+        $this->assertEquals(301, $request->send()->getStatusCode());
     }
 }
