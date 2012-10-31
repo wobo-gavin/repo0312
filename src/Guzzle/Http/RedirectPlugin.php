@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequestInterface;
@@ -108,7 +109,15 @@ class RedirectPlugin implements EventSubscriberInterface
             $redirectRequest = clone $request;
         }
 
-        $redirectRequest->setUrl($redirectRequest->getUrl(true)->combine($location));
+        $location = Url::factory($location);
+        // If the location is not absolute, then combine it with the original URL
+        if (!$location->isAbsolute()) {
+            $originalUrl = $redirectRequest->getUrl(true);
+            $originalUrl->getQuery()->clear();
+            $location = $originalUrl->combine((string) $location);
+        }
+
+        $redirectRequest->setUrl($location);
         $redirectRequest->getParams()->set(self::PARENT_REQUEST, $request);
 
         // Rewind the entity body of the request if needed

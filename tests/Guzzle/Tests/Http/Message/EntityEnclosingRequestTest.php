@@ -502,12 +502,22 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::enableStrictRedirects
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::configureRedirects
      */
     public function testStrictRedirectsCanBeSpecifiedOnEntityEnclosingRequests()
     {
         $request = new EntityEnclosingRequest('PUT', 'http://test.com/');
-        $request->enableStrictRedirects(true);
+        $request->configureRedirects(true);
         $this->assertTrue($request->getParams()->get(RedirectPlugin::STRICT_REDIRECTS));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::configureRedirects
+     */
+    public function testCanDisableRedirects()
+    {
+        $request = new EntityEnclosingRequest('PUT', 'http://test.com/');
+        $request->configureRedirects(false, false);
+        $this->assertTrue($request->getParams()->get(RedirectPlugin::DISABLE));
     }
 }
