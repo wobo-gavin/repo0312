@@ -187,4 +187,15 @@ class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertSame(ftell($handle), $stream->ftell());
         $this->assertEquals(2, $stream->ftell());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::rewind
+     */
+    public function testRewindIsSeekZero()
+    {
+        $stream = new Stream(fopen('php://temp', 'w+'));
+        $stream->write('foobazbar');
+        $this->assertTrue($stream->rewind());
+        $this->assertEquals('foobazbar', $stream->read(9));
+    }
 }

@@ -12,7 +12,7 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
 {
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      */
     public function testFactoryThrowsException()
     {
@@ -189,5 +189,32 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     {
         $body = EntityBody::factory(array('key1' => 'val1', 'key2' => 'val2'));
         $this->assertEquals('key1=val1&key2=val2', (string)$body);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::setRewindFunction
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::rewind
+     */
+    public function testAllowsCustomRewind()
+    {
+        $body = EntityBody::factory('foo');
+        $rewound = false;
+        $body->setRewindFunction(function ($body) use (&$rewound) {
+            $rewound = true;
+            return $body->seek(0);
+        });
+        $body->seek(2);
+        $this->assertTrue($body->rewind());
+        $this->assertTrue($rewound);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::setRewindFunction
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     */
+    public function testCustomRewindFunctionMustBeCallable()
+    {
+        $body = EntityBody::factory();
+        $body->setRewindFunction('foo');
     }
 }

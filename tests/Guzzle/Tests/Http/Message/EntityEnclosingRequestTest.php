@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\RedirectPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
@@ -499,5 +499,15 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
         // The size is greater than the cutoff
         $request->setBody('foobazbarbamboo');
         $this->assertNotNull($request->getHeader('Expect'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::enableStrictRedirects
+     */
+    public function testStrictRedirectsCanBeSpecifiedOnEntityEnclosingRequests()
+    {
+        $request = new EntityEnclosingRequest('PUT', 'http://test.com/');
+        $request->enableStrictRedirects(true);
+        $this->assertTrue($request->getParams()->get(RedirectPlugin::STRICT_REDIRECTS));
     }
 }

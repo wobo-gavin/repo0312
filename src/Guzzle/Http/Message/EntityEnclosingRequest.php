@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBodyInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\RedirectPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 
 /**
@@ -133,6 +134,16 @@ class EntityEnclosingRequest extends Request implements EntityEnclosingRequestIn
         } elseif ($this->body && $this->body->getSize() && $this->body->getSize() > $size) {
             $this->setHeader('Expect', '100-Continue');
         }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function enableStrictRedirects($strict)
+    {
+        $this->getParams()->set(RedirectPlugin::STRICT_REDIRECTS, $strict);
 
         return $this;
     }
