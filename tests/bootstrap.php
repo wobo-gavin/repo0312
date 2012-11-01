@@ -16,7 +16,7 @@ if (get_cfg_var('/* Replaced /* Replaced /* Replaced guzzle */ */ */_phar')) {
 }
 
 // Include the composer autoloader
-$autoloader = require_once dirname(__DIR__) . '/vendor/autoload.php';
+$autoloader = require dirname(__DIR__) . '/vendor/autoload.php';
 
 // Add the services file to the default service builder
 $servicesFile = __DIR__ . '//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Tests/TestData/services/services.json';
