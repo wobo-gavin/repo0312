@@ -2,10 +2,12 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ToArrayInterface;
+
 /**
  * Set-Cookie object
  */
-class Cookie
+class Cookie implements ToArrayInterface
 {
     /**
      * @var array Cookie data

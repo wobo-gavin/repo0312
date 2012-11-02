@@ -3,19 +3,13 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ToArrayInterface;
 
 /**
  * Iterates over a paginated resource using subsequent requests in order to retrieve the entire matching result set
  */
-interface ResourceIteratorInterface extends HasDispatcherInterface, \Iterator, \Countable
+interface ResourceIteratorInterface extends ToArrayInterface, HasDispatcherInterface, \Iterator, \Countable
 {
-    /**
-     * Get all of the resources as an array (Warning: this could issue a large number of requests)
-     *
-     * @return array
-     */
-    public function toArray();
-
     /**
      * Retrieve the NextToken that can be used in other iterators.
      *
