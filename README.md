@@ -197,6 +197,6 @@ Unit testing
 
 [![Build Status](https://secure.travis-ci.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.png?branch=master)](http://travis-ci.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */)
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ uses PHPUnit for unit testing. In order to run the unit tests, you'll firt need
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ uses PHPUnit for unit testing. In order to run the unit tests, you'll first need
 to install the dependencies of the project using Composer: `php composer.phar install --dev`.
 You can then run the tests using `vendor/bin/phpunit` or `phing test` (if you have phing installed).
