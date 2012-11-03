@@ -190,7 +190,7 @@ $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get(array('/{?a
 ));
 ```
 
-The resulting URL would become ``http://test.com?a=hi&b=there``
+The resulting URL would become ``http://test.com/?a=hi&b=there``
 
 Unit testing
 ------------
