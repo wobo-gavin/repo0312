@@ -545,6 +545,9 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
         $this->assertEquals(array(
             'baz' => 'boo'
         ), $this->request->getCookies());
+
+        $this->request->addCookie('foo', 'bar');
+        $this->assertEquals('baz=boo; foo=bar', (string) $this->request->getHeader('Cookie'));
     }
 
     /**
