@@ -153,6 +153,7 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::getContentMd5
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::calculateMd5
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::getHash
      */
     public function testCreatesMd5Checksum()
     {
@@ -172,6 +173,7 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::getContentMd5
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::calculateMd5
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::getHash
      */
     public function testSeeksToOriginalPosAfterMd5()
     {
