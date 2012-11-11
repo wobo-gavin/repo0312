@@ -163,7 +163,7 @@ class CommandTest extends AbstractCommandTest
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand::process
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\JsonException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException
      */
     public function testConvertsInvalidJsonResponsesToArray()
     {

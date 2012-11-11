@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\JsonException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
 
 /**
  * Abstract config loader
@@ -93,7 +93,7 @@ abstract class AbstractConfigLoader implements ConfigLoaderInterface
             $config = json_decode(file_get_contents($filename), true);
             // Throw an exception if there was an error loading the file
             if ($error = json_last_error()) {
-                throw new JsonException("Error loading JSON data from {$filename}: {$error}");
+                throw new RuntimeException("Error loading JSON data from {$filename}: {$error}");
             }
         } elseif ($ext == 'php') {
             $config = require $filename;
