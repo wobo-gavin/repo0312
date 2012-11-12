@@ -76,6 +76,8 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $response = new Response(200, null, EntityBody::factory('data'));
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\EntityBody', $response->getBody());
         $this->assertEquals('data', $response->getBody(true));
+        $response = new Response(200, null, '0');
+        $this->assertSame('0', $response->getBody(true), 'getBody(true) should return "0" if response body is "0".');
 
         // Make sure the proper exception is thrown
         try {
