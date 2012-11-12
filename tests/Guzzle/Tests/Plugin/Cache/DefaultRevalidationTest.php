@@ -9,7 +9,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CachePlugin;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultRevalidation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CallbackCacheKeyProvider;
 use Doctrine\Common\Cache\ArrayCache;
@@ -131,6 +130,7 @@ class DefaultRevalidationTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         $badRequest = clone $request;
         $badRequest->setResponse($badResponse, true);
         $response = new Response(200, array(), 'foo');
+        $plugin = new CachePlugin();
 
         $c = new ArrayCache();
         $c->save('foo', array(200, array(), 'foo'));
@@ -138,7 +138,7 @@ class DefaultRevalidationTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         $k = new CallbackCacheKeyProvider(function () { return 'foo'; });
 
         $rev = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultRevalidation')
-            ->setConstructorArgs(array($k, $s))
+            ->setConstructorArgs(array($k, $s, $plugin))
             ->setMethods(array('createRevalidationRequest'))
             ->getMock();
 
@@ -153,5 +153,33 @@ class DefaultRevalidationTest extends \/* Replaced /* Replaced /* Replaced Guzzl
             $this->assertSame($badResponse, $e->getResponse());
             $this->assertFalse($c->fetch('foo'));
         }
+    }
+
+    public function testCanRevalidateWithPlugin()
+    {
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 200 OK\r\n" .
+            "Date: Mon, 12 Nov 2012 03:06:37 GMT\r\n" .
+            "Cache-Control: private, s-maxage=0, max-age=0, must-revalidate\r\n" .
+            "Last-Modified: Mon, 12 Nov 2012 02:53:38 GMT\r\n" .
+            "Content-Length: 2\r\n\r\nhi",
+            "HTTP/1.0 304 Not Modified\r\n" .
+            "Date: Mon, 12 Nov 2012 03:06:38 GMT\r\n" .
+            "Content-Type: text/html; charset=UTF-8\r\n" .
+            "Last-Modified: Mon, 12 Nov 2012 02:53:38 GMT\r\n" .
+            "Age: 6302\r\n\r\n",
+            "HTTP/1.0 304 Not Modified\r\n" .
+            "Date: Mon, 12 Nov 2012 03:06:38 GMT\r\n" .
+            "Content-Type: text/html; charset=UTF-8\r\n" .
+            "Last-Modified: Mon, 12 Nov 2012 02:53:38 GMT\r\n" .
+            "Age: 6302\r\n\r\n",
+        ));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber(new CachePlugin());
+        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send()->getStatusCode());
+        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send()->getStatusCode());
+        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send()->getStatusCode());
+        $this->assertEquals(3, count($this->getServer()->getReceivedRequests()));
     }
 }
