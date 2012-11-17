@@ -279,4 +279,13 @@ class QueryStringTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         ));
         $this->assertEquals('?foo=0&baz=0&bar=&boo=', (string) $query);
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString::fromString
+     */
+    public function testFromStringDoesntStripTrailingEquals()
+    {
+        $query = QueryString::fromString('data=mF0b3IiLCJUZWFtIERldiJdfX0=');
+        $this->assertEquals('mF0b3IiLCJUZWFtIERldiJdfX0=', $query->get('data'));
+    }
 }
