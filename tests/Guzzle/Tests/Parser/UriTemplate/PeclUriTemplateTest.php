@@ -9,6 +9,16 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\UriTemplate\PeclU
  */
 class PeclUriTemplateTest extends AbstractUriTemplateTest
 {
+    public function setUp()
+    {
+        if (!extension_loaded('uri_template')) {
+            $this->markTestSkipped(
+                'The PECL uri_template extension is not loaded.'
+            );
+        }
+
+        parent::setUp();
+    }
     /**
      * @dataProvider templateProvider
      */
