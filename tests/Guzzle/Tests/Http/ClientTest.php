@@ -105,6 +105,16 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     */
+    public function testValidatesArrayForTemplateIsValid()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.google.com/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', array('foo' => 'bar', 'baz' => 'bam'));
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::__construct
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
      */
