@@ -13,6 +13,7 @@
     ],
     "require": {
         "php": ">=5.3.2",
+        "ext-curl": "*",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//common": "self.version",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//parser": "self.version",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//stream": "self.version"
