@@ -195,6 +195,8 @@ class OperationTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $this->assertEquals(1, count($arr['errorResponses']));
         $command->addErrorResponse(400, 'Foo', 'Baz\\Bar');
         $this->assertEquals(2, count($command->getErrorResponses()));
+        $command->setErrorResponses(array());
+        $this->assertEquals(0, count($command->getErrorResponses()));
     }
 
     public function testHasNotes()
