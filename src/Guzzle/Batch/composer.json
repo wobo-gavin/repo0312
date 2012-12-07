@@ -22,5 +22,10 @@
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//http": "self.version",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//service": "self.version"
     },
-    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Batch"
+    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Batch",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
+        }
+    }
 }

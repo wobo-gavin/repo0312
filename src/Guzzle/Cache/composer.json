@@ -18,5 +18,10 @@
     "autoload": {
         "psr-0": { "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Cache": "" }
     },
-    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Cache"
+    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Cache",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
+        }
+    }
 }
