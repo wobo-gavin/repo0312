@@ -20,5 +20,10 @@
     "suggest": {
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//http": "self.version"
     },
-    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Log"
+    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Log",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
+        }
+    }
 }

@@ -34,5 +34,10 @@
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-md5": "self.version",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-mock": "self.version",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-oauth": "self.version"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
+        }
     }
 }

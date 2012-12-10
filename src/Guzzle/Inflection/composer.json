@@ -17,5 +17,10 @@
     "autoload": {
         "psr-0": { "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Inflection": "" }
     },
-    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Inflection"
+    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Inflection",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
+        }
+    }
 }
