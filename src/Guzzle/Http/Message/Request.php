@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException;
@@ -542,9 +543,16 @@ class Request extends AbstractMessage implements RequestInterface
     /**
      * {@inheritdoc}
      */
-    public function setResponseBody(EntityBodyInterface $body)
+    public function setResponseBody($body)
     {
-        $this->responseBody = $body;
+        // Attempt to open a file for writing if a string was passed
+        if (is_string($body)) {
+            if (!($body = fopen($body, 'w+'))) {
+                throw new InvalidArgumentException('Could not open ' . $body . ' for writing');
+            }
+        }
+
+        $this->responseBody = EntityBody::factory($body);
 
         return $this;
     }
