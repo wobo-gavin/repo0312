@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\ParserRegistry;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\RequestVisitorInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\BodyVisitor;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\ResponseBodyVisitor;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\HeaderVisitor;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\JsonVisitor;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\QueryVisitor;
@@ -38,13 +39,14 @@ class DefaultRequestSerializer implements RequestSerializerInterface
     {
         if (!self::$instance) {
             self::$instance = new self(array(
-                'header'    => new HeaderVisitor(),
-                'query'     => new QueryVisitor(),
-                'body'      => new BodyVisitor(),
-                'json'      => new JsonVisitor(),
-                'postFile'  => new PostFileVisitor(),
-                'postField' => new PostFieldVisitor(),
-                'xml'       => new XmlVisitor(),
+                'header'        => new HeaderVisitor(),
+                'query'         => new QueryVisitor(),
+                'body'          => new BodyVisitor(),
+                'json'          => new JsonVisitor(),
+                'postFile'      => new PostFileVisitor(),
+                'postField'     => new PostFieldVisitor(),
+                'xml'           => new XmlVisitor(),
+                'response_body' => new ResponseBodyVisitor()
             ));
         }
 
