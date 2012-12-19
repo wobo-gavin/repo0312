@@ -7,6 +7,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common;
  */
 class Version
 {
-    const VERSION = '3.0.6';
+    const VERSION = '3.0.7';
 }
 
