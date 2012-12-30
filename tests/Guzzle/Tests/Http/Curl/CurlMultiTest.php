@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Curl;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection;;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\MultiTransferException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
@@ -188,6 +188,7 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti::send
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\MultiTransferException
      */
     public function testSendsThroughCurlAndAggregatesRequestExceptions()
     {
@@ -218,8 +219,8 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
         try {
             $this->multi->send();
-            $this->fail('ExceptionCollection not thrown when aggregating request exceptions');
-        } catch (ExceptionCollection $e) {
+            $this->fail('MultiTransferException not thrown when aggregating request exceptions');
+        } catch (MultiTransferException $e) {
 
             $this->assertInstanceOf('ArrayIterator', $e->getIterator());
             $this->assertEquals(1, count($e));
@@ -243,12 +244,17 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
             foreach ($e as $except) {
                 $this->assertEquals($failed, $except->getResponse());
             }
+
+            $this->assertEquals(1, count($e->getFailedRequests()));
+            $this->assertEquals(2, count($e->getSuccessfulRequests()));
+            $this->assertEquals(3, count($e->getAllRequests()));
         }
     }
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti::send
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti::processResponse
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlException
      */
     public function testCurlErrorsAreCaught()
     {
