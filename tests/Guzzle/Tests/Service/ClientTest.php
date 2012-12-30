@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandTransferException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIteratorClassFactory;
@@ -393,5 +394,41 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('mock_command', array('jar' => 'test'));
         $this->assertEquals('bar', $command->get('mesa'));
         $this->assertEquals('test', $command->get('jar'));
+    }
+
+    /**
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException
+     */
+    public function testWrapsSingleCommandExceptions()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient('http://foobaz.com');
+        $mock = new MockPlugin(array(new Response(401)));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->execute(new MockCommand());
+    }
+
+    public function testWrapsMultipleCommandExceptions()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient('http://foobaz.com');
+        $mock = new MockPlugin(array(new Response(200), new Response(200), new Response(404), new Response(500)));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($mock);
+
+        $cmds = array(new MockCommand(), new MockCommand(), new MockCommand(), new MockCommand());
+        try {
+            $/* Replaced /* Replaced /* Replaced client */ */ */->execute($cmds);
+        } catch (CommandTransferException $e) {
+            $this->assertEquals(2, count($e->getFailedRequests()));
+            $this->assertEquals(2, count($e->getFailedCommands()));
+            $this->assertEquals(2, count($e->getSuccessfulRequests()));
+            $this->assertEquals(2, count($e->getSuccessfulCommands()));
+
+            foreach ($e->getSuccessfulCommands() as $c) {
+                $this->assertTrue($c->getResponse()->isSuccessful());
+            }
+
+            foreach ($e->getFailedCommands() as $c) {
+                $this->assertFalse($c->getRequest()->getResponse()->isSuccessful());
+            }
+        }
     }
 }
