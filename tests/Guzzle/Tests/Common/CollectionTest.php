@@ -31,6 +31,7 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::__construct
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::getAll
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::toArray
      */
     public function testConstructorCanBeCalledWithParams()
     {
