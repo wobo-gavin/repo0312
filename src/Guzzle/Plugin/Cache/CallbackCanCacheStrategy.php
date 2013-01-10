@@ -2,18 +2,62 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 
 /**
  * Determines if a request can be cached using a callback
  */
-class CallbackCanCacheStrategy extends AbstractCallbackStrategy implements CanCacheStrategyInterface
+class CallbackCanCacheStrategy extends DefaultCanCacheStrategy
 {
+    /**
+     * @var callable Callback for request
+     */
+    protected $requestCallback;
+
+    /**
+     * @var callable Callback for response
+     */
+    protected $responseCallback;
+
+    /**
+     * @param \Closure|array|mixed $requestCallback  Callable method to invoke for requests
+     * @param \Closure|array|mixed $responseCallback Callable method to invoke for responses
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct($requestCallback = null, $responseCallback = null)
+    {
+        if ($requestCallback && !is_callable($requestCallback)) {
+            throw new InvalidArgumentException('Method must be callable');
+        }
+
+        if ($responseCallback && !is_callable($responseCallback)) {
+            throw new InvalidArgumentException('Method must be callable');
+        }
+
+        $this->requestCallback = $requestCallback;
+        $this->responseCallback = $responseCallback;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function canCache(RequestInterface $request)
     {
-        return call_user_func($this->callback, $request);
+        return $this->requestCallback
+            ? call_user_func($this->requestCallback, $request)
+            : parent::canCache($request);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function canCacheResponse(Response $response)
+    {
+        return $this->responseCallback
+            ? call_user_func($this->responseCallback, $response)
+            : parent::canCacheResponse($response);
     }
 }
