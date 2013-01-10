@@ -11,6 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Location
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Response\XmlVisitor;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Response\ResponseVisitorInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\Model;
 
 /**
@@ -94,7 +95,7 @@ class OperationResponseParser extends DefaultResponseParser
         }
 
         if ($result instanceof \SimpleXMLElement) {
-            $result = $this->xmlToArray($result, $model);
+            $result = $this->xmlToArray($result, $operation, $model);
         } elseif ($result instanceof Response) {
             $result = array();
         }
@@ -108,12 +109,13 @@ class OperationResponseParser extends DefaultResponseParser
     /**
      * Parse a SimpleXMLElement into an array
      *
-     * @param \SimpleXMLElement $xml   XML to parse
-     * @param Parameter         $model Model object
+     * @param \SimpleXMLElement $xml       XML to parse
+     * @param Operation         $operation Operation that owns the model
+     * @param Parameter         $model     Model object
      *
      * @return array
      */
-    protected function xmlToArray(\SimpleXMLElement $xml, Parameter $model)
+    protected function xmlToArray(\SimpleXMLElement $xml, Operation $operation, Parameter $model)
     {
         return json_decode(json_encode($xml), true);
     }
