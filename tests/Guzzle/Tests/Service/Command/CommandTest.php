@@ -435,6 +435,7 @@ class CommandTest extends AbstractCommandTest
         $this->assertEquals(123, $command->get('test'));
         $this->assertEquals('abc', $command->get('_internal'));
     }
+
     /**
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ValidationException
      * @expectedExceptionMessage [Foo] Baz
