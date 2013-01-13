@@ -3,11 +3,13 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Curl;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle;
 
 /**
@@ -15,6 +17,23 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle;
  */
 class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
+    public $requestHandle;
+
+    protected function updateForHandle(RequestInterface $request)
+    {
+        $that = $this;
+        $request->getEventDispatcher()->addListener('request.sent', function (Event $e) use ($that) {
+            $that->requestHandle = $e['handle'];
+        });
+
+        return $request;
+    }
+
+    public function setUp()
+    {
+        $this->requestHandle = null;
+    }
+
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle
      * @expectedException \InvalidArgumentException
@@ -513,7 +532,7 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $handle = CurlHandle::factory($curlTest);
 
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Curl\\CurlHandle', $handle);
-        $o = $curlTest->getParams()->get('curl.last_options');
+        $o = $handle->getOptions()->getAll();
 
         // Headers are case-insensitive
         if (isset($o[CURLOPT_HTTPHEADER])) {
@@ -566,7 +585,7 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $request = RequestFactory::getInstance()->create('GET', 'http://localhost:8124/');
         $request->setProtocolVersion('1.1');
         $handle = CurlHandle::factory($request);
-        $options = $request->getParams()->get('curl.last_options');
+        $options = $handle->getOptions();
         $this->assertEquals(CURL_HTTP_VERSION_1_1, $options[CURLOPT_HTTP_VERSION]);
     }
 
@@ -654,12 +673,9 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         ));
         $request->send();
 
-        // Ensure the CURLOPT_POSTFIELDS option was set properly
-        $options = $request->getParams()->get('curl.last_options');
-        $this->assertEquals('a=b&c=ay%21%20~This%20is%20a%20test%2C%20isn%27t%20it%3F', $options[CURLOPT_POSTFIELDS]);
-
         // Make sure that the request was sent correctly
         $r = $this->getServer()->getReceivedRequests(true);
+        $this->assertEquals('a=b&c=ay%21%20~This%20is%20a%20test%2C%20isn%27t%20it%3F', (string) $r[0]->getBody());
 
         $this->assertEquals(strtolower($request), strtolower($r[0]));
     }
@@ -682,10 +698,11 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
             'bar' => 'baz',
             'arr' => array('a' => 1, 'b' => 2),
         ));
+        $this->updateForHandle($request);
         $request->send();
 
         // Ensure the CURLOPT_POSTFIELDS option was set properly
-        $options = $request->getParams()->get('curl.last_options');
+        $options = $this->requestHandle->getOptions()->getAll();
         $this->assertContains('@' . __FILE__ . ';type=text/x-', $options[CURLOPT_POSTFIELDS]['foo']);
         $this->assertEquals('baz', $options[CURLOPT_POSTFIELDS]['bar']);
         $this->assertEquals('1', $options[CURLOPT_POSTFIELDS]['arr[a]']);
@@ -919,8 +936,9 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', null, 'test');
         $request->getCurlOptions()->set(CURLOPT_ENCODING, '');
+        $this->updateForHandle($request);
         $request->send();
-        $options = $request->getParams()->get('curl.last_options');
+        $options = $this->requestHandle->getOptions()->getAll();
         $this->assertSame('', $options[CURLOPT_ENCODING]);
         $received = $this->getServer()->getReceivedRequests(false);
         $this->assertContainsIns('accept: */*', $received[0]);
@@ -934,8 +952,9 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', null, 'test');
         // Start sending the expect header to 2 bytes
+        $this->updateForHandle($request);
         $request->setExpectHeaderCutoff(2)->send();
-        $options = $request->getParams()->get('curl.last_options');
+        $options = $this->requestHandle->getOptions()->getAll();
         $this->assertContains('Expect: 100-Continue', $options[CURLOPT_HTTPHEADER]);
         $received = $this->getServer()->getReceivedRequests(false);
         $this->assertContainsIns('expect: 100-continue', $received[0]);
