@@ -12,7 +12,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CallbackCan
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CallbackCanCacheStrategy
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\AbstractCallbackStrategy
  */
 class CallbackCanCacheStrategyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {

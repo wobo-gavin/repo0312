@@ -7,7 +7,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CallbackCac
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CallbackCacheKeyProvider
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\AbstractCallbackStrategy
  */
 class CallbackCacheKeyProviderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
