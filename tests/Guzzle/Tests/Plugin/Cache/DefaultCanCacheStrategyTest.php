@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCanC
  */
 class DefaultCanCacheStrategyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    public function testReturnsRequestCanCache()
+    public function testReturnsRequestcanCacheRequest()
     {
         $strategy = new DefaultCanCacheStrategy();
         $response = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request')
@@ -23,6 +23,6 @@ class DefaultCanCacheStrategyTest extends \/* Replaced /* Replaced /* Replaced G
             ->method('canCache')
             ->will($this->returnValue(true));
 
-        $this->assertTrue($strategy->canCache($response));
+        $this->assertTrue($strategy->canCacheRequest($response));
     }
 }
