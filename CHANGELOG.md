@@ -14,6 +14,7 @@ CHANGELOG
 * Added /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\IoEmittingEntityBody
 * Moved command filtration from validators to location visitors
 * Added getData to ServiceDescriptionInterface
+* Added `extends` attributes to service description parameters
 * Renamed /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CanCacheStrategyInterface::canCache() to canCacheRequest() and added CanCacheResponse()
 * Added getModels to ServiceDescriptionInterface
 * Added context array to RequestInterface::setState()
