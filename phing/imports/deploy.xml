@@ -93,9 +93,9 @@
                                 gitPath="${cmd.git}" />
 
                         <!-- Copy .md files into the PEAR package -->
-                        <copy file="${repo.dir}/LICENSE" todir="${repo.dir}/src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//LICENSE.md" />
-                        <copy file="${repo.dir}/README.md" todir="${repo.dir}/src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//README.md" />
-                        <copy file="${repo.dir}/CHANGELOG.md" todir="${repo.dir}/src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//CHANGELOG.md" />
+                        <copy file="${repo.dir}/LICENSE" tofile=".subsplit/src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//LICENSE.md" />
+                        <copy file="${repo.dir}/README.md" tofile=".subsplit/src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//README.md" />
+                        <copy file="${repo.dir}/CHANGELOG.md" tofile=".subsplit/src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//CHANGELOG.md" />
 
                         <!-- and now the pear packages -->
                         </* Replaced /* Replaced /* Replaced guzzle */ */ */pear
