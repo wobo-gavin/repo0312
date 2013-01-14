@@ -5,6 +5,9 @@ CHANGELOG
 ------------------
 
 * BC: CurlException now extends from RequestException rather than BadResponseException
+* BC: Renamed /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CanCacheStrategyInterface::canCache() to canCacheRequest() and added CanCacheResponse()
+* Added getData to ServiceDescriptionInterface
+* Added context array to RequestInterface::setState()
 * Bug: Removing hard dependency on the BackoffPlugin from /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http
 * Bug: Adding required content-type when JSON request visitor adds JSON to a command
 * Bug: Fixing the serialization of a service description with custom data
@@ -13,11 +16,8 @@ CHANGELOG
 * Moved getPath from /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\Model to /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection
 * Added /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\IoEmittingEntityBody
 * Moved command filtration from validators to location visitors
-* Added getData to ServiceDescriptionInterface
 * Added `extends` attributes to service description parameters
-* Renamed /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CanCacheStrategyInterface::canCache() to canCacheRequest() and added CanCacheResponse()
 * Added getModels to ServiceDescriptionInterface
-* Added context array to RequestInterface::setState()
 
 3.0.7 (2012-12-19)
 ------------------
