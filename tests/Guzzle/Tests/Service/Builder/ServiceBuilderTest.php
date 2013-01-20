@@ -21,6 +21,7 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             ),
         ),
         'billy.mock' => array(
+            'alias' => 'Hello!',
             'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient',
             'params' => array(
                 'username' => 'billy',
@@ -293,5 +294,11 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $b = new ServiceBuilder($this->arrayData);
         $this->assertEquals($this->arrayData['michael.mock'], $b->getData('michael.mock'));
         $this->assertNull($b->getData('ewofweoweofe'));
+    }
+
+    public function testCanGetByAlias()
+    {
+        $b = new ServiceBuilder($this->arrayData);
+        $this->assertSame($b->get('billy.mock'), $b->get('Hello!'));
     }
 }
