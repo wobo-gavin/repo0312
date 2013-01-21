@@ -12,17 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Comma
 class ResourceIteratorClassFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage The first argument must be an instance of CommandInterface
-     */
-    public function testValidatesCommand()
-    {
-        $factory = new ResourceIteratorClassFactory();
-        $factory->build('foo');
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Iterator was not found for mock_command
      */
     public function testEnsuresIteratorClassExists()
@@ -30,17 +20,22 @@ class ResourceIteratorClassFactoryTest extends \/* Replaced /* Replaced /* Repla
         $factory = new ResourceIteratorClassFactory(array('Foo', 'Bar'));
         $factory->registerNamespace('Baz');
         $command = new MockCommand();
-        $iterator = $factory->build($command);
+        $factory->build($command);
     }
 
     public function testBuildsResourceIterators()
     {
         $factory = new ResourceIteratorClassFactory('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Model');
         $command = new MockCommand();
-        $iterator = $factory->build($command, array(
-            '/* Replaced /* Replaced /* Replaced client */ */ */.namespace' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock'
-        ));
-
+        $iterator = $factory->build($command, array('/* Replaced /* Replaced /* Replaced client */ */ */.namespace' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock'));
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Model\MockCommandIterator', $iterator);
+    }
+
+    public function testChecksIfCanBuild()
+    {
+        $factory = new ResourceIteratorClassFactory('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service');
+        $this->assertFalse($factory->canBuild(new MockCommand()));
+        $factory = new ResourceIteratorClassFactory('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Model');
+        $this->assertTrue($factory->canBuild(new MockCommand()));
     }
 }
