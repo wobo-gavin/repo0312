@@ -11,6 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\Comman
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIteratorClassFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand;
 
 /**
  * @group server
@@ -39,6 +40,15 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         ));
 
         $this->service = ServiceDescription::factory(__DIR__ . '/../TestData/test_service.json');
+    }
+
+    public function testAllowsCustomClientParameters()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient(null, array(
+            Client::COMMAND_PARAMS => array(AbstractCommand::RESPONSE_PROCESSING => 'foo')
+        ));
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('mock_command');
+        $this->assertEquals('foo', $command->get(AbstractCommand::RESPONSE_PROCESSING));
     }
 
     /**

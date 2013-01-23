@@ -11,6 +11,20 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Location
  */
 class XmlVisitorTest extends AbstractResponseVisitorTest
 {
+    public function testBeforeMethodParsesXml()
+    {
+        $visitor = new Visitor();
+        $command = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand')
+            ->setMethods(array('getResponse'))
+            ->getMockForAbstractClass();
+        $command->expects($this->once())
+            ->method('getResponse')
+            ->will($this->returnValue(new Response(200, null, '<foo><Bar>test</Bar></foo>')));
+        $result = array();
+        $visitor->before($command, $result);
+        $this->assertEquals(array('Bar' => 'test'), $result);
+    }
+
     public function testCanExtractAndRenameTopLevelXmlValues()
     {
         $visitor = new Visitor();

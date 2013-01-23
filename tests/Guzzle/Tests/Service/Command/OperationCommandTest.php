@@ -10,6 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Oper
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DefaultRequestSerializer;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\Model;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\VisitorFlyweight;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\OperationCommand
@@ -20,7 +21,7 @@ class OperationCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
     {
         $operation = new OperationCommand();
         $a = $operation->getRequestSerializer();
-        $b = new DefaultRequestSerializer();
+        $b = new DefaultRequestSerializer(VisitorFlyweight::getInstance());
         $operation->setRequestSerializer($b);
         $this->assertNotSame($a, $operation->getRequestSerializer());
     }
@@ -57,19 +58,28 @@ class OperationCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
 
     public function testParsesResponsesUsingModelParserWhenMatchingModelIsFound()
     {
-        $description = new ServiceDescription(array(
-            'operations' => array('foo' => array('responseClass' => 'bar', 'responseType' => 'model')),
-            'models'     => array('bar' => array())
+        $description = ServiceDescription::factory(array(
+            'operations' => array(
+                'foo' => array('responseClass' => 'bar', 'responseType' => 'model')
+            ),
+            'models' => array(
+                'bar' => array(
+                    'type' => 'object',
+                    'properties' => array(
+                        'Baz' => array('type' => 'string', 'location' => 'xml')
+                    )
+                )
+            )
         ));
+
         $op = new OperationCommand(array(), $description->getOperation('foo'));
         $op->setClient(new Client());
         $request = $op->prepare();
         $request->setResponse(new Response(200, array(
             'Content-Type' => 'application/xml'
         ), '<Foo><Baz>Bar</Baz></Foo>'), true);
-        $this->assertEquals(new Model(array(
-            'Baz' => 'Bar'
-        ), $description->getModel('bar')), $op->execute());
+        $result = $op->execute();
+        $this->assertEquals(new Model(array('Baz' => 'Bar'), $description->getModel('bar')), $result);
     }
 
     public function testAllowsRawResponses()

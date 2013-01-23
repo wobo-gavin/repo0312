@@ -8,6 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\HeaderVisitor;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\VisitorFlyweight;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DefaultRequestSerializer
@@ -75,10 +76,11 @@ class DefaultRequestSerializerTest extends \/* Replaced /* Replaced /* Replaced 
         $this->assertEquals('http://foo.com/baz/bar/123', (string) $request->getUrl());
     }
 
-    public function testConstructorAddsVisitors()
+    public function testAllowsCustomFactory()
     {
-        $serializer = new DefaultRequestSerializer(array());
-        $this->assertEmpty($this->readAttribute($serializer, 'visitors'));
+        $f = new VisitorFlyweight();
+        $serializer = new DefaultRequestSerializer($f);
+        $this->assertSame($f, $this->readAttribute($serializer, 'factory'));
     }
 
     public function testMixedParams()

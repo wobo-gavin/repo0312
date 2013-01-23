@@ -2,17 +2,11 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\ParserRegistry;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\RequestVisitorInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\BodyVisitor;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\ResponseBodyVisitor;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\HeaderVisitor;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\JsonVisitor;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\QueryVisitor;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\PostFieldVisitor;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\PostFileVisitor;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\XmlVisitor;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\VisitorFlyweight;
 
 /**
  * Default request serializer that transforms command options and operation parameters into a request
@@ -20,17 +14,17 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Location
 class DefaultRequestSerializer implements RequestSerializerInterface
 {
     /**
-     * @var array Location visitors attached to the command
+     * @var VisitorFlyweight $factory Visitor factory
      */
-    protected $visitors = array();
+    protected $factory;
 
     /**
-     * @var array Cached instance with default visitors
+     * @var self
      */
     protected static $instance;
 
     /**
-     * Get a default instance that includes that default location visitors
+     * Get a cached default instance of the class
      *
      * @return self
      * @codeCoverageIgnore
@@ -38,31 +32,22 @@ class DefaultRequestSerializer implements RequestSerializerInterface
     public static function getInstance()
     {
         if (!self::$instance) {
-            self::$instance = new self(array(
-                'header'        => new HeaderVisitor(),
-                'query'         => new QueryVisitor(),
-                'body'          => new BodyVisitor(),
-                'json'          => new JsonVisitor(),
-                'postFile'      => new PostFileVisitor(),
-                'postField'     => new PostFieldVisitor(),
-                'xml'           => new XmlVisitor(),
-                'response_body' => new ResponseBodyVisitor()
-            ));
+            self::$instance = new self(VisitorFlyweight::getInstance());
         }
 
         return self::$instance;
     }
 
     /**
-     * @param array $visitors Visitors to attache
+     * @param VisitorFlyweight $factory Factory to use when creating visitors
      */
-    public function __construct(array $visitors = array())
+    public function __construct(VisitorFlyweight $factory)
     {
-        $this->visitors = $visitors;
+        $this->factory = $factory;
     }
 
     /**
-     * Add a location visitor to the command
+     * Add a location visitor to the serializer
      *
      * @param string                   $location Location to associate with the visitor
      * @param RequestVisitorInterface  $visitor  Visitor to attach
@@ -71,7 +56,7 @@ class DefaultRequestSerializer implements RequestSerializerInterface
      */
     public function addVisitor($location, RequestVisitorInterface $visitor)
     {
-        $this->visitors[$location] = $visitor;
+        $this->factory->addRequestVisitor($location, $visitor);
 
         return $this;
     }
@@ -81,51 +66,74 @@ class DefaultRequestSerializer implements RequestSerializerInterface
      */
     public function prepare(CommandInterface $command)
     {
+        $request = $this->createRequest($command);
+        // Keep an array of visitors found in the operation
+        $foundVisitors = array();
+
+        // Add arguments to the request using the location attribute
+        foreach ($command->getOperation()->getParams() as $name => $arg) {
+            /** @var $arg \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter */
+            if ($location = $arg->getLocation()) {
+                // Skip 'uri' locations because they've already been processed
+                if ($location == 'uri') {
+                    continue;
+                }
+                // Instantiate visitors as they are detected in the properties
+                if (!isset($foundVisitors[$location])) {
+                    $foundVisitors[$location] = $this->factory->getRequestVisitor($location);
+                }
+                // Ensure that a value has been set for this parameter
+                $value = $command->get($name);
+                if ($value !== null) {
+                    // Apply the parameter value with the location visitor
+                    $foundVisitors[$location]->visit($command, $request, $arg, $value);
+                }
+            }
+        }
+
+        // Call the after method on each visitor found in the operation
+        foreach ($foundVisitors as $visitor) {
+            $visitor->after($command, $request);
+        }
+
+        return $request;
+    }
+
+    /**
+     * Create a request for the command and operation
+     *
+     * @param CommandInterface $command Command to create a request for
+     *
+     * @return RequestInterface
+     */
+    protected function createRequest(CommandInterface $command)
+    {
         $operation = $command->getOperation();
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $command->getClient();
-        $uri = $operation->getUri();
 
-        if (!$uri) {
-            $url = $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl();
-        } else {
-            // Get the path values and use the /* Replaced /* Replaced /* Replaced client */ */ */ config settings
-            $variables = $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->getAll();
-            foreach ($operation->getParams() as $name => $arg) {
-                if ($arg->getLocation() == 'uri' && $command->hasKey($name)) {
+        // If the command does not specify a template, then assume the base URL of the /* Replaced /* Replaced /* Replaced client */ */ */
+        if (!($uri = $operation->getUri())) {
+            return $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest($operation->getHttpMethod(), $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
+        }
+
+        // Get the path values and use the /* Replaced /* Replaced /* Replaced client */ */ */ config settings
+        $variables = array();
+        foreach ($operation->getParams() as $name => $arg) {
+            if ($arg->getLocation() == 'uri') {
+                if ($command->hasKey($name)) {
                     $variables[$name] = $arg->filter($command->get($name));
                     if (!is_array($variables[$name])) {
                         $variables[$name] = (string) $variables[$name];
                     }
                 }
             }
-            // Merge the /* Replaced /* Replaced /* Replaced client */ */ */'s base URL with an expanded URI template
-            $url = (string) Url::factory($/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl())
-                ->combine(ParserRegistry::getInstance()->getParser('uri_template')->expand($uri, $variables));
         }
 
-        // Inject path and base_url values into the URL
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest($operation->getHttpMethod(), $url);
-
-        // Add arguments to the request using the location attribute
-        foreach ($operation->getParams() as $name => $arg) {
-            /** @var $arg \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter */
-            $location = $arg->getLocation();
-            // Visit with the associated visitor
-            if (isset($this->visitors[$location])) {
-                // Ensure that a value has been set for this parameter
-                $value = $command->get($name);
-                if ($value !== null) {
-                    // Apply the parameter value with the location visitor
-                    $this->visitors[$location]->visit($command, $request, $arg, $value);
-                }
-            }
-        }
-
-        // Call the after method on each visitor
-        foreach ($this->visitors as $visitor) {
-            $visitor->after($command, $request);
-        }
-
-        return $request;
+        // Merge the /* Replaced /* Replaced /* Replaced client */ */ */'s base URL with an expanded URI template
+        return $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest(
+            $operation->getHttpMethod(),
+            (string) Url::factory($/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl())
+                ->combine(ParserRegistry::getInstance()->getParser('uri_template')->expand($uri, $variables))
+        );
     }
 }
