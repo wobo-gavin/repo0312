@@ -159,9 +159,16 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
             'api' => 'v1'
         ));
 
+        // Set the user agent string and include the default user agent appended
         $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $/* Replaced /* Replaced /* Replaced client */ */ */->setUserAgent('Test/1.0Ab', true));
         $this->assertEquals('Test/1.0Ab ' . Utils::getDefaultUserAgent(), $/* Replaced /* Replaced /* Replaced client */ */ */->get()->getHeader('User-Agent'));
+
+        // Set the user agent string without the default appended
         $/* Replaced /* Replaced /* Replaced client */ */ */->setUserAgent('Test/1.0Ab');
+        $this->assertEquals('Test/1.0Ab', $/* Replaced /* Replaced /* Replaced client */ */ */->get()->getHeader('User-Agent'));
+
+        // Set default headers and make sure the user agent string is still set
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultHeaders(array());
         $this->assertEquals('Test/1.0Ab', $/* Replaced /* Replaced /* Replaced client */ */ */->get()->getHeader('User-Agent'));
     }
 
