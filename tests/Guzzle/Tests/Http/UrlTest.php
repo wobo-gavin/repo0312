@@ -8,6 +8,15 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
+     *
+     */
+    public function testEmptyUrl()
+    {
+        $url = Url::factory("");
+        $this->assertEquals("", (string) $url);
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getPort
      */
     public function testPortIsDeterminedFromScheme()
