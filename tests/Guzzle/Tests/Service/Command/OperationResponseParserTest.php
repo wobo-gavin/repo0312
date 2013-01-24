@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Comm
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\OperationResponseParser;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\OperationCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
