@@ -26,11 +26,9 @@ The recommended way to install /* Replaced /* Replaced /* Replaced Guzzle */ */ 
 
         {
             "require": {
-                "/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */": "*"
+                "/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */": "~3.1"
             }
         }
-
-    Consider tightening your dependencies to a known version when deploying mission critical applications (e.g. ``2.8.*``).
 
 2. Download and install Composer:
 
