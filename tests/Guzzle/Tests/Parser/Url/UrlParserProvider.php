@@ -11,6 +11,7 @@ class UrlParserProvider extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
     {
         $resp = array();
         foreach (array(
+			'',
             'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/',
             'http://www.google.com:8080/path?q=1&v=2',
             'https://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/?value1=a&value2=b',
