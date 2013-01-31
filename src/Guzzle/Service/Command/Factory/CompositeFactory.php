@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescriptionInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
 
 /**
@@ -28,7 +28,7 @@ class CompositeFactory implements \IteratorAggregate, \Countable, FactoryInterfa
         $chain = new self();
 
         $description = $/* Replaced /* Replaced /* Replaced client */ */ */->getDescription();
-        if ($description instanceof ServiceDescription) {
+        if ($description instanceof ServiceDescriptionInterface) {
             $chain->add(new ServiceDescriptionFactory($description));
         }
 
