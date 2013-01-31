@@ -334,7 +334,7 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
         $this->assertEquals($this->request, $this->request->setPath('/index.html'));
         $this->assertEquals('/index.html', $this->request->getPath());
         $this->assertEquals($this->request, $this->request->setPath('index.html'));
-        $this->assertEquals('index.html', $this->request->getPath());
+        $this->assertEquals('/index.html', $this->request->getPath());
     }
 
     /**
