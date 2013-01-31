@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\Invalid
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\InflectorInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface as HttpClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescriptionInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\FactoryInterface as CommandFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIteratorInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIteratorFactoryInterface;
@@ -43,17 +43,17 @@ interface ClientInterface extends HttpClientInterface, FromConfigInterface
     /**
      * Set the service description of the /* Replaced /* Replaced /* Replaced client */ */ */
      *
-     * @param ServiceDescription $service       Service description
-     * @param bool               $updateFactory Set to false to not update the service description based command factory
-     *                                          if it is not already on the /* Replaced /* Replaced /* Replaced client */ */ */.
+     * @param ServiceDescriptionInterface $service       Service description
+     * @param bool                        $updateFactory Set to false to not update the service description based
+     *                                                   command factory if it is not already on the /* Replaced /* Replaced /* Replaced client */ */ */.
      * @return ClientInterface
      */
-    public function setDescription(ServiceDescription $service, $updateFactory = true);
+    public function setDescription(ServiceDescriptionInterface $service, $updateFactory = true);
 
     /**
      * Get the service description of the /* Replaced /* Replaced /* Replaced client */ */ */
      *
-     * @return ServiceDescription|null
+     * @return ServiceDescriptionInterface|null
      */
     public function getDescription();
 
