@@ -47,6 +47,50 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
     }
 
     /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::factory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getHost
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getPort
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getQuery
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getPath
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getFragment
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::__toString
+     */
+    public function testAllowsFalsyUrlParts()
+    {
+        $url = Url::factory('http://0:50/0?0#0');
+        $this->assertSame('0', $url->getHost());
+        $this->assertEquals(50, $url->getPort());
+        $this->assertSame('/0', $url->getPath());
+        $this->assertEquals('0=', (string) $url->getQuery());
+        $this->assertSame('0', $url->getFragment());
+        $this->assertEquals('http://0:50/0?0=#0', (string) $url);
+
+        $url = Url::factory('');
+        $this->assertSame('', (string) $url);
+
+        $url = Url::factory('0');
+        $this->assertSame('0', (string) $url);
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::buildUrl
+     */
+    public function testBuildsRelativeUrlsWithFalsyParts()
+    {
+        $url = Url::buildUrl(array(
+                'host' => '0',
+                'path' => '0',
+            ));
+
+        $this->assertSame('//0/0', $url);
+
+        $url = Url::buildUrl(array(
+                'path' => '0',
+            ));
+        $this->assertSame('0', $url);
+    }
+
+    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url
      */
     public function testUrlStoresParts()
