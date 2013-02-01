@@ -59,7 +59,7 @@ class MessageFormatterTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
         return array(
             // Uses the cache for the second time
             array('{method} - {method}', 'POST - POST'),
-            array('{url}', 'http://foo.com/?q=test'),
+            array('{url}', 'http://foo.com?q=test'),
             array('{port}', '80'),
             array('{resource}', '/?q=test'),
             array('{host}', 'foo.com'),

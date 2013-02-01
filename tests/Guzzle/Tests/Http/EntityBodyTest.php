@@ -64,7 +64,7 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     public function testFactoryCanCreateFromObject()
     {
         $body = EntityBody::factory(new QueryString(array('foo' => 'bar')));
-        $this->assertEquals('?foo=bar', (string) $body);
+        $this->assertEquals('foo=bar', (string) $body);
     }
 
     /**
