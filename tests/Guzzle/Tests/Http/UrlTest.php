@@ -5,20 +5,17 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url
+ */
 class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     *
-     */
     public function testEmptyUrl()
     {
-        $url = Url::factory("");
-        $this->assertEquals("", (string) $url);
+        $url = Url::factory('');
+        $this->assertEquals('', (string) $url);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getPort
-     */
     public function testPortIsDeterminedFromScheme()
     {
         $this->assertEquals(80, Url::factory('http://www.test.com/')->getPort());
@@ -27,9 +24,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         $this->assertEquals(8192, Url::factory('http://www.test.com:8192/')->getPort());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::__clone
-     */
     public function testCloneCreatesNewInternalObjects()
     {
         $u1 = Url::factory('http://www.test.com/');
@@ -37,12 +31,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         $this->assertNotSame($u1->getQuery(), $u2->getQuery());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::__construct
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::factory
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::__toString
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::isAbsolute
-     */
     public function testValidatesUrlPartsInFactory()
     {
         $url = Url::factory('/index.php');
@@ -55,15 +43,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         $this->assertTrue($u->isAbsolute());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::factory
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getHost
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getPort
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getQuery
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getPath
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getFragment
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::__toString
-     */
     public function testAllowsFalsyUrlParts()
     {
         $url = Url::factory('http://0:50/0?0#0');
@@ -81,9 +60,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         $this->assertSame('0', (string) $url);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::buildUrl
-     */
     public function testBuildsRelativeUrlsWithFalsyParts()
     {
         $url = Url::buildUrl(array(
@@ -99,9 +75,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         $this->assertSame('0', $url);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url
-     */
     public function testUrlStoresParts()
     {
         $url = Url::factory('http://test:pass@www.test.com:8081/path/path2/?a=1&b=2#fragment');
@@ -126,12 +99,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         ), $url->getParts());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::setPath
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getPath
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::getPathSegments
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::buildUrl
-     */
     public function testHandlesPathsCorrectly()
     {
         $url = Url::factory('http://www.test.com');
@@ -149,9 +116,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         $this->assertEquals('http://www.test.com/test', Url::buildUrl($parts));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::buildUrl
-     */
     public function testAddsQueryStringIfPresent()
     {
         $this->assertEquals('?foo=bar', Url::buildUrl(array(
@@ -159,9 +123,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         )));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::addPath
-     */
     public function testAddsToPath()
     {
         // Does nothing here
@@ -197,7 +158,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::combine
      * @dataProvider urlCombineDataProvider
      */
     public function testCombinesUrls($a, $b, $c)
@@ -205,9 +165,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         $this->assertEquals($c, (string) Url::factory($a)->combine($b));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url
-     */
     public function testHasGettersAndSetters()
     {
         $url = Url::factory('http://www.test.com/');
@@ -226,9 +183,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         $this->assertEquals('https://b:a@example.com:8080/foo/bar?b=boo#abc', (string)$url);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::setQuery
-     */
     public function testSetQueryAcceptsArray()
     {
         $url = Url::factory('http://www.test.com');
@@ -252,7 +206,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::normalizePath
      * @dataProvider urlProvider
      */
     public function testNormalizesPaths($path, $result)
@@ -262,9 +215,6 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         $this->assertEquals($result, $url->getPath());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::setHost
-     */
     public function testSettingHostWithPortModifiesPort()
     {
         $url = Url::factory('http://www.example.com');
