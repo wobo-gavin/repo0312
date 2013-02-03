@@ -59,4 +59,16 @@ class EventTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tes
         $event = $this->getEvent();
         $this->assertInstanceOf('ArrayIterator', $event->getIterator());
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event::toArray
+     */
+    public function testConvertsToArray()
+    {
+        $this->assertEquals(array(
+            'test'  => '123',
+            'other' => '456',
+            'event' => 'test.notify'
+        ), $this->getEvent()->toArray());
+    }
 }
