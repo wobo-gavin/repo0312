@@ -677,4 +677,11 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultHeaders('foo');
     }
+
+    public function testDontReuseCurlMulti()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */1 = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */2 = new Client();
+        $this->assertNotSame($/* Replaced /* Replaced /* Replaced client */ */ */1->getCurlMulti(), $/* Replaced /* Replaced /* Replaced client */ */ */2->getCurlMulti());
+    }
 }
