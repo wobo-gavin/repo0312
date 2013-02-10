@@ -33,7 +33,7 @@ class DefaultCacheStorageTest extends \/* Replaced /* Replaced /* Replaced Guzzl
             ->method('save')
             ->with('foo', array(200, array(
                 'foo' => array('bar'),
-                'X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Cache' => array('key=foo', 'ttl=100'),
+                'X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Cache' => array('key=foo; ttl=100'),
                 'Date' => array('test')
             ), 'baz'), 100);
 
