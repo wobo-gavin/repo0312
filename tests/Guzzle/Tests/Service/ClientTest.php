@@ -185,39 +185,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setDescription
-     */
-    public function testSettingServiceDescriptionUpdatesFactories()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
-        $factory = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\MapFactory')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setCommandFactory($factory);
-
-        $description = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Description\\ServiceDescription');
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description);
-
-        $cf = $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'commandFactory');
-        $this->assertNotSame($factory, $cf);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\CompositeFactory', $cf);
-
-        $array = $cf->getIterator()->getArrayCopy();
-        $this->assertSame($array[0], $factory);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\ServiceDescriptionFactory', $array[1]);
-        $this->assertSame($description, $array[1]->getServiceDescription());
-
-        $description2 = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Description\\ServiceDescription');
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description2);
-
-        $cf = $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'commandFactory');
-        $array = $cf->getIterator()->getArrayCopy();
-        $this->assertSame($array[0], $factory);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\ServiceDescriptionFactory', $array[1]);
-        $this->assertSame($description2, $array[1]->getServiceDescription());
-    }
-
-    /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__call
      * @expectedException BadMethodCallException
      */
