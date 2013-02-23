@@ -148,6 +148,8 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommand
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommandFactory
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setCommandFactory
      */
     public function testCreatesCommandsUsingCommandFactory()
     {
@@ -162,10 +164,9 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
         $/* Replaced /* Replaced /* Replaced client */ */ */->setCommandFactory($mock);
 
-        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('foo', array(
-            'acl' => '123'
-        ));
-
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('foo', array('acl' => '123'));
+        $this->assertSame($mockCommand, $command);
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('foo', array('acl' => '123'));
         $this->assertSame($mockCommand, $command);
         $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $command->getClient());
     }
@@ -219,26 +220,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(new Response(200))));
         $result = $/* Replaced /* Replaced /* Replaced client */ */ */->mockCommand();
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response', $result);
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommandFactory
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setCommandFactory
-     */
-    public function testOwnsCommandFactory()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
-        $method = new \ReflectionMethod($/* Replaced /* Replaced /* Replaced client */ */ */, 'getCommandFactory');
-        $method->setAccessible(TRUE);
-        $cf1 = $method->invoke($/* Replaced /* Replaced /* Replaced client */ */ */);
-
-        $cf = $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'commandFactory');
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\CompositeFactory', $cf);
-        $this->assertSame($method->invoke($/* Replaced /* Replaced /* Replaced client */ */ */), $cf1);
-
-        $mock = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Service\\Command\\Factory\\CompositeFactory');
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setCommandFactory($mock);
-        $this->assertSame($mock, $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'commandFactory'));
     }
 
     /**
