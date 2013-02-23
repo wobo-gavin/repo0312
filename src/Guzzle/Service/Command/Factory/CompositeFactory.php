@@ -3,7 +3,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescriptionInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
 
 /**
@@ -25,16 +24,13 @@ class CompositeFactory implements \IteratorAggregate, \Countable, FactoryInterfa
      */
     public static function getDefaultChain(ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */)
     {
-        $chain = new self();
-
-        $description = $/* Replaced /* Replaced /* Replaced client */ */ */->getDescription();
-        if ($description instanceof ServiceDescriptionInterface) {
-            $chain->add(new ServiceDescriptionFactory($description));
+        $factories = array();
+        if ($description = $/* Replaced /* Replaced /* Replaced client */ */ */->getDescription()) {
+            $factories[] = new ServiceDescriptionFactory($description);
         }
+        $factories[] = new ConcreteClassFactory($/* Replaced /* Replaced /* Replaced client */ */ */);
 
-        $chain->add(new ConcreteClassFactory($/* Replaced /* Replaced /* Replaced client */ */ */));
-
-        return $chain;
+        return new self($factories);
     }
 
     /**
