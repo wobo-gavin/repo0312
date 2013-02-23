@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 
 /**
@@ -56,7 +56,7 @@ class DefaultCacheStorage implements CacheStorageInterface
             }
             // Add a Date header to the response if none is set (for validation)
             if (!$response->getDate()) {
-                $response->setHeader('Date', Utils::getHttpDate('now'));
+                $response->setHeader('Date', gmdate(ClientInterface::HTTP_DATE));
             }
             $this->cache->save(
                 $key,

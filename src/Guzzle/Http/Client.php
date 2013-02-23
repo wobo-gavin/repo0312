@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\ParserRegistry;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\UriTemplate\UriTemplateInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
@@ -14,6 +15,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFact
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlVersion;
 
 /**
  * HTTP /* Replaced /* Replaced /* Replaced client */ */ */
@@ -90,10 +92,14 @@ class Client extends AbstractHasDispatcher implements ClientInterface
         $this->setBaseUrl($baseUrl);
         $this->defaultHeaders = new Collection();
         $this->setRequestFactory(RequestFactory::getInstance());
+
         // Redirect by default, but allow for redirects to be globally disabled on a /* Replaced /* Replaced /* Replaced client */ */ */
         if (!$this->config->get(self::DISABLE_REDIRECTS)) {
             $this->addSubscriber(new RedirectPlugin());
         }
+
+        // Set the default User-Agent on the /* Replaced /* Replaced /* Replaced client */ */ */
+        $this->userAgent = $this->getDefaultUserAgent();
     }
 
     /**
@@ -287,14 +293,23 @@ class Client extends AbstractHasDispatcher implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function setUserAgent($userAgent, $includeDefault = false)
+    public function setUserAgent($userAgent)
     {
-        if ($includeDefault) {
-            $userAgent .= ' ' . Utils::getDefaultUserAgent();
-        }
         $this->userAgent = $userAgent;
 
         return $this;
+    }
+
+    /**
+     * Get the default User-Agent string to use with /* Replaced /* Replaced /* Replaced Guzzle */ */ */
+     *
+     * @return string
+     */
+    public function getDefaultUserAgent()
+    {
+        return '/* Replaced /* Replaced /* Replaced Guzzle */ */ *//' . Version::VERSION
+            . ' curl/' . CurlVersion::getInstance()->get('version')
+            . ' PHP/' . PHP_VERSION;
     }
 
     /**

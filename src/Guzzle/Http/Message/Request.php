@@ -6,7 +6,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
@@ -134,10 +133,6 @@ class Request extends AbstractMessage implements RequestInterface
                     }
                 }
             }
-        }
-
-        if (!$this->hasHeader('User-Agent', true)) {
-            $this->setHeader('User-Agent', Utils::getDefaultUserAgent());
         }
 
         $this->setState(self::STATE_NEW);

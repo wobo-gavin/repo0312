@@ -6,7 +6,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Async\AsyncPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
@@ -123,7 +122,6 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
         $message = "PUT /path?q=1&v=2 HTTP/1.1\r\n"
             . "Host: www.google.com\r\n"
             . "Authorization: Basic {$auth}\r\n"
-            . "User-Agent: " . Utils::getDefaultUserAgent() . "\r\n"
             . "Content-Length: 4\r\n\r\nData";
 
         $request = RequestFactory::getInstance()->create('PUT', 'http://www.google.com/path?q=1&v=2', array(
@@ -694,7 +692,7 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
         $messages = $this->getServer()->getReceivedRequests(false);
         $port = $this->getServer()->getPort();
 
-        $userAgent = Utils::getDefaultUserAgent();
+        $userAgent = $this->/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultUserAgent();
 
         $this->assertEquals('127.0.0.1:' . $port, $requests[0]->getHeader('Host'));
         $this->assertEquals('127.0.0.1:' . $port, $requests[1]->getHeader('Host'));

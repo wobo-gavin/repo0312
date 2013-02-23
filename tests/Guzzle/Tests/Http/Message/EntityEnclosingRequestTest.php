@@ -2,7 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
@@ -17,6 +16,13 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
  */
 class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
+    protected $/* Replaced /* Replaced /* Replaced client */ */ */;
+
+    public function setUp()
+    {
+        $this->/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+    }
+
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::__construct
      */
@@ -48,10 +54,10 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
      */
     public function testRequestIncludesBodyInMessage()
     {
+
         $request = RequestFactory::getInstance()->create('PUT', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/', null, 'data');
         $this->assertEquals("PUT / HTTP/1.1\r\n"
             . "Host: www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com\r\n"
-            . "User-Agent: " . Utils::getDefaultUserAgent() . "\r\n"
             . "Content-Length: 4\r\n\r\n"
             . "data", (string) $request);
     }
@@ -66,7 +72,6 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
         ));
         $this->assertEquals("POST / HTTP/1.1\r\n"
             . "Host: www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com\r\n"
-            . "User-Agent: " . Utils::getDefaultUserAgent() . "\r\n"
             . "Content-Type: application/x-www-form-urlencoded\r\n\r\n"
             . "foo=bar", (string) $request);
 
@@ -75,7 +80,6 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
         ));
         $this->assertEquals("POST / HTTP/1.1\r\n"
             . "Host: www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com\r\n"
-            . "User-Agent: " . Utils::getDefaultUserAgent() . "\r\n"
             . "Content-Type: multipart/form-data\r\n"
             . "Expect: 100-Continue\r\n\r\n", (string) $request);
     }
@@ -91,7 +95,6 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
         ));
         $this->assertEquals("POST / HTTP/1.1\r\n"
             . "Host: www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com\r\n"
-            . "User-Agent: " . Utils::getDefaultUserAgent() . "\r\n"
             . "Content-Type: application/x-www-form-urlencoded\r\n\r\n"
             . "data=123", (string) $request);
     }

@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Curl;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
@@ -227,7 +226,8 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
             'z' => 'a'
         ));
 
-        $userAgent = Utils::getDefaultUserAgent();
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $userAgent = $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultUserAgent();
         $auth = base64_encode('michael:123');
         $testFileSize = filesize($testFile);
 
@@ -287,8 +287,8 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
                 CURLOPT_HTTPHEADER => array(
                     'Accept:',
                     'Host: localhost:8124',
-                    'x-test-data: /* Replaced /* Replaced /* Replaced Guzzle */ */ */',
-                    'User-Agent: ' . $userAgent
+                    'User-Agent: ' . $userAgent,
+                    'x-test-data: /* Replaced /* Replaced /* Replaced Guzzle */ */ */'
                 )
             ), array(
                 'Host'             => '*',
@@ -514,7 +514,8 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
      */
     public function testFactoryCreatesCurlBasedOnRequest($method, $url, $headers, $body, $options, $expectedHeaders = null)
     {
-        $request = RequestFactory::getInstance()->create($method, $url, $headers, $body);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest($method, $url, $headers, $body);
         $request->getCurlOptions()->set('debug', true);
 
         $originalRequest = clone $request;

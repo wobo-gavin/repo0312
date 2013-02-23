@@ -10,7 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Log\LogPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 
 /**
  * @group server
@@ -146,30 +146,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('http://www.bar.123/', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
         $/* Replaced /* Replaced /* Replaced client */ */ */->setBaseUrl('http://www.google.com/');
         $this->assertEquals('http://www.google.com/', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setUserAgent
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::prepareRequest
-     */
-    public function testSetsUserAgent()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/', array(
-            'api' => 'v1'
-        ));
-
-        // Set the user agent string and include the default user agent appended
-        $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $/* Replaced /* Replaced /* Replaced client */ */ */->setUserAgent('Test/1.0Ab', true));
-        $this->assertEquals('Test/1.0Ab ' . Utils::getDefaultUserAgent(), $/* Replaced /* Replaced /* Replaced client */ */ */->get()->getHeader('User-Agent'));
-
-        // Set the user agent string without the default appended
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setUserAgent('Test/1.0Ab');
-        $this->assertEquals('Test/1.0Ab', $/* Replaced /* Replaced /* Replaced client */ */ */->get()->getHeader('User-Agent'));
-
-        // Set default headers and make sure the user agent string is still set
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultHeaders(array());
-        $this->assertEquals('Test/1.0Ab', $/* Replaced /* Replaced /* Replaced client */ */ */->get()->getHeader('User-Agent'));
     }
 
     /**
@@ -683,5 +659,21 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */1 = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */2 = new Client();
         $this->assertNotSame($/* Replaced /* Replaced /* Replaced client */ */ */1->getCurlMulti(), $/* Replaced /* Replaced /* Replaced client */ */ */2->getCurlMulti());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::getDefaultUserAgent
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setUserAgent
+     */
+    public function testGetDefaultUserAgent()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $agent = $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'userAgent');
+        $version = curl_version();
+        $testAgent = sprintf('/* Replaced /* Replaced /* Replaced Guzzle */ */ *//%s curl/%s PHP/%s', Version::VERSION, $version['version'], PHP_VERSION);
+        $this->assertEquals($agent, $testAgent);
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setUserAgent('foo');
+        $this->assertEquals('foo', $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'userAgent'));
     }
 }
