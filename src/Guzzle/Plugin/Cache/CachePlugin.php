@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter;
@@ -149,6 +150,9 @@ class CachePlugin implements EventSubscriberInterface
     public function onRequestBeforeSend(Event $event)
     {
         $request = $event['request'];
+
+        $request->addHeader('Via', sprintf('%s /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache/%s', $request->getProtocolVersion(), Version::VERSION));
+
         if (!$this->canCache->canCacheRequest($request)) {
             return;
         }
@@ -196,6 +200,8 @@ class CachePlugin implements EventSubscriberInterface
                 );
             }
         }
+
+        $response->addHeader('Via', sprintf('%s /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache/%s', $request->getProtocolVersion(), Version::VERSION));
 
         if ($this->debugHeaders) {
             if ($request->getParams()->get('cache.lookup') === true) {

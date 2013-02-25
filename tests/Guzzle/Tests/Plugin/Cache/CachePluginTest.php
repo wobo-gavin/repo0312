@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Plugin\Cache;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
@@ -198,6 +199,8 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $this->assertEquals($response[2], $request->getResponse()->getBody(true));
         $this->assertContains('key=', (string) $request->getResponse()->getHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Cache'));
         $this->assertTrue($request->getResponse()->hasHeader('Age'));
+        $this->assertSame(sprintf('%s /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache/%s', $request->getProtocolVersion(), Version::VERSION), $request->getHeader('Via', true));
+        $this->assertSame(sprintf('%s /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache/%s', $request->getProtocolVersion(), Version::VERSION), $request->getResponse()->getHeader('Via', true));
         $this->assertTrue($request->getParams()->get('cache.lookup'));
         $this->assertTrue($request->getParams()->get('cache.hit'));
 
