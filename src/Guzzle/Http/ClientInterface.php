@@ -146,11 +146,12 @@ interface ClientInterface extends HasDispatcherInterface
     /**
      * Set the User-Agent header to be used on all requests from the /* Replaced /* Replaced /* Replaced client */ */ */
      *
-     * @param string $userAgent User agent string
+     * @param string $userAgent      User agent string
+     * @param bool   $includeDefault Set to true to prepend the value to /* Replaced /* Replaced /* Replaced Guzzle */ */ */'s default user agent string
      *
-     * @return ClientInterface
+     * @return self
      */
-    public function setUserAgent($userAgent);
+    public function setUserAgent($userAgent, $includeDefault = false);
 
     /**
      * Create a GET request for the /* Replaced /* Replaced /* Replaced client */ */ */
