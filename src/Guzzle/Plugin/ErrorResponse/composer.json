@@ -1,0 +1,27 @@
+{
+    "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-error-response",
+    "description": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ errorResponse plugin for creating error exceptions based on a service description",
+    "homepage": "http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/",
+    "keywords": ["plugin", "/* Replaced /* Replaced /* Replaced guzzle */ */ */"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Dowling",
+            "email": "mtdowling@gmail.com",
+            "homepage": "https://github.com/mtdowling"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//http": "self.version"
+    },
+    "autoload": {
+        "psr-0": { "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Plugin\\ErrorResponse": "" }
+    },
+    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Plugin/ErrorResponse",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
+        }
+    }
+}
