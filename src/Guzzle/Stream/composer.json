@@ -13,7 +13,8 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//common": "self.version"
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//common": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//http": "self.version"
     },
     "autoload": {
         "psr-0": { "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Stream": "" }
