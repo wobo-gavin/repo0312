@@ -29,6 +29,7 @@
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-cache": "self.version",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-cookie": "self.version",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-curlauth": "self.version",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-error-response": "self.version",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-history": "self.version",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-log": "self.version",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-md5": "self.version",
