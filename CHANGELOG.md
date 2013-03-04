@@ -10,8 +10,8 @@ CHANGELOG
 * Bug fix: Fixed bug in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response` where wrapping quotes were stripped from `getEtag()`
 * BC: Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils` class
 * BC: Setting a service description on a /* Replaced /* Replaced /* Replaced client */ */ */ will no longer modify the /* Replaced /* Replaced /* Replaced client */ */ */'s command factories.
-* BC: Emitting IO events from a RequestMediator is now a parameter that must be set in a request' curl options using the
-  'emit_io' key. This was previously set under a request's parameters using 'curl.emit_io'
+* BC: Emitting IO events from a RequestMediator is now a parameter that must be set in a request's curl options using
+  the 'emit_io' key. This was previously set under a request's parameters using 'curl.emit_io'
 * BC: `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::getWrapper()` and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::getSteamType()` are no longer converted to
   lowercase
 * Operation parameter objects are now lazy loaded internally
