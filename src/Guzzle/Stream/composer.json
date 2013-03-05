@@ -13,8 +13,10 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//common": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//http": "self.version"
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//common": "self.version"
+    },
+    "suggest": {
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//http": "To convert /* Replaced /* Replaced /* Replaced Guzzle */ */ */ request objects to PHP streams"
     },
     "autoload": {
         "psr-0": { "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Stream": "" }
