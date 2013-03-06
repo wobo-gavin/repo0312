@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -138,24 +139,13 @@ class OauthPlugin implements EventSubscriberInterface
         $params = $this->getParamsToSign($request, $timestamp, $nonce);
 
         // Build signing string from combined params
-        $parameterString = array();
-        foreach ($params as $key => $values) {
-            $key = rawurlencode($key);
-            $values = (array) $values;
-            sort($values);
-            foreach ($values as $value) {
-                if (is_bool($value)) {
-                    $value = $value ? 'true' : 'false';
-                }
-                $parameterString[] = $key . '=' . rawurlencode($value);
-            }
-        }
+        $parameterString = new QueryString($params);
 
         $url = Url::factory($request->getUrl())->setQuery('')->setFragment(null);
 
         return strtoupper($request->getMethod()) . '&'
              . rawurlencode($url) . '&'
-             . rawurlencode(implode('&', $parameterString));
+             . rawurlencode((string) $parameterString);
     }
 
     /**
