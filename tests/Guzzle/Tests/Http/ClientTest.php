@@ -676,4 +676,21 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->setUserAgent('foo');
         $this->assertEquals('foo', $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'userAgent'));
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::prepareRequest
+     */
+    public function testOverwritesUserAgent()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.foo.com', array('User-agent' => 'foo'));
+        $this->assertEquals('foo', (string) $request->getHeader('User-Agent'));
+    }
+
+    public function testUsesDefaultUserAgent()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.foo.com');
+        $this->assertContains('/* Replaced /* Replaced /* Replaced Guzzle */ */ *//', (string) $request->getHeader('User-Agent'));
+    }
 }
