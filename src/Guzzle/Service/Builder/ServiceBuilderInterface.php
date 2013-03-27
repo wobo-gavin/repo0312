@@ -13,8 +13,9 @@ interface ServiceBuilderInterface
     /**
      * Get a service using a registered builder
      *
-     * @param string $name      Name of the registered /* Replaced /* Replaced /* Replaced client */ */ */ to retrieve
-     * @param bool   $throwAway Set to TRUE to not store the /* Replaced /* Replaced /* Replaced client */ */ */ for later retrieval from the ServiceBuilder
+     * @param string     $name      Name of the registered /* Replaced /* Replaced /* Replaced client */ */ */ to retrieve
+     * @param bool|array $throwAway Set to TRUE to not store the /* Replaced /* Replaced /* Replaced client */ */ */ for later retrieval from the ServiceBuilder.
+     *                              If an array is specified, that data will overwrite the configured params
      *
      * @return FromConfigInterface
      * @throws ServiceNotFoundException when a /* Replaced /* Replaced /* Replaced client */ */ */ cannot be found by name
