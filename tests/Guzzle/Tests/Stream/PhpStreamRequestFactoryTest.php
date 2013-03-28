@@ -42,7 +42,6 @@ class PhpStreamRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced G
 
     public function testOpensValidStreamByPassingContextAndMerging()
     {
-        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nhi");
         $request = $this->/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
         $this->factory = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\PhpStreamRequestFactory')
             ->setMethods(array('createContext', 'createStream'))
@@ -63,7 +62,6 @@ class PhpStreamRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced G
 
     public function testAppliesProxySettings()
     {
-        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nhi");
         $request = $this->/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
         $request->getCurlOptions()->set(CURLOPT_PROXY, 'tcp://foo.com');
         $this->factory = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\PhpStreamRequestFactory')
@@ -125,7 +123,6 @@ class PhpStreamRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced G
 
     public function testCanDisableSslValidation()
     {
-        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nhi");
         $request = $this->/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
         $request->getCurlOptions()->set(CURLOPT_SSL_VERIFYPEER, false);
         $this->factory = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\PhpStreamRequestFactory')
@@ -141,7 +138,6 @@ class PhpStreamRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced G
 
     public function testUsesSslValidationByDefault()
     {
-        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nhi");
         $request = $this->/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
         $this->factory = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\PhpStreamRequestFactory')
             ->setMethods(array('createStream'))
@@ -157,7 +153,6 @@ class PhpStreamRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced G
 
     public function testBasicAuthAddsUserAndPassToUrl()
     {
-        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nhi");
         $request = $this->/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
         $request->setAuth('Foo', 'Bar');
         $this->factory = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\PhpStreamRequestFactory')
@@ -168,5 +163,13 @@ class PhpStreamRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced G
             ->will($this->returnValue(new Stream(fopen('php://temp', 'r'))));
         $this->factory->fromRequest($request);
         $this->assertContains('Foo:Bar@', (string) $this->readAttribute($this->factory, 'url'));
+    }
+
+    public function testCanCreateCustomStreamClass()
+    {
+        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nhi");
+        $request = $this->/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
+        $stream = $this->factory->fromRequest($request, array(), array('stream_class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody'));
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody', $stream);
     }
 }
