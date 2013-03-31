@@ -10,6 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Abstract
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\SchemaValidator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\Sub\Sub;
 
@@ -450,6 +451,31 @@ class CommandTest extends AbstractCommandTest
         $v->expects($this->any())->method('validate')->will($this->returnValue(false));
         $v->expects($this->any())->method('getErrors')->will($this->returnValue(array('[Foo] Baz', '[Bar] Boo')));
         $command->setValidator($v);
+        $command->prepare();
+    }
+
+    /**
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ValidationException
+     * @expectedExceptionMessage Validation errors: [abc] must be of type string
+     */
+    public function testValidatesAdditionalProperties()
+    {
+        $description = ServiceDescription::factory(array(
+            'operations' => array(
+                'foo' => array(
+                    'parameters' => array(
+                        'baz' => array('type' => 'integer')
+                    ),
+                    'additionalProperties' => array(
+                        'type' => 'string'
+                    )
+                )
+            )
+        ));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description);
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('foo', array('abc' => false));
         $command->prepare();
     }
 

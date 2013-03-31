@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Comm
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\DefaultRequestSerializer;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ServiceDescription;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request\HeaderVisitor;
@@ -101,5 +102,31 @@ class DefaultRequestSerializerTest extends \/* Replaced /* Replaced /* Replaced 
 
         $request = $this->serializer->prepare($this->command);
         $this->assertEquals('http://foo.com/baz/bar?fields='.urlencode('id,name'), (string) $request->getUrl());
+    }
+
+    public function testValidatesAdditionalProperties()
+    {
+        $description = ServiceDescription::factory(array(
+            'operations' => array(
+                'foo' => array(
+                    'httpMethod' => 'PUT',
+                    'parameters' => array(
+                        'bar' => array('location' => 'header')
+                    ),
+                    'additionalProperties' => array(
+                        'location' => 'json'
+                    )
+                )
+            )
+        ));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($description);
+        $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('foo');
+        $command['bar'] = 'test';
+        $command['hello'] = 'abc';
+        $request = $command->prepare();
+        $this->assertEquals('test', (string) $request->getHeader('bar'));
+        $this->assertEquals('{"hello":"abc"}', (string) $request->getBody());
     }
 }
