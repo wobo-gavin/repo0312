@@ -331,4 +331,46 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertFalse($request->hasHeader('Content-Length'));
         $this->assertEquals('chunked', $request->getHeader('Transfer-Encoding'));
     }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::cloneRequestWithMethod
+     */
+    public function testClonesRequestsWithMethodWithoutClient()
+    {
+        $f = RequestFactory::getInstance();
+        $request = $f->create('GET', 'http://www.test.com', array('X-Foo' => 'Bar'));
+        $request->getParams()->replace(array(
+            'curl_handle' => 'foo',
+            'queued_response' => 'baz',
+            'curl_multi' => 'bar',
+            'test' => '123'
+        ));
+        $request->getCurlOptions()->set('foo', 'bar');
+        $cloned = $f->cloneRequestWithMethod($request, 'PUT');
+        $this->assertEquals('PUT', $cloned->getMethod());
+        $this->assertEquals('Bar', (string) $cloned->getHeader('X-Foo'));
+        $this->assertEquals('http://www.test.com', $cloned->getUrl());
+        // Ensure params are cloned and cleaned up
+        $this->assertEquals(1, count($cloned->getParams()->getAll()));
+        $this->assertEquals('123', $cloned->getParams()->get('test'));
+        // Ensure curl options are cloned
+        $this->assertEquals('bar', $cloned->getCurlOptions()->get('foo'));
+        // Ensure event dispatcher is cloned
+        $this->assertNotSame($request->getEventDispatcher(), $cloned->getEventDispatcher());
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::cloneRequestWithMethod
+     */
+    public function testClonesRequestsWithMethodWithClient()
+    {
+        $f = RequestFactory::getInstance();
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put('http://www.test.com', array('Content-Length' => 4), 'test');
+        $cloned = $f->cloneRequestWithMethod($request, 'GET');
+        $this->assertEquals('GET', $cloned->getMethod());
+        $this->assertNull($cloned->getHeader('Content-Length'));
+        $this->assertEquals('http://www.test.com', $cloned->getUrl());
+        $this->assertSame($request->getClient(), $cloned->getClient());
+    }
 }

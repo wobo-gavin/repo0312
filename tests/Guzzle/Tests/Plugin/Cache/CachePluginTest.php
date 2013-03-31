@@ -480,4 +480,29 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $this->assertInternalType('array', $data[1]);
         $this->assertEquals('Foo', $data[2]);
     }
+
+    public function testPurgesRequests()
+    {
+        $storage = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CacheStorageInterface')
+            ->setMethods(array('delete'))
+            ->getMockForAbstractClass();
+        $storage->expects($this->exactly(5))
+            ->method('delete');
+        $plugin = new CachePlugin(array('storage' => $storage));
+        $request = new Request('GET', 'http://foo.com', array('X-Foo' => 'Bar'));
+        $plugin->purge($request);
+    }
+
+    public function testPurgesRequestsWithCustomMethods()
+    {
+        $storage = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CacheStorageInterface')
+            ->setMethods(array('delete'))
+            ->getMockForAbstractClass();
+        $storage->expects($this->exactly(2))
+            ->method('delete');
+        $plugin = new CachePlugin(array('storage' => $storage));
+        $request = new Request('GET', 'http://foo.com', array('X-Foo' => 'Bar'));
+        $request->getParams()->set('cache.purge_methods', array('FOO', 'BAR'));
+        $plugin->purge($request);
+    }
 }

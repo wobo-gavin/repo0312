@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterInterf
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter;
@@ -152,6 +153,13 @@ class CachePlugin implements EventSubscriberInterface
 
         $request->addHeader('Via', sprintf('%s /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache/%s', $request->getProtocolVersion(), Version::VERSION));
 
+        // Intercept PURGE requests
+        if ($request->getMethod() == 'PURGE') {
+            $this->purge($request);
+            $request->setResponse(new Response(200, array(), 'purged'));
+            return;
+        }
+
         if (!$this->canCache->canCacheRequest($request)) {
             return;
         }
@@ -232,6 +240,8 @@ class CachePlugin implements EventSubscriberInterface
      * If possible, set a cache response on a cURL exception
      *
      * @param Event $event
+     *
+     * @return null
      */
     public function onRequestException(Event $event)
     {
@@ -357,6 +367,23 @@ class CachePlugin implements EventSubscriberInterface
         }
 
         return true;
+    }
+
+    /**
+     * Purge a request from the cache storage
+     *
+     * @param RequestInterface $request Request to purge
+     */
+    public function purge(RequestInterface $request)
+    {
+        // If the request has a cache.purge_methods param, then use that, otherwise use the default known methods
+        $methods = $request->getParams()->get('cache.purge_methods') ?: array('GET', 'HEAD', 'POST', 'PUT', 'DELETE');
+        foreach ($methods as $method) {
+            // Clone the request with each method and clear from the cache
+            $cloned = RequestFactory::getInstance()->cloneRequestWithMethod($request, $method);
+            $key = $this->keyProvider->getCacheKey($cloned);
+            $this->storage->delete($key);
+        }
     }
 
     /**
