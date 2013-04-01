@@ -172,7 +172,7 @@ $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replac
 $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://www.test.com{+path}{?a,data*}');
 ```
 
-The generated request URL would become: ``http://www.test.com/path/to?a=hi&foo=bar&mesa=jarajar``
+The generated request URL would become: ``http://www.test.com/path/to?a=hi&foo=bar&mesa=jarjar``
 
 You can specify URI templates and an array of additional template variables to use when creating requests:
 
