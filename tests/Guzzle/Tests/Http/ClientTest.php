@@ -226,6 +226,16 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setSslVerification
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException
+     */
+    public function testThrowsExceptionForInvalidCertificate()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setSslVerification('/path/to/missing/file');
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setSslVerification
      */
     public function testClientAllowsSettingSpecificSslCaInfo()
     {
