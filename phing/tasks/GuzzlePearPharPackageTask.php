@@ -144,6 +144,7 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask ext
         $pfm = new PEAR_PackageFileManager2();
         $e = $pfm->setOptions($opts);
         $pfm->addRole('md', 'doc');
+        $pfm->addRole('pem', 'php');
         $pfm->setPackage('/* Replaced /* Replaced /* Replaced Guzzle */ */ */');
         $pfm->setSummary("Object-oriented PHP HTTP Client for PHP 5.3+");
         $pfm->setDescription($this->/* Replaced /* Replaced /* Replaced guzzle */ */ */info['description']);
