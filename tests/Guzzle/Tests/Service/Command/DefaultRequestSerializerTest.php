@@ -104,7 +104,7 @@ class DefaultRequestSerializerTest extends \/* Replaced /* Replaced /* Replaced 
         $this->assertEquals('http://foo.com/baz/bar?fields='.urlencode('id,name'), (string) $request->getUrl());
     }
 
-    public function testValidatesAdditionalProperties()
+    public function testValidatesAdditionalParameters()
     {
         $description = ServiceDescription::factory(array(
             'operations' => array(
@@ -113,7 +113,7 @@ class DefaultRequestSerializerTest extends \/* Replaced /* Replaced /* Replaced 
                     'parameters' => array(
                         'bar' => array('location' => 'header')
                     ),
-                    'additionalProperties' => array(
+                    'additionalParameters' => array(
                         'location' => 'json'
                     )
                 )
