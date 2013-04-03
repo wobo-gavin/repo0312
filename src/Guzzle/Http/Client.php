@@ -484,14 +484,16 @@ class Client extends AbstractHasDispatcher implements ClientInterface
      */
     protected function preparePharCacert()
     {
-        $certFile = sys_get_temp_dir() . '/cacert.pem';
+        $from = 'phar:///* Replaced /* Replaced /* Replaced guzzle */ */ */.phar/src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/Resources/cacert.pem';
+        $certFile = sys_get_temp_dir() . '//* Replaced /* Replaced /* Replaced guzzle */ */ */-cacert.pem';
         if (file_exists($certFile)) {
-            if (!copy('phar:///* Replaced /* Replaced /* Replaced guzzle */ */ */.phar/src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/Resources/cacert.pem', $certFile)) {
-                throw new RuntimeException(
-                    'Could not copy phar:///* Replaced /* Replaced /* Replaced guzzle */ */ */.phar/src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/Resources/cacert.pem to '
-                    . $certFile
-                );
+            $actualMd5 = md5_file($certFile);
+            $expectedMd5 = trim(file_get_contents('phar:///* Replaced /* Replaced /* Replaced guzzle */ */ */.phar/src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/Resources/cacert.md5'));
+            if ($actualMd5 != $expectedMd5) {
+                throw new RuntimeException("{$certFile} MD5 mismatch: expected {$expectedMd5} but got {$actualMd5}");
             }
+        } elseif (!copy($from, $certFile)) {
+            throw new RuntimeException("Could not copy {$from} to {$certFile}");
         }
 
         return $certFile;
