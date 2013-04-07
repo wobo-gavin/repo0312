@@ -525,10 +525,20 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::setBody
      */
-    public function testSetsContentTypeWhenSettingBodyByGuessing()
+    public function testSetsContentTypeWhenSettingBodyByGuessingFromPath()
     {
         $request = new EntityEnclosingRequest('PUT', 'http://test.com/foo.json');
         $request->setBody('{"a":"b"}');
-        $this->assertEquals('application/json', $request->getHeader('Content-Type'));
+        $this->assertEquals('application/json', (string) $request->getHeader('Content-Type'));
+    }
+
+    /**
+     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest::setBody
+     */
+    public function testSetsContentTypeWhenSettingBodyByGuessingFromEntityBody()
+    {
+        $request = new EntityEnclosingRequest('PUT', 'http://test.com/foo');
+        $request->setBody(EntityBody::factory(fopen(__FILE__, 'r')));
+        $this->assertEquals('text/x-php', (string) $request->getHeader('Content-Type'));
     }
 }
