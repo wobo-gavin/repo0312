@@ -1,8 +1,8 @@
 <?php
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\RedirectPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamRequestFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\PhpStreamRequestFactory;
 
 /**
@@ -33,7 +33,6 @@ final class /* Replaced /* Replaced /* Replaced Guzzle */ */ */
      *                         "plugins": Array of plugins to add to the request
      *
      * @return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response|\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream
-     * @throws InvalidArgumentException
      */
     public static function request($method, $url, $options = array())
     {
@@ -66,10 +65,7 @@ final class /* Replaced /* Replaced /* Replaced Guzzle */ */ */
         }
 
         if (is_array($auth)) {
-            if (!isset($auth[1])) {
-                throw new InvalidArgumentException('"auth" requires an array containing a username and password');
-            }
-            $request->setAuth($auth[0], $auth[1]);
+            $request->setAuth($auth[0], isset($auth[1]) ? $auth[1] : null);
         }
 
         if (is_array($events)) {
@@ -86,6 +82,8 @@ final class /* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
         if (!$stream) {
             return $request->send();
+        } elseif ($stream instanceof StreamRequestFactoryInterface) {
+            return $stream->fromRequest($request);
         } else {
             $streamFactory = new PhpStreamRequestFactory();
             return $streamFactory->fromRequest($request);
