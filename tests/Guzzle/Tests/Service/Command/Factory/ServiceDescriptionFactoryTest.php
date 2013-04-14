@@ -37,6 +37,14 @@ class ServiceDescriptionFactoryTest extends \/* Replaced /* Replaced /* Replaced
         }
     }
 
+    public function testUsesUcFirstIfNoExactMatch()
+    {
+        $d = $this->getDescription();
+        $factory = new ServiceDescriptionFactory($d, new Inflector());
+        $this->assertInstanceof('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\OtherCommand', $factory->factory('Test'));
+        $this->assertInstanceof('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\OtherCommand', $factory->factory('test'));
+    }
+
     public function testUsesInflectionIfNoExactMatch()
     {
         $d = $this->getDescription();
@@ -51,12 +59,9 @@ class ServiceDescriptionFactoryTest extends \/* Replaced /* Replaced /* Replaced
     {
         return ServiceDescription::factory(array(
             'operations' => array(
-                'jar_jar' => array(
-                    'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand'
-                ),
-                'binks' => array(
-                    'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\OtherCommand'
-                )
+                'jar_jar' => array('class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\MockCommand'),
+                'binks' => array('class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\OtherCommand'),
+                'Test' => array('class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Command\OtherCommand')
             )
         ));
     }
