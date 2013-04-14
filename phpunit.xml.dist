@@ -10,7 +10,7 @@
          testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
 
     <testsuites>
-        <testsuite name="/* Replaced /* Replaced /* Replaced Guzzle */ */ */">
+        <testsuite>
             <directory>./tests//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Tests</directory>
         </testsuite>
     </testsuites>
