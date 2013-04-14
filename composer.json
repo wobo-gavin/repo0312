@@ -53,7 +53,8 @@
         "psr-0": {
             "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests": "tests/",
             "/* Replaced /* Replaced /* Replaced Guzzle */ */ */": "src/"
-        }
+        },
+        "files": ["src//* Replaced /* Replaced /* Replaced Guzzle */ */ *///* Replaced /* Replaced /* Replaced Guzzle */ */ */.php"]
     },
 
     "require-dev": {
