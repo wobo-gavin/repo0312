@@ -57,6 +57,13 @@ class CurlMultiProxyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
         ));
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $events = array();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getCurlMulti()->getEventDispatcher()->addListener(
+            CurlMultiProxy::ADD_REQUEST,
+            function ($e) use (&$events) {
+                $events[] = $e;
+            }
+        );
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
         $request->getEventDispatcher()->addListener('request.complete', function () use ($/* Replaced /* Replaced /* Replaced client */ */ */) {
             $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo')->send();
@@ -66,6 +73,7 @@ class CurlMultiProxyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->assertEquals(2, count($received));
         $this->assertEquals($this->getServer()->getUrl(), $received[0]->getUrl());
         $this->assertEquals($this->getServer()->getUrl() . 'foo', $received[1]->getUrl());
+        $this->assertEquals(2, count($events));
     }
 
     public function testTrimsDownMaxHandleCount()
