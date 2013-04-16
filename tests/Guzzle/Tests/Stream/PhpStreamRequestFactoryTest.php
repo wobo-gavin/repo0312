@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 
 /**
  * @group server
- * @covers \Gizzle\Stream\PhpStreamRequestFactory
+ * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\PhpStreamRequestFactory
  */
 class PhpStreamRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {

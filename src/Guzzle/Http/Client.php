@@ -14,7 +14,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiProxy;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlVersion;
 
@@ -421,7 +421,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
     public function getCurlMulti()
     {
         if (!$this->curlMulti) {
-            $this->curlMulti = new CurlMulti();
+            $this->curlMulti = new CurlMultiProxy();
         }
 
         return $this->curlMulti;

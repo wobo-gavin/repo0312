@@ -249,11 +249,9 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
             'Content-Length' => 3
         ), 'abc');
 
-        $request = new Request('GET', 'http://www.google.com/');
-        $request->setClient($this->/* Replaced /* Replaced /* Replaced client */ */ */);
         try {
-            $request->setResponse($response, true);
-            $request->send();
+            $this->request->setResponse($response, true);
+            $this->request->send();
             $this->fail('Expected exception not thrown');
         } catch (BadResponseException $e) {
             $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\RequestInterface', $e->getRequest());

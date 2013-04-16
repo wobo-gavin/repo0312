@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
@@ -77,8 +78,14 @@ class RedirectPlugin implements EventSubscriberInterface
             $originalRequest
         );
 
-        // Send the redirect request and hijack the response of the original request
-        $redirectResponse = $redirectRequest->send();
+        try {
+            // Send the redirect request and hijack the response of the original request
+            $redirectResponse = $redirectRequest->send();
+        } catch (BadResponseException $e) {
+            // Still hijack if an exception occurs after redirecting
+            $redirectResponse = $e->getResponse();
+        }
+
         $request->setResponse($redirectResponse);
         if (!$redirectResponse->getPreviousResponse()) {
             $redirectResponse->setPreviousResponse($response);
