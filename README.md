@@ -74,7 +74,7 @@ HTTP basics
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 
-$/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.example.com/api/v1/key/{{key}}', array(
+$/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.example.com/api/v1/key/{key}', array(
     'key' => '***'
 ));
 
