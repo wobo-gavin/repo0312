@@ -434,4 +434,20 @@ class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $this->multi->add($request);
         $this->multi->send();
     }
+
+    public function testRemovesConflictingTransferEncodingHeader()
+    {
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ntest",
+            "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
+        ));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', null, fopen($this->getServer()->getUrl(), 'r'));
+        $request->setHeader('Content-Length', 4);
+        $request->send();
+        $received = $this->getServer()->getReceivedRequests(true);
+        $this->assertFalse($received[1]->hasHeader('Transfer-Encoding'));
+        $this->assertEquals(4, (string) $received[1]->getHeader('Content-Length'));
+    }
 }
