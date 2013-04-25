@@ -47,8 +47,6 @@ class AsyncPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
             'downloaded'  => 0
         ));
         $p->onCurlProgress($event);
-        $this->assertEquals(1, $handle->getOptions()->get(CURLOPT_TIMEOUT_MS));
-        $this->assertEquals(true, $handle->getOptions()->get(CURLOPT_NOBODY));
     }
 
     public function testEnsuresRequestIsSet()
@@ -79,6 +77,7 @@ class AsyncPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
 
     public function testEnsuresIntegration()
     {
+        $this->getServer()->flush();
         $this->getServer()->enqueue("HTTP/1.1 204 FOO\r\nContent-Length: 4\r\n\r\ntest");
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->post('/', null, array(
@@ -88,5 +87,7 @@ class AsyncPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $request->send();
         $this->assertEquals('', $request->getResponse()->getBody(true));
         $this->assertTrue($request->getResponse()->hasHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Async'));
+        $received = $this->getServer()->getReceivedRequests(true);
+        $this->assertEquals('POST', $received[0]->getMethod());
     }
 }
