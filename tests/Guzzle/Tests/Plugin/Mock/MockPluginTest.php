@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlException;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin
@@ -176,5 +177,35 @@ class MockPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $request->setBody($body);
         $request->send();
         $this->assertEquals(3, $body->ftell());
+    }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage Foo
+     */
+    public function testCanMockExceptions()
+    {
+        $mock = new MockPlugin();
+        $mock->addException(new \Exception('Foo'));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://localhost:123/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('foo')->send();
+    }
+
+    public function testCanMockBadRequestExceptions()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://localhost:123/');
+        $ex = new CurlException('Foo');
+        $mock = new MockPlugin(array($ex));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($mock);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('foo');
+
+        try {
+            $request->send();
+            $this->fail('Did not dequeue an exception');
+        } catch (CurlException $e) {
+            $this->assertSame($e, $ex);
+            $this->assertSame($request, $ex->getRequest());
+        }
     }
 }
