@@ -179,19 +179,6 @@ class MockPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals(3, $body->ftell());
     }
 
-    /**
-     * @expectedException \Exception
-     * @expectedExceptionMessage Foo
-     */
-    public function testCanMockExceptions()
-    {
-        $mock = new MockPlugin();
-        $mock->addException(new \Exception('Foo'));
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://localhost:123/');
-        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($mock);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get('foo')->send();
-    }
-
     public function testCanMockBadRequestExceptions()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://localhost:123/');

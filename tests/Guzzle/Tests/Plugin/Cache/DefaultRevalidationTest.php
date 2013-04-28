@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Plugin\Cache
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
@@ -13,6 +14,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapt
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CallbackCacheKeyProvider;
 use Doctrine\Common\Cache\ArrayCache;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCacheStorage;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultRevalidation
@@ -186,5 +189,78 @@ class DefaultRevalidationTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send()->getStatusCode());
         $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send()->getStatusCode());
         $this->assertEquals(3, count($this->getServer()->getReceivedRequests()));
+    }
+
+    public function testCanHandleRevalidationFailures()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $lm = gmdate('c', time() - 60);
+        $mock = new MockPlugin(array(
+            new Response(200, array(
+                'Date'           => $lm,
+                'Cache-Control'  => 'max-age=100, must-revalidate, stale-if-error=9999',
+                'Last-Modified'  => $lm,
+                'Content-Length' => 2
+            ), 'hi'),
+            new CurlException('Bleh')
+        ));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber(new CachePlugin());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send();
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('hi', $response->getBody(true));
+        $this->assertEquals(2, count($mock->getReceivedRequests()));
+        $this->assertEquals(0, count($mock->getQueue()));
+    }
+
+    public function testCanHandleStaleIfError()
+    {
+        $server = new Server(8000);
+        $server->start();
+        $server->flush();
+        $lm = gmdate('c', time() - 60);
+        $server->enqueue(array(
+            "HTTP/1.1 200 OK\r\n" .
+            "Date: Mon, 12 Nov 2012 03:06:37 GMT\r\n" .
+            "Cache-Control: max-age=120, stale-if-error=1200\r\n" .
+            "Last-Modified: {$lm}\r\n" .
+            "Content-Length: 2\r\n\r\nhi"
+        ));
+        $cache = new CachePlugin();
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($server->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($cache);
+        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send()->getStatusCode());
+        $this->assertEquals(1, count($server->getReceivedRequests()));
+        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send()->getStatusCode());
+    }
+
+    public function testCanHandleStaleIfErrorWhenRevalidating()
+    {
+        $server = new Server(8000);
+        $server->start();
+        $server->flush();
+        $lm = gmdate('c', time() - 60);
+        $server->enqueue(array(
+            "HTTP/1.1 200 OK\r\n" .
+            "Date: {$lm}\r\n" .
+            "Cache-Control: must-revalidate, max-age=0, stale-if-error=1200\r\n" .
+            "Last-Modified: {$lm}\r\n" .
+            "Content-Length: 2\r\n\r\nhi"
+        ));
+
+        $cache = new CachePlugin();
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($server->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($cache);
+        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send()->getStatusCode());
+        $this->assertEquals(1, count($server->getReceivedRequests()));
+
+        // wait for the server to actually stop
+        $server->stop();
+        while ($server->isRunning()) {
+            sleep(1);
+        }
+
+        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send()->getStatusCode());
     }
 }
