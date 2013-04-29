@@ -7,7 +7,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\MessageParser;
 
@@ -341,7 +340,6 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $request = $f->create('GET', 'http://www.test.com', array('X-Foo' => 'Bar'));
         $request->getParams()->replace(array(
             'curl_handle' => 'foo',
-            'queued_response' => 'baz',
             'curl_multi' => 'bar',
             'test' => '123'
         ));
