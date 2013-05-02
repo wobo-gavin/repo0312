@@ -123,7 +123,7 @@ class MockPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     public function testUpdateIgnoresWhenEmpty()
     {
         $p = new MockPlugin();
-        $p->onRequestCreate(new Event());
+        $p->onRequestBeforeSend(new Event());
     }
 
     /**
