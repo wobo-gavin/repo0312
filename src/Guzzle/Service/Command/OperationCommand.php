@@ -2,8 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\OperationInterface;
-
 /**
  * A command that creates requests based on {@see /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\OperationInterface} objects, and if the
  * matching operation uses a service description model in the responseClass attribute, then this command will marshal
