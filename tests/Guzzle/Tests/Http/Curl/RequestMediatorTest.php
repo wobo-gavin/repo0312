@@ -50,13 +50,4 @@ class RequestMediatorTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
         $this->assertEquals('foo', $this->events[2]['read']);
         $this->assertSame($request, $this->events[2]['request']);
     }
-
-    public function testSetsCurlHandleParameter()
-    {
-        $request = new EntityEnclosingRequest('PUT', 'http://www.example.com');
-        $mediator = new RequestMediator($request);
-        $handle = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle')->disableOriginalConstructor()->getMock();
-        $mediator->setCurlHandle($handle);
-        $this->assertSame($handle, $request->getParams()->get('curl_handle'));
-    }
 }
