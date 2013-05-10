@@ -196,4 +196,28 @@ class RedirectPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             $request->getResponse()->getRequest()->getUrl()
         );
     }
+
+    public function testResetsHistoryEachSend()
+    {
+        // Flush the server and queue up a redirect followed by a successful response
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect1\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect2\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
+        ));
+
+        // Create a /* Replaced /* Replaced /* Replaced client */ */ */ that uses the default redirect behavior
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo');
+        $response = $request->send();
+        $this->assertEquals(3, count($response->getRedirectHistory()));
+        $this->assertTrue($request->getParams()->hasKey('redirect.history'));
+        $this->assertTrue($request->getParams()->hasKey('redirect.count'));
+        $response = $request->send();
+        $this->assertCount(0, $response->getRedirectHistory());
+        $this->assertFalse($request->getParams()->hasKey('redirect.history'));
+        $this->assertFalse($request->getParams()->hasKey('redirect.count'));
+    }
 }
