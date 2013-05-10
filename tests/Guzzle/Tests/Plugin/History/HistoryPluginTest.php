@@ -3,10 +3,10 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Plugin\History;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\History\HistoryPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\History\HistoryPlugin
@@ -111,5 +111,48 @@ class HistoryPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
         $request->send();
 
         $this->assertSame($request, $h->getLastRequest());
+    }
+
+    public function testCanCastToString()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://localhost/');
+        $h = new HistoryPlugin();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($h);
+
+        $mock = new MockPlugin(array(
+            new Response(301, array('Location' => '/redirect1')),
+            new Response(307, array('Location' => '/redirect2')),
+            new Response(200, array('Content-Length' => '2'), 'HI')
+        ));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($mock);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
+        $request->send();
+        $this->assertEquals(3, count($h));
+        $this->assertEquals(3, count($mock->getReceivedRequests()));
+
+        $this->assertEquals(<<<EOT
+> GET / HTTP/1.1
+Host: localhost
+User-Agent: /* Replaced /* Replaced /* Replaced Guzzle */ */ *//3.4.3 curl/7.21.4 PHP/5.3.15
+
+< HTTP/1.1 301 Moved Permanently
+Location: /redirect1
+
+> GET /redirect1 HTTP/1.1
+Host: localhost
+User-Agent: /* Replaced /* Replaced /* Replaced Guzzle */ */ *//3.4.3 curl/7.21.4 PHP/5.3.15
+
+< HTTP/1.1 307 Temporary Redirect
+Location: /redirect2
+
+> GET /redirect2 HTTP/1.1
+Host: localhost
+User-Agent: /* Replaced /* Replaced /* Replaced Guzzle */ */ *//3.4.3 curl/7.21.4 PHP/5.3.15
+
+< HTTP/1.1 200 OK
+Content-Length: 2
+EOT
+, str_replace("\r", '', trim((string) $h)));
     }
 }
