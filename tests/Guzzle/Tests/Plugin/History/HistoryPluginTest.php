@@ -57,14 +57,6 @@ class HistoryPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ *
         $this->assertEquals($requests[0], $i[0]);
     }
 
-    public function testIgnoresUnsentRequests()
-    {
-        $h = new HistoryPlugin();
-        $request = RequestFactory::getInstance()->create('GET', 'http://localhost/');
-        $h->add($request);
-        $this->assertEquals(0, count($h));
-    }
-
     /**
      * @depends testAddsRequests
      */
