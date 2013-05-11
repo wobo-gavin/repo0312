@@ -2,11 +2,14 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Log;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequest;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Log\MessageFormatter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Log\LogPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Log\ClosureLogAdapter;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Log\MessageFormatter
@@ -117,5 +120,18 @@ class MessageFormatterTest extends \/* Replaced /* Replaced /* Replaced Guzzle *
                 array('total_time', '2'),
             )));
         $this->assertEquals('1/2', $formatter->format($this->request, $response));
+    }
+
+    public function testInjectsTotalTime()
+    {
+        $out = '';
+        $formatter = new MessageFormatter('{connect_time}/{total_time}');
+        $adapter = new ClosureLogAdapter(function ($m) use (&$out) { $out .= $m; });
+        $log = new LogPlugin($adapter, $formatter);
+        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nHI");
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($log);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/')->send();
+        $this->assertNotEquals('/', $out);
     }
 }
