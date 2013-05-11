@@ -6,6 +6,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache;
  * Zend Framework 1 cache adapter
  *
  * @link http://framework.zend.com/manual/en/zend.cache.html
+ * @deprecated
  */
 class Zf1CacheAdapter extends AbstractCacheAdapter
 {
