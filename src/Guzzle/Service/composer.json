@@ -23,7 +23,7 @@
     "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Service",
     "extra": {
         "branch-alias": {
-            "dev-master": "3.4-dev"
+            "dev-master": "3.5-dev"
         }
     }
 }
