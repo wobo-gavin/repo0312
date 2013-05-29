@@ -23,6 +23,11 @@ class CurlMultiProxyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $this->multi = new CurlMultiProxy();
     }
 
+    public function tearDown()
+    {
+        unset($this->multi);
+    }
+
     public function testConstructorSetsMaxHandles()
     {
         $m = new CurlMultiProxy(2);

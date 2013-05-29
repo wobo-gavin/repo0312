@@ -87,20 +87,6 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::__construct
      */
-    public function testConstructorHandlesBasicAuth()
-    {
-        $auth = base64_encode('michael:foo');
-        $request = new Request('GET', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/', array(
-            'Authorization' => 'Basic ' . $auth
-        ));
-        $this->assertEquals('michael', $request->getUserName());
-        $this->assertEquals('foo', $request->getPassword());
-        $this->assertEquals('Basic ' . $auth, (string) $request->getHeader('Authorization'));
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::__construct
-     */
     public function testConstructorHandlesNonBasicAuth()
     {
         $request = new Request('GET', 'http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */-project.com/', array(

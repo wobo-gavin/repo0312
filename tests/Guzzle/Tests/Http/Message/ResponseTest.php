@@ -53,6 +53,11 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         )), 'body');
     }
 
+    public function tearDown()
+    {
+        unset($this->response);
+    }
+
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::__construct
      */
@@ -754,7 +759,7 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertNull($response->isFresh());
         $this->assertNull($response->getFreshness());
 
-        $response->addCacheControlDirective('max-age', 120);
+        $response->setHeader('Cache-Control', 'max-age=120');
         $response->setHeader('Age', 100);
         $this->assertEquals(20, $response->getFreshness());
         $this->assertTrue($response->isFresh());
