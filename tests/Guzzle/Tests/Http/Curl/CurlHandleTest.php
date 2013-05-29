@@ -714,31 +714,6 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     /**
      * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle::factory
      */
-    public function testHeadersCanBeBlacklisted()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl(), array(
-            'curl.options' => array(
-                'blacklist' => array('header.Foo', CURLOPT_FOLLOWLOCATION)
-            )
-        ));
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put();
-        $request->setHeader('Foo', 'Bar');
-        $handle = CurlHandle::factory($request);
-        $headers = $handle->getOptions()->get(CURLOPT_HTTPHEADER);
-        $this->assertTrue(in_array('Foo:', $headers));
-        $this->assertFalse($handle->getOptions()->hasKey(CURLOPT_FOLLOWLOCATION));
-
-        $this->getServer()->flush();
-        $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nhi");
-        $request->send();
-
-        $r = $this->getServer()->getReceivedRequests(true);
-        $this->assertFalse($r[0]->hasHeader('Foo'));
-    }
-
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlHandle::factory
-     */
     public function testCurlConfigurationOptionsAreSet()
     {
         $request = RequestFactory::getInstance()->create('PUT', $this->getServer()->getUrl());
