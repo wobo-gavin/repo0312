@@ -437,8 +437,8 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
                     'Expect:',
                     'Accept:',
                     'Host: localhost:8124',
-                    'Content-Type: application/json',
                     'Transfer-Encoding: chunked',
+                    'Content-Type: application/json',
                     'User-Agent: ' . $userAgent
                 ),
             ), array(
@@ -643,8 +643,7 @@ class CurlHandleTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->getServer()->enqueue("HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nhi");
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/');
-        $request->setBody(EntityBody::factory('hi!'), 'text/plain', true);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', array('Transfer-Encoding' => 'chunked'), 'hi!');
         $request->send();
 
         $r = $this->getServer()->getReceivedRequests(true);

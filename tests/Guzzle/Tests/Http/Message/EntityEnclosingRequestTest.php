@@ -150,8 +150,9 @@ class EntityEnclosingRequestTest extends \/* Replaced /* Replaced /* Replaced Gu
      */
     public function testRequestBodyDoesNotUseContentLengthWhenChunked()
     {
-        $request = RequestFactory::getInstance()->create('PUT', 'http://www.test.com/');
-        $request->setBody(EntityBody::factory('test'), null, true);
+        $request = RequestFactory::getInstance()->create('PUT', 'http://www.test.com/', array(
+            'Transfer-Encoding' => 'chunked'
+        ), 'test');
         $this->assertNull($request->getHeader('Content-Length'));
         $this->assertTrue($request->hasHeader('Transfer-Encoding'));
     }
