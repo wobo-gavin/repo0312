@@ -11,9 +11,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Para
  */
 class PostFieldVisitor extends AbstractRequestVisitor
 {
-    /**
-     * {@inheritdoc}
-     */
     public function visit(CommandInterface $command, RequestInterface $request, Parameter $param, $value)
     {
         $request->setPostField($param->getWireName(), $this->prepareValue($value, $param));

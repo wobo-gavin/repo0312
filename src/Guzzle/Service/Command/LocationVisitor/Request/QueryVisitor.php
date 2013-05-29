@@ -11,9 +11,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Para
  */
 class QueryVisitor extends AbstractRequestVisitor
 {
-    /**
-     * {@inheritdoc}
-     */
     public function visit(CommandInterface $command, RequestInterface $request, Parameter $param, $value)
     {
         $request->getQuery()->set($param->getWireName(), $this->prepareValue($value, $param));

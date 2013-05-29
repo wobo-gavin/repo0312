@@ -9,9 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\Invalid
  */
 class SchemaFormatter
 {
-    /**
-     * @var \DateTimeZone
-     */
+    /** @var \DateTimeZone */
     protected static $utcTimeZone;
 
     /**

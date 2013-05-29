@@ -11,14 +11,10 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
  */
 class ConcreteClassFactory implements FactoryInterface
 {
-    /**
-     * @var ClientInterface
-     */
+    /** @var ClientInterface */
     protected $/* Replaced /* Replaced /* Replaced client */ */ */;
 
-    /**
-     * @var InflectorInterface
-     */
+    /** @var InflectorInterface */
     protected $inflector;
 
     /**
@@ -31,9 +27,6 @@ class ConcreteClassFactory implements FactoryInterface
         $this->inflector = $inflector ?: Inflector::getDefault();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function factory($name, array $args = array())
     {
         // Determine the class to instantiate based on the namespace of the current /* Replaced /* Replaced /* Replaced client */ */ */ and the default directory

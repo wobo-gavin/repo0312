@@ -6,19 +6,14 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandI
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
 
-/**
- * {@inheritdoc}
- */
 abstract class AbstractRequestVisitor implements RequestVisitorInterface
 {
     /**
-     * {@inheritdoc}
      * @codeCoverageIgnore
      */
     public function after(CommandInterface $command, RequestInterface $request) {}
 
     /**
-     * {@inheritdoc}
      * @codeCoverageIgnore
      */
     public function visit(CommandInterface $command, RequestInterface $request, Parameter $param, $value) {}

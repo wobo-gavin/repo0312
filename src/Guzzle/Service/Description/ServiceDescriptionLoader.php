@@ -10,9 +10,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\Descri
  */
 class ServiceDescriptionLoader extends AbstractConfigLoader
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function build($config, array $options)
     {
         $operations = array();
