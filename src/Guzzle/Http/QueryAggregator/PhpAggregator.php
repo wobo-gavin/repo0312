@@ -9,9 +9,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
  */
 class PhpAggregator implements QueryAggregatorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function aggregate($key, $value, QueryString $query)
     {
         $ret = array();

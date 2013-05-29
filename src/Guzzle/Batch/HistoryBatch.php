@@ -8,14 +8,9 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch;
  */
 class HistoryBatch extends AbstractBatchDecorator
 {
-    /**
-     * @var array Items in the history
-     */
+    /** @var array Items in the history */
     protected $history = array();
 
-    /**
-     * {@inheritdoc}
-     */
     public function add($item)
     {
         $this->history[] = $item;

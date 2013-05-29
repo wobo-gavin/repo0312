@@ -10,9 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInte
  */
 class RequestException extends RuntimeException implements HttpException
 {
-    /**
-     * @var RequestInterface
-     */
+    /** @var RequestInterface */
     protected $request;
 
     /**

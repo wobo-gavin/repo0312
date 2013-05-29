@@ -9,9 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\Runtime
  */
 class FileCookieJar extends ArrayCookieJar
 {
-    /**
-     * @var string filename
-     */
+    /** @var string filename */
     protected $filename;
 
     /**

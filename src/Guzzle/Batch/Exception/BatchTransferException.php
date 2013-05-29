@@ -11,24 +11,16 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch\BatchDivisorInterf
  */
 class BatchTransferException extends \Exception implements /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
 {
-    /**
-     * @var array The batch being sent when the exception occurred
-     */
+    /** @var array The batch being sent when the exception occurred */
     protected $batch;
 
-    /**
-     * @var TransferStrategy The transfer strategy in use when the exception occurred
-     */
+    /** @var TransferStrategy The transfer strategy in use when the exception occurred */
     protected $transferStrategy;
 
-    /**
-     * @var DivisorStrategy The divisor strategy in use when the exception occurred
-     */
+    /** @var DivisorStrategy The divisor strategy in use when the exception occurred */
     protected $divisorStrategy;
 
-    /**
-     * @var array Items transferred at the point in which the exception was encountered
-     */
+    /** @var array Items transferred at the point in which the exception was encountered */
     protected $transferredItems;
 
     /**

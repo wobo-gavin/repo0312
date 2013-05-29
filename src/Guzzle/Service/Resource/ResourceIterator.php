@@ -5,9 +5,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 
-/**
- * {@inheritdoc}
- */
 abstract class ResourceIterator extends AbstractHasDispatcher implements ResourceIteratorInterface
 {
     /** @var CommandInterface Command used to send requests */
