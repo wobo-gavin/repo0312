@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header\HeaderCollection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header\HeaderFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header\HeaderFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header\HeaderInterface;
 
 /**
@@ -32,6 +33,20 @@ abstract class AbstractMessage implements MessageInterface
         $this->params = new Collection();
         $this->headerFactory = new HeaderFactory();
         $this->headers = new HeaderCollection();
+    }
+
+    /**
+     * Set the header factory to use to create headers
+     *
+     * @param HeaderFactoryInterface $factory
+     *
+     * @return self
+     */
+    public function setHeaderFactory(HeaderFactoryInterface $factory)
+    {
+        $this->headerFactory = $factory;
+
+        return $this;
     }
 
     public function getParams()
