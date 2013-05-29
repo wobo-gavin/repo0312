@@ -9,9 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header;
  */
 class HeaderFactory implements HeaderFactoryInterface
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $mapping = array(
         'cache-control' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header\CacheControl',
         'link'          => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header\Link',

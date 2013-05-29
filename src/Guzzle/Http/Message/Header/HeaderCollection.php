@@ -10,6 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ToArrayInterface;
  */
 class HeaderCollection implements \IteratorAggregate, \Countable, \ArrayAccess, ToArrayInterface
 {
+    /** @var array */
     protected $headers;
 
     public function __construct($headers = array())
