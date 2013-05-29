@@ -10,9 +10,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandI
  */
 abstract class AbstractResourceIteratorFactory implements ResourceIteratorFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function build(CommandInterface $command, array $options = array())
     {
         if (!$this->canBuild($command)) {
@@ -24,9 +21,6 @@ abstract class AbstractResourceIteratorFactory implements ResourceIteratorFactor
         return new $className($command, $options);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function canBuild(CommandInterface $command)
     {
         return (bool) $this->getClassName($command);

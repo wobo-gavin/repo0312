@@ -10,9 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Para
  */
 class Model extends Collection
 {
-    /**
-     * @var Parameter Structure of the model
-     */
+    /** @var Parameter Structure of the model */
     protected $structure;
 
     /**
