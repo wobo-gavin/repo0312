@@ -21,9 +21,3 @@ $autoloader = require dirname(__DIR__) . '/vendor/autoload.php';
 // Add the services file to the default service builder
 $servicesFile = __DIR__ . '//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Tests/TestData/services/services.json';
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase::setServiceBuilder(/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder\ServiceBuilder::factory($servicesFile));
-
-// Modify the include path so that it can find the Zend Framework
-$paths = array('vendor/zend/zend-cache1', 'vendor/zend/zend-log1');
-set_include_path(implode(PATH_SEPARATOR, array_map(function($path) {
-    return __DIR__ . '/../' . $path;
-}, $paths)) . PATH_SEPARATOR . get_include_path());
