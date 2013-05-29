@@ -7,9 +7,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message;
  */
 class PeclHttpMessageParser extends AbstractMessageParser
 {
-    /**
-     * {@inheritdoc}
-     */
     public function parseRequest($message)
     {
         if (!$message) {
@@ -31,9 +28,6 @@ class PeclHttpMessageParser extends AbstractMessageParser
         return $parsed;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function parseResponse($message)
     {
         if (!$message) {
