@@ -4,15 +4,20 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Lo
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ArrayCommandInterface;
 
 /**
  * Location visitor used to add a particular header of a response to a key in the result
  */
 class HeaderVisitor extends AbstractResponseVisitor
 {
-    public function visit(CommandInterface $command, Response $response, Parameter $param, &$value, $context =  null)
-    {
+    public function visit(
+        ArrayCommandInterface $command,
+        Response $response,
+        Parameter $param,
+        &$value,
+        $context =  null
+    ) {
         if ($param->getType() == 'object' && $param->getAdditionalProperties() instanceof Parameter) {
             $this->processPrefixedHeaders($response, $param, $value);
         } else {

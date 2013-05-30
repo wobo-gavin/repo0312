@@ -4,7 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Lo
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\PostFileInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ArrayCommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
 
 /**
@@ -12,7 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Para
  */
 class PostFileVisitor extends AbstractRequestVisitor
 {
-    public function visit(CommandInterface $command, RequestInterface $request, Parameter $param, $value)
+    public function visit(ArrayCommandInterface $command, RequestInterface $request, Parameter $param, $value)
     {
         $value = $param->filter($value);
         if ($value instanceof PostFileInterface) {

@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\LocationVisitor\Request;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ArrayCommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
 
@@ -11,12 +11,12 @@ abstract class AbstractRequestVisitor implements RequestVisitorInterface
     /**
      * @codeCoverageIgnore
      */
-    public function after(CommandInterface $command, RequestInterface $request) {}
+    public function after(ArrayCommandInterface $command, RequestInterface $request) {}
 
     /**
      * @codeCoverageIgnore
      */
-    public function visit(CommandInterface $command, RequestInterface $request, Parameter $param, $value) {}
+    public function visit(ArrayCommandInterface $command, RequestInterface $request, Parameter $param, $value) {}
 
     /**
      * Prepare (filter and set desired name for request item) the value for request.

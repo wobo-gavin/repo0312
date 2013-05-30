@@ -4,21 +4,26 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Lo
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ArrayCommandInterface;
 
 /**
  * Location visitor used to marshal XML response data into a formatted array
  */
 class XmlVisitor extends AbstractResponseVisitor
 {
-    public function before(CommandInterface $command, array &$result)
+    public function before(ArrayCommandInterface $command, array &$result)
     {
         // Set the result of the command to the array conversion of the XML body
         $result = json_decode(json_encode($command->getResponse()->xml()), true);
     }
 
-    public function visit(CommandInterface $command, Response $response, Parameter $param, &$value, $context =  null)
-    {
+    public function visit(
+        ArrayCommandInterface $command,
+        Response $response,
+        Parameter $param,
+        &$value,
+        $context =  null
+    ) {
         $sentAs = $param->getWireName();
         $name = $param->getName();
         if (isset($value[$sentAs])) {

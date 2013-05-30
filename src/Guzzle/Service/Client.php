@@ -9,6 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\InflectorInte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\Inflector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client as HttpClient;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\MultiTransferException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ArrayCommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandTransferException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
@@ -104,11 +105,11 @@ class Client extends HttpClient implements ClientInterface
         $command->setClient($this);
 
         // Add global /* Replaced /* Replaced /* Replaced client */ */ */ options to the command
-        if ($command instanceof Collection) {
+        if ($command instanceof ArrayCommandInterface) {
             if ($options = $this->getConfig(self::COMMAND_PARAMS)) {
                 foreach ($options as $key => $value) {
-                    if (!$command->hasKey($key)) {
-                        $command->set($key, $value);
+                    if (!isset($command[$key])) {
+                        $command[$key] = $value;
                     }
                 }
             }
