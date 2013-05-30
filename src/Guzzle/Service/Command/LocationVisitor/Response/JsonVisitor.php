@@ -4,7 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Lo
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Parameter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ArrayCommandInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 
 /**
  * Location visitor used to marshal JSON response data into a formatted array.
@@ -16,14 +16,14 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ArrayCom
  */
 class JsonVisitor extends AbstractResponseVisitor
 {
-    public function before(ArrayCommandInterface $command, array &$result)
+    public function before(CommandInterface $command, array &$result)
     {
         // Ensure that the result of the command is always rooted with the parsed JSON data
         $result = $command->getResponse()->json();
     }
 
     public function visit(
-        ArrayCommandInterface $command,
+        CommandInterface $command,
         Response $response,
         Parameter $param,
         &$value,

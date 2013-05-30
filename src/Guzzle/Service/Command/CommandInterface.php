@@ -6,14 +6,15 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\OperationInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\OperationInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ToArrayInterface;
 
 /**
- * Command object to handle preparing and processing /* Replaced /* Replaced /* Replaced client */ */ */ requests and responses of the requests
+ * A command object that contains parameters that can be modified and accessed like an array and turned into an array
  */
-interface CommandInterface
+interface CommandInterface extends \ArrayAccess, ToArrayInterface
 {
     /**
      * Get the short form name of the command
@@ -49,7 +50,7 @@ interface CommandInterface
      *
      * @param ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */ The /* Replaced /* Replaced /* Replaced client */ */ */ object that will execute the command
      *
-     * @return CommandInterface
+     * @return self
      */
     public function setClient(ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */);
 
@@ -120,7 +121,7 @@ interface CommandInterface
      *
      * @param mixed $callable Callable to execute when the command completes. The callable must accept a
      *                        {@see CommandInterface} object as the only argument.
-     * @return CommandInterface
+     * @return self
      * @throws InvalidArgumentException
      */
     public function setOnComplete($callable);

@@ -19,7 +19,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\Valida
 /**
  * Command object to handle preparing and processing /* Replaced /* Replaced /* Replaced client */ */ */ requests and responses of the requests
  */
-abstract class AbstractCommand extends Collection implements CommandInterface, ArrayCommandInterface
+abstract class AbstractCommand extends Collection implements CommandInterface
 {
     // Option used to specify custom headers to add to the generated request
     const HEADERS_OPTION = 'command.headers';
