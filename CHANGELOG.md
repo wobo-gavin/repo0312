@@ -36,6 +36,7 @@ CHANGELOG
 * /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header::raw. Use getAll()
 * Deprecated cache control specific methods on /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage. Use the CacheControl header object
   instead.
+* `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface` now extends from ToArrayInterface and ArrayAccess
 
 3.5.0 (2013-05-13)
 ------------------
