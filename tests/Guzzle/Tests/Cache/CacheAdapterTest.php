@@ -10,14 +10,10 @@ use Doctrine\Common\Cache\ArrayCache;
  */
 class CacheAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var ArrayCache
-     */
+    /** @var ArrayCache */
     private $cache;
 
-    /**
-     * @var DoctrineCacheAdapter
-     */
+    /** @var DoctrineCacheAdapter */
     private $adapter;
 
     /**
@@ -40,43 +36,28 @@ class CacheAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
         parent::tearDown();
     }
 
-    /**
-     * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\AbstractCacheAdapter::getCacheObject
-     */
     public function testGetCacheObject()
     {
         $this->assertEquals($this->cache, $this->adapter->getCacheObject());
     }
 
-    /**
-     * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter::save
-     */
     public function testSave()
     {
         $this->assertTrue($this->adapter->save('test', 'data', 1000));
     }
 
-    /**
-     * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter::fetch
-     */
     public function testFetch()
     {
         $this->assertTrue($this->adapter->save('test', 'data', 1000));
         $this->assertEquals('data', $this->adapter->fetch('test'));
     }
 
-    /**
-     * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter::contains
-     */
     public function testContains()
     {
         $this->assertTrue($this->adapter->save('test', 'data', 1000));
         $this->assertTrue($this->adapter->contains('test'));
     }
 
-    /**
-     * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter::delete
-     */
     public function testDelete()
     {
         $this->assertTrue($this->adapter->save('test', 'data', 1000));

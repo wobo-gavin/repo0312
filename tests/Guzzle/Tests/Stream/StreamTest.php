@@ -6,12 +6,11 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 
 /**
  * @group server
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream
  */
 class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::__construct
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::setStream
      * @expectedException \InvalidArgumentException
      */
     public function testConstructorThrowsExceptionOnInvalidArgument()
@@ -19,9 +18,6 @@ class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $stream = new Stream(true);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream
-     */
     public function testConstructor()
     {
         $handle = fopen('php://temp', 'r+');
@@ -41,10 +37,6 @@ class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         unset($stream);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::getStream
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::setStream
-     */
     public function testCanModifyStream()
     {
         $handle1 = fopen('php://temp', 'r+');
@@ -56,9 +48,6 @@ class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertSame($handle2, $stream->getStream());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::__destruct
-     */
     public function testStreamClosesHandleOnDestruct()
     {
         $handle = fopen('php://temp', 'r');
@@ -67,9 +56,6 @@ class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertFalse(is_resource($handle));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::__toString
-     */
     public function testConvertsToString()
     {
         $handle = fopen('php://temp', 'w+');
@@ -84,9 +70,6 @@ class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         unset($stream);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::__toString
-     */
     public function testConvertsToStringAndRestoresCursorPos()
     {
         $handle = fopen('php://temp', 'w+');
@@ -97,9 +80,6 @@ class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals(3, $stream->ftell());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::isConsumed
-     */
     public function testIsConsumed()
     {
         $handle = fopen('php://temp', 'w+');
@@ -110,10 +90,6 @@ class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertTrue($stream->isConsumed());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::setSize
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::getSize
-     */
     public function testAllowsSettingManualSize()
     {
         $handle = fopen('php://temp', 'w+');
@@ -124,13 +100,6 @@ class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         unset($stream);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::read
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::write
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::seek
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::isReadable
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::isSeekable
-     */
     public function testWrapsStream()
     {
         $handle = fopen('php://temp', 'w+');
@@ -148,10 +117,6 @@ class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('data_appended', $stream->read(13));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::getSize
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::__construct
-     */
     public function testGetSize()
     {
         $size = filesize(__DIR__ . '/../../../bootstrap.php');
@@ -170,9 +135,6 @@ class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         unset($stream);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::getMetaData
-     */
     public function testAbstractsMetaData()
     {
         $handle = fopen(__DIR__ . '/../../../bootstrap.php', 'r');
@@ -182,9 +144,6 @@ class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertInternalType('array', $stream->getMetaData());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::write
-     */
     public function testDoesNotAttemptToWriteToReadonlyStream()
     {
         $handle = fopen(__DIR__ . '/../../../bootstrap.php', 'r');
@@ -192,9 +151,6 @@ class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals(0, $stream->write('foo'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::ftell
-     */
     public function testProvidesStreamPosition()
     {
         $handle = fopen(__DIR__ . '/../../../bootstrap.php', 'r');
@@ -204,9 +160,6 @@ class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals(2, $stream->ftell());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::rewind
-     */
     public function testRewindIsSeekZero()
     {
         $stream = new Stream(fopen('php://temp', 'w+'));

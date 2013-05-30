@@ -4,6 +4,9 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Parser\Cooki
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Cookie\CookieParser
+ */
 class CookieParserProvider extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
@@ -251,7 +254,6 @@ class CookieParserProvider extends \/* Replaced /* Replaced /* Replaced Guzzle *
 
     /**
      * @dataProvider cookieParserDataProvider
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Cookie\CookieParser
      */
     public function testParseCookie($cookie, $parsed, $url = null)
     {

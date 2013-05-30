@@ -12,22 +12,16 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\MessagePa
 
 /**
  * @group server
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory
  */
 class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::getInstance
-     */
     public function testCachesSingletonInstance()
     {
         $factory = RequestFactory::getInstance();
         $this->assertSame($factory, RequestFactory::getInstance());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::getInstance
-     */
     public function testCreatesNewGetRequests()
     {
         $request = RequestFactory::getInstance()->create('GET', 'http://www.google.com/');
@@ -50,9 +44,6 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertSame($b, $response->getBody());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     */
     public function testCreatesPutRequests()
     {
         // Test using a string
@@ -86,9 +77,6 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertEquals('http://www.example.com/', (string) $request->getBody());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     */
     public function testCreatesHeadAndDeleteRequests()
     {
         $request = RequestFactory::getInstance()->create('DELETE', 'http://www.test.com/');
@@ -97,9 +85,6 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertEquals('HEAD', $request->getMethod());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     */
     public function testCreatesOptionsRequests()
     {
         $request = RequestFactory::getInstance()->create('OPTIONS', 'http://www.example.com/');
@@ -107,18 +92,12 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Message\\Request', $request);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     */
     public function testCreatesNewPutRequestWithBody()
     {
         $request = RequestFactory::getInstance()->create('PUT', 'http://www.google.com/path?q=1&v=2', null, 'Data');
         $this->assertEquals('Data', (string) $request->getBody());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     */
     public function testCreatesNewPostRequestWithFields()
     {
         // Use an array
@@ -153,10 +132,6 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\PostFile', $files['file'][0]);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::fromParts
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     */
     public function testCreatesFromParts()
     {
         $parts = parse_url('http://michael:123@www.google.com:8080/path?q=1&v=2');
@@ -184,10 +159,6 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         ), parse_url($request->getUrl()));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::fromMessage
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     */
     public function testCreatesFromMessage()
     {
         $auth = base64_encode('michael:123');
@@ -225,9 +196,6 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertEquals(80, $request->getPort());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     */
     public function testCreatesNewTraceRequest()
     {
         $request = RequestFactory::getInstance()->create('TRACE', 'http://www.google.com/');
@@ -235,9 +203,6 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertEquals('TRACE', $request->getMethod());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     */
     public function testCreatesProperTransferEncodingRequests()
     {
         $request = RequestFactory::getInstance()->create('PUT', 'http://www.google.com/', array(
@@ -247,9 +212,6 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertFalse($request->hasHeader('Content-Length'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::fromMessage
-     */
     public function testProperlyDealsWithDuplicateHeaders()
     {
         $parser = new MessageParser();
@@ -277,10 +239,6 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         ), $request->getHeader('zoo')->toArray());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::fromMessage
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     */
     public function testCreatesHttpMessagesWithBodiesAndNormalizesLineEndings()
     {
         $message = "POST / http/1.1\r\n"
@@ -307,10 +265,6 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertEquals(0, (string) $request->getHeader('Content-Length'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::fromMessage
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     */
     public function testBugPathIncorrectlyHandled()
     {
         $message = "POST /foo\r\n\r\nBODY";
@@ -320,9 +274,6 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertSame('BODY', (string) $request->getBody());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::create
-     */
     public function testHandlesChunkedTransferEncoding()
     {
         $request = RequestFactory::getInstance()->create('PUT', 'http://www.foo.com/', array(
@@ -341,9 +292,6 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertEquals('chunked', $request->getHeader('Transfer-Encoding'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::cloneRequestWithMethod
-     */
     public function testClonesRequestsWithMethodWithoutClient()
     {
         $f = RequestFactory::getInstance();
@@ -363,9 +311,6 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertNotSame($request->getEventDispatcher(), $cloned->getEventDispatcher());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory::cloneRequestWithMethod
-     */
     public function testClonesRequestsWithMethodWithClient()
     {
         $f = RequestFactory::getInstance();

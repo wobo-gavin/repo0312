@@ -6,6 +6,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage
+ */
 class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /** @var Request Request object */
@@ -25,18 +28,12 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
         $this->mock = $this->request = null;
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::getParams
-     */
     public function testGetParams()
     {
         $request = new Request('GET', 'http://example.com');
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Collection', $request->getParams());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::addHeaders
-     */
     public function testAddHeaders()
     {
         $this->mock->setHeader('A', 'B');
@@ -49,9 +46,6 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
         $this->assertTrue($this->mock->hasHeader('A') !== false);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::setHeader
-     */
     public function testAllowsHeaderToSetAsHeader()
     {
         $h = new Header('A', 'B');
@@ -59,20 +53,12 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
         $this->assertSame($h, $this->mock->getHeader('A'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::getHeaders
-     */
     public function testGetHeader()
     {
         $this->mock->setHeader('Test', '123');
         $this->assertEquals('123', $this->mock->getHeader('Test'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::getHeaders
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::getHeader
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::setHeaders
-     */
     public function testGetHeaders()
     {
         $this->assertSame($this->mock, $this->mock->setHeaders(array('a' => 'b', 'c' => 'd')));
@@ -83,9 +69,6 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header\HeaderInterface', $h->get('c'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::getHeaderLines
-     */
     public function testGetHeaderLinesUsesGlue()
     {
         $this->mock->setHeaders(array('a' => 'b', 'c' => 'd'));
@@ -97,9 +80,6 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
         ), $this->mock->getHeaderLines());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::hasHeader
-     */
     public function testHasHeader()
     {
         $this->assertFalse($this->mock->hasHeader('Foo'));
@@ -111,10 +91,6 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
         $this->assertEquals(false, $this->mock->hasHeader('bar'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::removeHeader
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::setHeader
-     */
     public function testRemoveHeader()
     {
         $this->mock->setHeader('Foo', 'Bar');
@@ -123,9 +99,6 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
         $this->assertFalse($this->mock->hasHeader('Foo'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage
-     */
     public function testHoldsCacheControlDirectives()
     {
         $mock = $this->mock;
@@ -169,8 +142,6 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
      *
      * There is more than once Cache-Control added.
      * Twice the max-age for example.
-     *
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage
      */
     public function testDoubleCacheControlDirectives()
     {
@@ -179,17 +150,11 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
         $this->assertEquals(300, $mock->getCacheControlDirective('max-age'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::getHeader
-     */
     public function testReturnsNullWhenHeaderIsNotFound()
     {
         $this->assertNull($this->mock->getHeader('foo'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::addHeaders
-     */
     public function testAddingHeadersPreservesOriginalHeaderCase()
     {
         $this->mock->addHeaders(array(
@@ -206,9 +171,6 @@ class AbstractMessageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
         $this->assertContains('abc', $header->toArray());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage
-     */
     public function testCanStoreEmptyHeaders()
     {
         $this->mock->setHeader('Content-Length', 0);

@@ -11,25 +11,15 @@ use Zend\Log\Writer\Stream;
  */
 class Zf2LogAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var Zf2LogAdapter
-     */
+    /** @var Zf2LogAdapter */
     protected $adapter;
 
-    /**
-     * @var Logger
-     */
+    /** @var Logger */
     protected $log;
 
-    /**
-     * @var resource
-     */
+    /** @var resource */
     protected $stream;
 
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
     protected function setUp()
     {
         $this->stream = fopen('php://temp', 'r+');

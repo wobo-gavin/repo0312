@@ -16,29 +16,19 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Location
  */
 class DefaultRequestSerializerTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var EntityEnclosingRequest
-     */
+    /** @var EntityEnclosingRequest */
     protected $request;
 
-    /**
-     * @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand
-     */
+    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand */
     protected $command;
 
-    /**
-     * @var Client
-     */
+    /** @var Client */
     protected $/* Replaced /* Replaced /* Replaced client */ */ */;
 
-    /**
-     * @var DefaultRequestSerializer
-     */
+    /** @var DefaultRequestSerializer */
     protected $serializer;
 
-    /**
-     * @var Operation
-     */
+    /** @var Operation */
     protected $operation;
 
     public function setUp()

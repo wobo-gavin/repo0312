@@ -7,6 +7,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\MapFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\CompositeFactory;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\AliasFactory
+ */
 class AliasFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     private $factory;
@@ -53,7 +56,6 @@ class AliasFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\AliasFactory
      * @dataProvider aliasProvider
      */
     public function testAliasesCommands($key, $result, $exception)

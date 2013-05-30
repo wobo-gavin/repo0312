@@ -6,10 +6,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFact
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand
+ */
 class ClosureCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage A closure must be passed in the parameters array
      */
@@ -18,10 +20,6 @@ class ClosureCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $c = new ClosureCommand();
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand::prepare
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand::build
-     */
     public function testExecutesClosure()
     {
         $c = new ClosureCommand(array(
@@ -39,7 +37,6 @@ class ClosureCommandTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\ClosureCommand
      * @expectedException UnexpectedValueException
      * @expectedExceptionMessage Closure command did not return a RequestInterface object
      */

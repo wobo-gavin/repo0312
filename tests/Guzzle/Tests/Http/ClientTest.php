@@ -14,6 +14,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 
 /**
  * @group server
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client
  */
 class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
@@ -29,12 +30,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         ));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::getConfig
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setConfig
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setBaseUrl
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::getBaseUrl
-     */
     public function testAcceptsConfig()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.google.com/');
@@ -54,17 +49,11 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         }
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::getAllEvents
-     */
     public function testDescribesEvents()
     {
         $this->assertEquals(array('/* Replaced /* Replaced /* Replaced client */ */ */.create_request'), Client::getAllEvents());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::__construct
-     */
     public function testConstructorCanAcceptConfig()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/', array(
@@ -73,9 +62,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('123', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('data'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setConfig
-     */
     public function testCanUseCollectionAsConfig()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.google.com/');
@@ -87,9 +73,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('v1', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('api'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client
-     */
     public function testExpandsUriTemplatesUsingConfig()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.google.com/');
@@ -105,7 +88,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      */
     public function testValidatesArrayForTemplateIsValid()
@@ -114,10 +96,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', array('foo' => 'bar', 'baz' => 'bam'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::__construct
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
-     */
     public function testClientAttachersObserversToRequests()
     {
         $this->getServer()->flush();
@@ -133,10 +111,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertTrue($this->hasSubscriber($request, $logPlugin));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::getBaseUrl
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setBaseUrl
-     */
     public function testClientReturnsValidBaseUrls()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.{foo}.{data}/', array(
@@ -148,10 +122,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('http://www.google.com/', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::prepareRequest
-     */
     public function testClientAddsCurlOptionsToRequests()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/', array(
@@ -172,9 +142,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('abc', $options->get('blacklist'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setSslVerification
-     */
     public function testClientAllowsFineGrainedSslControlButIsSecureByDefault()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('https://www.secure.com/');
@@ -191,9 +158,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $options = $request->getCurlOptions();
         $this->assertSame(__DIR__, $options->get(CURLOPT_CAPATH));
     }
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::__construct
-     */
+
     public function testConfigSettingsControlSslConfiguration()
     {
         // Use the default ca certs on the system
@@ -207,9 +172,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertSame(2, $options[CURLOPT_SSL_VERIFYHOST]);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setSslVerification
-     */
     public function testClientAllowsUnsafeOperationIfRequested()
     {
         // be really unsafe if you insist
@@ -225,7 +187,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setSslVerification
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException
      */
     public function testThrowsExceptionForInvalidCertificate()
@@ -234,9 +195,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->setSslVerification('/path/to/missing/file');
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setSslVerification
-     */
     public function testClientAllowsSettingSpecificSslCaInfo()
     {
         // set a file other than the provided cacert.pem
@@ -251,7 +209,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setSslVerification
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      */
     public function testClientPreventsInadvertentInsecureVerifyHostSetting()
@@ -264,7 +221,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setSslVerification
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      */
     public function testClientPreventsInvalidVerifyPeerSetting()
@@ -276,9 +232,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->setSslVerification(__FILE__, 'yes');
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::prepareRequest
-     */
     public function testClientAddsParamsToRequests()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.example.com', array(
@@ -311,7 +264,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     /**
      * @dataProvider urlProvider
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
      */
     public function testBuildsRelativeUrls($baseUrl, $url, $result)
     {
@@ -319,9 +271,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals($/* Replaced /* Replaced /* Replaced client */ */ */->get($url)->getUrl(), $result);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client
-     */
     public function testAllowsConfigsToBeChangedAndInjectedInBaseUrl()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://{a}/{b}');
@@ -334,9 +283,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('http://test.com/index.html', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
-     */
     public function testCreatesRequestsWithDefaultValues()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl() . 'base');
@@ -366,15 +312,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals($request->getUrl(), $this->getServer()->getUrl() . 'path/1?q=2');
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::get
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::delete
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::head
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::put
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::post
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::options
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::patch
-     */
     public function testClientHasHelperMethodsForCreatingRequests()
     {
         $url = $this->getServer()->getUrl();
@@ -393,9 +330,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals($url . 'base?a=b', $/* Replaced /* Replaced /* Replaced client */ */ */->delete('/base?a=b')->getUrl());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
-     */
     public function testClientInjectsConfigsIntoUrls()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/api/v1', array(
@@ -405,9 +339,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('http://www.test.com/api/v1/relative/123', $request->getUrl());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client
-     */
     public function testAllowsEmptyBaseUrl()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
@@ -417,11 +348,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $request->send();
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::send
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setCurlMulti
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::getCurlMulti
-     */
     public function testAllowsCustomCurlMultiObjects()
     {
         $mock = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Curl\\CurlMulti', array('add', 'send'));
@@ -438,9 +364,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::send
-     */
     public function testClientSendsMultipleRequests()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
@@ -471,9 +394,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         ), $/* Replaced /* Replaced /* Replaced client */ */ */->send($requests));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::send
-     */
     public function testClientSendsSingleRequest()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
@@ -485,8 +405,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::send
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException
      */
     public function testClientThrowsExceptionForSingleRequest()
     {
@@ -499,8 +418,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::send
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection
      */
     public function testClientThrowsExceptionForMultipleRequests()
     {
@@ -512,9 +430,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->send(array($/* Replaced /* Replaced /* Replaced client */ */ */->get(), $/* Replaced /* Replaced /* Replaced client */ */ */->head()));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client
-     */
     public function testQueryStringsAreNotDoubleEncoded()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://test.com', array(
@@ -531,9 +446,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('a&b', $request->getQuery()->get('test'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client
-     */
     public function testQueryStringsAreNotDoubleEncodedUsingAbsolutePaths()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://test.com', array(
@@ -545,10 +457,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('hi there', $request->getQuery()->get('query'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setUriTemplate
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::getUriTemplate
-     */
     public function testAllowsUriTemplateInjection()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://test.com', array(
@@ -562,9 +470,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertNotSame($a, $/* Replaced /* Replaced /* Replaced client */ */ */->getUriTemplate());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::expandTemplate
-     */
     public function testAllowsCustomVariablesWhenExpandingTemplates()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://test.com', array(
@@ -581,8 +486,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testUriArrayMustContainExactlyTwoElements()
     {
@@ -591,8 +495,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testUriArrayMustContainAnArray()
     {
@@ -600,14 +503,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', array('haha!', 'test'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::get
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::put
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::post
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::head
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::options
-     */
     public function testUriArrayAllowsCustomTemplateVariables()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
@@ -622,11 +517,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('/hi', (string) $/* Replaced /* Replaced /* Replaced client */ */ */->options(array('/{var}', $vars))->getUrl());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setDefaultHeaders
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::getDefaultHeaders
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::createRequest
-     */
     public function testAllowsDefaultHeaders()
     {
         $default = array(
@@ -655,8 +545,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setDefaultHeaders
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testValidatesDefaultHeaders()
     {
@@ -671,10 +560,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertNotSame($/* Replaced /* Replaced /* Replaced client */ */ */1->getCurlMulti(), $/* Replaced /* Replaced /* Replaced client */ */ */2->getCurlMulti());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::getDefaultUserAgent
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::setUserAgent
-     */
     public function testGetDefaultUserAgent()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
@@ -687,9 +572,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('foo', $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'userAgent'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::prepareRequest
-     */
     public function testOverwritesUserAgent()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();

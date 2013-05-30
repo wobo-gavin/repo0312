@@ -15,6 +15,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Abstract
 
 /**
  * @group server
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client
  */
 class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
@@ -51,9 +52,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('foo', $command->get(AbstractCommand::RESPONSE_PROCESSING));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::factory
-     */
     public function testFactoryCreatesClient()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = Client::factory(array(
@@ -65,25 +63,16 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('123', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('test'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::factory
-     */
     public function testFactoryDoesNotRequireBaseUrl()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = Client::factory();
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getAllEvents
-     */
     public function testDescribesEvents()
     {
         $this->assertInternalType('array', Client::getAllEvents());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
-     */
     public function testExecutesCommands()
     {
         $this->getServer()->flush();
@@ -98,9 +87,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals(1, count($this->getServer()->getReceivedRequests(false)));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
-     */
     public function testExecutesCommandsWithArray()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.test.com/');
@@ -119,7 +105,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
      * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      */
     public function testThrowsExceptionWhenInvalidCommandIsExecuted()
@@ -129,7 +114,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommand
      * @expectedException InvalidArgumentException
      */
     public function testThrowsExceptionWhenMissingCommand()
@@ -146,11 +130,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test');
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommand
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommandFactory
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setCommandFactory
-     */
     public function testCreatesCommandsUsingCommandFactory()
     {
         $mockCommand = new MockCommand();
@@ -171,10 +150,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $command->getClient());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getDescription
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setDescription
-     */
     public function testOwnsServiceDescription()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
@@ -186,7 +161,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__call
      * @expectedException BadMethodCallException
      */
     public function testMagicCallBehaviorCanBeDisabled()
@@ -197,8 +171,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__call
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::enableMagicMethods
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage Command was not found matching foo
      */
@@ -210,9 +182,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->foo();
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::__call
-     */
     public function testMagicCallBehaviorExecuteExecutesCommands()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
@@ -222,10 +191,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response', $result);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getResourceIteratorFactory
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setResourceIteratorFactory
-     */
     public function testOwnsResourceIteratorFactory()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
@@ -243,9 +208,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertNotSame($rf1, $rf);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::execute
-     */
     public function testClientResetsRequestsBeforeExecutingCommands()
     {
         $this->getServer()->flush();
@@ -262,9 +224,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('I', $command->getResponse()->getBody(true));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getIterator
-     */
     public function testClientCreatesIterators()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
@@ -282,9 +241,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('bar', $command->get('foo'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getIterator
-     */
     public function testClientCreatesIteratorsWithNoOptions()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
@@ -292,9 +248,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Model\MockCommandIterator', $iterator);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getIterator
-     */
     public function testClientCreatesIteratorsWithCommands()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
@@ -305,10 +258,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertSame($command, $iteratorCommand);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getInflector
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setInflector
-     */
     public function testClientHoldsInflector()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
@@ -319,9 +268,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertSame($inflector, $/* Replaced /* Replaced /* Replaced client */ */ */->getInflector());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getCommand
-     */
     public function testClientAddsGlobalCommandOptions()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient('http://www.foo.com', array(

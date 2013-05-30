@@ -5,9 +5,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Message;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Message\HeaderComparison;
 
-/**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\HeaderComparison
- */
 class HeaderComparisonTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     public function filterProvider()

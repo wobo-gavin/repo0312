@@ -4,6 +4,9 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Common;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event
+ */
 class EventTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
@@ -18,9 +21,6 @@ class EventTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tes
         ));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event::__construct
-     */
     public function testAllowsParameterInjection()
     {
         $event = new Event(array(
@@ -29,12 +29,6 @@ class EventTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tes
         $this->assertEquals('123', $event['test']);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event::offsetGet
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event::offsetSet
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event::offsetUnset
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event::offsetExists
-     */
     public function testImplementsArrayAccess()
     {
         $event = $this->getEvent();
@@ -51,18 +45,12 @@ class EventTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tes
         $this->assertEquals('new', $event['test']);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event::getIterator
-     */
     public function testImplementsIteratorAggregate()
     {
         $event = $this->getEvent();
         $this->assertInstanceOf('ArrayIterator', $event->getIterator());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event::toArray
-     */
     public function testConvertsToArray()
     {
         $this->assertEquals(array(

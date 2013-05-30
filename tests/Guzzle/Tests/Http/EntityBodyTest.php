@@ -7,11 +7,11 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 
 /**
  * @group server
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody
  */
 class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      */
     public function testFactoryThrowsException()
@@ -19,10 +19,6 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $body = EntityBody::factory(false);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::fromString
-     */
     public function testFactory()
     {
         $body = EntityBody::factory('data');
@@ -45,9 +41,6 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertTrue($body === EntityBody::factory($body));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory
-     */
     public function testFactoryCreatesTempStreamByDefault()
     {
         $body = EntityBody::factory('');
@@ -58,9 +51,6 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals('TEMP', $body->getStreamType());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory
-     */
     public function testFactoryCanCreateFromObject()
     {
         $body = EntityBody::factory(new QueryString(array('foo' => 'bar')));
@@ -68,22 +58,13 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      */
     public function testFactoryEnsuresObjectsHaveToStringMethod()
     {
         EntityBody::factory(new \stdClass('a'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::compress
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::uncompress
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::getContentEncoding
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::setStreamFilterContentEncoding
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::handleCompression
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::getContentLength
-     */
     public function testHandlesCompression()
     {
         $body = EntityBody::factory('testing 123...testing 123');
@@ -136,9 +117,6 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         unlink(__DIR__ . '/../TestData/compress_test');
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::getContentType
-     */
     public function testDeterminesContentType()
     {
         // Test using a string/temp stream
@@ -150,11 +128,6 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertContains('text/x-', $body->getContentType());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::getContentMd5
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::calculateMd5
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::getHash
-     */
     public function testCreatesMd5Checksum()
     {
         $body = EntityBody::factory('testing 123...testing 123');
@@ -170,11 +143,6 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertFalse($body->getContentMd5());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::getContentMd5
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::calculateMd5
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::getHash
-     */
     public function testSeeksToOriginalPosAfterMd5()
     {
         $body = EntityBody::factory('testing 123');
@@ -184,19 +152,12 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals('ing 123', $body->read(1000));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::factory
-     */
     public function testGetTypeFormBodyFactoring()
     {
         $body = EntityBody::factory(array('key1' => 'val1', 'key2' => 'val2'));
         $this->assertEquals('key1=val1&key2=val2', (string) $body);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::setRewindFunction
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::rewind
-     */
     public function testAllowsCustomRewind()
     {
         $body = EntityBody::factory('foo');
@@ -211,7 +172,6 @@ class EntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody::setRewindFunction
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      */
     public function testCustomRewindFunctionMustBeCallable()

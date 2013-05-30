@@ -7,14 +7,10 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service;
  */
 class AbstractConfigLoaderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\AbstractConfigLoader
-     */
+    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\AbstractConfigLoader */
     protected $loader;
 
-    /**
-     * @var array Any files that need to be deleted on tear down
-     */
+    /** @var array Any files that need to be deleted on tear down */
     protected $cleanup = array();
 
     public function setUp()

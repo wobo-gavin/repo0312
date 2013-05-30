@@ -11,12 +11,11 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 
 /**
  * @group server
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response
  */
 class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var Response The response object to test
-     */
+    /** @var Response The response object to test */
     protected $response;
 
     public function setup()
@@ -58,9 +57,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         unset($this->response);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::__construct
-     */
     public function testConstructor()
     {
         $params = new Collection();
@@ -104,9 +100,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         }
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::__toString
-     */
     public function test__toString()
     {
         $response = new Response(200);
@@ -124,9 +117,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertEquals("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ntest", (string) $response);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::fromMessage
-     */
     public function testFactory()
     {
         $response = Response::fromMessage("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\ntest");
@@ -141,9 +131,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertEquals('test', $response->getBody(true));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::fromMessage
-     */
     public function testFactoryCanCreateHeadResponses()
     {
         $response = Response::fromMessage("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\n");
@@ -153,18 +140,11 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertEquals('', $response->getBody(true));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::fromMessage
-     */
     public function testFactoryRequiresMessage()
     {
         $this->assertFalse(Response::fromMessage(''));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getBody
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::setBody
-     */
     public function testGetBody()
     {
         $body = EntityBody::factory('');
@@ -174,18 +154,12 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertEquals('foo', $response->getBody(true));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getStatusCode
-     */
     public function testManagesStatusCode()
     {
         $response = new Response(403);
         $this->assertEquals(403, $response->getStatusCode());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getMessage
-     */
     public function testGetMessage()
     {
         $response = new Response(200, new Collection(array(
@@ -195,9 +169,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertEquals("HTTP/1.1 200 OK\r\nContent-Length: 4\r\n\r\nbody", $response->getMessage());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getRawHeaders
-     */
     public function testGetRawHeaders()
     {
         $response = new Response(200, new Collection(array(
@@ -209,10 +180,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertEquals("HTTP/1.1 200 OK\r\nKeep-Alive: 155\r\nUser-Agent: /* Replaced /* Replaced /* Replaced Guzzle */ */ */\r\nContent-Length: 4\r\n\r\n", $response->getRawHeaders());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getReasonPhrase
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::setStatus
-     */
     public function testHandlesStatusAndStatusCodes()
     {
         $response = new Response(200, new Collection(), 'body');
@@ -235,9 +202,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertEquals('Foo', $response->getReasonPhrase());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::isClientError
-     */
     public function testIsClientError()
     {
         $response = new Response(403);
@@ -246,9 +210,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertFalse($response->isClientError());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::isError
-     */
     public function testIsError()
     {
         $response = new Response(403);
@@ -259,9 +220,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertTrue($response->isError());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::isInformational
-     */
     public function testIsInformational()
     {
         $response = new Response(100);
@@ -270,9 +228,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertFalse($response->isInformational());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::isRedirect
-     */
     public function testIsRedirect()
     {
         $response = new Response(301);
@@ -281,9 +236,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertFalse($response->isRedirect());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::isServerError
-     */
     public function testIsServerError()
     {
         $response = new Response(500);
@@ -292,9 +244,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertFalse($response->isServerError());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::isSuccessful
-     */
     public function testIsSuccessful()
     {
         $response = new Response(200);
@@ -303,17 +252,11 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertFalse($response->isSuccessful());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getAcceptRanges
-     */
     public function testGetAcceptRanges()
     {
         $this->assertEquals('bytes', $this->response->getAcceptRanges());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::calculateAge
-     */
     public function testCalculatesAge()
     {
         $this->assertEquals(12, $this->response->calculateAge());
@@ -327,161 +270,101 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertTrue($this->response->getAge() - 60 <= 5);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getAllow
-     */
     public function testGetAllow()
     {
         $this->assertEquals('GET, HEAD', $this->response->getAllow());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getCacheControl
-     */
     public function testGetCacheControl()
     {
         $this->assertEquals('no-cache', $this->response->getCacheControl());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getContentEncoding
-     */
     public function testGetContentEncoding()
     {
         $this->assertEquals('gzip', $this->response->getContentEncoding());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getContentLanguage
-     */
     public function testGetContentLanguage()
     {
         $this->assertEquals('da', $this->response->getContentLanguage());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getContentLength
-     */
     public function testGetContentLength()
     {
         $this->assertEquals('348', $this->response->getContentLength());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getContentLocation
-     */
     public function testGetContentLocation()
     {
         $this->assertEquals('/index.htm', $this->response->getContentLocation());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getContentDisposition
-     */
     public function testGetContentDisposition()
     {
         $this->assertEquals('attachment; filename=fname.ext', $this->response->getContentDisposition());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getContentMd5
-     */
     public function testGetContentMd5()
     {
         $this->assertEquals('Q2hlY2sgSW50ZWdyaXR5IQ==', $this->response->getContentMd5());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getContentRange
-     */
     public function testGetContentRange()
     {
         $this->assertEquals('bytes 21010-47021/47022', $this->response->getContentRange());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getContentType
-     */
     public function testGetContentType()
     {
         $this->assertEquals('text/html; charset=utf-8', $this->response->getContentType());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getDate
-     */
     public function testGetDate()
     {
         $this->assertEquals('Tue, 15 Nov 1994 08:12:31 GMT', $this->response->getDate());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getEtag
-     */
     public function testGetEtag()
     {
         $this->assertEquals('737060cd8c284d8af7ad3082f209582d', $this->response->getEtag());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getExpires
-     */
     public function testGetExpires()
     {
         $this->assertEquals('Thu, 01 Dec 1994 16:00:00 GMT', $this->response->getExpires());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getLastModified
-     */
     public function testGetLastModified()
     {
         $this->assertEquals('Tue, 15 Nov 1994 12:45:26 GMT', $this->response->getLastModified());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getLocation
-     */
     public function testGetLocation()
     {
         $this->assertEquals('http://www.w3.org/pub/WWW/People.html', $this->response->getLocation());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getPragma
-     */
     public function testGetPragma()
     {
         $this->assertEquals('no-cache', $this->response->getPragma());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getProxyAuthenticate
-     */
     public function testGetProxyAuthenticate()
     {
         $this->assertEquals('Basic', $this->response->getProxyAuthenticate());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getServer
-     */
     public function testGetServer()
     {
         $this->assertEquals('Apache/1.3.27 (Unix) (Red-Hat/Linux)', $this->response->getServer());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getSetCookie
-     */
     public function testGetSetCookie()
     {
         $this->assertEquals('UserID=JohnDoe; Max-Age=3600; Version=1', $this->response->getSetCookie());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getSetCookie
-     */
     public function testGetMultipleSetCookie()
     {
         $this->response->addHeader('Set-Cookie', 'UserID=Mike; Max-Age=200');
@@ -491,9 +374,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         ), $this->response->getHeader('Set-Cookie')->toArray());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getSetCookie
-     */
     public function testGetSetCookieNormalizesHeaders()
     {
         $this->response->addHeaders(array(
@@ -515,56 +395,35 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         );
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getTrailer
-     */
     public function testGetTrailer()
     {
         $this->assertEquals('Max-Forwards', $this->response->getTrailer());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getTransferEncoding
-     */
     public function testGetTransferEncoding()
     {
         $this->assertEquals('chunked', $this->response->getTransferEncoding());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getVary
-     */
     public function testGetVary()
     {
         $this->assertEquals('*', $this->response->getVary());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getVia
-     */
     public function testReturnsViaHeader()
     {
         $this->assertEquals('1.0 fred, 1.1 nowhere.com (Apache/1.1)', $this->response->getVia());
     }
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getWarning
-     */
     public function testGetWarning()
     {
         $this->assertEquals('199 Miscellaneous warning', $this->response->getWarning());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getWwwAuthenticate
-     */
     public function testReturnsWwwAuthenticateHeader()
     {
         $this->assertEquals('Basic', $this->response->getWwwAuthenticate());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getConnection
-     */
     public function testReturnsConnectionHeader()
     {
         $this->assertEquals(null, $this->response->getConnection());
@@ -572,19 +431,12 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertEquals('close', $this->response->getConnection());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getHeader
-     */
     public function testReturnsHeaders()
     {
         $this->assertEquals('Basic', $this->response->getHeader('WWW-Authenticate', null, true));
         $this->assertEquals('chunked', $this->response->getHeader('Transfer-Encoding', null, false));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::setInfo
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getInfo
-     */
     public function testHasTransferInfo()
     {
         $stats = array (
@@ -629,9 +481,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         return new Response($code, $headers, $body);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::canCache
-     */
     public function testDeterminesIfItCanBeCached()
     {
         $this->assertTrue($this->getResponse(200)->canCache());
@@ -663,9 +512,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         unlink($tmp);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getMaxAge
-     */
     public function testDeterminesResponseMaxAge()
     {
         $this->assertEquals(null, $this->getResponse(200)->getMaxAge());
@@ -697,9 +543,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         ))->getMaxAge());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::canValidate
-     */
     public function testDeterminesIfItCanValidate()
     {
         $response = new Response(200);
@@ -712,10 +555,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertTrue($response->canValidate());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getFreshness
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::isFresh
-     */
     public function testCalculatesFreshness()
     {
         $response = new Response(200);
@@ -736,11 +575,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertFalse($response->isFresh());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::setProtocol
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getProtocol
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::getProtocolVersion
-     */
     public function testHandlesProtocols()
     {
         $this->assertSame($this->response, $this->response->setProtocol('HTTP', '1.0'));
@@ -748,9 +582,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertEquals('1.0', $this->response->getProtocolVersion());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::isContentType
-     */
     public function testComparesContentType()
     {
         $response = new Response(200, array(
@@ -763,9 +594,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertFalse($response->isContentType('application/xml'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::isMethodAllowed
-     */
     public function testResponseDeterminesIfMethodIsAllowedBaseOnAllowHeader()
     {
         $response = new Response(200, array(
@@ -784,9 +612,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $this->assertFalse($response->isMethodAllowed('get'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::json
-     */
     public function testParsesJsonResponses()
     {
         $response = new Response(200, array(), '{"foo": "bar"}');
@@ -797,7 +622,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::json
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException
      * @expectedExceptionMessage Unable to parse response body into JSON: 4
      */
@@ -807,9 +631,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
         $response->json();
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::xml
-     */
     public function testParsesXmlResponses()
     {
         $response = new Response(200, array(), '<abc><foo>bar</foo></abc>');
@@ -820,7 +641,6 @@ class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response::xml
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException
      * @expectedExceptionMessage Unable to parse response body into XML: String could not be parsed as XML
      */

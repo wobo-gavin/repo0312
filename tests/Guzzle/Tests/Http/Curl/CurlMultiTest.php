@@ -19,9 +19,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\MockMulti;
  */
 class CurlMultiTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti
-     */
+    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMulti */
     private $multi;
 
     /**

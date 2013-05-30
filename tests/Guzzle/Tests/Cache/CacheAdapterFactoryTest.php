@@ -6,16 +6,15 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactor
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter;
 use Doctrine\Common\Cache\ArrayCache;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory
+ */
 class CacheAdapterFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var ArrayCache
-     */
+    /** @var ArrayCache */
     private $cache;
 
-    /**
-     * @var DoctrineCacheAdapter
-     */
+    /** @var DoctrineCacheAdapter */
     private $adapter;
 
     /**
@@ -29,8 +28,7 @@ class CacheAdapterFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzl
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory::factory
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testEnsuresConfigIsArray()
     {
@@ -38,8 +36,7 @@ class CacheAdapterFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzl
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory::factory
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage cache.provider is a required CacheAdapterFactory option
      */
     public function testEnsuresRequiredProviderOption()
@@ -50,8 +47,7 @@ class CacheAdapterFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzl
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory::factory
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
      * @expectedExceptionMessage cache.adapter is a required CacheAdapterFactory option
      */
     public function testEnsuresRequiredAdapterOption()
@@ -62,8 +58,7 @@ class CacheAdapterFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzl
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory::factory
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage foo is not a valid class for cache.adapter
      */
     public function testEnsuresClassesExist()
@@ -74,10 +69,6 @@ class CacheAdapterFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         ));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory::factory
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory::createObject
-     */
     public function testCreatesProviderFromConfig()
     {
         $cache = CacheAdapterFactory::factory(array(
@@ -89,10 +80,6 @@ class CacheAdapterFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         $this->assertInstanceOf('Doctrine\Common\Cache\ApcCache', $cache->getCacheObject());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory::factory
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory::createObject
-     */
     public function testCreatesProviderFromConfigWithArguments()
     {
         $cache = CacheAdapterFactory::factory(array(
@@ -107,8 +94,7 @@ class CacheAdapterFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzl
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory
-     * @expectedException /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException
      */
     public function testWrapsExceptionsOnObjectCreation()
     {
@@ -118,9 +104,6 @@ class CacheAdapterFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         ));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory
-     */
     public function testCreatesNullCacheAdapterByDefault()
     {
         $adapter = CacheAdapterFactory::factory(array());

@@ -7,19 +7,13 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 
 abstract class AbstractResponseVisitorTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var Response
-     */
+    /** @var Response */
     protected $response;
 
-    /**
-     * @var MockCommand
-     */
+    /** @var MockCommand */
     protected $command;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $value;
 
     public function setUp()

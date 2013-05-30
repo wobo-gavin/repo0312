@@ -9,19 +9,13 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\ClosureCacheAdapte
  */
 class ClosureCacheAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var ClosureCacheAdapter
-     */
+    /** @var ClosureCacheAdapter */
     private $adapter;
 
-    /**
-     * Array of callables to use for testing
-     */
+    /** Array of callables to use for testing */
     private $callables;
 
-    /**
-     * Cache data for testing
-     */
+    /** Cache data for testing */
     public $data = array();
 
     /**
@@ -63,7 +57,6 @@ class ClosureCacheAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzl
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\ClosureCacheAdapter::__construct
      * @expectedException InvalidArgumentException
      */
     public function testEnsuresCallablesArePresent()
@@ -73,27 +66,17 @@ class ClosureCacheAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         $cache = new ClosureCacheAdapter($callables);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\ClosureCacheAdapter::__construct
-     */
     public function testAllCallablesMustBePresent()
     {
         $cache = new ClosureCacheAdapter($this->callables);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\ClosureCacheAdapter::save
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\ClosureCacheAdapter::fetch
-     */
     public function testCachesDataUsingCallables()
     {
         $this->assertTrue($this->adapter->save('test', 'data', 1000));
         $this->assertEquals('data', $this->adapter->fetch('test'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\ClosureCacheAdapter::contains
-     */
     public function testChecksIfCacheContainsKeys()
     {
         $this->adapter->save('test', 'data', 1000);
@@ -101,9 +84,6 @@ class ClosureCacheAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         $this->assertFalse($this->adapter->contains('foo'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\ClosureCacheAdapter::delete
-     */
     public function testDeletesFromCacheByKey()
     {
         $this->adapter->save('test', 'data', 1000);

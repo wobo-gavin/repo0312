@@ -9,14 +9,10 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch\BatchClosureTransf
  */
 class BatchClosureTransferTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch\BatchClosureTransfer The transfer fixture
-     */
+    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch\BatchClosureTransfer The transfer fixture */
     protected $transferStrategy;
 
-    /**
-     * @var array|null An array for keeping track of items passed into the transfer closure
-     */
+    /** @var array|null An array for keeping track of items passed into the transfer closure */
     protected $itemsTransferred;
 
     protected function setUp()

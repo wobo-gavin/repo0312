@@ -6,11 +6,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection
+ */
 class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var Collection
-     */
+    /** @var Collection */
     protected $coll;
 
     protected function setUp()
@@ -18,9 +19,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->coll = new Collection();
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::__construct
-     */
     public function testConstructorCanBeCalledWithNoParams()
     {
         $this->coll = new Collection();
@@ -28,11 +26,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEmpty($p, '-> Collection must be empty when no data is passed');
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::__construct
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::getAll
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::toArray
-     */
     public function testConstructorCanBeCalledWithParams()
     {
         $testData = array(
@@ -44,11 +37,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals($this->coll->getAll(), $this->coll->toArray());
     }
 
-    /**
-     * Test the IteratorAggregate implementation of theCollection object
-     *
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::getIterator
-     */
     public function testImplementsIteratorAggregate()
     {
         $this->coll->set('key', 'value');
@@ -63,9 +51,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals(1, $total);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::add
-     */
     public function testCanAddValuesToExistingKeysByUsingArray()
     {
         $this->coll->add('test', 'value1');
@@ -76,10 +61,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals($this->coll->getAll(), array('test' => array('value1', 'value2', 'value3')));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::merge
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::getAll
-     */
     public function testHandlesMergingInDisparateDataSources()
     {
         $params = array(
@@ -94,10 +75,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals($this->coll->merge($this->coll), $this->coll);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::clear
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::remove
-     */
     public function testCanClearAllDataOrSpecificKeys()
     {
         $this->coll->merge(array(
@@ -118,10 +95,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals($this->coll->getAll(), array());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::get
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::getAll
-     */
     public function testGetsValuesByKey()
     {
         $this->assertNull($this->coll->get('test'));
@@ -135,10 +108,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         ), $this->coll->getAll(array('test', 'test2')));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::getKeys
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::remove
-     */
     public function testProvidesKeys()
     {
         $this->assertEquals(array(), $this->coll->getKeys());
@@ -155,9 +124,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals(array('test2', 'test3'), $this->coll->getKeys());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::hasKey
-     */
     public function testChecksIfHasKey()
     {
         $this->assertFalse($this->coll->hasKey('test'));
@@ -170,9 +136,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals(false, $this->coll->hasKey('AB-C', 'junk'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::hasValue
-     */
     public function testChecksIfHasValue()
     {
         $this->assertFalse($this->coll->hasValue('value'));
@@ -184,9 +147,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertFalse($this->coll->hasValue('val'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::getAll
-     */
     public function testCanGetAllValuesByArray()
     {
         $this->coll->add('foo', 'bar');
@@ -203,9 +163,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         )));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::count
-     */
     public function testImplementsCount()
     {
         $data = new Collection();
@@ -218,9 +175,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals(2, count($data));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::merge
-     */
     public function testAddParamsByMerging()
     {
         $params = array(
@@ -246,9 +200,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         ), $this->coll->getAll());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::filter
-     */
     public function testAllowsFunctionalFilter()
     {
         $this->coll->merge(array(
@@ -270,9 +221,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         ), $filtered->getAll());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::map
-     */
     public function testAllowsFunctionalMapping()
     {
         $this->coll->merge(array(
@@ -294,12 +242,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         ), $mapped->getAll());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::offsetGet
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::offsetSet
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::offsetUnset
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::offsetExists
-     */
     public function testImplementsArrayAccess()
     {
         $this->coll->merge(array(
@@ -318,10 +260,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertFalse($this->coll->offsetExists('k1'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::filter
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::map
-     */
     public function testUsesStaticWhenCreatingNew()
     {
         $qs = new QueryString(array(
@@ -336,9 +274,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Collection', $qs->filter(function($a, $b) {}, false));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::replace
-     */
     public function testCanReplaceAllData()
     {
         $this->assertSame($this->coll, $this->coll->replace(array(
@@ -373,7 +308,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::inject
      * @dataProvider dataProvider
      */
     public function testInjectsConfigData($output, $input, $config)
@@ -382,9 +316,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals($output, $collection->inject($input));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::keySearch
-     */
     public function testCanSearchByKey()
     {
         $collection = new Collection(array(
@@ -397,9 +328,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertEquals(false, $collection->keySearch('Bar'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::fromConfig
-     */
     public function testPreparesFromConfig()
     {
         $c = Collection::fromConfig(array(
@@ -444,9 +372,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertSame($b, $c->get('value'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::getPath
-     */
     public function testRetrievesNestedKeysUsingPath()
     {
         $data = array(
@@ -464,9 +389,6 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
         $this->assertNull($collection->getPath('baz/mesa/jar/jar'));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::getPath
-     */
     public function testFalseyKeysStillDescend()
     {
         $collection = new Collection(array(
@@ -543,16 +465,12 @@ class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
 
     /**
      * @dataProvider getPathProvider
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::getPath
      */
     public function testGetPath(Collection $c, $path, $expected, $separator = '/')
     {
         $this->assertEquals($expected, $c->getPath($path, $separator));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::overwriteWith
-     */
     public function testOverridesSettings()
     {
         $c = new Collection(array('foo' => 1, 'baz' => 2, 'bar' => 3));

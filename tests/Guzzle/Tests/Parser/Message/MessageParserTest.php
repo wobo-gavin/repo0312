@@ -4,12 +4,13 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Parser\Messa
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\MessageParser;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\AbstractMessageParser
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\MessageParser
+ */
 class MessageParserTest extends MessageParserProvider
 {
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\AbstractMessageParser::getUrlPartsFromMessage
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\MessageParser::parseMessage
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\MessageParser::parseRequest
      * @dataProvider requestProvider
      */
     public function testParsesRequests($message, $parts)
@@ -19,8 +20,6 @@ class MessageParserTest extends MessageParserProvider
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\MessageParser::parseMessage
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\MessageParser::parseResponse
      * @dataProvider responseProvider
      */
     public function testParsesResponses($message, $parts)
@@ -29,9 +28,6 @@ class MessageParserTest extends MessageParserProvider
         $this->compareResponseResults($parts, $parser->parseResponse($message));
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\MessageParser::parseRequest
-     */
     public function testParsesRequestsWithMissingProtocol()
     {
         $parser = new MessageParser();
@@ -41,9 +37,6 @@ class MessageParserTest extends MessageParserProvider
         $this->assertEquals('1.1', $parts['version']);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\MessageParser::parseRequest
-     */
     public function testParsesRequestsWithMissingVersion()
     {
         $parser = new MessageParser();
@@ -53,9 +46,6 @@ class MessageParserTest extends MessageParserProvider
         $this->assertEquals('1.1', $parts['version']);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\MessageParser::parseResponse
-     */
     public function testParsesResponsesWithMissingReasonPhrase()
     {
         $parser = new MessageParser();

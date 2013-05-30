@@ -8,20 +8,15 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\Model
 
 /**
  * @group server
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIteratorApplyBatched
  */
 class ResourceIteratorApplyBatchedTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIteratorApplyBatched::getAllEvents
-     */
     public function testDescribesEvents()
     {
         $this->assertInternalType('array', ResourceIteratorApplyBatched::getAllEvents());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource\ResourceIteratorApplyBatched
-     */
     public function testSendsRequestsForNextSetOfResources()
     {
         $this->getServer()->flush();

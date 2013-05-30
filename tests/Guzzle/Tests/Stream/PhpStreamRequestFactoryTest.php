@@ -12,14 +12,10 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
  */
 class PhpStreamRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var Client
-     */
+    /** @var Client */
     protected $/* Replaced /* Replaced /* Replaced client */ */ */;
 
-    /**
-     * @var PhpStreamRequestFactory
-     */
+    /** @var PhpStreamRequestFactory */
     protected $factory;
 
     protected function setUp()

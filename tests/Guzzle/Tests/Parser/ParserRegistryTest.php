@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Parser;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\ParserRegistry;
 
 /**
- * /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\ParserRegistry
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\ParserRegistry
  */
 class ParserRegistryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {

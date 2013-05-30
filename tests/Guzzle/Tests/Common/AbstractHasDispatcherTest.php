@@ -6,20 +6,16 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher
+ */
 class AbstractHasAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher::getAllEvents
-     */
     public function testDoesNotRequireRegisteredEvents()
     {
         $this->assertEquals(array(), AbstractHasDispatcher::getAllEvents());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher::setEventDispatcher
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher::getEventDispatcher
-     */
     public function testAllowsDispatcherToBeInjected()
     {
         $d = new EventDispatcher();
@@ -28,18 +24,12 @@ class AbstractHasAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertSame($d, $mock->getEventDispatcher());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher::getEventDispatcher
-     */
     public function testCreatesDefaultEventDispatcherIfNeeded()
     {
         $mock = $this->getMockForAbstractClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher');
         $this->assertInstanceOf('Symfony\Component\EventDispatcher\EventDispatcher', $mock->getEventDispatcher());
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher::dispatch
-     */
     public function testHelperDispatchesEvents()
     {
         $data = array();
@@ -55,9 +45,6 @@ class AbstractHasAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         ), $data);
     }
 
-    /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher::addSubscriber
-     */
     public function testHelperAttachesSubscribers()
     {
         $mock = $this->getMockForAbstractClass('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher');

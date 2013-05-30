@@ -10,9 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Sche
  */
 class SchemaValidatorTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var SchemaValidator
-     */
+    /** @var SchemaValidator */
     protected $validator;
 
     public function setUp()

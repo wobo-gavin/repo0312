@@ -5,6 +5,9 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Comm
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\ConcreteClassFactory;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\ConcreteClassFactory
+ */
 class ConcreteClassFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     public function testProvider()
@@ -23,7 +26,6 @@ class ConcreteClassFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzz
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\ConcreteClassFactory
      * @dataProvider testProvider
      */
     public function testCreatesConcreteCommands($key, $result, $prefix)

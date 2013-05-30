@@ -12,9 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiProxy
  */
 class CurlMultiProxyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiProxy
-     */
+    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiProxy */
     private $multi;
 
     protected function setUp()

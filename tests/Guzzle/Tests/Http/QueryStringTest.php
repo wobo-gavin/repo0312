@@ -8,11 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryAggregator\Com
 
 class QueryStringTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * The query string object to test
-     *
-     * @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString
-     */
+    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString The query string object to test */
     protected $q;
 
     public function setup()

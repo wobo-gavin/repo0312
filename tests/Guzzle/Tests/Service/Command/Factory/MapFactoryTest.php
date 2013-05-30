@@ -4,6 +4,9 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Comm
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\MapFactory;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\MapFactory
+ */
 class MapFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
     public function mapProvider()
@@ -16,7 +19,6 @@ class MapFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ *
     }
 
     /**
-     * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Factory\MapFactory
      * @dataProvider mapProvider
      */
     public function testCreatesCommandsUsingMappings($key, $result)

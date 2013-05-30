@@ -10,14 +10,10 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CachingEntityBody;
  */
 class CachingEntityBodyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
-    /**
-     * @var CachingEntityBody
-     */
+    /** @var CachingEntityBody */
     protected $body;
 
-    /**
-     * @var EntityBody
-     */
+    /** @var EntityBody */
     protected $decorated;
 
     public function setUp()
