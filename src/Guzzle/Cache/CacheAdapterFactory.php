@@ -2,16 +2,42 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\FromConfigInterface;
+use Doctrine\Common\Cache\Cache;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\FromConfigInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Log\PsrLogAdapter;
+use Zend\Cache\Storage\StorageInterface;
 
 /**
- * Generates cache adapters and cache providers objects using an array of configuration data.  This can be useful for
- * creating cache adapters in /* Replaced /* Replaced /* Replaced client */ */ */ builder configuration files.
+ * Generates cache adapters from any number of known cache implementations
  */
 class CacheAdapterFactory implements FromConfigInterface
 {
+    /**
+     * Create a /* Replaced /* Replaced /* Replaced Guzzle */ */ */ cache adapter based on an array of options
+     *
+     * @param mixed $cache Cache value
+     *
+     * @return CacheAdapterInterface
+     * @throws InvalidArgumentException
+     */
+    public static function fromCache($cache)
+    {
+        if (!is_object($cache)) {
+            throw new InvalidArgumentException('Cache must be one of the known cache objects');
+        }
+
+        if ($cache instanceof CacheAdapterInterface) {
+            return $cache;
+        } elseif ($cache instanceof Cache) {
+            return new DoctrineCacheAdapter($cache);
+        } elseif ($cache instanceof StorageInterface) {
+            return new Zf2CacheAdapter($cache);
+        } else {
+            throw new InvalidArgumentException('Unknown cache type: ' . get_class($cache));
+        }
+    }
+
     /**
      * Create a /* Replaced /* Replaced /* Replaced Guzzle */ */ */ cache adapter based on an array of options
      *
@@ -19,6 +45,8 @@ class CacheAdapterFactory implements FromConfigInterface
      *
      * @return CacheAdapterInterface
      * @throws InvalidArgumentException
+     * @deprecated This will be removed in a future version
+     * @codeCoverageIgnore
      */
     public static function factory($config = array())
     {
@@ -68,8 +96,10 @@ class CacheAdapterFactory implements FromConfigInterface
      *
      * @return mixed
      * @throws RuntimeException
+     * @deprecated
+     * @codeCoverageIgnore
      */
-    protected static function createObject($className, array $args = null)
+    private static function createObject($className, array $args = null)
     {
         try {
             if (!$args) {
