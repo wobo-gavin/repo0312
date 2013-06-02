@@ -15,6 +15,7 @@ use Doctrine\Common\Cache\ArrayCache;
 /**
  * @group server
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CachePlugin
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaualtRevalidation
  */
 class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
@@ -107,8 +108,10 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
     public function testChecksIfResponseCanSatisfyRequest($request, $response, $can, $revalidates)
     {
         $didRevalidate = false;
-        $revalidate = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\RevalidationInterface')
+        $storage = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CacheStorageInterface')->getMockForAbstractClass();
+        $revalidate = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultRevalidation')
             ->setMethods(array('revalidate'))
+            ->setConstructorArgs(array($storage))
             ->getMockForAbstractClass();
 
         $revalidate->expects($this->any())
@@ -119,7 +122,7 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
             }));
 
         $plugin = new CachePlugin(array(
-            'storage' => $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CacheStorageInterface')->getMockForAbstractClass(),
+            'storage' => $storage,
             'revalidation' => $revalidate
         ));
 
