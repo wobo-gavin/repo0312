@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Plugin\Cache
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CachePlugin;
@@ -418,10 +419,23 @@ class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ 
         $storage = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CacheStorageInterface')
             ->setMethods(array('purge'))
             ->getMockForAbstractClass();
-        $storage->expects($this->atLeastOnce())
-            ->method('purge');
+        $storage->expects($this->atLeastOnce())->method('purge');
         $plugin = new CachePlugin(array('storage' => $storage));
         $request = new Request('GET', 'http://foo.com', array('X-Foo' => 'Bar'));
         $plugin->purge($request);
+    }
+
+    public function testAutoPurgesRequests()
+    {
+        $storage = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CacheStorageInterface')
+            ->setMethods(array('purge'))
+            ->getMockForAbstractClass();
+        $storage->expects($this->atLeastOnce())->method('purge');
+        $plugin = new CachePlugin(array('storage' => $storage, 'auto_purge' => true));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put('http://foo.com', array('X-Foo' => 'Bar'));
+        $request->addSubscriber($plugin);
+        $request->setResponse(new Response(200), true);
+        $request->send();
     }
 }
