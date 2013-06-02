@@ -4,11 +4,13 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Message
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\MessageParser;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
 
 /**
  * @group server
@@ -321,5 +323,72 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertNull($cloned->getHeader('Content-Length'));
         $this->assertEquals('http://www.test.com', $cloned->getUrl());
         $this->assertSame($request->getClient(), $cloned->getClient());
+    }
+
+    public function testCanDisableRedirects()
+    {
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 307\r\nLocation: " . $this->getServer()->getUrl() . "\r\nContent-Length: 0\r\n\r\n"
+        ));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), null, array('allow_redirects' => false))->send();
+        $this->assertEquals(307, $response->getStatusCode());
+    }
+
+    public function testCanAddCookies()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), null, array('cookies' => array('Foo' => 'Bar')));
+        $this->assertEquals('Bar', $request->getCookie('Foo'));
+    }
+
+    public function testCanAddQueryString()
+    {
+        $request = RequestFactory::getInstance()->create('GET', 'http://foo.com', array(), null, array(
+            'query' => array('Foo' => 'Bar')
+        ));
+        $this->assertEquals('Bar', $request->getQuery()->get('Foo'));
+    }
+
+    public function testCanAddCurl()
+    {
+        $request = RequestFactory::getInstance()->create('GET', 'http://foo.com', array(), null, array(
+            'curl' => array(CURLOPT_ENCODING => '*')
+        ));
+        $this->assertEquals('*', $request->getCurlOptions()->get(CURLOPT_ENCODING));
+    }
+
+    public function testCanAddAuth()
+    {
+        $request = RequestFactory::getInstance()->create('GET', 'http://foo.com', array(), null, array(
+            'auth' => array('michael', 'test')
+        ));
+        $this->assertEquals('michael', $request->getUsername());
+        $this->assertEquals('test', $request->getPassword());
+    }
+
+    public function testCanAddEvents()
+    {
+        $foo = null;
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber(new MockPlugin(array(new Response(200))));
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get($this->getServer()->getUrl(), array(), null, array(
+            'events' => array(
+                'request.before_send' => function () use (&$foo) { $foo = true; }
+            )
+        ));
+        $request->send();
+        $this->assertTrue($foo);
+    }
+
+    public function testCanAddPlugins()
+    {
+        $mock = new MockPlugin(array(new Response(200)));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($mock);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get($this->getServer()->getUrl(), array(), null, array(
+            'plugins' => array($mock)
+        ));
+        $request->send();
     }
 }
