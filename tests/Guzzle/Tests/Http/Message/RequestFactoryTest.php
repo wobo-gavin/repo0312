@@ -331,14 +331,14 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
             "HTTP/1.1 307\r\nLocation: " . $this->getServer()->getUrl() . "\r\nContent-Length: 0\r\n\r\n"
         ));
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), null, array('allow_redirects' => false))->send();
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), array('allow_redirects' => false))->send();
         $this->assertEquals(307, $response->getStatusCode());
     }
 
     public function testCanAddCookies()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), null, array('cookies' => array('Foo' => 'Bar')));
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), array('cookies' => array('Foo' => 'Bar')));
         $this->assertEquals('Bar', $request->getCookie('Foo'));
     }
 
@@ -372,7 +372,7 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $foo = null;
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber(new MockPlugin(array(new Response(200))));
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get($this->getServer()->getUrl(), array(), null, array(
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get($this->getServer()->getUrl(), array(), array(
             'events' => array(
                 'request.before_send' => function () use (&$foo) { $foo = true; }
             )
@@ -386,7 +386,7 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $mock = new MockPlugin(array(new Response(200)));
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($mock);
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get($this->getServer()->getUrl(), array(), null, array(
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get($this->getServer()->getUrl(), array(), array(
             'plugins' => array($mock)
         ));
         $request->send();
