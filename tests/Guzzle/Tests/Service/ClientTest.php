@@ -160,37 +160,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertSame($description, $/* Replaced /* Replaced /* Replaced client */ */ */->getDescription());
     }
 
-    /**
-     * @expectedException BadMethodCallException
-     */
-    public function testMagicCallBehaviorCanBeDisabled()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->enableMagicMethods(false);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->foo();
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Command was not found matching foo
-     */
-    public function testMagicCallBehaviorEnsuresCommandExists()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->enableMagicMethods(true);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->foo();
-    }
-
-    public function testMagicCallBehaviorExecuteExecutesCommands()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($this->service);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(new Response(200))));
-        $result = $/* Replaced /* Replaced /* Replaced client */ */ */->mockCommand();
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response', $result);
-    }
-
     public function testOwnsResourceIteratorFactory()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
