@@ -5,7 +5,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache;
 use Doctrine\Common\Cache\Cache;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\FromConfigInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Log\PsrLogAdapter;
 use Zend\Cache\Storage\StorageInterface;
 
 /**

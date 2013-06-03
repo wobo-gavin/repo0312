@@ -5,7 +5,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Cache;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter;
 use Doctrine\Common\Cache\ArrayCache;
-use Monolog\Logger;
 use Zend\Cache\StorageFactory;
 
 /**
