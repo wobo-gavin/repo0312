@@ -146,10 +146,11 @@ class DefaultRequestSerializer implements RequestSerializerInterface
     {
         $operation = $command->getOperation();
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $command->getClient();
+        $options = $command[AbstractCommand::REQUEST_OPTIONS] ?: array();
 
         // If the command does not specify a template, then assume the base URL of the /* Replaced /* Replaced /* Replaced client */ */ */
         if (!($uri = $operation->getUri())) {
-            return $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest($operation->getHttpMethod(), $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
+            return $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest($operation->getHttpMethod(), $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl(), null, null, $options);
         }
 
         // Get the path values and use the /* Replaced /* Replaced /* Replaced client */ */ */ config settings
@@ -165,11 +166,6 @@ class DefaultRequestSerializer implements RequestSerializerInterface
             }
         }
 
-        // Merge the /* Replaced /* Replaced /* Replaced client */ */ */'s base URL with an expanded URI template
-        return $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest(
-            $operation->getHttpMethod(),
-            (string) Url::factory($/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl())
-                ->combine(ParserRegistry::getInstance()->getParser('uri_template')->expand($uri, $variables))
-        );
+        return $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest($operation->getHttpMethod(), array($uri, $variables), null, null, $options);
     }
 }

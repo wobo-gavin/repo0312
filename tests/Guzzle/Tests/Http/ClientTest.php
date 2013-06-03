@@ -87,15 +87,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals('bar', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('foo'));
     }
 
-    /**
-     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
-     */
-    public function testValidatesArrayForTemplateIsValid()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.google.com/');
-        $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', array('foo' => 'bar', 'baz' => 'bam'));
-    }
-
     public function testClientAttachersObserversToRequests()
     {
         $this->getServer()->flush();
@@ -483,24 +474,6 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         ));
 
         $this->assertEquals('http://hi?han=solo', $uri);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testUriArrayMustContainExactlyTwoElements()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', array('haha!'));
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testUriArrayMustContainAnArray()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', array('haha!', 'test'));
     }
 
     public function testUriArrayAllowsCustomTemplateVariables()
