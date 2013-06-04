@@ -157,7 +157,7 @@ $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */::get('http:///* 
 $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */::post('http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org', [
     'headers' => ['X-Foo' => 'Bar']
     'body'    => ['Foo' => 'Bar'],
-    'query'   => ['Test => 123],
+    'query'   => ['Test' => 123],
     'timeout' => 10,
     'debug'   => true,
     'save_to' => '/path/to/file.html'
