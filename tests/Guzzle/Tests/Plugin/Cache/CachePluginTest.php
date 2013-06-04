@@ -16,7 +16,7 @@ use Doctrine\Common\Cache\ArrayCache;
 /**
  * @group server
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CachePlugin
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaualtRevalidation
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultRevalidation
  */
 class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
