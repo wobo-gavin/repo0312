@@ -8,7 +8,7 @@
 - Service description DSL allows you build awesome web service /* Replaced /* Replaced /* Replaced client */ */ */s faster.
 - Symfony2 event-based plugin system allows you to completely modify the behavior of a request.
 
-### Quick example
+[Documentation](http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/) | [Forum](https://groups.google.com/forum/?hl=en#!forum//* Replaced /* Replaced /* Replaced guzzle */ */ */) | IRC: [#/* Replaced /* Replaced /* Replaced guzzle */ */ */php](irc://irc.freenode.net/#/* Replaced /* Replaced /* Replaced guzzle */ */ */php) channel on irc.freenode.net
 
 ```php
 // Really simple using a static facade
@@ -20,13 +20,6 @@ $/* Replaced /* Replaced /* Replaced client */ */ */ = new \/* Replaced /* Repla
 $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
 $response = $request->send();
 ```
-
-Getting started
----------------
-
-- [Documentation](http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/)
-- [Forum](https://groups.google.com/forum/?hl=en#!forum//* Replaced /* Replaced /* Replaced guzzle */ */ */)
-- IRC: [#/* Replaced /* Replaced /* Replaced guzzle */ */ */php](irc://irc.freenode.net/#/* Replaced /* Replaced /* Replaced guzzle */ */ */php) channel on irc.freenode.net
 
 ### Installing via Composer
 
