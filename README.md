@@ -184,7 +184,7 @@ $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */::post('http:///*
 * "debug": Set to true to display all data sent over the wire
 * "exceptions": Set to false to disable throwing exceptions on an HTTP level error (e.g. 404, 500, etc)
 
-These options can also be used when creating request using a standard /* Replaced /* Replaced /* Replaced client */ */ */:
+These options can also be used when creating requests using a standard /* Replaced /* Replaced /* Replaced client */ */ */:
 
 ```php
 $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client();
