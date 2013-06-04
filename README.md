@@ -27,7 +27,7 @@ The recommended way to install /* Replaced /* Replaced /* Replaced Guzzle */ */ 
 
 ```bash
 # Install Composer
-curl -s http://getcomposer.org/installer | php
+curl -sS https://getcomposer.org/installer | php
 
 # Add /* Replaced /* Replaced /* Replaced Guzzle */ */ */ as a dependency
 php composer.phar require /* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */:~3.6
