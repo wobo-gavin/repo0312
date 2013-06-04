@@ -7,6 +7,7 @@ use Doctrine\Common\Cache\ArrayCache;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\AbstractCacheAdapter
  */
 class CacheAdapterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {

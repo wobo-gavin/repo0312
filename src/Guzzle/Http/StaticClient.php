@@ -37,9 +37,11 @@ final class StaticClient
      */
     public static function request($method, $url, $options = array())
     {
+        // @codeCoverageIgnoreStart
         if (!self::$/* Replaced /* Replaced /* Replaced client */ */ */) {
             self::$/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         }
+        // @codeCoverageIgnoreEnd
 
         $request = self::$/* Replaced /* Replaced /* Replaced client */ */ */->createRequest($method, $url, null, null, $options);
 
