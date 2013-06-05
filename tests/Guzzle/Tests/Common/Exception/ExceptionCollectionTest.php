@@ -48,11 +48,16 @@ class ExceptionCollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         $e1->add(new \Exception("Test"));
         $e2 = new ExceptionCollection('Meta description!');
         $e2->add(new \Exception("Test 2"));
+        $e3 = new ExceptionCollection();
+        $e3->add(new \Exception('Baz'));
+        $e2->add($e3);
         $e1->add($e2);
         $message = $e1->getMessage();
         $this->assertEquals("(Exception) Test\n"
             . "(/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Exception\\ExceptionCollection)\n"
             . "    Meta description!\n"
-            . "    (Exception) Test 2\n", $message);
+            . "    (Exception) Test 2\n"
+            . "    (/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Common\\Exception\\ExceptionCollection)\n"
+            . "        (Exception) Baz", $message);
     }
 }
