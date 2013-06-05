@@ -323,4 +323,35 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         $c2 = $b->get('michael.mock');
         $this->assertEquals('michael', $c2->getConfig('username'));
     }
+
+    public function testCanUseArbitraryData()
+    {
+        $b = new ServiceBuilder(array());
+        $b['a'] = 'foo';
+        $this->assertTrue(isset($b['a']));
+        $this->assertEquals('foo', $b['a']);
+        unset($b['a']);
+        $this->assertFalse(isset($b['a']));
+    }
+
+    public function testCanRegisterServiceData()
+    {
+        $b = new ServiceBuilder(array());
+        $b['a'] = array(
+            'class' => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient',
+            'params' => array(
+                'username' => 'billy',
+                'password' => 'passw0rd',
+                'subdomain' => 'billy',
+            )
+        );
+        $this->assertTrue(isset($b['a']));
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient', $b['a']);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $b['a'];
+        unset($b['a']);
+        $this->assertFalse(isset($b['a']));
+        // Ensure that instantiated /* Replaced /* Replaced /* Replaced client */ */ */s can be registered
+        $b['mock'] = $/* Replaced /* Replaced /* Replaced client */ */ */;
+        $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $b['mock']);
+    }
 }

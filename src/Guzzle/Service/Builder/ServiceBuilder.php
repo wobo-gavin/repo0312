@@ -3,13 +3,15 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Service builder to generate service builders and service /* Replaced /* Replaced /* Replaced client */ */ */s from configuration settings
+ * {@inheritdoc}
+ *
+ * Clients and data can be set, retrieved, and removed by accessing the service builder like an associative array.
  */
 class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInterface, \ArrayAccess, \Serializable
 {
@@ -102,6 +104,12 @@ class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInte
     public function get($name, $throwAway = false)
     {
         if (!isset($this->builderConfig[$name])) {
+
+            // Check to see if arbitrary data is being referenced
+            if (isset($this->/* Replaced /* Replaced /* Replaced client */ */ */s[$name])) {
+                return $this->/* Replaced /* Replaced /* Replaced client */ */ */s[$name];
+            }
+
             // Check aliases and return a match if found
             foreach ($this->builderConfig as $actualName => $config) {
                 if (isset($config['alias']) && $config['alias'] == $name) {
@@ -115,83 +123,65 @@ class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInte
             return $this->/* Replaced /* Replaced /* Replaced client */ */ */s[$name];
         }
 
+        $builder =& $this->builderConfig[$name];
+
         // Convert references to the actual /* Replaced /* Replaced /* Replaced client */ */ */
-        foreach ($this->builderConfig[$name]['params'] as &$v) {
+        foreach ($builder['params'] as &$v) {
             if (is_string($v) && substr($v, 0, 1) == '{' && substr($v, -1) == '}') {
-                $v = $this->get(trim(trim($v, '{}')));
+                $v = $this->get(trim($v, '{} '));
             }
         }
 
         // Get the configured parameters and merge in any parameters provided for throw-away /* Replaced /* Replaced /* Replaced client */ */ */s
-        $config = $this->builderConfig[$name]['params'];
+        $config = $builder['params'];
         if (is_array($throwAway)) {
             $config = $throwAway + $config;
         }
 
-        $class = $this->builderConfig[$name]['class'];
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = $class::factory($config);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = $builder['class']::factory($config);
 
         if (!$throwAway) {
             $this->/* Replaced /* Replaced /* Replaced client */ */ */s[$name] = $/* Replaced /* Replaced /* Replaced client */ */ */;
         }
 
-        foreach ($this->plugins as $plugin) {
-            $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($plugin);
+        if ($/* Replaced /* Replaced /* Replaced client */ */ */ instanceof ClientInterface) {
+            foreach ($this->plugins as $plugin) {
+                $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($plugin);
+            }
+            // Dispatch an event letting listeners know a /* Replaced /* Replaced /* Replaced client */ */ */ was created
+            $this->dispatch('service_builder.create_/* Replaced /* Replaced /* Replaced client */ */ */', array('/* Replaced /* Replaced /* Replaced client */ */ */' => $/* Replaced /* Replaced /* Replaced client */ */ */));
         }
-
-        // Dispatch an event letting listeners know a /* Replaced /* Replaced /* Replaced client */ */ */ was created
-        $this->dispatch('service_builder.create_/* Replaced /* Replaced /* Replaced client */ */ */', array('/* Replaced /* Replaced /* Replaced client */ */ */' => $/* Replaced /* Replaced /* Replaced client */ */ */));
 
         return $/* Replaced /* Replaced /* Replaced client */ */ */;
     }
 
     public function set($key, $service)
     {
-        $this->builderConfig[$key] = $service;
+        if (is_array($service) && isset($service['class']) && isset($service['params'])) {
+            $this->builderConfig[$key] = $service;
+        } else {
+            $this->/* Replaced /* Replaced /* Replaced client */ */ */s[$key] = $service;
+        }
 
         return $this;
     }
 
-    /**
-     * Register a /* Replaced /* Replaced /* Replaced client */ */ */ by name with the service builder
-     *
-     * @param string          $offset Name of the /* Replaced /* Replaced /* Replaced client */ */ */ to register
-     * @param ClientInterface $value  Client to register
-     */
     public function offsetSet($offset, $value)
     {
         $this->set($offset, $value);
     }
 
-    /**
-     * Remove a registered /* Replaced /* Replaced /* Replaced client */ */ */ by name
-     *
-     * @param string $offset Client to remove by name
-     */
     public function offsetUnset($offset)
     {
         unset($this->builderConfig[$offset]);
+        unset($this->/* Replaced /* Replaced /* Replaced client */ */ */s[$offset]);
     }
 
-    /**
-     * Check if a /* Replaced /* Replaced /* Replaced client */ */ */ is registered with the service builder by name
-     *
-     * @param string $offset Name to check to see if a /* Replaced /* Replaced /* Replaced client */ */ */ exists
-     *
-     * @return bool
-     */
     public function offsetExists($offset)
     {
-        return isset($this->builderConfig[$offset]);
+        return isset($this->builderConfig[$offset]) || isset($this->/* Replaced /* Replaced /* Replaced client */ */ */s[$offset]);
     }
 
-    /**
-     * Get a registered /* Replaced /* Replaced /* Replaced client */ */ */ by name
-     *
-     * @param string $offset Registered /* Replaced /* Replaced /* Replaced client */ */ */ name to retrieve
-     *
-     * @return ClientInterface
-     */
     public function offsetGet($offset)
     {
         return $this->get($offset);
