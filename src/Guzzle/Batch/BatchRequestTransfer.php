@@ -32,23 +32,25 @@ class BatchRequestTransfer implements BatchTransferInterface, BatchDivisorInterf
      */
     public function createBatches(\SplQueue $queue)
     {
-        // Create batches by curl multi object groups
+        // Create batches by /* Replaced /* Replaced /* Replaced client */ */ */ objects
         $groups = new \SplObjectStorage();
         foreach ($queue as $item) {
             if (!$item instanceof RequestInterface) {
                 throw new InvalidArgumentException('All items must implement /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface');
             }
-            $multi = $item->getClient()->getCurlMulti();
-            if (!$groups->contains($multi)) {
-                $groups->attach($multi, new \ArrayObject(array($item)));
+            $/* Replaced /* Replaced /* Replaced client */ */ */ = $item->getClient();
+            if (!$groups->contains($/* Replaced /* Replaced /* Replaced client */ */ */)) {
+                $groups->attach($/* Replaced /* Replaced /* Replaced client */ */ */, array($item));
             } else {
-                $groups[$multi]->append($item);
+                $current = $groups[$/* Replaced /* Replaced /* Replaced client */ */ */];
+                $current[] = $item;
+                $groups[$/* Replaced /* Replaced /* Replaced client */ */ */] = $current;
             }
         }
 
         $batches = array();
         foreach ($groups as $batch) {
-            $batches = array_merge($batches, array_chunk($groups[$batch]->getArrayCopy(), $this->batchSize));
+            $batches = array_merge($batches, array_chunk($groups[$batch], $this->batchSize));
         }
 
         return $batches;
