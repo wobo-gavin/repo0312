@@ -118,10 +118,9 @@ class DefaultRevalidationTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         $s = new DefaultCacheStorage(new DoctrineCacheAdapter(new ArrayCache()));
         $s->cache($request, $response);
         $this->assertNotNull($s->fetch($request));
-        $plugin = new CachePlugin($s);
 
         $rev = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultRevalidation')
-            ->setConstructorArgs(array($s, $plugin))
+            ->setConstructorArgs(array($s))
             ->setMethods(array('createRevalidationRequest'))
             ->getMock();
 
