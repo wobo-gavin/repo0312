@@ -1,6 +1,84 @@
 CHANGELOG
 =========
 
+Next version
+------------
+
+* New features:
+    - Requests now support the ability to specify an array of $options when creating a request to more easily modify a
+      request
+    - Added a static facade class that allows you to use /* Replaced /* Replaced /* Replaced Guzzle */ */ */ with static methods and mount the class to `\/* Replaced /* Replaced /* Replaced Guzzle */ */ */`.
+      See `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\StaticClient::mount`.
+    - Stream size in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\PhpStreamRequestFactory` will now be set if Content-Length is returned in the
+      headers of a response
+    - Added `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory::fromCache()` to more easily create cache adapters
+    - Added command.request_options to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\AbstractCommand` to pass request options to requests
+      created by a command
+    - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response` now implements `\Serializable`
+    - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface::execute()` now accepts an array, single command, or Traversable
+    - ServiceBuilders now support storing and retrieving arbitrary data
+    - CachePlugin can now purge all resources for a given URI
+    - CachePlugin can automatically purge matching cached items when a non-idempotent request is sent to a resource
+    - CachePlugin now uses the Vary header to determine if a resource is a cache hit
+* Bug fixes:
+    - Fixed a bug in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header\Link::addLink()`
+* Improvements:
+    - Better handling of calculating the size of a stream in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream` using fstat() and caching the size
+    - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\ExceptionCollection` now creates a more readable exception message
+    - Fixing BC break: Added back the MonologLogAdapter implementation rather than extending from PsrLog so that older
+      Symfony users can still use the old version of Monolog.
+    - Fixing BC break: Added the implementation back in for `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage::getTokenizedHeader()`.
+      Now triggering an E_USER_DEPRECATED warning when used. Use `$message->getHeader()->parseParams()`.
+    - Several performance improvements to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection`
+* Interface changes:
+    - Additions and changes (you will need to update any implementations or subclasses you may have created):
+        - Added an `$options` argument to the end of the following methods of `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface`:
+          createRequest, head, delete, put, patch, post, options, prepareRequest
+        - Added an `$options` argument to the end of `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request\RequestFactoryInterface::createRequest()`
+        - Added an `applyOptions()` method to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request\RequestFactoryInterface`
+        - Changed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::get($uri = null, $headers = null, $body = null)` to
+          `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::get($uri = null, $headers = null, $options = array())`. You can still pass in a
+          resource, string, or EntityBody into the $options parameter to specify the download location of the response.
+        - Changed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::__construct($data)` to no longer accepts a null value for `$data` but a
+          default `array()`
+    - The following methods were removed from interfaces. All of these methods are still available in the concrete
+      classes that implement them, but you should update your code to use alternative methods:
+        - Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::setDefaultHeaders()`
+        - Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::expandTemplate()`
+        - Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::setRequestFactory()`
+        - Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::getCurlMulti()`
+        - Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface::canCache`
+        - Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface::setIsRedirect`
+        - Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface::isRedirect`
+* Deprecations:
+    - You can now enable E_USER_DEPRECATED warnings to see if you are using a deprecated method by setting
+      `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version::$emitWarnings` to true.
+    - All deprecated methods when invoked will call /* Replaced /* Replaced /* Replaced Guzzle */ */ */\
+    - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::canCache()` as deprecated. Use
+      `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCanCacheStrategy->canCacheRequest()` instead.
+    - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::canCache()` as deprecated. Use
+      `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCanCacheStrategy->canCacheRequest()` instead.
+    - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::setIsRedirect()` as deprecated. Use the HistoryPlugin instead.
+    - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::isRedirect()` as deprecated. Use the HistoryPlugin instead.
+    - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory::factory()` as deprecated
+    - Marked 'command.headers', 'command.response_body' and 'command.on_complete' as deprecated for AbstractCommand.
+      These will work through /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4.0
+    - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::enableMagicMethods()` as deprecated
+    - Magic methods can no longer be disabled on a /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client
+* Breaking changes in the CachePlugin internals:
+    - There are no longer CacheKeyProviderInterface objects. All of this logic is handled in a CacheStorageInterface
+    - Always setting X-cache headers on cached responses
+    - Default cache TTLs are now handled by the CacheStorageInterface of a CachePlugin
+    - `CacheStorageInterface::cache($key, Response $response, $ttl = null)` has changed to `cache(RequestInterface
+      $request, Response $response);`
+    - `CacheStorageInterface::fetch($key)` has changed to `fetch(RequestInterface $request);`
+    - `CacheStorageInterface::delete($key)` has changed to `delete(RequestInterface $request);`
+    - Added `CacheStorageInterface::purge($url)`
+    - `DefaultRevalidation::__construct(CacheKeyProviderInterface $cacheKey, CacheStorageInterface $cache, CachePlugin
+      $plugin)` has changed to `DefaultRevalidation::__construct(CacheStorageInterface $cache,
+      CanCacheStrategyInterface $canCache = null)`
+    - Added `RevalidationInterface::shouldRevalidate(RequestInterface $request, Response $response)`
+
 3.6.0 (2013-05-29)
 ------------------
 
