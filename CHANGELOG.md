@@ -53,7 +53,6 @@ Next version
 * Deprecations:
     - You can now enable E_USER_DEPRECATED warnings to see if you are using a deprecated method by setting
       `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version::$emitWarnings` to true.
-    - All deprecated methods when invoked will call /* Replaced /* Replaced /* Replaced Guzzle */ */ */\
     - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::canCache()` as deprecated. Use
       `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCanCacheStrategy->canCacheRequest()` instead.
     - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::canCache()` as deprecated. Use
