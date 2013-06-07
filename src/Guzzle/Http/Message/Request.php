@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
@@ -579,9 +580,11 @@ class Request extends AbstractMessage implements RequestInterface
 
     /**
      * @deprecated Use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCanCacheStrategy
+     * @codeCoverageIgnore
      */
     public function canCache()
     {
+        Version::warn(__METHOD__ . ' is deprecated. Use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCanCacheStrategy.');
         if (class_exists('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCanCacheStrategy')) {
             $canCache = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCanCacheStrategy();
             return $canCache->canCacheRequest($this);
@@ -591,7 +594,8 @@ class Request extends AbstractMessage implements RequestInterface
     }
 
     /**
-     * @deprecated Use the history plugin
+     * @deprecated Use the history plugin (not emitting a warning as this is built-into the RedirectPlugin for now)
+     * @codeCoverageIgnore
      */
     public function setIsRedirect($isRedirect)
     {
@@ -602,9 +606,11 @@ class Request extends AbstractMessage implements RequestInterface
 
     /**
      * @deprecated Use the history plugin
+     * @codeCoverageIgnore
      */
     public function isRedirect()
     {
+        Version::warn(__METHOD__ . ' is deprecated. Use the HistoryPlugin to track this.');
         return $this->isRedirect;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBodyInterface;
@@ -917,25 +918,31 @@ class Response extends AbstractMessage implements \Serializable
 
     /**
      * @deprecated
+     * @codeCoverageIgnore
      */
     public function getPreviousResponse()
     {
+        Version::warn(__METHOD__ . ' is deprecated. Use the HistoryPlugin.');
         return null;
     }
 
     /**
      * @deprecated
+     * @codeCoverageIgnore
      */
     public function setRequest($request)
     {
+        Version::warn(__METHOD__ . ' is deprecated');
         return $this;
     }
 
     /**
      * @deprecated
+     * @codeCoverageIgnore
      */
     public function getRequest()
     {
+        Version::warn(__METHOD__ . ' is deprecated');
         return null;
     }
 }

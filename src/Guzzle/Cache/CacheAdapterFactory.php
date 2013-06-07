@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache;
 
 use Doctrine\Common\Cache\Cache;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\FromConfigInterface;
 use Zend\Cache\Storage\StorageInterface;
@@ -49,6 +50,7 @@ class CacheAdapterFactory implements FromConfigInterface
      */
     public static function factory($config = array())
     {
+        Version::warn(__METHOD__ . ' is deprecated');
         if (!is_array($config)) {
             throw new InvalidArgumentException('$config must be an array');
         }

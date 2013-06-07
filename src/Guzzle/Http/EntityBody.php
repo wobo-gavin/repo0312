@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
@@ -143,6 +144,7 @@ class EntityBody extends Stream implements EntityBodyInterface
      */
     public static function calculateMd5(EntityBodyInterface $body, $rawOutput = false, $base64Encode = false)
     {
+        Version::warn(__CLASS__ . ' is deprecated. Use getContentMd5()');
         return $body->getContentMd5($rawOutput, $base64Encode);
     }
 

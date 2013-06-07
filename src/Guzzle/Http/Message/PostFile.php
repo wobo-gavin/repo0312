@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
 
@@ -90,9 +91,11 @@ class PostFile implements PostFileInterface
 
     /**
      * @deprecated
+     * @codeCoverageIgnore
      */
     public function getCurlString()
     {
+        Version::warn(__METHOD__ . ' is deprecated. Use getCurlValue()');
         return $this->getCurlValue();
     }
 

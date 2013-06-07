@@ -37,22 +37,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
         ),
         'missing_params' => array(
             'extends' => 'billy.mock'
-        ),
-        'cache.adapter' => array(
-            'class'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory',
-            'params' => array(
-                'cache.adapter'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter',
-                'cache.provider' => 'Doctrine\Common\Cache\ArrayCache'
-            )
-        ),
-        'service_uses_cache' => array(
-            'class'  => '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Service\Mock\MockClient',
-            'params' => array(
-                'cache'     => '{cache.adapter}',
-                'username'  => 'foo',
-                'password'  => 'bar',
-                'subdomain' => 'baz'
-            )
         )
     );
 
@@ -255,30 +239,6 @@ class ServiceBuilderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             $this->assertEquals('fred', $service['params']['username']);
             $this->assertEquals('test', $service['params']['new_value']);
         }
-    }
-
-    public function testCacheServiceCanBeCreatedAndInjectedIntoOtherServices()
-    {
-        $builder = ServiceBuilder::factory($this->arrayData);
-        $usesCache = $builder['service_uses_cache'];
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter', $usesCache->getConfig('cache'));
-    }
-
-    public function testServicesCanBeAddedToBuilderAfterInstantiationAndInjectedIntoServices()
-    {
-        // Grab the cache adapter and remove it from the config
-        $cache = $this->arrayData['cache.adapter'];
-        $data = $this->arrayData;
-        unset($data['cache.adapter']);
-
-        // Create the builder and add the cache adapter
-        $builder = ServiceBuilder::factory($data);
-        $builder['cache.adapter'] = $cache;
-
-        $this->assertInstanceOf(
-            '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\DoctrineCacheAdapter',
-            $builder['service_uses_cache']->getConfig('cache')
-        );
     }
 
     public function testAddsGlobalPlugins()

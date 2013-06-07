@@ -88,13 +88,6 @@ class HeaderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertEquals(1, count($h));
     }
 
-    public function testCanCheckForExactHeaderValues()
-    {
-        $h = new Header('Foo', 'bar', ';');
-        $this->assertTrue($h->hasExactHeader('Foo'));
-        $this->assertFalse($h->hasExactHeader('foo'));
-    }
-
     public function testCanRemoveValues()
     {
         $h = new Header('Foo', array('Foo', 'baz', 'bar'));

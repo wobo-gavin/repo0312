@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header\HeaderInterface;
 
 /**
@@ -145,17 +146,21 @@ class Header implements HeaderInterface
 
     /**
      * @deprecated
+     * @codeCoverageIgnore
      */
     public function hasExactHeader($header)
     {
+        Version::warn(__METHOD__ . ' is deprecated');
         return $this->header == $header;
     }
 
     /**
-     * {@deprecated}
+     * @deprecated
+     * @codeCoverageIgnore
      */
     public function raw()
     {
+        Version::warn(__METHOD__ . ' is deprecated. Use toArray()');
         return $this->toArray();
     }
 

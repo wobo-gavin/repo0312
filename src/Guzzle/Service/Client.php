@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\BadMethodCallException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\InflectorInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\Inflector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client as HttpClient;
@@ -281,6 +282,10 @@ class Client extends HttpClient implements ClientInterface
 
     /**
      * @deprecated
+     * @codeCoverageIgnore
      */
-    public function enableMagicMethods($isEnabled) {}
+    public function enableMagicMethods($isEnabled)
+    {
+        Version::warn(__METHOD__ . ' is deprecated');
+    }
 }

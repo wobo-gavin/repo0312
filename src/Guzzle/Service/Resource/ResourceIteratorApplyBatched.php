@@ -6,10 +6,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispat
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch\BatchBuilder;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch\BatchSizeDivisor;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch\BatchClosureTransfer;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 
 /**
  * Apply a callback to the contents of a {@see ResourceIteratorInterface}
- * @deprecated Will be removed in a future version. Use the Batch\ abstractions instead.
+ * @deprecated Will be removed in a future version and is no longer maintained. Use the Batch\ abstractions instead.
+ * @codeCoverageIgnore
  */
 class ResourceIteratorApplyBatched extends AbstractHasDispatcher
 {
@@ -46,6 +48,7 @@ class ResourceIteratorApplyBatched extends AbstractHasDispatcher
     {
         $this->iterator = $iterator;
         $this->callback = $callback;
+        Version::warn(__CLASS__ . ' is deprecated');
     }
 
     /**
