@@ -343,9 +343,11 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     {
         $mock = $this->getMock('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Http\\Curl\\CurlMulti', array('add', 'send'));
         $mock->expects($this->once())
-             ->method('add');
+            ->method('add')
+            ->will($this->returnSelf());
         $mock->expects($this->once())
-             ->method('send');
+            ->method('send')
+            ->will($this->returnSelf());
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->setCurlMulti($mock);
