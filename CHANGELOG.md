@@ -41,6 +41,7 @@ Next version
           resource, string, or EntityBody into the $options parameter to specify the download location of the response.
         - Changed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::__construct($data)` to no longer accepts a null value for `$data` but a
           default `array()`
+        - Added `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface::isRepeatable`
     - The following methods were removed from interfaces. All of these methods are still available in the concrete
       classes that implement them, but you should update your code to use alternative methods:
         - Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::setDefaultHeaders()`
@@ -53,6 +54,8 @@ Next version
 * Deprecations:
     - You can now enable E_USER_DEPRECATED warnings to see if you are using a deprecated method by setting
       `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version::$emitWarnings` to true.
+    - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::isResponseBodyRepeatable()` as deprecated. Use
+          `$request->getResponseBody()->isRepeatable()` instead.
     - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::canCache()` as deprecated. Use
       `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCanCacheStrategy->canCacheRequest()` instead.
     - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::canCache()` as deprecated. Use
