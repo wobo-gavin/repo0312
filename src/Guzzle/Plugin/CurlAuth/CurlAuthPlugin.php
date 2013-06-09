@@ -3,10 +3,12 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\CurlAuth;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Adds specified curl auth to all requests sent from a /* Replaced /* Replaced /* Replaced client */ */ */. Defaults to CURLAUTH_BASIC if none supplied.
+ * @deprecated Use $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/auth', array('user', 'pass', 'Basic|Digest');
  */
 class CurlAuthPlugin implements EventSubscriberInterface
 {
@@ -21,6 +23,7 @@ class CurlAuthPlugin implements EventSubscriberInterface
      */
     public function __construct($username, $password, $scheme=CURLAUTH_BASIC)
     {
+        Version::warn(__CLASS__ . " is deprecated. Use \$/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/auth', array('user', 'pass', 'Basic|Digest');");
         $this->username = $username;
         $this->password = $password;
         $this->scheme = $scheme;
