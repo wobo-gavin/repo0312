@@ -51,6 +51,7 @@ CHANGELOG
 * Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface::canCache`
 * Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface::setIsRedirect`
 * Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface::isRedirect`
+* Made `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client::expandTemplate` and `getUriTemplate` protected methods.
 * You can now enable E_USER_DEPRECATED warnings to see if you are using a deprecated method by setting
   `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version::$emitWarnings` to true.
 * Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::isResponseBodyRepeatable()` as deprecated. Use

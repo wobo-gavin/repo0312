@@ -76,15 +76,10 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
     public function testExpandsUriTemplatesUsingConfig()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.google.com/');
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setConfig(array(
-            'api' => 'v1',
-            'key' => 'value',
-            'foo' => 'bar'
-        ));
-        $this->assertEquals('Testing...api/v1/key/value', $/* Replaced /* Replaced /* Replaced client */ */ */->expandTemplate('Testing...api/{api}/key/{key}'));
-
-        // Make sure that the /* Replaced /* Replaced /* Replaced client */ */ */ properly validates and injects config
-        $this->assertEquals('bar', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('foo'));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setConfig(array('api' => 'v1', 'key' => 'value', 'foo' => 'bar'));
+        $ref = new \ReflectionMethod($/* Replaced /* Replaced /* Replaced client */ */ */, 'expandTemplate');
+        $ref->setAccessible(true);
+        $this->assertEquals('Testing...api/v1/key/value', $ref->invoke($/* Replaced /* Replaced /* Replaced client */ */ */, 'Testing...api/{api}/key/{key}'));
     }
 
     public function testClientAttachersObserversToRequests()
@@ -454,29 +449,21 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     public function testAllowsUriTemplateInjection()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://test.com', array(
-            'path'  => array('foo', 'bar'),
-            'query' => 'hi there',
-        ));
-
-        $a = $/* Replaced /* Replaced /* Replaced client */ */ */->getUriTemplate();
-        $this->assertSame($a, $/* Replaced /* Replaced /* Replaced client */ */ */->getUriTemplate());
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://test.com');
+        $ref = new \ReflectionMethod($/* Replaced /* Replaced /* Replaced client */ */ */, 'getUriTemplate');
+        $ref->setAccessible(true);
+        $a = $ref->invoke($/* Replaced /* Replaced /* Replaced client */ */ */);
+        $this->assertSame($a, $ref->invoke($/* Replaced /* Replaced /* Replaced client */ */ */));
         $/* Replaced /* Replaced /* Replaced client */ */ */->setUriTemplate(new UriTemplate());
-        $this->assertNotSame($a, $/* Replaced /* Replaced /* Replaced client */ */ */->getUriTemplate());
+        $this->assertNotSame($a, $ref->invoke($/* Replaced /* Replaced /* Replaced client */ */ */));
     }
 
     public function testAllowsCustomVariablesWhenExpandingTemplates()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://test.com', array(
-            'test' => 'hi',
-        ));
-
-        $uri = $/* Replaced /* Replaced /* Replaced client */ */ */->expandTemplate('http://{test}{?query*}', array(
-            'query' => array(
-                'han' => 'solo'
-            )
-        ));
-
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://test.com', array('test' => 'hi'));
+        $ref = new \ReflectionMethod($/* Replaced /* Replaced /* Replaced client */ */ */, 'expandTemplate');
+        $ref->setAccessible(true);
+        $uri = $ref->invoke($/* Replaced /* Replaced /* Replaced client */ */ */, 'http://{test}{?query*}', array('query' => array('han' => 'solo')));
         $this->assertEquals('http://hi?han=solo', $uri);
     }
 
