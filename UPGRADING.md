@@ -110,7 +110,7 @@ that implement them, but you should update your code to use alternative methods:
 If you previously relied on /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header::raw(), then you will need to update your code to use the
 HeaderInterface (e.g. toArray(), getAll(), etc).
 
-Removed from interfaces:
+## Interface changes
 
 * Removed from interface: /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::setUriTemplate
 * Removed from interface: /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::setCurlMulti()
@@ -120,12 +120,20 @@ Removed from interfaces:
 * Removed the optional $tryChunkedTransfer option from /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequestInterface
 * Removed the $asObjects argument from /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageInterface::getHeaders()
 
-Removed deprecated functions:
+## Removed deprecated functions
 
 * Removed /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\ParserRegister::get(). Use getParser()
 * Removed /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\ParserRegister::set(). Use registerParser().
 
-Other changes:
+## Deprecations
+
+* The ability to case-insensitively search for header values
+* /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header::hasExactHeader
+* /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header::raw. Use getAll()
+* Deprecated cache control specific methods on /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage. Use the CacheControl header object
+  instead.
+
+## Other changes
 
 * All response header helper functions return a string rather than mixing Header objects and strings inconsistently
 * Removed cURL blacklist support. This is no longer necessary now that Expect, Accept, etc are managed by /* Replaced /* Replaced /* Replaced Guzzle */ */ */
@@ -137,14 +145,6 @@ Other changes:
 * Added `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface::startResponse()` to the RequestInterface to handle injecting a response
   on a request while the request is still being transferred
 * `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface` now extends from ToArrayInterface and ArrayAccess
-
-Marked as deprecated:
-
-* The ability to case-insensitively search for header values
-* /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header::hasExactHeader
-* /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header::raw. Use getAll()
-* Deprecated cache control specific methods on /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage. Use the CacheControl header object
-  instead.
 
 3.3 to 3.4
 ----------
