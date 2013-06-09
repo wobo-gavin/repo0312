@@ -494,12 +494,9 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     public function testAllowsDefaultHeaders()
     {
-        $default = array(
-            'X-Test' => 'Hi!'
-        );
-        $other = array(
-            'X-Other' => 'Foo'
-        );
+        Version::$emitWarnings = false;
+        $default = array('X-Test' => 'Hi!');
+        $other = array('X-Other' => 'Foo');
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultHeaders($default);
@@ -517,15 +514,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET');
         $this->assertEquals('Hi!', $request->getHeader('X-Test'));
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testValidatesDefaultHeaders()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultHeaders('foo');
+        Version::$emitWarnings = true;
     }
 
     public function testDontReuseCurlMulti()
@@ -559,5 +548,30 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.foo.com');
         $this->assertContains('/* Replaced /* Replaced /* Replaced Guzzle */ */ *//', (string) $request->getHeader('User-Agent'));
+    }
+
+    public function testCanSetDefaultRequestOptions()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->set('request.options', array(
+            'query' => array('test' => '123', 'other' => 'abc'),
+            'headers' => array('Foo' => 'Bar', 'Baz' => 'Bam')
+        ));
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.foo.com?test=hello', array('Foo' => 'Test'));
+        // Explicit options on a request should overrule default options
+        $this->assertEquals('Test', (string) $request->getHeader('Foo'));
+        $this->assertEquals('hello', $request->getQuery()->get('test'));
+        // Default options should still be set
+        $this->assertEquals('abc', $request->getQuery()->get('other'));
+        $this->assertEquals('Bam', (string) $request->getHeader('Baz'));
+    }
+
+    public function testCanSetSetOptionsOnRequests()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.foo.com?test=hello', array('Foo' => 'Test'), null, array(
+            'cookies' => array('michael' => 'test')
+        ));
+        $this->assertEquals('test', $request->getCookie('michael'));
     }
 }

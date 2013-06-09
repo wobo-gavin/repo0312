@@ -8,6 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Message\MessageParser;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Log\LogPlugin;
@@ -361,6 +362,16 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertEquals('Bar', $request->getQuery()->get('Foo'));
     }
 
+    public function testCanSetDefaultQueryString()
+    {
+        $request = new Request('GET', 'http://www.foo.com?test=abc');
+        RequestFactory::getInstance()->applyOptions($request, array(
+            'query' => array('test' => '123', 'other' => 't123')
+        ), RequestFactory::OPTIONS_AS_DEFAULTS);
+        $this->assertEquals('abc', $request->getQuery()->get('test'));
+        $this->assertEquals('t123', $request->getQuery()->get('other'));
+    }
+
     public function testCanAddBasicAuth()
     {
         $request = RequestFactory::getInstance()->create('GET', 'http://foo.com', array(), null, array(
@@ -453,6 +464,16 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), array('headers' => array('Foo' => 'Bar')));
         $this->assertEquals('Bar', (string) $request->getHeader('Foo'));
+    }
+
+    public function testCanSetDefaultHeadersOptions()
+    {
+        $request = new Request('GET', 'http://www.foo.com', array('Foo' => 'Bar'));
+        RequestFactory::getInstance()->applyOptions($request, array(
+            'headers' => array('Foo' => 'Baz', 'Bam' => 't123')
+        ), RequestFactory::OPTIONS_AS_DEFAULTS);
+        $this->assertEquals('Bar', (string) $request->getHeader('Foo'));
+        $this->assertEquals('t123', (string) $request->getHeader('Bam'));
     }
 
     public function testCanSetBodyOption()
