@@ -71,6 +71,7 @@ Next version
     - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory::factory()` as deprecated
     - Marked 'command.headers', 'command.response_body' and 'command.on_complete' as deprecated for AbstractCommand.
       These will work through /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4.0
+    - Marked 'request.params' for `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client` as deprecated. Use [request.options][params].
     - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::enableMagicMethods()` as deprecated. Magic methods can no longer be disabled on a /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client.
     - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getDefaultHeaders()` as deprecated. Use $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->getPath('request.options/headers')`.
     - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setDefaultHeaders()` as deprecated. Use $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/headers/{header_name}', 'value')`.

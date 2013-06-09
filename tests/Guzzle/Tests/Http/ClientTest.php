@@ -225,6 +225,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
 
     public function testClientAddsParamsToRequests()
     {
+        Version::$emitWarnings = false;
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.example.com', array(
             'api' => 'v1',
             'request.params' => array(
@@ -235,6 +236,7 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest();
         $this->assertEquals('bar', $request->getParams()->get('foo'));
         $this->assertEquals('jar', $request->getParams()->get('baz'));
+        Version::$emitWarnings = true;
     }
 
     public function urlProvider()

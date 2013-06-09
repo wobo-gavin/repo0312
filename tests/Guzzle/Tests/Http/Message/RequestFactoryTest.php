@@ -550,7 +550,7 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
     public function inputValidation()
     {
         return array_map(function ($option) { return array($option); }, array(
-            'headers', 'query', 'cookies', 'auth', 'events', 'plugins'
+            'headers', 'query', 'cookies', 'auth', 'events', 'plugins', 'params'
         ));
     }
 
@@ -562,5 +562,12 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), array($option => 'foo'));
+    }
+
+    public function testCanAddRequestParams()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', array(), null, array('params' => array('foo' => 'test')));
+        $this->assertEquals('test', $request->getParams()->get('foo'));
     }
 }
