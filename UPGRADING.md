@@ -1,6 +1,99 @@
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Upgrade Guide
 ====================
 
+3.6 to 3.7
+----------
+
+### Deprecated various aspects of the framework in favor of a smaller API:
+
+- You can now enable E_USER_DEPRECATED warnings to see if you are using any deprecated methods.:
+
+```php
+\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version::$emitWarnings = true;
+```
+
+The following APIs and options have been marked as deprecated:
+
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::isResponseBodyRepeatable()` as deprecated. Use `$request->getResponseBody()->isRepeatable()` instead.
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::canCache()` as deprecated. Use `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCanCacheStrategy->canCacheRequest()` instead.
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::canCache()` as deprecated. Use `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCanCacheStrategy->canCacheRequest()` instead.
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::setIsRedirect()` as deprecated. Use the HistoryPlugin instead.
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request::isRedirect()` as deprecated. Use the HistoryPlugin instead.
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache\CacheAdapterFactory::factory()` as deprecated
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::enableMagicMethods()` as deprecated. Magic methods can no longer be disabled on a /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client.
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Url\UrlParser` as deprecated. Just use PHP's `parse_url()` and percent encode your UTF-8.
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::inject()` as deprecated.
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\CurlAuth\CurlAuthPlugin` as deprecated. Use `$/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/auth', array('user', 'pass', 'Basic|Digest');`
+
+3.7 introduces `request.options` as a parameter for a /* Replaced /* Replaced /* Replaced client */ */ */ configuration and as an optional argument to all creational
+request methods. When paired with a /* Replaced /* Replaced /* Replaced client */ */ */'s configuration settings, these options allow you to specify default settings
+for various aspects of a request. Because these options make other previous configuration options redundant, several
+configuration options and methods of a /* Replaced /* Replaced /* Replaced client */ */ */ and AbstractCommand have been deprecated.
+
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getDefaultHeaders()` as deprecated. Use $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->getPath('request.options/headers')`.
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setDefaultHeaders()` as deprecated. Use $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/headers/{header_name}', 'value')`.
+- Marked 'request.params' for `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client` as deprecated. Use [request.options][params].
+- Marked 'command.headers', 'command.response_body' and 'command.on_complete' as deprecated for AbstractCommand. These will work through /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4.0
+
+    $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('foo', array(
+        'command.headers' => array('Test' => '123'),
+        'command.response_body' => '/path/to/file'
+    ));
+
+    // Should be changed to:
+
+    $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('foo', array(
+        'command.request_options' => array(
+            'headers' => array('Test' => '123'),
+            'save_as' => '/path/to/file'
+        )
+    ));
+
+### Interface changes
+
+Additions and changes (you will need to update any implementations or subclasses you may have created):
+
+- Added an `$options` argument to the end of the following methods of `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface`:
+  createRequest, head, delete, put, patch, post, options, prepareRequest
+- Added an `$options` argument to the end of `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request\RequestFactoryInterface::createRequest()`
+- Added an `applyOptions()` method to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request\RequestFactoryInterface`
+- Changed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::get($uri = null, $headers = null, $body = null)` to
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::get($uri = null, $headers = null, $options = array())`. You can still pass in a
+  resource, string, or EntityBody into the $options parameter to specify the download location of the response.
+- Changed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::__construct($data)` to no longer accepts a null value for `$data` but a
+  default `array()`
+- Added `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface::isRepeatable`
+
+The following methods were removed from interfaces. All of these methods are still available in the concrete classes
+that implement them, but you should update your code to use alternative methods:
+
+- Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::setDefaultHeaders(). Use
+  `$/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/headers/{header_name}', 'value')`. or
+  `$/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/headers', array('header_name' => 'value'))`.
+- Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::getDefaultHeaders(). Use `$/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->getPath('request.options/headers')`.
+- Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::expandTemplate()`. This is an implementation detail.
+- Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::setRequestFactory()`. This is an implementation detail.
+- Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::getCurlMulti()`. This is a very specific implementation detail.
+- Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface::canCache`. Use the CachePlugin.
+- Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface::setIsRedirect`. Use the HistoryPlugin.
+- Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface::isRedirect`. Use the HistoryPlugin.
+
+## Cache plugin breaking changes
+
+- CacheKeyProviderInterface and DefaultCacheKeyProvider are no longer used. All of this logic is handled in a
+  CacheStorageInterface. These two objects and interface will be removed in a future version.
+- Always setting X-cache headers on cached responses
+- Default cache TTLs are now handled by the CacheStorageInterface of a CachePlugin
+- `CacheStorageInterface::cache($key, Response $response, $ttl = null)` has changed to `cache(RequestInterface
+  $request, Response $response);`
+- `CacheStorageInterface::fetch($key)` has changed to `fetch(RequestInterface $request);`
+- `CacheStorageInterface::delete($key)` has changed to `delete(RequestInterface $request);`
+- Added `CacheStorageInterface::purge($url)`
+- `DefaultRevalidation::__construct(CacheKeyProviderInterface $cacheKey, CacheStorageInterface $cache, CachePlugin
+  $plugin)` has changed to `DefaultRevalidation::__construct(CacheStorageInterface $cache,
+  CanCacheStrategyInterface $canCache = null)`
+- Added `RevalidationInterface::shouldRevalidate(RequestInterface $request, Response $response)`
+
 3.5 to 3.6
 ----------
 
