@@ -74,8 +74,7 @@ class Server
             return false;
         }
 
-        return $this->/* Replaced /* Replaced /* Replaced client */ */ */->delete('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests')
-            ->send()->getStatusCode() == 200;
+        return $this->/* Replaced /* Replaced /* Replaced client */ */ */->delete('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests')->send()->getStatusCode() == 200;
     }
 
     /**
