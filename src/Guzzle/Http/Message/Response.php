@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ToArrayInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBodyInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
@@ -130,7 +130,7 @@ class Response extends AbstractMessage implements \Serializable
      * Construct the response
      *
      * @param string                              $statusCode The response status code (e.g. 200, 404, etc)
-     * @param Collection|array                    $headers    The response headers
+     * @param ToArrayInterface|array              $headers    The response headers
      * @param string|resource|EntityBodyInterface $body       The body of the response
      *
      * @throws BadResponseException if an invalid response code is given
@@ -144,7 +144,7 @@ class Response extends AbstractMessage implements \Serializable
         if ($headers) {
             if (is_array($headers)) {
                 $this->setHeaders($headers);
-            } elseif ($headers instanceof Collection) {
+            } elseif ($headers instanceof ToArrayInterface) {
                 $this->setHeaders($headers->toArray());
             } else {
                 throw new BadResponseException('Invalid headers argument received');
