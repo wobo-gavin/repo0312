@@ -23,16 +23,18 @@ The following APIs and options have been marked as deprecated:
 - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::enableMagicMethods()` as deprecated. Magic methods can no longer be disabled on a /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client.
 - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\Url\UrlParser` as deprecated. Just use PHP's `parse_url()` and percent encode your UTF-8.
 - Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection::inject()` as deprecated.
-- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\CurlAuth\CurlAuthPlugin` as deprecated. Use `$/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/auth', array('user', 'pass', 'Basic|Digest');`
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\CurlAuth\CurlAuthPlugin` as deprecated. Use
+  `$/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/auth', array('user', 'pass', 'Basic|Digest|NTLM|Any'));` or
+  `$/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultOption('auth', array('user', 'pass', 'Basic|Digest|NTLM|Any'));`
 
 3.7 introduces `request.options` as a parameter for a /* Replaced /* Replaced /* Replaced client */ */ */ configuration and as an optional argument to all creational
 request methods. When paired with a /* Replaced /* Replaced /* Replaced client */ */ */'s configuration settings, these options allow you to specify default settings
 for various aspects of a request. Because these options make other previous configuration options redundant, several
 configuration options and methods of a /* Replaced /* Replaced /* Replaced client */ */ */ and AbstractCommand have been deprecated.
 
-- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getDefaultHeaders()` as deprecated. Use $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->getPath('request.options/headers')`.
-- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setDefaultHeaders()` as deprecated. Use $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/headers/{header_name}', 'value')`.
-- Marked 'request.params' for `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client` as deprecated. Use [request.options][params].
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::getDefaultHeaders()` as deprecated. Use `$/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('headers')`.
+- Marked `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client::setDefaultHeaders()` as deprecated. Use `$/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultOption('headers/{header_name}', 'value')`.
+- Marked 'request.params' for `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client` as deprecated. Use `$/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultOption('params/{param_name}', 'value')`
 - Marked 'command.headers', 'command.response_body' and 'command.on_complete' as deprecated for AbstractCommand. These will work through /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4.0
 
         $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('foo', array(
@@ -70,7 +72,9 @@ that implement them, but you should update your code to use alternative methods:
 
 - Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::setDefaultHeaders(). Use
   `$/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/headers/{header_name}', 'value')`. or
-  `$/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/headers', array('header_name' => 'value'))`.
+  `$/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/headers', array('header_name' => 'value'))` or
+  `$/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultOption('headers/{header_name}', 'value')`. or
+  `$/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultOption('headers', array('header_name' => 'value'))`.
 - Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::getDefaultHeaders(). Use `$/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->getPath('request.options/headers')`.
 - Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::expandTemplate()`. This is an implementation detail.
 - Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface::setRequestFactory()`. This is an implementation detail.

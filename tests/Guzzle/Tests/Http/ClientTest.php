@@ -563,4 +563,15 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         ));
         $this->assertEquals('test', $request->getCookie('michael'));
     }
+
+    public function testHasDefaultOptionsHelperMethods()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        // With path
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultOption('headers/foo', 'bar');
+        $this->assertEquals('bar', $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('headers/foo'));
+        // With simple key
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultOption('allow_redirects', false);
+        $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('allow_redirects'));
+    }
 }
