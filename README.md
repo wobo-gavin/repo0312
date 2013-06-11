@@ -32,7 +32,7 @@ The recommended way to install /* Replaced /* Replaced /* Replaced Guzzle */ */ 
 curl -sS https://getcomposer.org/installer | php
 
 # Add /* Replaced /* Replaced /* Replaced Guzzle */ */ */ as a dependency
-php composer.phar require /* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */:~3.6
+php composer.phar require /* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */:~3.7
 ```
 
 After installing, you need to require Composer's autoloader:
