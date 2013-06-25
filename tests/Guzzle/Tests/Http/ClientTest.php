@@ -574,4 +574,11 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultOption('allow_redirects', false);
         $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('allow_redirects'));
     }
+
+    public function testHeadCanUseOptions()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $head = $/* Replaced /* Replaced /* Replaced client */ */ */->head('http://www.foo.com', array(), array('query' => array('foo' => 'bar')));
+        $this->assertEquals('bar', $head->getQuery()->get('foo'));
+    }
 }
