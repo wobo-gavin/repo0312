@@ -224,4 +224,12 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
         $this->assertEquals('foo', $url->getHost());
         $this->assertEquals(8983, $url->getPort());
     }
+
+    /**
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException
+     */
+    public function testValidatesUrlCanBeParsed()
+    {
+        Url::factory('foo:////');
+    }
 }
