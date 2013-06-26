@@ -570,4 +570,34 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', array(), null, array('params' => array('foo' => 'test')));
         $this->assertEquals('test', $request->getParams()->get('foo'));
     }
+
+    public function testCanAddSslKey()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), array('ssl_key' => '/foo.pem'));
+        $this->assertEquals('/foo.pem', $request->getCurlOptions()->get(CURLOPT_SSLKEY));
+    }
+
+    public function testCanAddSslKeyPassword()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), array('ssl_key' => array('/foo.pem', 'bar')));
+        $this->assertEquals('/foo.pem', $request->getCurlOptions()->get(CURLOPT_SSLKEY));
+        $this->assertEquals('bar', $request->getCurlOptions()->get(CURLOPT_SSLKEYPASSWD));
+    }
+
+    public function testCanAddSslCert()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), array('cert' => '/foo.pem'));
+        $this->assertEquals('/foo.pem', $request->getCurlOptions()->get(CURLOPT_SSLCERT));
+    }
+
+    public function testCanAddSslCertPassword()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), array('cert' => array('/foo.pem', 'bar')));
+        $this->assertEquals('/foo.pem', $request->getCurlOptions()->get(CURLOPT_SSLCERT));
+        $this->assertEquals('bar', $request->getCurlOptions()->get(CURLOPT_SSLCERTPASSWD));
+    }
 }
