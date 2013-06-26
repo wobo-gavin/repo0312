@@ -573,6 +573,14 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         // With simple key
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultOption('allow_redirects', false);
         $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('allow_redirects'));
+
+        $this->assertEquals(array(
+            'headers' => array('foo' => 'bar'),
+            'allow_redirects' => false
+        ), $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('request.options'));
+
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
+        $this->assertEquals('bar', $request->getHeader('foo'));
     }
 
     public function testHeadCanUseOptions()
