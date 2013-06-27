@@ -56,7 +56,7 @@ class PostFileTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\
             $c = $file->getCurlValue();
             $this->assertEquals(__FILE__, $c->getFilename());
             $this->assertEquals('PostFileTest.php', $c->getPostFilename());
-            $this->assertContains('test/x-', $c->getMimeType());
+            $this->assertContains('text/x-', $c->getMimeType());
         }
     }
 
