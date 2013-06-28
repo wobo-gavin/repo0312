@@ -128,11 +128,12 @@ class HeaderTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
                 $res1
             ),
             array(
-                'foo="baz"; bar=123, boo, test="123"',
+                'foo="baz"; bar=123, boo, test="123", foobar="foo;bar"',
                 array(
                     array('foo' => 'baz', 'bar' => '123'),
                     array('boo' => ''),
-                    array('test' => '123')
+                    array('test' => '123'),
+                    array('foobar' => 'foo;bar')
                 )
             ),
             array(
