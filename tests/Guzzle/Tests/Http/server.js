@@ -31,7 +31,7 @@ var http = require("http");
  * /* Replaced /* Replaced /* Replaced Guzzle */ */ */ node.js server
  * @class
  */
-var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port) {
+var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port, log) {
 
     this.port = port;
     this.log = log;
