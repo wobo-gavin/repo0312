@@ -16,6 +16,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\Location
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\OperationResponseParser
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CreateResponseClassEvent
  */
 class OperationResponseParserTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
