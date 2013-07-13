@@ -145,9 +145,6 @@ class CookieTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $this->assertFalse($cookie->matchesDomain('baz.bar.com'));
         $this->assertTrue($cookie->matchesDomain('baz.com'));
 
-        $cookie->setDomain('.com');
-        $this->assertFalse($cookie->matchesDomain('baz.com'));
-
         $cookie->setDomain('.127.0.0.1');
         $this->assertFalse($cookie->matchesDomain('127.0.0.1'));
 
