@@ -234,7 +234,7 @@ class OperationResponseParserTest extends \/* Replaced /* Replaced /* Replaced G
             'operations' => array('test' => array('responseClass' => 'FooBazBar'))
         )));
         $foo = new \stdClass();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener('operation.parse_class', function ($e) use ($foo) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener('command.parse_response', function ($e) use ($foo) {
              $e['result'] = $foo;
         });
         $command = $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('test');
