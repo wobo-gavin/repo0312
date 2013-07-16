@@ -106,7 +106,7 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port, l
      */
     var receivedRequest = function(request, req, res) {
         if (req.url == '//* Replaced /* Replaced /* Replaced guzzle */ */ */-perf') {
-            res.writeHead(200, "OK", {"Content-Length": 10});
+            res.writeHead(200, "OK", {"Content-Length": 16});
             res.end("Body of response");
         } else if (req.url.indexOf("//* Replaced /* Replaced /* Replaced guzzle */ */ */-server") === 0) {
             controlRequest(request, req, res);
