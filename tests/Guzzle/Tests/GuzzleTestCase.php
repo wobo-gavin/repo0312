@@ -36,15 +36,11 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
     public static function getServer()
     {
         if (!self::$server) {
-            try {
-                self::$server = new Server();
-                if (self::$server->isRunning()) {
-                    self::$server->flush();
-                } else {
-                    self::$server->start();
-                }
-            } catch (\Exception $e) {
-                fwrite(STDERR, $e->getMessage());
+            self::$server = new Server();
+            if (self::$server->isRunning()) {
+                self::$server->flush();
+            } else {
+                self::$server->start();
             }
         }
 
