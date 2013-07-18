@@ -188,27 +188,6 @@ class DefaultRevalidationTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         $this->assertEquals(0, count($mock->getQueue()));
     }
 
-    public function testCanHandleStaleIfError()
-    {
-        $server = new Server(8000);
-        $server->start();
-        $server->flush();
-        $lm = gmdate('c', time() - 60);
-        $server->enqueue(array(
-            "HTTP/1.1 200 OK\r\n" .
-            "Date: Mon, 12 Nov 2012 03:06:37 GMT\r\n" .
-            "Cache-Control: max-age=120, stale-if-error=1200\r\n" .
-            "Last-Modified: {$lm}\r\n" .
-            "Content-Length: 2\r\n\r\nhi"
-        ));
-        $cache = new CachePlugin();
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($server->getUrl());
-        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($cache);
-        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send()->getStatusCode());
-        $this->assertEquals(1, count($server->getReceivedRequests()));
-        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send()->getStatusCode());
-    }
-
     public function testCanHandleStaleIfErrorWhenRevalidating()
     {
         $lm = gmdate('c', time() - 60);
