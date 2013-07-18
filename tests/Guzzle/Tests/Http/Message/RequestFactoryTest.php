@@ -440,6 +440,17 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
         $this->assertEquals(500, $request->send()->getStatusCode());
     }
 
+    public function testCanDisableExceptionsWithErrorListener()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener('request.error', function () {});
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), array(
+                'plugins' => array(new MockPlugin(array(new Response(500)))),
+                'exceptions' => false
+            ));
+        $this->assertEquals(500, $request->send()->getStatusCode());
+    }
+
     public function testCanChangeSaveToLocation()
     {
         $r = EntityBody::factory();
