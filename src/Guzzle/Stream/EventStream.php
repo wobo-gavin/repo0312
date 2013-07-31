@@ -9,7 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInte
 /**
  * Stream decorator that emits events for read and write methods
  */
-class IoEmittingStream implements StreamInterface, HasDispatcherInterface
+class EventStream implements StreamInterface, HasDispatcherInterface
 {
     use StreamDecorator;
     use HasDispatcher;

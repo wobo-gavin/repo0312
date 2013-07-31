@@ -8,7 +8,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream;
 trait StreamDecorator
 {
     /** @var StreamInterface Decorated stream */
-    protected $stream;
+    private $stream;
 
     /**
      * @param StreamInterface $stream Stream to decorate
