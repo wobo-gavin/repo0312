@@ -11,47 +11,16 @@
             "name": "Michael Dowling",
             "email": "mtdowling@gmail.com",
             "homepage": "https://github.com/mtdowling"
-        },
-        {
-            "name": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Community",
-            "homepage": "https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//contributors"
         }
     ],
 
-    "replace": {
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//batch": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//cache": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//common": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//http": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//inflection": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//iterator": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//log": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//parser": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-async": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-backoff": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-cache": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-cookie": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-curlauth": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-error-response": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-history": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-log": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-md5": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-mock": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//plugin-oauth": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//service": "self.version",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ *//stream": "self.version"
-    },
-
     "require": {
-        "php": ">=5.3.3",
-        "ext-curl": "*",
+        "php": ">=5.4.0",
         "symfony/event-dispatcher": ">=2.1"
     },
 
     "autoload": {
         "psr-0": {
-            "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Tests": "tests/",
             "/* Replaced /* Replaced /* Replaced Guzzle */ */ */": "src/"
         }
     },
@@ -61,8 +30,6 @@
         "symfony/class-loader": "*",
         "monolog/monolog": "1.*",
         "psr/log": "1.0.*",
-        "zendframework/zend-cache": "2.0.*",
-        "zendframework/zend-log": "2.0.*",
         "phpunit/phpunit": "3.7.*"
     },
 

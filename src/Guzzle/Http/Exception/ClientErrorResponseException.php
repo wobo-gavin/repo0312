@@ -5,4 +5,4 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception;
 /**
  * Exception when a /* Replaced /* Replaced /* Replaced client */ */ */ error is encountered (4xx codes)
  */
-class ClientErrorResponseException extends BadResponseException {}
+class ClientErrorResponseException extends RequestException {}
