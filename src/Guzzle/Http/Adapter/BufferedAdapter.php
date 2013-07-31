@@ -10,8 +10,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction
  */
 class BufferedAdapter implements AdapterInterface
 {
-    protected $adapter;
-    protected $max;
+    private $adapter;
+    private $max;
 
     /**
      * @param AdapterInterface $adapter Adapter used for sending requests
