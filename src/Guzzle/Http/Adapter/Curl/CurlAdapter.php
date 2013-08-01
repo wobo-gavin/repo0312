@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\AbstractAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\AdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\AdapterException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
@@ -12,7 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 /**
  * HTTP adapter that uses cURL as a transport layer
  */
-class CurlAdapter extends AbstractAdapter
+class CurlAdapter implements AdapterInterface
 {
     /** @var CurlFactory */
     private $factory;

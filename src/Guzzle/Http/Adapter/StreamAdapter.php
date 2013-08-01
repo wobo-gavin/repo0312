@@ -10,7 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 /**
  * HTTP adapter that uses PHP's HTTP stream wrapper
  */
-class StreamAdapter extends AbstractAdapter
+class StreamAdapter implements AdapterInterface
 {
     public function send(Transaction $transaction)
     {
