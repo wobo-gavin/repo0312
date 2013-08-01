@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
@@ -11,6 +12,17 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestEx
  */
 class Transaction extends \SplObjectStorage
 {
+    /** @var ClientInterface */
+    private $/* Replaced /* Replaced /* Replaced client */ */ */;
+
+    /**
+     * @param ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */ Client that is used to send the requests
+     */
+    public function __construct(ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */)
+    {
+        $this->/* Replaced /* Replaced /* Replaced client */ */ */ = $/* Replaced /* Replaced /* Replaced client */ */ */;
+    }
+
     public function offsetSet($object, $data = null)
     {
         if (!($object instanceof RequestInterface)) {
@@ -88,5 +100,15 @@ class Transaction extends \SplObjectStorage
         }
 
         return $hash;
+    }
+
+    /**
+     * Get the /* Replaced /* Replaced /* Replaced client */ */ */ that sent the requests
+     *
+     * @return ClientInterface
+     */
+    public function getClient()
+    {
+        return $this->/* Replaced /* Replaced /* Replaced client */ */ */;
     }
 }
