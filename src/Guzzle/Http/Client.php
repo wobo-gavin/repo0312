@@ -12,10 +12,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\StreamAdapt
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\StreamingProxyAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl\CurlAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\AdapterException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BatchException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\UriTemplate;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
