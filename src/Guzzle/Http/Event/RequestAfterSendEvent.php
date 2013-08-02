@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\AdapterException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 
 /**
@@ -15,7 +15,7 @@ class RequestAfterSendEvent extends AbstractRequestEvent
     /**
      * Set a transactional result for the request
      *
-     * @param ResponseInterface|AdapterException $result Result to set for the request
+     * @param ResponseInterface|RequestException $result Result to set for the request
      */
     public function setResult($result)
     {
@@ -25,7 +25,7 @@ class RequestAfterSendEvent extends AbstractRequestEvent
     /**
      * Get the transactional result for the request
      *
-     * @return ResponseInterface|AdapterException
+     * @return ResponseInterface|RequestException
      */
     public function getResult()
     {
