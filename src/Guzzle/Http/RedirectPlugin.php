@@ -3,15 +3,12 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\TooManyRedirectsException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CouldNotRewindStreamException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 
 /**
  * Plugin to implement HTTP redirects. Can redirect like a web browser or using strict RFC 2616 compliance
@@ -32,8 +29,7 @@ class RedirectPlugin implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'request.sent'        => array('onRequestSent', 100),
-            'request.clone'       => 'cleanupRequest',
+            'request.after_send'  => array('onRequestSent', 100),
             'request.before_send' => 'cleanupRequest'
         );
     }
