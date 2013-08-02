@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\AdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\AfterSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\AdapterException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
@@ -31,6 +32,18 @@ class CurlAdapter implements AdapterInterface
         CURLM_INTERNAL_ERROR  => array('CURLM_INTERNAL_ERROR', 'This can only be returned if libcurl bugs. Please report it to us!')
     );
 
+    /**
+     * @param array $options Array of options to use with the adapter
+     *                       - factory: Optional factory used to create cURL handles
+     */
+    public function __construct(array $options = array())
+    {
+        $this->factory = isset($options['factory']) ? $options['factory'] : CurlFactory::getInstance();
+    }
+
+    /**
+     * Destroys each open multi handle
+     */
     public function __destruct()
     {
         foreach ($this->multiHandles as $handle) {
@@ -38,11 +51,6 @@ class CurlAdapter implements AdapterInterface
                 curl_multi_close($handle);
             }
         }
-    }
-
-    protected function init(array $options)
-    {
-        $this->factory = isset($options['factory']) ? $options['factory'] : CurlFactory::getInstance();
     }
 
     public function send(Transaction $transaction)
@@ -118,6 +126,11 @@ class CurlAdapter implements AdapterInterface
         } catch (RequestException $e) {
             $context['transaction'][$request] = $e;
         }
+
+        $request->getEventDispatcher()->dispatch(
+            'request.after_send',
+            new AfterSendEvent($request, $context['transaction'])
+        );
     }
 
     /**
