@@ -15,6 +15,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BatchExce
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\UriTemplate;
 
@@ -194,6 +195,8 @@ class Client implements ClientInterface
             throw $transaction[$request];
         }
 
+        $this->addEffectiveUrl($request, $transaction[$request]);
+
         return $transaction[$request];
     }
 
@@ -204,10 +207,12 @@ class Client implements ClientInterface
 
         foreach ($requests as $request) {
             if ($this->preSend($request, $transaction)->isPropagationStopped()) {
+                $this->addEffectiveUrl($request, $transaction[$request]);
                 $intercepted[$request] = $transaction[$request];
                 unset($transaction[$request]);
             } else {
                 $transaction[$request] = $this->messageFactory->createResponse();
+                $this->addEffectiveUrl($request, $transaction[$request]);
             }
         }
 
@@ -234,11 +239,18 @@ class Client implements ClientInterface
         return '/* Replaced /* Replaced /* Replaced Guzzle */ */ *//' . Version::VERSION . ' curl/' . curl_version()['version'] . ' PHP/' . PHP_VERSION;
     }
 
+    private function addEffectiveUrl(RequestInterface $request, ResponseInterface $response)
+    {
+        if (!$response->getEffectiveUrl()) {
+            $response->setEffectiveUrl($request->getUrl());
+        }
+    }
+
     /**
      * @param RequestInterface $request Request about to be sent
      * @param Transaction      $transaction Transaction
      *
-     * @return BeforeSendEvent
+     * @return RequestBeforeSendEvent
      */
     private function preSend(RequestInterface $request, Transaction $transaction)
     {
