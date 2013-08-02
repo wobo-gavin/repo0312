@@ -10,7 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\StreamAdapt
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\StreamingProxyAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl\CurlAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\BeforeSendEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BatchException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
@@ -244,7 +244,7 @@ class Client implements ClientInterface
     {
         return $request->getEventDispatcher()->dispatch(
             'request.before_send',
-            new BeforeSendEvent($request, $transaction)
+            new RequestBeforeSendEvent($request, $transaction)
         );
     }
 

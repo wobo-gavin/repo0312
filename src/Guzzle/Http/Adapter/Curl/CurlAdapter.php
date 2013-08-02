@@ -4,7 +4,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\AdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\AfterSendEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\AdapterException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
@@ -123,14 +124,17 @@ class CurlAdapter implements AdapterInterface
 
         try {
             $this->isCurlException($request, $curl);
+            $request->getEventDispatcher()->dispatch(
+                'request.after_send',
+                new RequestAfterSendEvent($request, $context['transaction'])
+            );
         } catch (RequestException $e) {
             $context['transaction'][$request] = $e;
+            $request->getEventDispatcher()->dispatch(
+                'request.error',
+                new RequestErrorEvent($request, $context['transaction'])
+            );
         }
-
-        $request->getEventDispatcher()->dispatch(
-            'request.after_send',
-            new AfterSendEvent($request, $context['transaction'])
-        );
     }
 
     /**

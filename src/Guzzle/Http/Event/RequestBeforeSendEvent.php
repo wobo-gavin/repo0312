@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInt
  * listener will prevent the /* Replaced /* Replaced /* Replaced client */ */ */ from sending the request over the wire. The injected response will then be used as
  * the response for the request.
  */
-class BeforeSendEvent extends AbstractRequestEvent
+class RequestBeforeSendEvent extends AbstractRequestEvent
 {
     /**
      * Intercept the request and inject a response
@@ -22,13 +22,12 @@ class BeforeSendEvent extends AbstractRequestEvent
     {
         $request = $this->getRequest();
         $this->transaction[$request] = $response;
+        $this->stopPropagation();
 
         // Emit the 'request.after_send' event for the request
         $request->getEventDispatcher()->dispatch(
             'request.after_send',
             new AfterSendEvent($request, $this->transaction)
         );
-
-        $this->stopPropagation();
     }
 }
