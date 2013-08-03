@@ -2,46 +2,21 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderCollection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 
 /**
- * Abstract HTTP request/response message
+ * Trait that implements HasHeadersInterface
  */
-abstract class AbstractMessage implements MessageInterface
+trait HasHeaders
 {
-    use HasHeaders;
+    /** @var HeaderCollection HTTP header collection */
+    protected $headers;
 
-    /** @var StreamInterface Message body */
-    protected $body;
-
-    /** @var string HTTP protocol version of the message */
-    private $protocolVersion = '1.1';
-
-    public function __construct()
-    {
-        $this->initHeaders();
-    }
-
-    public function __toString()
-    {
-        return sprintf("%s\r\n%s\r\n\r\n%s", $this->getStartLine(), $this->headers, $this->body);
-    }
-
-    /**
-     * Get a string representation of the start line and headers
-     *
-     * @return string
-     */
-    public function getRawHeaders()
-    {
-        return $this->getStartLine() . "\r\n" . $this->getHeaders();
-    }
+    /** @var HeaderFactoryInterface $headerFactory */
+    private $headerFactory;
 
     /**
      * Set the header factory to use to create headers
@@ -116,34 +91,12 @@ abstract class AbstractMessage implements MessageInterface
         return $this;
     }
 
-    public function setProtocolVersion($protocol)
+    /**
+     * This method must be called when using this trait!
+     */
+    protected function initHeaders()
     {
-        $this->protocolVersion = $protocol;
-
-        return $this;
-    }
-
-    public function getProtocolVersion()
-    {
-        return $this->protocolVersion;
-    }
-
-    public function setBody($body, $contentType = null)
-    {
-        if ($body === null) {
-            // Setting a null body will remove the body of the request
-            $this->body = null;
-        } else {
-            $this->body = Stream::factory($body);
-            // Auto detect the Content-Type from the path of the request if possible
-            if ($contentType === null && !$this->hasHeader('Content-Type')) {
-                $contentType = Mimetypes::getInstance()->fromFilename($this->body->getUri());
-            }
-            if ($contentType) {
-                $this->setHeader('Content-Type', $contentType);
-            }
-        }
-
-        return $this;
+        $this->headerFactory = HeaderFactory::getInstance();
+        $this->headers = new HeaderCollection();
     }
 }

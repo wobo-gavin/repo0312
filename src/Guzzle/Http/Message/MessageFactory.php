@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\HttpErrorPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Form\FormFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\RedirectPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Log\LogPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
@@ -66,13 +67,14 @@ class MessageFactory implements MessageFactoryInterface
             if (!is_array($body)) {
                 $request->setBody($body, (string) $request->getHeader('Content-Type'));
             } else {
-                $request->setBody(
-                    (string) (new QueryString($body))->setEncodingType(QueryString::RFC1738),
-                    $request->getHeader('Content-Type') ?: 'application/x-www-form-urlencoded'
-                );
-            }
-            if ((string) $request->getHeader('Transfer-Encoding') == 'chunked') {
-                $request->removeHeader('Content-Length');
+                // Add POST/Form data
+                foreach ($body as $key => $value) {
+                    if (is_string($value) || is_array($value)) {
+                        $request->getFormFields()->set($key, $value);
+                    } else {
+                        $request->getFormFiles()->addFile(FormFile::create($value, $key));
+                    }
+                }
             }
         }
 
