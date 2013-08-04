@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\HttpErrorPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Form\FormFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\RedirectPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Log\LogPlugin;
@@ -260,5 +261,14 @@ class MessageFactory implements MessageFactoryInterface
     private function visit_verify(RequestInterface $request, $value)
     {
         $request->getTransferOptions()->set('verify', $value);
+    }
+
+    private function visit_adapter_options(RequestInterface $request, $value)
+    {
+        if (!is_array($value)) {
+            throw new \InvalidArgumentException('adapter_options value must be an array');
+        }
+
+        $request->getTransferOptions()->overwriteWith($value);
     }
 }
