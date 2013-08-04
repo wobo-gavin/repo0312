@@ -3,13 +3,8 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\BadMethodCallException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\InflectorInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection\Inflector;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client as HttpClient;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\MultiTransferException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\CommandTransferException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
@@ -34,9 +29,6 @@ class Client extends HttpClient implements ClientInterface
 
     /** @var ResourceIteratorFactoryInterface */
     protected $resourceIteratorFactory;
-
-    /** @var InflectorInterface Inflector associated with the service//* Replaced /* Replaced /* Replaced client */ */ */ */
-    protected $inflector;
 
     /**
      * Basic factory method to create a new /* Replaced /* Replaced /* Replaced client */ */ */. Extend this method in subclasses to build more complex /* Replaced /* Replaced /* Replaced client */ */ */s.
@@ -158,34 +150,6 @@ class Client extends HttpClient implements ClientInterface
     public function getDescription()
     {
         return $this->serviceDescription;
-    }
-
-    /**
-     * Set the inflector used with the /* Replaced /* Replaced /* Replaced client */ */ */
-     *
-     * @param InflectorInterface $inflector Inflection object
-     *
-     * @return self
-     */
-    public function setInflector(InflectorInterface $inflector)
-    {
-        $this->inflector = $inflector;
-
-        return $this;
-    }
-
-    /**
-     * Get the inflector used with the /* Replaced /* Replaced /* Replaced client */ */ */
-     *
-     * @return self
-     */
-    public function getInflector()
-    {
-        if (!$this->inflector) {
-            $this->inflector = Inflector::getDefault();
-        }
-
-        return $this->inflector;
     }
 
     /**
