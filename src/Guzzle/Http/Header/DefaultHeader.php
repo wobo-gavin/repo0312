@@ -8,8 +8,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header;
 class DefaultHeader implements HeaderInterface
 {
     protected $values = array();
+    protected $glue;
     private $headerName;
-    private $glue;
 
     /**
      * @param string       $name   Name of the header
