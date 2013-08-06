@@ -1,14 +1,14 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Form;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\HasHeadersInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 
 /**
- * Form file upload interface
+ * Post file upload interface
  */
-interface FormFileInterface extends HasHeadersInterface
+interface PostFileInterface extends HasHeadersInterface
 {
     /**
      * Get the name of the form field
