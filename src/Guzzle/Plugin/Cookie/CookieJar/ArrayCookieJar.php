@@ -4,8 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\Cook
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\Cookie;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser\ParserRegistry;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\Exception\InvalidCookieException;
 
 /**
@@ -184,7 +183,7 @@ class ArrayCookieJar implements CookieJarInterface, \Serializable
         return new \ArrayIterator($this->cookies);
     }
 
-    public function addCookiesFromResponse(Response $response, RequestInterface $request = null)
+    public function addCookiesFromResponse(ResponseInterface $response, RequestInterface $request = null)
     {
         if ($cookieHeader = $response->getHeader('Set-Cookie')) {
             $parser = ParserRegistry::getInstance()->getParser('cookie');
