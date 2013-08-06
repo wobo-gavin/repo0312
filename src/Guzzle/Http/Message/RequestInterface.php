@@ -3,7 +3,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostFileCollection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
 
@@ -136,20 +135,6 @@ interface RequestInterface extends MessageInterface, HasDispatcherInterface
      * @return self
      */
     public function setPort($port);
-
-    /**
-     * Get an array of POST fields to send in the body of the request
-     *
-     * @return QueryString
-     */
-    public function getPostFields();
-
-    /**
-     * Get an array of form files to send in the body of the request
-     *
-     * @return PostFileCollection
-     */
-    public function getPostFiles();
 
     /**
      * Prepare a request for sending over the wire. For example, this method should ensure that POST fields and files
