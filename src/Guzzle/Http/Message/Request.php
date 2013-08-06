@@ -5,8 +5,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcher;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Form\FormFileCollection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Form\MultipartBody;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostFileCollection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\MultipartBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 
@@ -26,10 +26,10 @@ class Request extends AbstractMessage implements RequestInterface
     /** @var Collection Transfer options */
     private $transferOptions;
 
-    /** @var QueryString Form fields */
+    /** @var QueryString Post fields */
     private $formFields;
 
-    /** @var FormFileCollection Form files */
+    /** @var PostFileCollection Post files */
     private $formFiles;
 
     /**
@@ -224,7 +224,7 @@ class Request extends AbstractMessage implements RequestInterface
         return $resource;
     }
 
-    public function getFormFields()
+    public function getPostFields()
     {
         if (!$this->formFields) {
             $this->formFields = new QueryString();
@@ -233,10 +233,10 @@ class Request extends AbstractMessage implements RequestInterface
         return $this->formFields;
     }
 
-    public function getFormFiles()
+    public function getPostFiles()
     {
         if (!$this->formFiles) {
-            $this->formFiles = new FormFileCollection();
+            $this->formFiles = new PostFileCollection();
         }
 
         return $this->formFiles;
@@ -250,7 +250,7 @@ class Request extends AbstractMessage implements RequestInterface
                 $body = MultipartBody::fromRequest($this);
                 $this->setHeader('Content-Type', 'multipart/form-data; boundary=' . $body->getBoundary());
                 $this->setBody($body);
-            } elseif ($this->formFields && count($this->getFormFields())) {
+            } elseif ($this->formFields && count($this->getPostFields())) {
                 if (!$this->hasHeader('Content-Type')) {
                     $this->setHeader('Content-Type', 'application/x-www-form-urlencoded');
                 }
