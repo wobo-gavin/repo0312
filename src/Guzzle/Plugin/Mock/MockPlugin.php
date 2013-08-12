@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -40,6 +41,8 @@ class MockPlugin extends AbstractHasDispatcher implements EventSubscriberInterfa
         if ($this->queue) {
             $item = array_shift($this->queue);
             $request = $event->getRequest();
+            // Emulate the receiving of the response headers
+            $request->dispatch(RequestEvents::GOT_HEADERS, ['request' => $request, 'response' => $item]);
             // Emulate reading a response body
             if ($item instanceof ResponseInterface && $this->readBodies && $request->getBody()) {
                 while (!$request->getBody()->eof()) {
