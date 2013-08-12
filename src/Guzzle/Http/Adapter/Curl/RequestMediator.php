@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
@@ -48,12 +49,17 @@ class RequestMediator
             // Only download the body of the response to the specified response
             // body when a successful response is received.
             if ($code >= 300 || $code < 200) {
-                $this->response->setBody(Stream::factory());
+                $this->response->setBody(null);
             }
             $this->response->setStatus($code, isset($startLine[2]) ? $startLine[2] : '');
             $this->response->setProtocolVersion(substr($startLine[0], -3));
         } elseif ($pos = strpos($header, ':')) {
             $this->response->addHeader(substr($header, 0, $pos), substr($header, $pos + 1));
+        } elseif ($header == '' && !$this->response->isInformational()) {
+            $this->request->dispatch(RequestEvents::GOT_HEADERS, [
+                'request' => $this->request,
+                'response' => $this->response
+            ]);
         }
 
         return $length;
