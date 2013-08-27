@@ -3,9 +3,8 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderCollection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderFactory;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderFactoryInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
@@ -23,9 +22,13 @@ abstract class AbstractMessage implements MessageInterface
     /** @var string HTTP protocol version of the message */
     private $protocolVersion = '1.1';
 
-    public function __construct()
+    public function __construct(array $options = [])
     {
-        $this->initHeaders();
+        $this->headerFactory = isset($options['header_factory'])
+            ? $options['header_factory']
+            : HeaderFactory::getDefaultFactory();
+
+        $this->headers = new HeaderCollection();
     }
 
     public function __toString()
