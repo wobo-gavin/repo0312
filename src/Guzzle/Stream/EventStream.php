@@ -2,7 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcher;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInterface;
 
