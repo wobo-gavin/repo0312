@@ -19,6 +19,11 @@ class MimetypesTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */
         $this->assertEquals('text/x-php', Mimetypes::getInstance()->fromFilename(__FILE__));
     }
 
+    public function testGetsFromCaseInsensitiveFilename()
+    {
+        $this->assertEquals('text/x-php', Mimetypes::getInstance()->fromFilename(strtoupper(__FILE__)));
+    }
+
     public function testReturnsNullWhenNoMatchFound()
     {
         $this->assertNull(Mimetypes::getInstance()->fromExtension('foobar'));
