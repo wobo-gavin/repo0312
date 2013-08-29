@@ -27,7 +27,7 @@ class Client implements ClientInterface
     use HasDispatcher;
 
     /** @var MessageFactoryInterface Request factory used by the /* Replaced /* Replaced /* Replaced client */ */ */ */
-    protected $messageFactory;
+    private $messageFactory;
 
     /** @var AdapterInterface */
     private $adapter;
