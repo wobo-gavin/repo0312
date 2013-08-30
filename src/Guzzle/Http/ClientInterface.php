@@ -4,9 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\AdapterException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BatchException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
@@ -112,16 +110,6 @@ interface ClientInterface extends HasDispatcherInterface
      * @throws AdapterException When an error is encountered (network or HTTP errors)
      */
     public function send(RequestInterface $request);
-
-    /**
-     * Send one or more requests in parallel
-     *
-     * @param array $requests RequestInterface objects to send
-     *
-     * @return Transaction Returns a hash map object of request to response objects
-     * @throws BatchException
-     */
-    public function batch(array $requests);
 
     /**
      * Get the /* Replaced /* Replaced /* Replaced client */ */ */'s base URL

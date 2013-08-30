@@ -6,26 +6,22 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 
 class Transaction
 {
     /** @var ClientInterface */
     private $/* Replaced /* Replaced /* Replaced client */ */ */;
-
     /** @var RequestInterface */
     private $request;
-
     /** @var ResponseInterface */
     private $response;
-
     /** @var MessageFactoryInterface */
     private $messageFactory;
 
     /**
      * @param ClientInterface         $/* Replaced /* Replaced /* Replaced client */ */ */  Client that is used to send the requests
      * @param RequestInterface        $request
-     * @param MessageFactoryInterface $messageFactory
+     * @param MessageFactoryInterface $messageFactory Message factory used with the Transaction
      */
     public function __construct(
         ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */,
@@ -56,14 +52,11 @@ class Transaction
     /**
      * Set a response on the transaction
      *
-     * @param string          $statusCode   HTTP response status code
-     * @param string          $reasonPhrase Response reason phrase
-     * @param array           $headers      Headers of the response
-     * @param StreamInterface $body         Response body
+     * @param ResponseInterface $response Response to set
      */
-    public function setResponse($statusCode, $reasonPhrase, array $headers, StreamInterface $body)
+    public function setResponse(ResponseInterface $response)
     {
-        $this->response = $this->messageFactory->createResponse($statusCode, $reasonPhrase, $headers, $body);
+        $this->response = $response;
     }
 
     /**
@@ -72,5 +65,13 @@ class Transaction
     public function getClient()
     {
         return $this->/* Replaced /* Replaced /* Replaced client */ */ */;
+    }
+
+    /**
+     * @return MessageFactoryInterface
+     */
+    public function getMessageFactory()
+    {
+        return $this->messageFactory;
     }
 }
