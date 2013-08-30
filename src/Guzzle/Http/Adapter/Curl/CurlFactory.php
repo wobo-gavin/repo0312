@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 
@@ -11,10 +12,10 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
  */
 class CurlFactory
 {
-    public function createHandle(Transaction $transaction)
+    public function createHandle(Transaction $transaction, MessageFactoryInterface $messageFactory)
     {
         $request = $transaction->getRequest();
-        $mediator = new RequestMediator($transaction);
+        $mediator = new RequestMediator($transaction, $messageFactory);
         $options = $this->getDefaultOptions($request, $mediator);
         $this->applyMethod($request, $options);
         $this->applyTransferOptions($request, $mediator, $options);
