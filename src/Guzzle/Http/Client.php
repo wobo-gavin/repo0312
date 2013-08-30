@@ -11,11 +11,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\StreamingPr
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl\CurlAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BatchException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\UriTemplate;
 
@@ -201,7 +199,9 @@ class Client implements ClientInterface
         }
 
         $response = $transaction->getResponse();
-        $this->addEffectiveUrl($request, $response);
+        if (!$response->getEffectiveUrl()) {
+            $response->setEffectiveUrl($request->getUrl());
+        }
 
         return $response;
     }
@@ -224,13 +224,6 @@ class Client implements ClientInterface
     protected function getDefaultOptions()
     {
         return ['allow_redirects' => true, 'exceptions' => true, 'verify' => __DIR__ . '/Resources/cacert.pem'];
-    }
-
-    private function addEffectiveUrl(RequestInterface $request, ResponseInterface $response)
-    {
-        if (!$response->getEffectiveUrl()) {
-            $response->setEffectiveUrl($request->getUrl());
-        }
     }
 
     /**

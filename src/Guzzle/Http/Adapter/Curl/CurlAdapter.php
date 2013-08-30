@@ -3,11 +3,13 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\AdapterInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\BatchAdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\AdapterException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\FutureResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
@@ -15,7 +17,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 /**
  * HTTP adapter that uses cURL as a transport layer
  */
-class CurlAdapter implements AdapterInterface
+class CurlAdapter implements AdapterInterface, BatchAdapterInterface
 {
     /** @var CurlFactory */
     private $factory;
@@ -51,6 +53,13 @@ class CurlAdapter implements AdapterInterface
 
     public function send(Transaction $transaction)
     {
+        if ($transaction->getRequest()->getConfig()['future']) {
+            $transaction->getRequest()->getConfig()->set('future', false);
+            $response = new FutureResponse($transaction, $this);
+            $transaction->setResponse($response);
+            return $response;
+        }
+
         $this->batch([$transaction]);
 
         return $transaction->getResponse();
@@ -75,6 +84,10 @@ class CurlAdapter implements AdapterInterface
 
         $this->perform($context);
         $this->releaseMultiHandle($context['multi']);
+
+        if ($context['errors']) {
+            // @TODO throw BatchException
+        }
     }
 
     private function prepare(Transaction $transaction, array $context)
