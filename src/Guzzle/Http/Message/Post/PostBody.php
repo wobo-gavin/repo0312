@@ -4,7 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamMetadata;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamMetadataTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryAggregator\PhpAggregator;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryAggregator\QueryAggregatorInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
@@ -14,7 +14,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
  */
 class PostBody implements PostBodyInterface
 {
-    use StreamMetadata;
+    use StreamMetadataTrait;
 
     private $body;
     private $fields = [];

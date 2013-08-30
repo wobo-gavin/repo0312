@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Builder;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceBuilderException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Exception\ServiceNotFoundException;
@@ -13,8 +13,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * Clients and data can be set, retrieved, and removed by accessing the service builder like an associative array.
  */
-class ServiceBuilder extends AbstractHasDispatcher implements ServiceBuilderInterface, \ArrayAccess, \Serializable
+class ServiceBuilder implements ServiceBuilderInterface, \ArrayAccess, \Serializable
 {
+    use HasDispatcherTrait;
+
     /** @var array Service builder configuration data */
     protected $builderConfig = array();
 

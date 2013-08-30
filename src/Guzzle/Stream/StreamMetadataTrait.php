@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream;
 /**
  * Stream metadata trait
  */
-trait StreamMetadata
+trait StreamMetadataTrait
 {
     /** @var array Stream metadata */
     private $meta = array();

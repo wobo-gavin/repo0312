@@ -9,7 +9,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Trait that implemements the methods of HasDispatcherInterface
  */
-trait HasDispatcher
+trait HasDispatcherTrait
 {
     /** @var EventDispatcherInterface */
     protected $eventDispatcher;

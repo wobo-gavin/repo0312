@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\EntityEnclosingRequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
@@ -14,8 +14,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Plugin to automatically retry failed HTTP requests using a backoff strategy
  */
-class BackoffPlugin extends AbstractHasDispatcher implements EventSubscriberInterface
+class BackoffPlugin implements EventSubscriberInterface
 {
+    use HasDispatcherTrait;
+
     const DELAY_PARAM = CurlMultiInterface::BLOCKING;
     const RETRY_PARAM = 'plugins.backoff.retry_count';
     const RETRY_EVENT = 'plugins.backoff.retry';

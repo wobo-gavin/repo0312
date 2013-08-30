@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamMetadata;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamMetadataTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
 
 /**
@@ -13,7 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
  */
 class MultipartBody implements StreamInterface
 {
-    use StreamMetadata;
+    use StreamMetadataTrait;
 
     /** @var StreamInterface */
     private $files;

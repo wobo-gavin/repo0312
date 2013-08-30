@@ -2,11 +2,13 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Resource;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\AbstractHasDispatcher;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 
-abstract class ResourceIterator extends AbstractHasDispatcher implements ResourceIteratorInterface
+abstract class ResourceIterator implements ResourceIteratorInterface
 {
+    use HasDispatcherTrait;
+
     /** @var CommandInterface Command used to send requests */
     protected $command;
 

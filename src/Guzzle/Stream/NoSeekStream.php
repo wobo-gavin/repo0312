@@ -7,7 +7,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream;
  */
 class NoSeekStream implements StreamInterface
 {
-    use StreamDecorator;
+    use StreamDecoratorTrait;
 
     public function rewind()
     {

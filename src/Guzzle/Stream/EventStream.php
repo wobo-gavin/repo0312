@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcher;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInterface;
 
 /**
@@ -10,8 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInte
  */
 class EventStream implements StreamInterface, HasDispatcherInterface
 {
-    use StreamDecorator;
-    use HasDispatcher;
+    use StreamDecorator, HasDispatcherTrait;
 
     public function read($length)
     {
