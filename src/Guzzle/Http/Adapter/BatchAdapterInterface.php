@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter;
 /**
  * Adapter interface used to transfer HTTP requests
  */
-interface BatchAdapterInterface
+interface BatchAdapterInterface extends AdapterInterface
 {
     /**
      * Transfers multiple HTTP requests in parallel

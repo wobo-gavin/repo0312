@@ -9,7 +9,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterS
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\AdapterException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\FutureResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
@@ -53,13 +52,6 @@ class CurlAdapter implements AdapterInterface, BatchAdapterInterface
 
     public function send(TransactionInterface $transaction)
     {
-        if ($transaction->getRequest()->getConfig()['future']) {
-            $transaction->getRequest()->getConfig()->set('future', false);
-            $response = new FutureResponse($transaction, $this);
-            $transaction->setResponse($response);
-            return $response;
-        }
-
         $this->batch([$transaction]);
 
         return $transaction->getResponse();
