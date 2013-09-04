@@ -4,7 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\AdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\FutureProxyAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\StreamAdapter;

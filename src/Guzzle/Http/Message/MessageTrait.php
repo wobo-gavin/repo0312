@@ -2,7 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderCollection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
