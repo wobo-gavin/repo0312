@@ -6,7 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 
-class Transaction
+class Transaction implements TransactionInterface
 {
     /** @var ClientInterface */
     private $/* Replaced /* Replaced /* Replaced client */ */ */;
@@ -25,35 +25,21 @@ class Transaction
         $this->request = $request;
     }
 
-    /**
-     * @return RequestInterface
-     */
     public function getRequest()
     {
         return $this->request;
     }
 
-    /**
-     * @return ResponseInterface|null
-     */
     public function getResponse()
     {
         return $this->response;
     }
 
-    /**
-     * Set a response on the transaction
-     *
-     * @param ResponseInterface $response Response to set
-     */
     public function setResponse(ResponseInterface $response)
     {
         $this->response = $response;
     }
 
-    /**
-     * @return ClientInterface
-     */
     public function getClient()
     {
         return $this->/* Replaced /* Replaced /* Replaced client */ */ */;

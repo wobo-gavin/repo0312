@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\TransactionInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderCollection;
 
 /**
@@ -14,9 +14,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderCollec
 class GotResponseHeadersEvent extends AbstractRequestEvent
 {
     /**
-     * @param Transaction $transaction Transaction that contains the request and response
+     * @param TransactionInterface $transaction Transaction that contains the request and response
      */
-    public function __construct(Transaction $transaction)
+    public function __construct(TransactionInterface $transaction)
     {
         parent::__construct($transaction);
     }

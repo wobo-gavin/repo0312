@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\TransactionInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\GotResponseHeadersEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
@@ -15,7 +15,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
  */
 class RequestMediator
 {
-    /** @var Transaction */
+    /** @var TransactionInterface */
     private $transaction;
     /** @var MessageFactoryInterface */
     private $messageFactory;
@@ -26,10 +26,10 @@ class RequestMediator
     private $protocolVersion;
 
     /**
-     * @param Transaction             $transaction    Transaction to populate
+     * @param TransactionInterface    $transaction    Transaction to populate
      * @param MessageFactoryInterface $messageFactory Message factory used to create responses
      */
-    public function __construct(Transaction $transaction, MessageFactoryInterface $messageFactory)
+    public function __construct(TransactionInterface $transaction, MessageFactoryInterface $messageFactory)
     {
         $this->transaction = $transaction;
         $this->messageFactory = $messageFactory;

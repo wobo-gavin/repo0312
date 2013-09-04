@@ -3,20 +3,20 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\TransactionInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 
 abstract class AbstractRequestEvent extends Event
 {
-    /** @var Transaction */
+    /** @var TransactionInterface */
     private $transaction;
 
     /**
-     * @param Transaction $transaction Transaction that contains the request
+     * @param TransactionInterface $transaction Transaction that contains the request
      */
-    public function __construct(Transaction $transaction)
+    public function __construct(TransactionInterface $transaction)
     {
         parent::__construct();
         $this->transaction = $transaction;
@@ -43,7 +43,7 @@ abstract class AbstractRequestEvent extends Event
     }
 
     /**
-     * @return Transaction
+     * @return TransactionInterface
      */
     protected function getTransaction()
     {
