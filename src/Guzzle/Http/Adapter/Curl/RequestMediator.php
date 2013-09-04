@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\GotResponseHeadersEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
@@ -80,7 +81,10 @@ class RequestMediator
             $this->transaction->setResponse($response);
             $request = $this->transaction->getRequest();
             // Allows events to react before downloading any of the body
-            $request->dispatch(RequestEvents::GOT_HEADERS, ['request' => $request, 'response' => $response]);
+            $request->getEventDispatcher()->dispatch(
+                RequestEvents::RESPONSE_HEADERS,
+                new GotResponseHeadersEvent($this->transaction)
+            );
         }
 
         return $length;

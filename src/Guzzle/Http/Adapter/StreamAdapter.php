@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\GotResponseHeadersEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
@@ -57,7 +58,7 @@ class StreamAdapter implements AdapterInterface
         $stream = $this->createStream($request, $http_response_header);
         // Track the response headers of the request
         $response = $this->createResponseObject($http_response_header, $transaction, $stream);
-        $request->dispatch(RequestEvents::GOT_HEADERS, ['request' => $request, 'response' => $response]);
+        $request->dispatch(RequestEvents::RESPONSE_HEADERS, new GotResponseHeadersEvent($transaction));
 
         if ($request->getConfig()['stream']) {
             $this->applyStreamingBody($request, $response, $stream);
