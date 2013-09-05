@@ -2,11 +2,9 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamMetadataTrait;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
 
 /**
  * Stream that when read returns bytes for a streaming multipart/form-data body

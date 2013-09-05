@@ -2,8 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
-
 /**
  * Default cache storage implementation
  */

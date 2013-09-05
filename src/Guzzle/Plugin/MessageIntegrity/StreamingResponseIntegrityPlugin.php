@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\MessageInte
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

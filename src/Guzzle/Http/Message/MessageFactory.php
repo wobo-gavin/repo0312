@@ -7,8 +7,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostBo
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\RedirectPlugin;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Log\LogPlugin;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 
 /**

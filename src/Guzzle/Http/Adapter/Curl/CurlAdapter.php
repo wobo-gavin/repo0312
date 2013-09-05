@@ -11,7 +11,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\AdapterEx
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 
 /**
  * HTTP adapter that uses cURL as a transport layer

@@ -2,8 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryAggregator;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
-
 /**
  * Aggregates nested query string variables using PHP style []
  */

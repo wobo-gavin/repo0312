@@ -5,7 +5,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 
 /**
