@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream;
 
 /**
- * Stread decorator that prevents a stream from being seeked
+ * Stream decorator that prevents a stream from being seeked
  */
 class NoSeekStream implements StreamInterface
 {
