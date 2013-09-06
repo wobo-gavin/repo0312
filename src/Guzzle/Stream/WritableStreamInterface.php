@@ -8,13 +8,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream;
 interface WritableStreamInterface extends StreamInterface
 {
     /**
-     * Check if the stream is writable
-     *
-     * @return bool
-     */
-    public function isWritable();
-
-    /**
      * Write data to the stream
      *
      * @param string $string The string that is to be written.
