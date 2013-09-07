@@ -3,9 +3,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryAggregator\DuplicateAggregator;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryAggregator\QueryAggregatorInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryAggregator\PhpAggregator;
 
 /**
  * Manages query string variables and can aggregate them into a string

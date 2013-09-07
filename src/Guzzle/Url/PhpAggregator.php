@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryAggregator;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url;
 
 /**
  * Aggregates nested query string variables using PHP style []

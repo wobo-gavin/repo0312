@@ -6,8 +6,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\ReadableStreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamMetadataTrait;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryAggregator\PhpAggregator;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryAggregator\QueryAggregatorInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\PhpAggregator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryAggregatorInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
 
 /**

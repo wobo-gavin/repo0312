@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryAggregator;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url;
 
 /**
  * Interface used for aggregating multi-value query string parameters into a flattened array
