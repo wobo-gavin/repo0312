@@ -1,6 +1,10 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Decorator;
+
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\ReadableStreamInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\DuplexStreamInterface;
 
 /**
  * Stream decorator that can cache previously read bytes from a sequentially read stream

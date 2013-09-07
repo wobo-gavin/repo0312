@@ -2,8 +2,9 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\MessageIntegrity;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Decorator\ReadableStreamDecoratorTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamDecorator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Decorator\StreamDecoratorTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInterface;
 
@@ -13,7 +14,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInte
  */
 class ReadIntegrityStream implements StreamInterface, HasDispatcherInterface
 {
-    use StreamDecorator, HasDispatcherTrait;
+    use ReadableStreamDecoratorTrait, HasDispatcherTrait;
 
     /** @var HashInterface */
     private $hash;

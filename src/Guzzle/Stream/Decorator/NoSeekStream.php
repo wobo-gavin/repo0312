@@ -1,6 +1,8 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Decorator;
+
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\ReadableStreamInterface;
 
 /**
  * Stream decorator that prevents a readable stream from being seeked

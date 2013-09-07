@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Decorator;
 
 /**
  * Stream decorator trait implementing {@see \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\WritableStreamInterface}

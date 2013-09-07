@@ -3,7 +3,8 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\ReadableStreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamMetadataTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryAggregator\PhpAggregator;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryAggregator\QueryAggregatorInterface;
@@ -145,21 +146,11 @@ class PostBody implements PostBodyInterface
         return $this->body ? $this->body->close : true;
     }
 
-    public function getStream()
-    {
-        return $this->getBody()->getStream();
-    }
-
-    public function detachStream()
+    public function detach()
     {
         $this->body = null;
 
         return $this;
-    }
-
-    public function getUri()
-    {
-        return null;
     }
 
     public function eof()
@@ -176,26 +167,9 @@ class PostBody implements PostBodyInterface
         return $this->body ? $this->body->tell() : 0;
     }
 
-    public function isReadable()
-    {
-        return true;
-    }
-
-    public function isWritable()
-    {
-        return false;
-    }
-
     public function isSeekable()
     {
         return true;
-    }
-
-    public function setSize($size)
-    {
-        $this->size = $size;
-
-        return $this;
     }
 
     public function getSize()
@@ -212,24 +186,9 @@ class PostBody implements PostBodyInterface
         return $this->getBody()->seek($offset, $whence);
     }
 
-    public function rewind()
-    {
-        return $this->body ? $this->getBody()->rewind() : true;
-    }
-
     public function read($length)
     {
         return $this->getBody()->read($length);
-    }
-
-    public function readLine($maxLength = null)
-    {
-        return $this->getBody()->readLine($maxLength);
-    }
-
-    public function write($string)
-    {
-        return false;
     }
 
     /**
@@ -245,7 +204,7 @@ class PostBody implements PostBodyInterface
         } elseif ($this->fields) {
             return $this->body = $this->createUrlEncoded();
         } else {
-            return $this->body = Stream::fromString('');
+            return $this->body = StreamFactory::create('');
         }
     }
 
@@ -288,7 +247,7 @@ class PostBody implements PostBodyInterface
     /**
      * Creates an application/x-www-form-urlencoded stream body
      *
-     * @return Stream
+     * @return ReadableStreamInterface
      */
     private function createUrlEncoded()
     {
@@ -296,7 +255,7 @@ class PostBody implements PostBodyInterface
             ->setAggregator($this->getAggregator())
             ->setEncodingType(QueryString::RFC1738);
 
-        return Stream::fromString($query);
+        return StreamFactory::create($query);
     }
 
     /**

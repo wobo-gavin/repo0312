@@ -1,6 +1,8 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Decorator;
+
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\ReadableStreamInterface;
 
 /**
  * Decorator used to return only a subset of a stream
