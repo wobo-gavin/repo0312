@@ -6,7 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\TransferException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\ReadableStreamInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 
 /**
@@ -22,11 +22,11 @@ interface ClientInterface extends HasDispatcherInterface
      * contain the query string as well. Use an array to provide a URL
      * template and additional variables to use in the URL template expansion.
      *
-     * @param string                                  $method  HTTP method
-     * @param string|array                            $url     Resource URL
-     * @param array                                   $headers Request headers
-     * @param string|ReadableStreamInterface|resource $body    Body to send
-     * @param array                                   $options Array of options to apply to the request
+     * @param string                          $method  HTTP method
+     * @param string|array                    $url     Resource URL
+     * @param array                           $headers Request headers
+     * @param string|StreamInterface|resource $body    Body to send
+     * @param array                           $options Array of options to apply to the request
      *
      * @return RequestInterface
      */
@@ -68,10 +68,10 @@ interface ClientInterface extends HasDispatcherInterface
     /**
      * Send a PUT request
      *
-     * @param string|array|Url                        $url     Resource URL
-     * @param array                                   $headers Request headers
-     * @param string|ReadableStreamInterface|resource $body    Body to send
-     * @param array                                   $options Options to apply to the request
+     * @param string|array|Url                $url     Resource URL
+     * @param array                           $headers Request headers
+     * @param string|StreamInterface|resource $body    Body to send
+     * @param array                           $options Options to apply to the request
      *
      * @return ResponseInterface
      */
@@ -80,10 +80,10 @@ interface ClientInterface extends HasDispatcherInterface
     /**
      * Send a PATCH request
      *
-     * @param string|array|Url                        $url     Resource URL
-     * @param array                                   $headers Request headers
-     * @param string|ReadableStreamInterface|resource $body    Body to send
-     * @param array                                   $options Options to apply to the request
+     * @param string|array|Url                $url     Resource URL
+     * @param array                           $headers Request headers
+     * @param string|StreamInterface|resource $body    Body to send
+     * @param array                           $options Options to apply to the request
      *
      * @return ResponseInterface
      */

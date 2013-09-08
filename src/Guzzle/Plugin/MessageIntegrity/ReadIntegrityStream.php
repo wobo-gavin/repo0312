@@ -2,9 +2,8 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\MessageIntegrity;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Decorator\ReadableStreamDecoratorTrait;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamDecoratorTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Decorator\StreamDecoratorTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInterface;
 
@@ -14,12 +13,14 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInte
  */
 class ReadIntegrityStream implements StreamInterface, HasDispatcherInterface
 {
-    use ReadableStreamDecoratorTrait, HasDispatcherTrait;
+    use StreamDecoratorTrait, HasDispatcherTrait;
 
     /** @var HashInterface */
     private $hash;
+
     /** @var callable */
     private $validationCallback;
+
     /** @var int Last position that the hash was updated at */
     private $lastHashPos = 0;
 

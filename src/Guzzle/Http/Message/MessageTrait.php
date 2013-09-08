@@ -5,8 +5,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderCollection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamFactory;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\ReadableStreamInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 
 /**
  * HTTP request/response message trait
@@ -15,7 +15,7 @@ trait MessageTrait
 {
     use HasHeadersTrait;
 
-    /** @var ReadableStreamInterface Message body */
+    /** @var StreamInterface Message body */
     private $body;
 
     /** @var string HTTP protocol version of the message */
@@ -34,7 +34,7 @@ trait MessageTrait
             $this->removeHeader('Content-Length');
             $this->removeHeader('Transfer-Encoding');
         } else {
-            $this->body = StreamFactory::create($body);
+            $this->body = Stream::factory($body);
             // Auto detect the Content-Type from the path of the request if possible
             if ($contentType === null && !$this->hasHeader('Content-Type')) {
                 $contentType = Mimetypes::getInstance()->fromFilename($this->body->getMetadata('uri'));

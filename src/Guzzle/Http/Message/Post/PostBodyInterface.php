@@ -3,12 +3,12 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\ReadableStreamInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 
 /**
  * Represents a POST body that is sent as either a multipart/form-data stream or application/x-www-urlencoded stream
  */
-interface PostBodyInterface extends ReadableStreamInterface, \Countable
+interface PostBodyInterface extends StreamInterface, \Countable
 {
     /**
      * Apply headers to the request appropriate for the current state of the object

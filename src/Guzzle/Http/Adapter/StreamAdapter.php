@@ -9,8 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\GotResponseHe
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 
 /**
  * HTTP adapter that uses PHP's HTTP stream wrapper
@@ -71,11 +70,11 @@ class StreamAdapter implements AdapterInterface
         if ($saveTo = $request->getConfig()['save_to']) {
             // Stream the response into the destination stream
             $saveTo = is_string($saveTo)
-                ? StreamFactory::create(fopen($saveTo, 'r+'))
-                : StreamFactory::create($saveTo);
+                ? Stream::factory(fopen($saveTo, 'r+'))
+                : Stream::factory($saveTo);
         } else {
             // Stream into the default temp stream
-            $saveTo = StreamFactory::create();
+            $saveTo = Stream::factory();
         }
 
         while (!feof($stream)) {

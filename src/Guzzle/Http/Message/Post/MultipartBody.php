@@ -2,15 +2,14 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\ReadableStreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamMetadataTrait;
 
 /**
  * Stream that when read returns bytes for a streaming multipart/form-data body
  */
-class MultipartBody implements ReadableStreamInterface
+class MultipartBody implements StreamInterface
 {
     use StreamMetadataTrait;
 
@@ -91,6 +90,21 @@ class MultipartBody implements ReadableStreamInterface
         return $this->pos;
     }
 
+    public function isReadable()
+    {
+        return true;
+    }
+
+    public function isWritable()
+    {
+        return false;
+    }
+
+    public function isLocal()
+    {
+        return false;
+    }
+
     /**
      * The steam is seekable by default, but all attached files must be seekable too
      * {@inheritdoc}
@@ -165,6 +179,11 @@ class MultipartBody implements ReadableStreamInterface
         $this->bufferedHeaders = [];
 
         return true;
+    }
+
+    public function write($string)
+    {
+        return false;
     }
 
     /**

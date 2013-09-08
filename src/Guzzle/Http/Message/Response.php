@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 
 /**
@@ -138,7 +138,7 @@ class Response implements ResponseInterface
     public function getBody()
     {
         if (!$this->body) {
-            $this->body = StreamFactory::create();
+            $this->body = Stream::factory();
         }
 
         return $this->body;
