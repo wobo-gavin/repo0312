@@ -8,7 +8,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream;
 trait StreamMetadataTrait
 {
     /** @var array Stream metadata */
-    private $meta = array();
+    private $meta = [];
 
     public function getMetadata($key = null)
     {
