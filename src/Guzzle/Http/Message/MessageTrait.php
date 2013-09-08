@@ -2,8 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderCollection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
@@ -54,10 +52,6 @@ trait MessageTrait
 
     private function initializeMessage(array $options = [])
     {
-        $this->headerFactory = isset($options['header_factory'])
-            ? $options['header_factory']
-            : HeaderFactory::getDefaultFactory();
-
         if (isset($options['protocol_version'])) {
             $this->protocolVersion = $options['protocol_version'];
         }
