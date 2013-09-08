@@ -2,7 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\HttpException;
@@ -12,23 +11,23 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\HttpExcep
  */
 class CallbackBackoffStrategy extends AbstractBackoffStrategy
 {
-    /** @var \Closure|array|mixed Callable method to invoke */
+    /** @var callable Callable method to invoke */
     protected $callback;
 
     /** @var bool Whether or not this strategy makes a retry decision */
     protected $decision;
 
     /**
-     * @param \Closure|array|mixed     $callback Callable method to invoke
+     * @param callable                 $callback Callable method to invoke
      * @param bool                     $decision Set to true if this strategy makes a backoff decision
      * @param BackoffStrategyInterface $next     The optional next strategy
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function __construct($callback, $decision, BackoffStrategyInterface $next = null)
     {
         if (!is_callable($callback)) {
-            throw new InvalidArgumentException('The callback must be callable');
+            throw new \InvalidArgumentException('The callback must be callable');
         }
         $this->callback = $callback;
         $this->decision = (bool) $decision;
