@@ -4,15 +4,12 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamMetadataTrait;
 
 /**
  * Stream that when read returns bytes for a streaming multipart/form-data body
  */
 class MultipartBody implements StreamInterface
 {
-    use StreamMetadataTrait;
-
     /** @var StreamInterface */
     private $files;
     private $fields;
@@ -142,6 +139,11 @@ class MultipartBody implements StreamInterface
         }
 
         return $this->size;
+    }
+
+    public function getUri()
+    {
+        return null;
     }
 
     public function read($length)

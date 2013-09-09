@@ -5,7 +5,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamMetadataTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\PhpAggregator;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryAggregatorInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
@@ -15,8 +14,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
  */
 class PostBody implements PostBodyInterface
 {
-    use StreamMetadataTrait;
-
     private $body;
     private $fields = [];
     private $files = [];
@@ -189,6 +186,11 @@ class PostBody implements PostBodyInterface
         }
 
         return $this->size;
+    }
+
+    public function getUri()
+    {
+        return null;
     }
 
     public function seek($offset, $whence = SEEK_SET)
