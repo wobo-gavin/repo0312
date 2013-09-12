@@ -50,4 +50,12 @@ class SchemaFormatterTest extends \/* Replaced /* Replaced /* Replaced Guzzle */
     {
         SchemaFormatter::format('date-time', false);
     }
+
+    public function testEnsuresTimestampsAreIntegers()
+    {
+        $t = time();
+        $result = SchemaFormatter::format('timestamp', $t);
+        $this->assertSame($t, $result);
+        $this->assertInternalType('int', $result);
+    }
 }
