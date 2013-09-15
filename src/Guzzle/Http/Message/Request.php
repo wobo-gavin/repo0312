@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 
 /**
@@ -78,7 +79,7 @@ class Request implements RequestInterface
         return $result . "\r\n\n\n" . $this->body;
     }
 
-    public function setBody($body)
+    public function setBody(StreamInterface $body = null)
     {
         $this->applyBody($body);
 
