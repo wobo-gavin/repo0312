@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\AdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 
 class FutureResponse implements FutureResponseInterface
 {
@@ -79,7 +80,7 @@ class FutureResponse implements FutureResponseInterface
         return $this->getResponse()->getProtocolVersion();
     }
 
-    public function setBody($body, $contentType = null)
+    public function setBody(StreamInterface $body = null)
     {
         return $this;
     }
