@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 /**
- * Represents a collection of header values
+ * Represents a collection of header values.
  */
 interface HeaderValuesInterface extends \Countable, \Traversable, \ArrayAccess
 {
