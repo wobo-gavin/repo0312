@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\HasHeadersTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\HasMetadataStreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 
 /**
@@ -34,12 +35,21 @@ class PostFile implements PostFileInterface
      * @param StreamInterface $content  Data to send
      * @param null            $filename Filename content-disposition attribute
      * @param array           $headers  Array of headers to set on the file (can override any default headers)
+     * @throws \RuntimeException if the filename is not passed or cannot be determined
      */
     public function __construct($name, StreamInterface $content, $filename = null, array $headers = [])
     {
         $this->content = $content;
         $this->name = $name;
-        $this->filename = $filename ?: basename($this->content->getMetadata('uri'));
+        $this->filename = $filename;
+
+        if (!$this->filename && $content instanceof HasMetadataStreamInterface) {
+            $this->filename = $content->getMetadata('uri');
+        }
+
+        if (!$this->filename) {
+            throw new \RuntimeException('Could not determine filename from arguments or stream');
+        }
 
         // Account for nested MultipartBody objects
         if ($content instanceof MultipartBody) {
