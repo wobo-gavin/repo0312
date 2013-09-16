@@ -6,21 +6,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 
 /**
- * Get the global /* Replaced /* Replaced /* Replaced Guzzle */ */ */ /* Replaced /* Replaced /* Replaced client */ */ */ used with the helper methods
- *
- * @return Client
- */
-function getDefaultClient()
-{
-    static $/* Replaced /* Replaced /* Replaced client */ */ */;
-    if (!$/* Replaced /* Replaced /* Replaced client */ */ */) {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-    }
-
-    return $/* Replaced /* Replaced /* Replaced client */ */ */;
-}
-
-/**
  * Send a custom request
  *
  * @param string $method  HTTP request method (GET, POST, HEAD, DELETE, PUT, etc)
@@ -33,9 +18,12 @@ function getDefaultClient()
  */
 function request($method, $url, array $headers = [], $body = null, $options = [])
 {
-    $request = getDefaultClient()->createRequest($method, $url, $headers, $body, $options);
+    static $/* Replaced /* Replaced /* Replaced client */ */ */;
+    if (!$/* Replaced /* Replaced /* Replaced client */ */ */) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+    }
 
-    return getDefaultClient()->send($request);
+    return $/* Replaced /* Replaced /* Replaced client */ */ */->send($/* Replaced /* Replaced /* Replaced client */ */ */->createRequest($method, $url, $headers, $body, $options));
 }
 
 /**
