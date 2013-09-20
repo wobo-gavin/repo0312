@@ -217,10 +217,10 @@ class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests
     /**
      * @dataProvider urlProvider
      */
-    public function testNormalizesPaths($path, $result)
+    public function testRemoveDotSegments($path, $result)
     {
         $url = Url::fromString('http://www.example.com');
-        $url->setPath($path)->normalizePath();
+        $url->setPath($path)->removeDotSegments();
         $this->assertEquals($result, $url->getPath());
     }
 
