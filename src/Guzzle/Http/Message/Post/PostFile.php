@@ -4,7 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\HasHeadersTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\HasMetadataStreamInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\MetadataStreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 
 /**
@@ -43,7 +43,7 @@ class PostFile implements PostFileInterface
         $this->name = $name;
         $this->filename = $filename;
 
-        if (!$this->filename && $content instanceof HasMetadataStreamInterface) {
+        if (!$this->filename && $content instanceof MetadataStreamInterface) {
             $this->filename = $content->getMetadata('uri');
         }
 

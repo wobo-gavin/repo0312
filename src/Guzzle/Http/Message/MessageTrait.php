@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\HasMetadataStreamInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\MetadataStreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 
@@ -43,7 +43,7 @@ trait MessageTrait
             }
 
             // Add the content-type if possible based on the stream URI
-            if ($body instanceof HasMetadataStreamInterface && !$this->hasHeader('Content-Type')) {
+            if ($body instanceof MetadataStreamInterface && !$this->hasHeader('Content-Type')) {
                 if ($uri = $body->getMetadata('uri')) {
                     if ($contentType = Mimetypes::getInstance()->fromFilename($uri)) {
                         $this->setHeader('Content-Type', $contentType);

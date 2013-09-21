@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream;
 /**
  * Decorator used to return only a subset of a stream
  */
-class LimitStream implements StreamInterface
+class LimitStream implements StreamInterface, MetadataStreamInterface
 {
     use StreamDecoratorTrait;
 
