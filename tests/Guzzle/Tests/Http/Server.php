@@ -3,11 +3,8 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\RuntimeException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 
 /**
@@ -51,11 +48,11 @@ class Server
 
     /**
      * Flush the received requests from the server
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     public function flush()
     {
-        $this->/* Replaced /* Replaced /* Replaced client */ */ */->delete('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests')->send();
+        $this->/* Replaced /* Replaced /* Replaced client */ */ */->delete('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests');
     }
 
     /**
@@ -87,8 +84,7 @@ class Server
             );
         }
 
-        $request = $this->/* Replaced /* Replaced /* Replaced client */ */ */->put('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/responses', null, json_encode($data));
-        $request->send();
+        $this->/* Replaced /* Replaced /* Replaced client */ */ */->put('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/responses', null, json_encode($data));
     }
 
     /**
@@ -103,7 +99,7 @@ class Server
         }
 
         try {
-            $this->/* Replaced /* Replaced /* Replaced client */ */ */->get('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/perf', array(), array('timeout' => 5))->send();
+            $this->/* Replaced /* Replaced /* Replaced client */ */ */->get('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/perf', array(), array('timeout' => 5));
             return $this->running = true;
         } catch (\Exception $e) {
             return false;
@@ -138,15 +134,16 @@ class Server
      *      requests will be returned as strings.
      *
      * @return array
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     public function getReceivedRequests($hydrate = false)
     {
-        $response = $this->/* Replaced /* Replaced /* Replaced client */ */ */->get('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests')->send();
-        $data = array_filter(explode(self::REQUEST_DELIMITER, $response->getBody(true)));
+        $response = $this->/* Replaced /* Replaced /* Replaced client */ */ */->get('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests');
+        $data = array_filter(explode(self::REQUEST_DELIMITER, (string) $response->getBody()));
         if ($hydrate) {
-            $data = array_map(function($message) {
-                return RequestFactory::getInstance()->fromMessage($message);
+            $factory = new MessageFactory();
+            $data = array_map(function($message) use ($factory) {
+                return $factory->fromMessage($message);
             }, $data);
         }
 
@@ -164,7 +161,7 @@ class Server
             $start = time();
             while (!$this->isRunning() && time() - $start < 5);
             if (!$this->running) {
-                throw new RuntimeException(
+                throw new \RuntimeException(
                     'Unable to contact server.js. Have you installed node.js v0.5.0+? node must be in your path.'
                 );
             }
@@ -181,6 +178,6 @@ class Server
         }
 
         $this->running = false;
-        $this->/* Replaced /* Replaced /* Replaced client */ */ */->delete('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server')->send();
+        $this->/* Replaced /* Replaced /* Replaced client */ */ */->delete('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server');
     }
 }
