@@ -5,7 +5,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 
 /**
- * @group server
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream
  */
 class StreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
