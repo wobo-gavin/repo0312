@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostBo
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\RedirectPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 
 /**
@@ -45,7 +46,7 @@ class MessageFactory implements MessageFactoryInterface
             if (is_array($body)) {
                 $this->addPostData($request, $body);
             } else {
-                $request->setBody($body);
+                $request->setBody(Stream::factory($body));
             }
         }
 
