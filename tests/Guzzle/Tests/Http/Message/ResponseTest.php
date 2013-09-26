@@ -4,13 +4,10 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\HttpException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\BadResponseException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 
 /**
- * @group server
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response
  */
 class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
