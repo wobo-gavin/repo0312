@@ -22,7 +22,8 @@
     "autoload": {
         "psr-0": {
             "/* Replaced /* Replaced /* Replaced Guzzle */ */ */": "src/"
-        }
+        },
+        "files": ["src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//functions.php"]
     },
 
     "require-dev": {
