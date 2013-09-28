@@ -13,7 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CallbackCan
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CallbackCanCacheStrategy
  */
-class CallbackCanCacheStrategyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class CallbackCanCacheStrategyTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Exception\InvalidArgumentException

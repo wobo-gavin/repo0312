@@ -9,7 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\CallbackB
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\AbstractBackoffStrategy
  */
-class AbstractBackoffStrategyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class AbstractBackoffStrategyTest extends \PHPUnit_Framework_TestCase
 {
     protected function getMockStrategy()
     {

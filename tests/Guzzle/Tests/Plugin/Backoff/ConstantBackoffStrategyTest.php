@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\ConstantB
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\ConstantBackoffStrategy
  */
-class ConstantBackoffStrategyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class ConstantBackoffStrategyTest extends \PHPUnit_Framework_TestCase
 {
     public function testRetriesWithConstantDelay()
     {

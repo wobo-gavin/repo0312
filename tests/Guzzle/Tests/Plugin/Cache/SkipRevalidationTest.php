@@ -9,7 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\SkipRevalid
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\SkipRevalidation
  */
-class SkipRevalidationTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class SkipRevalidationTest extends \PHPUnit_Framework_TestCase
 {
     public function testSkipsRequestRevalidation()
     {

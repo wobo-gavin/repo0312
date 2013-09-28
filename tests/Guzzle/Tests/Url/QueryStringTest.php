@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\DuplicateAggregator;
 
-class QueryStringTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class QueryStringTest extends \PHPUnit_Framework_TestCase
 {
     public function testCanCastToString()
     {

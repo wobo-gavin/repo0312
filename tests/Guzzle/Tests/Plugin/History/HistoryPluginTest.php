@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\History\HistoryPlugin
  */
-class HistoryPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class HistoryPluginTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Adds multiple requests to a plugin

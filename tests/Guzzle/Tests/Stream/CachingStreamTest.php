@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\CachingStream;
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\CachingStream
  */
-class CachingStreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class CachingStreamTest extends \PHPUnit_Framework_TestCase
 {
     /** @var CachingStream */
     protected $body;

@@ -20,7 +20,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server;
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultRevalidation
  * @group server
  */
-class DefaultRevalidationTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class DefaultRevalidationTest extends \PHPUnit_Framework_TestCase
 {
     protected function getHttpDate($time)
     {

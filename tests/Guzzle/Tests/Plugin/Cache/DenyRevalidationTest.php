@@ -9,7 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DenyRevalid
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DenyRevalidation
  */
-class DenyRevalidationTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class DenyRevalidationTest extends \PHPUnit_Framework_TestCase
 {
     public function testDeniesRequestRevalidation()
     {

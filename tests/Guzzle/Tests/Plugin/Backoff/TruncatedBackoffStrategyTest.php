@@ -10,7 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\ConstantB
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\TruncatedBackoffStrategy
  */
-class TruncatedBackoffStrategyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class TruncatedBackoffStrategyTest extends \PHPUnit_Framework_TestCase
 {
     public function testRetriesWhenLessThanMax()
     {

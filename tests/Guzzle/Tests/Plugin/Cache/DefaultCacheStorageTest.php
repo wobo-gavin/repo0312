@@ -12,7 +12,7 @@ use Doctrine\Common\Cache\ArrayCache;
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultCacheStorage
  */
-class DefaultCacheStorageTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class DefaultCacheStorageTest extends \PHPUnit_Framework_TestCase
 {
     protected function getCache()
     {

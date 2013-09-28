@@ -14,7 +14,7 @@ class Str implements StreamInterface
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamDecoratorTrait
  */
-class StreamDecoratorTraitTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class StreamDecoratorTraitTest extends \PHPUnit_Framework_TestCase
 {
     private $a;
     private $b;

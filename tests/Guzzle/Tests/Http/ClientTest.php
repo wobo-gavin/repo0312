@@ -12,7 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client
  */
-class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class ClientTest extends \PHPUnit_Framework_TestCase
 {
     public function testProvidesDefaultUserAgent()
     {

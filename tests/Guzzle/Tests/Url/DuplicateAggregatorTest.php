@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\DuplicateAggregator;
  * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\DuplicateAggregator
  * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\AbstractAggregator
  */
-class DuplicateAggregatorTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class DuplicateAggregatorTest extends \PHPUnit_Framework_TestCase
 {
     private $encodeData = [
         't' => [

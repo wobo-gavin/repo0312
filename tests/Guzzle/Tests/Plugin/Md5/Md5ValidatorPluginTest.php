@@ -10,7 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Md5\Md5ValidatorP
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Md5\Md5ValidatorPlugin
  */
-class Md5ValidatorPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class Md5ValidatorPluginTest extends \PHPUnit_Framework_TestCase
 {
     public function testValidatesMd5()
     {

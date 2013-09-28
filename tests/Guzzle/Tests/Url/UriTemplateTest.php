@@ -3,12 +3,11 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Parsers\UriTemplate;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\UriTemplate;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\UriTemplate
  */
-class UriTemplateTest extends /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class UriTemplateTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @return array

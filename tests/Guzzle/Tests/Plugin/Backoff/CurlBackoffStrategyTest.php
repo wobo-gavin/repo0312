@@ -10,7 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlExcep
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\CurlBackoffStrategy
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\AbstractErrorCodeBackoffStrategy
  */
-class CurlBackoffStrategyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class CurlBackoffStrategyTest extends \PHPUnit_Framework_TestCase
 {
     public function testRetriesWithExponentialDelay()
     {

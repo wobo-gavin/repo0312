@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url
  */
-class UrlTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class UrlTest extends \PHPUnit_Framework_TestCase
 {
     public function testEmptyUrl()
     {

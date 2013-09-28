@@ -18,7 +18,7 @@ use Doctrine\Common\Cache\ArrayCache;
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\CachePlugin
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache\DefaultRevalidation
  */
-class CachePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class CachePluginTest extends \PHPUnit_Framework_TestCase
 {
     public function testAddsDefaultStorage()
     {

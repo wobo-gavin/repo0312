@@ -14,7 +14,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
  * @group server
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Log\LogPlugin
  */
-class LogPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class LogPluginTest extends \PHPUnit_Framework_TestCase
 {
     protected $adapter;
 

@@ -10,7 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response
  */
-class ResponseTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class ResponseTest extends \PHPUnit_Framework_TestCase
 {
     /** @var Response The response object to test */
     protected $response;

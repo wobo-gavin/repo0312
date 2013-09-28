@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDataTrait
  */
-class CollectionTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class CollectionTest extends \PHPUnit_Framework_TestCase
 {
     /** @var Collection */
     protected $coll;

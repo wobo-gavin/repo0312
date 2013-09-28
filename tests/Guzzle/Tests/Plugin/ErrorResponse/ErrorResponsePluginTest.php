@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Mock\ErrorResponse
 /**
  * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\ErrorResponse\ErrorResponsePlugin
  */
-class ErrorResponsePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class ErrorResponsePluginTest extends \PHPUnit_Framework_TestCase
 {
     protected $/* Replaced /* Replaced /* Replaced client */ */ */;
 

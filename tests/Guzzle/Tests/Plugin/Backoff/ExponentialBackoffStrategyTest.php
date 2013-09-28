@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\Exponenti
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\ExponentialBackoffStrategy
  */
-class ExponentialBackoffStrategyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class ExponentialBackoffStrategyTest extends \PHPUnit_Framework_TestCase
 {
     public function testRetriesWithExponentialDelay()
     {

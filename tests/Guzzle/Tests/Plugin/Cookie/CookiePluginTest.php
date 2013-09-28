@@ -13,7 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookiePlug
  * @group server
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookiePlugin
  */
-class CookiePluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class CookiePluginTest extends \PHPUnit_Framework_TestCase
 {
     public function testExtractsAndStoresCookies()
     {

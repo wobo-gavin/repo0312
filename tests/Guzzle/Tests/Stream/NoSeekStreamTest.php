@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\NoSeekStream;
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\NoSeekStream
  */
-class NoSeekStreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class NoSeekStreamTest extends \PHPUnit_Framework_TestCase
 {
     public function testCannotSeek()
     {

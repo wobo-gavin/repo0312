@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\LimitStream;
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\LimitStream
  */
-class LimitStreamTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class LimitStreamTest extends \PHPUnit_Framework_TestCase
 {
     /** @var LimitStream */
     protected $body;

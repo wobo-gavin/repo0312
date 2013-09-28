@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\LinearBac
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff\LinearBackoffStrategy
  */
-class LinearBackoffStrategyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class LinearBackoffStrategyTest extends \PHPUnit_Framework_TestCase
 {
     public function testRetriesWithLinearDelay()
     {

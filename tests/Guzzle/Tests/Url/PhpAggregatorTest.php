@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\PhpAggregator;
  * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\PhpAggregator
  * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\AbstractAggregator
  */
-class PhpAggregatorTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class PhpAggregatorTest extends \PHPUnit_Framework_TestCase
 {
     private $encodeData = [
         't' => [

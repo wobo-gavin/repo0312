@@ -10,7 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client;
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Md5\CommandContentMd5Plugin
  */
-class CommandContentMd5PluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class CommandContentMd5PluginTest extends \PHPUnit_Framework_TestCase
 {
     protected function getClient()
     {

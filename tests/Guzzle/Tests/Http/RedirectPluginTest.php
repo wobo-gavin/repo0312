@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Plugin\Redirect;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody;
+
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\RedirectPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\TooManyRedirectsException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\History\HistoryPlugin;
@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\History\HistoryPl
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\RedirectPlugin
  */
-class RedirectPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class RedirectPluginTest extends \PHPUnit_Framework_TestCase
 {
     public function testRedirectsRequests()
     {

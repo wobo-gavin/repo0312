@@ -12,7 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CurlExcep
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin
  */
-class MockPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class MockPluginTest extends \PHPUnit_Framework_TestCase
 {
     public function testDescribesSubscribedEvents()
     {

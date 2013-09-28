@@ -13,7 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Async\AsyncPlugin
  */
-class AsyncPluginTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class AsyncPluginTest extends \PHPUnit_Framework_TestCase
 {
     public function testSubscribesToEvents()
     {

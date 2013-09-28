@@ -13,7 +13,7 @@ class AbstractHasDispatcher implements HasDispatcherInterface
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait
  */
-class HasDispatcherTraitTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class HasDispatcherTraitTest extends \PHPUnit_Framework_TestCase
 {
     public function testHelperAttachesSubscribers()
     {

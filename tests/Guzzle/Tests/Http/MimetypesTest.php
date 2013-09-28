@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes
  */
-class MimetypesTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
+class MimetypesTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetsFromExtension()
     {
