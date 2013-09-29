@@ -3,10 +3,11 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Plugin\Redirect;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
-
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\RedirectPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\TooManyRedirectsException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\History\HistoryPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\RedirectPlugin
@@ -15,83 +16,66 @@ class RedirectPluginTest extends \PHPUnit_Framework_TestCase
 {
     public function testRedirectsRequests()
     {
-        // Flush the server and queue up a redirect followed by a successful response
-        $this->getServer()->flush();
-        $this->getServer()->enqueue(array(
+        $mock = new MockPlugin();
+        $history = new HistoryPlugin();
+        $mock->addMultiple([
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect1\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect2\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
-        ));
+        ]);
 
-        // Create a /* Replaced /* Replaced /* Replaced client */ */ */ that uses the default redirect behavior
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $history = new HistoryPlugin();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($history);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($history);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($mock);
 
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo');
-        $response = $request->send();
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo');
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertContains('/redirect2', $response->getEffectiveUrl());
 
         // Ensure that two requests were sent
-        $requests = $this->getServer()->getReceivedRequests(true);
-        $this->assertEquals('/foo', $requests[0]->getResource());
+        $requests = $history->getRequests();
+
+        $this->assertEquals('/foo', $requests[0]->getPath());
         $this->assertEquals('GET', $requests[0]->getMethod());
-        $this->assertEquals('/redirect1', $requests[1]->getResource());
+        $this->assertEquals('/redirect1', $requests[1]->getPath());
         $this->assertEquals('GET', $requests[1]->getMethod());
-        $this->assertEquals('/redirect2', $requests[2]->getResource());
+        $this->assertEquals('/redirect2', $requests[2]->getPath());
         $this->assertEquals('GET', $requests[2]->getMethod());
-
-        // Ensure that the redirect count was incremented
-        $this->assertEquals(2, $request->getParams()->get(RedirectPlugin::REDIRECT_COUNT));
-        $this->assertCount(3, $history);
-        $requestHistory = $history->getAll();
-
-        $this->assertEquals(301, $requestHistory[0]['response']->getStatusCode());
-        $this->assertEquals('/redirect1', (string) $requestHistory[0]['response']->getHeader('Location'));
-        $this->assertEquals(301, $requestHistory[1]['response']->getStatusCode());
-        $this->assertEquals('/redirect2', (string) $requestHistory[1]['response']->getHeader('Location'));
-        $this->assertEquals(200, $requestHistory[2]['response']->getStatusCode());
     }
 
+    /**
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\TooManyRedirectsException
+     * @expectedExceptionMessage Will not follow more than
+     */
     public function testCanLimitNumberOfRedirects()
     {
-        // Flush the server and queue up a redirect followed by a successful response
-        $this->getServer()->flush();
-        $this->getServer()->enqueue(array(
+        $mock = new MockPlugin([
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect1\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect2\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect3\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect4\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect5\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect6\r\nContent-Length: 0\r\n\r\n"
-        ));
-
-        try {
-            $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-            $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo')->send();
-            $this->fail('Did not throw expected exception');
-        } catch (TooManyRedirectsException $e) {
-            $this->assertContains(
-                "5 redirects were issued for this request:\nGET /foo HTTP/1.1\r\n",
-                $e->getMessage()
-            );
-        }
+        ]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://www.example.com/foo');
     }
 
     public function testDefaultBehaviorIsToRedirectWithGetForEntityEnclosingRequests()
     {
-        $this->getServer()->flush();
-        $this->getServer()->enqueue(array(
+        $h = new HistoryPlugin();
+        $mock = new MockPlugin([
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
-        ));
+        ]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://test.com/foo', ['X-Baz' => 'bar'], 'testing');
 
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $/* Replaced /* Replaced /* Replaced client */ */ */->post('/foo', array('X-Baz' => 'bar'), 'testing')->send();
-
-        $requests = $this->getServer()->getReceivedRequests(true);
+        $requests = $h->getRequests();
         $this->assertEquals('POST', $requests[0]->getMethod());
         $this->assertEquals('GET', $requests[1]->getMethod());
         $this->assertEquals('bar', (string) $requests[1]->getHeader('X-Baz'));
@@ -100,19 +84,18 @@ class RedirectPluginTest extends \PHPUnit_Framework_TestCase
 
     public function testCanRedirectWithStrictRfcCompliance()
     {
-        $this->getServer()->flush();
-        $this->getServer()->enqueue(array(
+        $h = new HistoryPlugin();
+        $mock = new MockPlugin([
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
-        ));
+        ]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->post('/foo', ['X-Baz' => 'bar'], 'testing', ['allow_redirects' => 'strict']);
 
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->post('/foo', array('X-Baz' => 'bar'), 'testing');
-        $request->getParams()->set(RedirectPlugin::STRICT_REDIRECTS, true);
-        $request->send();
-
-        $requests = $this->getServer()->getReceivedRequests(true);
+        $requests = $h->getRequests();
         $this->assertEquals('POST', $requests[0]->getMethod());
         $this->assertEquals('POST', $requests[1]->getMethod());
         $this->assertEquals('bar', (string) $requests[1]->getHeader('X-Baz'));
@@ -121,107 +104,87 @@ class RedirectPluginTest extends \PHPUnit_Framework_TestCase
 
     public function testRewindsStreamWhenRedirectingIfNeeded()
     {
-        $this->getServer()->flush();
-        $this->getServer()->enqueue(array(
+        $h = new HistoryPlugin();
+        $mock = new MockPlugin([
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
-        ));
+        ]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($h);
 
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put();
-        $request->configureRedirects(true);
-        $body = EntityBody::factory('foo');
-        $body->read(1);
-        $request->setBody($body);
-        $request->send();
-        $requests = $this->getServer()->getReceivedRequests(true);
-        $this->assertEquals('foo', (string) $requests[0]->getBody());
+        $body = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface')
+            ->setMethods(['seek', 'read', 'eof', 'tell'])
+            ->getMockForAbstractClass();
+        $body->expects($this->once())->method('tell')->will($this->returnValue(1));
+        $body->expects($this->once())->method('seek')->will($this->returnValue(true));
+        $body->expects($this->any())->method('eof')->will($this->returnValue(true));
+        $body->expects($this->any())->method('read')->will($this->returnValue('foo'));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->post('/foo', [], $body, ['allow_redirects' => 'strict']);
     }
 
     /**
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CouldNotRewindStreamException
+     * @expectedExceptionMessage Unable to rewind the non-seekable entity body of the request after redirecting
      */
     public function testThrowsExceptionWhenStreamCannotBeRewound()
     {
-        $this->getServer()->flush();
-        $this->getServer()->enqueue(array(
-            "HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nhi",
-            "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect\r\nContent-Length: 0\r\n\r\n"
-        ));
+        $h = new HistoryPlugin();
+        $mock = new MockPlugin([
+            "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
+        ]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($h);
 
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put();
-        $request->configureRedirects(true);
-        $body = EntityBody::factory(fopen($this->getServer()->getUrl(), 'r'));
-        $body->read(1);
-        $request->setBody($body)->send();
+        $body = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface')
+            ->setMethods(['seek', 'read', 'eof', 'tell'])
+            ->getMockForAbstractClass();
+        $body->expects($this->once())->method('tell')->will($this->returnValue(1));
+        $body->expects($this->once())->method('seek')->will($this->returnValue(false));
+        $body->expects($this->any())->method('eof')->will($this->returnValue(true));
+        $body->expects($this->any())->method('read')->will($this->returnValue('foo'));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->post('/foo', [], $body, ['allow_redirects' => 'strict']);
     }
 
     public function testRedirectsCanBeDisabledPerRequest()
     {
-        $this->getServer()->flush();
-        $this->getServer()->enqueue(array("HTTP/1.1 301 Foo\r\nLocation: /foo\r\nContent-Length: 0\r\n\r\n"));
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->put();
-        $request->configureRedirects(false, 0);
-        $this->assertEquals(301, $request->send()->getStatusCode());
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin([
+            "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
+        ]));
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', [], 'test', ['allow_redirects' => false]);
+        $this->assertEquals(301, $response->getStatusCode());
     }
 
     public function testCanRedirectWithNoLeadingSlashAndQuery()
     {
-        $this->getServer()->flush();
-        $this->getServer()->enqueue(array(
+        $h = new HistoryPlugin();
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://www.foo.com']);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin([
             "HTTP/1.1 301 Moved Permanently\r\nLocation: redirect?foo=bar\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
-        ));
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('?foo=bar');
-        $request->send();
-        $requests = $this->getServer()->getReceivedRequests(true);
-        $this->assertEquals($this->getServer()->getUrl() . '?foo=bar', $requests[0]->getUrl());
-        $this->assertEquals($this->getServer()->getUrl() . 'redirect?foo=bar', $requests[1]->getUrl());
-        // Ensure that the history on the actual request is correct
-        $this->assertEquals($this->getServer()->getUrl() . '?foo=bar', $request->getUrl());
-    }
-
-    public function testResetsHistoryEachSend()
-    {
-        // Flush the server and queue up a redirect followed by a successful response
-        $this->getServer()->flush();
-        $this->getServer()->enqueue(array(
-            "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect1\r\nContent-Length: 0\r\n\r\n",
-            "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect2\r\nContent-Length: 0\r\n\r\n",
-            "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
-            "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
-        ));
-
-        // Create a /* Replaced /* Replaced /* Replaced client */ */ */ that uses the default redirect behavior
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $history = new HistoryPlugin();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($history);
-
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo');
-        $response = $request->send();
-        $this->assertEquals(3, count($history));
-        $this->assertTrue($request->getParams()->hasKey('redirect.count'));
-        $this->assertContains('/redirect2', $response->getEffectiveUrl());
-
-        $request->send();
-        $this->assertFalse($request->getParams()->hasKey('redirect.count'));
+        ]));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('?foo=bar');
+        $requests = $h->getRequests();
+        $this->assertEquals('http://www.foo.com?foo=bar', $requests[0]->getUrl());
+        $this->assertEquals('http://www.foo.com/redirect?foo=bar', $requests[1]->getUrl());
     }
 
     public function testHandlesRedirectsWithSpacesProperly()
     {
-        // Flush the server and queue up a redirect followed by a successful response
-        $this->getServer()->flush();
-        $this->getServer()->enqueue(array(
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://www.foo.com']);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin([
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect 1\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
-        ));
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo');
-        $request->send();
-        $reqs = $this->getServer()->getReceivedRequests(true);
+        ]));
+        $h = new HistoryPlugin();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo');
+        $reqs = $h->getRequests();
         $this->assertEquals('/redirect%201', $reqs[1]->getResource());
     }
 }

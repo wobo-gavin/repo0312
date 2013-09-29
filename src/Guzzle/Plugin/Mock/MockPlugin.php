@@ -3,9 +3,11 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\GotResponseHeadersEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -44,7 +46,11 @@ class MockPlugin implements EventSubscriberInterface, \Countable
             $item = array_shift($this->queue);
             $request = $event->getRequest();
             // Emulate the receiving of the response headers
-            $request->dispatch(RequestEvents::GOT_HEADERS, ['request' => $request, 'response' => $item]);
+            $transaction = new Transaction($event->getClient(), $request);
+            $request->getEventDispatcher()->dispatch(
+                RequestEvents::RESPONSE_HEADERS,
+                new GotResponseHeadersEvent($transaction)
+            );
             // Emulate reading a response body
             if ($item instanceof ResponseInterface && $this->readBodies && $request->getBody()) {
                 while (!$request->getBody()->eof()) {

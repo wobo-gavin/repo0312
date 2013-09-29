@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\TransactionInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderCollection;
 
 /**
  * Event object emitted after the response headers of a request have been received
@@ -29,15 +28,5 @@ class GotResponseHeadersEvent extends AbstractRequestEvent
     public function getResponse()
     {
         return $this->getTransaction()->getResponse();
-    }
-
-    /**
-     * Get the received headers
-     *
-     * @return HeaderCollection
-     */
-    public function getHeaders()
-    {
-        return $this->getResponse()->getHeaders();
     }
 }
