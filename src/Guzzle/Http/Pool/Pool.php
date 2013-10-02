@@ -27,6 +27,7 @@ class Pool implements PoolInterface
     public function send($requests)
     {
         $queue = [];
+        /* @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface $request */
         foreach ($requests as $request) {
             $request->getConfig()['future'] = true;
             $response = $this->/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
@@ -56,6 +57,7 @@ class Pool implements PoolInterface
     private function sendQueue(array $responses)
     {
         $adapters = new \SplObjectStorage();
+        /* @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\FutureResponseInterface $future */
         foreach ($responses as $future) {
             $adapter = $future->getAdapter();
             if (!isset($adapters[$adapter])) {
