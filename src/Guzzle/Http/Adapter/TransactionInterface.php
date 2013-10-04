@@ -6,6 +6,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 
+/**
+ * Represents a transactions that consists of a request, response, and /* Replaced /* Replaced /* Replaced client */ */ */
+ */
 interface TransactionInterface
 {
     /**
