@@ -5,7 +5,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\TransactionInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 
 abstract class AbstractRequestEvent extends Event
@@ -50,23 +49,12 @@ abstract class AbstractRequestEvent extends Event
     }
 
     /**
-     * Emit an error event
-     */
-    protected function emitError(RequestException $exception)
-    {
-        $this->transaction->getRequest()->getEventDispatcher()->dispatch(
-            'request.error',
-            new RequestErrorEvent($this->transaction, $exception)
-        );
-    }
-
-    /**
      * Emit an after_send event
      */
     protected function emitAfterSend()
     {
         $this->transaction->getRequest()->getEventDispatcher()->dispatch(
-            'request.after_send',
+            RequestEvents::AFTER_SEND,
             new RequestAfterSendEvent($this->transaction)
         );
     }

@@ -8,6 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ClientEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client
@@ -258,5 +259,56 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertSame($response2, $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com'));
         $this->assertEquals('http://test.com', $response2->getEffectiveUrl());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage No response
+     */
+    public function testEnsuresResponseIsPresentAfterSending()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener(RequestEvents::BEFORE_SEND, function ($e) {
+            $e->stopPropagation();
+        });
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
+    }
+
+    public function testClientHandlesErrorsDuringBeforeSend()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener(RequestEvents::BEFORE_SEND, function ($e) {
+            throw new RequestException('foo', $e->getRequest());
+        });
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener(RequestEvents::ERROR, function ($e) {
+            $e->intercept(new Response(200));
+        });
+        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get('/')->getStatusCode());
+    }
+
+    /**
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException
+     * @expectedExceptionMessage foo
+     */
+    public function testClientHandlesErrorsDuringBeforeSendAndThrowsIfUnhandled()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener(RequestEvents::BEFORE_SEND, function ($e) {
+            throw new RequestException('foo', $e->getRequest());
+        });
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
+    }
+
+    /**
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException
+     * @expectedExceptionMessage foo
+     */
+    public function testClientHandlesErrorsDuringBeforeSendAndThrowsIfUnhandledAndWrapsThem()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener(RequestEvents::BEFORE_SEND, function ($e) {
+            throw new \Exception('foo');
+        });
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
     }
 }

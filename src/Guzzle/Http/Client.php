@@ -4,8 +4,12 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\TransactionInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ClientCreateRequestEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ClientEvents;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\FutureResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\AdapterInterface;
@@ -19,7 +23,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFact
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\UriTemplate;
 
 /**
  * HTTP /* Replaced /* Replaced /* Replaced client */ */ */
@@ -187,21 +190,47 @@ class Client implements ClientInterface
     public function send(RequestInterface $request)
     {
         $transaction = new Transaction($this, $request, $this->messageFactory);
+        $send = false;
 
-        if (!$request->getEventDispatcher()->dispatch(
-            'request.before_send',
-            new RequestBeforeSendEvent($transaction)
-        )->isPropagationStopped()) {
+        try {
+            $send = !$request->getEventDispatcher()->dispatch(
+                RequestEvents::BEFORE_SEND,
+                new RequestBeforeSendEvent($transaction)
+            )->isPropagationStopped();
+        } catch (\Exception $e) {
+            $this->handleSendError($e, $request, $transaction);
+        }
+
+        if ($send) {
             $this->adapter->send($transaction);
         }
 
-        $response = $transaction->getResponse();
-
-        if (!($response instanceof FutureResponseInterface) && !$response->getEffectiveUrl()) {
+        if (!($response = $transaction->getResponse())) {
+            throw new \RuntimeException('No response was associated with the transaction');
+        } elseif (!($response instanceof FutureResponseInterface) && !$response->getEffectiveUrl()) {
             $response->setEffectiveUrl($request->getUrl());
         }
 
         return $response;
+    }
+
+    /**
+     * Handle a /* Replaced /* Replaced /* Replaced client */ */ */ error
+     */
+    private function handleSendError(\Exception $e, RequestInterface $request, TransactionInterface $transaction)
+    {
+        // Convert non-request exception to a wrapped exception
+        if (!($e instanceof RequestException)) {
+            $e = new RequestException($e->getMessage(), $request, null, $e);
+        }
+
+        // Dispatch an event and allow interception
+        if (!$transaction->getRequest()->getEventDispatcher()->dispatch(
+            RequestEvents::ERROR,
+            new RequestErrorEvent($transaction, $e)
+        )->isPropagationStopped()) {
+            throw $e;
+        }
     }
 
     /**
