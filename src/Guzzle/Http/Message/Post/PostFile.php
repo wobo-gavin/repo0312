@@ -5,6 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\HasHeadersTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\MetadataStreamInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 
 /**
@@ -27,7 +28,9 @@ class PostFile implements PostFileInterface
      */
     public static function create($name, $data)
     {
-        return $data instanceof self ? $data : new self($name, $data);
+        return $data instanceof PostFileInterface
+            ? $data
+            : new self($name, Stream::factory($data));
     }
 
     /**

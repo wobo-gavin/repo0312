@@ -4,6 +4,9 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Message
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\HeaderValues;
 
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\HeaderValues
+ */
 class HeaderValuesTest extends \PHPUnit_Framework_TestCase
 {
     public function testCanSetInConstructor()
