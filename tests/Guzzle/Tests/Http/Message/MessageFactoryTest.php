@@ -6,7 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\RedirectPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\Redirect;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 
@@ -122,13 +122,13 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCanEnableStrictRedirects()
     {
         $request = (new MessageFactory)->createRequest('GET', '/', [], null, ['allow_redirects' => 'strict']);
-        $this->assertTrue($request->getConfig()->get(RedirectPlugin::STRICT_REDIRECTS));
+        $this->assertTrue($request->getConfig()->get(Redirect::STRICT_REDIRECTS));
     }
 
     public function testCanEnableStrictRedirectsWithInt()
     {
         $request = (new MessageFactory)->createRequest('GET', '/', [], null, ['allow_redirects' => 10]);
-        $this->assertEquals(10, $request->getConfig()->get(RedirectPlugin::MAX_REDIRECTS));
+        $this->assertEquals(10, $request->getConfig()->get(Redirect::MAX_REDIRECTS));
     }
 
     public function testCanAddCookies()

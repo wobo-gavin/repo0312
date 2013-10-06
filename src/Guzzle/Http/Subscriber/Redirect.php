@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\TooManyRedirectsException;
@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Plugin to implement HTTP redirects. Can redirect like a web browser or using strict RFC 2616 compliance
  */
-class RedirectPlugin implements EventSubscriberInterface
+class Redirect implements EventSubscriberInterface
 {
     const STRICT_REDIRECTS = 'strict_redirects';
     const MAX_REDIRECTS = 'max_redirects';

@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\PrepareRequestBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 
@@ -187,7 +188,7 @@ class Request implements RequestInterface
     {
         static $subscriber;
         if (!$subscriber) {
-            $subscriber = new PrepareRequestBodySubscriber();
+            $subscriber = new PrepareRequestBody();
         }
 
         $this->getEventDispatcher()->addSubscriber($subscriber);
