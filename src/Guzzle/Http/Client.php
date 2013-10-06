@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ClientCreateRequestEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ClientEvents;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\FutureResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\AdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\FutureProxyAdapter;
@@ -195,7 +196,8 @@ class Client implements ClientInterface
         }
 
         $response = $transaction->getResponse();
-        if (!$response->getEffectiveUrl()) {
+
+        if (!($response instanceof FutureResponseInterface) && !$response->getEffectiveUrl()) {
             $response->setEffectiveUrl($request->getUrl());
         }
 
