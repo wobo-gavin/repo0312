@@ -1,6 +1,7 @@
 <?php
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Message;
+
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use Symfony\Component\EventDispatcher\EventDispatcher;
