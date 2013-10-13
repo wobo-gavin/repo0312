@@ -2,13 +2,30 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Adapter;
 
+require_once __DIR__ . '/../Server.php';
+
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\StreamAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\StreamAdapter
  */
 class StreamAdapterTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server */
+    static $server;
+
+    public static function setUpBeforeClass()
+    {
+        self::$server = new Server();
+        self::$server->start();
+    }
+
+    public static function tearDownAfterClass()
+    {
+        self::$server->stop();
+    }
+
     public function testReturnsResponseForSuccessfulRequest()
     {
 
