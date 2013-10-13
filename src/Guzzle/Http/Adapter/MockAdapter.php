@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
 
@@ -37,7 +38,7 @@ class MockAdapter implements AdapterInterface
                 RequestEvents::AFTER_SEND,
                 new RequestAfterSendEvent($transaction)
             );
-        } catch (\Exception $e) {
+        } catch (RequestException $e) {
             if (!$transaction->getRequest()->getEventDispatcher()->dispatch(
                 RequestEvents::ERROR,
                 new RequestErrorEvent($transaction, $e)
