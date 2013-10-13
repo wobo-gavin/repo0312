@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\AdapterInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\TransactionInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 
 class FutureResponse implements FutureResponseInterface
@@ -12,7 +12,7 @@ class FutureResponse implements FutureResponseInterface
     private $transaction;
     private $response;
 
-    public function __construct(Transaction $transaction, AdapterInterface $adapter)
+    public function __construct(TransactionInterface $transaction, AdapterInterface $adapter)
     {
         $this->transaction = $transaction;
         $this->adapter = $adapter;

@@ -267,10 +267,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testEnsuresResponseIsPresentAfterSending()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener(RequestEvents::BEFORE_SEND, function ($e) {
-            $e->stopPropagation();
-        });
+        $adapter = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\MockAdapter')
+            ->setMethods(['send'])
+            ->getMock();
+        $adapter->expects($this->once())
+            ->method('send');
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
     }
 
