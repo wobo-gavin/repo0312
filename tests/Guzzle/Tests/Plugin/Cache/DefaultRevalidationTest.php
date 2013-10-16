@@ -211,4 +211,36 @@ class DefaultRevalidationTest extends \/* Replaced /* Replaced /* Replaced Guzzl
         $this->assertEquals('HIT from /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache', (string) $response->getHeader('X-Cache-Lookup'));
         $this->assertEquals('HIT_ERROR from /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache', (string) $response->getHeader('X-Cache'));
     }
+
+    /**
+     * @group issue-437
+     */
+    public function testDoesNotTouchClosureListeners()
+    {
+        $this->getServer()->flush();
+        $this->getServer()->enqueue(array(
+            "HTTP/1.1 200 OK\r\n" .
+            "Date: Mon, 12 Nov 2012 03:06:37 GMT\r\n" .
+            "Cache-Control: private, s-maxage=0, max-age=0, must-revalidate\r\n" .
+            "Last-Modified: Mon, 12 Nov 2012 02:53:38 GMT\r\n" .
+            "Content-Length: 2\r\n\r\nhi",
+            "HTTP/1.0 304 Not Modified\r\n" .
+            "Date: Mon, 12 Nov 2012 03:06:38 GMT\r\n" .
+            "Content-Type: text/html; charset=UTF-8\r\n" .
+            "Last-Modified: Mon, 12 Nov 2012 02:53:38 GMT\r\n" .
+            "Age: 6302\r\n\r\n",
+            "HTTP/1.0 304 Not Modified\r\n" .
+            "Date: Mon, 12 Nov 2012 03:06:38 GMT\r\n" .
+            "Content-Type: text/html; charset=UTF-8\r\n" .
+            "Last-Modified: Mon, 12 Nov 2012 02:53:38 GMT\r\n" .
+            "Age: 6302\r\n\r\n",
+        ));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber(new CachePlugin());
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener('command.after_send', function(){});
+        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send()->getStatusCode());
+        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send()->getStatusCode());
+        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get()->send()->getStatusCode());
+    }
+
 }
