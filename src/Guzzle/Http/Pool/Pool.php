@@ -6,7 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\BatchAdapte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\FutureResponseInterface;
 
-class Pool implements PoolInterface
+class Pool implements IterablePoolInterface
 {
     /** @var ClientInterface Client used to send requests */
     private $/* Replaced /* Replaced /* Replaced client */ */ */;
