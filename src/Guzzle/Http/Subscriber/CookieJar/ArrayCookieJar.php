@@ -1,11 +1,9 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookieJar;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\SetCookie;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\Exception\InvalidCookieException;
 
 /**
  * Cookie cookieJar that stores cookies an an array
@@ -90,7 +88,7 @@ class ArrayCookieJar implements CookieJarInterface, \Serializable
         $result = $cookie->validate();
         if ($result !== true) {
             if ($this->strictMode) {
-                throw new InvalidCookieException($result);
+                throw new \RuntimeException('Invalid cookie: ' . $result);
             } else {
                 return false;
             }
@@ -182,12 +180,14 @@ class ArrayCookieJar implements CookieJarInterface, \Serializable
         return new \ArrayIterator($this->cookies);
     }
 
-    public function addCookiesFromResponse(ResponseInterface $response, RequestInterface $request = null)
+    public function addCookiesFromResponse(RequestInterface $request, ResponseInterface $response)
     {
         if ($cookieHeader = $response->getHeader('Set-Cookie')) {
             foreach ($cookieHeader as $cookie) {
                 $sc = SetCookie::fromString($cookie);
-                $sc->setDomain($request->getHost());
+                if (!$sc->getDomain()) {
+                    $sc->setDomain($request->getHost());
+                }
                 $this->add($sc);
             }
         }

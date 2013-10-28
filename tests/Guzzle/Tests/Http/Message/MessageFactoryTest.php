@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\Redirect;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Mock\MockPlugin;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\Mock;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 
 /**
@@ -180,7 +180,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $foo = null;
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin([new Response(200)]));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new Mock([new Response(200)]));
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [], [
             'events' => [
                 RequestEvents::BEFORE_SEND => function () use (&$foo) { $foo = true; }
@@ -193,7 +193,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $foo = null;
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new MockPlugin(array(new Response(200))));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber(new Mock(array(new Response(200))));
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [], [
             'events' => [
                 RequestEvents::BEFORE_SEND => array(function () use (&$foo) { $foo = true; }, 100)
@@ -204,7 +204,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCanAddPlugins()
     {
-        $mock = new MockPlugin([new Response(200)]);
+        $mock = new Mock([new Response(200)]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($mock);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [], ['plugins' => [$mock]]);
@@ -214,7 +214,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertEquals(500, $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [], [
-            'plugins' => [new MockPlugin([new Response(500)])],
+            'plugins' => [new Mock([new Response(500)])],
             'exceptions' => false
         ])->getStatusCode());
     }

@@ -1,17 +1,17 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookieJar\ArrayCookieJar;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cookie\CookieJar\CookieJarInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar\ArrayCookieJar;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar\CookieJarInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Adds, extracts, and persists cookies between HTTP requests
  */
-class CookiePlugin implements EventSubscriberInterface
+class Cookie implements EventSubscriberInterface
 {
     /** @var CookieJarInterface Cookie cookieJar used to hold cookies */
     protected $cookieJar;
@@ -58,7 +58,7 @@ class CookiePlugin implements EventSubscriberInterface
 
     public function onRequestSent(RequestAfterSendEvent $event)
     {
-        $this->cookieJar->addCookiesFromResponse($event->getResponse(), $event->getRequest());
+        $this->cookieJar->addCookiesFromResponse($event->getRequest(), $event->getResponse());
     }
 
     private function getCookieValue($value)
