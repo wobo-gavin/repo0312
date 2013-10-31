@@ -15,6 +15,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFact
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Server;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl\CurlAdapter
@@ -155,5 +156,15 @@ class CurlAdapterTest extends \PHPUnit_Framework_TestCase
             $this->assertContains('[curl] (#-10) ', $e->getMessage());
             $this->assertContains($request->getUrl(), $e->getMessage());
         }
+    }
+
+    public function testStripsFragmentFromHost()
+    {
+        self::$server->flush();
+        self::$server->enqueue("HTTP/1.1 200 OK\r\n\r\nContent-Length: 0\r\n\r\n");
+        // This will fail if the removal of the #fragment is not performed
+        $url = Url::fromString(self::$server->getUrl())->setPath(null)->setFragment('foo');
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get($url);
     }
 }
