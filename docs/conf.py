@@ -8,10 +8,9 @@ primary_domain = 'php'
 
 # -- General configuration -----------------------------------------------------
 
-extensions = ['sphinx.ext.autodoc']
+extensions = []
 templates_path = ['_templates']
 source_suffix = '.rst'
-#source_encoding = 'utf-8-sig'
 master_doc = 'index'
 
 project = u'/* Replaced /* Replaced /* Replaced Guzzle */ */ */'
@@ -19,8 +18,6 @@ copyright = u'2012, Michael Dowling'
 version = '3.0.0'
 release = '3.0.0'
 
-# List of patterns, relative to source directory, that match files and
-# directories to ignore when looking for source files.
 exclude_patterns = ['_build']
 
 # -- Options for HTML output ---------------------------------------------------
@@ -42,6 +39,24 @@ html_sidebars = {
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */doc'
+
+# -- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Sphinx theme setup ------------------------------------------------
+
+import /* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme
+pygments_style = '/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme./* Replaced /* Replaced /* Replaced Guzzle */ */ */Style'
+html_translator_class = '/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme.HTMLTranslator'
+html_theme_path = /* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme.html_theme_path()
+html_theme = '/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme'
+
+# /* Replaced /* Replaced /* Replaced Guzzle */ */ */ theme options (see theme.conf for more information)
+html_theme_options = {
+    "index_template": "index.html",
+    "project_nav_name": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */",
+    "github_user": "/* Replaced /* Replaced /* Replaced guzzle */ */ */",
+    "github_repo": "/* Replaced /* Replaced /* Replaced guzzle */ */ */",
+    "disqus_comments_shortname": "/* Replaced /* Replaced /* Replaced guzzle */ */ */",
+    "google_analytics_account": "UA-22752917-1"
+}
 
 # -- Options for LaTeX output --------------------------------------------------
 
@@ -76,21 +91,3 @@ texinfo_documents = [
    u'Michael Dowling', '/* Replaced /* Replaced /* Replaced Guzzle */ */ */', 'One line description of project.',
    'Miscellaneous'),
 ]
-
-# -- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Sphinx theme setup ------------------------------------------------
-
-import /* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme
-pygments_style = '/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme./* Replaced /* Replaced /* Replaced Guzzle */ */ */Style'
-html_translator_class = '/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme.HTMLTranslator'
-html_theme_path = /* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme.html_theme_path()
-html_theme = '/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme'
-
-# /* Replaced /* Replaced /* Replaced Guzzle */ */ */ theme options (see theme.conf for more information)
-html_theme_options = {
-    "index_template": "index.html",
-    "project_nav_name": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */",
-    "github_user": "/* Replaced /* Replaced /* Replaced guzzle */ */ */",
-    "github_repo": "/* Replaced /* Replaced /* Replaced guzzle */ */ */",
-    "disqus_comments_shortname": "/* Replaced /* Replaced /* Replaced guzzle */ */ */",
-    "google_analytics_account": "UA-22752917-1"
-}
