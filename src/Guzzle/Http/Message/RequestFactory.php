@@ -305,13 +305,7 @@ class RequestFactory implements RequestFactoryInterface
     protected function visit_debug(RequestInterface $request, $value, $flags)
     {
         if ($value) {
-            if (class_exists('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Log\LogPlugin')) {
-                $request->addSubscriber(LogPlugin::getDebugPlugin());
-            } else {
-                // @codeCoverageIgnoreStart
-                $request->getCurlOptions()->set(CURLOPT_VERBOSE, true);
-                // @codeCoverageIgnoreEnd
-            }
+            $request->getCurlOptions()->set(CURLOPT_VERBOSE, true);
         }
     }
 

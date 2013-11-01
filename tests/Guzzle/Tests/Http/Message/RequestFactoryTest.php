@@ -521,14 +521,7 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), array('debug' => true));
-        $match = false;
-        foreach ($request->getEventDispatcher()->getListeners('request.sent') as $l) {
-            if ($l[0] instanceof LogPlugin) {
-                $match = true;
-                break;
-            }
-        }
-        $this->assertTrue($match);
+        $this->assertTrue($request->getCurlOptions()->get(CURLOPT_VERBOSE));
     }
 
     public function testCanSetVerifyToOff()
