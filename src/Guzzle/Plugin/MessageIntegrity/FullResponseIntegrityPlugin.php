@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\MessageInte
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -68,14 +67,14 @@ class FullResponseIntegrityPlugin implements EventSubscriberInterface
 
         $result = base64_encode($this->hash->complete());
         if ($hash !== $result) {
-            $event->intercept(new MessageIntegrityException(
+            throw new MessageIntegrityException(
                 sprintf(
                     '%s message integrity check failure. Expected "%s" but got "%s"',
                     $this->header, $hash, $result
                 ),
                 $event->getRequest(),
                 $event->getResponse()
-            ));
+            );
         }
     }
 }
