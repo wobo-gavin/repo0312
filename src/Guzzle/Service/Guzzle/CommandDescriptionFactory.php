@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\DescriptionInter
 /**
  * Command factory used to create commands based on service descriptions
  */
-class DescriptionFactory implements CommandFactoryInterface
+class CommandDescriptionFactory implements CommandFactoryInterface
 {
     /** @var DescriptionInterface */
     private $description;

@@ -2,11 +2,18 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 
+/**
+ * Default /* Replaced /* Replaced /* Replaced Guzzle */ */ */ service description based /* Replaced /* Replaced /* Replaced client */ */ */
+ */
 class ServiceClient implements ServiceClientInterface
 {
+    use HasDispatcherTrait;
+
     private $/* Replaced /* Replaced /* Replaced client */ */ */;
     private $description;
     private $config;
@@ -21,6 +28,11 @@ class ServiceClient implements ServiceClientInterface
         $this->config = $config;
     }
 
+    public function getHttpClient()
+    {
+        return $this->/* Replaced /* Replaced /* Replaced client */ */ */;
+    }
+
     public function getCommand($name, array $args = [])
     {
         if (!$this->description->hasOperation($name)) {
@@ -30,16 +42,11 @@ class ServiceClient implements ServiceClientInterface
 
     public function execute(CommandInterface $command)
     {
-        $request = $command->getRequest();
-
         try {
-            $response = $this->/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+            $response = $this->/* Replaced /* Replaced /* Replaced client */ */ */->send($command->getRequest());
             return $command->processResponse($response);
         } catch (RequestException $e) {
-            if (!$e->hasResponse()) {
-                throw $e;
-            }
-            // $error = $command->processError($e);
+            return $command->processError($e);
             // throw new OperationErrorException($command, $error, $e);
         }
     }

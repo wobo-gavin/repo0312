@@ -2,11 +2,21 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
+
 /**
  * Web service /* Replaced /* Replaced /* Replaced client */ */ */ interface
  */
-interface ServiceClientInterface
+interface ServiceClientInterface extends HasDispatcherInterface
 {
+    /**
+     * Get the HTTP /* Replaced /* Replaced /* Replaced client */ */ */ used to send requests for the web service /* Replaced /* Replaced /* Replaced client */ */ */
+     *
+     * @return ClientInterface
+     */
+    public function getHttpClient();
+
     /**
      * Get a command by name. First, the /* Replaced /* Replaced /* Replaced client */ */ */ will see if it has a service
      * description and if the service description defines a command by the
