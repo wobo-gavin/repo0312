@@ -3,18 +3,19 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDataTrait;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\CommandInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\OperationInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 
 class Command implements CommandInterface
 {
     use HasDataTrait;
+    use HasDispatcherTrait;
 
     protected $operation;
-    protected $request;
     protected $serializer;
+    protected $request;
+    protected $response;
+    protected $result;
 
     public function __construct(array $args)
     {
@@ -29,24 +30,30 @@ class Command implements CommandInterface
 
     public function getRequest()
     {
-        if (!isset($this['/* Replaced /* Replaced /* Replaced client */ */ */'])) {
-            throw new \RuntimeException('A /* Replaced /* Replaced /* Replaced client */ */ */ must be specified on the command');
-        }
-
         if (!$this->request) {
+            if (!isset($this['/* Replaced /* Replaced /* Replaced client */ */ */'])) {
+                throw new \RuntimeException('A /* Replaced /* Replaced /* Replaced client */ */ */ must be specified on the command');
+            }
             $this->request = $this['/* Replaced /* Replaced /* Replaced client */ */ */']->createRequest('GET', 'https://raw.github.com/aws/aws-sdk-core-ruby/master/apis/CloudFront-2012-05-05.json');
         }
 
         return $this->request;
     }
 
-    public function processResponse(ResponseInterface $response)
+    public function getResponse()
     {
-        return $response->json();
+        return $this->response;
     }
 
-    public function processError(RequestException $e)
+    public function prepare()
     {
-        return $e->getResponse()->json();
+        $this->request = $this->response = null;
+
+        return $this->getRequest();
+    }
+
+    public function getResult()
+    {
+        return $this->result;
     }
 }

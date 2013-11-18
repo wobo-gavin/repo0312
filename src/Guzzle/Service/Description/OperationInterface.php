@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description;
 
 /**
  * Interface defining data objects that hold the information of an API operation

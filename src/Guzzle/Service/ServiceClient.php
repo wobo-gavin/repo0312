@@ -4,8 +4,9 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\DescriptionInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\CommandDescriptionFactory;
 
 /**
  * Default /* Replaced /* Replaced /* Replaced Guzzle */ */ */ service description based /* Replaced /* Replaced /* Replaced client */ */ */
@@ -17,6 +18,7 @@ class ServiceClient implements ServiceClientInterface
     private $/* Replaced /* Replaced /* Replaced client */ */ */;
     private $description;
     private $config;
+    private $commandFactory;
 
     public function __construct(
         ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */,
@@ -26,6 +28,9 @@ class ServiceClient implements ServiceClientInterface
         $this->/* Replaced /* Replaced /* Replaced client */ */ */ = $/* Replaced /* Replaced /* Replaced client */ */ */;
         $this->description = $description;
         $this->config = $config;
+        $this->commandFactory = isset($config['command_factory'])
+            ? $config['command_factory']
+            : new CommandDescriptionFactory($this->description);
     }
 
     public function getHttpClient()
@@ -42,13 +47,9 @@ class ServiceClient implements ServiceClientInterface
 
     public function execute(CommandInterface $command)
     {
-        try {
-            $response = $this->/* Replaced /* Replaced /* Replaced client */ */ */->send($command->getRequest());
-            return $command->processResponse($response);
-        } catch (RequestException $e) {
-            return $command->processError($e);
-            // throw new OperationErrorException($command, $error, $e);
-        }
+        $this->getHttpClient()->send($command->getRequest());
+
+        return $command->getResult();
     }
 
     public function getDescription()

@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command;
 
 /**
  * Interface for creating commands by name

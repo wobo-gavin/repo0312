@@ -2,8 +2,8 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\CommandFactoryInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\DescriptionInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandFactoryInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\DescriptionInterface;
 
 /**
  * Command factory used to create commands based on service descriptions

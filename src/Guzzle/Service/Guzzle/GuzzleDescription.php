@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\DescriptionInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\DescriptionInterface;
 
 class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Description implements DescriptionInterface
 {

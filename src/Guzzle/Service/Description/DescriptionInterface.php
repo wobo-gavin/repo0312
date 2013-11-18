@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description;
 
 /**
  * A ServiceDescription stores service information based on a service document

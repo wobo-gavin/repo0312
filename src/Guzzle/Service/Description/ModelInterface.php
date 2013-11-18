@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ToArrayInterface;
 
