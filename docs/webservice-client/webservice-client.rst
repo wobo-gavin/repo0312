@@ -587,13 +587,18 @@ A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client`` object 
 | /* Replaced /* Replaced /* Replaced client */ */ */.command.create        | The /* Replaced /* Replaced /* Replaced client */ */ */ created a command object        | * /* Replaced /* Replaced /* Replaced client */ */ */: Client object                  |
 |                              |                                            | * command: Command object                |
 +------------------------------+--------------------------------------------+------------------------------------------+
-| command.before_prepare       | The /* Replaced /* Replaced /* Replaced client */ */ */ created a command object        | * command: Command being prepared        |
+| command.before_prepare       | Before a command is validated and built.   | * command: Command being prepared        |
+|                              | This is also before a request is created.  |                                          |
 +------------------------------+--------------------------------------------+------------------------------------------+
-| command.after_prepare        | The /* Replaced /* Replaced /* Replaced client */ */ */ created a command object        | * command: Command that was prepared     |
+| command.after_prepare        | After a command instantiates and           | * command: Command that was prepared     |
+|                              | configures its request object.             |                                          |
 +------------------------------+--------------------------------------------+------------------------------------------+
 | command.before_send          | The /* Replaced /* Replaced /* Replaced client */ */ */ is about to execute a prepared  | * command: Command to execute            |
 |                              | command                                    |                                          |
 +------------------------------+--------------------------------------------+------------------------------------------+
 | command.after_send           | The /* Replaced /* Replaced /* Replaced client */ */ */ successfully completed          | * command: The command that was executed |
 |                              | executing a command                        |                                          |
++------------------------------+--------------------------------------------+------------------------------------------+
+| command.parse_response       | Called when ``responseType`` is ``class``  | * command: The command with a response   |
+|                              | and the response is about to be parsed.    |   about to be parsed.                    |
 +------------------------------+--------------------------------------------+------------------------------------------+
