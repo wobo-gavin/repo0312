@@ -618,7 +618,8 @@ A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client`` object 
 
     // create an event listener that operates on request objects
     $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener('command.after_prepare', function (Event $event) {
-        $request = $event->getRequest();
+        $command = $event['command'];
+        $request = $command->getRequest();
         
         // do something with request
     });
