@@ -10,7 +10,7 @@
 - Service description DSL allows you build awesome web service /* Replaced /* Replaced /* Replaced client */ */ */s faster.
 - Symfony2 event-based plugin system allows you to completely modify the behavior of a request.
 
-Get answers with: [Documentation](http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/), [Forums](https://groups.google.com/forum/?hl=en#!forum//* Replaced /* Replaced /* Replaced guzzle */ */ */), IRC ([#/* Replaced /* Replaced /* Replaced guzzle */ */ */php](irc://irc.freenode.net/#/* Replaced /* Replaced /* Replaced guzzle */ */ */php) @ irc.freenode.net)
+Get answers with: [Documentation](http://docs./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/), [Forums](https://groups.google.com/forum/?hl=en#!forum//* Replaced /* Replaced /* Replaced guzzle */ */ */), IRC ([#/* Replaced /* Replaced /* Replaced guzzle */ */ */php](irc://irc.freenode.net/#/* Replaced /* Replaced /* Replaced guzzle */ */ */php) @ irc.freenode.net)
 
 ```php
 // Really simple using a static facade
