@@ -105,27 +105,28 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask ext
         $this->log('beginning PEAR/PHAR deployment');
 
         chdir($basedir . '/build/pearwork');
-        if (is_dir($basedir . '/build/pearwork//* Replaced /* Replaced /* Replaced guzzle */ */ */.github.com')) {
-            exec('rm -rf /* Replaced /* Replaced /* Replaced guzzle */ */ */.github.com');
+        if (!is_dir('./channel')) {
+            mkdir('./channel');
         }
-        passthru('git clone git@github.com:/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.github.com');
+
+        // Pull the PEAR channel down locally
+        passthru('aws s3 sync s3://pear./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org ./channel');
 
         // add PEAR packages
-        foreach (scandir($basedir . '/build/pearwork') as $file) {
+        foreach (scandir('./') as $file) {
             if (substr($file, -4) == '.tgz') {
-                passthru('pirum add /* Replaced /* Replaced /* Replaced guzzle */ */ */.github.com/pear '.$file);
+                passthru('pirum add ./channel ' . $file);
             }
         }
 
         // if we have a new phar, add it
-        if ($this->getMakephar() && file_exists($basedir.'/build/artifacts//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar')) {
-            rename($basedir.'/build/artifacts//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar', $basedir.'/build/pearwork//* Replaced /* Replaced /* Replaced guzzle */ */ */.github.com//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar');
+        if ($this->getMakephar() && file_exists($basedir . '/build/artifacts//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar')) {
+            rename($basedir . '/build/artifacts//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar', './channel//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar');
         }
 
-        // add and commit
-        chdir($basedir . '/build/pearwork//* Replaced /* Replaced /* Replaced guzzle */ */ */.github.com');
-        passthru('git add --all .');
-        passthru('git commit -m "Pushing PEAR/PHAR release for '.$this->getVersion().'" && git push');
+        // Sync up with the S3 bucket
+        chdir($basedir . '/build/pearwork/channel');
+        passthru('aws s3 sync . s3://pear./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org');
     }
 
     public function buildSinglePackage()
