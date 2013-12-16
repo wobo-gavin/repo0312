@@ -3,10 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
 
 /**
  * Adapter that can be used to associate mock responses with a transaction
@@ -28,23 +25,14 @@ class MockAdapter implements AdapterInterface
 
     public function send(TransactionInterface $transaction)
     {
-        try {
+        RequestEvents::emitBeforeSendEvent($transaction);
+        if (!$transaction->getResponse()) {
             $transaction->setResponse(
                 is_callable($this->response)
                     ? $this->response($transaction)
                     : $this->response
             );
-            $transaction->getRequest()->getEventDispatcher()->dispatch(
-                RequestEvents::AFTER_SEND,
-                new RequestAfterSendEvent($transaction)
-            );
-        } catch (RequestException $e) {
-            if (!$transaction->getRequest()->getEventDispatcher()->dispatch(
-                RequestEvents::ERROR,
-                new RequestErrorEvent($transaction, $e)
-            )->isPropagationStopped()) {
-                throw $e;
-            }
+            RequestEvents::emitAfterSend($transaction);
         }
 
         return $transaction->getResponse();
