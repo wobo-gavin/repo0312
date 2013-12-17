@@ -60,11 +60,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testClientUsesDefaultAdapterWhenNoneIsSet()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('', [], ['future' => true]);
-        $adapter = extension_loaded('curl')
-            ? '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl\CurlAdapter'
-            : '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\StreamAdapter';
-        $this->assertInstanceOf($adapter, $response->getAdapter());
+        if (!extension_loaded('curl')) {
+            $adapter = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\StreamAdapter';
+        } elseif (ini_get('allow_url_fopen')) {
+            $adapter = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\StreamingProxyAdapter';
+        } else {
+            $adapter = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl\CurlAdapter';
+        }
+        $this->assertInstanceOf($adapter, $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'adapter'));
     }
 
     /**
@@ -297,19 +300,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener(RequestEvents::BEFORE_SEND, function ($e) {
             throw new RequestException('foo', $e->getRequest());
-        });
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
-    }
-
-    /**
-     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException
-     * @expectedExceptionMessage foo
-     */
-    public function testClientHandlesErrorsDuringBeforeSendAndThrowsIfUnhandledAndWrapsThem()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener(RequestEvents::BEFORE_SEND, function ($e) {
-            throw new \Exception('foo');
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
     }
