@@ -157,7 +157,7 @@ $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */::get('http:///* 
 
 // Custom options can be passed into requests created by the static /* Replaced /* Replaced /* Replaced client */ */ */
 $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */::post('http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org', [
-    'headers' => ['X-Foo' => 'Bar']
+    'headers' => ['X-Foo' => 'Bar'],
     'body'    => ['Foo' => 'Bar'],
     'query'   => ['Test' => 123],
     'timeout' => 10,
