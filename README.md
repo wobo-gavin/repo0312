@@ -43,8 +43,10 @@ require 'vendor/autoload.php';
 
 ### Installing via phar
 
-[Download the phar](http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar) and include it in your project
-([minimal phar](http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org//* Replaced /* Replaced /* Replaced guzzle */ */ */-min.phar))
+As of the 3.7.4 release, each release of /* Replaced /* Replaced /* Replaced Guzzle */ */ */ includes a "/* Replaced /* Replaced /* Replaced guzzle */ */ */.phar" file that includes all of the files needed to
+run /* Replaced /* Replaced /* Replaced Guzzle */ */ */ and all of /* Replaced /* Replaced /* Replaced Guzzle */ */ */'s dependencies. Simply download the phar and include it in your project.
+
+You can find a list of each release and the available downloads at https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//releases.
 
 Features
 --------
