@@ -7,7 +7,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBodyInterface
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\RedirectPlugin;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Mimetypes;
 
 /**
  * HTTP request that sends an entity-body in the request message (POST, PUT, PATCH, DELETE)
