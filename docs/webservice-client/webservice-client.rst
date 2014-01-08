@@ -620,16 +620,16 @@ A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client`` object 
     $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener('command.after_prepare', function (Event $event) {
         $command = $event['command'];
         $request = $command->getRequest();
-        
+
         // do something with request
     });
-    
+
 .. code-block:: php
-    
+
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Client;
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-    
+
     class EventSubscriber implements EventSubscriberInterface
     {
         public static function getSubscribedEvents()
@@ -639,23 +639,21 @@ A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Client`` object 
                 'command.parse_response' => 'onParseResponse'
             );
         }
-        
+
         public function onCommandCreate(Event $event)
         {
             $/* Replaced /* Replaced /* Replaced client */ */ */ = $event['/* Replaced /* Replaced /* Replaced client */ */ */'];
             $command = $event['command'];
             // operate on /* Replaced /* Replaced /* Replaced client */ */ */ and command
         }
-        
+
         public function onParseResponse(Event $event)
         {
             $command = $event['command'];
             // operate on the command
         }
     }
-    
+
     $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-    
+
     $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber(new EventSubscriber());
-    
-    
