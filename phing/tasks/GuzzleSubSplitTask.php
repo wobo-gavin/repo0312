@@ -226,7 +226,7 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */SubSplitTask extends Gi
         $cmd = $this->/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('subsplit');
         $cmd->addArgument('update');
         try {
-            $output = $cmd->execute();
+            $cmd->execute();
         } catch (Exception $e) {
             throw new BuildException('git subsplit update failed'. $e);
         }
