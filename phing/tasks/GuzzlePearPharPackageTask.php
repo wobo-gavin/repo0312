@@ -13,7 +13,6 @@ require_once 'PEAR/Packager.php';
 
 class /* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask extends Task
 {
-    private $dir;
     private $version;
     private $deploy = true;
     private $makephar = true;
@@ -143,7 +142,7 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask ext
             //'outputdirectory' => (string) $this->basedir . '/build/pearwork/'
         );
         $pfm = new PEAR_PackageFileManager2();
-        $e = $pfm->setOptions($opts);
+        $pfm->setOptions($opts);
         $pfm->addRole('md', 'doc');
         $pfm->addRole('pem', 'php');
         $pfm->setPackage('/* Replaced /* Replaced /* Replaced Guzzle */ */ */');
@@ -204,7 +203,6 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask ext
 
     public function createSubPackages()
     {
-        $version = $this->getVersion();
         $this->findComponents();
 
         foreach ($this->subpackages as $package) {
@@ -228,7 +226,7 @@ class /* Replaced /* Replaced /* Replaced Guzzle */ */ */PearPharPackageTask ext
             'packagefile' => 'package.xml'
         );
         $pfm = new PEAR_PackageFileManager2();
-        $e = $pfm->setOptions($opts);
+        $pfm->setOptions($opts);
         $pfm->setPackage($package);
         $pfm->setSummary($info['description']);
         $pfm->setDescription($info['description']);
