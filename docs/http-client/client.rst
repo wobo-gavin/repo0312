@@ -255,7 +255,7 @@ Headers can be specified on a /* Replaced /* Replaced /* Replaced client */ */ *
 
     .. code-block:: php
 
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/header/X-Foo', 'Bar');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig()->setPath('request.options/headers/X-Foo', 'Bar');
 
 query
 ~~~~~
