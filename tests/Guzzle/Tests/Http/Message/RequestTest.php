@@ -245,7 +245,7 @@ class RequestTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\T
         $request = new Request('GET', 'http://0/0?0');
         $this->assertSame('0', $request->getHost());
         $this->assertSame('/0', $request->getPath());
-        $this->assertSame('0=', $request->getQuery(true));
+        $this->assertSame('0', $request->getQuery(true));
 
         $request = new Request('GET', '0');
         $this->assertEquals('/0', $request->getPath());
