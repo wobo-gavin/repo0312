@@ -7,7 +7,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common;
  */
 class Version
 {
-    const VERSION = '3.8.0';
+    const VERSION = '3.8.1';
 
     /**
      * @var bool Set this value to true to enable warnings for deprecated functionality use. This should be on in your
