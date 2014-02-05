@@ -5,8 +5,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\FakeBatchAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ClientCreateRequestEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ClientEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\BatchAdapterInterface;
@@ -145,11 +143,6 @@ class Client implements ClientInterface
             $headers,
             $body,
             $options
-        );
-
-        $this->getEventDispatcher()->dispatch(
-            ClientEvents::CREATE_REQUEST,
-            new ClientCreateRequestEvent($this, $request, $options)
         );
 
         return $request;
