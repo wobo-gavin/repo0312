@@ -241,19 +241,19 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($foo);
     }
 
-    public function testCanAddPlugins()
+    public function testCanAddSubscribers()
     {
         $mock = new Mock([new Response(200)]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($mock);
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [], ['plugins' => [$mock]]);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [], ['subscribers' => [$mock]]);
     }
 
     public function testCanDisableExceptions()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertEquals(500, $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [], [
-            'plugins' => [new Mock([new Response(500)])],
+            'subscribers' => [new Mock([new Response(500)])],
             'exceptions' => false
         ])->getStatusCode());
     }
@@ -325,7 +325,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
     public function inputValidation()
     {
         return array_map(function ($option) { return array($option); }, array(
-            'headers', 'query', 'auth', 'events', 'plugins', 'params', 'config'
+            'headers', 'query', 'auth', 'events', 'subscribers', 'params', 'config'
         ));
     }
 
