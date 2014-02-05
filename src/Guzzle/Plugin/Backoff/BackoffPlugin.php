@@ -2,7 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Backoff;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\AbstractTransferStatsEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -12,8 +11,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class BackoffPlugin implements EventSubscriberInterface
 {
-    use HasDispatcherTrait;
-
     /** @var RetryFilterInterface */
     protected $filter;
 

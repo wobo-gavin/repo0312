@@ -5,15 +5,14 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\MessageInte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamDecoratorTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInterface;
 
 /**
  * Stream decorator that validates a rolling hash of the entity body as it is read
  * @todo Allow the file pointer to skip around and read bytes randomly
  */
-class ReadIntegrityStream implements StreamInterface, HasDispatcherInterface
+class ReadIntegrityStream implements StreamInterface
 {
-    use StreamDecoratorTrait, HasDispatcherTrait;
+    use StreamDecoratorTrait;
 
     /** @var HashInterface */
     private $hash;

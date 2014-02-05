@@ -2,7 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
@@ -17,8 +16,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class Mock implements EventSubscriberInterface, \Countable
 {
-    use HasDispatcherTrait;
-
     /** @var array Array of mock responses / exceptions */
     private $queue = [];
 
