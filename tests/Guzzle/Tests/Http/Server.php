@@ -103,7 +103,7 @@ class Server
         }
 
         try {
-            $this->/* Replaced /* Replaced /* Replaced client */ */ */->get('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/perf', [], ['timeout' => 5]);
+            $this->/* Replaced /* Replaced /* Replaced client */ */ */->get('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/perf', [], ['timeout' => 1]);
             return $this->running = true;
         } catch (\Exception $e) {
             return false;

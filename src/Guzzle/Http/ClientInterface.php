@@ -129,7 +129,7 @@ interface ClientInterface extends HasDispatcherInterface
     public function sendAll($requests, array $options = []);
 
     /**
-     * Get the /* Replaced /* Replaced /* Replaced client */ */ */'s base URL
+     * Get the /* Replaced /* Replaced /* Replaced client */ */ */'s base URL (if any is specified)
      *
      * @return string|null
      */
