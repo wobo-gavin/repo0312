@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\MessageInte
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamDecoratorTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 
 /**
  * Stream decorator that validates a rolling hash of the entity body as it is read
