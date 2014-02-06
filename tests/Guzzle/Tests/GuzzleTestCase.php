@@ -99,7 +99,7 @@ abstract class /* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase exten
     /**
      * Get a wildcard observer for an event dispatcher
      *
-     * @param HasDispatcherInterface $hasEvent
+     * @param HasDispatcherInterface $hasDispatcher
      *
      * @return MockObserver
      */
