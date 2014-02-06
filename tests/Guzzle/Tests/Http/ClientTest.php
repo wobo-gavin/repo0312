@@ -23,9 +23,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testUsesDefaultDefaultOptions()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults()['allow_redirects']);
-        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults()['exceptions']);
-        $this->assertContains('cacert.pem', $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults()['verify']);
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('defaults/allow_redirects'));
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('defaults/exceptions'));
+        $this->assertContains('cacert.pem', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('defaults/verify'));
     }
 
     public function testUsesProvidedDefaultOptions()
@@ -36,25 +36,24 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'query' => ['foo' => 'bar']
             ]
         ]);
-        $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults()['allow_redirects']);
-        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults()['exceptions']);
-        $this->assertContains('cacert.pem', $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults()['verify']);
-        $this->assertEquals(['foo' => 'bar'], $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults()['query']);
+        $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('defaults/allow_redirects'));
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('defaults/exceptions'));
+        $this->assertContains('cacert.pem', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('defaults/verify'));
+        $this->assertEquals(['foo' => 'bar'], $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('defaults/query'));
     }
 
     public function testCanSpecifyBaseUrl()
     {
-        $this->assertEquals(null, (new Client())->getBaseUrl());
+        $this->assertEquals(null, (new Client())->getConfig('base_url'));
         $this->assertEquals('http://foo', (new Client([
             'base_url' => 'http://foo'
-        ]))->getBaseUrl());
+        ]))->getConfig('base_url'));
     }
 
     public function testCanSpecifyBaseUrlUriTemplate()
     {
-        $this->assertEquals('http://foo.com/baz/', (new Client([
-            'base_url' => ['http://foo.com/{var}/', ['var' => 'baz']]
-        ]))->getBaseUrl());
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => ['http://foo.com/{var}/', ['var' => 'baz']]]);
+        $this->assertEquals('http://foo.com/baz/', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('base_url'));
     }
 
     public function testClientUsesDefaultAdapterWhenNoneIsSet()
@@ -105,14 +104,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testAddsDefaultUserAgentHeaderWithDefaultOptions()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['defaults' => ['allow_redirects' => false]]);
-        $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults()['allow_redirects']);
-        $this->assertEquals(['User-Agent' => Client::getDefaultUserAgent()], $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults()['headers']);
+        $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('defaults/allow_redirects'));
+        $this->assertEquals(['User-Agent' => Client::getDefaultUserAgent()], $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('defaults/headers'));
     }
 
     public function testAddsDefaultUserAgentHeaderWithoutDefaultOptions()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $this->assertEquals(['User-Agent' => Client::getDefaultUserAgent()], $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults()['headers']);
+        $this->assertEquals(['User-Agent' => Client::getDefaultUserAgent()], $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('defaults/headers'));
     }
 
     private function getRequestClient()
@@ -300,5 +299,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             throw new RequestException('foo', $e->getRequest());
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
+    }
+
+    public function testCanSetConfigValues()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['foo' => 'bar']);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setConfig('foo', 'baz');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setConfig('defaults/headers/foo', 'bar');
+        $this->assertEquals('baz', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('foo'));
+        $this->assertEquals('bar', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('defaults/headers/foo'));
     }
 }
