@@ -209,21 +209,19 @@ class Client implements ClientInterface
      */
     private function buildUrl($url)
     {
-        $baseUrl = clone $this->baseUrl;
         if (!is_array($url)) {
-            // Use absolute URLs as is
-            return substr($url, 0, 4) === 'http'
-                ? (string) $url
-                : (string) $baseUrl->combine($url);
+            if (substr($url, 0, 4) === 'http') {
+                return (string) $url;
+            }
+            $baseUrl = clone $this->baseUrl;
+            return (string) $baseUrl->combine($url);
+        } elseif (substr($url[0], 0, 4) == 'http') {
+            return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\uriTemplate($url[0], $url[1]);
         }
 
-        list($url, $templateVars) = $url;
-        if (substr($url, 0, 4) === 'http') {
-            return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\uriTemplate($url, $templateVars);
-        }
-
+        $baseUrl = clone $this->baseUrl;
         return (string) $baseUrl->combine(
-            \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\uriTemplate($url, $templateVars)
+            \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\uriTemplate($url[0], $url[1])
         );
     }
 
