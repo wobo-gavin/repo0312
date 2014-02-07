@@ -5,7 +5,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\FakeBatchAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\BatchAdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\AdapterInterface;
@@ -167,23 +166,14 @@ class Client implements ClientInterface
 
     public function sendAll($requests, array $options = [])
     {
-        $requests = function() use ($requests, $options) {
-            foreach ($requests as $request) {
-                /** @var RequestInterface $request */
-                if (isset($options['before'])) {
-                    $request->getEventDispatcher()->addListener(RequestEvents::BEFORE_SEND, $options['before'], -255);
-                }
-                if (isset($options['complete'])) {
-                    $request->getEventDispatcher()->addListener(RequestEvents::AFTER_SEND, $options['complete'], -255);
-                }
-                if (isset($options['error'])) {
-                    $request->getEventDispatcher()->addListener(RequestEvents::ERROR, $options['error'], -255);
-                }
-                yield new Transaction($this, $request);
-            }
-        };
+        if (!($requests instanceof TransactionIterator)) {
+            $requests = new TransactionIterator($requests, $this, $options);
+        }
 
-        $this->batchAdapter->batch($requests(), isset($options['parallel']) ? $options['parallel'] : 50);
+        $this->batchAdapter->batch(
+            $requests,
+            isset($options['parallel']) ? $options['parallel'] : 50
+        );
     }
 
     /**
