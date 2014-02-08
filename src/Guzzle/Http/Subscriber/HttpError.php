@@ -2,9 +2,9 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Throws exceptions when a 4xx or 5xx response is received
@@ -13,7 +13,7 @@ class HttpError implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
-        return ['request.after_send' => 'onRequestAfterSend'];
+        return ['request.after_send' => ['onRequestAfterSend']];
     }
 
     /**

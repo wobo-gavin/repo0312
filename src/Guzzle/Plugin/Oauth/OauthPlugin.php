@@ -3,12 +3,12 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Oauth;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostBodyInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * OAuth signing plugin
@@ -60,9 +60,7 @@ class OauthPlugin implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
-            'request.before_send' => array('onRequestBeforeSend', -1000)
-        );
+        return ['request.before_send' => ['onRequestBeforeSend', -1000]];
     }
 
     public function onRequestBeforeSend(RequestBeforeSendEvent $event)

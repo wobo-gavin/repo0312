@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasEmitterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\DescriptionInterface;
@@ -10,7 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\Desc
 /**
  * Web service /* Replaced /* Replaced /* Replaced client */ */ */ interface
  */
-interface ServiceClientInterface extends HasDispatcherInterface
+interface ServiceClientInterface extends HasEmitterInterface
 {
     /**
      * Get the HTTP /* Replaced /* Replaced /* Replaced client */ */ */ used to send requests for the web service /* Replaced /* Replaced /* Replaced client */ */ */

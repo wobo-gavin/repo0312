@@ -7,7 +7,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\GotResponseHeadersEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\HasHeadersTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 
@@ -83,7 +82,7 @@ class RequestMediator
             $this->transaction->setResponse($response);
             $request = $this->transaction->getRequest();
             // Allows events to react before downloading any of the body
-            $request->getEventDispatcher()->dispatch(
+            $request->getEmitter()->emit(
                 RequestEvents::RESPONSE_HEADERS,
                 new GotResponseHeadersEvent($this->transaction)
             );

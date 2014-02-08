@@ -2,14 +2,14 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasEmitterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
 
 /**
  * Generic HTTP request interface
  */
-interface RequestInterface extends MessageInterface, HasDispatcherInterface
+interface RequestInterface extends MessageInterface, HasEmitterInterface
 {
     const GET = 'GET';
     const PUT = 'PUT';

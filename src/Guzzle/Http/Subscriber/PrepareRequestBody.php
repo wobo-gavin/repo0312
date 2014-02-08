@@ -2,11 +2,11 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostBodyInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Prepares requests with a body before sending

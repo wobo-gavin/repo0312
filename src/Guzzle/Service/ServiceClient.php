@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasEmitterTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\DescriptionInterface;
@@ -13,7 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\/* Replaced /* R
  */
 class ServiceClient implements ServiceClientInterface
 {
-    use HasDispatcherTrait;
+    use HasEmitterTrait;
 
     private $/* Replaced /* Replaced /* Replaced client */ */ */;
     private $description;

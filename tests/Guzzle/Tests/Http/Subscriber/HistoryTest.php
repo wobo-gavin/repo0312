@@ -66,7 +66,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://localhost/']);
         $h = new History();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
 
         $mock = new Mock(array(
             new Response(301, array('Location' => '/redirect1', 'Content-Length' => 0)),
@@ -74,7 +74,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
             new Response(200, array('Content-Length' => '2'), Stream::factory('HI'))
         ));
 
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/');
         $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
         $this->assertEquals(3, count($h));

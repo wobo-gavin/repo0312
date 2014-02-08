@@ -3,9 +3,8 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasEmitterTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\FakeBatchAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Version;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\BatchAdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\AdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\StreamAdapter;
@@ -22,7 +21,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
  */
 class Client implements ClientInterface
 {
-    use HasDispatcherTrait;
+    use HasEmitterTrait;
 
     /** @var MessageFactoryInterface Request factory used by the /* Replaced /* Replaced /* Replaced client */ */ */ */
     private $messageFactory;
@@ -82,7 +81,7 @@ class Client implements ClientInterface
      */
     public static function getDefaultUserAgent()
     {
-        return '/* Replaced /* Replaced /* Replaced Guzzle */ */ *//' . Version::VERSION . ' curl/' . curl_version()['version'] . ' PHP/' . PHP_VERSION;
+        return '/* Replaced /* Replaced /* Replaced Guzzle */ */ *//' . \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\VERSION . ' curl/' . curl_version()['version'] . ' PHP/' . PHP_VERSION;
     }
 
     public function getConfig($keyOrPath = null)
@@ -105,8 +104,8 @@ class Client implements ClientInterface
         // Merge in default options
         $options = array_replace_recursive($this->config['defaults'], $options);
 
-        // Use a clone of the /* Replaced /* Replaced /* Replaced client */ */ */'s event dispatcher
-        $options['constructor_options'] = ['event_dispatcher' => clone $this->getEventDispatcher()];
+        // Use a clone of the /* Replaced /* Replaced /* Replaced client */ */ */'s emitter
+        $options['constructor_options'] = ['emitter' => clone $this->getEmitter()];
 
         $request = $this->messageFactory->createRequest(
             $method,

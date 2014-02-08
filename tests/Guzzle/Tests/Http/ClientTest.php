@@ -251,7 +251,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $adapter = new MockAdapter();
         $adapter->setResponse($response);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener(
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(
             RequestEvents::BEFORE_SEND,
             function (RequestBeforeSendEvent $e) use ($response2) {
                 $e->intercept($response2);
@@ -279,10 +279,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testClientHandlesErrorsDuringBeforeSend()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener(RequestEvents::BEFORE_SEND, function ($e) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(RequestEvents::BEFORE_SEND, function ($e) {
             throw new RequestException('foo', $e->getRequest());
         });
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener(RequestEvents::ERROR, function ($e) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(RequestEvents::ERROR, function ($e) {
             $e->intercept(new Response(200));
         });
         $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get('/')->getStatusCode());
@@ -295,7 +295,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testClientHandlesErrorsDuringBeforeSendAndThrowsIfUnhandled()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addListener(RequestEvents::BEFORE_SEND, function ($e) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(RequestEvents::BEFORE_SEND, function ($e) {
             throw new RequestException('foo', $e->getRequest());
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');

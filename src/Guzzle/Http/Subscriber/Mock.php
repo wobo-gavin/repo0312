@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
@@ -9,7 +10,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\GotResponseHe
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Queues mock responses or exceptions and delivers mock responses or exceptions in a fifo order.
@@ -55,7 +55,7 @@ class Mock implements EventSubscriberInterface, \Countable
         // Emulate the receiving of the response headers
         $request = $event->getRequest();
         $transaction = new Transaction($event->getClient(), $request);
-        $request->getEventDispatcher()->dispatch(
+        $request->getEmitter()->emit(
             RequestEvents::RESPONSE_HEADERS,
             new GotResponseHeadersEvent($transaction)
         );

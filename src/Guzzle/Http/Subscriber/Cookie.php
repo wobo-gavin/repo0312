@@ -2,11 +2,11 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar\ArrayCookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar\CookieJarInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Adds, extracts, and persists cookies between HTTP requests

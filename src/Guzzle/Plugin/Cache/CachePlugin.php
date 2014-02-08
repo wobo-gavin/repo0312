@@ -3,11 +3,10 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Event;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Plugin to enable the caching of GET and HEAD requests.  Caching can be done on all requests passing through this
@@ -96,7 +95,7 @@ class CachePlugin implements EventSubscriberInterface
     public function onRequestBeforeSend(Event $event)
     {
         $request = $event['request'];
-        $request->addHeader('Via', sprintf('%s /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache/%s', $request->getProtocolVersion(), Version::VERSION));
+        $request->addHeader('Via', sprintf('%s /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache/%s', $request->getProtocolVersion(), \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\VERSION));
 
         if (!$this->canCache->canCacheRequest($request)) {
             switch ($request->getMethod()) {
@@ -307,7 +306,7 @@ class CachePlugin implements EventSubscriberInterface
     protected function addResponseHeaders(RequestInterface $request, ResponseInterface $response)
     {
         $params = $request->getParams();
-        $response->setHeader('Via', sprintf('%s /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache/%s', $request->getProtocolVersion(), Version::VERSION));
+        $response->setHeader('Via', sprintf('%s /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache/%s', $request->getProtocolVersion(), \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\VERSION));
 
         $lookup = ($params['cache.lookup'] === true ? 'HIT' : 'MISS') . ' from /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache';
         if ($header = $response->getHeader('X-Cache-Lookup')) {
@@ -337,9 +336,9 @@ class CachePlugin implements EventSubscriberInterface
         }
 
         if ($response->isFresh() === false) {
-            $response->addHeader('Warning', sprintf('110 /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache/%s "Response is stale"', Version::VERSION));
+            $response->addHeader('Warning', sprintf('110 /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache/%s "Response is stale"', \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\VERSION));
             if ($params['cache.hit'] === 'error') {
-                $response->addHeader('Warning', sprintf('111 /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache/%s "Revalidation failed"', Version::VERSION));
+                $response->addHeader('Warning', sprintf('111 /* Replaced /* Replaced /* Replaced Guzzle */ */ */Cache/%s "Revalidation failed"', \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\VERSION));
             }
         }
     }

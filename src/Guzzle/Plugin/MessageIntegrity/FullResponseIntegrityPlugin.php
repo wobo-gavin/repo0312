@@ -2,10 +2,10 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\MessageIntegrity;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Verifies the message integrity of a response after all of the data has been received

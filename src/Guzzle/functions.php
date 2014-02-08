@@ -6,6 +6,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\UriTemplate;
 
+const VERSION = '4.0-dev';
+
 /**
  * Send a custom request
  *

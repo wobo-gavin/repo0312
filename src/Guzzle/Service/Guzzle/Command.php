@@ -3,13 +3,13 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDataTrait;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherTrait;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasEmitterTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command\CommandInterface;
 
 class Command implements CommandInterface
 {
     use HasDataTrait;
-    use HasDispatcherTrait;
+    use HasEmitterTrait;
 
     protected $operation;
     protected $serializer;

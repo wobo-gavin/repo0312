@@ -2,11 +2,11 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Maintains a list of requests and responses sent using a request or /* Replaced /* Replaced /* Replaced client */ */ */

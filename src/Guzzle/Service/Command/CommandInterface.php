@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Command;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasDispatcherInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasEmitterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ToArrayInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\OperationInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Service\Description\ModelInterface;
@@ -18,7 +18,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInt
  * - command.process: Emitted when a command is processing a response
  * - command.error: Emitted after an error occurs for a command
  */
-interface CommandInterface extends \ArrayAccess, ToArrayInterface, HasDispatcherInterface
+interface CommandInterface extends \ArrayAccess, ToArrayInterface, HasEmitterInterface
 {
     /**
      * Get the API operation information about the command

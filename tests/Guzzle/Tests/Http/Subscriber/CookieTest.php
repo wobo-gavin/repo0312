@@ -56,7 +56,7 @@ class CookieTest extends \PHPUnit_Framework_TestCase
 
         $plugin = new Cookie($mock);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($plugin);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($plugin);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.example.com');
         $t = new Transaction(new Client(), $request);
         $plugin->onRequestBeforeSend(new RequestBeforeSendEvent($t));
@@ -78,9 +78,9 @@ class CookieTest extends \PHPUnit_Framework_TestCase
             "Content-Length: 0\r\n\r\n"
         ]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://www.foo.com']);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($cookie);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($mock);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher()->addSubscriber($history);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($cookie);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($history);
 
         $/* Replaced /* Replaced /* Replaced client */ */ */->get();
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/');
