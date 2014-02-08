@@ -9,6 +9,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\History;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\Mock;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client
@@ -308,5 +310,38 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->setConfig('defaults/headers/foo', 'bar');
         $this->assertEquals('baz', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('foo'));
         $this->assertEquals('bar', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('defaults/headers/foo'));
+    }
+
+    public function testSendsAllInParallel()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([
+            new Response(200),
+            new Response(201),
+            new Response(202),
+        ]));
+        $history = new History();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($history);
+
+        $requests = [
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/'),
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', '/'),
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('PUT', '/')
+        ];
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->sendAll($requests);
+        $requests = array_map(function($r) { return $r->getMethod(); }, $history->getRequests());
+        $this->assertContains('GET', $requests);
+        $this->assertContains('POST', $requests);
+        $this->assertContains('PUT', $requests);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testEnsuresDefaultsIsAnArray()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setConfig('defaults', 'foo');
     }
 }
