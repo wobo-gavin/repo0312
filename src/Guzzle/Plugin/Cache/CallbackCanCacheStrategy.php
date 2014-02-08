@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 
 /**
  * Determines if a request can be cached using a callback
@@ -33,7 +33,7 @@ class CallbackCanCacheStrategy extends DefaultCanCacheStrategy
             : parent::canCacheRequest($request);
     }
 
-    public function canCacheResponse(Response $response)
+    public function canCacheResponse(ResponseInterface $response)
     {
         return $this->responseCallback
             ? call_user_func($this->responseCallback, $response)
