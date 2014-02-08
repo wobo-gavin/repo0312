@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Message
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\Cookie;
@@ -57,14 +58,17 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreatesRequestWithPostBodyAndPostFiles()
     {
         $pf = fopen(__FILE__, 'r');
+        $pfi = new PostFile('ghi', 'abc', __FILE__);
         $req = (new MessageFactory())->createRequest('GET', 'http://www.foo.com', [], [
             'abc' => '123',
-            'def' => $pf
+            'def' => $pf,
+            'ghi' => $pfi
         ]);
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostBody', $req->getBody());
         $s = (string) $req;
         $this->assertContains('testCreatesRequestWithPostBodyAndPostFiles', $s);
         $this->assertContains('multipart/form-data', $s);
+        $this->assertTrue(in_array($pfi, $req->getBody()->getFiles(), true));
     }
 
     public function testCreatesResponseFromMessage()
@@ -220,7 +224,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         $foo = null;
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([new Response(200)]));
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [], [
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [], [
             'events' => [
                 RequestEvents::BEFORE_SEND => function () use (&$foo) { $foo = true; }
             ]
@@ -233,12 +237,54 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         $foo = null;
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock(array(new Response(200))));
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [], [
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', [], null, [
             'events' => [
-                RequestEvents::BEFORE_SEND => array(function () use (&$foo) { $foo = true; }, 100)
+                RequestEvents::BEFORE_SEND => [
+                    'fn' => function () use (&$foo) { $foo = true; },
+                    'priority' => 123
+                ]
             ]
         ]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
         $this->assertTrue($foo);
+        $l = $this->readAttribute($request->getEmitter(), 'listeners');
+        $this->assertArrayHasKey(123, $l[RequestEvents::BEFORE_SEND]);
+    }
+
+    public function testCanAddEventsOnce()
+    {
+        $foo = 0;
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([
+            new Response(200),
+            new Response(200),
+        ]));
+        $fn = function () use (&$foo) { ++$foo; };
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', [], null, [
+            'events' => [RequestEvents::BEFORE_SEND => ['fn' => $fn, 'once' => true]]
+        ]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertEquals(1, $foo);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertEquals(1, $foo);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testValidatesEventContainsFn()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', [], null, ['events' => [RequestEvents::BEFORE_SEND => ['foo' => 'bar']]]);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testValidatesEventIsArray()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', [], null, ['events' => [RequestEvents::BEFORE_SEND => '123']]);
     }
 
     public function testCanAddSubscribers()
