@@ -4,6 +4,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
@@ -45,5 +47,64 @@ class RequestEventsTest extends \PHPUnit_Framework_TestCase
         });
         RequestEvents::emitAfterSendEvent($t);
         $this->assertSame($ex, $ex2);
+    }
+
+    public function testBeforeSendEmitsErrorEvent()
+    {
+        $ex = new \Exception('Foo');
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = new Request('GET', '/');
+        $response = new Response(200);
+        $t = new Transaction($/* Replaced /* Replaced /* Replaced client */ */ */, $request);
+        $beforeCalled = $errCalled = 0;
+
+        $request->getEmitter()->on(
+            RequestEvents::BEFORE_SEND,
+            function (RequestBeforeSendEvent $e) use ($request, $/* Replaced /* Replaced /* Replaced client */ */ */, &$beforeCalled, $ex) {
+                $this->assertSame($request, $e->getRequest());
+                $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $e->getClient());
+                $beforeCalled++;
+                throw $ex;
+            }
+        );
+
+        $request->getEmitter()->on(
+            RequestEvents::ERROR,
+            function (RequestErrorEvent $e) use (&$errCalled, $response, $ex) {
+                $errCalled++;
+                $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException', $e->getException());
+                $this->assertSame($ex, $e->getException()->getPrevious());
+                $e->intercept($response);
+            }
+        );
+
+        RequestEvents::emitBeforeSendEvent($t);
+        $this->assertEquals(1, $beforeCalled);
+        $this->assertEquals(1, $errCalled);
+        $this->assertSame($response, $t->getResponse());
+    }
+
+    public function testThrowsUnInterceptedErrors()
+    {
+        $ex = new \Exception('Foo');
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = new Request('GET', '/');
+        $t = new Transaction($/* Replaced /* Replaced /* Replaced client */ */ */, $request);
+        $errCalled = 0;
+
+        $request->getEmitter()->on(RequestEvents::BEFORE_SEND, function (RequestBeforeSendEvent $e) use ($ex) {
+            throw $ex;
+        });
+
+        $request->getEmitter()->on(RequestEvents::ERROR, function (RequestErrorEvent $e) use (&$errCalled) {
+            $errCalled++;
+        });
+
+        try {
+            RequestEvents::emitBeforeSendEvent($t);
+            $this->fail('Did not throw');
+        } catch (RequestException $e) {
+            $this->assertEquals(1, $errCalled);
+        }
     }
 }
