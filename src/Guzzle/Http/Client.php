@@ -81,7 +81,16 @@ class Client implements ClientInterface
      */
     public static function getDefaultUserAgent()
     {
-        return '/* Replaced /* Replaced /* Replaced Guzzle */ */ *//' . \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\VERSION . ' curl/' . curl_version()['version'] . ' PHP/' . PHP_VERSION;
+        static $defaultAgent = '';
+        if (!$defaultAgent) {
+            $defaultAgent = '/* Replaced /* Replaced /* Replaced Guzzle */ */ *//' . \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\VERSION;
+            if (extension_loaded('curl')) {
+                $defaultAgent .= ' curl/' . curl_version()['version'];
+            }
+            $defaultAgent .= ' PHP/' . PHP_VERSION;
+        }
+
+        return $defaultAgent;
     }
 
     public function getConfig($keyOrPath = null)
