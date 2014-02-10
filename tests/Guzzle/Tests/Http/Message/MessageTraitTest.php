@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageTrait;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 
 class Message {
@@ -30,10 +31,9 @@ class MessageTraitTest extends \PHPUnit_Framework_TestCase
 
     public function testInitializesMessageWithProtocolVersionOption()
     {
-        $m = new Message();
-        $r = new \ReflectionMethod($m, 'initializeMessage');
-        $r->setAccessible(true);
-        $r->invoke($m, ['protocol_version' => 10]);
+        $m = new Request('GET', '/', [], null, [
+            'protocol_version' => '10'
+        ]);
         $this->assertEquals(10, $m->getProtocolVersion());
     }
 
