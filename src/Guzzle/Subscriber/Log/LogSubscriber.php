@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Log;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\Log;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
@@ -15,7 +15,7 @@ use Psr\Log\LogLevel;
  *
  * @see MessageLogger for a list of available log template variable substitutions
  */
-class LogPlugin implements EventSubscriberInterface
+class LogSubscriber implements EventSubscriberInterface
 {
     /** @var LoggerInterface */
     private $logger;

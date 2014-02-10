@@ -1,20 +1,20 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Retry;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\Retry;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\AbstractTransferStatsEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Log\MessageFormatter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Log\SimpleLogger;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\Log\MessageFormatter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\Log\SimpleLogger;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
 /**
  * Plugin to automatically retry failed HTTP requests using filters a delay strategy.
  */
-class RetryPlugin implements EventSubscriberInterface
+class RetrySubscriber implements EventSubscriberInterface
 {
     const RETRY_FORMAT = '[{ts}] {method} {url} - {code} {phrase} - Retries: {retries}, Delay: {delay}, Time: {connect_time}, {total_time}, Error: {error}';
 

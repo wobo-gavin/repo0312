@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\MessageIntegrity;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\MessageIntegrity;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\GotResponseHeadersEvent;
@@ -9,7 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInt
 /**
  * Verifies the message integrity of a response only after the entire response body has been read
  */
-class StreamingResponseIntegrityPlugin implements EventSubscriberInterface
+class StreamingResponseIntegritySubscriber implements EventSubscriberInterface
 {
     private $hash;
     private $header;

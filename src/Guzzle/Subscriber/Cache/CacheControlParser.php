@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\Cache;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\Cache;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Header\HeaderInterface;
 

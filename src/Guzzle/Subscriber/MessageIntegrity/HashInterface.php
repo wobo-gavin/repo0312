@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\MessageIntegrity;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\MessageIntegrity;
 
 /**
  * Interface that allows implementing various incremental hashes

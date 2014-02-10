@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin\MessageIntegrity;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\MessageIntegrity;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
@@ -10,7 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
 /**
  * Verifies the message integrity of a response after all of the data has been received
  */
-class FullResponseIntegrityPlugin implements EventSubscriberInterface
+class FullResponseIntegritySubscriber implements EventSubscriberInterface
 {
     private $hash;
     private $header;
