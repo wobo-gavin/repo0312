@@ -1,8 +1,8 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 

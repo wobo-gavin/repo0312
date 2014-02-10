@@ -6,7 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\FakeBatchAd
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\TransactionIterator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\TransactionIterator;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\FakeBatchAdapter
