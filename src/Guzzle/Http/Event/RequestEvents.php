@@ -35,7 +35,7 @@ final class RequestEvents
     /**
      * Event emitted after receiving all of the headers of a non-information response.
      *
-     * The event context contains 'request' and 'response' keys.
+     * The event emitted is a {@see \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\GotResponseHeadersEvent} object
      */
     const RESPONSE_HEADERS = 'request.response_headers';
 
