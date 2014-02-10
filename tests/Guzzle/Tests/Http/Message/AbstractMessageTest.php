@@ -2,18 +2,14 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageTrait;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
 
-class Message {
-    use MessageTrait;
-}
-
 /**
- * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageTrait
+ * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\AbstractMessage
  */
-class MessageTraitTest extends \PHPUnit_Framework_TestCase
+class AbstractMessageTest extends \PHPUnit_Framework_TestCase
 {
     public function testHasProtocolVersion()
     {
@@ -81,5 +77,29 @@ class MessageTraitTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($m->getBody());
         $this->assertFalse($m->hasHeader('Content-Length'));
         $this->assertFalse($m->hasHeader('Transfer-Encoding'));
+    }
+
+    public function testCastsToString()
+    {
+        $m = new Message();
+        $m->setHeader('foo', 'bar');
+        $m->setBody(Stream::factory('baz'));
+        $this->assertEquals("Foo!\r\nfoo: bar\r\nContent-Length: 3\r\n\r\nbaz", (string) $m);
+    }
+
+    public function testClonesHeaders()
+    {
+        $m = new Message();
+        $m->setHeader('foo', 'bar');
+        $m2 = clone $m;
+        $this->assertNotSame($m->getHeader('foo'), $m2->getHeader('foo'));
+    }
+}
+
+class Message extends AbstractMessage
+{
+    protected function getStartLine()
+    {
+        return 'Foo!';
     }
 }
