@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\FakeParallelAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
@@ -343,5 +344,17 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->setConfig('defaults', 'foo');
+    }
+
+    public function testCanSetCustomParallelAdapter()
+    {
+        $called = false;
+        $pa = new FakeParallelAdapter(new MockAdapter(function () use (&$called) {
+            $called = true;
+            return new Response(203);
+        }));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['parallel_adapter' => $pa]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->sendAll([$/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.foo.com')]);
+        $this->assertTrue($called);
     }
 }
