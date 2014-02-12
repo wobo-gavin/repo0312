@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\AdapterInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\BatchAdapterInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\ParallelAdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\TransactionInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\AdapterException;
@@ -17,7 +17,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFact
  * associative array of curl option constants mapping to values in the
  * **curl** key of a request's configuration options.
  */
-class CurlAdapter implements AdapterInterface, BatchAdapterInterface
+class CurlAdapter implements AdapterInterface, ParallelAdapterInterface
 {
     const ERROR_STR = 'See http://curl.haxx.se/libcurl/c/libcurl-errors.html for an explanation of cURL errors';
 
@@ -81,7 +81,7 @@ class CurlAdapter implements AdapterInterface, BatchAdapterInterface
         return $transaction->getResponse();
     }
 
-    public function batch(\Iterator $transactions, $parallel)
+    public function sendAll(\Iterator $transactions, $parallel)
     {
         $context = new BatchContext(
             $this->checkoutMultiHandle(),
