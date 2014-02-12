@@ -12,6 +12,10 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFact
 
 /**
  * HTTP adapter that uses cURL as a transport layer
+ *
+ * When using the CurlAdapter, custom curl options can be specified as an
+ * associative array of curl option constants mapping to values in the
+ * **curl** key of a request's configuration options.
  */
 class CurlAdapter implements AdapterInterface, BatchAdapterInterface
 {
