@@ -4,70 +4,40 @@
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Documentation
 ====================
 
-Getting started
----------------
-
-.. toctree::
-   :maxdepth: 1
-
-   getting-started/overview
-   getting-started/installation
-   getting-started/faq
-
-The HTTP /* Replaced /* Replaced /* Replaced client */ */ */
----------------
+User guide
+----------
 
 .. toctree::
    :maxdepth: 2
 
-   http-/* Replaced /* Replaced /* Replaced client */ */ *///* Replaced /* Replaced /* Replaced client */ */ */
-   http-/* Replaced /* Replaced /* Replaced client */ */ *//request
-   http-/* Replaced /* Replaced /* Replaced client */ */ *//response
-   http-/* Replaced /* Replaced /* Replaced client */ */ *//entity-bodies
-   http-/* Replaced /* Replaced /* Replaced client */ */ *//http-redirects
-   http-/* Replaced /* Replaced /* Replaced client */ */ *//uri-templates
+   overview
+   quickstart
+   /* Replaced /* Replaced /* Replaced client */ */ */s
+   requests
+   streams
+   subscribers
+   faq
 
-Plugins
--------
+Libraries
+---------
 
-.. toctree::
-   :maxdepth: 1
-
-   plugins/plugins-overview
-   plugins/creating-plugins
-   plugins/async-plugin
-   plugins/backoff-plugin
-   plugins/cache-plugin
-   plugins/cookie-plugin
-   plugins/curl-auth-plugin
-   plugins/history-plugin
-   plugins/log-plugin
-   plugins/md5-validator-plugin
-   plugins/mock-plugin
-   plugins/oauth-plugin
-
-The web service /* Replaced /* Replaced /* Replaced client */ */ */
-----------------------
-
-.. toctree::
-   :maxdepth: 1
-
-   webservice-/* Replaced /* Replaced /* Replaced client */ */ *//webservice-/* Replaced /* Replaced /* Replaced client */ */ */
-   webservice-/* Replaced /* Replaced /* Replaced client */ */ *//using-the-service-builder
-   webservice-/* Replaced /* Replaced /* Replaced client */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-service-descriptions
-   batching/batching
-   iterators/resource-iterators
-   iterators//* Replaced /* Replaced /* Replaced guzzle */ */ */-iterators
-
-Testing
--------
+There are a number of libraries that can be used on top of or alongside
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */. Here is a list of components that makeup /* Replaced /* Replaced /* Replaced Guzzle */ */ */ itself, official
+libraries provided by the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ organization, and commonly used libraries
+provided by third party developers.
 
 .. toctree::
    :maxdepth: 2
 
-   testing/unit-testing
+   libraries/components
+   libraries//* Replaced /* Replaced /* Replaced guzzle */ */ */
+   libraries//* Replaced /* Replaced /* Replaced guzzle */ */ */-service
+   libraries/third-party
 
-API Docs
---------
+API Documentation
+-----------------
 
-`Read the API docs <http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/api/index.html>`_
+.. toctree::
+   :maxdepth: 2
+
+   api
