@@ -184,8 +184,18 @@ calling the ``getQuery()`` method of a request and modifying the request's
     echo $query;
     // foo=bar&baz=bam&empty=
 
-Message Headers
----------------
+Request and Response Headers
+----------------------------
+
+You can specify request headers when sending or creating requests with a
+/* Replaced /* Replaced /* Replaced client */ */ */. In the following example, we send the ``X-Foo-Header`` with a value of
+``value``.
+
+.. code-block:: php
+
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/get', [
+        'X-Foo-Header' => 'value'
+    ]);
 
 You can view the headers of a response using header specific methods of a
 response class. Headers work exactly the same way for request and response
@@ -260,20 +270,170 @@ or response object.
 POST Requests
 =============
 
+You can send POST requests that contain a raw POST body by just passing a
+string, resource returned from ``fopen``, or a
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface`` object.
 
+.. code-block:: php
 
-Sending POST fields
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', [], 'raw data');
+
+Sending POST Fields
 -------------------
 
-Sending files
--------------
+Sending ``application/x-www-form-urlencoded`` POST requests requires that you
+specify the body of a POST request as an array.
+
+.. code-block:: php
+
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', [], [
+        'field_name' => 'abc',
+        'other_field' => '123'
+    ]);
+
+You can also build up POST requests before sending them. Just be sure to pass
+an array as the POST body when creating the POST request.
+
+.. code-block:: php
+
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', 'http://httpbin.org/post', [], []);
+    $postBody = $request->getBody();
+
+    // $postBody is an instance of /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBodyInterface
+    $postBody->setField('foo', 'bar');
+    echo $postBody->getField('foo');
+    // 'bar'
+
+    echo json_encode($postBody->getFields());
+    // {"foo": "bar"}
+
+    // Send the POST request
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+
+Sending POST Files
+------------------
+
+Sending ``multipart/form-data`` POST requests (POST requests that contain
+files) is the same as sending ``application/x-www-form-urlencoded``, except
+some of the array values of the POST fields map to PHP ``fopen`` resources, or
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface``, or
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFileInterface`` objects.
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFile;
+
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', [], [
+        'field_name' => 'abc',
+        'file_filed' => fopen('/path/to/file', 'r'),
+        'other_file' => new PostFile('other_file', 'this is the content')
+    ]);
+
+Just like when sending POST fields, uou can also build up POST requests with
+files before sending them.
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFile;
+
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', 'http://httpbin.org/post', [], []);
+    $postBody = $request->getBody();
+    $postBody->setField('foo', 'bar');
+    $postBody->addFile(new PostFile('test', fopen('/path/to/file', 'r')));
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
 
 Cookies
 =======
 
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ can maintain a cookie session for you if instructed using the
+``cookies`` request option.
+
+- Set to ``true`` to use a shared cookie session associated with the /* Replaced /* Replaced /* Replaced client */ */ */.
+- Pass an associative array containing cookies to send in the request and start
+  a new cookie session.
+- Set to a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\CookieJar\CookieJarInterface`` object to uss
+  an existing cookie jar.
+
 Redirects
 =========
+
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ will automatically follow redirects unless you tell it not to. You can
+customize the redirect behavior using the ``allow_redirects`` request option.
+
+- Set to true to enable normal redirects with a maximum number of 5 redirects.
+  This is the default setting.
+- Set to false to disable redirects.
+- Pass an associative array containing the 'max' key to specify the maximum
+  number of redirects and optionally provide a 'strict' key value to specify
+  whether or not to use strict RFC compliant redirects (meaning redirect POST
+  requests with POST requests vs. doing what most browsers do which is
+  redirect POST requests with GET requests).
+
+.. code-block:: php
+
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://github.com');
+    echo $response->getStatusCode();
+    // 200
+    echo $response->getEffectiveUrl();
+    // 'https://github.com/'
+
+The following example shows that redirects can be disabled.
+
+.. code-block:: php
+
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://github.com', [], ['allow_redirects' => false]);
+    echo $response->getStatusCode();
+    // 301
+    echo $response->getEffectiveUrl();
+    // 'http://github.com/'
 
 Exceptions
 ==========
 
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ throws exceptions for errors that occur during a transfer.
+
+- In the event of a networking error (connection timeout, DNS errors, etc),
+  a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException`` is thrown. This exception
+  extends from ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TransferException``.
+
+  .. code-block:: php
+
+      use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+
+      try {
+          $/* Replaced /* Replaced /* Replaced client */ */ */->get('https://github.com/_abc_123_404');
+      } catch (RequestException $e) {
+          echo $e->getRequest();
+          if ($e->hasResponse()) {
+              echo $e->getResponse();
+          }
+      }
+
+- A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientErrorResponseException`` is thrown for 400
+  level errors if the ``exceptions`` request option is not set to true. This
+  exception extends from ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException`` and
+  ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException`` extends from
+  ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException``.
+
+  .. code-block:: php
+
+      use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientErrorResponseException;
+
+      try {
+          $/* Replaced /* Replaced /* Replaced client */ */ */->get('https://github.com/_abc_123_404');
+      } catch (ClientErrorResponseException $e) {
+          echo $e->getRequest();
+          echo $e->getResponse();
+      }
+
+- A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerErrorResponse`` is thrown for 500 level
+  errors if the ``exceptions`` request option is not set to true. This
+  exception extends from ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException``.
+- A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TooManyRedirectsException`` is thrown when too
+  many redirects are followed. This exception extends from extends from
+  ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException``.
+- A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\AdapterException`` is thrown when an error occurs
+  in an HTTP adapter.
+
+All of the above exceptions extend from
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TransferException``.
