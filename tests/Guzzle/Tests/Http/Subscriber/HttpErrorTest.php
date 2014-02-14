@@ -2,7 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\HttpError;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
@@ -44,7 +44,7 @@ class HttpErrorTest extends \PHPUnit_Framework_TestCase
 
     private function getEvent()
     {
-        return new RequestAfterSendEvent(new Transaction(new Client(), new Request('PUT', '/')));
+        return new CompleteEvent(new Transaction(new Client(), new Request('PUT', '/')));
     }
 
     /**

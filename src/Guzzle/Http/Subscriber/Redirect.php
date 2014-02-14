@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\TooManyRedirectsException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\CouldNotRewindStreamException;
@@ -26,7 +26,7 @@ class Redirect implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
-        return [RequestEvents::AFTER_SEND => ['onRequestSent', -10]];
+        return ['complete' => ['onRequestSent', -10]];
     }
 
     /**
@@ -53,10 +53,10 @@ class Redirect implements EventSubscriberInterface
     /**
      * Called when a request receives a redirect response
      *
-     * @param RequestAfterSendEvent $event Event emitted
+     * @param CompleteEvent $event Event emitted
      * @throws TooManyRedirectsException
      */
-    public function onRequestSent(RequestAfterSendEvent $event)
+    public function onRequestSent(CompleteEvent $event)
     {
         $request = $event->getRequest();
         $redirectCount = 0;

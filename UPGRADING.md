@@ -84,7 +84,7 @@ $request->getEmitter()->on('foo', function (Event $event, $name) { /* ... */ } )
 - Added the concept of adapters that are used to transfer requests over the wire.
 - Simplified the event system.
 - Sending requests in parallel is still possible, but batching is no longer a concept of the HTTP layer. Instead,
-  you must use the `request.after_send` and `request.error` events to manage parallel request transfers.
+  you must use the `request.after_send` and `error` events to manage parallel request transfers.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url` has moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url`.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString` has moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString`.
 - QueryAggregator classes have moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url`.
@@ -154,11 +154,10 @@ events that are emitted over the lifecycle of a request.
 - POST field and file methods have been removed from the request object. You must now use the methods made available to
   `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostBodyInterface` to control the format of a POST body. Requests that are created using
   a standard `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface` will automatically use a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostBody`
-  body if the body was passed as an array.
+  body if the body was passed as an array or if the method is POST and no body is provided.
 
 ```php
-// Notice that the body is set to an array
-$request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', '/', [], []);
+$request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', '/');
 $request->getBody()->setField('foo', 'bar');
 $request->getBody()->addFile(new PostFile('file_key', fopen('/path/to/content', 'r')));
 ```
@@ -204,7 +203,7 @@ $stream = $factory->fromRequest($request);
 $data = $stream->read(1024);
 
 // 4.0
-$response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [], ['stream' => true]);
+$response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', ['stream' => true]);
 // Read some data off of the stream in the response body
 $data = $response->getBody()->read(1024);
 ```
@@ -215,10 +214,10 @@ The `configureRedirects()` method has been removed in favor of a `allow_redirect
 
 ```php
 // Standard redirects with a default of a max of 5 redirects
-$request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', [], null, ['allow_redirects' => true]);
+$request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['allow_redirects' => true]);
 
 // Strict redirects with a custom number of redirects
-$request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', [], null, [
+$request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', [
     'allow_redirects' => ['max' => 5, 'strict' => true]
 ]);
 ```
@@ -243,23 +242,23 @@ emitted during the lifecycle of a request now emit a custom `/* Replaced /* Repl
 context providing methods and a way in which to modify the transaction at that specific point in time (e.g., intercept
 the request and set a response on the transaction).
 
-- `request.before_send` is still an event, but now emits a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent`
-- `request.complete` has been renamed to `request.after_send` and now emits a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent`.
+- `request.before_send` has been renamed to ``before`` and now emits a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\BeforeEvent`
+- `request.complete` has been renamed to `complete` and now emits a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent`.
 - `request.sent` has been removed.
 - `request.success` has been removed.
-- `request.error` is still an event and now emits a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent`.
+- `error` is now an event that emits a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ErrorEvent`.
 - `request.exception` has been removed.
 - `request.receive.status_line` has been removed.
 - `curl.callback.progress` has been removed. Use a custom `StreamInterface` to maintain a status update.
 - `curl.callback.write` has been removed. Use a custom `StreamInterface` to intercept writes.
 - `curl.callback.read` has been removed. Use a custom `StreamInterface` to intercept reads.
 
-`request.response_headers` is a new event that is emitted after the response headers of a request have been received
-before the body of the response is downloaded. This event emits a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\GotResponseHeadersEvent`.
+`headers` is a new event that is emitted after the response headers of a request have been received
+before the body of the response is downloaded. This event emits a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\HeadersEvent`.
 
 You can intercept a request and inject a response using the `intercept()` event of a
-`/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent`, `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent`, and
-`/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent` event.
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\BeforeEvent`, `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent`, and
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ErrorEvent` event.
 
 ## Inflection
 

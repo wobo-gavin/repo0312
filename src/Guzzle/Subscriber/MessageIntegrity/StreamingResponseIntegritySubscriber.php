@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\MessageIntegrity;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\GotResponseHeadersEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\HeadersEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 
 /**
@@ -25,7 +25,7 @@ class StreamingResponseIntegritySubscriber implements EventSubscriberInterface
         return ['request.got_headers' => ['onRequestGotHeaders', -1]];
     }
 
-    public function onRequestGotHeaders(GotResponseHeadersEvent $event)
+    public function onRequestGotHeaders(HeadersEvent $event)
     {
         $response = $event->getResponse();
         if (!$this->canValidate($response)) {

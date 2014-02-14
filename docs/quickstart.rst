@@ -22,7 +22,10 @@ Here's an example of sending a ``GET`` request using the procedural API.
 
 .. code-block:: php
 
-    $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get('https://github.com/timeline.json');
+    $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\post('http://httpbin.org/post', [
+        'headers' => ['X-Foo' => 'Bar'],
+        'body'    => ['field_name' => 'value']
+    ]);
 
 You can send all kinds of HTTP requests with the procedural API. Just call
 the function that maps to the HTTP method name.
@@ -153,7 +156,7 @@ option.
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org', [], [
+    $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org', [
         'query' => ['foo' => 'bar']
     ]);
 
@@ -189,12 +192,12 @@ Request and Response Headers
 
 You can specify request headers when sending or creating requests with a
 /* Replaced /* Replaced /* Replaced client */ */ */. In the following example, we send the ``X-Foo-Header`` with a value of
-``value``.
+``value`` by setting the ``headers`` request option.
 
 .. code-block:: php
 
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/get', [
-        'X-Foo-Header' => 'value'
+        'headers' => ['X-Foo-Header' => 'value']
     ]);
 
 You can view the headers of a response using header specific methods of a
@@ -270,13 +273,13 @@ or response object.
 POST Requests
 =============
 
-You can send POST requests that contain a raw POST body by just passing a
+You can send POST requests that contain a raw POST body by passing a
 string, resource returned from ``fopen``, or a
-``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface`` object.
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface`` object to the ``body`` request option.
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', [], 'raw data');
+    $r = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', ['body' => 'raw data']);
 
 Sending POST Fields
 -------------------
@@ -286,17 +289,18 @@ specify the body of a POST request as an array.
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', [], [
-        'field_name' => 'abc',
-        'other_field' => '123'
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', [
+        'body' => [
+            'field_name' => 'abc',
+            'other_field' => '123'
+        ]
     ]);
 
-You can also build up POST requests before sending them. Just be sure to pass
-an array as the POST body when creating the POST request.
+You can also build up POST requests before sending them.
 
 .. code-block:: php
 
-    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', 'http://httpbin.org/post', [], []);
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', 'http://httpbin.org/post');
     $postBody = $request->getBody();
 
     // $postBody is an instance of /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBodyInterface
@@ -323,20 +327,22 @@ some of the array values of the POST fields map to PHP ``fopen`` resources, or
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFile;
 
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', [], [
-        'field_name' => 'abc',
-        'file_filed' => fopen('/path/to/file', 'r'),
-        'other_file' => new PostFile('other_file', 'this is the content')
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', [
+        'body' => [
+            'field_name' => 'abc',
+            'file_filed' => fopen('/path/to/file', 'r'),
+            'other_file' => new PostFile('other_file', 'this is the content')
+        ]
     ]);
 
-Just like when sending POST fields, uou can also build up POST requests with
+Just like when sending POST fields, you can also build up POST requests with
 files before sending them.
 
 .. code-block:: php
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFile;
 
-    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', 'http://httpbin.org/post', [], []);
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', 'http://httpbin.org/post');
     $postBody = $request->getBody();
     $postBody->setField('foo', 'bar');
     $postBody->addFile(new PostFile('test', fopen('/path/to/file', 'r')));
@@ -381,7 +387,7 @@ The following example shows that redirects can be disabled.
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://github.com', [], ['allow_redirects' => false]);
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://github.com', ['allow_redirects' => false]);
     echo $response->getStatusCode();
     // 301
     echo $response->getEffectiveUrl();

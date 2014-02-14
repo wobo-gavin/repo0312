@@ -3,8 +3,8 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar\ArrayCookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar\CookieJarInterface;
 
@@ -27,8 +27,8 @@ class Cookie implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'request.before_send' => ['onRequestBeforeSend', 125],
-            'request.after_send'  => ['onRequestSent', 125]
+            'before' => ['onRequestBeforeSend', 125],
+            'complete'  => ['onRequestSent', 125]
         ];
     }
 
@@ -42,7 +42,7 @@ class Cookie implements EventSubscriberInterface
         return $this->cookieJar;
     }
 
-    public function onRequestBeforeSend(RequestBeforeSendEvent $event)
+    public function onRequestBeforeSend(BeforeEvent $event)
     {
         $event->getRequest()->removeHeader('Cookie');
 
@@ -56,7 +56,7 @@ class Cookie implements EventSubscriberInterface
         }
     }
 
-    public function onRequestSent(RequestAfterSendEvent $event)
+    public function onRequestSent(CompleteEvent $event)
     {
         $this->cookieJar->addCookiesFromResponse($event->getRequest(), $event->getResponse());
     }

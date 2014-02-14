@@ -3,8 +3,8 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\Log;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ErrorEvent;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
@@ -49,14 +49,14 @@ class LogSubscriber implements EventSubscriberInterface
     {
         return [
             'request.after_send' => ['onRequestAfterSend', -9999],
-            'request.error'      => ['onRequestError', 9999]
+            'error'      => ['onRequestError', 9999]
         ];
     }
 
     /**
-     * @param RequestAfterSendEvent $event
+     * @param CompleteEvent $event
      */
-    public function onRequestAfterSend(RequestAfterSendEvent $event)
+    public function onRequestAfterSend(CompleteEvent $event)
     {
         $this->logger->log(
             substr($event->getResponse()->getStatusCode(), 0, 1) == '2' ? LogLevel::INFO : LogLevel::WARNING,
@@ -66,9 +66,9 @@ class LogSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param RequestErrorEvent $event
+     * @param ErrorEvent $event
      */
-    public function onRequestError(RequestErrorEvent $event)
+    public function onRequestError(ErrorEvent $event)
     {
         $ex = $event->getException();
         $this->logger->log(

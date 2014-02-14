@@ -29,8 +29,8 @@ User guide
     quickstart
     /* Replaced /* Replaced /* Replaced client */ */ */s
     requests
+    events
     streams
-    subscribers
     faq
 
 Libraries

@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\GotResponseHeadersEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\HeadersEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
@@ -37,10 +37,10 @@ class StreamAdapter implements AdapterInterface
             $transaction->getRequest()->setHeader('Connection', 'close');
         }
 
-        RequestEvents::emitBeforeSendEvent($transaction);
+        RequestEvents::emitBefore($transaction);
         if (!$transaction->getResponse()) {
             $this->createResponse($transaction);
-            RequestEvents::emitAfterSendEvent($transaction);
+            RequestEvents::emitComplete($transaction);
         }
 
         return $transaction->getResponse();
@@ -106,8 +106,8 @@ class StreamAdapter implements AdapterInterface
         $transaction->setResponse($response);
 
         $transaction->getRequest()->getEmitter()->emit(
-            RequestEvents::RESPONSE_HEADERS,
-            new GotResponseHeadersEvent($transaction)
+            RequestEvents::HEADERS,
+            new HeadersEvent($transaction)
         );
 
         return $response;

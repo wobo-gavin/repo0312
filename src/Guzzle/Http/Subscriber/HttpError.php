@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 
 /**
@@ -13,16 +13,16 @@ class HttpError implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
-        return ['request.after_send' => ['onRequestAfterSend']];
+        return ['complete' => ['onRequestAfterSend']];
     }
 
     /**
      * Throw a RequestException on an HTTP protocol error
      *
-     * @param RequestAfterSendEvent $event Emitted event
+     * @param CompleteEvent $event Emitted event
      * @throws RequestException
      */
-    public function onRequestAfterSend(RequestAfterSendEvent $event)
+    public function onRequestAfterSend(CompleteEvent $event)
     {
         $code = (string) $event->getResponse()->getStatusCode();
         // Throw an exception for an unsuccessful response

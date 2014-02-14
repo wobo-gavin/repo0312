@@ -88,7 +88,7 @@ class Server
             ];
         }
 
-        $this->/* Replaced /* Replaced /* Replaced client */ */ */->put('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/responses', [], json_encode($data));
+        $this->/* Replaced /* Replaced /* Replaced client */ */ */->put('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/responses', ['body' => json_encode($data)]);
     }
 
     /**
@@ -103,7 +103,7 @@ class Server
         }
 
         try {
-            $this->/* Replaced /* Replaced /* Replaced client */ */ */->get('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/perf', [], ['timeout' => 1]);
+            $this->/* Replaced /* Replaced /* Replaced client */ */ */->get('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/perf', ['timeout' => 1]);
             return $this->running = true;
         } catch (\Exception $e) {
             return false;

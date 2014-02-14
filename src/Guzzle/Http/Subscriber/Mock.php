@@ -4,9 +4,9 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\GotResponseHeadersEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\HeadersEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
@@ -38,13 +38,13 @@ class Mock implements EventSubscriberInterface, \Countable
 
     public static function getSubscribedEvents()
     {
-        return [RequestEvents::BEFORE_SEND => ['onRequestBeforeSend', -999]];
+        return ['before' => ['onRequestBeforeSend', -999]];
     }
 
     /**
      * @throws \OutOfBoundsException|\Exception
      */
-    public function onRequestBeforeSend(RequestBeforeSendEvent $event)
+    public function onRequestBeforeSend(BeforeEvent $event)
     {
         if (!$item = array_shift($this->queue)) {
             throw new \OutOfBoundsException('Mock queue is empty');
@@ -56,8 +56,8 @@ class Mock implements EventSubscriberInterface, \Countable
         $request = $event->getRequest();
         $transaction = new Transaction($event->getClient(), $request);
         $request->getEmitter()->emit(
-            RequestEvents::RESPONSE_HEADERS,
-            new GotResponseHeadersEvent($transaction)
+            RequestEvents::HEADERS,
+            new HeadersEvent($transaction)
         );
 
         // Emulate reading a response body

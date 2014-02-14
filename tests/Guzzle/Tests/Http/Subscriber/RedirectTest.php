@@ -70,7 +70,10 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://test.com/foo', ['X-Baz' => 'bar'], 'testing');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://test.com/foo', [
+            'headers' => ['X-Baz' => 'bar'],
+            'body' => 'testing'
+        ]);
 
         $requests = $h->getRequests();
         $this->assertEquals('POST', $requests[0]->getMethod());
@@ -90,7 +93,11 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->post('/foo', ['X-Baz' => 'bar'], 'testing', ['allow_redirects' => ['max' => 10, 'strict' => true]]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->post('/foo', [
+            'headers' => ['X-Baz' => 'bar'],
+            'body' => 'testing',
+            'allow_redirects' => ['max' => 10, 'strict' => true]
+        ]);
 
         $requests = $h->getRequests();
         $this->assertEquals('POST', $requests[0]->getMethod());
@@ -117,7 +124,10 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
         $body->expects($this->once())->method('seek')->will($this->returnValue(true));
         $body->expects($this->any())->method('eof')->will($this->returnValue(true));
         $body->expects($this->any())->method('read')->will($this->returnValue('foo'));
-        $/* Replaced /* Replaced /* Replaced client */ */ */->post('/foo', [], $body, ['allow_redirects' => ['max' => 5, 'strict' => true]]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->post('/foo', [
+            'body' => $body,
+            'allow_redirects' => ['max' => 5, 'strict' => true]
+        ]);
     }
 
     /**
@@ -142,7 +152,10 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
         $body->expects($this->once())->method('seek')->will($this->returnValue(false));
         $body->expects($this->any())->method('eof')->will($this->returnValue(true));
         $body->expects($this->any())->method('read')->will($this->returnValue('foo'));
-        $/* Replaced /* Replaced /* Replaced client */ */ */->post('/foo', [], $body, ['allow_redirects' => ['max' => 10, 'strict' => true]]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->post('/foo', [
+            'body' => $body,
+            'allow_redirects' => ['max' => 10, 'strict' => true]
+        ]);
     }
 
     public function testRedirectsCanBeDisabledPerRequest()
@@ -152,7 +165,7 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
         ]));
-        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', [], 'test', ['allow_redirects' => false]);
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', ['body' => 'test', 'allow_redirects' => false]);
         $this->assertEquals(301, $response->getStatusCode());
     }
 

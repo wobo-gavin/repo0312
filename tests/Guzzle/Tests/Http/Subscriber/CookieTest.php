@@ -4,8 +4,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Subscri
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\Cookie;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar\SetCookie;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
@@ -34,7 +34,7 @@ class CookieTest extends \PHPUnit_Framework_TestCase
         $plugin = new Cookie($mock);
         $t = new Transaction(new Client(), $request);
         $t->setResponse($response);
-        $plugin->onRequestSent(new RequestAfterSendEvent($t));
+        $plugin->onRequestSent(new CompleteEvent($t));
     }
 
     public function testProvidesCookieJar()
@@ -59,7 +59,7 @@ class CookieTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($plugin);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.example.com');
         $t = new Transaction(new Client(), $request);
-        $plugin->onRequestBeforeSend(new RequestBeforeSendEvent($t));
+        $plugin->onRequestBeforeSend(new BeforeEvent($t));
         $this->assertEquals('foo="bar;bam"', $request->getHeader('Cookie'));
     }
 

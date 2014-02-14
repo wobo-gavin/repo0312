@@ -4,7 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\Oauth;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostBodyInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
@@ -60,10 +60,10 @@ class OauthSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return ['request.before_send' => ['onRequestBeforeSend', -1000]];
+        return ['before' => ['onRequestBeforeSend', -1000]];
     }
 
-    public function onRequestBeforeSend(RequestBeforeSendEvent $event)
+    public function onRequestBeforeSend(BeforeEvent $event)
     {
         $timestamp = $this->getTimestamp();
         $request = $event->getRequest();

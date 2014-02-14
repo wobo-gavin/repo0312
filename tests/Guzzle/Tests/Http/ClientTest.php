@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\FakeParallelAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
@@ -149,9 +149,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = $this->getRequestClient();
         if ($body) {
-            $request = $/* Replaced /* Replaced /* Replaced client */ */ */->{$method}('http://foo.com', ['X-Baz' => 'Bar'], $body, ['query' => ['a' => 'b']]);
+            $request = $/* Replaced /* Replaced /* Replaced client */ */ */->{$method}('http://foo.com', [
+                'headers' => ['X-Baz' => 'Bar'],
+                'body' => $body,
+                'query' => ['a' => 'b']
+            ]);
         } else {
-            $request = $/* Replaced /* Replaced /* Replaced client */ */ */->{$method}('http://foo.com', ['X-Baz' => 'Bar'], ['query' => ['a' => 'b']]);
+            $request = $/* Replaced /* Replaced /* Replaced client */ */ */->{$method}('http://foo.com', [
+                'headers' => ['X-Baz' => 'Bar'],
+                'query' => ['a' => 'b']
+            ]);
         }
         $this->assertEquals($method, $request->getMethod());
         $this->assertEquals('Bar', $request->getHeader('X-Baz'));
@@ -172,9 +179,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $f->expects($this->once())
             ->method('createRequest')
             ->will($this->returnCallback(
-                function ($method, $url, array $headers = [], $body = null, array $options = array()) use (&$o) {
+                function ($method, $url, array $options = []) use (&$o) {
                     $o = $options;
-                    return (new MessageFactory())->createRequest($method, $url, $headers, $body, $options);
+                    return (new MessageFactory())->createRequest($method, $url, $options);
                 }
             ));
 
@@ -187,10 +194,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://foo.com?a=b', ['Hi' => 'there'], null, [
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://foo.com?a=b', [
+            'headers' => ['Hi' => 'there', '1' => 'one'],
             'allow_redirects' => false,
-            'query' => ['t' => 1],
-            'headers' => ['1' => 'one']
+            'query' => ['t' => 1]
         ]);
 
         $this->assertFalse($o['allow_redirects']);
@@ -255,8 +262,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $adapter->setResponse($response);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(
-            RequestEvents::BEFORE_SEND,
-            function (RequestBeforeSendEvent $e) use ($response2) {
+            RequestEvents::BEFORE,
+            function (BeforeEvent $e) use ($response2) {
                 $e->intercept($response2);
             }
         );
@@ -282,7 +289,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testClientHandlesErrorsDuringBeforeSend()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(RequestEvents::BEFORE_SEND, function ($e) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(RequestEvents::BEFORE, function ($e) {
             throw new RequestException('foo', $e->getRequest());
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(RequestEvents::ERROR, function ($e) {
@@ -298,7 +305,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testClientHandlesErrorsDuringBeforeSendAndThrowsIfUnhandled()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(RequestEvents::BEFORE_SEND, function ($e) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(RequestEvents::BEFORE, function ($e) {
             throw new RequestException('foo', $e->getRequest());
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');

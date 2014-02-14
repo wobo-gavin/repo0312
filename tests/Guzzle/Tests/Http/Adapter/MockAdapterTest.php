@@ -6,8 +6,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\MockAdapter
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\TransactionInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
@@ -52,11 +52,11 @@ class MockAdapterTest extends \PHPUnit_Framework_TestCase
         $m->setResponse(new Response(404));
         $request = new Request('GET', '/');
         $c = false;
-        $request->getEmitter()->once(RequestEvents::AFTER_SEND, function (RequestAfterSendEvent $e) use (&$c) {
+        $request->getEmitter()->once(RequestEvents::COMPLETE, function (CompleteEvent $e) use (&$c) {
             $c = true;
             throw new RequestException('foo', $e->getRequest());
         });
-        $request->getEmitter()->on(RequestEvents::ERROR, function (RequestErrorEvent $e) {
+        $request->getEmitter()->on(RequestEvents::ERROR, function (ErrorEvent $e) {
             $e->intercept(new Response(201));
         });
         $r = $m->send(new Transaction(new Client(), $request));
@@ -72,7 +72,7 @@ class MockAdapterTest extends \PHPUnit_Framework_TestCase
         $m = new MockAdapter();
         $m->setResponse(new Response(404));
         $request = new Request('GET', '/');
-        $request->getEmitter()->once(RequestEvents::AFTER_SEND, function (RequestAfterSendEvent $e) {
+        $request->getEmitter()->once(RequestEvents::COMPLETE, function (CompleteEvent $e) {
             throw new RequestException('foo', $e->getRequest());
         });
         $m->send(new Transaction(new Client(), $request));

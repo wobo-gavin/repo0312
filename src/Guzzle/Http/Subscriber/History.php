@@ -3,8 +3,8 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\ResponseInterface;
 
@@ -22,8 +22,8 @@ class History implements EventSubscriberInterface, \IteratorAggregate, \Countabl
     public static function getSubscribedEvents()
     {
         return [
-            'request.after_send' => ['onRequestSent', 9999],
-            'request.error' => ['onRequestError', 9999],
+            'complete' => ['onRequestSent', 9999],
+            'error' => ['onRequestError', 9999],
         ];
     }
 
@@ -48,12 +48,12 @@ class History implements EventSubscriberInterface, \IteratorAggregate, \Countabl
         return implode("\n", $lines);
     }
 
-    public function onRequestSent(RequestAfterSendEvent $event)
+    public function onRequestSent(CompleteEvent $event)
     {
         $this->add($event->getRequest(), $event->getResponse());
     }
 
-    public function onRequestError(RequestErrorEvent $event)
+    public function onRequestError(ErrorEvent $event)
     {
         $this->add($event->getRequest(), $event->getResponse());
     }

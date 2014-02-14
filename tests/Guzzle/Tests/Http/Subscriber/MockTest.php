@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Subscriber;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestBeforeSendEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\Mock;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
@@ -62,7 +62,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $response = new Response(200);
         $t = new Transaction(new Client(), new Request('GET', '/'));
         $m = new Mock([$response]);
-        $ev = new RequestBeforeSendEvent($t);
+        $ev = new BeforeEvent($t);
         $m->onRequestBeforeSend($ev);
         $this->assertSame($response, $t->getResponse());
     }
@@ -73,7 +73,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
     public function testUpdateThrowsExceptionWhenEmpty()
     {
         $p = new Mock();
-        $ev = new RequestBeforeSendEvent(new Transaction(new Client(), new Request('GET', '/')));
+        $ev = new BeforeEvent(new Transaction(new Client(), new Request('GET', '/')));
         $p->onRequestBeforeSend($ev);
     }
 
@@ -83,7 +83,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($m);
         $body = Stream::factory('foo');
-        $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', [], $body);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', ['body' => $body]);
         $this->assertEquals(3, $body->tell());
     }
 

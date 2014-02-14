@@ -4,8 +4,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Subscri
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestAfterSendEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestErrorEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
@@ -25,7 +25,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
         $t = new Transaction(new Client(), $request);
         $t->setResponse($response);
         $e = new RequestException('foo', $request, $response);
-        $ev = new RequestErrorEvent($t, $e);
+        $ev = new ErrorEvent($t, $e);
         $h = new History(2);
         $h->onRequestError($ev);
         $this->assertEquals([$request], $h->getRequests());
@@ -37,7 +37,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
         $response = new Response(200);
         $t = new Transaction(new Client(), $request);
         $t->setResponse($response);
-        $ev = new RequestAfterSendEvent($t);
+        $ev = new CompleteEvent($t);
         $h = new History(2);
         $h->onRequestSent($ev);
         $h->onRequestSent($ev);

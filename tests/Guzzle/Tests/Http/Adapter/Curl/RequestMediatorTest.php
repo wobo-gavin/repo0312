@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Adapter
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl\RequestMediator;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\GotResponseHeadersEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\HeadersEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
@@ -23,8 +23,8 @@ class RequestMediatorTest extends \PHPUnit_Framework_TestCase
         $request = new Request('GET', '/');
         $ee = null;
         $request->getEmitter()->on(
-            RequestEvents::RESPONSE_HEADERS,
-            function (GotResponseHeadersEvent $e) use (&$ee) {
+            RequestEvents::HEADERS,
+            function (HeadersEvent $e) use (&$ee) {
                 $ee = $e;
             }
         );
