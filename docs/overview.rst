@@ -2,25 +2,6 @@
 Overview
 ========
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ that is easy to customize.
-
-- Pluggable HTTP adapters for sending requests serially or in parallel
-- Does not require cURL, but ships with a built-in cURL adapter that provides
-  parallel requests and persistent connections.
-- Streams request and response bodies.
-- Event driven customization hooks.
-- Small core library.
-- Plugins for caching, logging, OAuth, mocks, and more.
-
-.. code-block:: php
-
-    // Really simple usage using the procedural API
-    $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get('http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org');
-
-    // Client usage
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client('http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org');
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
-
 Requirements
 ============
 
