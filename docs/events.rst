@@ -2,28 +2,10 @@
 Event System
 ============
 
-Requests emit lifecycle events when they are transferred.
-
-Request Events
-==============
-
-before
-    Event emitted before a request is sent. The event emitter is a
-    ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent``.
-
-headers
-    event emitted after the headers of a response have been received before any
-    of the response body has been downloaded. The event emitted is a
-    ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HeadersEvent``.
-
-complete
-    Event emitted after a transaction completes and an entire response has been
-    received. The event is a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent``.
-
-error
-    Event emitted when a request fails (whether it's from a networking error
-    or an HTTP protocol error). The event emitted is a
-    ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent``.
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ uses an event emitter to allow you to easily extend the behavior of a
+request, change the response associated with a request, and implement custom
+error handling. All events in /* Replaced /* Replaced /* Replaced Guzzle */ */ */ are managed and emitted by an
+**event emitter**.
 
 Event Emitters
 ==============
@@ -173,17 +155,79 @@ of the event.
     emitter. This allows you to easily chain calls as shown in the above
     example.
 
+Event Subscribers
+-----------------
+
+Event subscribers are classes that implement the
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Common\EventSubsriberInterface`` object. They are used to register
+one or more event listeners to methods of the class. Event subscribers tell
+event emitters exactly which events to listen to and what method to invoke on
+the class when the event is triggered using the static method,
+``getSubscribedEvents()``.
+
+The following example registers event listeners to the ``before`` and
+``complete`` event of a request. When the ``before`` event is emitted, the
+``onBefore`` instance method of the subscriber is invoked. When the
+``complete`` event is emitted, the ``onComplete`` event of the subscriber is
+invoked. Each array value in the ``getSubscribedEvents()`` return value MUST
+contain the name of the method to invoke and can optionally contain the
+priority of the listener (as shown in the ``before`` listener in the example).
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventEmitterInterface;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\BeforeEvent;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent;
+
+    class SimpleSubscriber implements EventSubscriberInterface
+    {
+        public static function getSubscribedEvents()
+        {
+            return [
+                'before'   => ['onBefore', 100], // Provide name and optional priority
+                'complete' => ['onComplete']
+            ]
+        }
+
+        public function onBefore(BeforeEvent $event, $name, EmitterInterface $emitter)
+        {
+            echo 'Before!';
+        }
+
+        public function onComplete(CompleteEvent $event, $name, EmitterInterface $emitter)
+        {
+            echo 'Complete!';
+        }
+    }
+
 Working With Request Events
 ===========================
+
+Requests emit lifecycle events when they are transferred.
 
 before
 ------
 
+The ``before`` event is emitted before a request is sent. The event emitter is
+a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent``.
+
 headers
 -------
+
+The ``headers`` event is emitted after the headers of a response have been
+received before any of the response body has been downloaded. The event
+emitted is a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HeadersEvent``.
 
 complete
 --------
 
+The ``complete`` event is emitted after a transaction completes and an entire
+response has been received. The event is a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent``.
+
 error
 -----
+
+The ``error`` event is emitted when a request fails (whether it's from a
+networking error or an HTTP protocol error). The event emitted is a
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent``.
