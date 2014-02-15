@@ -23,7 +23,7 @@ class HttpErrorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\ClientErrorResponseException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\ClientException
      */
     public function testThrowsClientExceptionOnFailure()
     {
@@ -33,7 +33,7 @@ class HttpErrorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\ServerErrorResponseException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\ServerException
      */
     public function testThrowsServerExceptionOnFailure()
     {
@@ -48,7 +48,7 @@ class HttpErrorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\ClientErrorResponseException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\ClientException
      */
     public function testFullTransaction()
     {

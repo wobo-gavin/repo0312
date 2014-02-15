@@ -81,8 +81,8 @@ Requests can be created using various methods of a /* Replaced /* Replaced /* Re
 - ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client::delete``: Sends a DELETE request
 - ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client::options``: Sends an OPTIONS request
 
-Each of the above methods accepts a URL and associative array of request
-options.
+Each of the above methods accepts a URL as the first argument and an optional
+associative array of :ref:`request-options` as the second argument.
 
 .. code-block:: php
 
@@ -96,11 +96,45 @@ options.
         'timeout' => 5
     ]);
 
+Error Handling
+--------------
+
+Errors can be encountered during a transfer. When a recoverable error is
+encountered while calling the ``send()`` method of a /* Replaced /* Replaced /* Replaced client */ */ */, a
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException`` is thrown. If the ``exceptions``
+request option is not disabled, then exceptions are thrown for HTTP protocol
+errors as well: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientErrorResponseException`` for
+400 level HTTP responses and ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException`` for
+500 level responses, both of which extend from
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException``.
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+
+    try {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
+    } catch (RequestException $e) {
+        echo $e->getRequest() . "\n";
+        echo $e->getResponse() . "\n";
+    }
+
+A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException`` always contains a
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface`` object that can be accessed using the
+exception's ``getRequest()`` method. In the event of a networking error, no
+response will be received. You can check if a ``RequestException`` has a
+response using the ``hasResponse()`` method. If the exception has a response,
+then you can access the ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface`` using the
+``getResponse()`` method of the exception.
+
 Creating Requests
 -----------------
 
-You can also create a request without sending it. This is useful for building
-up requests over time or sending requests in parallel.
+You can create a request without sending it. This is useful for building up
+requests over time or sending requests in parallel.
 
 .. code-block:: php
 
@@ -118,7 +152,7 @@ After creating a request, you can send it with the /* Replaced /* Replaced /* Re
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
 
 Sending Requests in Parallel
-----------------------------
+============================
 
 You can send requests in parallel using a /* Replaced /* Replaced /* Replaced client */ */ */ object's ``sendAll()`` method.
 The ``sendAll()`` method accepts an array or ``\Iterator`` that contains
@@ -151,8 +185,35 @@ printing out each request URL and response body.
         }
     ]);
 
-You can also handle errors using the event system. Here we are adding each
-failed response to an array that we can use to process errors later.
+Asynchronous Error Handling
+---------------------------
+
+You can handle errors when transferring requests in parallel using the event
+system.
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */->sendAll($requests, [
+        'error' => function (ErrorEvent $event) {
+            echo 'Request failed: ' . $event->getRequest()->getUrl() . "\n"
+            echo $event->getException();
+        }
+    ]);
+
+The ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent`` event object is emitted when an error
+occurs during a transfer. With this event, you have access to the request that
+was sent, the response that was received (if one was received), access to
+transfer statistics, and the ability to intercept the exception with a
+different ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface`` object. See :doc:`events`
+for more information.
+
+Handling Errors After Transferring
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Here we are adding each failed request to an array that we can use to process
+errors later.
 
 .. code-block:: php
 
@@ -168,8 +229,25 @@ failed response to an array that we can use to process errors later.
     ]);
 
     foreach ($errors as $error) {
-        // Do something with the errors
+        // ...
     }
+
+Throwing Errors Immediately
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can throw exceptions immediately as they are encountered.
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */->sendAll($requests, [
+        'error' => function (ErrorEvent $event) use (&$errors) {
+            throw $event->getException();
+        }
+    ]);
+
+.. _request-options:
 
 Request Options
 ===============

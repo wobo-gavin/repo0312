@@ -12,6 +12,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\StreamingPr
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl\CurlAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\TransactionIterator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\TransferException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\RequestInterface;
@@ -164,11 +166,17 @@ class Client implements ClientInterface
     public function send(RequestInterface $request)
     {
         $transaction = new Transaction($this, $request);
-        if ($response = $this->adapter->send($transaction)) {
-            return $response;
+        try {
+            if ($response = $this->adapter->send($transaction)) {
+                return $response;
+            }
+            throw new \LogicException('No response was associated with the transaction');
+        } catch (RequestException $e) {
+            throw $e;
+        } catch (TransferException $e) {
+            // Wrap exceptions in a RequestException to adhere to the interface
+            throw new RequestException($e->getMessage(), $request, null, $e);
         }
-
-        throw new \RuntimeException('No response was associated with the transaction');
     }
 
     public function sendAll($requests, array $options = [])

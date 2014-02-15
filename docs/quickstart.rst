@@ -400,7 +400,9 @@ Exceptions
 
 - In the event of a networking error (connection timeout, DNS errors, etc),
   a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException`` is thrown. This exception
-  extends from ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TransferException``.
+  extends from ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TransferException``. Catching this
+  exception will catch any exception that can be thrown while transferring
+  (non-parallel) requests.
 
   .. code-block:: php
 
@@ -439,7 +441,8 @@ Exceptions
   many redirects are followed. This exception extends from extends from
   ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException``.
 - A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\AdapterException`` is thrown when an error occurs
-  in an HTTP adapter.
+  in an HTTP adapter during a parallel request. This exception is only thrown
+  when using the ``sendAll()`` method of a /* Replaced /* Replaced /* Replaced client */ */ */.
 
 All of the above exceptions extend from
 ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TransferException``.
