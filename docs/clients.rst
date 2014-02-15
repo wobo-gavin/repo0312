@@ -119,7 +119,9 @@ errors as well: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Except
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
     } catch (RequestException $e) {
         echo $e->getRequest() . "\n";
-        echo $e->getResponse() . "\n";
+        if ($e->hasResponse()) {
+            echo $e->getResponse() . "\n";
+        }
     }
 
 A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException`` always contains a
