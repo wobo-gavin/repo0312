@@ -720,6 +720,11 @@ Requests emit lifecycle events when they are transferred. A /* Replaced /* Repla
 ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Common\EventEmitter`` object that can be used to add event
 *listeners* and event *subscribers* to all requests created by the /* Replaced /* Replaced /* Replaced client */ */ */.
 
+.. important::
+
+    **Every** event listener or subscriber added to a /* Replaced /* Replaced /* Replaced client */ */ */ will be added to
+    every request created by the /* Replaced /* Replaced /* Replaced client */ */ */.
+
 .. code-block:: php
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
