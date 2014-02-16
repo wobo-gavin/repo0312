@@ -206,11 +206,67 @@ Working With Request Events
 
 Requests emit lifecycle events when they are transferred.
 
+.. important::
+
+    Request lifecycle events may be triggered multiple times due to redirects,
+    retries, or reusing a request multiple times. Use the ``once()`` method
+    of an event emitter if you only want the event to be triggered once. You
+    can also remove an event listener from an emitter by using the emitter the
+    is provided to the listener.
+
 before
 ------
 
-The ``before`` event is emitted before a request is sent. The event emitter is
+The ``before`` event is emitted before a request is sent. The event emitted is
 a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent``.
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Common\EmitterInterface;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://httpbin.org']);
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/');
+    $request->getEmitter()->on(
+        'before',
+        function (BeforeEvent $e, $name, EmitterInterface $emitter) {
+            echo $name . "\n";
+            // "before"
+            echo $e->getRequest()->getMethod() . "\n";
+            // "GET" / "POST" / "PUT" / etc...
+            echo get_class($e->getClient());
+            // "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client"
+        }
+    );
+
+You can intercept a request with a response before the request is sent over the
+wire. The ``intercept()`` method of the ``BeforeEvent`` accepts a
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface``. Intercepting the event will prevent
+the request from being sent over the wire and stops the propagation of the
+``before`` event, preventing subsequent event listeners from being invoked.
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://httpbin.org']);
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/status/500');
+    $request->getEmitter()->on('before', function (BeforeEvent $e) {
+        $response = new Response(200);
+        $e->intercept($response);
+    });
+
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+    echo $response->getStatusCode();
+    // 200
+
+.. attention::
+
+    Any exception encountered while executing the ``before`` event will trigger
+    the ``error`` event of a request.
 
 headers
 -------
@@ -219,11 +275,70 @@ The ``headers`` event is emitted after the headers of a response have been
 received before any of the response body has been downloaded. The event
 emitted is a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HeadersEvent``.
 
+This event can be useful if you need to conditionally wrap the response body
+of a request in a special decorator or if you only want to conditionally
+download a response body based on response headers.
+
+This event cannot be intercepted.
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HeadersEvent;
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://httpbin.org']);
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/stream/100');
+    $request->getEmitter()->on('headers', function (HeadersEvent $e) {
+        echo $e->getResponse();
+        // Prints the response headers
+
+        // Wrap the response body in a custom decorator if the response has a body
+        if ($e->getResponse()->getHeader('Content-Length') ||
+            $e->getResponse()->getHeader('Content-Encoding')
+        ) {
+            $customBody = new MyCustomStreamDecorator($e->getResponse()->getBody());
+            $e->getResponse()->setBody($customBody);
+        }
+    });
+
 complete
 --------
 
 The ``complete`` event is emitted after a transaction completes and an entire
 response has been received. The event is a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent``.
+
+You can intercept the ``complete`` event with a different response if needed
+using the ``intercept()`` method of the event. This can be useful, for example,
+for changing the response for caching.
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://httpbin.org']);
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/status/302');
+    $cachedResponse = new Response(200);
+
+    $request->getEmitter()->on(
+        'complete',
+        function (CompleteEvent $e) use ($cachedResponse) {
+            if ($e->getResponse()->getStatusCode() == 302) {
+                // Intercept the original transaction with the new response
+                $e->intercept($cachedResponse);
+            }
+        }
+    );
+
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+    echo $response->getStatusCode();
+    // 200
+
+.. attention::
+
+    Any ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException`` encountered while executing
+    the ``complete`` event will trigger the ``error`` event of a request.
 
 error
 -----
@@ -231,3 +346,31 @@ error
 The ``error`` event is emitted when a request fails (whether it's from a
 networking error or an HTTP protocol error). The event emitted is a
 ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent``.
+
+This event is useful for retrying failed requests. Here's an example of
+retrying failed basic auth requests by re-sending the original request with
+a username and password.
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ErrorEvent;
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://httpbin.org']);
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/basic-auth/foo/bar');
+    $request->getEmitter()->on('error', function (ErrorEvent $e) {
+        if ($e->getResponse()->getStatusCode() == 401) {
+            // Add authentication stuff as needed and retry the request
+            $e->getRequest()->setHeader('Authorization', 'Basic ' . base64_encode('foo:bar'));
+            // Get the /* Replaced /* Replaced /* Replaced client */ */ */ of the event and retry the request
+            $newResponse = $e->getClient()->send($e->getRequest());
+            // Intercept the original transaction with the new response
+            $e->intercept($newResponse);
+        }
+    });
+
+.. attention::
+
+    If an ``error`` event is intercepted with a response, then the ``complete``
+    event of a request is triggered. If the ``complete`` event fails, then the
+    ``error`` event is triggered once again.
