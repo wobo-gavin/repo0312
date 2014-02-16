@@ -3,7 +3,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
@@ -123,7 +122,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCanDisableRedirects()
     {
         $request = (new MessageFactory)->createRequest('GET', '/', ['allow_redirects' => false]);
-        $this->assertEmpty($request->getEmitter()->listeners(RequestEvents::COMPLETE));
+        $this->assertEmpty($request->getEmitter()->listeners('complete'));
     }
 
     public function testCanEnableStrictRedirectsAndSpecifyMax()
@@ -141,7 +140,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
             'cookies' => ['Foo' => 'Bar']
         ]);
         $cookies = null;
-        foreach ($request->getEmitter()->listeners(RequestEvents::BEFORE) as $l) {
+        foreach ($request->getEmitter()->listeners('before') as $l) {
             if ($l[0] instanceof Cookie) {
                 $cookies = $l[0];
                 break;
@@ -160,7 +159,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         $request1 = $factory->createRequest('GET', '/', ['cookies' => true]);
         $request2 = $factory->createRequest('GET', '/', ['cookies' => true]);
         $listeners = function ($r) {
-            return array_filter($r->getEmitter()->listeners(RequestEvents::BEFORE), function ($l) {
+            return array_filter($r->getEmitter()->listeners('before'), function ($l) {
                 return $l[0] instanceof Cookie;
             });
         };
@@ -171,7 +170,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $jar = new ArrayCookieJar();
         $request = (new MessageFactory)->createRequest('GET', '/', ['cookies' => $jar]);
-        foreach ($request->getEmitter()->listeners(RequestEvents::BEFORE) as $l) {
+        foreach ($request->getEmitter()->listeners('before') as $l) {
             if ($l[0] instanceof Cookie) {
                 $this->assertSame($jar, $l[0]->getCookieJar());
             }
@@ -227,7 +226,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([new Response(200)]));
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [
             'events' => [
-                RequestEvents::BEFORE => function () use (&$foo) { $foo = true; }
+                'before' => function () use (&$foo) { $foo = true; }
             ]
         ]);
         $this->assertTrue($foo);
@@ -240,7 +239,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock(array(new Response(200))));
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', [
             'events' => [
-                RequestEvents::BEFORE => [
+                'before' => [
                     'fn' => function () use (&$foo) { $foo = true; },
                     'priority' => 123
                 ]
@@ -249,7 +248,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
         $this->assertTrue($foo);
         $l = $this->readAttribute($request->getEmitter(), 'listeners');
-        $this->assertArrayHasKey(123, $l[RequestEvents::BEFORE]);
+        $this->assertArrayHasKey(123, $l['before']);
     }
 
     public function testCanAddEventsOnce()
@@ -262,7 +261,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         ]));
         $fn = function () use (&$foo) { ++$foo; };
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', [
-            'events' => [RequestEvents::BEFORE => ['fn' => $fn, 'once' => true]]
+            'events' => ['before' => ['fn' => $fn, 'once' => true]]
         ]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
         $this->assertEquals(1, $foo);
@@ -276,7 +275,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
     public function testValidatesEventContainsFn()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['events' => [RequestEvents::BEFORE => ['foo' => 'bar']]]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['events' => ['before' => ['foo' => 'bar']]]);
     }
 
     /**
@@ -285,7 +284,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
     public function testValidatesEventIsArray()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['events' => [RequestEvents::BEFORE => '123']]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['events' => ['before' => '123']]);
     }
 
     public function testCanAddSubscribers()

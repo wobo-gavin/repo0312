@@ -7,7 +7,6 @@ require_once __DIR__ . '/../Server.php';
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\StreamAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ErrorEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
@@ -76,7 +75,7 @@ class StreamAdapterTest extends \PHPUnit_Framework_TestCase
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', self::$server->getUrl());
         $mockResponse = new Response(200);
         $request->getEmitter()->on(
-            RequestEvents::ERROR,
+            'error',
             function (ErrorEvent $e) use ($mockResponse) {
                 $e->intercept($mockResponse);
             }
@@ -91,7 +90,7 @@ class StreamAdapterTest extends \PHPUnit_Framework_TestCase
         self::$server->enqueue("HTTP/1.1 200 OK\r\nFoo: Bar\r\nContent-Length: 8\r\n\r\nhi there");
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => new StreamAdapter(new MessageFactory())]);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', self::$server->getUrl());
-        $request->getEmitter()->on(RequestEvents::COMPLETE, function ($e) use (&$ee) {
+        $request->getEmitter()->on('complete', function ($e) use (&$ee) {
             $ee = $e;
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);

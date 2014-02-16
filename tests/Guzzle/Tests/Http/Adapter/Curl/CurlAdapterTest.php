@@ -9,7 +9,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Transaction
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ErrorEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
@@ -82,7 +81,7 @@ class CurlAdapterTest extends \PHPUnit_Framework_TestCase
         $t = new Transaction(new Client(), $r);
         $a = new CurlAdapter(new MessageFactory(), ['handle_factory' => $f]);
         $ev = null;
-        $r->getEmitter()->on(RequestEvents::ERROR, function (ErrorEvent $e) use (&$ev) {
+        $r->getEmitter()->on('error', function (ErrorEvent $e) use (&$ev) {
             $ev = $e;
         });
         try {
@@ -102,7 +101,7 @@ class CurlAdapterTest extends \PHPUnit_Framework_TestCase
         $t = new Transaction(new Client(), $r);
         $a = new CurlAdapter(new MessageFactory());
         $ev = null;
-        $r->getEmitter()->on(RequestEvents::COMPLETE, function (CompleteEvent $e) use (&$ev) {
+        $r->getEmitter()->on('complete', function (CompleteEvent $e) use (&$ev) {
             $ev = $e;
             $e->intercept(new Response(200, ['Foo' => 'bar']));
         });
@@ -118,10 +117,10 @@ class CurlAdapterTest extends \PHPUnit_Framework_TestCase
         $r = new Request('GET', self::$server->getUrl());
         $t = new Transaction(new Client(), $r);
         $a = new CurlAdapter(new MessageFactory());
-        $r->getEmitter()->once(RequestEvents::COMPLETE, function (CompleteEvent $e) {
+        $r->getEmitter()->once('complete', function (CompleteEvent $e) {
             throw new RequestException('Foo', $e->getRequest());
         });
-        $r->getEmitter()->on(RequestEvents::ERROR, function (ErrorEvent $e) {
+        $r->getEmitter()->on('error', function (ErrorEvent $e) {
             $e->intercept(new Response(200, ['Foo' => 'bar']));
         });
         $response = $a->send($t);

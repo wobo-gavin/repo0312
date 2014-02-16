@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\Message
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\BeforeEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 
 /**
  * Verifies the message integrity of a response after all of the data has been received
@@ -37,7 +36,7 @@ class MessageIntegritySubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return [RequestEvents::BEFORE => ['onRequestBeforeSend']];
+        return ['before' => ['onRequestBeforeSend']];
     }
 
     public function onRequestBeforeSend(BeforeEvent $event)

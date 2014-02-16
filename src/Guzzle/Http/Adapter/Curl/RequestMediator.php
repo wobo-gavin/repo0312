@@ -3,7 +3,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\TransactionInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\HeadersEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\HasHeadersTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
@@ -83,7 +82,7 @@ class RequestMediator
             $request = $this->transaction->getRequest();
             // Allows events to react before downloading any of the body
             $request->getEmitter()->emit(
-                RequestEvents::HEADERS,
+                'headers',
                 new HeadersEvent($this->transaction)
             );
         }

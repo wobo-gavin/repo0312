@@ -6,7 +6,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\FakeParalle
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\BeforeEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
@@ -262,7 +261,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $adapter->setResponse($response);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(
-            RequestEvents::BEFORE,
+            'before',
             function (BeforeEvent $e) use ($response2) {
                 $e->intercept($response2);
             }
@@ -289,10 +288,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testClientHandlesErrorsDuringBeforeSend()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(RequestEvents::BEFORE, function ($e) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function ($e) {
             throw new RequestException('foo', $e->getRequest());
         });
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(RequestEvents::ERROR, function ($e) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('error', function ($e) {
             $e->intercept(new Response(200));
         });
         $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get('/')->getStatusCode());
@@ -305,7 +304,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testClientHandlesErrorsDuringBeforeSendAndThrowsIfUnhandled()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(RequestEvents::BEFORE, function ($e) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function ($e) {
             throw new RequestException('foo', $e->getRequest());
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');

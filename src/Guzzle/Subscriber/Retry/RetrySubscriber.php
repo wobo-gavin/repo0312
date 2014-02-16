@@ -5,7 +5,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\Retry;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\AbstractTransferStatsEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ErrorEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\Log\MessageFormatter;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -32,8 +31,8 @@ class RetrySubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            RequestEvents::COMPLETE => ['onRequestSent'],
-            RequestEvents::ERROR      => ['onRequestSent']
+            'complete' => ['onRequestSent'],
+            'error'    => ['onRequestSent']
         ];
     }
 

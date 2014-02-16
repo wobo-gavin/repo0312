@@ -8,7 +8,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ErrorEvent
@@ -29,7 +28,7 @@ class ErrorEventTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($request, $event->getRequest());
 
         $res = null;
-        $request->getEmitter()->on(RequestEvents::COMPLETE, function ($e) use (&$res) {
+        $request->getEmitter()->on('complete', function ($e) use (&$res) {
             $res = $e;
         });
 
