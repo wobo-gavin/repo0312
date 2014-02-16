@@ -11,6 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostBo
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\Redirect;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 
 /**
@@ -214,16 +215,21 @@ class MessageFactory implements MessageFactoryInterface
 
     private function visit_query(RequestInterface $request, $value)
     {
-        if (!is_array($value)) {
-            throw new \InvalidArgumentException('query value must be an array');
-        }
-
-        // Do not overwrite existing query string variables
-        $query = $request->getQuery();
-        foreach ($value as $k => $v) {
-            if (!isset($query[$k])) {
-                $query[$k] = $v;
+        if ($value instanceof QueryString) {
+            $original = $request->getQuery();
+            // Do not overwrite existing query string variables by overwriting
+            // the object with the query string data passed in the URL
+            $request->setQuery($value->overwriteWith($original->toArray()));
+        } elseif (is_array($value)) {
+            // Do not overwrite existing query string variables
+            $query = $request->getQuery();
+            foreach ($value as $k => $v) {
+                if (!isset($query[$k])) {
+                    $query[$k] = $v;
+                }
             }
+        } else {
+            throw new \InvalidArgumentException('query value must be an array');
         }
     }
 

@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\HasEmitterTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\PrepareRequestBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\QueryString;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url\Url;
 
 /**
@@ -84,6 +85,13 @@ class Request extends AbstractMessage implements RequestInterface
     public function getUrl()
     {
         return (string) $this->url;
+    }
+
+    public function setQuery($query)
+    {
+        $this->url->setQuery($query);
+
+        return $this;
     }
 
     public function getQuery()

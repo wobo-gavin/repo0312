@@ -67,6 +67,7 @@ interface MessageFactoryInterface
      *       These values are used as configuration options that can be consumed by plugins and adapters.
      *
      * @return RequestInterface
+     * @link http://docs./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org//* Replaced /* Replaced /* Replaced client */ */ */s.html#request-options In-depth reference information about each option
      */
     public function createRequest($method, $url, array $options = []);
 
