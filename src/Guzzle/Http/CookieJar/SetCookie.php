@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\ToArrayInterface;
 

@@ -7,10 +7,10 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\Cookie;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar\SetCookie;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\SetCookie;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar\ArrayCookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\Mock;
 
@@ -23,7 +23,7 @@ class CookieTest extends \PHPUnit_Framework_TestCase
     {
         $request = new Request('GET', '/');
         $response = new Response(200);
-        $mock = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar\ArrayCookieJar')
+        $mock = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar')
             ->setMethods(array('addCookiesFromResponse'))
             ->getMock();
 
@@ -47,7 +47,7 @@ class CookieTest extends \PHPUnit_Framework_TestCase
     public function testAddsCookiesToRequests()
     {
         $cookie = new SetCookie(['Name' => 'foo', 'Value' => 'bar;bam']);
-        $mock = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar\ArrayCookieJar')
+        $mock = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar')
             ->setMethods(array('getMatchingCookies'))
             ->getMock();
         $mock->expects($this->once())

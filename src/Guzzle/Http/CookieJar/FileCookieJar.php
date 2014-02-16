@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar;
 
 /**
  * Persists non-session cookies using a JSON formatted file

@@ -4,8 +4,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostFileInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\Cookie;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar\ArrayCookieJar;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\CookieJar\CookieJarInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\ArrayCookieJar;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\CookieJar\CookieJarInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Subscriber\HttpError;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Post\PostFile;
@@ -198,13 +198,26 @@ class MessageFactory implements MessageFactoryInterface
 
     private function visit_auth(RequestInterface $request, $value)
     {
+        static $allowable = ['Basic' => true, 'Digest' => true, 'NTLM' => true];
+
         if (!is_array($value) || count($value) < 2) {
             throw new \InvalidArgumentException(
                 'auth value must be an array that contains a username, password, and optional authentication scheme'
             );
         }
 
-        if (!isset($value[2]) || strtolower($value[2]) === 'basic') {
+        if (!isset($value[2])) {
+            $authType = 'Basic';
+        } else {
+            $authType = ucfirst($value[2]);
+            if (!isset($allowable[$authType])) {
+                throw new \InvalidArgumentException(
+                    'Authentication type not supported: ' . $authType
+                );
+            }
+        }
+
+        if ($authType == 'Basic') {
             // We can easily handle simple basic Auth in the factory
             $request->setHeader('Authorization', 'Basic ' . base64_encode("$value[0]:$value[1]"));
         } else {
