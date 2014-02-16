@@ -363,4 +363,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->sendAll([$/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.foo.com')]);
         $this->assertTrue($called);
     }
+
+    public function testCanDisableAuthPerRequest()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['defaults' => ['auth' => 'foo']]);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/');
+        $this->assertEquals('foo', $request->getConfig()['auth']);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['auth' => null]);
+        $this->assertFalse($request->getConfig()->hasKey('auth'));
+    }
 }
