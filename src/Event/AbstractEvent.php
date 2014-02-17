@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event;
 /**
  * Basic event class that can be extended.
  */
-class Event implements EventInterface
+abstract class AbstractEvent implements EventInterface
 {
     private $propagationStopped = false;
 

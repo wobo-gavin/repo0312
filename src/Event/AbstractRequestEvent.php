@@ -6,7 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionI
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 
-abstract class AbstractRequestEvent extends Event
+abstract class AbstractRequestEvent extends AbstractEvent
 {
     /** @var TransactionInterface */
     private $transaction;
