@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\UriTemplate;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\UriTemplate
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\UriTemplate
  */
 class UriTemplateTest extends \PHPUnit_Framework_TestCase
 {
