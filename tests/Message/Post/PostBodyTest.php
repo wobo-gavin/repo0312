@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Message\
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFile;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\QueryAggregator\DuplicateAggregator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBody
@@ -112,7 +112,7 @@ class PostBodyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo%5B0%5D=baz&foo%5B1%5D=bar', (string) $b);
         $b = new PostBody();
         $b->setField('foo', ['baz', 'bar']);
-        $agg = new DuplicateAggregator();
+        $agg = Query::duplicateAggregator();
         $b->setAggregator($agg);
         $this->assertEquals('foo=baz&foo=bar', (string) $b);
     }
