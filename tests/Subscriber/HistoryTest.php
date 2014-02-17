@@ -1,0 +1,88 @@
+<?php
+
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Subscriber;
+
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+
+/**
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History
+ */
+class HistoryTest extends \PHPUnit_Framework_TestCase
+{
+    public function testAddsForErrorEvent()
+    {
+        $request = new Request('GET', '/');
+        $response = new Response(400);
+        $t = new Transaction(new Client(), $request);
+        $t->setResponse($response);
+        $e = new RequestException('foo', $request, $response);
+        $ev = new ErrorEvent($t, $e);
+        $h = new History(2);
+        $h->onRequestError($ev);
+        $this->assertEquals([$request], $h->getRequests());
+    }
+
+    public function testMaintainsLimitValue()
+    {
+        $request = new Request('GET', '/');
+        $response = new Response(200);
+        $t = new Transaction(new Client(), $request);
+        $t->setResponse($response);
+        $ev = new CompleteEvent($t);
+        $h = new History(2);
+        $h->onRequestSent($ev);
+        $h->onRequestSent($ev);
+        $h->onRequestSent($ev);
+        $this->assertEquals(2, count($h));
+        $this->assertSame($request, $h->getLastRequest());
+        $this->assertSame($response, $h->getLastResponse());
+        foreach ($h as $trans) {
+            $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface', $trans['request']);
+            $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface', $trans['response']);
+        }
+        return $h;
+    }
+
+    /**
+     * @depends testMaintainsLimitValue
+     */
+    public function testClearsHistory($h)
+    {
+        $this->assertEquals(2, count($h));
+        $h->clear();
+        $this->assertEquals(0, count($h));
+    }
+
+    public function testCanCastToString()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://localhost/']);
+        $h = new History();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
+
+        $mock = new Mock(array(
+            new Response(301, array('Location' => '/redirect1', 'Content-Length' => 0)),
+            new Response(307, array('Location' => '/redirect2', 'Content-Length' => 0)),
+            new Response(200, array('Content-Length' => '2'), Stream::factory('HI'))
+        ));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertEquals(3, count($h));
+
+        $h = str_replace("\r", '', $h);
+        $this->assertContains("> GET / HTTP/1.1\nHost: localhost\nUser-Agent:", $h);
+        $this->assertContains("< HTTP/1.1 301 Moved Permanently\nLocation: /redirect1", $h);
+        $this->assertContains("< HTTP/1.1 307 Temporary Redirect\nLocation: /redirect2", $h);
+        $this->assertContains("< HTTP/1.1 200 OK\nContent-Length: 2\n\nHI", $h);
+    }
+}

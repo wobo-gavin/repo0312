@@ -11,13 +11,13 @@
 
     <testsuites>
         <testsuite>
-            <directory>tests//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Tests</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory suffix=".php">./src//* Replaced /* Replaced /* Replaced Guzzle */ */ */</directory>
+            <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
 

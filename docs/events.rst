@@ -175,12 +175,12 @@ priority of the listener (as shown in the ``before`` listener in the example).
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventEmitterInterface;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\EventSubscriberInterface;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\BeforeEvent;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\CompleteEvent;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EventEmitterInterface;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInterface;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
 
-    class SimpleSubscriber implements EventSubscriberInterface
+    class SimpleSubscriber implements SubscriberInterface
     {
         public static function getSubscribedEvents()
         {
@@ -353,8 +353,8 @@ a username and password.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\ErrorEvent;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 
     $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://httpbin.org']);
     $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/basic-auth/foo/bar');

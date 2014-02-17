@@ -14,11 +14,11 @@ Get answers with: [Documentation](http://www./* Replaced /* Replaced /* Replaced
 
 ```php
 // Really simple using a static facade
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\StaticClient::mount();
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\StaticClient::mount();
 $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */::get('http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org');
 
 // More control using a /* Replaced /* Replaced /* Replaced client */ */ */ class
-$/* Replaced /* Replaced /* Replaced client */ */ */ = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client('http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org');
+$/* Replaced /* Replaced /* Replaced client */ */ */ = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client('http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org');
 $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
 $response = $request->send();
 ```
@@ -82,7 +82,7 @@ HTTP basics
 ```php
 <?php
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 
 $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.example.com/api/v1/key/{key}', [
     'key' => '***'
@@ -148,10 +148,10 @@ You can use /* Replaced /* Replaced /* Replaced Guzzle */ */ */ through a static
 <?php
 
 // Use the static /* Replaced /* Replaced /* Replaced client */ */ */ directly:
-$response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\StaticClient::get('http://www.google.com');
+$response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\StaticClient::get('http://www.google.com');
 
 // Or, mount the /* Replaced /* Replaced /* Replaced client */ */ */ to \/* Replaced /* Replaced /* Replaced Guzzle */ */ */ to make it easier to use
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\StaticClient::mount();
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\StaticClient::mount();
 
 $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */::get('http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org');
 
@@ -192,7 +192,7 @@ $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */::post('http:///*
 These options can also be used when creating requests using a standard /* Replaced /* Replaced /* Replaced client */ */ */:
 
 ```php
-$/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Client();
+$/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client();
 // Create a request with a timeout of 10 seconds
 $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org', [], ['timeout' => 10]);
 $response = $request->send();
