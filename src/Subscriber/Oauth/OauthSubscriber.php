@@ -7,8 +7,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBodyInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\QueryString;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\Url;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 
 /**
  * OAuth signing plugin
@@ -147,7 +147,7 @@ class OauthSubscriber implements SubscriberInterface
         $params = $this->prepareParameters($params);
 
         // Build signing string from combined params
-        $parameterString = new QueryString($params);
+        $parameterString = new Query($params);
 
         $url = Url::fromString($request->getUrl())->setQuery('')->setFragment(null);
 

@@ -5,11 +5,11 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 require_once __DIR__ . '/Server.php';
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Http\Server;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 
 class FunctionsTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Http\Server */
+    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server */
     public static $server;
 
     public static function setupBeforeClass()

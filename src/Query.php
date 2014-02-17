@@ -1,13 +1,15 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\QueryAggregator\QueryAggregatorInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\QueryAggregator\DuplicateAggregator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\QueryAggregator\PhpAggregator;
 
 /**
  * Manages query string variables and can aggregate them into a string
  */
-class QueryString extends Collection
+class Query extends Collection
 {
     const RFC3986 = 'RFC3986';
     const RFC1738 = 'RFC1738';
@@ -19,7 +21,7 @@ class QueryString extends Collection
     private $aggregator;
 
     /**
-     * Parse a query string into a QueryString object
+     * Parse a query string into a Query object
      *
      * @param string $query Query string to parse
      *

@@ -83,8 +83,8 @@ $request->getEmitter()->on('foo', function (Event $event, $name) { /* ... */ } )
 - Simplified the event system.
 - Sending requests in parallel is still possible, but batching is no longer a concept of the HTTP layer. Instead,
   you must use the `request.after_send` and `error` events to manage parallel request transfers.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Url` has moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\Url`.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\QueryString` has moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\QueryString`.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url` has moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url`.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString` has moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query`.
 - QueryAggregator classes have moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url`.
 - QueryAggregators now accept only an array with any amount of nesting and returns a flattened array.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\StaticClient` has been removed. Use the functions provided in `functions.php` for an easy to use static
@@ -289,8 +289,8 @@ and URLs.
   messages, so it doesn't make sense for /* Replaced /* Replaced /* Replaced Guzzle */ */ */ as a library to add this level of complexity to parsing messages.
 - UriTemplate: URI template parsing has been moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\UriTemplate`. The /* Replaced /* Replaced /* Replaced Guzzle */ */ */ library will automatically
   use the PECL URI template library if it is installed.
-- Url: URL parsing is now performed in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\Url::fromString`. If custom URL parsing is necessary, then
-  developers are free to subclass `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\Url`.
+- Url: URL parsing is now performed in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url::fromString`. If custom URL parsing is necessary, then
+  developers are free to subclass `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url`.
 
 ## Plugin
 

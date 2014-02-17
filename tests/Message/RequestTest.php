@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Message;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\Emitter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\QueryString;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request
@@ -88,7 +88,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     {
         $r = new Request('GET', 'http://www.foo.com?baz=bar');
         $this->assertEquals('baz=bar', $r->getQuery());
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\QueryString', $r->getQuery());
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query', $r->getQuery());
         $r->getQuery()->set('hi', 'there');
         $this->assertEquals('/?baz=bar&hi=there', $r->getResource());
     }
@@ -96,7 +96,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     public function testQueryCanChange()
     {
         $r = new Request('GET', 'http://www.foo.com?baz=bar');
-        $r->setQuery(new QueryString(['foo' => 'bar']));
+        $r->setQuery(new Query(['foo' => 'bar']));
         $this->assertEquals('foo=bar', $r->getQuery());
     }
 

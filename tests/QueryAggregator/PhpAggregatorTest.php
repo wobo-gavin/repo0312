@@ -1,14 +1,14 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Url;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\QueryAggregator;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\DuplicateAggregator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\QueryAggregator\PhpAggregator;
 
 /**
- * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\DuplicateAggregator
- * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\AbstractAggregator
+ * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\QueryAggregator\PhpAggregator
+ * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\QueryAggregator\AbstractAggregator
  */
-class DuplicateAggregatorTest extends \PHPUnit_Framework_TestCase
+class PhpAggregatorTest extends \PHPUnit_Framework_TestCase
 {
     private $encodeData = [
         't' => [
@@ -20,10 +20,11 @@ class DuplicateAggregatorTest extends \PHPUnit_Framework_TestCase
 
     public function testEncodes()
     {
-        $agg = new DuplicateAggregator();
+        $agg = new PhpAggregator();
         $result = $agg->aggregate($this->encodeData);
         $this->assertEquals(array(
-            't[v1]' => ['a', '1'],
+            't[v1][0]' => ['a'],
+            't[v1][1]' => ['1'],
             't[v2]' => ['b'],
             't[v3][v4]' => ['c'],
             't[v3][v5]' => ['d'],
@@ -32,10 +33,10 @@ class DuplicateAggregatorTest extends \PHPUnit_Framework_TestCase
 
     public function testEncodesNoNumericIndices()
     {
-        $agg = new DuplicateAggregator(false);
+        $agg = new PhpAggregator(false);
         $result = $agg->aggregate($this->encodeData);
         $this->assertEquals(array(
-            't[v1]' => ['a', '1'],
+            't[v1][]' => ['a', '1'],
             't[v2]' => ['b'],
             't[v3][v4]' => ['c'],
             't[v3][v5]' => ['d'],

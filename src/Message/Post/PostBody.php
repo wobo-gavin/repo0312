@@ -5,9 +5,9 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\PhpAggregator;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\QueryAggregatorInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\QueryString;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\QueryAggregator\PhpAggregator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\QueryAggregator\QueryAggregatorInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
 
 /**
  * Holds POST fields and files and creates a streaming body when read methods are called on the object.
@@ -243,7 +243,7 @@ class PostBody implements PostBodyInterface
     private function createMultipart()
     {
         $fields = $this->fields;
-        $query = (new QueryString())
+        $query = (new Query())
             ->setEncodingType(false)
             ->setAggregator($this->getAggregator());
 
@@ -264,9 +264,9 @@ class PostBody implements PostBodyInterface
      */
     private function createUrlEncoded()
     {
-        $query = (new QueryString($this->fields))
+        $query = (new Query($this->fields))
             ->setAggregator($this->getAggregator())
-            ->setEncodingType(QueryString::RFC1738);
+            ->setEncodingType(Query::RFC1738);
 
         return Stream::factory($query);
     }

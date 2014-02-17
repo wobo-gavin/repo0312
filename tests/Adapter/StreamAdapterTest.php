@@ -10,14 +10,14 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Http\Server;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\StreamAdapter
  */
 class StreamAdapterTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Http\Server */
+    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server */
     static $server;
 
     public static function setUpBeforeClass()

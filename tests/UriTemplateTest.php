@@ -1,8 +1,8 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Parsers\UriTemplate;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\UriTemplate;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\UriTemplate;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\UriTemplate

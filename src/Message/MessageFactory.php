@@ -11,8 +11,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBod
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Redirect;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\QueryString;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\Url;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 
 /**
  * Default HTTP request factory used to create {@see Request} and {@see Response} objects
@@ -222,7 +222,7 @@ class MessageFactory implements MessageFactoryInterface
 
     private function visit_query(RequestInterface $request, $value)
     {
-        if ($value instanceof QueryString) {
+        if ($value instanceof Query) {
             $original = $request->getQuery();
             // Do not overwrite existing query string variables by overwriting
             // the object with the query string data passed in the URL

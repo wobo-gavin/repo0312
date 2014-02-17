@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TooManyRed
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\CouldNotRewindStreamException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\Url;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 
 /**
  * Plugin to implement HTTP redirects. Can redirect like a web browser or using strict RFC 2616 compliance.

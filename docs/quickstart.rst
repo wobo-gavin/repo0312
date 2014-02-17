@@ -162,7 +162,7 @@ option.
 
 And finally, you can build up the query string of a request as needed by
 calling the ``getQuery()`` method of a request and modifying the request's
-``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\QueryString`` object as needed.
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query`` object as needed.
 
 .. code-block:: php
 

@@ -349,7 +349,7 @@ query
 :Summary: Associative array of query string values to add to the request.
 :Types:
     - array
-    - ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\QueryString``
+    - ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query``
 :Default: None
 
 .. code-block:: php

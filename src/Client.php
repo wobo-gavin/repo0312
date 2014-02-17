@@ -16,7 +16,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TransferEx
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\Url;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 
 /**
  * HTTP /* Replaced /* Replaced /* Replaced client */ */ */

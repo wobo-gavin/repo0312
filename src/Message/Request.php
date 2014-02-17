@@ -6,7 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HasEmitterTrai
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\PrepareRequestBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\Url;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 
 /**
  * HTTP request class to send requests

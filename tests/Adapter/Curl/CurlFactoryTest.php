@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../Server.php';
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Http\Server;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
@@ -19,7 +19,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInter
  */
 class CurlFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Http\Server */
+    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server */
     static $server;
 
     public static function setUpBeforeClass()

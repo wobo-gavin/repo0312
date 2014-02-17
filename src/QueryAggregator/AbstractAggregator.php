@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\QueryAggregator;
 
 abstract class AbstractAggregator implements QueryAggregatorInterface
 {
