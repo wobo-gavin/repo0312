@@ -40,7 +40,7 @@ User guide
     overview
     quickstart
     /* Replaced /* Replaced /* Replaced client */ */ */s
-    requests
+    http-messages
     events
     streams
     faq
