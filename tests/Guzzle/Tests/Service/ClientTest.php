@@ -304,4 +304,17 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
             }
         }
     }
+
+    public function testGetCommandAfterTwoSetDescriptions()
+    {
+        $service1 = ServiceDescription::factory(__DIR__ . '/../TestData/test_service.json');
+        $service2 = ServiceDescription::factory(__DIR__ . '/../TestData/test_service_3.json');
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Mock\MockClient();
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($service1);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('foo_bar');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setDescription($service2);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getCommand('baz_qux');
+    }
 }
