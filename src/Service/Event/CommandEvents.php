@@ -12,7 +12,7 @@ final class CommandEvents
      *
      * The event emitted is a {@see \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandPrepareEvent} object
      */
-    const PREPARE = 'command.prepare';
+    const PREPARE = 'prepare';
 
     /**
      * Event emitted when the request for a command has been sent and is ready to
@@ -20,12 +20,12 @@ final class CommandEvents
      *
      * The event emitted is a {@see \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandProcessEvent} object
      */
-    const PROCESS = 'command.process';
+    const PROCESS = 'process';
 
     /**
      * Event emitted when an error occurs for a given command
      *
      * The event emitted is a {@see \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Event\CommandErrorEvent} object
      */
-    const ERROR = 'command.error';
+    const ERROR = 'error';
 }

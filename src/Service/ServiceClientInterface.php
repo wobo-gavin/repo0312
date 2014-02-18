@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HasEmitterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Command\CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Description\DescriptionInterface;
 
 /**
@@ -13,6 +12,46 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Description\
 interface ServiceClientInterface extends HasEmitterInterface
 {
     /**
+     * Get the service description of the /* Replaced /* Replaced /* Replaced client */ */ */
+     *
+     * @return DescriptionInterface
+     */
+    public function getDescription();
+
+    /**
+     * Create a command for an operation.
+     *
+     * @param string $name Name of the operation to use in the command
+     * @param array  $args Arguments to pass to the command
+     *
+     * @return CommandInterface
+     * @throws \InvalidArgumentException if no command can be found by name
+     */
+    public function getCommand($name, array $args = []);
+
+    /**
+     * Execute a single command.
+     *
+     * @param CommandInterface $command Command to execute
+     *
+     * @return mixed Returns the result of the executed command
+     */
+    public function execute(CommandInterface $command);
+
+    /**
+     * Execute multiple commands in parallel.
+     *
+     * @param array|\Iterator $commands Array or iterator that contains
+     *     CommandInterface objects to execute.
+     * @param array $options Associative array of options
+     *     - parallel: (int) Max number of commands to send in parallel
+     *     - before: (callable) Receives a CommandBeforeEvent
+     *     - after: (callable) Receives a CommandCompleteEvent
+     *     - error: (callable) Receives a CommandErrorEvent
+     */
+    public function executeAll($commands, array $options = []);
+
+    /**
      * Get the HTTP /* Replaced /* Replaced /* Replaced client */ */ */ used to send requests for the web service /* Replaced /* Replaced /* Replaced client */ */ */
      *
      * @return ClientInterface
@@ -20,33 +59,24 @@ interface ServiceClientInterface extends HasEmitterInterface
     public function getHttpClient();
 
     /**
-     * Get a command by name. First, the /* Replaced /* Replaced /* Replaced client */ */ */ will see if it has a service
-     * description and if the service description defines a command by the
-     * supplied name. If no dynamic command is found, the /* Replaced /* Replaced /* Replaced client */ */ */ will look for
-     * a concrete command class exists matching the name supplied. If neither
-     * are found, an InvalidArgumentException is thrown.
+     * Get a /* Replaced /* Replaced /* Replaced client */ */ */ configuration value.
      *
-     * @param string $name Name of the command to retrieve
-     * @param array  $args Arguments to pass to the command
+     * @param string|int|null $keyOrPath The Path to a particular configuration
+     *     value. The syntax uses a path notation that allows you to retrieve
+     *     nested array values without throwing warnings.
      *
-     * @return CommandInterface
-     * @throws \InvalidArgumentException if no command can be found by name
+     * @return mixed
      */
-    public function getCommand($name, array $args = array());
+    public function getConfig($keyOrPath = null);
 
     /**
-     * Execute a single command
+     * Set a /* Replaced /* Replaced /* Replaced client */ */ */ configuration value at the specified configuration path.
      *
-     * @param CommandInterface $command Command to execut
+     * @param string|int $keyOrPath Path at which to change a configuration
+     *     value. This path syntax follows the same path syntax specified in
+     *     {@see getConfig}.
      *
-     * @return mixed Returns the result of the executed command
+     * @param mixed $value Value to set
      */
-    public function execute(CommandInterface $command);
-
-    /**
-     * Get the service description of the /* Replaced /* Replaced /* Replaced client */ */ */
-     *
-     * @return DescriptionInterface
-     */
-    public function getDescription();
+    public function setConfig($keyOrPath, $value);
 }
