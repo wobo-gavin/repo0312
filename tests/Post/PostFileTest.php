@@ -1,19 +1,19 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Message\Post;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Post;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFile;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFile
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile
  */
 class PostFileTest extends \PHPUnit_Framework_TestCase
 {
     public function testCreatesFromString()
     {
         $p = new PostFile('foo', 'hi', '/path/to/test.php');
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFileInterface', $p);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFileInterface', $p);
         $this->assertEquals('hi', $p->getContent());
         $this->assertEquals('foo', $p->getName());
         $this->assertEquals('/path/to/test.php', $p->getFilename());
@@ -34,7 +34,7 @@ class PostFileTest extends \PHPUnit_Framework_TestCase
 
     public function testCreatesFromMultipartFormData()
     {
-        $mp = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\MultipartBody')
+        $mp = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\MultipartBody')
             ->setMethods(['getBoundary'])
             ->disableOriginalConstructor()
             ->getMock();

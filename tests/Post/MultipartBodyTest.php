@@ -1,12 +1,12 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Message\Post;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Post;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\MultipartBody;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFile;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\MultipartBody;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\MultipartBody
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\MultipartBody
  */
 class MultipartBodyTest extends \PHPUnit_Framework_TestCase
 {

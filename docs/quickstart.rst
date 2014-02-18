@@ -309,7 +309,7 @@ You can also build up POST requests before sending them.
     $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', 'http://httpbin.org/post');
     $postBody = $request->getBody();
 
-    // $postBody is an instance of /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBodyInterface
+    // $postBody is an instance of /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface
     $postBody->setField('foo', 'bar');
     echo $postBody->getField('foo');
     // 'bar'
@@ -327,11 +327,11 @@ Sending ``multipart/form-data`` POST requests (POST requests that contain
 files) is the same as sending ``application/x-www-form-urlencoded``, except
 some of the array values of the POST fields map to PHP ``fopen`` resources, or
 ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface``, or
-``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFileInterface`` objects.
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFileInterface`` objects.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFile;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
 
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', [
         'body' => [
@@ -346,7 +346,7 @@ files before sending them.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFile;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
 
     $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', 'http://httpbin.org/post');
     $postBody = $request->getBody();

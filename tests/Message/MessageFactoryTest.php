@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFile;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Cookie;
@@ -65,7 +65,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
                 'ghi' => $pfi
             ]
         ]);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBody', $req->getBody());
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody', $req->getBody());
         $s = (string) $req;
         $this->assertContains('testCreatesRequestWithPostBodyAndPostFiles', $s);
         $this->assertContains('multipart/form-data', $s);

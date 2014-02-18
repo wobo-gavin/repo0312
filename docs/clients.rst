@@ -304,7 +304,7 @@ body
     - string
     - ``fopen()`` resource
     - ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface``
-    - ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBodyInterface``
+    - ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface``
 :Default: None
 
 This setting can be set to any of the following types:
@@ -327,7 +327,7 @@ This setting can be set to any of the following types:
 - Array
 
   Use an array to send POST style requests that use a
-  ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBodyInterface`` object as the body.
+  ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface`` object as the body.
 
   .. code-block:: php
 

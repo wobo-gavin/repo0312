@@ -1,14 +1,14 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Message\Post;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Post;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBody;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFile;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBody
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody
  */
 class PostBodyTest extends \PHPUnit_Framework_TestCase
 {

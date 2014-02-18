@@ -2,13 +2,13 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFileInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFileInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Cookie;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\CookieJar\ArrayCookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\CookieJar\CookieJarInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\HttpError;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBody;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostFile;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Redirect;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;

@@ -150,8 +150,8 @@ events that are emitted over the lifecycle of a request.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestFactoryInterface` has been renamed to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface`. This
   interface is used to create both requests and responses and is implemented in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory`.
 - POST field and file methods have been removed from the request object. You must now use the methods made available to
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBodyInterface` to control the format of a POST body. Requests that are created using
-  a standard `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface` will automatically use a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post\PostBody`
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface` to control the format of a POST body. Requests that are created using
+  a standard `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface` will automatically use a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody`
   body if the body was passed as an array or if the method is POST and no body is provided.
 
 ```php
@@ -164,8 +164,8 @@ $request->getBody()->addFile(new PostFile('file_key', fopen('/path/to/content', 
 
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Header` has been moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\HeaderValues`, and the interface has changed to
   now use `\ArrayAccess` methods like `offsetGet` and `offsetSet`.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\PostFile` and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\PostFileInterface` have been moved to
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Post`. This interface has been simplified and now allows the addition of arbitrary headers via
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\PostFile` and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\PostFileInterface` have been moved to
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post`. This interface has been simplified and now allows the addition of arbitrary headers via
    the `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\HasHeadersInterface` interface.
 - Custom headers like `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Header\Link` have been removed. Most of the custom headers are now handled
   separately in specific subscribers/plugins, and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\HeaderValues::parseParams()` has been updated to
