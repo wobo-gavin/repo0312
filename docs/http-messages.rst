@@ -93,7 +93,7 @@ that might not be part of RFC 2616 (like "MOVE").
 
 .. code-block:: php
 
-    // Create a request using a complete custom HTTP method
+    // Create a request using a completely custom HTTP method
     $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('MOVE', 'http://httpbin.org/move', ['exceptions' => false]);
 
     echo $request->getMethod();
@@ -106,13 +106,13 @@ that might not be part of RFC 2616 (like "MOVE").
 You can create and send a request using methods on a /* Replaced /* Replaced /* Replaced client */ */ */ that map to the
 HTTP method you wish to use.
 
-- GET => ``get()``
-- POST => ``post()``
-- HEAD => ``head()``
-- PUT => ``put()``
-- DELETE => ``delete()``
-- OPTIONS => ``options()``
-- PATCH => ``patch()``
+:GET: ``$/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/get', [/** options **/])``
+:POST: ``$/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', [/** options **/])``
+:HEAD: ``$/* Replaced /* Replaced /* Replaced client */ */ */->head('http://httpbin.org/get', [/** options **/])``
+:PUT: ``$/* Replaced /* Replaced /* Replaced client */ */ */->put('http://httpbin.org/put', [/** options **/])``
+:DELETE: ``$/* Replaced /* Replaced /* Replaced client */ */ */->delete('http://httpbin.org/delete', [/** options **/])``
+:OPTIONS: ``$/* Replaced /* Replaced /* Replaced client */ */ */->options('http://httpbin.org/get', [/** options **/])``
+:PATCH: ``$/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/put', [/** options **/])``
 
 .. code-block:: php
 
