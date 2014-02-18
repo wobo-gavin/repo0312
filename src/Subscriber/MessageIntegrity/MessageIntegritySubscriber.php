@@ -6,7 +6,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 
 /**
- * Verifies the message integrity of a response after all of the data has been received
+ * Verifies the message integrity of a response after all of the data has been
+ * received.
  */
 class MessageIntegritySubscriber implements SubscriberInterface
 {

@@ -7,7 +7,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HeadersEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
 
 /**
- * Verifies the message integrity of a response only after the entire response body has been read
+ * Verifies the message integrity of a response only after the entire response
+ * body has been read.
  */
 class StreamingResponseIntegritySubscriber implements SubscriberInterface
 {

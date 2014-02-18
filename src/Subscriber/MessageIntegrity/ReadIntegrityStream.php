@@ -6,7 +6,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamDecorat
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 
 /**
- * Stream decorator that validates a rolling hash of the entity body as it is read
+ * Stream decorator that validates a rolling hash of the entity body as it is
+ * read.
  * @todo Allow the file pointer to skip around and read bytes randomly
  */
 class ReadIntegrityStream implements StreamInterface

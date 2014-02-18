@@ -8,7 +8,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 
 /**
- * Verifies the message integrity of a response after all of the data has been received
+ * Verifies the message integrity of a response after all of the data has been
+ * received.
  */
 class FullResponseIntegritySubscriber implements SubscriberInterface
 {
