@@ -65,7 +65,7 @@ base URL that is a URI template with parameters.
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 
     $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client([
-        ['https://api.twitter.com/{version}', ['version' => 'v1.1']],
+        'base_url' => ['https://api.twitter.com/{version}', ['version' => 'v1.1']],
         'defaults' => [
             'headers' => ['Foo' => 'Bar'],
             'query'   => ['testing' => '123'],
