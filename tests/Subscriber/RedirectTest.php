@@ -174,7 +174,7 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
         $h = new History();
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://www.foo.com']);
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([
-            "HTTP/1.1 301 Moved Permanently\r\nLocation: redirect?foo=bar\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect?foo=bar\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
         ]));
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
