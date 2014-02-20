@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\MultiAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HasEmitterTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\FakeParallelAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\ParallelAdapterInterface;
@@ -16,7 +17,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TransferEx
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 
 /**
  * HTTP /* Replaced /* Replaced /* Replaced client */ */ */
@@ -253,10 +253,11 @@ class Client implements ClientInterface
     {
         if (extension_loaded('curl')) {
             if (!ini_get('allow_url_fopen')) {
-                return $this->parallelAdapter = $this->adapter = new CurlAdapter($this->messageFactory);
+                $this->parallelAdapter = new MultiAdapter($this->messageFactory);
+                return $this->adapter = new CurlAdapter($this->messageFactory);
             } else {
                 // Assume that the parallel adapter will also be this CurlAdapter
-                $this->parallelAdapter = new CurlAdapter($this->messageFactory);
+                $this->parallelAdapter = new MultiAdapter($this->messageFactory);
                 return new StreamingProxyAdapter(
                     new CurlAdapter($this->messageFactory),
                     new StreamAdapter($this->messageFactory)

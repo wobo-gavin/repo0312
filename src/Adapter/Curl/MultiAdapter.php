@@ -1,14 +1,14 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\Curl;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\AdapterInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\ParallelAdapterInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Adapter\TransactionInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Event\RequestEvents;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\AdapterException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\MessageFactoryInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\AdapterInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\ParallelAdapterInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\AdapterException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 
 /**
  * HTTP adapter that uses cURL multi as a transport layer
