@@ -2,37 +2,23 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\Curl;
 
-require_once __DIR__ . '/../../Server.php';
+require_once __DIR__ . '/AbstractCurl.php';
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\MultiAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\MultiAdapter
  */
-class MultiAdapterTest extends \PHPUnit_Framework_TestCase
+class MultiAdapterTest extends AbstractCurl
 {
-    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server */
-    static $server;
-
-    public static function setUpBeforeClass()
+    protected function getAdapter($factory = null, $options = [])
     {
-        self::$server = new Server();
-        self::$server->start();
-    }
-
-    public static function tearDownAfterClass()
-    {
-        self::$server->stop();
+        return new MultiAdapter($factory ?: new MessageFactory(), $options);
     }
 
     public function testSendsSingleRequest()
@@ -65,67 +51,6 @@ class MultiAdapterTest extends \PHPUnit_Framework_TestCase
         foreach ($transactions as $t) {
             $this->assertContains($t->getResponse()->getStatusCode(), [200, 201, 202]);
         }
-    }
-
-    public function testCatchesErrorWhenPreparing()
-    {
-        $r = new Request('GET', self::$server->getUrl());
-
-        $f = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlFactory')
-            ->setMethods(['createHandle'])
-            ->getMock();
-        $f->expects($this->once())
-            ->method('createHandle')
-            ->will($this->throwException(new RequestException('foo', $r)));
-
-        $t = new Transaction(new Client(), $r);
-        $a = new MultiAdapter(new MessageFactory(), ['handle_factory' => $f]);
-        $ev = null;
-        $r->getEmitter()->on('error', function (ErrorEvent $e) use (&$ev) {
-            $ev = $e;
-        });
-        try {
-            $a->send($t);
-            $this->fail('Did not throw');
-        } catch (RequestException $e) {}
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent', $ev);
-        $this->assertSame($r, $ev->getRequest());
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException', $ev->getException());
-    }
-
-    public function testDispatchesAfterSendEvent()
-    {
-        self::$server->flush();
-        self::$server->enqueue("HTTP/1.1 201 OK\r\nContent-Length: 0\r\n\r\n");
-        $r = new Request('GET', self::$server->getUrl());
-        $t = new Transaction(new Client(), $r);
-        $a = new MultiAdapter(new MessageFactory());
-        $ev = null;
-        $r->getEmitter()->on('complete', function (CompleteEvent $e) use (&$ev) {
-            $ev = $e;
-            $e->intercept(new Response(200, ['Foo' => 'bar']));
-        });
-        $response = $a->send($t);
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals('bar', $response->getHeader('Foo'));
-    }
-
-    public function testDispatchesErrorEventAndRecovers()
-    {
-        self::$server->flush();
-        self::$server->enqueue("HTTP/1.1 201 OK\r\nContent-Length: 0\r\n\r\n");
-        $r = new Request('GET', self::$server->getUrl());
-        $t = new Transaction(new Client(), $r);
-        $a = new MultiAdapter(new MessageFactory());
-        $r->getEmitter()->once('complete', function (CompleteEvent $e) {
-            throw new RequestException('Foo', $e->getRequest());
-        });
-        $r->getEmitter()->on('error', function (ErrorEvent $e) {
-            $e->intercept(new Response(200, ['Foo' => 'bar']));
-        });
-        $response = $a->send($t);
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals('bar', $response->getHeader('Foo'));
     }
 
     /**
@@ -165,15 +90,5 @@ class MultiAdapterTest extends \PHPUnit_Framework_TestCase
             $this->assertContains('[curl] (#-10) ', $e->getMessage());
             $this->assertContains($request->getUrl(), $e->getMessage());
         }
-    }
-
-    public function testStripsFragmentFromHost()
-    {
-        self::$server->flush();
-        self::$server->enqueue("HTTP/1.1 200 OK\r\n\r\nContent-Length: 0\r\n\r\n");
-        // This will fail if the removal of the #fragment is not performed
-        $url = Url::fromString(self::$server->getUrl())->setPath(null)->setFragment('foo');
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get($url);
     }
 }
