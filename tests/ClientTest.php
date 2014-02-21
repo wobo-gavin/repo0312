@@ -243,6 +243,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testCanSetRelativeUrlStartingWithHttp()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://www.foo.com']);
+        $this->assertEquals(
+            'http://www.foo.com/httpfoo',
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'httpfoo')->getUrl()
+        );
+    }
+
     public function testClientSendsRequests()
     {
         $response = new Response(200);
