@@ -2,6 +2,10 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Event;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandInterface;
+
 /**
  * Event emitted when the HTTP response of a command is being processed.
  *
@@ -10,6 +14,34 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Event;
  */
 class ProcessEvent extends AbstractCommandEvent
 {
+    /** @var ResponseInterface */
+    private $response;
+
+    /**
+     * @param CommandInterface  $command  Command
+     * @param RequestInterface  $request  Request that was sent
+     * @param ResponseInterface $response Response that was received
+     */
+    public function __construct(
+        CommandInterface $command,
+        RequestInterface $request,
+        ResponseInterface $response
+    ) {
+        $this->command = $command;
+        $this->request = $request;
+        $this->response = $response;
+    }
+
+    /**
+     * Get the response that was received for the request.
+     *
+     * @return ResponseInterface
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
     /**
      * Set the processed result on the event.
      *

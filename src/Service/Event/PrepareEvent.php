@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandInterface;
 
 /**
  * Event emitted when a command is being prepared.
@@ -12,6 +13,14 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInter
  */
 class PrepareEvent extends AbstractCommandEvent
 {
+    /**
+     * @param CommandInterface $command Command to prepare
+     */
+    public function __construct(CommandInterface $command)
+    {
+        $this->command = $command;
+    }
+
     /**
      * Set the HTTP request that will be sent for the command.
      *
