@@ -4,7 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
 
 require_once __DIR__ . '/../../Server.php';
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\MultiAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlFactory;
@@ -215,7 +215,7 @@ class CurlFactoryTest extends \PHPUnit_Framework_TestCase
         $f = new IntroFactory();
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client([
             'base_url' => self::$server->getUrl(),
-            'adapter' => new CurlAdapter(new MessageFactory(), ['handle_factory' => $f])
+            'adapter' => new MultiAdapter(new MessageFactory(), ['handle_factory' => $f])
         ]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get();
         $this->assertEquals(2, $f->last[CURLOPT_SSL_VERIFYHOST]);
