@@ -3,15 +3,19 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface as Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFileInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\RequestLocation\BodyLocation;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\RequestLocation\HeaderLocation;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\RequestLocation\JsonLocation;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\RequestLocation\PostFieldLocation;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\RequestLocation\PostFileLocation;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\RequestLocation\QueryLocation;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\RequestLocation\XmlLocation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\PrepareEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Description\Parameter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\RequestLocation\RequestLocationInterface;
 
 /**
  * Subscriber used to create HTTP requests for commands based on a service
@@ -19,9 +23,33 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced 
  */
 class PrepareRequest implements SubscriberInterface
 {
+    /** @var RequestLocationInterface[] */
+    private $requestLocations;
+
     public static function getSubscribedEvents()
     {
         return ['prepare' => ['onPrepare']];
+    }
+
+    /**
+     * @param RequestLocationInterface[] $requestLocations Extra request locations
+     */
+    public function __construct(array $requestLocations = [])
+    {
+        static $defaultRequestLocations;
+        if (!$defaultRequestLocations) {
+            $defaultRequestLocations = [
+                'body'      => new BodyLocation(),
+                'query'     => new QueryLocation(),
+                'header'    => new HeaderLocation(),
+                'json'      => new JsonLocation(),
+                'xml'       => new XmlLocation(),
+                'postField' => new PostFieldLocation(),
+                'postFile'  => new PostFileLocation()
+            ];
+        }
+
+        $this->requestLocations = $requestLocations + $defaultRequestLocations;
     }
 
     public function onPrepare(PrepareEvent $event)
@@ -36,12 +64,51 @@ class PrepareRequest implements SubscriberInterface
     }
 
     /**
+     * Prepares a request for sending using location visitors
+     *
+     * @param /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command Command to prepare
+     * @param /* Replaced /* Replaced /* Replaced Guzzle */ */ */ClientInterface  $/* Replaced /* Replaced /* Replaced client */ */ */  Client that owns the command
+     * @param RequestInterface       $request Request being created
+     * @throws \RuntimeException If a location cannot be handled
+     */
+    protected function prepareRequest(
+        /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command,
+        /* Replaced /* Replaced /* Replaced Guzzle */ */ */ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */,
+        RequestInterface $request
+    ) {
+        $visitedLocations = [];
+        $context = ['/* Replaced /* Replaced /* Replaced client */ */ */' => $/* Replaced /* Replaced /* Replaced client */ */ */, 'command' => $command];
+        foreach ($command->getOperation()->getParams() as $name => $param) {
+            /* @var Parameter $param */
+            $location = $param->getLocation();
+            // Skip parameters that have not been set or are URI location
+            if ($location == 'uri' || !$command->hasParam($name)) {
+                continue;
+            }
+            if (!isset($this->requestLocations[$location])) {
+                throw new \RuntimeException("No location registered for $location");
+            }
+            $visitedLocations[$location] = true;
+            $this->requestLocations[$location]->visit(
+                $request,
+                $param,
+                $command[$name],
+                $context
+            );
+        }
+
+        foreach (array_keys($visitedLocations) as $location) {
+            $this->requestLocations[$location]->after($request, $context);
+        }
+    }
+
+    /**
      * Create a request for the command and operation
      *
      * @param /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command Command being executed
      * @param /* Replaced /* Replaced /* Replaced Guzzle */ */ */ClientInterface  $/* Replaced /* Replaced /* Replaced client */ */ */  Client used to execute the command
      *
-     * @return Request
+     * @return RequestInterface
      * @throws \RuntimeException
      */
     protected function createRequest(
@@ -90,136 +157,5 @@ class PrepareRequest implements SubscriberInterface
             [$/* Replaced /* Replaced /* Replaced client */ */ */->getDescription()->getBaseUrl()->combine($operation->getUri()), $variables],
             $command['request_options'] ?: []
         );
-    }
-
-    protected function prepareRequest(
-        /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command,
-        /* Replaced /* Replaced /* Replaced Guzzle */ */ */ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */,
-        Request $request
-    ) {
-        static $methods;
-        if (!$methods) {
-            $methods = array_flip(get_class_methods(__CLASS__));
-        }
-
-        $context = ['command' => $command, '/* Replaced /* Replaced /* Replaced client */ */ */' => $/* Replaced /* Replaced /* Replaced client */ */ */];
-        foreach ($command->getOperation()->getParams() as $name => $value) {
-            /* @var Parameter $value */
-            // Skip parameters that have not been set or are URI location
-            if (!$command->hasParam($name) || $value->getLocation() == 'uri') {
-                continue;
-            }
-            $method = 'visit_' . $value->getLocation();
-            if (isset($methods[$method])) {
-                $this->{$method}($request, $value, $command[$name], $context);
-            } else {
-                // @todo: Handle more complicated or custom locations somehow
-            }
-        }
-    }
-
-    /**
-     * Adds a header to the request.
-     */
-    protected function visit_header(Request $request, Parameter $param, $value)
-    {
-        $request->setHeader($param->getWireName(), $param->filter($value));
-    }
-
-    /**
-     * Adds a query string value to the request.
-     */
-    protected function visit_query(Request $request, Parameter $param, $value)
-    {
-        $request->setHeader($param->getWireName(), $this->prepValue($value, $param));
-    }
-
-    /**
-     * Adds a body to the request.
-     */
-    protected function visit_body(Request $request, Parameter $param, $value)
-    {
-        $request->setBody(Stream::factory($param->filter($value)));
-    }
-
-    /**
-     * Adds a POST field to the request.
-     */
-    protected function visit_postField(Request $request, Parameter $param, $value)
-    {
-        $body = $request->getBody();
-        if (!($body instanceof PostBodyInterface)) {
-            throw new \RuntimeException('Must be a POST body interface');
-        }
-
-        $body->setField($param->getWireName(), $this->prepValue($value, $param));
-    }
-
-    /**
-     * Adds a POST file to the request.
-     */
-    protected function visit_postFile(Request $request, Parameter $param, $value)
-    {
-        $body = $request->getBody();
-        if (!($body instanceof PostBodyInterface)) {
-            throw new \RuntimeException('Must be a POST body interface');
-        }
-
-        $value = $param->filter($value);
-        if (!($value instanceof PostFileInterface)) {
-            $value = new PostFile($param->getWireName(), $value);
-        }
-
-        $body->addFile($value);
-    }
-
-    /**
-     * Prepare (filter and set desired name for request item) the value for
-     * request.
-     *
-     * @param mixed     $value
-     * @param Parameter $param
-     *
-     * @return array|mixed
-     */
-    protected function prepValue($value, Parameter $param)
-    {
-        return is_array($value)
-            ? $this->resolveRecursively($value, $param)
-            : $param->filter($value);
-    }
-
-    /**
-     * Recursively prepare and filter nested values.
-     *
-     * @param array     $value Value to map
-     * @param Parameter $param Parameter related to the current key.
-     *
-     * @return array Returns the mapped array
-     */
-    protected function resolveRecursively(array $value, Parameter $param)
-    {
-        foreach ($value as $name => &$v) {
-            switch ($param->getType()) {
-                case 'object':
-                    if ($subParam = $param->getProperty($name)) {
-                        $key = $subParam->getWireName();
-                        $value[$key] = $this->prepValue($v, $subParam);
-                        if ($name != $key) {
-                            unset($value[$name]);
-                        }
-                    } elseif ($param->getAdditionalProperties() instanceof Parameter) {
-                        $v = $this->prepValue($v, $param->getAdditionalProperties());
-                    }
-                    break;
-                case 'array':
-                    if ($items = $param->getItems()) {
-                        $v = $this->prepValue($v, $items);
-                    }
-                    break;
-            }
-        }
-
-        return $param->filter($value);
     }
 }
