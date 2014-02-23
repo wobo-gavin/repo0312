@@ -1,9 +1,8 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Event;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandInterface;
 
 /**
  * Event emitted when an error occurs while transferring a request for a
@@ -18,12 +17,17 @@ class CommandErrorEvent extends AbstractCommandEvent
     private $event;
 
     /**
-     * @param CommandInterface $command Command of the event
-     * @param ErrorEvent       $e       Error event that was encountered
+     * @param CommandInterface       $command Command of the event
+     * @param ServiceClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */  Client that sent the command
+     * @param ErrorEvent             $e       Error event that was encountered
      */
-    public function __construct(CommandInterface $command, ErrorEvent $e)
-    {
+    public function __construct(
+        CommandInterface $command,
+        ServiceClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */,
+        ErrorEvent $e
+    ) {
         $this->command = $command;
+        $this->/* Replaced /* Replaced /* Replaced client */ */ */ = $/* Replaced /* Replaced /* Replaced client */ */ */;
         $this->error = $e;
     }
 

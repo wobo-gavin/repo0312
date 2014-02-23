@@ -1,10 +1,9 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Event;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandInterface;
 
 /**
  * Event emitted when the HTTP response of a command is being processed.
@@ -18,24 +17,30 @@ class ProcessEvent extends AbstractCommandEvent
     private $response;
 
     /**
-     * @param CommandInterface  $command  Command
-     * @param RequestInterface  $request  Request that was sent
-     * @param ResponseInterface $response Response that was received
+     * @param CommandInterface       $command  Command
+     * @param ServiceClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */   Client used to send the command
+     * @param RequestInterface       $request  Request that was sent
+     * @param ResponseInterface      $response Response that was received
+     * @param mixed                  $result   Can specify the result up-front
      */
     public function __construct(
         CommandInterface $command,
+        ServiceClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */,
         RequestInterface $request,
-        ResponseInterface $response
+        ResponseInterface $response = null,
+        $result = null
     ) {
         $this->command = $command;
+        $this->/* Replaced /* Replaced /* Replaced client */ */ */ = $/* Replaced /* Replaced /* Replaced client */ */ */;
         $this->request = $request;
         $this->response = $response;
+        $this->result = $result;
     }
 
     /**
-     * Get the response that was received for the request.
+     * Get the response that was received for the request (if one is present).
      *
-     * @return ResponseInterface
+     * @return ResponseInterface|null
      */
     public function getResponse()
     {

@@ -1,9 +1,8 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Event;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandInterface;
 
 /**
  * Event emitted when a command is being prepared.
@@ -14,11 +13,15 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandInter
 class PrepareEvent extends AbstractCommandEvent
 {
     /**
-     * @param CommandInterface $command Command to prepare
+     * @param CommandInterface       $command Command to prepare
+     * @param ServiceClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */  Client used to send the command
      */
-    public function __construct(CommandInterface $command)
-    {
+    public function __construct(
+        CommandInterface $command,
+        ServiceClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */
+    ) {
         $this->command = $command;
+        $this->/* Replaced /* Replaced /* Replaced client */ */ */ = $/* Replaced /* Replaced /* Replaced client */ */ */;
     }
 
     /**

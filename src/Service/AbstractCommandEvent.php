@@ -1,10 +1,9 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Event;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\AbstractEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandInterface;
 
 class AbstractCommandEvent extends AbstractEvent
 {
@@ -16,6 +15,9 @@ class AbstractCommandEvent extends AbstractEvent
 
     /** @var mixed|null */
     protected $result;
+
+    /** @var ServiceClientInterface */
+    protected $/* Replaced /* Replaced /* Replaced client */ */ */;
 
     /**
      * Get the command associated with the event
@@ -45,5 +47,15 @@ class AbstractCommandEvent extends AbstractEvent
     public function getResult()
     {
         return $this->result;
+    }
+
+    /**
+     * Get the /* Replaced /* Replaced /* Replaced client */ */ */ associated with the command transfer.
+     *
+     * @return ServiceClientInterface
+     */
+    public function getClient()
+    {
+        return $this->/* Replaced /* Replaced /* Replaced client */ */ */;
     }
 }
