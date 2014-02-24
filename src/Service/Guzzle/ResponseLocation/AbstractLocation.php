@@ -8,6 +8,19 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced 
 
 abstract class AbstractLocation implements ResponseLocationInterface
 {
+    /** @var string */
+    protected $locationName;
+
+    /**
+     * Set the name of the location
+     *
+     * @param $locationName
+     */
+    public function __construct($locationName)
+    {
+        $this->locationName = $locationName;
+    }
+
     public function before(
         /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command,
         ResponseInterface $response,

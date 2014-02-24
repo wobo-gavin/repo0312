@@ -2,7 +2,9 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\RequestLocation;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Description\Parameter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 
 /**
@@ -29,12 +31,16 @@ interface RequestLocationInterface
     /**
      * Called when all of the parameters of a command have been visited.
      *
-     * @param RequestInterface $request Request being modified
-     * @param array            $context Associative array containing a /* Replaced /* Replaced /* Replaced client */ */ */
-     *                                  and command key.
+     * @param /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command   Command being prepared
+     * @param RequestInterface       $request   Request being modified
+     * @param array                  $context   Associative array containing a
+     *                                          /* Replaced /* Replaced /* Replaced client */ */ */ and command key.
+     * @param Operation              $operation Operation being serialized
      */
     public function after(
+        /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command,
         RequestInterface $request,
+        Operation $operation,
         array $context
     );
 }

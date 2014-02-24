@@ -2,7 +2,9 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\RequestLocation;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Description\Parameter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 
@@ -12,10 +14,10 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 class JsonLocation extends AbstractLocation
 {
     /** @var bool Whether or not to add a Content-Type header when JSON is found */
-    protected $jsonContentType;
+    private $jsonContentType;
 
-    /** @var \SplObjectStorage Data object for persisting JSON data */
-    protected $data;
+    /** @var array */
+    private $jsonData;
 
     /**
      * @param string $contentType Content-Type header to add to the request if
@@ -24,7 +26,6 @@ class JsonLocation extends AbstractLocation
     public function __construct($contentType = 'application/json')
     {
         $this->jsonContentType = $contentType;
-        $this->data = new \SplObjectStorage();
     }
 
     public function visit(
@@ -33,19 +34,30 @@ class JsonLocation extends AbstractLocation
         $value,
         array $context
     ) {
-        $json = isset($this->data[$context['command']])
-            ? $this->data[$context['command']]
-            : [];
-        $json[$param->getWireName()] = $this->prepareValue($value, $param);
-        $this->data[$context['command']] = $json;
+        if (null === $this->jsonData) {
+            $this->jsonData = [];
+        }
+
+        $this->jsonData[$param->getWireName()] = $this->prepareValue($value, $param);
     }
 
     public function after(
+        /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command,
         RequestInterface $request,
+        Operation $operation,
         array $context
     ) {
-        if (!isset($this->data[$context['command']])) {
-            return;
+        $data = $this->jsonData;
+        $this->jsonData = null;
+
+        // Add additional parameters to the JSON document
+        $additional = $operation->getAdditionalParameters();
+        if ($additional && $additional->getLocation() == $this->locationName) {
+            foreach ($command->toArray() as $key => $value) {
+                if (!$operation->hasParam($key)) {
+                    $data[$key] = $this->prepareValue($value, $additional);
+                }
+            }
         }
 
         // Don't overwrite the Content-Type if one is set
@@ -53,7 +65,6 @@ class JsonLocation extends AbstractLocation
             $request->setHeader('Content-Type', $this->jsonContentType);
         }
 
-        $request->setBody(Stream::factory(json_encode($this->data[$context['command']])));
-        unset($this->data[$context['command']]);
+        $request->setBody(Stream::factory(json_encode($data)));
     }
 }

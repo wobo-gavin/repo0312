@@ -2,11 +2,26 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\RequestLocation;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Description\Operation;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Description\Parameter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface;
 
 abstract class AbstractLocation implements RequestLocationInterface
 {
+    /** @var string */
+    protected $locationName;
+
+    /**
+     * Set the name of the location
+     *
+     * @param $locationName
+     */
+    public function __construct($locationName)
+    {
+        $this->locationName = $locationName;
+    }
+
     public function visit(
         RequestInterface $request,
         Parameter $param,
@@ -15,7 +30,9 @@ abstract class AbstractLocation implements RequestLocationInterface
     ) {}
 
     public function after(
+        /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command,
         RequestInterface $request,
+        Operation $operation,
         array $context
     ) {}
 
