@@ -1,8 +1,10 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\ServiceClientInterface;
 
 /**
  * Event emitted when a command is being prepared.

@@ -6,7 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Description\SchemaValidator;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\PrepareEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Event\PrepareEvent;
 
 /**
  * Subscriber used to validate command input against a service description.

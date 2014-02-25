@@ -1,11 +1,14 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HasEmitterTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\ServiceClientInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandException;
 
 /**
  * Utility class used to wrap HTTP events with /* Replaced /* Replaced /* Replaced client */ */ */ events.

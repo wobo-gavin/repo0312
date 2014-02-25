@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HasEmitterTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\CommandInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\EventWrapper;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\Event\EventWrapper;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Description\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Description;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\PrepareRequest;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Subscriber\ProcessResponse;
