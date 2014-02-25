@@ -13,14 +13,14 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced 
 class QueryLocation extends AbstractLocation
 {
     public function visit(
+        /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command,
         RequestInterface $request,
         Parameter $param,
-        $value,
         array $context
     ) {
         $request->setHeader(
             $param->getWireName(),
-            $this->prepareValue($value, $param)
+            $this->prepareValue($command[$param->getName()], $param)
         );
     }
 

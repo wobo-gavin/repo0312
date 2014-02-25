@@ -14,9 +14,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced 
 class PostFieldLocation extends AbstractLocation
 {
     public function visit(
+        /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command,
         RequestInterface $request,
         Parameter $param,
-        $value,
         array $context
     ) {
         $body = $request->getBody();
@@ -26,7 +26,7 @@ class PostFieldLocation extends AbstractLocation
 
         $body->setField(
             $param->getWireName(),
-            $this->prepareValue($value, $param)
+            $this->prepareValue($command[$param->getName()], $param)
         );
     }
 

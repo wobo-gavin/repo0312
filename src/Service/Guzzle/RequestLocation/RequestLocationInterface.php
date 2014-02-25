@@ -15,16 +15,16 @@ interface RequestLocationInterface
     /**
      * Visits a location for each top-level parameter
      *
-     * @param RequestInterface $request Request being modified
-     * @param Parameter        $param   Parameter being visited
-     * @param mixed            $value   Associated value
-     * @param array            $context Associative array containing a /* Replaced /* Replaced /* Replaced client */ */ */
-     *                                  and command key.
+     * @param /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command Command being prepared
+     * @param RequestInterface       $request Request being modified
+     * @param Parameter              $param   Parameter being visited
+     * @param array                  $context Associative array containing a
+     *     '/* Replaced /* Replaced /* Replaced client */ */ */' key referencing the /* Replaced /* Replaced /* Replaced client */ */ */ that created the command.
      */
     public function visit(
+        /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command,
         RequestInterface $request,
         Parameter $param,
-        $value,
         array $context
     );
 
@@ -33,9 +33,9 @@ interface RequestLocationInterface
      *
      * @param /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command   Command being prepared
      * @param RequestInterface       $request   Request being modified
-     * @param array                  $context   Associative array containing a
-     *                                          /* Replaced /* Replaced /* Replaced client */ */ */ and command key.
      * @param Operation              $operation Operation being serialized
+     * @param array                  $context   Associative array containing a
+     *     '/* Replaced /* Replaced /* Replaced client */ */ */' key referencing the /* Replaced /* Replaced /* Replaced client */ */ */ that created the command.
      */
     public function after(
         /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command,

@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInter
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFileInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced /* Replaced /* Replaced Guzzle */ */ */\/* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface;
 
 /**
  * Adds POST files to a request
@@ -14,9 +15,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
 class PostFileLocation extends AbstractLocation
 {
     public function visit(
+        /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command,
         RequestInterface $request,
         Parameter $param,
-        $value,
         array $context
     ) {
         $body = $request->getBody();
@@ -24,7 +25,7 @@ class PostFileLocation extends AbstractLocation
             throw new \RuntimeException('Must be a POST body interface');
         }
 
-        $value = $param->filter($value);
+        $value = $param->filter($command[$param->getName()]);
         if (!($value instanceof PostFileInterface)) {
             $value = new PostFile($param->getWireName(), $value);
         }

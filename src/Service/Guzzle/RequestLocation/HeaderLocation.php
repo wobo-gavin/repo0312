@@ -13,11 +13,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Service\/* Replaced 
 class HeaderLocation extends AbstractLocation
 {
     public function visit(
+        /* Replaced /* Replaced /* Replaced Guzzle */ */ */CommandInterface $command,
         RequestInterface $request,
         Parameter $param,
-        $value,
         array $context
     ) {
+        $value = $command[$param->getName()];
         $request->setHeader($param->getWireName(), $param->filter($value));
     }
 
