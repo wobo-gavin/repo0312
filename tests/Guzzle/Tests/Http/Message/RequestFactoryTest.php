@@ -421,7 +421,10 @@ class HttpRequestFactoryTest extends \/* Replaced /* Replaced /* Replaced Guzzle
 
     public function testCanAddPlugins()
     {
-        $mock = new MockPlugin(array(new Response(200)));
+        $mock = new MockPlugin(array(
+            new Response(200),
+            new Response(200)
+        ));
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->addSubscriber($mock);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', array(), array(
