@@ -589,4 +589,13 @@ class ClientTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Te
         $head = $/* Replaced /* Replaced /* Replaced client */ */ */->head('http://www.foo.com', array(), array('query' => array('foo' => 'bar')));
         $this->assertEquals('bar', $head->getQuery()->get('foo'));
     }
+
+    public function testCanSetRelativeUrlStartingWithHttp()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client('http://www.foo.com');
+        $this->assertEquals(
+            'http://www.foo.com/httpfoo',
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'httpfoo')->getUrl()
+        );
+    }
 }
