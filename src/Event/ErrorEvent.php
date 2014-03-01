@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionI
  *
  * You may intercept the exception and inject a response into the event to rescue the request.
  */
-class ErrorEvent extends AbstractTransferStatsEvent
+class ErrorEvent extends AbstractTransferEvent
 {
     private $exception;
 
