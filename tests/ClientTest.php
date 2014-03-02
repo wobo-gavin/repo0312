@@ -84,7 +84,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->method('send')
             ->will($this->throwException(new \Exception('Foo')));
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
     }
 
     /**
@@ -291,7 +291,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $adapter->expects($this->once())
             ->method('send');
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
     }
 
     public function testClientHandlesErrorsDuringBeforeSend()
@@ -316,7 +316,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function ($e) {
             throw new RequestException('foo', $e->getRequest());
         });
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
     }
 
     public function testCanSetConfigValues()
