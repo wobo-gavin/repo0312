@@ -303,7 +303,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('error', function ($e) {
             $e->intercept(new Response(200));
         });
-        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get('/')->getStatusCode());
+        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com')->getStatusCode());
     }
 
     /**
@@ -340,9 +340,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($history);
 
         $requests = [
-            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/'),
-            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', '/'),
-            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('PUT', '/')
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://test.com'),
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', 'http://test.com'),
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('PUT', 'http://test.com')
         ];
 
         $/* Replaced /* Replaced /* Replaced client */ */ */->sendAll($requests);
@@ -376,9 +376,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testCanDisableAuthPerRequest()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['defaults' => ['auth' => 'foo']]);
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/');
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://test.com');
         $this->assertEquals('foo', $request->getConfig()['auth']);
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['auth' => null]);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://test.com', ['auth' => null]);
         $this->assertFalse($request->getConfig()->hasKey('auth'));
     }
 }

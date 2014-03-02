@@ -19,9 +19,9 @@ class TransactionIteratorTest extends \PHPUnit_Framework_TestCase
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $requests = [
-            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/'),
-            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', '/'),
-            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('PUT', '/'),
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://test.com'),
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', 'http://test.com'),
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('PUT', 'http://test.com'),
         ];
         $trans = new TransactionIterator($requests, $/* Replaced /* Replaced /* Replaced client */ */ */, []);
         $this->assertEquals(0, $trans->key());
@@ -41,9 +41,9 @@ class TransactionIteratorTest extends \PHPUnit_Framework_TestCase
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $requests = [
-            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/'),
-            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', '/'),
-            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('PUT', '/'),
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://test.com'),
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', 'http://test.com'),
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('PUT', 'http://test.com'),
         ];
 
         $trans = new TransactionIterator(new \ArrayIterator($requests), $/* Replaced /* Replaced /* Replaced client */ */ */, []);
@@ -72,7 +72,7 @@ class TransactionIteratorTest extends \PHPUnit_Framework_TestCase
     {
         $fn = function() {};
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $requests = [$/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/')];
+        $requests = [$/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://test.com')];
         $trans = new TransactionIterator(new \ArrayIterator($requests), $/* Replaced /* Replaced /* Replaced client */ */ */, [
             'before'   => $fn,
             'complete' => $fn,

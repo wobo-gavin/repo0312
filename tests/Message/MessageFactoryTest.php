@@ -234,7 +234,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         $foo = null;
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([new Response(200)]));
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com', [
             'events' => [
                 'before' => function () use (&$foo) { $foo = true; }
             ]
@@ -247,7 +247,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         $foo = null;
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock(array(new Response(200))));
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', [
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://test.com', [
             'events' => [
                 'before' => [
                     'fn' => function () use (&$foo) { $foo = true; },
@@ -270,7 +270,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
             new Response(200),
         ]));
         $fn = function () use (&$foo) { ++$foo; };
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', [
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://test.com', [
             'events' => ['before' => ['fn' => $fn, 'once' => true]]
         ]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
@@ -284,7 +284,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidatesEventContainsFn()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
         $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['events' => ['before' => ['foo' => 'bar']]]);
     }
 
@@ -293,7 +293,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidatesEventIsArray()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
         $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['events' => ['before' => '123']]);
     }
 
@@ -302,13 +302,13 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         $mock = new Mock([new Response(200)]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', ['subscribers' => [$mock]]);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com', ['subscribers' => [$mock]]);
     }
 
     public function testCanDisableExceptions()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $this->assertEquals(500, $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [
+        $this->assertEquals(500, $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com', [
             'subscribers' => [new Mock([new Response(500)])],
             'exceptions' => false
         ])->getStatusCode());
