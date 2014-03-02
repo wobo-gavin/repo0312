@@ -65,7 +65,7 @@ class StreamAdapterTest extends \PHPUnit_Framework_TestCase
                 'proxy' => self::$server->getUrl()
             ]
         ]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', ['headers' => ['Foo' => 'Bar']]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httbin.org', ['headers' => ['Foo' => 'Bar']]);
     }
 
     public function testCanHandleExceptionsUsingEvents()
