@@ -18,7 +18,7 @@
     "autoload": {
         "psr-0": { "/* Replaced /* Replaced /* Replaced Guzzle */ */ */\\Iterator": "/" }
     },
-    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Log",
+    "target-dir": "/* Replaced /* Replaced /* Replaced Guzzle */ */ *//Iterator",
     "extra": {
         "branch-alias": {
             "dev-master": "3.7-dev"
