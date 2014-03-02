@@ -10,6 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents
@@ -105,6 +106,51 @@ class RequestEventsTest extends \PHPUnit_Framework_TestCase
             $this->fail('Did not throw');
         } catch (RequestException $e) {
             $this->assertEquals(1, $errCalled);
+        }
+    }
+
+    public function testDoesNotEmitErrorEventTwice()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $mock = new Mock([new Response(500)]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
+
+        $r = [];
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('error', function (ErrorEvent $event) use (&$r) {
+            $r[] = $event->getRequest();
+        });
+
+        try {
+            $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com');
+            $this->fail('Did not throw');
+        } catch (RequestException $e) {
+            $this->assertCount(1, $r);
+        }
+    }
+
+    /**
+     * Note: Longest test name ever.
+     */
+    public function testEmitsErrorEventForRequestExceptionsThrownDuringBeforeThatHaveNotEmittedAnErrorEvent()
+    {
+        $request = new Request('GET', '/');
+        $ex = new RequestException('foo', $request);
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function (BeforeEvent $event) use ($ex) {
+            throw $ex;
+        });
+        $called = false;
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('error', function (ErrorEvent $event) use ($ex, &$called) {
+            $called = true;
+            $this->assertSame($ex, $event->getException());
+        });
+
+        try {
+            $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com');
+            $this->fail('Did not throw');
+        } catch (RequestException $e) {
+            $this->assertTrue($called);
         }
     }
 }
