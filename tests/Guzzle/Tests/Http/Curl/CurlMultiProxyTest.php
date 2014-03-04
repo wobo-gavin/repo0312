@@ -12,13 +12,17 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiProxy
  */
 class CurlMultiProxyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Tests\/* Replaced /* Replaced /* Replaced Guzzle */ */ */TestCase
 {
+    const SELECT_TIMEOUT = 23.1;
+
+    const MAX_HANDLES = 2;
+
     /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Curl\CurlMultiProxy */
     private $multi;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->multi = new CurlMultiProxy();
+        $this->multi = new CurlMultiProxy(self::SELECT_TIMEOUT);
     }
 
     public function tearDown()
@@ -28,8 +32,14 @@ class CurlMultiProxyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
 
     public function testConstructorSetsMaxHandles()
     {
-        $m = new CurlMultiProxy(2);
-        $this->assertEquals(2, $this->readAttribute($m, 'maxHandles'));
+        $m = new CurlMultiProxy(self::SELECT_TIMEOUT, self::MAX_HANDLES);
+        $this->assertEquals(self::MAX_HANDLES, $this->readAttribute($m, 'maxHandles'));
+    }
+
+    public function testConstructorSetsSelectTimeout()
+    {
+        $m = new CurlMultiProxy(self::SELECT_TIMEOUT, self::MAX_HANDLES);
+        $this->assertEquals(self::SELECT_TIMEOUT, $this->readAttribute($m, 'selectTimeout'));
     }
 
     public function testAddingRequestsAddsToQueue()
@@ -90,7 +100,7 @@ class CurlMultiProxyTest extends \/* Replaced /* Replaced /* Replaced Guzzle */ 
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
         ));
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client($this->getServer()->getUrl());
-        $/* Replaced /* Replaced /* Replaced client */ */ */->setCurlMulti(new CurlMultiProxy(2));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->setCurlMulti(new CurlMultiProxy(self::SELECT_TIMEOUT, self::MAX_HANDLES));
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get();
         $request->send();
         $this->assertEquals(200, $request->getResponse()->getStatusCode());
