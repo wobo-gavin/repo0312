@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Cookie;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\CookieJar\ArrayCookieJar;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
@@ -169,7 +169,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testAddsCookieFromCookieJar()
     {
-        $jar = new ArrayCookieJar();
+        $jar = new CookieJar();
         $request = (new MessageFactory)->createRequest('GET', '/', ['cookies' => $jar]);
         foreach ($request->getEmitter()->listeners('before') as $l) {
             if ($l[0] instanceof Cookie) {

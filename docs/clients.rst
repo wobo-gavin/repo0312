@@ -472,7 +472,7 @@ cookies
 :Types:
     - bool
     - array
-    - ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\CookieJar\CookieJarInterface``
+    - ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface``
 :Default: None
 
 Set to ``true`` to use a shared cookie session associated with the /* Replaced /* Replaced /* Replaced client */ */ */.
@@ -490,12 +490,12 @@ new cookie session.
     // Enable cookies and send specific cookies
     $/* Replaced /* Replaced /* Replaced client */ */ */->get('/get', ['cookies' => ['foo' => 'bar']]);
 
-Set to a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\CookieJar\CookieJarInterface`` object to use an existing
+Set to a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface`` object to use an existing
 cookie jar.
 
 .. code-block:: php
 
-    $jar = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\CookieJar\ArrayCookieJar();
+    $jar = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar();
     $/* Replaced /* Replaced /* Replaced client */ */ */->get('/get', ['cookies' => $jar]);
 
 allow_redirects

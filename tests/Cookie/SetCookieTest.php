@@ -2,10 +2,10 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\CookieJar;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\CookieJar\SetCookie;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\CookieJar\SetCookie
+ * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie
  */
 class SetCookieTest extends \PHPUnit_Framework_TestCase
 {

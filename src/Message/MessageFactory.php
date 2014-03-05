@@ -4,8 +4,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFileInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Cookie;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\CookieJar\ArrayCookieJar;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\CookieJar\CookieJarInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\HttpError;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
@@ -275,7 +275,7 @@ class MessageFactory implements MessageFactoryInterface
             $request->getEmitter()->addSubscriber($cookie = $cookie ?: new Cookie());
         } elseif (is_array($value)) {
             $request->getEmitter()->addSubscriber(
-                new Cookie(ArrayCookieJar::fromArray($value, $request->getHost()))
+                new Cookie(CookieJar::fromArray($value, $request->getHost()))
             );
         } elseif ($value instanceof CookieJarInterface) {
             $request->getEmitter()->addSubscriber(new Cookie($value));
