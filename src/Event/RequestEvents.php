@@ -6,8 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionI
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 
 /**
- * Contains a collection of request events and methods used to manage the
- * request event lifecycle (before, after, error).
+ * Contains methods used to manage the request event lifecycle.
  */
 final class RequestEvents
 {
