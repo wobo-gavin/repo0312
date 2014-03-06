@@ -3,7 +3,8 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
 /**
- * Trait implementing ToArrayInterface, \ArrayAccess, \Countable, and \IteratorAggregate
+ * Trait implementing ToArrayInterface, \ArrayAccess, \Countable, and
+ * \IteratorAggregate.
  */
 trait HasDataTrait
 {
