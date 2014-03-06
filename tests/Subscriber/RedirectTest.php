@@ -197,4 +197,34 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
         $reqs = $h->getRequests();
         $this->assertEquals('/redirect%201', $reqs[1]->getResource());
     }
+
+    public function testAddsRefererWhenPossible()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://www.foo.com']);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([
+            "HTTP/1.1 301 Moved Permanently\r\nLocation: /bar\r\nContent-Length: 0\r\n\r\n",
+            "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
+        ]));
+        $h = new History();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo', ['allow_redirects' => ['max' => 5, 'referer' => true]]);
+        $reqs = $h->getRequests();
+        $this->assertEquals('http://www.foo.com/foo', $reqs[1]->getHeader('Referer'));
+    }
+
+    public function testDoesNotAddRefererWhenChangingProtocols()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'https://www.foo.com']);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([
+            "HTTP/1.1 301 Moved Permanently\r\n"
+            . "Location: http://www.foo.com/foo\r\n"
+            . "Content-Length: 0\r\n\r\n",
+            "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
+        ]));
+        $h = new History();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo', ['allow_redirects' => ['max' => 5, 'referer' => true]]);
+        $reqs = $h->getRequests();
+        $this->assertFalse($reqs[1]->hasHeader('Referer'));
+    }
 }
