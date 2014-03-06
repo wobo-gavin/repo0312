@@ -14,7 +14,11 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
 
     require_once __DIR__ . '/../../Server.php';
 
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlAdapter;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\MultiAdapter;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlFactory;
@@ -52,6 +56,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
             $stream = Stream::factory();
             $request->getConfig()->set('save_to', $stream);
             $request->getConfig()->set('verify', true);
+            $this->emit($request);
 
             $t = new Transaction(new Client(), $request);
             $f = new CurlFactory();
@@ -83,6 +88,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
             self::$server->flush();
             self::$server->enqueue(["HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\n"]);
             $request = new Request('HEAD', self::$server->getUrl());
+            $this->emit($request);
 
             $t = new Transaction(new Client(), $request);
             $f = new CurlFactory();
@@ -103,6 +109,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
             self::$server->flush();
             self::$server->enqueue(["HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"]);
             $request = new Request('POST', self::$server->getUrl());
+            $this->emit($request);
             $t = new Transaction(new Client(), $request);
             $h = (new CurlFactory())->createHandle($t, new MessageFactory());
             curl_exec($h);
@@ -127,6 +134,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
             self::$server->flush();
             self::$server->enqueue(["HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"]);
             $request = new Request('PUT', self::$server->getUrl(), [], $stream);
+            $this->emit($request);
             $this->assertNull($request->getBody()->getSize());
             $t = new Transaction(new Client(), $request);
             $h = (new CurlFactory())->createHandle($t, new MessageFactory());
@@ -143,6 +151,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
             self::$server->flush();
             self::$server->enqueue(["HTTP/1.1 200 OK\r\nContent-Length: 3\r\n\r\nfoo"]);
             $request = new Request('GET', self::$server->getUrl(), ['Accept-Encoding' => '']);
+            $this->emit($request);
             $t = new Transaction(new Client(), $request);
             $h = (new CurlFactory())->createHandle($t, new MessageFactory());
             curl_exec($h);
@@ -159,6 +168,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
             self::$server->enqueue(["HTTP/1.1 200 OK\r\nContent-Length: 3\r\n\r\nfoo"]);
             $request = new Request('GET', self::$server->getUrl());
             $request->getConfig()->set('debug', $r);
+            $this->emit($request);
             $t = new Transaction(new Client(), $request);
             $h = (new CurlFactory())->createHandle($t, new MessageFactory());
             curl_exec($h);
@@ -170,6 +180,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
         public function testAddsProxyOptions()
         {
             $request = new Request('GET', self::$server->getUrl());
+            $this->emit($request);
             $request->getConfig()->set('proxy', '123');
             $request->getConfig()->set('connect_timeout', 1);
             $request->getConfig()->set('timeout', 2);
@@ -195,6 +206,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
         public function testEnsuresCertExists()
         {
             $request = new Request('GET', self::$server->getUrl());
+            $this->emit($request);
             $request->getConfig()->set('cert', __FILE__ . 'ewfwef');
             (new CurlFactory())->createHandle(new Transaction(new Client(), $request), new MessageFactory());
         }
@@ -205,6 +217,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
         public function testEnsuresKeyExists()
         {
             $request = new Request('GET', self::$server->getUrl());
+            $this->emit($request);
             $request->getConfig()->set('ssl_key', __FILE__ . 'ewfwef');
             (new CurlFactory())->createHandle(new Transaction(new Client(), $request), new MessageFactory());
         }
@@ -215,6 +228,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
         public function testEnsuresCacertExists()
         {
             $request = new Request('GET', self::$server->getUrl());
+            $this->emit($request);
             $request->getConfig()->set('verify', __FILE__ . 'ewfwef');
             (new CurlFactory())->createHandle(new Transaction(new Client(), $request), new MessageFactory());
         }
@@ -238,6 +252,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
         {
             $request = new Request('GET', self::$server->getUrl());
             $request->getConfig()->set('curl', ['CURLOPT_USERAGENT' => 'foo']);
+            $this->emit($request);
             $f = new CurlFactory();
             curl_close($f->createHandle(new Transaction(new Client(), $request), new MessageFactory()));
             $this->assertEquals('foo', $_SERVER['last_curl'][CURLOPT_USERAGENT]);
@@ -246,6 +261,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
         public function testStripsFragment()
         {
             $request = new Request('GET', self::$server->getUrl() . '#foo');
+            $this->emit($request);
             $f = new CurlFactory();
             curl_close($f->createHandle(new Transaction(new Client(), $request), new MessageFactory()));
             $this->assertEquals(self::$server->getUrl(), $_SERVER['last_curl'][CURLOPT_URL]);
@@ -254,10 +270,17 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
         public function testDoesNotSendSizeTwice()
         {
             $request = new Request('PUT', self::$server->getUrl(), [], Stream::factory(str_repeat('a', 32769)));
+            $this->emit($request);
             $f = new CurlFactory();
             curl_close($f->createHandle(new Transaction(new Client(), $request), new MessageFactory()));
             $this->assertEquals(32769, $_SERVER['last_curl'][CURLOPT_INFILESIZE]);
             $this->assertNotContains('Content-Length', implode(' ', $_SERVER['last_curl'][CURLOPT_HTTPHEADER]));
+        }
+
+        private function emit(RequestInterface $request)
+        {
+            $event = new BeforeEvent(new Transaction(new Client(), $request));
+            $request->getEmitter()->emit('before', $event);
         }
     }
 }
