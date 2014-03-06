@@ -15,7 +15,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 
 /**
- * Default HTTP request factory used to create Request and Response} objects.
+ * Default HTTP request factory used to create Request and Response objects.
  */
 class MessageFactory implements MessageFactoryInterface
 {
