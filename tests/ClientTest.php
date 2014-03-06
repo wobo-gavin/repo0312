@@ -280,7 +280,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \LogicException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
      * @expectedExceptionMessage No response
      */
     public function testEnsuresResponseIsPresentAfterSending()
@@ -315,6 +315,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function ($e) {
             throw new RequestException('foo', $e->getRequest());
+        });
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
+    }
+
+    /**
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
+     * @expectedExceptionMessage foo
+     */
+    public function testClientWrapsExceptions()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function ($e) {
+            throw new \Exception('foo');
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
     }
