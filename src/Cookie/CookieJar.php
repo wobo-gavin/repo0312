@@ -6,7 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInter
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
 
 /**
- * Cookie cookieJar that stores cookies an an array
+ * Cookie jar that stores cookies an an array
  */
 class CookieJar implements CookieJarInterface
 {

@@ -13,7 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInte
  */
 class Cookie implements SubscriberInterface
 {
-    /** @var CookieJarInterface Cookie cookieJar used to hold cookies */
+    /** @var CookieJarInterface */
     private $cookieJar;
 
     /**
