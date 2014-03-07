@@ -5,9 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Subscrib
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Cookie;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
