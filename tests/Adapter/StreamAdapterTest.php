@@ -69,6 +69,19 @@ class StreamAdapterTest extends \PHPUnit_Framework_TestCase
         ]);
     }
 
+    /**
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
+     * @expectedExceptionMessage URL is invalid: ftp://localhost:123
+     */
+    public function testEnsuresTheHttpProtocol()
+    {
+        self::$server->flush();
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client([
+            'adapter' => new StreamAdapter(new MessageFactory()),
+        ]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('ftp://localhost:123');
+    }
+
     public function testCanHandleExceptionsUsingEvents()
     {
         self::$server->flush();
