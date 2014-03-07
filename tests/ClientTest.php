@@ -243,6 +243,18 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testSettingAbsoluteUriTemplateOverridesBaseUrl()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://www.foo.com/baz?bam=bar']);
+        $this->assertEquals(
+            'http://goo.com/1',
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest(
+                'GET',
+                ['http://goo.com/{bar}', ['bar' => '1']]
+            )->getUrl()
+        );
+    }
+
     public function testCanSetRelativeUrlStartingWithHttp()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://www.foo.com']);
