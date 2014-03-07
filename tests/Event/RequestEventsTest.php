@@ -113,7 +113,7 @@ class RequestEventsTest extends \PHPUnit_Framework_TestCase
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $mock = new Mock([new Response(500)]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($mock);
 
         $r = [];
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('error', function (ErrorEvent $event) use (&$r) {

@@ -259,7 +259,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $foo = null;
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([new Response(200)]));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach(new Mock([new Response(200)]));
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com', [
             'events' => [
                 'before' => function () use (&$foo) { $foo = true; }
@@ -272,7 +272,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $foo = null;
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock(array(new Response(200))));
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach(new Mock(array(new Response(200))));
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://test.com', [
             'events' => [
                 'before' => [
@@ -291,7 +291,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $foo = 0;
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach(new Mock([
             new Response(200),
             new Response(200),
         ]));
@@ -327,7 +327,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $mock = new Mock([new Response(200)]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($mock);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com', ['subscribers' => [$mock]]);
     }
 

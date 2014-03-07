@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestExc
  */
 class HttpError implements SubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public function getEvents()
     {
         return ['complete' => ['onRequestAfterSend']];
     }

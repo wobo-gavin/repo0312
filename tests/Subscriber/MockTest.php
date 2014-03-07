@@ -19,7 +19,8 @@ class MockTest extends \PHPUnit_Framework_TestCase
 {
     public function testDescribesSubscribedEvents()
     {
-        $this->assertInternalType('array', Mock::getSubscribedEvents());
+        $mock = new Mock();
+        $this->assertInternalType('array', $mock->getEvents());
     }
 
     public function testIsCountable()
@@ -81,7 +82,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
     {
         $m = new Mock([new Response(200)]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($m);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($m);
         $body = Stream::factory('foo');
         $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', ['body' => $body]);
         $this->assertEquals(3, $body->tell());
@@ -94,7 +95,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $ex = new RequestException('foo', $request);
         $mock = new Mock([$ex]);
         $this->assertCount(1, $mock);
-        $request->getEmitter()->addSubscriber($mock);
+        $request->getEmitter()->attach($mock);
 
         try {
             $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);

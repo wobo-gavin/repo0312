@@ -22,8 +22,8 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($history);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($history);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($mock);
 
         $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo');
         $this->assertEquals(200, $response->getStatusCode());
@@ -55,7 +55,7 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect6\r\nContent-Length: 0\r\n\r\n"
         ]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($mock);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://www.example.com/foo');
     }
 
@@ -68,8 +68,8 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
         ]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($h);
         $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://test.com/foo', [
             'headers' => ['X-Baz' => 'bar'],
             'body' => 'testing'
@@ -91,8 +91,8 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
         ]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($h);
         $/* Replaced /* Replaced /* Replaced client */ */ */->post('/foo', [
             'headers' => ['X-Baz' => 'bar'],
             'body' => 'testing',
@@ -114,8 +114,8 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
         ]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($h);
 
         $body = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface')
             ->setMethods(['seek', 'read', 'eof', 'tell'])
@@ -142,8 +142,8 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
         ]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($mock);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($h);
 
         $body = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface')
             ->setMethods(['seek', 'read', 'eof', 'tell'])
@@ -161,7 +161,7 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
     public function testRedirectsCanBeDisabledPerRequest()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach(new Mock([
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
         ]));
@@ -173,11 +173,11 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
     {
         $h = new History();
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://www.foo.com']);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach(new Mock([
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect?foo=bar\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
         ]));
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($h);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('?foo=bar');
         $requests = $h->getRequests();
         $this->assertEquals('http://www.foo.com?foo=bar', $requests[0]->getUrl());
@@ -187,12 +187,12 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
     public function testHandlesRedirectsWithSpacesProperly()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://www.foo.com']);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach(new Mock([
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /redirect 1\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
         ]));
         $h = new History();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($h);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo');
         $reqs = $h->getRequests();
         $this->assertEquals('/redirect%201', $reqs[1]->getResource());
@@ -201,12 +201,12 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
     public function testAddsRefererWhenPossible()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://www.foo.com']);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach(new Mock([
             "HTTP/1.1 301 Moved Permanently\r\nLocation: /bar\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
         ]));
         $h = new History();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($h);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo', ['allow_redirects' => ['max' => 5, 'referer' => true]]);
         $reqs = $h->getRequests();
         $this->assertEquals('http://www.foo.com/foo', $reqs[1]->getHeader('Referer'));
@@ -215,14 +215,14 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
     public function testDoesNotAddRefererWhenChangingProtocols()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'https://www.foo.com']);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber(new Mock([
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach(new Mock([
             "HTTP/1.1 301 Moved Permanently\r\n"
             . "Location: http://www.foo.com/foo\r\n"
             . "Content-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
         ]));
         $h = new History();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->addSubscriber($h);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($h);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo', ['allow_redirects' => ['max' => 5, 'referer' => true]]);
         $reqs = $h->getRequests();
         $this->assertFalse($reqs[1]->hasHeader('Referer'));
