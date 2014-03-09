@@ -2,6 +2,9 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\Curl;
 
+require_once __DIR__ . '/../../Server.php';
+
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\MultiAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\RequestMediator;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
@@ -10,12 +13,27 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFacto
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\RequestMediator
  */
 class RequestMediatorTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server */
+    static $server;
+
+    public static function setUpBeforeClass()
+    {
+        self::$server = new Server();
+        self::$server->start();
+    }
+
+    public static function tearDownAfterClass()
+    {
+        self::$server->stop();
+    }
+
     public function testSetsResponseBodyForDownload()
     {
         $body = Stream::factory();
@@ -92,5 +110,20 @@ class RequestMediatorTest extends \PHPUnit_Framework_TestCase
         $t = new Transaction(new Client(), new Request('PUT', 'http://httbin.org', [], $body));
         $m = new RequestMediator($t, new MessageFactory());
         $this->assertEquals('foo', $m->readRequestBody(null, null, 3));
+    }
+
+    public function testEmitsHeadersEventForHeadRequest()
+    {
+        self::$server->enqueue(["HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nOK"]);
+        $ee = null;
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => new MultiAdapter(new MessageFactory())]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->head(self::$server->getUrl(), [
+            'events' => [
+                'headers' => function (HeadersEvent $e) use (&$ee) {
+                    $ee = $e;
+                }
+            ]
+        ]);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\Event\\HeadersEvent', $ee);
     }
 }
