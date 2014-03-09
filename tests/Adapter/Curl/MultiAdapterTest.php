@@ -111,7 +111,12 @@ class MultiAdapterTest extends AbstractCurl
         $a->sendAll(new \ArrayIterator($transactions), 2);
         $check = range(200, 206);
         foreach ($transactions as $t) {
-            $this->assertContains($t->getResponse()->getStatusCode(), $check);
+            $response = $t->getResponse();
+            $this->assertInstanceOf(
+                '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\Message\\ResponseInterface',
+                $response
+            );
+            $this->assertContains($response->getStatusCode(), $check);
         }
     }
 
