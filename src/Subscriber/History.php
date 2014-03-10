@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
@@ -27,8 +28,8 @@ class History implements SubscriberInterface, \IteratorAggregate, \Countable
     public function getEvents()
     {
         return [
-            'complete' => ['onRequestSent', 9999],
-            'error' => ['onRequestError', 9999],
+            'complete' => ['onComplete', RequestEvents::EARLY],
+            'error'    => ['onError', RequestEvents::EARLY],
         ];
     }
 
@@ -48,12 +49,12 @@ class History implements SubscriberInterface, \IteratorAggregate, \Countable
         return implode("\n", $lines);
     }
 
-    public function onRequestSent(CompleteEvent $event)
+    public function onComplete(CompleteEvent $event)
     {
         $this->add($event->getRequest(), $event->getResponse());
     }
 
-    public function onRequestError(ErrorEvent $event)
+    public function onError(ErrorEvent $event)
     {
         $this->add($event->getRequest(), $event->getResponse());
     }

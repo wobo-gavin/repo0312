@@ -306,7 +306,7 @@ The `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin` namespace has b
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History`: Replaces the old HistoryPlugin.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\HttpError`: Throws errors when a bad HTTP response is received.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock`: Replaces the old MockPlugin.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\PrepareRequestBody`: Prepares the body of a request just before sending.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Prepare`: Prepares the body of a request just before sending.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Redirect`: Replaces the RedirectPlugin.
 
 The following plugins have been removed (third-parties are free to re-implement these if needed):

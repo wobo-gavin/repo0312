@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TooManyRedirectsException;
@@ -30,7 +31,7 @@ class Redirect implements SubscriberInterface
 {
     public function getEvents()
     {
-        return ['complete' => ['onComplete', -10]];
+        return ['complete' => ['onComplete', RequestEvents::REDIRECT]];
     }
 
     /**

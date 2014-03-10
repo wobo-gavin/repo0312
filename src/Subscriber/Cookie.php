@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
@@ -26,9 +27,10 @@ class Cookie implements SubscriberInterface
 
     public function getEvents()
     {
+        // Fire the cookie plugin complete event before redirecting
         return [
-            'before'   => ['onBefore', 125],
-            'complete' => ['onComplete', 125]
+            'before'   => ['onBefore'],
+            'complete' => ['onComplete', RequestEvents::REDIRECT + 10]
         ];
     }
 

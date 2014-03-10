@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
@@ -22,11 +23,11 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Mimetypes;
  *   the Expect header for all requests in which the size of the payload cannot
  *   be determined or where the body is not rewindable.
  */
-class PrepareRequestBody implements SubscriberInterface
+class Prepare implements SubscriberInterface
 {
     public function getEvents()
     {
-        return ['before' => ['onBefore', -1]];
+        return ['before' => ['onBefore', RequestEvents::PREPARE]];
     }
 
     public function onBefore(BeforeEvent $event)

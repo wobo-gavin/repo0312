@@ -4,7 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HasEmitterTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\PrepareRequestBody;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Prepare;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 
 /**
@@ -180,7 +180,7 @@ class Request extends AbstractMessage implements RequestInterface
     {
         static $subscriber;
         if (!$subscriber) {
-            $subscriber = new PrepareRequestBody();
+            $subscriber = new Prepare();
         }
 
         $this->getEmitter()->attach($subscriber);
