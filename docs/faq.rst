@@ -5,12 +5,27 @@ FAQ
 Is it possible to use /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 and 4 in the same project?
 =========================================================
 
-Yes. (it will be, WIP)
+Yes, because /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 and 4 use different Packagist packages and different
+namespaced. You simply need to add ``/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */`` (/* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3) and
+``/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */`` (/* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4+) to your project's composer.json file.
+
+.. code-block:: javascript
+
+    {
+        "require": {
+            "/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */": 3.*,
+            "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": 4.*
+        }
+    }
+
+You might need to use /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 and /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4 in the same project due to a
+requirement of a legacy application or a dependency that has not yet migrated
+to /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4.0.
 
 How do I migrate from /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 to 4?
 ====================================
 
-TODO
+See https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//blob/master/UPGRADING.md#3x-to-40.
 
 What is this Maximum function nesting error?
 ============================================
