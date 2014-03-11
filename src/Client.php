@@ -85,7 +85,7 @@ class Client implements ClientInterface
     {
         static $defaultAgent = '';
         if (!$defaultAgent) {
-            $defaultAgent = '/* Replaced /* Replaced /* Replaced Guzzle */ */ *//' . \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\VERSION;
+            $defaultAgent = '/* Replaced /* Replaced /* Replaced Guzzle */ */ *//' . self::VERSION;
             if (extension_loaded('curl')) {
                 $defaultAgent .= ' curl/' . curl_version()['version'];
             }

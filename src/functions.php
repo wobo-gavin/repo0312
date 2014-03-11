@@ -5,8 +5,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\UriTemplate;
 
-const VERSION = '4.0-dev';
-
 /**
  * Send a custom request
  *
