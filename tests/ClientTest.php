@@ -406,4 +406,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://test.com', ['auth' => null]);
         $this->assertFalse($request->getConfig()->hasKey('auth'));
     }
+
+    /**
+     * @expectedException \PHPUnit_Framework_Error_Deprecated
+     */
+    public function testHasDeprecatedGetEmitter()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher();
+    }
 }
