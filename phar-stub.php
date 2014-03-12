@@ -13,4 +13,13 @@ $classLoader->registerNamespaces(array(
 ));
 $classLoader->register();
 
+// Copy the cacert.pem file from the phar if it is not in the temp folder.
+$from = 'phar:///* Replaced /* Replaced /* Replaced guzzle */ */ */.phar/src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/Resources/cacert.pem';
+$certFile = sys_get_temp_dir() . '//* Replaced /* Replaced /* Replaced guzzle */ */ */-cacert.pem';
+
+if (!copy($from, $certFile)) {
+    throw new RuntimeException("Could not copy {$from} to {$certFile}: "
+        . var_export(error_get_last(), true));
+}
+
 __HALT_COMPILER();
