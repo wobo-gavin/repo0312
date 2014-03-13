@@ -3,7 +3,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HeadersEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
@@ -112,10 +111,7 @@ class StreamAdapter implements AdapterInterface
         );
 
         $transaction->setResponse($response);
-        $transaction->getRequest()->getEmitter()->emit(
-            'headers',
-            new HeadersEvent($transaction)
-        );
+        RequestEvents::emitHeaders($transaction);
 
         return $response;
     }
