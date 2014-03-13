@@ -19,8 +19,10 @@ class Transaction implements TransactionInterface
      * @param ClientInterface  $/* Replaced /* Replaced /* Replaced client */ */ */  Client that is used to send the requests
      * @param RequestInterface $request
      */
-    public function __construct(ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */, RequestInterface $request)
-    {
+    public function __construct(
+        ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */,
+        RequestInterface $request
+    ) {
         $this->/* Replaced /* Replaced /* Replaced client */ */ */ = $/* Replaced /* Replaced /* Replaced client */ */ */;
         $this->request = $request;
     }

@@ -6,7 +6,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInter
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 
 /**
- * Represents a POST body that is sent as either a multipart/form-data stream or application/x-www-urlencoded stream
+ * Represents a POST body that is sent as either a multipart/form-data stream
+ * or application/x-www-urlencoded stream.
  */
 interface PostBodyInterface extends StreamInterface, \Countable
 {
