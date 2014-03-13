@@ -425,6 +425,7 @@ to ensure that they are fired last or near last in the event chain.
 .. code-block:: php
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 
     /**
      * Custom authentication listener that handles the "foo" auth type.
@@ -443,7 +444,7 @@ to ensure that they are fired last or near last in the event chain.
 
         public function getEvents()
         {
-            return ['before' => ['sign', -999]];
+            return ['before' => ['sign', RequestEvents::SIGN_REQUEST]];
         }
 
         public function sign(BeforeEvent $e)
