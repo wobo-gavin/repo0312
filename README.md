@@ -50,10 +50,8 @@ Next, update your project's composer.json file to include /* Replaced /* Replace
 
 ```javascript
 {
-    {
-        "require": {
-            "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "4.0.0-rc.1"
-        }
+    "require": {
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "4.0.0-rc.1"
     }
 }
 ```
