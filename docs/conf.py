@@ -34,7 +34,7 @@ html_static_path = ['_static']
 
 # Custom sidebar templates, maps document names to template names.
 html_sidebars = {
-    '**':       ['localtoc.html', 'leftbar.html', 'searchbox.html']
+    '**':       ['localtoc.html', 'searchbox.html']
 }
 
 # Output file base name for HTML help builder.
@@ -45,14 +45,12 @@ htmlhelp_basename = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */doc'
 sys.path.insert(0, '/Users/dowling/projects//* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme')
 
 import /* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme
-pygments_style = '/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme./* Replaced /* Replaced /* Replaced Guzzle */ */ */Style'
 html_translator_class = '/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme.HTMLTranslator'
 html_theme_path = /* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme.html_theme_path()
 html_theme = '/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme'
 
 # /* Replaced /* Replaced /* Replaced Guzzle */ */ */ theme options (see theme.conf for more information)
 html_theme_options = {
-    "index_template": "index.html",
     "project_nav_name": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */",
     "github_user": "/* Replaced /* Replaced /* Replaced guzzle */ */ */",
     "github_repo": "/* Replaced /* Replaced /* Replaced guzzle */ */ */",

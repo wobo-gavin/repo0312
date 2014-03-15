@@ -1,2 +1,2 @@
 Sphinx>=1.2b1
-/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme>=0.5.0
+/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme>=0.6.0
