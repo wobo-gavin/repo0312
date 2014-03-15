@@ -1,8 +1,6 @@
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */, PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ and webservice framework
 ================================================
 
-[![Latest Stable Version](https://poser.pugx.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//version.png)](https://packagist.org/packages//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */)
-[![Composer Downloads](https://poser.pugx.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//d/total.png)](https://packagist.org/packages//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */)
 [![Build Status](https://secure.travis-ci.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.png?branch=master)](http://travis-ci.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */)
 
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ that makes it easy to work with HTTP/1.1 and takes
@@ -46,9 +44,18 @@ The recommended way to install /* Replaced /* Replaced /* Replaced Guzzle */ */ 
 ```bash
 # Install Composer
 curl -sS https://getcomposer.org/installer | php
+```
 
-# Add /* Replaced /* Replaced /* Replaced Guzzle */ */ */ as a dependency
-php composer.phar require /* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */:~4
+Next, update your project's composer.json file to include /* Replaced /* Replaced /* Replaced Guzzle */ */ */:
+
+```javascript
+{
+    {
+        "require": {
+            "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "4.0.0-rc.1"
+        }
+    }
+}
 ```
 
 After installing, you need to require Composer's autoloader:
