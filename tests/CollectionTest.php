@@ -7,7 +7,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection;
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HasDataTrait
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\PathTrait
  */
 class CollectionTest extends \PHPUnit_Framework_TestCase
 {
