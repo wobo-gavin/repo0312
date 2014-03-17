@@ -31,16 +31,16 @@ Creating Streams
 ================
 
 The best way to create a stream is using the
-``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream::factory()`` method. This method accepts strings,
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\create()`` function. This function accepts strings,
 resources returned from ``fopen()``, an object that implements
 ``__toString()``, and an object that implements
-``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface`` object.
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface``.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream;
 
-    $stream = Stream::factory('string data');
+    $stream = Stream\create('string data');
     echo $stream;
     // string data
     echo $stream->read(3);
@@ -52,6 +52,14 @@ resources returned from ``fopen()``, an object that implements
     var_export($stream->tell());
     // 11
 
+.. note::
+
+    You can use this ``create()`` function or use the static ``factory()``
+    method of the ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream`` class via
+    ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream::factory()``. This static factory method has the
+    same method signature as the ``create()`` function. Actually, the static
+    factory method is just a convenience method for the ``create()`` function.
+
 Metadata Streams
 ================
 
@@ -62,10 +70,10 @@ provides the data you would retrieve when calling PHP's
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream;
 
     $resource = fopen('/path/to/file', 'r');
-    $stream = Stream::factory($resource);
+    $stream = Stream\create($resource);
     echo $stream->getMetadata('uri');
     // /path/to/file
     var_export($stream->isReadable());
@@ -77,8 +85,9 @@ provides the data you would retrieve when calling PHP's
 
 .. note::
 
-    Streams created using the ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream::factory()``
-    all implement ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\MetadataStreamInterface``.
+    Streams created using ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\create()`` and
+    ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream::factory()`` all implement
+    ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\MetadataStreamInterface``.
 
 Stream Decorators
 =================
@@ -99,10 +108,10 @@ then on disk.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\CachingStream;
 
-    $original = Stream::factory(fopen('http://www.google.com', 'r'));
+    $original = Stream\create(fopen('http://www.google.com', 'r'));
     $stream = new CachingStream($original);
 
     $stream->read(1024);
@@ -122,10 +131,10 @@ chunks (e.g. Amazon S3's multipart upload API).
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\LimitStream;
 
-    $original = Stream::factory(fopen('/tmp/test.txt', 'r+'));
+    $original = Stream\create(fopen('/tmp/test.txt', 'r+'));
     echo $original->getSize();
     // >>> 1048576
 
@@ -143,10 +152,10 @@ NoSeekStream wraps a stream and does not allow seeking.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\LimitStream;
 
-    $original = Stream::factory('foo');
+    $original = Stream\create('foo');
     $noSeek = new NoSeekStream($original);
 
     echo $noSeek->read(3);
@@ -203,9 +212,9 @@ This decorator could be added to any existing stream and used like so:
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream;
 
-    $original = Stream::factory('foo');
+    $original = Stream\create('foo');
     $eofStream = new EofCallbackStream($original, function () {
         echo 'EOF!';
     });
