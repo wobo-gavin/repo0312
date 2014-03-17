@@ -3,8 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
 
 /**
@@ -13,7 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
  */
 class PostBody implements PostBodyInterface
 {
-    /** @var StreamInterface */
+    /** @var Stream\StreamInterface */
     private $body;
 
     /** @var callable */
@@ -228,7 +227,7 @@ class PostBody implements PostBodyInterface
         } elseif ($this->fields) {
             return $this->body = $this->createUrlEncoded();
         } else {
-            return $this->body = Stream::factory();
+            return $this->body = Stream\create();
         }
     }
 
@@ -271,11 +270,11 @@ class PostBody implements PostBodyInterface
     /**
      * Creates an application/x-www-form-urlencoded stream body
      *
-     * @return StreamInterface
+     * @return Stream\StreamInterface
      */
     private function createUrlEncoded()
     {
-        return Stream::factory($this->getFields(true));
+        return Stream\create($this->getFields(true));
     }
 
     /**

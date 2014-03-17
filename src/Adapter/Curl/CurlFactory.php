@@ -5,7 +5,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\AdapterException;
 
 /**
@@ -283,8 +283,8 @@ class CurlFactory
         $value
     ) {
         $mediator->setResponseBody(is_string($value)
-            ? Stream::factory(fopen($value, 'w'))
-            : Stream::factory($value));
+            ? Stream\create(fopen($value, 'w'))
+            : Stream\create($value));
     }
 
     /**

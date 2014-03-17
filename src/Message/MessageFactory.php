@@ -10,7 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\HttpError
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Redirect;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 
@@ -38,7 +38,7 @@ class MessageFactory implements MessageFactoryInterface
         array $options = []
     ) {
         if (null !== $body) {
-            $body = Stream::factory($body);
+            $body = Stream\create($body);
         }
 
         return new Response($statusCode, $headers, $body, $options);
@@ -173,7 +173,7 @@ class MessageFactory implements MessageFactoryInterface
             if (is_array($value)) {
                 $this->addPostData($request, $value);
             } else {
-                $request->setBody(Stream::factory($value));
+                $request->setBody(Stream\create($value));
             }
         }
     }

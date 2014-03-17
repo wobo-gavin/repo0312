@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Mimetypes;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\MetadataStreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 
 /**
@@ -68,7 +67,7 @@ class PostFile implements PostFileInterface
         $this->content = $content;
 
         if (!($this->content instanceof StreamInterface)) {
-            $this->content = Stream::factory($this->content);
+            $this->content = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\create($this->content);
         } elseif ($this->content instanceof MultipartBody) {
             if (!$this->hasHeader('Content-Disposition')) {
                 $disposition = 'form-data; name="' . $this->name .'"';
