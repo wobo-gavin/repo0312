@@ -53,7 +53,7 @@ There are a number of optional libraries you can use along with /* Replaced /* R
 layer to add capabilities to the /* Replaced /* Replaced /* Replaced client */ */ */.
 
 `Log Subscriber <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//log-subscriber>`_
-    Logs HTTP requests and responses sent of ver the wire using customizable
+    Logs HTTP requests and responses sent over the wire using customizable
     log message templates.
 
 `OAuth Subscriber <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//oauth-subscriber>`_
