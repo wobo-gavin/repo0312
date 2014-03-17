@@ -26,7 +26,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function testExpandsTemplate()
     {
-        $this->assertEquals('foo/123', \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\uriTemplate('foo/{bar}', ['bar' => '123']));
+        $this->assertEquals('foo/123', \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\uri_template('foo/{bar}', ['bar' => '123']));
     }
 
     public function noBodyProvider()
@@ -114,7 +114,7 @@ class HasDeprecations
     }
     function __call($name, $arguments)
     {
-        return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\deprecationProxy($this, $name, $arguments, [
+        return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\deprecation_proxy($this, $name, $arguments, [
             'baz' => 'foo'
         ]);
     }
