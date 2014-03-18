@@ -43,6 +43,7 @@ existing composer.json file:
 .. code-block:: js
 
     {
+      "minimum-stability": "RC",
       "require": {
          "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "4.*"
       }
