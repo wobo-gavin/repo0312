@@ -3,13 +3,19 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\AdapterException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream;
 
 /**
- * HTTP adapter that uses PHP's HTTP stream wrapper
+ * HTTP adapter that uses PHP's HTTP stream wrapper.
+ *
+ * When using the StreamAdapter, custom stream context options can be specified
+ * using the **stream_context** option in a request's **config** option. The
+ * structure of the "stream_context" option is an associative array where each
+ * key is a transport name and each option is an associative array of options.
  */
 class StreamAdapter implements AdapterInterface
 {
@@ -285,5 +291,18 @@ class StreamAdapter implements AdapterInterface
             }
             fwrite($value, "\n");
         };
+    }
+
+    private function add_stream_context(
+        RequestInterface $request,
+        &$options,
+        $value,
+        &$params
+    ) {
+        if (!is_array($value)) {
+            throw new AdapterException('stream_context must be an array');
+        }
+
+        $options = array_replace_recursive($options, $value);
     }
 }
