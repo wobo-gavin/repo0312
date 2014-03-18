@@ -10,7 +10,7 @@ the pain out of consuming web services.
 $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client();
 $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org');
 $res = $/* Replaced /* Replaced /* Replaced client */ */ */->get('https://api.github.com/user', ['auth' =>  ['user', 'pass']]);
-echo $res->statusCode();
+echo $res->getStatusCode();
 // 200
 echo $res->getHeader('content-type');
 // 'application/json; charset=utf8'
