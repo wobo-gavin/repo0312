@@ -97,6 +97,7 @@ used with a /* Replaced /* Replaced /* Replaced client */ */ */ and allow self-s
 .. code-block:: php
 
     $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [
+        'stream' => true,
         'config' => [
             'stream_context' => [
                 'ssl' => [
