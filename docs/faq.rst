@@ -59,7 +59,7 @@ setting the ``expect`` request option to ``false``:
     ]);
 
     // Disable the expect header on all /* Replaced /* Replaced /* Replaced client */ */ */ requests
-    $/* Replaced /* Replaced /* Replaced client */ */ */->setConfig('defaults/expect', false)
+    $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultValue('expect', false)
 
 How can I add custom cURL options?
 ==================================

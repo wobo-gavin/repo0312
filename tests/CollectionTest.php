@@ -4,10 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection;
 
-/**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HasDataTrait
- */
 class CollectionTest extends \PHPUnit_Framework_TestCase
 {
     /** @var Collection */
