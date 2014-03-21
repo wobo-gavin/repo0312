@@ -25,9 +25,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testUsesDefaultDefaultOptions()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults('allow_redirects'));
-        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults('exceptions'));
-        $this->assertContains('cacert.pem', $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults('verify'));
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('allow_redirects'));
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('exceptions'));
+        $this->assertContains('cacert.pem', $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('verify'));
     }
 
     public function testUsesProvidedDefaultOptions()
@@ -38,10 +38,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'query' => ['foo' => 'bar']
             ]
         ]);
-        $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults('allow_redirects'));
-        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults('exceptions'));
-        $this->assertContains('cacert.pem', $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults('verify'));
-        $this->assertEquals(['foo' => 'bar'], $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults('query'));
+        $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('allow_redirects'));
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('exceptions'));
+        $this->assertContains('cacert.pem', $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('verify'));
+        $this->assertEquals(['foo' => 'bar'], $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('query'));
     }
 
     public function testCanSpecifyBaseUrl()
@@ -106,10 +106,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testAddsDefaultUserAgentHeaderWithDefaultOptions()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['defaults' => ['allow_redirects' => false]]);
-        $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults('allow_redirects'));
+        $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('allow_redirects'));
         $this->assertEquals(
             ['User-Agent' => Client::getDefaultUserAgent()],
-            $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults('headers')
+            $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('headers')
         );
     }
 
@@ -118,7 +118,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertEquals(
             ['User-Agent' => Client::getDefaultUserAgent()],
-            $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults('headers')
+            $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('headers')
         );
     }
 
@@ -354,8 +354,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['foo' => 'bar']);
         $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultValue('headers/foo', 'bar');
-        $this->assertNull($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults('foo'));
-        $this->assertEquals('bar', $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaults('headers/foo'));
+        $this->assertNull($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('foo'));
+        $this->assertEquals('bar', $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('headers/foo'));
     }
 
     public function testSendsAllInParallel()
