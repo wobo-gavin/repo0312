@@ -44,7 +44,7 @@ class Client implements ClientInterface
     /**
      * Clients accept an array of constructor parameters.
      *
-     * Here's an example of creating a /* Replaced /* Replaced /* Replaced client */ */ */ using a URI template for the
+     * Here's an example of creating a /* Replaced /* Replaced /* Replaced client */ */ */ using an URI template for the
      * /* Replaced /* Replaced /* Replaced client */ */ */'s base_url and an array of default request options to apply
      * to each request:
      *
@@ -286,7 +286,7 @@ class Client implements ClientInterface
         } elseif (ini_get('allow_url_fopen')) {
             $this->adapter = new StreamAdapter($this->messageFactory);
         } else {
-            throw new \RuntimeException('/* Replaced /* Replaced /* Replaced Guzzle */ */ */ require\'s cURL, the '
+            throw new \RuntimeException('/* Replaced /* Replaced /* Replaced Guzzle */ */ */ requires cURL, the '
                 . 'allow_url_fopen ini setting, or a custom HTTP adapter.');
         }
     }
