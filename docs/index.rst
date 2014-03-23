@@ -59,6 +59,9 @@ layer to add capabilities to the /* Replaced /* Replaced /* Replaced client */ *
 `OAuth Subscriber <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//oauth-subscriber>`_
     Signs requests using OAuth 1.0.
 
+`Progress Subscriber <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//progress-subscriber>`_
+    Emits progress events when uploading and downloading data.
+
 `Cache Subscriber <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//cache-subscriber>`_
     Implements a private transparent proxy cache that caches HTTP responses.
 
