@@ -2,8 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\Curl;
 
-require_once __DIR__ . '/../../Server.php';
-
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
@@ -16,27 +14,13 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 
 abstract class AbstractCurl extends \PHPUnit_Framework_TestCase
 {
-    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server */
-    static $server;
-
-    public static function setUpBeforeClass()
-    {
-        self::$server = new Server();
-        self::$server->start();
-    }
-
-    public static function tearDownAfterClass()
-    {
-        self::$server->stop();
-    }
-
     abstract protected function getAdapter($factory = null, $options = []);
 
     public function testSendsRequest()
     {
-        self::$server->flush();
-        self::$server->enqueue("HTTP/1.1 200 OK\r\nFoo: bar\r\nContent-Length: 0\r\n\r\n");
-        $t = new Transaction(new Client(), new Request('GET', self::$server->getUrl()));
+        Server::flush();
+        Server::enqueue("HTTP/1.1 200 OK\r\nFoo: bar\r\nContent-Length: 0\r\n\r\n");
+        $t = new Transaction(new Client(), new Request('GET', Server::$url));
         $a = $this->getAdapter();
         $response = $a->send($t);
         $this->assertEquals(200, $response->getStatusCode());
@@ -48,7 +32,7 @@ abstract class AbstractCurl extends \PHPUnit_Framework_TestCase
      */
     public function testCatchesErrorWhenPreparing()
     {
-        $r = new Request('GET', self::$server->getUrl());
+        $r = new Request('GET', Server::$url);
         $f = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlFactory')
             ->setMethods(['__invoke'])
             ->getMock();
@@ -63,9 +47,9 @@ abstract class AbstractCurl extends \PHPUnit_Framework_TestCase
 
     public function testDispatchesAfterSendEvent()
     {
-        self::$server->flush();
-        self::$server->enqueue("HTTP/1.1 201 OK\r\nContent-Length: 0\r\n\r\n");
-        $r = new Request('GET', self::$server->getUrl());
+        Server::flush();
+        Server::enqueue("HTTP/1.1 201 OK\r\nContent-Length: 0\r\n\r\n");
+        $r = new Request('GET', Server::$url);
         $t = new Transaction(new Client(), $r);
         $a = $this->getAdapter();
         $ev = null;
@@ -80,9 +64,9 @@ abstract class AbstractCurl extends \PHPUnit_Framework_TestCase
 
     public function testDispatchesErrorEventAndRecovers()
     {
-        self::$server->flush();
-        self::$server->enqueue("HTTP/1.1 201 OK\r\nContent-Length: 0\r\n\r\n");
-        $r = new Request('GET', self::$server->getUrl());
+        Server::flush();
+        Server::enqueue("HTTP/1.1 201 OK\r\nContent-Length: 0\r\n\r\n");
+        $r = new Request('GET', Server::$url);
         $t = new Transaction(new Client(), $r);
         $a = $this->getAdapter();
         $r->getEmitter()->once('complete', function (CompleteEvent $e) {
@@ -98,10 +82,10 @@ abstract class AbstractCurl extends \PHPUnit_Framework_TestCase
 
     public function testStripsFragmentFromHost()
     {
-        self::$server->flush();
-        self::$server->enqueue("HTTP/1.1 200 OK\r\n\r\nContent-Length: 0\r\n\r\n");
+        Server::flush();
+        Server::enqueue("HTTP/1.1 200 OK\r\n\r\nContent-Length: 0\r\n\r\n");
         // This will fail if the removal of the #fragment is not performed
-        $url = Url::fromString(self::$server->getUrl())->setPath(null)->setFragment('foo');
+        $url = Url::fromString(Server::$url)->setPath(null)->setFragment('foo');
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->get($url);
     }

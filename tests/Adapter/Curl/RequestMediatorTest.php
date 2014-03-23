@@ -2,8 +2,6 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\Curl;
 
-require_once __DIR__ . '/../../Server.php';
-
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\MultiAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\RequestMediator;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
@@ -20,20 +18,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
  */
 class RequestMediatorTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server */
-    static $server;
-
-    public static function setUpBeforeClass()
-    {
-        self::$server = new Server();
-        self::$server->start();
-    }
-
-    public static function tearDownAfterClass()
-    {
-        self::$server->stop();
-    }
-
     public function testSetsResponseBodyForDownload()
     {
         $body = Stream::factory();
@@ -114,10 +98,10 @@ class RequestMediatorTest extends \PHPUnit_Framework_TestCase
 
     public function testEmitsHeadersEventForHeadRequest()
     {
-        self::$server->enqueue(["HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nOK"]);
+        Server::enqueue(["HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nOK"]);
         $ee = null;
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => new MultiAdapter(new MessageFactory())]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->head(self::$server->getUrl(), [
+        $/* Replaced /* Replaced /* Replaced client */ */ */->head(Server::$url, [
             'events' => [
                 'headers' => function (HeadersEvent $e) use (&$ee) {
                     $ee = $e;

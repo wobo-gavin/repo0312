@@ -13,6 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFacto
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlAdapter
@@ -90,16 +91,15 @@ class CurlAdapterTest extends AbstractCurl
 
     public function testReleasesAdditionalEasyHandles()
     {
-        $server = self::$server;
-        $server->flush();
-        $server->enqueue([
+        Server::flush();
+        Server::enqueue([
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n",
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
         ]);
         $a = new CurlAdapter(new MessageFactory(), ['max_handles' => 2]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => $server->getUrl(), 'adapter' => $a]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => Server::$url, 'adapter' => $a]);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', [
             'events' => [
                 'headers' => function (HeadersEvent $e) use ($/* Replaced /* Replaced /* Replaced client */ */ */) {
