@@ -11,6 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\MockAdapter
@@ -75,5 +76,28 @@ class MockAdapterTest extends \PHPUnit_Framework_TestCase
             throw new RequestException('foo', $e->getRequest());
         });
         $m->send(new Transaction(new Client(), $request));
+    }
+
+    public function testReadsRequestBody()
+    {
+        $response = new Response(200);
+        $m = new MockAdapter($response);
+        $m->setResponse($response);
+        $body = Stream\create('foo');
+        $request = new Request('PUT', 'http://httpbin.org/put', [], $body);
+        $this->assertSame($response, $m->send(new Transaction(new Client(), $request)));
+        $this->assertEquals(3, $body->tell());
+    }
+
+    public function testEmitsHeadersEvent()
+    {
+        $m = new MockAdapter(new Response(404));
+        $request = new Request('GET', 'http://httbin.org');
+        $called = false;
+        $request->getEmitter()->once('headers', function () use (&$called) {
+            $called = true;
+        });
+        $m->send(new Transaction(new Client(), $request));
+        $this->assertTrue($called);
     }
 }
