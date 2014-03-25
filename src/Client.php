@@ -106,14 +106,14 @@ class Client implements ClientInterface
         );
     }
 
-    public function getDefaultValue($keyOrPath = null)
+    public function getDefaultOption($keyOrPath = null)
     {
         return $keyOrPath === null
             ? $this->defaults
             : \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_path($this->defaults, $keyOrPath);
     }
 
-    public function setDefaultValue($keyOrPath, $value)
+    public function setDefaultOption($keyOrPath, $value)
     {
         \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\set_path($this->defaults, $keyOrPath, $value);
     }
