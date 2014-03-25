@@ -411,4 +411,32 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher();
     }
+
+    public function testUsesProxyEnvironmentVariables()
+    {
+        $http = isset($_SERVER['HTTP_PROXY']) ? $_SERVER['HTTP_PROXY'] : null;
+        $https = isset($_SERVER['HTTPS_PROXY']) ? $_SERVER['HTTPS_PROXY'] : null;
+        unset($_SERVER['HTTP_PROXY']);
+        unset($_SERVER['HTTPS_PROXY']);
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $this->assertNull($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('proxy'));
+
+        $_SERVER['HTTP_PROXY'] = '127.0.0.1';
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $this->assertEquals(
+            ['http' => '127.0.0.1'],
+            $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('proxy')
+        );
+
+        $_SERVER['HTTPS_PROXY'] = '127.0.0.2';
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $this->assertEquals(
+            ['http' => '127.0.0.1', 'https' => '127.0.0.2'],
+            $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultValue('proxy')
+        );
+
+        $_SERVER['HTTP_PROXY'] = $http;
+        $_SERVER['HTTPS_PROXY'] = $https;
+    }
 }
