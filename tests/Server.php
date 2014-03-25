@@ -3,7 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 
 /**
@@ -46,7 +46,8 @@ class Server
      * Any currently queued responses will be overwritten.  Subsequent requests
      * on the server will return queued responses in FIFO order.
      *
-     * @param array|Response $responses A single or array of Responses to queue
+     * @param array|ResponseInterface $responses A single or array of Responses
+     *                                           to queue.
      * @throws \Exception
      */
     public static function enqueue($responses)
@@ -64,7 +65,7 @@ class Server
             // Create the response object from a string
             if (is_string($response)) {
                 $response = $factory->fromMessage($response);
-            } elseif (!($response instanceof Response)) {
+            } elseif (!($response instanceof ResponseInterface)) {
                 throw new \Exception('Responses must be strings or Responses');
             }
 
