@@ -1,6 +1,19 @@
 CHANGELOG
 =========
 
+4.0.0 (2014-03-29)
+------------------
+
+* For more information on the 4.0 transition, see:
+  http://mtdowling.com/blog/2014/03/15//* Replaced /* Replaced /* Replaced guzzle */ */ */-4-rc/
+* For information on changes and upgrading, see:
+  https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//blob/master/UPGRADING.md#3x-to-40
+* Added `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch()` as a convenience function for sending requests in
+  parallel without needing to write asynchronous code.
+* Restructured how events are added to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::sendAll()`.
+  You can now pass a callable or an array of associative arrays where each
+  associative array contains the "fn", "priority", and "once" keys.
+
 4.0.0.rc-2 (2014-03-25)
 -----------------------
 
