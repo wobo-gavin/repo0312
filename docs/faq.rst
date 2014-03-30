@@ -2,6 +2,86 @@
 FAQ
 ===
 
+Why should I use /* Replaced /* Replaced /* Replaced Guzzle */ */ */?
+========================
+
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ makes it easy to send HTTP requests and super simple to integrate with
+web services. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ manages things like persistent connections, represents
+query strings as collections, makes it simple to send streaming POST requests
+with fields and files, and abstracts away the underlying HTTP transport layer
+(cURL, ``fopen()``, etc). By providing an object oriented interface for HTTP
+/* Replaced /* Replaced /* Replaced client */ */ */s, requests, responses, headers, and message bodies, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ makes it so
+that you no longer need to fool around with cURL options or stream contexts.
+
+To get a feel for how easy it is to use /* Replaced /* Replaced /* Replaced Guzzle */ */ */, take a look at the
+:doc:`quick start guide <quickstart>`.
+
+Swappable HTTP Adapters
+-----------------------
+
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ will use the most appropriate HTTP adapter to send requests based on the
+capabilities of your environment and the options applied to a request. When
+cURL is available on your system, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will automatically use cURL. When a
+request is sent with the ``stream=true`` request option, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will
+automatically use the PHP stream wrapper HTTP adapter so that bytes are only
+read from the HTTP stream as needed.
+
+.. note::
+
+    /* Replaced /* Replaced /* Replaced Guzzle */ */ */ has historically only utilized cURL to send HTTP requests. cURL is
+    an amazing HTTP /* Replaced /* Replaced /* Replaced client */ */ */ (arguably the best), and /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will continue to use
+    it by default when it is available. It is rare, but some developers don't
+    have cURL installed on their systems or run into version specific issues.
+    By allowing swappable HTTP adapters, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is now much more customizable
+    and able to adapt to fit the needs of more developers.
+
+HTTP Streams
+------------
+
+Request and response message bodies use :doc:`/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Streams <streams>`,
+allowing you to stream data without needing to load it all into memory.
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */'s stream layer provides a large suite of functionality:
+
+- You can modify streams at runtime using custom or a number of
+  pre-made decorators.
+- You can emit progress events as data is read from a stream.
+- You can validate the integrity of a stream using a rolling hash as data is
+  read from a stream.
+
+Event System
+------------
+
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */'s flexible event system allows you to completely modify the behavior
+of a /* Replaced /* Replaced /* Replaced client */ */ */ or request at runtime to cater them for any API. You can send a
+request with a /* Replaced /* Replaced /* Replaced client */ */ */, and the /* Replaced /* Replaced /* Replaced client */ */ */ can do things like automatically retry
+your request if it fails, automatically redirect, log HTTP messages that are
+sent over the wire, emit progress events as data is uploaded and downloaded,
+sign requests using OAuth 1.0, verify the integrity of messages before and
+after they are sent over the wire, and anything else you might need.
+
+Easy to Test
+------------
+
+Another important aspect of /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is that it's really
+:doc:`easy to test /* Replaced /* Replaced /* Replaced client */ */ */s <testing>`. You can mock HTTP responses and when
+testing an adapter implementation, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides a mock web server that
+makes it easy.
+
+Large Ecosystem
+---------------
+
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ has a large `ecosystem of plugins <http:///* Replaced /* Replaced /* Replaced guzzle */ */ */.readthedocs.org/en/latest/index.html#http-components>`_,
+including `service descriptions <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-services>`_
+which allows you to abstract web services using service descriptions. These
+service descriptions define how to serialize an HTTP request and how to parse
+an HTTP response into a more meaningful model object.
+
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Command <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//command>`_: Provides the building
+  blocks for service description abstraction.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Services <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-services>`_: Provides an
+  implementation of "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Command" that utlizes /* Replaced /* Replaced /* Replaced Guzzle */ */ */'s service description
+  format.
+
 Is it possible to use /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 and 4 in the same project?
 =========================================================
 
