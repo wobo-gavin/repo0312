@@ -86,7 +86,7 @@ Is it possible to use /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 and 
 =========================================================
 
 Yes, because /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 and 4 use different Packagist packages and different
-namespaced. You simply need to add ``/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */`` (/* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3) and
+namespaces. You simply need to add ``/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */`` (/* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3) and
 ``/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */`` (/* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4+) to your project's composer.json file.
 
 .. code-block:: javascript
