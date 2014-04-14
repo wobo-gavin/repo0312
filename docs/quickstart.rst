@@ -424,7 +424,7 @@ Exceptions
       }
 
 - A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientErrorResponseException`` is thrown for 400
-  level errors if the ``exceptions`` request option is not set to true. This
+  level errors if the ``exceptions`` request option is set to true. This
   exception extends from ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException`` and
   ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException`` extends from
   ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException``.
@@ -441,7 +441,7 @@ Exceptions
       }
 
 - A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerErrorResponse`` is thrown for 500 level
-  errors if the ``exceptions`` request option is not set to true. This
+  errors if the ``exceptions`` request option is set to true. This
   exception extends from ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException``.
 - A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TooManyRedirectsException`` is thrown when too
   many redirects are followed. This exception extends from extends from
