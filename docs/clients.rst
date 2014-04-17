@@ -56,6 +56,11 @@ defaults
     default headers (e.g., User-Agent), default query string parameters, SSL
     configurations, and any other supported request options.
 
+emitter
+    Specifies an event emitter (``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EmitterInterface``) instance
+    to be used by the /* Replaced /* Replaced /* Replaced client */ */ */ to emit request events. This option is useful if
+    you need to inject an emitter with listeners/subscribers already attached.
+
 Here's an example of creating a /* Replaced /* Replaced /* Replaced client */ */ */ with various options, including using
 a mock adapter that just returns the result of a callable function and a
 base URL that is a URI template with parameters.
