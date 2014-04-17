@@ -37,7 +37,9 @@ class Server
      */
     public static function flush()
     {
-        self::$started && self::$/* Replaced /* Replaced /* Replaced client */ */ */->delete('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests');
+        self::start();
+
+        return self::$/* Replaced /* Replaced /* Replaced client */ */ */->delete('/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests');
     }
 
     /**
