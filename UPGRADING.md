@@ -8,55 +8,69 @@
 
 - Now requires PHP 5.4 or greater.
 - No longer requires cURL to send requests.
-- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ no longer wraps every exception it throws. Only exceptions that are recoverable are now wrapped by /* Replaced /* Replaced /* Replaced Guzzle */ */ */.
+- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ no longer wraps every exception it throws. Only exceptions that are
+  recoverable are now wrapped by /* Replaced /* Replaced /* Replaced Guzzle */ */ */.
 - Various namespaces have been removed or renamed.
-- No longer requiring the Symfony EventDispatcher. A custom event dispatcher based on the Symfony EventDispatcher is
-  now utilized in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EmitterInterface` (resulting in significant speed and functionality improvements).
+- No longer requiring the Symfony EventDispatcher. A custom event dispatcher
+  based on the Symfony EventDispatcher is
+  now utilized in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EmitterInterface` (resulting in significant
+  speed and functionality improvements).
 
 Changes per /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3.x namespace are described below.
 
 ## Batch
 
-The `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch` namespace has been removed. This is best left to third-parties to implement on top of /* Replaced /* Replaced /* Replaced Guzzle */ */ */'s
-core HTTP library.
+The `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Batch` namespace has been removed. This is best left to
+third-parties to implement on top of /* Replaced /* Replaced /* Replaced Guzzle */ */ */'s core HTTP library.
 
 ## Cache
 
-The `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache` namespace has been removed. (Todo: No suitable replacement has been implemented yet, but hoping to
-utilize a PSR cache interface).
+The `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Cache` namespace has been removed. (Todo: No suitable replacement
+has been implemented yet, but hoping to utilize a PSR cache interface).
 
 ## Common
 
-- Removed all of the wrapped exceptions. It's better to use the standard PHP library for unrecoverable exceptions.
+- Removed all of the wrapped exceptions. It's better to use the standard PHP
+  library for unrecoverable exceptions.
 - `FromConfigInterface` has been removed.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version` has been removed. The VERSION constant can be found at `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::VERSION`.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Common\Version` has been removed. The VERSION constant can be found
+  at `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::VERSION`.
 
 ### Collection
 
 - `getAll` has been removed. Use `toArray` to convert a collection to an array.
 - `inject` has been removed.
 - `keySearch` has been removed.
-- `getPath` no longer supports wildcard expressions. Use something better like JMESPath for this.
+- `getPath` no longer supports wildcard expressions. Use something better like
+  JMESPath for this.
 - `setPath` now supports appending to an existing array via the `[]` notation.
 
 ### Events
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ no longer requires Symfony's EventDispatcher component. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ now uses `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\Emitter`.
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ no longer requires Symfony's EventDispatcher component. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ now uses
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\Emitter`.
 
-- `Symfony\Component\EventDispatcher\EventDispatcherInterface` is replaced by `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EmitterInterface`.
-- `Symfony\Component\EventDispatcher\EventDispatcher` is replaced by `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\Emitter`.
-- `Symfony\Component\EventDispatcher\Event` is replaced by `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\Event`, and /* Replaced /* Replaced /* Replaced Guzzle */ */ */ now has an EventInterface
-  in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EventInterface`.
-- `AbstractHasDispatcher` has moved to a trait, `HasEmitterTrait`, and `HasDispatcherInterface` has moved to
-  `HasEmitterInterface`. Retrieving the event emitter of a request, /* Replaced /* Replaced /* Replaced client */ */ */, etc now uses the `getEmitter` method
+- `Symfony\Component\EventDispatcher\EventDispatcherInterface` is replaced by
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EmitterInterface`.
+- `Symfony\Component\EventDispatcher\EventDispatcher` is replaced by
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\Emitter`.
+- `Symfony\Component\EventDispatcher\Event` is replaced by
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\Event`, and /* Replaced /* Replaced /* Replaced Guzzle */ */ */ now has an EventInterface in
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EventInterface`.
+- `AbstractHasDispatcher` has moved to a trait, `HasEmitterTrait`, and
+  `HasDispatcherInterface` has moved to `HasEmitterInterface`. Retrieving the
+  event emitter of a request, /* Replaced /* Replaced /* Replaced client */ */ */, etc now uses the `getEmitter` method
   rather than the `getDispatcher` method.
 
 #### Emitter
 
-- Use the `once()` method to add a listener that automatically removes itself the first time it is invoked.
-- Use the `listeners` method to retrieve a list of event listeners rather than the `getListeners` method.
-- Use `emit` instead of `dispatch` to emit an event from an emitter.
-- Use `attach` instead of `addSubscriber` and `detach` instead of `removeSubscriber`.
+- Use the `once()` method to add a listener that automatically removes itself
+  the first time it is invoked.
+- Use the `listeners()` method to retrieve a list of event listeners rather than
+  the `getListeners()` method.
+- Use `emit()` instead of `dispatch()` to emit an event from an emitter.
+- Use `attach()` instead of `addSubscriber()` and `detach()` instead of
+  `removeSubscriber()`.
 
 ```php
 $mock = new Mock();
@@ -68,7 +82,7 @@ $request->getEmitter()->attach($mock);
 $request->getEmitter()->detach($mock);
 ```
 
-Use the `on()` method to add a listener rather than the `addListener` method.
+Use the `on()` method to add a listener rather than the `addListener()` method.
 
 ```php
 // 3.x
@@ -81,23 +95,27 @@ $request->getEmitter()->on('foo', function (Event $event, $name) { /* ... */ } )
 
 ### General changes
 
-- The cacert.pem certificate has been moved to `src//* Replaced /* Replaced /* Replaced Guzzle */ */ *//Http/cacert.pem`.
-- Added the concept of adapters that are used to transfer requests over the wire.
+- The cacert.pem certificate has been moved to `src/cacert.pem`.
+- Added the concept of adapters that are used to transfer requests over the
+  wire.
 - Simplified the event system.
-- Sending requests in parallel is still possible, but batching is no longer a concept of the HTTP layer. Instead,
-  you must use the `request.after_send` and `error` events to manage parallel request transfers.
+- Sending requests in parallel is still possible, but batching is no longer a
+  concept of the HTTP layer. Instead, you must use the `complete` and `error`
+  events to asynchronously manage parallel request transfers.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url` has moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url`.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\QueryString` has moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query`.
-- QueryAggregator classes have moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url`.
-- QueryAggregators now accept only an array with any amount of nesting and returns a flattened array.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\StaticClient` has been removed. Use the functions provided in `functions.php` for an easy to use static
-  /* Replaced /* Replaced /* Replaced client */ */ */ instance.
-- Exceptions in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception` have been updated to all extend from `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TransferException`.
+- QueryAggregators have been rewritten so that they are simply callable
+  functions.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\StaticClient` has been removed. Use the functions provided in
+  `functions.php` for an easy to use static /* Replaced /* Replaced /* Replaced client */ */ */ instance.
+- Exceptions in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception` have been updated to all extend from
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TransferException`.
 
 ### Client
 
-Calling methods like `get()`, `post()`, `head()`, etc. no longer create and return a request, but rather create a
-request, send the request, and returns the response.
+Calling methods like `get()`, `post()`, `head()`, etc. no longer create and
+return a request, but rather creates a request, sends the request, and returns
+the response.
 
 ```php
 // 3.0
@@ -114,48 +132,56 @@ $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request)
 
 `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface` has changed.
 
-- `getConfig()` will never return a Collection object. Use `getConfig()` and a JSON pointer type syntax to retrieve
-  nested values from the /* Replaced /* Replaced /* Replaced client */ */ */ configuration data. Note: JSON pointer escaping is not supported.
-- `setConfig()` can no longer change the `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection` instance used by the /* Replaced /* Replaced /* Replaced client */ */ */, but will only
-  change the actual values stored in the /* Replaced /* Replaced /* Replaced client */ */ */'s `Collection` instance.
-- The `send` method no longer accepts more than one request. Use `sendAll` to send multiple requests in parallel.
-- `getBaseUrl()` has been removed. Use `$/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('base_url')` instead.
-- `setUserAgent()` has been removed. Use a default request option instead. You could, for example, do something
-  like: `$/* Replaced /* Replaced /* Replaced client */ */ */->setConfig('defaults/headers/User-Agent', 'Foo/Bar ' . $/* Replaced /* Replaced /* Replaced client */ */ */::getDefaultUserAgent())`.
-- `setSslVerification()` has been removed. Use default request options instead, like
-  `$/* Replaced /* Replaced /* Replaced client */ */ */->setConfig('defaults/verify', true)`.
+- The `send` method no longer accepts more than one request. Use `sendAll` to
+  send multiple requests in parallel.
+- `setUserAgent()` has been removed. Use a default request option instead. You
+  could, for example, do something like:
+  `$/* Replaced /* Replaced /* Replaced client */ */ */->setConfig('defaults/headers/User-Agent', 'Foo/Bar ' . $/* Replaced /* Replaced /* Replaced client */ */ */::getDefaultUserAgent())`.
+- `setSslVerification()` has been removed. Use default request options instead,
+  like `$/* Replaced /* Replaced /* Replaced client */ */ */->setConfig('defaults/verify', true)`.
 
 `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client` has changed.
 
-- The constructor now accepts only an associative array. You can include a `base_url` string or array to use a
-  URI template as the base URL of a /* Replaced /* Replaced /* Replaced client */ */ */. You can also specify a `defaults` key that is an associative array of
-  default request options. You can pass an `adapter` to use a custom adapter, `batch_adapter` to use a custom
-  adapter for sending requests in parallel, or a `message_factory` to change the factory used to create HTTP
-  requests and responses.
+- The constructor now accepts only an associative array. You can include a
+  `base_url` string or array to use a URI template as the base URL of a /* Replaced /* Replaced /* Replaced client */ */ */.
+  You can also specify a `defaults` key that is an associative array of default
+  request options. You can pass an `adapter` to use a custom adapter,
+  `batch_adapter` to use a custom adapter for sending requests in parallel, or
+  a `message_factory` to change the factory used to create HTTP requests and
+  responses.
 - The /* Replaced /* Replaced /* Replaced client */ */ */ no longer emits a `/* Replaced /* Replaced /* Replaced client */ */ */.create_request` event.
-- Creating requests with a /* Replaced /* Replaced /* Replaced client */ */ */ no longer automatically utilize a URI template. You must pass an array into a
-  creational method (e.g., `createRequest`, `get`, `put`, etc...) in order to expand a URI template.
+- Creating requests with a /* Replaced /* Replaced /* Replaced client */ */ */ no longer automatically utilize a URI
+  template. You must pass an array into a creational method (e.g.,
+  `createRequest`, `get`, `put`, etc...) in order to expand a URI template.
 
 ### Messages
 
-Messages no longer have references to their counterparts (i.e., a request no longer has a reference to it's response,
-and a response no longer has a reference to its request). This association is now managed thorugh a
-`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionInterface` object. You can get references to these transaction objects using request
-events that are emitted over the lifecycle of a request.
+Messages no longer have references to their counterparts (i.e., a request no
+longer has a reference to it's response, and a response no loger has a
+reference to its request). This association is now managed through a
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionInterface` object. You can get references to
+these transaction objects using request events that are emitted over the
+lifecycle of a request.
 
 #### Requests with a body
 
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\EntityEnclosingRequest` and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\EntityEnclosingRequestInterface` have been
-  removed. The separation between requests that contain a body and requests that do not contain a body has been removed,
-  and now `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface` handles both use cases.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\EntityEnclosingRequest` and
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\EntityEnclosingRequestInterface` have been removed. The
+  separation between requests that contain a body and requests that do not
+  contain a body has been removed, and now `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface`
+  handles both use cases.
 - Any method that previously accepts a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Response` object now accept a
   `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface`.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestFactoryInterface` has been renamed to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface`. This
-  interface is used to create both requests and responses and is implemented in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory`.
-- POST field and file methods have been removed from the request object. You must now use the methods made available to
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface` to control the format of a POST body. Requests that are created using
-  a standard `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface` will automatically use a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody`
-  body if the body was passed as an array or if the method is POST and no body is provided.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestFactoryInterface` has been renamed to
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface`. This interface is used to create
+  both requests and responses and is implemented in
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory`.
+- POST field and file methods have been removed from the request object. You
+  must now use the methods made available to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface`
+  to control the format of a POST body. Requests that are created using a
+  standard `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface` will automatically use
+  a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody` body if the body was passed as an array or if
+  the method is POST and no body is provided.
 
 ```php
 $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', '/');
@@ -165,35 +191,44 @@ $request->getBody()->addFile(new PostFile('file_key', fopen('/path/to/content', 
 
 #### Headers
 
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Header` has been moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\HeaderValues`, and the interface has changed to
-  now use `\ArrayAccess` methods like `offsetGet` and `offsetSet`.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Header` has been removed. Header values are now simply
+  represented by an array of values or as a string. Header values are returned
+  as a string by default when retrieving a header value from a message. You can
+  pass an optional argument of `true` to retrieve a header value as an array
+  of strings instead of a single concatenated string.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\PostFile` and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\PostFileInterface` have been moved to
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post`. This interface has been simplified and now allows the addition of arbitrary headers via
-   the `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\HasHeadersInterface` interface.
-- Custom headers like `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Header\Link` have been removed. Most of the custom headers are now handled
-  separately in specific subscribers/plugins, and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\HeaderValues::parseParams()` has been updated to
-  properly handle headers that contain parameters (like the `Link` header).
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post`. This interface has been simplified and now allows the
+  addition of arbitrary headers.
+- Custom headers like `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Header\Link` have been removed. Most
+  of the custom headers are now handled separately in specific
+  subscribers/plugins, and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\HeaderValues::parseParams()` has
+  been updated to properly handle headers that contain parameters (like the
+  `Link` header).
 
 #### Responses
 
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::getInfo()` and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::setInfo()` have been removed. Use the
-  event system to retrieve this type of information.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::getInfo()` and
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::setInfo()` have been removed. Use the event
+  system to retrieve this type of information.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::getRawHeaders()` has been removed.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::getMessage()` has been removed.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::calculateAge()` and other cache specific methods have moved to the CacheSubscriber.
-- Allow of the header specific helper functions like `getContentMd5()` have been removed. Just use
-  `getHeader('Content-MD5')` instead.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::setRequest()` and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::getRequest()` have been removed.
-  Use the associated `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionInterface` object to get the association between a request and
-  response.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::getRedirectCount()` has been removed. Use the Redirect subscriber instead.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::isSuccessful()` and other related methods have been removed. Use `getStatusCode()`
-  instead.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::calculateAge()` and other cache specific
+  methods have moved to the CacheSubscriber.
+- Header specific helper functions like `getContentMd5()` have been removed.
+  Just use `getHeader('Content-MD5')` instead.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::setRequest()` and
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::getRequest()` have been removed. Use the event
+  system to work with request and response objects as a transaction.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::getRedirectCount()` has been removed. Use the
+  Redirect subscriber instead.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response::isSuccessful()` and other related methods have
+  been removed. Use `getStatusCode()` instead.
 
 #### Streaming responses
 
-Streaming requests can now be created by a /* Replaced /* Replaced /* Replaced client */ */ */ directly, returning a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface` object
-that contains a body stream referencing an open PHP HTTP stream.
+Streaming requests can now be created by a /* Replaced /* Replaced /* Replaced client */ */ */ directly, returning a
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface` object that contains a body stream
+referencing an open PHP HTTP stream.
 
 ```php
 // 3.0
@@ -211,7 +246,8 @@ $data = $response->getBody()->read(1024);
 
 #### Redirects
 
-The `configureRedirects()` method has been removed in favor of a `allow_redirects` request option.
+The `configureRedirects()` method has been removed in favor of a
+`allow_redirects` request option.
 
 ```php
 // Standard redirects with a default of a max of 5 redirects
@@ -225,9 +261,13 @@ $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('
 
 #### EntityBody
 
-EntityBody interfaces and classes have been removed or moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream`. All classes and interfaces that once
-required `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\EntityBodyInterface` now require `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface`. Creating a new body for a
-request no longer uses `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\EntityBody::factory` but now uses `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream::factory`.
+EntityBody interfaces and classes have been removed or moved to
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream`. All classes and interfaces that once required
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\EntityBodyInterface` now require
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface`. Creating a new body for a request no
+longer uses `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\EntityBody::factory` but now uses
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream::factory` or even better:
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\create()`.
 
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBodyInterface` is now `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface`
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody` is now `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream`
@@ -237,110 +277,156 @@ request no longer uses `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\
 
 #### Request lifecycle events
 
-Requests previously submitted a large number of requests. The number of events emitted over the lifecycle of a request
-has been significantly reduced to make it easier to understand how to extend the behavior of a request. All events
-emitted during the lifecycle of a request now emit a custom `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EventInterface` object that contains
-context providing methods and a way in which to modify the transaction at that specific point in time (e.g., intercept
-the request and set a response on the transaction).
+Requests previously submitted a large number of requests. The number of events
+emitted over the lifecycle of a request has been significantly reduced to make
+it easier to understand how to extend the behavior of a request. All events
+emitted during the lifecycle of a request now emit a custom
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EventInterface` object that contains context providing
+methods and a way in which to modify the transaction at that specific point in
+time (e.g., intercept the request and set a response on the transaction).
 
-- `request.before_send` has been renamed to ``before`` and now emits a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent`
-- `request.complete` has been renamed to `complete` and now emits a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent`.
-- `request.sent` has been removed.
-- `request.success` has been removed.
+- `request.before_send` has been renamed to ``before`` and now emits a
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent`
+- `request.complete` has been renamed to `complete` and now emits a
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent`.
+- `request.sent` has been removed. Use `complete`.
+- `request.success` has been removed. Use `complete`.
 - `error` is now an event that emits a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent`.
-- `request.exception` has been removed.
+- `request.exception` has been removed. Use `error`.
 - `request.receive.status_line` has been removed.
-- `curl.callback.progress` has been removed. Use a custom `StreamInterface` to maintain a status update.
-- `curl.callback.write` has been removed. Use a custom `StreamInterface` to intercept writes.
-- `curl.callback.read` has been removed. Use a custom `StreamInterface` to intercept reads.
+- `curl.callback.progress` has been removed. Use a custom `StreamInterface` to
+  maintain a status update.
+- `curl.callback.write` has been removed. Use a custom `StreamInterface` to
+  intercept writes.
+- `curl.callback.read` has been removed. Use a custom `StreamInterface` to
+  intercept reads.
 
-`headers` is a new event that is emitted after the response headers of a request have been received
-before the body of the response is downloaded. This event emits a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HeadersEvent`.
+`headers` is a new event that is emitted after the response headers of a
+request have been received before the body of the response is downloaded. This
+event emits a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HeadersEvent`.
 
-You can intercept a request and inject a response using the `intercept()` event of a
-`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent`, `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent`, and
+You can intercept a request and inject a response using the `intercept()` event
+of a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent`, `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent`, and
 `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent` event.
+
+See: http://docs./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/en/latest/events.html
 
 ## Inflection
 
-The `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection` namespace has been removed. This is not a core concern of /* Replaced /* Replaced /* Replaced Guzzle */ */ */.
+The `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Inflection` namespace has been removed. This is not a core concern
+of /* Replaced /* Replaced /* Replaced Guzzle */ */ */.
 
 ## Iterator
 
 The `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Iterator` namespace has been removed.
 
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Iterator\AppendIterator`, `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Iterator\ChunkedIterator`, and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Iterator\MethodProxyIterator` are
-  nice, but not a core requirement of /* Replaced /* Replaced /* Replaced Guzzle */ */ */ itself.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Iterator\FilterIterator` is no longer needed because an equivalent class is shipped with PHP 5.4.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Iterator\MapIterator` is not really needed when using PHP 5.5 because it's easier to just wrap an iterator
-  in a generator that maps values.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Iterator\AppendIterator`, `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Iterator\ChunkedIterator`, and
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Iterator\MethodProxyIterator` are nice, but not a core requirement of
+  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ itself.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Iterator\FilterIterator` is no longer needed because an equivalent
+  class is shipped with PHP 5.4.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Iterator\MapIterator` is not really needed when using PHP 5.5 because
+  it's easier to just wrap an iterator in a generator that maps values.
+
+For a replacement of these iterators, see https://github.com/nikic/iter
 
 ## Log
 
-The `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Log` namespace has been removed. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ now relies on `Psr\Log\LoggerInterface` for all logging.
-The MessageFormatter class has been moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Log\MessageFormatter`.
+The LogPlugin has moved to https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//log-subscriber. The
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Log` namespace has been removed. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ now relies on
+`Psr\Log\LoggerInterface` for all logging. The MessageFormatter class has been
+moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Log\Formatter`.
 
 ## Parser
 
-The `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser` namespace has been removed. This was previously used to parse cookies, messages, URI templates,
-and URLs.
+The `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Parser` namespace has been removed. This was previously used to
+make it possible to plug in custom parsers for cookies, messages, URI
+templates, and URLs; however, this level of complexity is not needed in /* Replaced /* Replaced /* Replaced Guzzle */ */ */
+so it has been removed.
 
-- Cookie: Cookie parsing logic has been moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\CookieJar\SetCookie::fromString`. Extending
-  cookie parsing is no longer possible (and was never really needed).
-- Message: Message parsing logic for both requests and responses has been moved to
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory::fromMessage`. Message parsing is only used in debugging or deserializing
-  messages, so it doesn't make sense for /* Replaced /* Replaced /* Replaced Guzzle */ */ */ as a library to add this level of complexity to parsing messages.
-- UriTemplate: URI template parsing has been moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url\UriTemplate`. The /* Replaced /* Replaced /* Replaced Guzzle */ */ */ library will automatically
-  use the PECL URI template library if it is installed.
-- Url: URL parsing is now performed in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url::fromString`. If custom URL parsing is necessary, then
-  developers are free to subclass `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url`.
+- Cookie: Cookie parsing logic has been moved to
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie::fromString`.
+- Message: Message parsing logic for both requests and responses has been moved
+  to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory::fromMessage`. Message parsing is only
+  used in debugging or deserializing messages, so it doesn't make sense for
+  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ as a library to add this level of complexity to parsing messages.
+- UriTemplate: URI template parsing has been moved to
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\UriTemplate`. The /* Replaced /* Replaced /* Replaced Guzzle */ */ */ library will automatically use the PECL
+  URI template library if it is installed.
+- Url: URL parsing is now performed in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url::fromString` (previously
+  it was `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Url::factory()`). If custom URL parsing is necessary,
+  then developers are free to subclass `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url`.
 
 ## Plugin
 
-The `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin` namespace has been renamed to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber`. Several plugins are shipping with the core
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ library under this namespace.
+The `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Plugin` namespace has been renamed to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber`.
+Several plugins are shipping with the core /* Replaced /* Replaced /* Replaced Guzzle */ */ */ library under this namespace.
 
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Cookie`: Replaces the old CookiePlugin. Cookie jar code has moved to
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\CookieJar`.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Cookie`: Replaces the old CookiePlugin. Cookie jar
+  code has moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie`.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History`: Replaces the old HistoryPlugin.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\HttpError`: Throws errors when a bad HTTP response is received.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\HttpError`: Throws errors when a bad HTTP response is
+  received.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock`: Replaces the old MockPlugin.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Prepare`: Prepares the body of a request just before sending.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Prepare`: Prepares the body of a request just before
+  sending. This subscriber is attached to all requests by default.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Redirect`: Replaces the RedirectPlugin.
 
-The following plugins have been removed (third-parties are free to re-implement these if needed):
+The following plugins have been removed (third-parties are free to re-implement
+these if needed):
 
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Plugin\Async` has been removed.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Plugin\CurlAuth` has been removed.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Plugin\ErrorResponse\ErrorResponsePlugin` has been removed.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Plugin\ErrorResponse\ErrorResponsePlugin` has been removed. This
+  functionality should instead be implemented with event listeners that occur
+  after normal response parsing occurs in the /* Replaced /* Replaced /* Replaced guzzle */ */ *//command package.
 
-The following plugins are not part of the core /* Replaced /* Replaced /* Replaced Guzzle */ */ */ package, but are provided in separate repositories:
+The following plugins are not part of the core /* Replaced /* Replaced /* Replaced Guzzle */ */ */ package, but are provided
+in separate repositories:
 
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BackoffPlugin` has been renamed to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Retry`. This plugin has been rewritten to be
-  much simpler to build custom retry policies using simple functions rather than various chained classes.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin` has moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Cache\CacheSubscriber`.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin` has moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Log\LogSubscriber`.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Md5\Md5Plugin` has moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\MessageIntegrity\MessageIntegritySubscriber`.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Mock\MockPlugin` has moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock\MockSubscriber`.
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Oauth\OauthPlugin` has moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Oauth\OauthSubscriber`.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BackoffPlugin` has been rewritten to be muchs simpler
+  to build custom retry policies using simple functions rather than various
+  chained classes. See: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//retry-subscriber
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin` has moved to
+  https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//cache-subscriber
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Log\LogPlugin` has moved to
+  https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//log-subscriber
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Md5\Md5Plugin` has moved to
+  https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//message-integrity-subscriber
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Mock\MockPlugin` has moved to
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\MockSubscriber`.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Oauth\OauthPlugin` has moved to
+  https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//oauth-subscriber
 
 ## Service
 
-TODO
+The service description layer of /* Replaced /* Replaced /* Replaced Guzzle */ */ */ has moved into two separate packages:
+
+- http://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//command Provides a high level abstraction over web
+  services by representing web service operations using commands.
+- http://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-services Provides an implementation of
+  /* Replaced /* Replaced /* Replaced guzzle */ */ *//command that provides request serialization and response parsing using
+  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ service descriptions.
 
 ## Stream
 
-`/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface` has been given a large update to cleanly take on the responsibilities of
-`/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody` and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBodyInterface` now that they have been removed. The number of methods
-implemented by the `StreamInterface` has been drastically reduced to allow developers to more easily extend and
-decorate stream behavior.
+Stream have moved to a separate package available at
+https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//streams.
+
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\StreamInterface` has been given a large update to cleanly take
+on the responsibilities of `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBody` and
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\EntityBodyInterface` now that they have been removed. The number
+of methods implemented by the `StreamInterface` has been drastically reduced to
+allow developers to more easily extend and decorate stream behavior.
 
 ## Removed methods from StreamInterface
 
 - `getStream` and `setStream` have been removed to better encapsulate streams.
-- `getMetadata` and `setMetadata` have been removed in favor of `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\MetadataStreamInterface`.
-- `getWrapper`, `getWrapperData`, `getStreamType`, and `getUri` have all been removed. This data is accessible when
-   using streams that implement `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\MetadataStreamInterface`.
+- `getMetadata` and `setMetadata` have been removed in favor of
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\MetadataStreamInterface`.
+- `getWrapper`, `getWrapperData`, `getStreamType`, and `getUri` have all been
+  removed. This data is accessible when
+  using streams that implement `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\MetadataStreamInterface`.
 - `rewind` has been removed. Use `seek(0)` for a similar behavior.
 
 ## Renamed methods
@@ -348,18 +434,21 @@ decorate stream behavior.
 - `detachStream` has been renamed to `detach`.
 - `feof` has been renamed to `eof`.
 - `ftell` has been renamed to `tell`.
-- `readLine` has moved from an instance method to a static class method of `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream`.
+- `readLine` has moved from an instance method to a static class method of
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream`.
 
 ## Metadata streams
 
-`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\MetadataStreamInterface` has been added to denote streams that contain additonal metadata accessible
-via `getMetadata()`. `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface::getMetadata` and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface::setMetadata`
-have been removed.
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\MetadataStreamInterface` has been added to denote streams
+that contain additonal metadata accessible via `getMetadata()`.
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface::getMetadata` and
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface::setMetadata` have been removed.
 
 ## SteamRequestFactory
 
-The entire concept of the StreamRequestFactory has been removed. The way this was used in /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 broke the actual
-interface of sending streaming requests (instead of getting back a Response, you got a StreamInterface). Streeaming
+The entire concept of the StreamRequestFactory has been removed. The way this
+was used in /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 broke the actual interface of sending streaming requests
+(instead of getting back a Response, you got a StreamInterface). Streeaming
 PHP requests are now implemented throught the `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\StreamAdapter`.
 
 3.6 to 3.7

@@ -9,7 +9,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 trait HasDataTrait
 {
     /** @var array */
-    protected $data;
+    protected $data = [];
 
     public function getIterator()
     {

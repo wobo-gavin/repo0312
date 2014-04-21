@@ -103,6 +103,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->get();
     }
 
+    public function testCanSpecifyEmitter()
+    {
+        $emitter = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EmitterInterface')
+            ->setMethods(['listeners'])
+            ->getMockForAbstractClass();
+        $emitter->expects($this->once())
+            ->method('listeners')
+            ->will($this->returnValue('foo'));
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['emitter' => $emitter]);
+        $this->assertEquals('foo', $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->listeners());
+    }
+
     public function testAddsDefaultUserAgentHeaderWithDefaultOptions()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['defaults' => ['allow_redirects' => false]]);
