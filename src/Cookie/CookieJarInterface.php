@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInte
  * It extracts cookies from HTTP requests, and returns them in HTTP responses.
  * CookieJarInterface instances automatically expire contained cookies when
  * necessary. Subclasses are also responsible for storing and retrieving
- * cookies from a file, database, etc...
+ * cookies from a file, database, etc.
  *
  * @link http://docs.python.org/2/library/cookielib.html Inspiration
  */

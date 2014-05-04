@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInte
 
 /**
  * Event that contains transaction statistics (time over the wire, lookup time,
- * etc).
+ * etc.).
  *
  * Adapters that create this event SHOULD add, at a minimum, the 'total_time'
  * transfer statistic that measures the amount of time, in seconds, taken to

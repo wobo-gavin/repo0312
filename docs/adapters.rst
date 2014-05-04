@@ -18,7 +18,7 @@ If cURL is present, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will use
   ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\StreamingProxyAdapter`` is added so that streaming
   requests are sent using the PHP stream wrapper. If this setting is disabled,
   then streaming requests are sent through a cURL adapter.
-- If using PHP 5.5 or greater, then a a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlAdapter``
+- If using PHP 5.5 or greater, then a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlAdapter``
   is used to send serial requests. Otherwise, the
   ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\MultiAdapter`` is used for serial and parallel
   requests.

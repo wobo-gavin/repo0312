@@ -59,7 +59,7 @@ has been implemented yet, but hoping to utilize a PSR cache interface).
   `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EventInterface`.
 - `AbstractHasDispatcher` has moved to a trait, `HasEmitterTrait`, and
   `HasDispatcherInterface` has moved to `HasEmitterInterface`. Retrieving the
-  event emitter of a request, /* Replaced /* Replaced /* Replaced client */ */ */, etc now uses the `getEmitter` method
+  event emitter of a request, /* Replaced /* Replaced /* Replaced client */ */ */, etc. now uses the `getEmitter` method
   rather than the `getDispatcher` method.
 
 #### Emitter
@@ -152,7 +152,7 @@ $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request)
 - The /* Replaced /* Replaced /* Replaced client */ */ */ no longer emits a `/* Replaced /* Replaced /* Replaced client */ */ */.create_request` event.
 - Creating requests with a /* Replaced /* Replaced /* Replaced client */ */ */ no longer automatically utilize a URI
   template. You must pass an array into a creational method (e.g.,
-  `createRequest`, `get`, `put`, etc...) in order to expand a URI template.
+  `createRequest`, `get`, `put`, etc.) in order to expand a URI template.
 
 ### Messages
 
@@ -563,7 +563,7 @@ that implement them, but you should update your code to use alternative methods:
 * Moved getLinks() from Response to just be used on a Link header object.
 
 If you previously relied on /* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Message\Header::raw(), then you will need to update your code to use the
-HeaderInterface (e.g. toArray(), getAll(), etc).
+HeaderInterface (e.g. toArray(), getAll(), etc.).
 
 ### Interface changes
 
@@ -591,7 +591,7 @@ HeaderInterface (e.g. toArray(), getAll(), etc).
 ### Other changes
 
 * All response header helper functions return a string rather than mixing Header objects and strings inconsistently
-* Removed cURL blacklist support. This is no longer necessary now that Expect, Accept, etc are managed by /* Replaced /* Replaced /* Replaced Guzzle */ */ */
+* Removed cURL blacklist support. This is no longer necessary now that Expect, Accept, etc. are managed by /* Replaced /* Replaced /* Replaced Guzzle */ */ */
   directly via interfaces
 * Removed the injecting of a request object onto a response object. The methods to get and set a request still exist
   but are a no-op until removed.
