@@ -16,7 +16,12 @@
 
     "require": {
         "php": ">=5.4.0",
+        "ext-json": "*",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/streams": "~1.0"
+    },
+
+    "suggest": {
+        "ext-curl": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ will use specific adapters if cURL is present"
     },
 
     "autoload": {
