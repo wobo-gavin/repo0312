@@ -8,7 +8,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 interface ResponseInterface extends MessageInterface
 {
     /**
-     * Get the response status code (e.g. "200", "404", etc)
+     * Get the response status code (e.g. "200", "404", etc.)
      *
      * @return string
      */
