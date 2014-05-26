@@ -444,7 +444,7 @@ that contain additonal metadata accessible via `getMetadata()`.
 `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface::getMetadata` and
 `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface::setMetadata` have been removed.
 
-## SteamRequestFactory
+## StreamRequestFactory
 
 The entire concept of the StreamRequestFactory has been removed. The way this
 was used in /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 broke the actual interface of sending streaming requests
@@ -619,7 +619,7 @@ The `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Utils` class was r
 
 ### Stream wrapper and type
 
-`/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::getWrapper()` and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::getSteamType()` are no longer converted to lowercase.
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::getWrapper()` and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Stream\Stream::getStreamType()` are no longer converted to lowercase.
 
 ### curl.emit_io became emit_io
 
