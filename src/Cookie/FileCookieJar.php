@@ -73,9 +73,9 @@ class FileCookieJar extends CookieJar
             // @codeCoverageIgnoreEnd
         }
 
-        $data = json_decode($json, true);
+        $data = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode($json, true);
         if (is_array($data)) {
-            foreach (json_decode($json, true) as $cookie) {
+            foreach (\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode($json, true) as $cookie) {
                 $this->setCookie(new SetCookie($cookie));
             }
         } elseif (strlen($data)) {

@@ -142,6 +142,21 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
         $requests = [$/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://foo.com/baz')];
         \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch($/* Replaced /* Replaced /* Replaced client */ */ */, $requests, ['complete' => 'foo']);
     }
+
+    public function testJsonDecodes()
+    {
+        $data = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode('true');
+        $this->assertTrue($data);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unable to parse JSON data: JSON_ERROR_SYNTAX - Syntax error, malformed JSON
+     */
+    public function testJsonDecodesWithErrorMessages()
+    {
+        \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode('!narf!');
+    }
 }
 
 class HasDeprecations
