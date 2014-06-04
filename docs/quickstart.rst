@@ -437,7 +437,7 @@ Exceptions
           }
       }
 
-- A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientErrorResponseException`` is thrown for 400
+- A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException`` is thrown for 400
   level errors if the ``exceptions`` request option is set to true. This
   exception extends from ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException`` and
   ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException`` extends from
@@ -445,16 +445,16 @@ Exceptions
 
   .. code-block:: php
 
-      use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientErrorResponseException;
+      use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException;
 
       try {
           $/* Replaced /* Replaced /* Replaced client */ */ */->get('https://github.com/_abc_123_404');
-      } catch (ClientErrorResponseException $e) {
+      } catch (ClientException $e) {
           echo $e->getRequest();
           echo $e->getResponse();
       }
 
-- A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerErrorResponse`` is thrown for 500 level
+- A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException`` is thrown for 500 level
   errors if the ``exceptions`` request option is set to true. This
   exception extends from ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException``.
 - A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TooManyRedirectsException`` is thrown when too
