@@ -339,7 +339,7 @@ function ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch()`` tha
 
 ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch()`` accepts an optional associative array of options in the
 third argument that allows you to specify the 'before', 'complete' and 'error'
-events as well as specify the maximum number of request to send in parallel
+events as well as specify the maximum number of requests to send in parallel
 using the 'parallel' option key. This options array is the exact same format as
 the options array exposed in ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::sendAll()``.
 
