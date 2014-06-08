@@ -377,7 +377,7 @@ Cookies
 - Set to ``true`` to use a shared cookie session associated with the /* Replaced /* Replaced /* Replaced client */ */ */.
 - Pass an associative array containing cookies to send in the request and start
   a new cookie session.
-- Set to a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\CookieJar\CookieJarInterface`` object to uss
+- Set to a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\CookieJar\CookieJarInterface`` object to use
   an existing cookie jar.
 
 Redirects
