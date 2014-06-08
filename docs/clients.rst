@@ -308,7 +308,7 @@ Batching Requests
 -----------------
 
 Sometimes you just want to send a few requests in parallel and then process
-the results all at once after they've sent. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides a convenience
+the results all at once after they've been sent. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides a convenience
 function ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch()`` that makes this very simple:
 
 .. code-block:: php
