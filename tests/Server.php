@@ -28,8 +28,8 @@ class Server
     private static $/* Replaced /* Replaced /* Replaced client */ */ */;
 
     public static $started;
-    public static $url = 'http://127.0.0.1:8124/';
-    public static $port = 8124;
+    public static $url = 'http://127.0.0.1:8125/';
+    public static $port = 8125;
 
     /**
      * Flush the received requests from the server
