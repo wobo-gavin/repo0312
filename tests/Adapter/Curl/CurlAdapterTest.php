@@ -9,6 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HeadersEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
@@ -116,5 +117,23 @@ class CurlAdapterTest extends AbstractCurl
         $transaction = new Transaction($/* Replaced /* Replaced /* Replaced client */ */ */, $request);
         $a->send($transaction);
         $this->assertCount(2, $this->readAttribute($a, 'handles'));
+    }
+
+    public function testDoesNotSaveToWhenFailed()
+    {
+        Server::flush();
+        Server::enqueue([
+            "HTTP/1.1 500 Internal Server Error\r\nContent-Length: 0\r\n\r\n"
+        ]);
+
+        $tmp = tempnam('/tmp', 'test_save_to');
+        unlink($tmp);
+        $a = new CurlAdapter(new MessageFactory());
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => Server::$url, 'adapter' => $a]);
+        try {
+            $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', ['save_to' => $tmp]);
+        } catch (ServerException $e) {
+            $this->assertFileNotExists($tmp);
+        }
     }
 }
