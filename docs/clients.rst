@@ -297,7 +297,7 @@ immeditaley and prevent subsequent requests from being sent.
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 
     $/* Replaced /* Replaced /* Replaced client */ */ */->sendAll($requests, [
-        'error' => function (ErrorEvent $event) use (&$errors) {
+        'error' => function (ErrorEvent $event) {
             throw $event->getException();
         }
     ]);
