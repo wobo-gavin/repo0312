@@ -50,7 +50,7 @@ then you'll need to use a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */H
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 
     $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('https://github.com/timeline.json');
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/get');
 
     // You can use the same methods you saw in the procedural API
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->delete('http://httpbin.org/delete');
@@ -120,9 +120,9 @@ response.
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('https://github.com/timeline.json');
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/get');
     $json = $response->json();
-    var_dump($json[0]['repository']);
+    var_dump($json[0]['origin']);
 
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ internally uses PHP's ``json_decode()`` function to parse responses. If
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is unable to parse the JSON response body, then a
