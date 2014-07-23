@@ -13,7 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\AdapterExc
  */
 interface ClientInterface extends HasEmitterInterface
 {
-    const VERSION = '4.1.3';
+    const VERSION = '4.1.4';
 
     /**
      * Create and return a new {@see RequestInterface} object.
