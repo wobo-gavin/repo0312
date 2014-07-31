@@ -184,7 +184,7 @@ priority of the listener (as shown in the ``before`` listener in the example).
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EventEmitterInterface;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EmitterInterface;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInterface;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
