@@ -14,6 +14,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\MultiAdapter;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlFactory;
@@ -307,6 +308,16 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
         {
             $event = new BeforeEvent(new Transaction(new Client(), $request));
             $request->getEmitter()->emit('before', $event);
+        }
+
+        public function testDoesNotAlwaysAddContentType()
+        {
+            Server::flush();
+            Server::enqueue(["HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"]);
+            $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+            $/* Replaced /* Replaced /* Replaced client */ */ */->put(Server::$url . '/foo', ['body' => 'foo']);
+            $request = Server::received(true)[0];
+            $this->assertEquals('', $request->getHeader('Content-Type'));
         }
     }
 }
