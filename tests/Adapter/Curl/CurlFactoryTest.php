@@ -319,5 +319,17 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
             $request = Server::received(true)[0];
             $this->assertEquals('', $request->getHeader('Content-Type'));
         }
+
+        /**
+         * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\AdapterException
+         */
+        public function testThrowsForStreamOption()
+        {
+            $request = new Request('GET', Server::$url . 'haha');
+            $request->getConfig()->set('stream', true);
+            $t = new Transaction(new Client(), $request);
+            $f = new CurlFactory();
+            $f($t, new MessageFactory());
+        }
     }
 }
