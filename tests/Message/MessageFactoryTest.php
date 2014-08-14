@@ -11,6 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory
@@ -540,6 +541,26 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         $request->getBody()->setAggregator(Query::duplicateAggregator());
         $request->getBody()->applyRequestHeaders($request);
         $this->assertEquals('foo=bar&foo=baz', $request->getBody());
+    }
+
+    public function testCanForceMultipartUploadWithContentType()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach(new Mock([new Response(200)]));
+        $history = new History();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($history);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://foo.com', [
+            'headers' => ['Content-Type' => 'multipart/form-data'],
+            'body' => ['foo' => 'bar']
+        ]);
+        $this->assertContains(
+            'multipart/form-data; boundary=',
+            $history->getLastRequest()->getHeader('Content-Type')
+        );
+        $this->assertContains(
+            "Content-Disposition: form-data; name=\"foo\"\r\n\r\nbar",
+            (string) $history->getLastRequest()->getBody()
+        );
     }
 }
 
