@@ -104,7 +104,7 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port, l
         } else {
             var response = that.responses.shift();
             res.writeHead(response.statusCode, response.reasonPhrase, response.headers);
-            res.end(response.body);
+            res.end(new Buffer(response.body, 'base64'));
             that.requests.push(request);
         }
     };
