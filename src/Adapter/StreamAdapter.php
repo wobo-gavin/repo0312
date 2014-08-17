@@ -7,7 +7,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\AdapterExc
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\LazyOpenStream;
 
 /**
  * HTTP adapter that uses PHP's HTTP stream wrapper.
@@ -72,11 +73,11 @@ class StreamAdapter implements AdapterInterface
         if ($saveTo = $request->getConfig()['save_to']) {
             // Stream the response into the destination stream
             $saveTo = is_string($saveTo)
-                ? new Stream\LazyOpenStream($saveTo, 'r+')
-                : Stream\create($saveTo);
+                ? new LazyOpenStream($saveTo, 'r+')
+                : Stream::factory($saveTo);
         } else {
             // Stream into the default temp stream
-            $saveTo = Stream\create();
+            $saveTo = Stream::factory();
         }
 
         while (!feof($stream)) {

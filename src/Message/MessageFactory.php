@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\HttpError
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Redirect;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 
@@ -44,7 +44,7 @@ class MessageFactory implements MessageFactoryInterface
         array $options = []
     ) {
         if (null !== $body) {
-            $body = Stream\create($body);
+            $body = Stream::factory($body);
         }
 
         return new Response($statusCode, $headers, $body, $options);
@@ -195,7 +195,7 @@ class MessageFactory implements MessageFactoryInterface
             if (is_array($value)) {
                 $this->addPostData($request, $value);
             } else {
-                $request->setBody(Stream\create($value));
+                $request->setBody(Stream::factory($value));
             }
         }
     }
@@ -343,6 +343,6 @@ class MessageFactory implements MessageFactoryInterface
             $request->setHeader('Content-Type', 'application/json');
         }
 
-        $request->setBody(Stream\create(json_encode($value)));
+        $request->setBody(Stream::factory(json_encode($value)));
     }
 }
