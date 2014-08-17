@@ -17,7 +17,7 @@
     "require": {
         "php": ">=5.4.0",
         "ext-json": "*",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/streams": "~1.4"
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/streams": "~2.0"
     },
 
     "suggest": {
