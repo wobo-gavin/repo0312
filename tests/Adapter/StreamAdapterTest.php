@@ -1,5 +1,4 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\StreamAdapter;
@@ -423,5 +422,19 @@ class StreamAdapterTest extends \PHPUnit_Framework_TestCase
             'foo: bam',
             'abc: 123'
         ]));
+    }
+
+    public function testDoesNotAddContentTypeByDefault()
+    {
+        Server::flush();
+        Server::enqueue("HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n");
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client([
+            'base_url' => Server::$url,
+            'adapter' => new StreamAdapter(new MessageFactory())
+        ]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', ['body' => 'foo']);
+        $requests = Server::received(true);
+        $this->assertEquals('', $requests[0]->getHeader('Content-Type'));
+        $this->assertEquals(3, $requests[0]->getHeader('Content-Length'));
     }
 }
