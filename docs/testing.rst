@@ -156,10 +156,10 @@ same response over and over or return the result of a callable function.
 Test Web Server
 ===============
 
-Using mock responses is usually enough when testing a web service /* Replaced /* Replaced /* Replaced client */ */ */. When
-implementing custom :doc:`HTTP adapters <adapters>`, you'll need to send actual
-HTTP requests in order to sufficiently test the adapter. However, a best
-practice is to contact a local web server rather than a server over the
+Using mock responses is almost always enough when testing a web service /* Replaced /* Replaced /* Replaced client */ */ */.
+When implementing custom :doc:`HTTP adapters <adapters>`, you'll need to send
+actual HTTP requests in order to sufficiently test the adapter. However, a
+best practice is to contact a local web server rather than a server over the
 internet.
 
 - Tests are more reliable
@@ -168,6 +168,22 @@ internet.
 
 Using the test server
 ---------------------
+
+.. warning::
+
+    The following functionality is provided to help developers of /* Replaced /* Replaced /* Replaced Guzzle */ */ */
+    develop HTTP adapters. There is no promise of backwards compatibility
+    when it comes to the node.js test server or the ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server``
+    class. If you are using the test server or ``Server`` class outside of
+    /* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */, then you will need to configuring autoloading and
+    ensure the web server is started manually.
+
+.. hint::
+
+    You almost never need to use this test web server. You should only ever
+    consider using it when developing HTTP adapters. The test web server
+    is not necessary for mocking requests. For that, please use the
+    Mock subcribers and History subscriber.
 
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ ships with a node.js test server that receives requests and returns
 responses from a queue. The test server exposes a simple API that is used to
