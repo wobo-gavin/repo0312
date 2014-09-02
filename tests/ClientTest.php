@@ -27,7 +27,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('allow_redirects'));
         $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('exceptions'));
-        $this->assertContains('cacert.pem', $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('verify'));
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('verify'));
     }
 
     public function testUsesProvidedDefaultOptions()
@@ -40,7 +40,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ]);
         $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('allow_redirects'));
         $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('exceptions'));
-        $this->assertContains('cacert.pem', $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('verify'));
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('verify'));
         $this->assertEquals(['foo' => 'bar'], $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('query'));
     }
 

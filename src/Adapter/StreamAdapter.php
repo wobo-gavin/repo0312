@@ -1,7 +1,7 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\AdapterException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
@@ -10,7 +10,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFacto
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\InflateStream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\LazyOpenStream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Utils;
 
@@ -262,24 +261,32 @@ class StreamAdapter implements AdapterInterface
 
     private function add_verify(RequestInterface $request, &$options, $value, &$params)
     {
-        if ($value === true || is_string($value)) {
-            $options['http']['verify_peer'] = true;
-            if ($value !== true) {
-                if (!file_exists($value)) {
-                    throw new \RuntimeException("SSL certificate authority file not found: {$value}");
-                }
-                $options['http']['allow_self_signed'] = true;
-                $options['http']['cafile'] = $value;
+        if ($value === true) {
+            // PHP 5.6 or greater will find the system cert by default. When
+            // < 5.6, use the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ bundled cacert.
+            if (PHP_VERSION_ID < 50600) {
+                $options['ssl']['cafile'] = Client::getDefaultBundle();
+            }
+        } elseif (is_string($value)) {
+            $options['ssl']['cafile'] = $value;
+            if (!file_exists($value)) {
+                throw new \RuntimeException("SSL CA bundle not found: $value");
             }
         } elseif ($value === false) {
-            $options['http']['verify_peer'] = false;
+            $options['ssl']['verify_peer'] = false;
+            return;
+        } else {
+            throw new \InvalidArgumentException('Invalid verify request option');
         }
+
+        $options['ssl']['verify_peer'] = true;
+        $options['ssl']['allow_self_signed'] = true;
     }
 
     private function add_cert(RequestInterface $request, &$options, $value, &$params)
     {
         if (is_array($value)) {
-            $options['http']['passphrase'] = $value[1];
+            $options['ssl']['passphrase'] = $value[1];
             $value = $value[0];
         }
 
@@ -287,7 +294,7 @@ class StreamAdapter implements AdapterInterface
             throw new \RuntimeException("SSL certificate not found: {$value}");
         }
 
-        $options['http']['local_cert'] = $value;
+        $options['ssl']['local_cert'] = $value;
     }
 
     private function add_debug(RequestInterface $request, &$options, $value, &$params)
