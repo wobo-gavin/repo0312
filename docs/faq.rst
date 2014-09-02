@@ -189,3 +189,9 @@ used with a /* Replaced /* Replaced /* Replaced client */ */ */ and allow self-s
             ]
         ]
     ]);
+
+Why am I getting an SSL verification error?
+===========================================
+
+You need to specify the path on disk to the CA bundle used by /* Replaced /* Replaced /* Replaced Guzzle */ */ */ for
+verifying the peer certificate. See :ref:`verify-option`.
