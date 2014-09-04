@@ -1,9 +1,9 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ParseException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
 
 /**
  * /* Replaced /* Replaced /* Replaced Guzzle */ */ */ HTTP response object
@@ -127,7 +127,7 @@ class Response extends AbstractMessage implements ResponseInterface
     public function json(array $config = [])
     {
         try {
-            return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode(
+            return Utils::jsonDecode(
                 (string) $this->getBody(),
                 isset($config['object']) ? !$config['object'] : true,
                 512,
@@ -177,8 +177,6 @@ class Response extends AbstractMessage implements ResponseInterface
     public function setEffectiveUrl($url)
     {
         $this->effectiveUrl = $url;
-
-        return $this;
     }
 
     /**

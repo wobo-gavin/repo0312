@@ -1,8 +1,6 @@
 <?php
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter;
-
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ListenerAttacherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 
@@ -31,7 +29,7 @@ class TransactionIterator implements \Iterator
         $this->/* Replaced /* Replaced /* Replaced client */ */ */ = $/* Replaced /* Replaced /* Replaced client */ */ */;
         $this->eventListeners = $this->prepareListeners(
             $options,
-            ['before', 'complete', 'error']
+            ['before', 'complete', 'error', 'prepare']
         );
         if ($source instanceof \Iterator) {
             $this->source = $source;

@@ -1,7 +1,6 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ListenerAttacherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFileInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Cookie;
@@ -160,7 +159,8 @@ class MessageFactory implements MessageFactoryInterface
         // Values specified in the config map are passed to request options
         static $configMap = ['connect_timeout' => 1, 'timeout' => 1,
             'verify' => 1, 'ssl_key' => 1, 'cert' => 1, 'proxy' => 1,
-            'debug' => 1, 'save_to' => 1, 'stream' => 1, 'expect' => 1];
+            'debug' => 1, 'save_to' => 1, 'stream' => 1, 'expect' => 1,
+            'future' => 1];
 
         // Take the class of the instance, not the parent
         $selfClass = get_class($this);
@@ -321,7 +321,7 @@ class MessageFactory implements MessageFactoryInterface
         }
 
         $this->attachListeners($request, $this->prepareListeners($value,
-            ['before', 'complete', 'error', 'headers']
+            ['before', 'complete', 'error', 'progress']
         ));
     }
 

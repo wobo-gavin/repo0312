@@ -1,6 +1,60 @@
 CHANGELOG
 =========
 
+5.0.0 (TBD)
+-----------
+
+Adding support for non-blocking futures and some minor API cleanup.
+
+### New Features
+
+* Added support for non-blocking Future responses based on `/* Replaced /* Replaced /* Replaced guzzle */ */ */http/ring`
+  and `/* Replaced /* Replaced /* Replaced guzzle */ */ */http/ring-/* Replaced /* Replaced /* Replaced client */ */ */`. You can still use the `sendAll()` and `batch()`
+  functions in exactly the same way, but you now also have access to the
+  `future` request option which creates a future request if possible.
+* You can now create a default adapter based on the environment using a public
+  API.
+* Updated the redirect plugin to be non-blocking so that redirects are sent in
+  parallel. Other plugins like this can now be updated to be non-blocking.
+* Added a "progress" event so that you can get upload or download progress
+  events.
+* Added `hasListeners()` to EmitterInterface.
+
+### Breaking changes
+
+The breaking changes in this release are relatively minor and should not affect
+most users. The biggest thing to look out for is that request and response
+objects no longer implement fluent interfaces.
+
+* Removed the fluent interfaces (i.e., ``return $this``) from requests,
+  responses, and ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url``.
+* Removing all classes from `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter`, these are now
+  implemented as callables that are stored in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client`.
+* Removed the concept of "parallel adapters". If you want an adapter to
+  send requests in parallel, then have the adapter return
+  ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future`` objects that allow futures to be fulfilled in
+  parallel when one of the future objects are dereferenced.
+* Moved `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction` to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction`. The
+  Transaction object now exposes the request, response, and /* Replaced /* Replaced /* Replaced client */ */ */ as public
+  properties. The getters and setters have been removed.
+* Removed "functions.php" so that /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is truly PSR-4 compliant. These
+  functions are now implemented in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils` using camelCase.
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::jsonDecode`.
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::batch`.
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_path` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::getPath`.
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\set_path` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::setPath`.
+* Removed the "headers" event. This event was only useful for changing the
+  body a response once the headers of the response were known. You can implement
+  a similar behavior in a number of ways. One example might be to use a
+  FnStream that has access to the transaction being sent. For example, when the
+  first byte is written, you could check if the response headers match your
+  expectations, and if so, change the actual stream body that is being
+  written to.
+* Removed the `asArray` parameter from
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageInterface::getHeader`. If you want to get a header
+  value as an array, then use the newly added ``getHeaderLines()`` method of
+  ``MessageInterface``.
+
 4.2.2 (2014-09-08)
 ------------------
 

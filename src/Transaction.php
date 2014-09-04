@@ -1,23 +1,29 @@
 <?php
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter;
-
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
 
-class Transaction implements TransactionInterface
+/**
+ * Represents the relationship between a /* Replaced /* Replaced /* Replaced client */ */ */, request, and response.
+ *
+ * You can access the request, response, and /* Replaced /* Replaced /* Replaced client */ */ */ using their corresponding
+ * public properties.
+ */
+class Transaction
 {
     /** @var ClientInterface */
-    private $/* Replaced /* Replaced /* Replaced client */ */ */;
+    public $/* Replaced /* Replaced /* Replaced client */ */ */;
+
     /** @var RequestInterface */
-    private $request;
+    public $request;
+
     /** @var ResponseInterface */
-    private $response;
+    public $response;
 
     /**
      * @param ClientInterface  $/* Replaced /* Replaced /* Replaced client */ */ */  Client that is used to send the requests
-     * @param RequestInterface $request
+     * @param RequestInterface $request Request to send
      */
     public function __construct(
         ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */,
@@ -25,25 +31,5 @@ class Transaction implements TransactionInterface
     ) {
         $this->/* Replaced /* Replaced /* Replaced client */ */ */ = $/* Replaced /* Replaced /* Replaced client */ */ */;
         $this->request = $request;
-    }
-
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
-    public function setResponse(ResponseInterface $response)
-    {
-        $this->response = $response;
-    }
-
-    public function getClient()
-    {
-        return $this->/* Replaced /* Replaced /* Replaced client */ */ */;
     }
 }

@@ -459,9 +459,6 @@ Exceptions
   exception extends from ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException``.
 - A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TooManyRedirectsException`` is thrown when too
   many redirects are followed. This exception extends from ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException``.
-- A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\AdapterException`` is thrown when an error occurs
-  in an HTTP adapter during a parallel request. This exception is only thrown
-  when using the ``sendAll()`` method of a /* Replaced /* Replaced /* Replaced client */ */ */.
 
 All of the above exceptions extend from
 ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TransferException``.
