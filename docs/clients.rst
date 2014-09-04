@@ -337,7 +337,7 @@ function ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch()`` tha
     $results = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch($/* Replaced /* Replaced /* Replaced client */ */ */, $requests);
 
     // Results is an SplObjectStorage object where each request is a key
-    foreach ($results as $request) {
+    foreach ($requests as $request) {
         echo $request->getUrl() . "\n";
         // Get the result (either a ResponseInterface or RequestException)
         $result = $results[$request];
