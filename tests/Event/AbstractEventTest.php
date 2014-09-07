@@ -1,5 +1,4 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Event;
 
 class AbstractEventTest extends \PHPUnit_Framework_TestCase

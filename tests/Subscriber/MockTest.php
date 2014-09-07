@@ -1,8 +1,7 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Subscriber;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
@@ -65,7 +64,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $m = new Mock([$response]);
         $ev = new BeforeEvent($t);
         $m->onBefore($ev);
-        $this->assertSame($response, $t->getResponse());
+        $this->assertSame($response, $t->response);
     }
 
     /**

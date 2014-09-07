@@ -1,5 +1,4 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Plugin\Redirect;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
@@ -253,6 +252,9 @@ class RedirectTest extends \PHPUnit_Framework_TestCase
             "HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n"
         ]));
         $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/');
-        $this->assertEquals('http://www.bar.com/redirect', $response->getEffectiveUrl());
+        $this->assertEquals(
+            'http://www.bar.com/redirect',
+            $response->getEffectiveUrl()
+        );
     }
 }

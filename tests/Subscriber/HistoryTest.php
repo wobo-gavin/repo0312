@@ -1,8 +1,7 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Subscriber;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
@@ -23,7 +22,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
         $request = new Request('GET', '/');
         $response = new Response(400);
         $t = new Transaction(new Client(), $request);
-        $t->setResponse($response);
+        $t->response = $response;
         $e = new RequestException('foo', $request, $response);
         $ev = new ErrorEvent($t, $e);
         $h = new History(2);
@@ -48,7 +47,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
         $request = new Request('GET', '/');
         $response = new Response(200);
         $t = new Transaction(new Client(), $request);
-        $t->setResponse($response);
+        $t->response = $response;
         $ev = new CompleteEvent($t);
         $h = new History(2);
         $h->onComplete($ev);

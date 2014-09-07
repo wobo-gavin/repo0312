@@ -1,14 +1,14 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\FakeParallelAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
 
@@ -17,9 +17,20 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
  */
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
+    /** @callable */
+    private $ma;
+
+    public function setup()
+    {
+        $this->ma = function () {
+            throw new \RuntimeException('Should not have been called.');
+        };
+    }
+
     public function testProvidesDefaultUserAgent()
     {
-        $this->assertEquals(1, preg_match('#^/* Replaced /* Replaced /* Replaced Guzzle */ */ *//.+ curl/.+ PHP/.+$#', Client::getDefaultUserAgent()));
+        $ua = Client::getDefaultUserAgent();
+        $this->assertEquals(1, preg_match('#^/* Replaced /* Replaced /* Replaced Guzzle */ */ *//.+ curl/.+ PHP/.+$#', $ua));
     }
 
     public function testUsesDefaultDefaultOptions()
@@ -61,14 +72,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testClientUsesDefaultAdapterWhenNoneIsSet()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        if (!extension_loaded('curl')) {
-            $adapter = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\StreamAdapter';
-        } elseif (ini_get('allow_url_fopen')) {
-            $adapter = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\StreamingProxyAdapter';
-        } else {
-            $adapter = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlAdapter';
-        }
-        $this->assertInstanceOf($adapter, $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'adapter'));
+        $this->assertTrue(is_callable($this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'adapter')));
     }
 
     /**
@@ -77,13 +81,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testCanSpecifyAdapter()
     {
-        $adapter = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\AdapterInterface')
-            ->setMethods(['send'])
-            ->getMockForAbstractClass();
-        $adapter->expects($this->once())
-            ->method('send')
-            ->will($this->throwException(new \Exception('Foo')));
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => function () {
+            throw new \Exception('Foo');
+        }]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
     }
 
@@ -295,29 +295,25 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testClientSendsRequests()
     {
-        $response = new Response(200);
-        $adapter = new MockAdapter();
-        $adapter->setResponse($response);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
-        $this->assertSame($response, $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com'));
+        $mock = new MockAdapter(['status' => 200, 'headers' => []]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $mock]);
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com');
+        $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('http://test.com', $response->getEffectiveUrl());
     }
 
     public function testSendingRequestCanBeIntercepted()
     {
         $response = new Response(200);
-        $response2 = new Response(200);
-        $adapter = new MockAdapter();
-        $adapter->setResponse($response);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $this->ma]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(
             'before',
-            function (BeforeEvent $e) use ($response2) {
-                $e->intercept($response2);
+            function (BeforeEvent $e) use ($response) {
+                $e->intercept($response);
             }
         );
-        $this->assertSame($response2, $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com'));
-        $this->assertEquals('http://test.com', $response2->getEffectiveUrl());
+        $this->assertSame($response, $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com'));
+        $this->assertEquals('http://test.com', $response->getEffectiveUrl());
     }
 
     /**
@@ -326,11 +322,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testEnsuresResponseIsPresentAfterSending()
     {
-        $adapter = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\MockAdapter')
-            ->setMethods(['send'])
-            ->getMock();
-        $adapter->expects($this->once())
-            ->method('send');
+        $adapter = function () {};
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
     }
@@ -341,10 +333,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function ($e) {
             throw new \Exception('foo');
         });
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('error', function ($e) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('error', function (ErrorEvent $e) {
             $e->intercept(new Response(200));
         });
-        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com')->getStatusCode());
+        $this->assertEquals(
+            200,
+            $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com')->getStatusCode()
+        );
     }
 
     /**
@@ -354,7 +349,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testClientHandlesErrorsDuringBeforeSendAndThrowsIfUnhandled()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function ($e) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function (BeforeEvent $e) {
             throw new RequestException('foo', $e->getRequest());
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
@@ -367,7 +362,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testClientWrapsExceptions()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function ($e) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function (BeforeEvent $e) {
             throw new \Exception('foo');
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
@@ -399,21 +394,27 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ];
 
         $/* Replaced /* Replaced /* Replaced client */ */ */->sendAll($requests);
-        $requests = array_map(function($r) { return $r->getMethod(); }, $history->getRequests());
+        $requests = array_map(function($r) {
+            return $r->getMethod();
+        }, $history->getRequests());
         $this->assertContains('GET', $requests);
         $this->assertContains('POST', $requests);
         $this->assertContains('PUT', $requests);
     }
 
-    public function testCanSetCustomParallelAdapter()
+    public function testCanReturnFutureResults()
     {
         $called = false;
-        $pa = new FakeParallelAdapter(new MockAdapter(function () use (&$called) {
+        $future = new Future(function () use (&$called) {
             $called = true;
-            return new Response(203);
-        }));
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['parallel_adapter' => $pa]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->sendAll([$/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.foo.com')]);
+            return ['status' => 201, 'headers' => []];
+        });
+        $mock = new MockAdapter($future);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $mock]);
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://localhost:123/foo');
+        $this->assertFalse($called);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse', $response);
+        $this->assertEquals(201, $response->getStatusCode());
         $this->assertTrue($called);
     }
 
@@ -424,15 +425,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $request->getConfig()['auth']);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://test.com', ['auth' => null]);
         $this->assertFalse($request->getConfig()->hasKey('auth'));
-    }
-
-    /**
-     * @expectedException \PHPUnit_Framework_Error_Deprecated
-     */
-    public function testHasDeprecatedGetEmitter()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher();
     }
 
     public function testUsesProxyEnvironmentVariables()

@@ -1,5 +1,4 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Post;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\MultipartBody;
