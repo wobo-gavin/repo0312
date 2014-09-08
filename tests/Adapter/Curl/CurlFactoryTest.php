@@ -5,7 +5,9 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl
 {
     function curl_setopt_array($handle, array $options)
     {
-        $_SERVER['last_curl'] = $options;
+        if (array_values($options) != [null, null, null, null]) {
+            $_SERVER['last_curl'] = $options;
+        }
         \curl_setopt_array($handle, $options);
     }
 }
@@ -78,8 +80,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\
             $this->assertEquals('1.1', $sent->getProtocolVersion());
             $this->assertEquals('hi', (string) $stream);
 
-            $this->assertEquals(2, $_SERVER['last_curl'][CURLOPT_SSL_VERIFYHOST]);
             $this->assertEquals(true, $_SERVER['last_curl'][CURLOPT_SSL_VERIFYPEER]);
+            $this->assertEquals(2, $_SERVER['last_curl'][CURLOPT_SSL_VERIFYHOST]);
         }
 
         public function testSendsHeadRequests()
