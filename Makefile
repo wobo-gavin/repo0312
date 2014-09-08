@@ -7,7 +7,7 @@ stop-server:
 	cd vendor//* Replaced /* Replaced /* Replaced guzzle */ */ */http/ring && make stop-server
 
 test: start-server
-	vendor/bin/phpunit
+	vendor/bin/phpunit --debug
 	$(MAKE) stop-server
 
 coverage: start-server
