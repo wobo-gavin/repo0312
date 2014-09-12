@@ -137,7 +137,7 @@ class FutureResponseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\CancelledFutureAccessException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Exception\CancelledFutureAccessException
      */
     public function testAccessingCancelledResponseThrows()
     {
