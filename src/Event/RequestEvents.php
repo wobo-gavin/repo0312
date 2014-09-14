@@ -2,7 +2,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 
@@ -166,28 +165,23 @@ final class RequestEvents
         MessageFactoryInterface $messageFactory
     ) {
         $request = $trans->request;
+        $options = $request->getConfig()->toArray();
         $url = $request->getUrl();
-
-        // No need to calculate the query string twice.
-        if (!($pos = strpos($url, '?'))) {
-            $qs = null;
-        } else {
-            $qs = substr($url, $pos + 1);
-        }
-
         $r = [
             'scheme'       => $request->getScheme(),
             'http_method'  => $request->getMethod(),
             'url'          => $url,
             'uri'          => $request->getPath(),
-            'query_string' => $qs,
             'headers'      => $request->getHeaders(),
             'body'         => $request->getBody(),
-            '/* Replaced /* Replaced /* Replaced client */ */ */'       => $request->getConfig()->toArray(),
             'version'      => $request->getProtocolVersion(),
+            '/* Replaced /* Replaced /* Replaced client */ */ */'       => $options,
+            'future' => isset($options['future']) ? $options['future'] : null,
+            // No need to calculate the query string twice.
+            'query_string' => ($pos = strpos($url, '?')) ? substr($url, $pos + 1) : null,
             'then'         => function (array $response) use ($trans, $messageFactory) {
                 self::completeRingResponse($trans, $response, $messageFactory);
-            }
+            },
         ];
 
         // Emit progress events if any progress listeners are registered.

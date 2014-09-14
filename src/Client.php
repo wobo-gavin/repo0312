@@ -1,7 +1,6 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HasEmitterTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
@@ -9,7 +8,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFacto
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\Middleware;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlMultiAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlAdapter;
@@ -224,80 +222,45 @@ class Client implements ClientInterface
     public function send(RequestInterface $request)
     {
         try {
-            return $this->sendTransaction(new Transaction($this, $request));
+            $trans = new Transaction($this, $request);
+            RequestEvents::emitBefore($trans);
+
+            if ($trans->response) {
+                return $trans->response;
+            }
+
+            // Send the request using the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ ring handler
+            $adapter = $this->adapter;
+            $response = $adapter(
+                RequestEvents::createRingRequest($trans, $this->messageFactory)
+            );
+
+            if ($response instanceof RingFutureInterface) {
+                // Create a future response that's hooked up to the ring future.
+                return new FutureResponse(
+                    function () use ($response, $trans) {
+                        $response->deref();
+                        return $trans;
+                    },
+                    function () use ($response) {
+                        return $response->cancel();
+                    }
+                );
+            }
+
+            if ($trans->response) {
+                return $trans->response;
+            }
+
+            throw new \RuntimeException('No response was associated with the '
+                . 'transaction! This means the ring adapter did something '
+                . 'wrong and never completed the transaction.');
+
         } catch (RequestException $e) {
             throw $e;
         } catch (\Exception $e) {
             // Wrap exceptions in a RequestException to adhere to the interface
             throw new RequestException($e->getMessage(), $request, null, $e);
-        }
-    }
-
-    private function sendTransaction(Transaction $trans)
-    {
-        RequestEvents::emitBefore($trans);
-        if ($trans->response) {
-            return $trans->response;
-        }
-
-        // Send the request using the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ ring handler
-        $adapter = $this->adapter;
-        $response = $adapter(
-            RequestEvents::createRingRequest($trans, $this->messageFactory)
-        );
-
-        if ($response instanceof RingFutureInterface) {
-            // Create a future response that's hooked up to the ring future.
-            return new FutureResponse(
-                function () use ($response, $trans) {
-                    $response->deref();
-                    return $trans;
-                },
-                function () use ($response) {
-                    return $response->cancel();
-                }
-            );
-        }
-
-        if ($trans->response) {
-            return $trans->response;
-        }
-
-        throw new \RuntimeException('No response was associated with the '
-            . 'transaction! This means the ring adapter did something '
-            . 'wrong and never completed the transaction.');
-    }
-
-    public function sendAll($requests, array $options = [])
-    {
-        if (!($requests instanceof TransactionIterator)) {
-            $requests = new TransactionIterator($requests, $this, $options);
-        }
-
-        $stopErrors = function (ErrorEvent $e) { $e->stopPropagation(); };
-        $lastFuture = $counter = null;
-        $concurrency = isset($options['parallel'])
-            ? $options['parallel']
-            : self::DEFAULT_CONCURRENCY;
-
-        foreach ($requests as $trans) {
-            $config = $trans->request->getConfig();
-            $config['future'] = true;
-            $config['batch_future'] = true;
-            $trans->request->getEmitter()->on('error', $stopErrors, 'last');
-            $response = $this->sendTransaction($trans);
-            if ($response instanceof FutureResponse) {
-                $lastFuture = $response;
-                if (++$counter == $concurrency) {
-                    $response->deref();
-                    $counter = $lastFuture = null;
-                }
-            }
-        }
-
-        // Be sure to wait on the last few responses that may have sent.
-        if ($lastFuture) {
-            $lastFuture->deref();
         }
     }
 
@@ -413,5 +376,14 @@ class Client implements ClientInterface
         $options = array_replace_recursive($defaults, $options);
 
         return $this->defaults['headers'];
+    }
+
+    /**
+     * @deprecated Use {@see /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool} instead.
+     * @see /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool
+     */
+    public function sendAll($requests, array $options = [])
+    {
+        (new Pool($this, $requests, $options))->deref();
     }
 }
