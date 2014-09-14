@@ -2,6 +2,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureInterface;
@@ -96,6 +97,54 @@ class Pool implements FutureInterface
         array $options = []
     ) {
         (new self($/* Replaced /* Replaced /* Replaced client */ */ */, $requests, $options))->deref();
+    }
+
+    /**
+     * Sends multiple requests in parallel and returns an array of responses
+     * and exceptions that uses the same ordering as the provided requests.
+     *
+     * Note: This method keeps every request and response in memory, and as
+     * such is NOT recommended when sending a large number or an indeterminable
+     * number of requests in parallel.
+     *
+     * @param ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */   Client used to send the requests
+     * @param array|\Iterator $requests Requests to send in parallel
+     * @param array           $options  Passes through the options available in
+     *                                  {@see /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool::__construct}
+     *
+     * @return array Array of {@see /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface} if
+     *     a request succeeded or a {@see /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException}
+     *     if it failed. The order of the resulting array is the same order as
+     *     the requests that were provided.
+     * @throws \InvalidArgumentException if the event format is incorrect.
+     */
+    public static function batch(
+        ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */,
+        $requests,
+        array $options = []
+    ) {
+        $hash = new \SplObjectStorage();
+        foreach ($requests as $request) {
+            $hash->attach($request);
+        }
+
+        $events = ['complete', 'error'];
+        $fn = function ($e) use ($hash) { $hash[$e->getRequest()] = $e; };
+        static::send($/* Replaced /* Replaced /* Replaced client */ */ */, $requests, RequestEvents::convertEventArray(
+            $options, $events, ['priority' => RequestEvents::LATE, 'fn' => $fn])
+        );
+
+        // Update the received value for any of the intercepted requests.
+        $result = [];
+        foreach ($hash as $request) {
+            if ($hash[$request] instanceof CompleteEvent) {
+                $result[] = $hash[$request]->getResponse();
+            } elseif ($hash[$request] instanceof ErrorEvent) {
+                $result[] = $hash[$request]->getException();
+            }
+        }
+
+        return $result;
     }
 
     public function realized()
