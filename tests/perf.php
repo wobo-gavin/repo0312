@@ -14,6 +14,7 @@ require __DIR__ . '/bootstrap.php';
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlMultiAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool;
 
 // Wait until the server is responding
 Server::wait();
@@ -41,7 +42,7 @@ $reqs = function () use ($/* Replaced /* Replaced /* Replaced client */ */ */, $
 };
 
 $t = microtime(true);
-$/* Replaced /* Replaced /* Replaced client */ */ */->sendAll($reqs(), ['parallel' => $parallel]);
+Pool::send($/* Replaced /* Replaced /* Replaced client */ */ */, $reqs(), ['parallel' => $parallel]);
 $totalTime = microtime(true) - $t;
 $perRequest = ($totalTime / $total) * 1000;
 printf("Batch:  %f (%f ms / request) %d total with %d in parallel\n",
