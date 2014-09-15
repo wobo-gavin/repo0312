@@ -1,6 +1,7 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Subscriber;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
@@ -103,5 +104,22 @@ class MockTest extends \PHPUnit_Framework_TestCase
             $this->assertSame($e, $ex);
             $this->assertSame($request, $ex->getRequest());
         }
+    }
+
+    public function testCanMockFutureResponses()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/');
+        $response = new Response(200);
+        $future = new FutureResponse(function () use ($response) {
+            return $response;
+        });
+        $mock = new Mock([$future]);
+        $this->assertCount(1, $mock);
+        $request->getEmitter()->attach($mock);
+        $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertSame($future, $res);
+        $this->assertFalse($res->realized());
+        $this->assertSame($response, $res->deref());
     }
 }

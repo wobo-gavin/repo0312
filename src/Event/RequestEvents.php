@@ -2,6 +2,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 
@@ -66,6 +67,13 @@ final class RequestEvents
         Transaction $transaction,
         array $stats = []
     ) {
+        // Do not emit complete events when a future response is provided.
+        // A future response MUST handle it's own complete event when it is
+        // dereferenced (realized).
+        if ($transaction->response instanceof FutureInterface) {
+            return;
+        }
+
         $request = $transaction->request;
         $transaction->response->setEffectiveUrl($request->getUrl());
         try {

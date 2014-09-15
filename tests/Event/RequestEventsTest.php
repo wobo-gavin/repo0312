@@ -3,9 +3,9 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ProgressEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\StreamAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
@@ -53,6 +53,17 @@ class RequestEventsTest extends \PHPUnit_Framework_TestCase
         });
         RequestEvents::emitComplete($t);
         $this->assertSame($ex, $ex2);
+    }
+
+    public function testDoesNotEmitCompleteWhenFutureResponse()
+    {
+        $t = new Transaction(new Client(), new Request('GET', '/'));
+        $response = new Response(200);
+        $t->response = new FutureResponse(function () use ($response) {
+            return $response;
+        });
+        RequestEvents::emitComplete($t);
+        $this->assertFalse($t->response->realized());
     }
 
     public function testBeforeSendEmitsErrorEvent()
