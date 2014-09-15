@@ -5,6 +5,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ListenerAttacherTrait;
 
@@ -248,12 +249,11 @@ class Pool implements FutureInterface
         $this->iter->next();
 
         if (!($request instanceof RequestInterface)) {
-            $found = is_object($request)
-                ? get_class($request)
-                : gettype($request);
-            $err = sprintf('All requests in the provided iterator must '
-                . 'implement RequestInterface. Found %s', $found);
-            throw new \RuntimeException($err);
+            throw new \RuntimeException(sprintf(
+                'All requests in the provided iterator must implement '
+                . 'RequestInterface. Found %s',
+                Core::describeType($request)
+            ));
         }
 
         $request->getConfig()->set('future', 'lazy');
