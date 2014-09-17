@@ -329,7 +329,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
-     * @expectedExceptionMessage No response
+     * @expectedExceptionMessage incorrectly implemented /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Ring adapter
      */
     public function testEnsuresResponseIsPresentAfterSending()
     {

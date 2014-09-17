@@ -1,7 +1,6 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
@@ -157,103 +156,5 @@ final class RequestEvents
         }
 
         return $options;
-    }
-
-    /**
-     * Convert a /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Transaction object into a /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Ring request array.
-     *
-     * @param Transaction             $trans          Transaction to convert.
-     * @param MessageFactoryInterface $messageFactory Factory used to create
-     *                                                response objects.
-     *
-     * @return array Request hash to send via a ring handler.
-     */
-    public static function createRingRequest(
-        Transaction $trans,
-        MessageFactoryInterface $messageFactory
-    ) {
-        $request = $trans->request;
-        $options = $request->getConfig()->toArray();
-        $url = $request->getUrl();
-        $r = [
-            'scheme'       => $request->getScheme(),
-            'http_method'  => $request->getMethod(),
-            'url'          => $url,
-            'uri'          => $request->getPath(),
-            'headers'      => $request->getHeaders(),
-            'body'         => $request->getBody(),
-            'version'      => $request->getProtocolVersion(),
-            '/* Replaced /* Replaced /* Replaced client */ */ */'       => $options,
-            'future' => isset($options['future']) ? $options['future'] : null,
-            // No need to calculate the query string twice.
-            'query_string' => ($pos = strpos($url, '?')) ? substr($url, $pos + 1) : null,
-            'then'         => function (array $response) use ($trans, $messageFactory) {
-                self::completeRingResponse($trans, $response, $messageFactory);
-            },
-        ];
-
-        // Emit progress events if any progress listeners are registered.
-        if ($request->getEmitter()->hasListeners('progress')) {
-            $emitter = $request->getEmitter();
-            $r['/* Replaced /* Replaced /* Replaced client */ */ */']['progress'] = function ($a, $b, $c, $d) use ($trans, $emitter) {
-                $emitter->emit(
-                    'progress',
-                    new ProgressEvent($trans, $a, $b, $c, $d)
-                );
-            };
-        }
-
-        return $r;
-    }
-
-    /**
-     * Handles the process of processing a response received from a handler.
-     *
-     * @param Transaction             $trans          Owns request and response.
-     * @param array                   $res            Response array
-     * @param MessageFactoryInterface $messageFactory Creates response objects.
-     */
-    public static function completeRingResponse(
-        Transaction $trans,
-        array $res,
-        MessageFactoryInterface $messageFactory
-    ) {
-        if (!empty($res['status'])) {
-            $options = [];
-
-            if (isset($res['version'])) {
-                $options['protocol_version'] = $res['version'];
-            }
-
-            if (isset($res['reason'])) {
-                $options['reason_phrase'] = $res['reason'];
-            }
-
-            $trans->response = $messageFactory->createResponse(
-                $res['status'],
-                $res['headers'],
-                isset($res['body']) ? $res['body'] : null,
-                $options
-            );
-
-            if (isset($res['effective_url'])) {
-                $trans->response->setEffectiveUrl($res['effective_url']);
-            }
-        }
-
-        if (!isset($res['error'])) {
-            RequestEvents::emitComplete($trans);
-        } else {
-            RequestEvents::emitError(
-                $trans,
-                new RequestException(
-                    $res['error']->getMessage(),
-                    $trans->request,
-                    $trans->response,
-                    $res['error']
-                ),
-                isset($res['transfer_info']) ? $res['transfer_info'] : []
-            );
-        }
     }
 }
