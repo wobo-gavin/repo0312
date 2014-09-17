@@ -7,7 +7,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInter
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\MetadataStreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Mimetypes;
 
 /**
@@ -55,10 +54,6 @@ class Prepare implements SubscriberInterface
         RequestInterface $request,
         StreamInterface $body
     ) {
-        if (!($body instanceof MetadataStreamInterface)) {
-            return;
-        }
-
         if (!($uri = $body->getMetadata('uri'))) {
             return;
         }
