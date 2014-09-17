@@ -12,6 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\Middlewa
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlMultiAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\StreamAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\RingFutureInterface;
 
 /**
@@ -365,7 +366,7 @@ class Client implements ClientInterface
             $this->defaults['headers'] = [
                 'User-Agent' => static::getDefaultUserAgent()
             ];
-        } elseif (!isset(array_change_key_case($this->defaults['headers'])['user-agent'])) {
+        } elseif (!Core::hasHeader($this->defaults, 'User-Agent')) {
             // Add the User-Agent header if one was not already set
             $this->defaults['headers']['User-Agent'] = static::getDefaultUserAgent();
         }
