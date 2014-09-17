@@ -1,6 +1,8 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Message;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
@@ -166,6 +168,20 @@ class PrepareTest extends \PHPUnit_Framework_TestCase
         $s = new Prepare();
         $s->onBefore(new BeforeEvent($t));
         $this->assertEquals('chunked', $r->getHeader('Transfer-Encoding'));
+    }
+
+    public function testContentLengthIntegrationTest()
+    {
+        Server::flush();
+        Server::enqueue([new Response(200)]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => Server::$url]);
+        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', [
+            'body' => 'test'
+        ])->getStatusCode());
+        $request = Server::received(true)[0];
+        $this->assertEquals('PUT', $request->getMethod());
+        $this->assertEquals('4', $request->getHeader('Content-Length'));
+        $this->assertEquals('test', (string) $request->getBody());
     }
 
     private function getTrans($request = null)

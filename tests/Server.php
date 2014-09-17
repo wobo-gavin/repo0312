@@ -2,10 +2,10 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RingBridge;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Ring\Client\Server as TestServer;
 
@@ -65,8 +65,7 @@ class Server
             $c = new Client();
             $factory = new MessageFactory();
             $response = array_map(function($message) use ($factory, $c) {
-                $trans = new Transaction($c, $message);
-                return RequestEvents::createRingRequest($trans, $factory);
+                return RingBridge::fromRingRequest($message);
             }, $response);
         }
 
