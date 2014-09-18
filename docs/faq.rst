@@ -102,11 +102,6 @@ You might need to use /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 and 
 requirement of a legacy application or a dependency that has not yet migrated
 to /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4.0.
 
-How do I migrate from /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 to 4?
-====================================
-
-See https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//blob/master/UPGRADING.md#3x-to-40.
-
 What is this Maximum function nesting error?
 ============================================
 

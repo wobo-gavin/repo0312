@@ -134,24 +134,8 @@ Mock Adapter
 ============
 
 In addition to using the Mock subscriber, you can use the
-``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\MockAdapter`` as the adapter of a /* Replaced /* Replaced /* Replaced client */ */ */ to return the
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter`` as the adapter of a /* Replaced /* Replaced /* Replaced client */ */ */ to return the
 same response over and over or return the result of a callable function.
-
-.. code-block:: php
-
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\MockAdapter;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionInterface;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
-
-    $mockAdapter = new MockAdapter(function (TransactionInterface $trans) {
-        // You have access to the request
-        $request = $trans->getRequest();
-        // Return a response
-        return new Response(200);
-    });
-
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $mockAdapter]);
 
 Test Web Server
 ===============
