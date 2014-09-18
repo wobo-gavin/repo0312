@@ -42,8 +42,6 @@ htmlhelp_basename = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */doc'
 
 # -- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Sphinx theme setup ------------------------------------------------
 
-sys.path.insert(0, '/Users/dowling/projects//* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme')
-
 import /* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme
 html_translator_class = '/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme.HTMLTranslator'
 html_theme_path = /* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme.html_theme_path()
