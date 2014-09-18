@@ -1,7 +1,7 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\BaseFutureTrait;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\MagicFutureTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
@@ -22,7 +22,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterfa
  */
 class FutureResponse implements ResponseInterface, FutureInterface
 {
-    use BaseFutureTrait;
+    use MagicFutureTrait;
 
     public function getStatusCode()
     {
