@@ -54,7 +54,6 @@ html_theme_options = {
     "project_nav_name": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */",
     "github_user": "/* Replaced /* Replaced /* Replaced guzzle */ */ */",
     "github_repo": "/* Replaced /* Replaced /* Replaced guzzle */ */ */",
-    "disqus_comments_shortname": "/* Replaced /* Replaced /* Replaced guzzle */ */ */",
     "google_analytics_account": "UA-22752917-1"
 }
 
