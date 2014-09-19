@@ -449,7 +449,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $calledFuture = false;
         $future = new Future(function () use (&$calledFuture) {
             $calledFuture = true;
-            return ['error' => new \Exception('Noo!')];
+            return ['error' => new \Exception('Noop!')];
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => new MockAdapter($future)]);
         try {
