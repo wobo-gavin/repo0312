@@ -338,6 +338,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
     }
 
+    /**
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
+     * @expectedExceptionMessage incorrectly implemented /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Ring adapter
+     */
+    public function testEnsuresResponseIsPresentAfterDereferencing()
+    {
+        $adapter = function () {
+            return new Future(function () { return []; });
+        };
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org')->deref();
+    }
+
     public function testClientHandlesErrorsDuringBeforeSend()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
