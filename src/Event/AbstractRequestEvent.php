@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInter
 abstract class AbstractRequestEvent extends AbstractEvent
 {
     /** @var Transaction */
-    private $transaction;
+    protected $transaction;
 
     /**
      * @param Transaction $transaction
@@ -19,7 +19,7 @@ abstract class AbstractRequestEvent extends AbstractEvent
     }
 
     /**
-     * Get the /* Replaced /* Replaced /* Replaced client */ */ */ associated with the event
+     * Get the HTTP /* Replaced /* Replaced /* Replaced client */ */ */ associated with the event.
      *
      * @return ClientInterface
      */

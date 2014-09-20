@@ -12,10 +12,18 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInte
  */
 class Transaction
 {
-    /** @var ClientInterface Client used to transfer the request. */
+    /**
+     * HTTP /* Replaced /* Replaced /* Replaced client */ */ */ used to transfer the request.
+     *
+     * @var ClientInterface
+     */
     public $/* Replaced /* Replaced /* Replaced client */ */ */;
 
-    /** @var RequestInterface The request that is being sent. */
+    /**
+     * The request that is being sent.
+     *
+     * @var RequestInterface
+     */
     public $request;
 
     /**
