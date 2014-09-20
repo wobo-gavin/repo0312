@@ -100,4 +100,17 @@ class FsmTest extends \PHPUnit_Framework_TestCase
             $this->assertSame($e, $t->exception);
         }
     }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Too many state transitions
+     */
+    public function testThrowsWhenTooManyTransitions()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://httpbin.org');
+        $t = new Transaction($/* Replaced /* Replaced /* Replaced client */ */ */, $request);
+        $fsm = new Fsm('begin', ['begin' => ['success' => 'begin']], 10);
+        $fsm->run($t);
+    }
 }
