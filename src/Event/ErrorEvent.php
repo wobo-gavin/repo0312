@@ -2,7 +2,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
 
 /**
  * Event object emitted after a request has been sent and an error was
@@ -13,18 +12,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInte
  */
 class ErrorEvent extends AbstractTransferEvent
 {
-    /**
-     * Intercept the exception and inject a response
-     *
-     * @param ResponseInterface $response Response to set
-     */
-    public function intercept(ResponseInterface $response)
-    {
-        $this->transaction->response = $response;
-        $this->transaction->exception = null;
-        $this->stopPropagation();
-    }
-
     /**
      * Get the exception that was encountered
      *
