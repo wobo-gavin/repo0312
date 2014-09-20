@@ -1,5 +1,4 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
@@ -57,24 +56,6 @@ class RequestExceptionTest extends \PHPUnit_Framework_TestCase
             $e->getMessage()
         );
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException', $e);
-    }
-
-    public function testCanSetAndRetrieveErrorEmitted()
-    {
-        $e = RequestException::create(new Request('GET', '/'), new Response(600));
-        $this->assertFalse($e->emittedError());
-        $e->emittedError(true);
-        $this->assertTrue($e->emittedError());
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testCannotSetEmittedErrorToFalse()
-    {
-        $e = RequestException::create(new Request('GET', '/'), new Response(600));
-        $e->emittedError(true);
-        $e->emittedError(false);
     }
 
     public function testHasStatusCodeAsExceptionCode() {
