@@ -13,7 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlAdap
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\StreamAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\RingFutureInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestFsm;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 
 /**
  * HTTP /* Replaced /* Replaced /* Replaced client */ */ */
@@ -82,7 +82,7 @@ class Client implements ClientInterface
             : self::getDefaultAdapter();
         $this->fsm = isset($config['fsm'])
             ? $config['fsm']
-            : new RequestFsm();
+            : RequestEvents::createFsm();
     }
 
     /**
