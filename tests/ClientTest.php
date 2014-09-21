@@ -329,7 +329,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
-     * @expectedExceptionMessage incorrectly implemented /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Ring adapter
+     * @expectedExceptionMessage not calling the "then"
      */
     public function testEnsuresResponseIsPresentAfterSending()
     {
@@ -340,7 +340,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
-     * @expectedExceptionMessage incorrectly implemented /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Ring adapter
+     * @expectedExceptionMessage not calling the "then"
      */
     public function testEnsuresResponseIsPresentAfterDereferencing()
     {
