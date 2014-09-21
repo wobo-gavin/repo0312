@@ -351,6 +351,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org')->deref();
     }
 
+    /**
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
+     * @expectedExceptionMessage not calling the "then"
+     */
+    public function testEnsuresResponseIsPresentAfterDereferencingWithBrokenAdapter()
+    {
+        $adapter = function () {
+            return new Future(function () { return []; });
+        };
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org')->deref();
+    }
+
     public function testClientHandlesErrorsDuringBeforeSend()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();

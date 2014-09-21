@@ -13,6 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\StreamAd
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\RingFutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 
 /**
  * HTTP /* Replaced /* Replaced /* Replaced client */ */ */
@@ -79,9 +80,7 @@ class Client implements ClientInterface
         $this->adapter = isset($config['adapter'])
             ? $config['adapter']
             : self::getDefaultAdapter();
-        $this->fsm = isset($config['fsm'])
-            ? $config['fsm']
-            : RequestEvents::createFsm();
+        $this->fsm = isset($config['fsm']) ? $config['fsm'] : new RequestFsm();
     }
 
     /**
@@ -254,7 +253,7 @@ class Client implements ClientInterface
 
         // Throw a wrapped exception if the transactions has an error.
         if ($trans->exception) {
-            throw RequestEvents::wrapException($trans->request, $trans->exception);
+            throw RequestException::wrapException($trans->request, $trans->exception);
         }
 
         // Return a response if one was synchronously available.
@@ -303,7 +302,7 @@ class Client implements ClientInterface
                 // Throw an exception if present. You need to remove transaction
                 // exceptions to prevent them from being thrown.
                 if ($trans->exception) {
-                    throw RequestEvents::wrapException($trans->request, $trans->exception);
+                    throw RequestException::wrapException($trans->request, $trans->exception);
                 } elseif ($trans->response) {
                     // Return the response if one was set on the transaction.
                     return $trans->response;

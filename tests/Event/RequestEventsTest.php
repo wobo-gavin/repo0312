@@ -2,169 +2,16 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EndEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents
  */
 class RequestEventsTest extends \PHPUnit_Framework_TestCase
 {
-    public function testEmitsAfterSendEvent()
-    {
-        $res = null;
-        $t = new Transaction(new Client(), new Request('GET', '/'));
-        $t->response = new Response(200);
-        $t->request->getEmitter()->on('complete', function ($e) use (&$res) {
-            $res = $e;
-        });
-        RequestEvents::emitComplete($t);
-        $this->assertSame($res->getClient(), $t->/* Replaced /* Replaced /* Replaced client */ */ */);
-        $this->assertSame($res->getRequest(), $t->request);
-        $this->assertEquals('/', $t->response->getEffectiveUrl());
-    }
-
-    public function testEmitsAfterSendEventAndEmitsErrorIfNeeded()
-    {
-        $ex2 = $res = null;
-        $request = new Request('GET', '/');
-        $t = new Transaction(new Client(), $request);
-        $t->response = new Response(200);
-        $ex = new RequestException('foo', $request);
-        $t->request->getEmitter()->on('complete', function ($e) use ($ex) {
-            $ex->e = $e;
-            throw $ex;
-        });
-        $t->request->getEmitter()->on('error', function ($e) use (&$ex2) {
-            $ex2 = $e->getException();
-            $e->stopPropagation();
-        });
-        RequestEvents::emitComplete($t);
-        $this->assertSame($ex, $ex2);
-    }
-
-    public function testDoesNotEmitCompleteWhenFutureResponse()
-    {
-        $t = new Transaction(new Client(), new Request('GET', '/'));
-        $response = new Response(200);
-        $t->response = new FutureResponse(function () use ($response) {
-            return $response;
-        });
-        RequestEvents::emitComplete($t);
-        $this->assertFalse($t->response->realized());
-    }
-
-    public function testBeforeSendEmitsErrorEvent()
-    {
-        $ex = new \Exception('Foo');
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $request = new Request('GET', '/');
-        $response = new Response(200);
-        $t = new Transaction($/* Replaced /* Replaced /* Replaced client */ */ */, $request);
-        $beforeCalled = $errCalled = 0;
-
-        $request->getEmitter()->on(
-            'before',
-            function (BeforeEvent $e) use ($request, $/* Replaced /* Replaced /* Replaced client */ */ */, &$beforeCalled, $ex) {
-                $this->assertSame($request, $e->getRequest());
-                $this->assertSame($/* Replaced /* Replaced /* Replaced client */ */ */, $e->getClient());
-                $beforeCalled++;
-                throw $ex;
-            }
-        );
-
-        $request->getEmitter()->on(
-            'error',
-            function (ErrorEvent $e) use (&$errCalled, $response, $ex) {
-                $errCalled++;
-                $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException', $e->getException());
-                $this->assertSame($ex, $e->getException()->getPrevious());
-                $e->intercept($response);
-            }
-        );
-
-        RequestEvents::emitBefore($t);
-        $this->assertEquals(1, $beforeCalled);
-        $this->assertEquals(1, $errCalled);
-        $this->assertSame($response, $t->response);
-    }
-
-    public function testThrowsUnInterceptedErrors()
-    {
-        $ex = new \Exception('Foo');
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $request = new Request('GET', '/');
-        $t = new Transaction($/* Replaced /* Replaced /* Replaced client */ */ */, $request);
-        $errCalled = 0;
-
-        $request->getEmitter()->on('before', function (BeforeEvent $e) use ($ex) {
-            throw $ex;
-        });
-
-        $request->getEmitter()->on('error', function (ErrorEvent $e) use (&$errCalled) {
-            $errCalled++;
-        });
-
-        try {
-            RequestEvents::emitBefore($t);
-            $this->fail('Did not throw');
-        } catch (RequestException $e) {
-            $this->assertEquals(1, $errCalled);
-        }
-    }
-
-    public function testDoesNotEmitErrorEventTwice()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $mock = new Mock([new Response(500)]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($mock);
-
-        $r = [];
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('error', function (ErrorEvent $event) use (&$r) {
-            $r[] = $event->getRequest();
-        });
-
-        try {
-            $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com');
-            $this->fail('Did not throw');
-        } catch (RequestException $e) {
-            $this->assertCount(1, $r);
-        }
-    }
-
-    /**
-     * Note: Longest test name ever.
-     */
-    public function testEmitsErrorEventForRequestExceptionsThrownDuringBeforeThatHaveNotEmittedAnErrorEvent()
-    {
-        $request = new Request('GET', '/');
-        $ex = new RequestException('foo', $request);
-
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function (BeforeEvent $event) use ($ex) {
-            throw $ex;
-        });
-        $called = false;
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('error', function (ErrorEvent $event) use ($ex, &$called) {
-            $called = true;
-            $this->assertSame($ex, $event->getException());
-        });
-
-        try {
-            $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com');
-            $this->fail('Did not throw');
-        } catch (RequestException $e) {
-            $this->assertTrue($called);
-        }
-    }
-
     public function prepareEventProvider()
     {
         $cb = function () {};
@@ -219,5 +66,42 @@ class RequestEventsTest extends \PHPUnit_Framework_TestCase
     ) {
         $result = RequestEvents::convertEventArray($in, $events, $add);
         $this->assertEquals($out, $result);
+    }
+
+    public function adapterResultProvider()
+    {
+        return [
+            [['status' => 404]],
+            [new Future(function () { return ['status' => 404]; })]
+        ];
+    }
+
+    /**
+     * @dataProvider adapterResultProvider
+     */
+    public function testCanInterceptExceptionsInDoneEvent($res)
+    {
+        $adapter = new MockAdapter($res);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.foo.com');
+        $request->getEmitter()->on('end', function (EndEvent $e) {
+            RequestEvents::stopException($e);
+        });
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse', $response);
+        try {
+            $response->getStatusCode();
+            $this->fail('Did not throw');
+        } catch (\Exception $e) {
+            $this->assertContains('404', $e->getMessage());
+        }
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testValidatesEventFormat()
+    {
+        RequestEvents::convertEventArray(['foo' => false], ['foo'], []);
     }
 }
