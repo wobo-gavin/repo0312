@@ -12,6 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 
 class RingBridgeTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,7 +25,8 @@ class RingBridgeTest extends \PHPUnit_Framework_TestCase
         $request->getConfig()->set('foo', 'bar');
         $trans = new Transaction(new Client(), $request);
         $factory = new MessageFactory();
-        $r = RingBridge::prepareRingRequest($trans, $factory);
+        $fsm = RequestEvents::createFsm();
+        $r = RingBridge::prepareRingRequest($trans, $factory, $fsm);
         $this->assertEquals('http', $r['scheme']);
         $this->assertEquals('1.1', $r['version']);
         $this->assertEquals('GET', $r['http_method']);
@@ -46,7 +48,8 @@ class RingBridgeTest extends \PHPUnit_Framework_TestCase
         $request = new Request('GET', 'http://httpbin.org');
         $trans = new Transaction(new Client(), $request);
         $factory = new MessageFactory();
-        $r = RingBridge::prepareRingRequest($trans, $factory);
+        $fsm = RequestEvents::createFsm();
+        $r = RingBridge::prepareRingRequest($trans, $factory, $fsm);
         $this->assertNull($r['query_string']);
         $this->assertEquals('/', $r['uri']);
         $this->assertEquals(['Host' => ['httpbin.org']], $r['headers']);
@@ -114,7 +117,8 @@ class RingBridgeTest extends \PHPUnit_Framework_TestCase
         });
         $f = new MessageFactory();
         $res = ['status' => 200, 'headers' => []];
-        RingBridge::completeRingResponse($trans, $res, $f);
+        $fsm = RequestEvents::createFsm();
+        RingBridge::completeRingResponse($trans, $res, $f, $fsm);
         $this->assertInstanceOf(
             '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface',
             $trans->response

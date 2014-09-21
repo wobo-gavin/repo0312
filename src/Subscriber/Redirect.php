@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EndEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TooManyRedirectsException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\CouldNotRewindStreamException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
@@ -136,6 +137,12 @@ class Redirect implements SubscriberInterface
             $url->setPassword(null);
             $redirectRequest->setHeader('Referer', (string) $url);
         }
+
+        // Prevent the "end" event from being fired multiple times on th
+        // original request.
+        $redirectRequest->getEmitter()->on('end', function (EndEvent $e) {
+            $e->stopPropagation();
+        }, 'first');
 
         return $redirectRequest;
     }

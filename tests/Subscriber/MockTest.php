@@ -122,4 +122,57 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($res->realized());
         $this->assertSame($response, $res->deref());
     }
+
+    public function testCanMockExceptionFutureResponses()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/');
+
+        $future = new FutureResponse(function () use ($request) {
+            throw new RequestException('foo', $request);
+        });
+
+        $mock = new Mock([$future]);
+        $request->getEmitter()->attach($mock);
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertSame($future, $response);
+        $this->assertFalse($response->realized());
+
+        try {
+            $response->deref();
+            $this->fail('Did not throw');
+        } catch (RequestException $e) {
+            $this->assertContains('foo', $e->getMessage());
+        }
+    }
+
+    public function testCanMockFailedFutureResponses()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/');
+
+        // The first mock will be a mocked future response.
+        $future = new FutureResponse(function () use ($/* Replaced /* Replaced /* Replaced client */ */ */) {
+            // When dereferenced, we will set a mocked response and send
+            // another request.
+            $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org', ['events' => [
+                'before' => function (BeforeEvent $e) {
+                    $e->intercept(new Response(404));
+                }
+            ]]);
+        });
+
+        $mock = new Mock([$future]);
+        $request->getEmitter()->attach($mock);
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertSame($future, $response);
+        $this->assertFalse($response->realized());
+
+        try {
+            $response->deref();
+            $this->fail('Did not throw');
+        } catch (RequestException $e) {
+            $this->assertEquals(404, $e->getResponse()->getStatusCode());
+        }
+    }
 }
