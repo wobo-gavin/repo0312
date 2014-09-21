@@ -2,6 +2,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\StateException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Fsm;
 
@@ -112,6 +113,26 @@ class FsmTest extends \PHPUnit_Framework_TestCase
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://httpbin.org');
         $t = new Transaction($/* Replaced /* Replaced /* Replaced client */ */ */, $request);
         $fsm = new Fsm('begin', ['begin' => ['success' => 'begin']], 10);
+        $fsm->run($t);
+    }
+
+    /**
+     * @expectedExceptionMessage Foo
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\StateException
+     */
+    public function testThrowsWhenStateException()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://httpbin.org');
+        $t = new Transaction($/* Replaced /* Replaced /* Replaced client */ */ */, $request);
+        $fsm = new Fsm('begin', [
+            'begin' => [
+                'transition' => function () use ($request) {
+                    throw new StateException('Foo');
+                },
+                'error' => 'not_there'
+            ]
+        ]);
         $fsm->run($t);
     }
 }

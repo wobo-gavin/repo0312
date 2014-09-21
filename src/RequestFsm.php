@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EndEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\StateException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureInterface;
 
 class RequestFsm extends Fsm
@@ -74,6 +75,10 @@ class RequestFsm extends Fsm
         // Futures will have their own end events emitted when dereferenced.
         if ($trans->response instanceof FutureInterface) {
             return;
+        }
+
+        if (!$trans->response) {
+            throw new StateException('Invalid complete state: no response');
         }
 
         $trans->response->setEffectiveUrl($trans->request->getUrl());
