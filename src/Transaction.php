@@ -63,6 +63,15 @@ class Transaction
     public $state;
 
     /**
+     * The number of state transitions that this transactions has been through.
+     *
+     * @var int
+     * @internal This is for internal use only. If you modify this, then you
+     *           are asking for trouble.
+     */
+    public $_transitionCount;
+
+    /**
      * @param ClientInterface  $/* Replaced /* Replaced /* Replaced client */ */ */  Client that is used to send the requests
      * @param RequestInterface $request Request to send
      */
