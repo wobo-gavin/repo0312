@@ -135,4 +135,22 @@ class FsmTest extends \PHPUnit_Framework_TestCase
         ]);
         $fsm->run($t);
     }
+
+    public function testCanManuallyTransitionStates()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://httpbin.org');
+        $t = new Transaction($/* Replaced /* Replaced /* Replaced client */ */ */, $request);
+        $called = false;
+        $fsm = new Fsm('begin', [
+            'begin' => [
+                'transition' => function () { return 'end'; }
+            ],
+            'end' => [
+                'transition' => function () use (&$called) { $called = true; }
+            ]
+        ]);
+        $fsm->run($t);
+        $this->assertTrue($called);
+    }
 }

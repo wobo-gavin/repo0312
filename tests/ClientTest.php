@@ -69,12 +69,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://foo.com/baz/', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
     }
 
-    public function testClientUsesDefaultAdapterWhenNoneIsSet()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $this->assertTrue(is_callable($this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'adapter')));
-    }
-
     /**
      * @expectedException \Exception
      * @expectedExceptionMessage Foo

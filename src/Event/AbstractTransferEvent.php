@@ -4,8 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
 
 /**
- * Event that contains transaction statistics (time over the wire, lookup time,
- * etc.).
+ * Event that contains transfer statistics, and can be intercepted.
  */
 abstract class AbstractTransferEvent extends AbstractRequestEvent
 {

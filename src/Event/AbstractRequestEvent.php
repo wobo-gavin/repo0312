@@ -5,6 +5,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 
+/**
+ * Base class for request events, providing a request and /* Replaced /* Replaced /* Replaced client */ */ */ getter.
+ */
 abstract class AbstractRequestEvent extends AbstractEvent
 {
     /** @var Transaction */
