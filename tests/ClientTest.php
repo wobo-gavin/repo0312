@@ -11,6 +11,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdap
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EndEvent;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client
@@ -538,5 +540,18 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $_SERVER['HTTP_PROXY'] = $http;
         $_SERVER['HTTPS_PROXY'] = $https;
+    }
+
+    public function testCanInjectCancelledFutureInRequestEvents()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => new MockAdapter(['status' => 404])]);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://localhost:123/foo', [
+            'future' => true
+        ]);
+        $request->getEmitter()->on('end', function (EndEvent $e) {
+            RequestEvents::stopException($e);
+        });
+        $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledResponse', $res);
     }
 }

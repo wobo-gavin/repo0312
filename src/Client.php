@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlMult
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\StreamAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\RingFutureInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 
 /**
@@ -263,7 +263,7 @@ class Client implements ClientInterface
 
     private function createFutureResponse(
         Transaction $trans,
-        RingFutureInterface $response
+        FutureInterface $response
     ) {
         // Create a future response that's hooked up to the ring future.
         return new FutureResponse(
@@ -386,9 +386,9 @@ class Client implements ClientInterface
             // Create a /* Replaced /* Replaced /* Replaced Guzzle */ */ */-Ring request and send it.
             $request = RingBridge::prepareRingRequest($trans, $mf, $this->fsm);
             $response = $adapter($request);
-            // Future responses do not need to process right away, so set the
-            // response on the transaction to designate it as completed.
-            if ($response instanceof RingFutureInterface) {
+            // Future responses do not need to process right away, so set
+            // the response on the transaction to designate it as completed.
+            if ($response instanceof FutureInterface) {
                 $trans->response = $this->createFutureResponse($trans, $response);
             }
         });
