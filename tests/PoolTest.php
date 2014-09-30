@@ -6,7 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\RingFuture;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
@@ -111,7 +111,7 @@ class PoolTest extends \PHPUnit_Framework_TestCase
 
     private function getClient()
     {
-        $future = new Future(function() {
+        $future = new RingFuture(function() {
             return ['status' => 200, 'headers' => []];
         }, function () {
             echo 'Cancelling';

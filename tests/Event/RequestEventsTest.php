@@ -5,7 +5,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EndEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\RingFuture;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents
@@ -72,7 +72,7 @@ class RequestEventsTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [['status' => 404]],
-            [new Future(function () { return ['status' => 404]; })]
+            [new RingFuture(function () { return ['status' => 404]; })]
         ];
     }
 

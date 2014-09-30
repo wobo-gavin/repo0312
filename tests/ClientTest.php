@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFacto
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\RingFuture;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
@@ -341,7 +341,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testEnsuresResponseIsPresentAfterDereferencing()
     {
         $adapter = new MockAdapter(function () {
-            return new Future(function () { return []; });
+            return new RingFuture(function () { return []; });
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org')->deref();
@@ -354,7 +354,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testEnsuresResponseIsPresentAfterDereferencingWithBrokenAdapter()
     {
         $adapter = function () {
-            return new Future(function () { return []; });
+            return new RingFuture(function () { return []; });
         };
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org')->deref();
@@ -404,7 +404,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testCanInjectResponseForFutureError()
     {
         $calledFuture = false;
-        $future = new Future(function () use (&$calledFuture) {
+        $future = new RingFuture(function () use (&$calledFuture) {
             $calledFuture = true;
             return ['error' => new \Exception('Noo!')];
         });
@@ -429,7 +429,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testCanReturnFutureResults()
     {
         $called = false;
-        $future = new Future(function () use (&$called) {
+        $future = new RingFuture(function () use (&$called) {
             $called = true;
             return ['status' => 201, 'headers' => []];
         });
@@ -445,7 +445,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testThrowsExceptionsWhenDereferenced()
     {
         $calledFuture = false;
-        $future = new Future(function () use (&$calledFuture) {
+        $future = new RingFuture(function () use (&$calledFuture) {
             $calledFuture = true;
             return ['error' => new \Exception('Noop!')];
         });
