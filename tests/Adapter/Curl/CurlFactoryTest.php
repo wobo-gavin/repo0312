@@ -14,16 +14,16 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter\Curl {
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\MultiAdapter;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlFactory;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\MultiAdapter;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 
     /**

@@ -2,12 +2,12 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInterface;
 
 /**
  * Adds, extracts, and persists cookies between HTTP requests

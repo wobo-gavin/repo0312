@@ -2,9 +2,9 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionInterface;
 
 /**
  * Event object emitted after a request has been sent and an error was

@@ -3,9 +3,9 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\AppendStream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamDecoratorTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamDecoratorTrait;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 
 /**
  * Stream that when read returns bytes for a streaming multipart/form-data body

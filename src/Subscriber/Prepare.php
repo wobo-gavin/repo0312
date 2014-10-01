@@ -2,14 +2,14 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\MetadataStreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Mimetypes;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\MetadataStreamInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 
 /**
  * Prepares requests with a body before sending

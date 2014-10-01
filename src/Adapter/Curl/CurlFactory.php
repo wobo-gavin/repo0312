@@ -2,11 +2,11 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\AdapterException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\LazyOpenStream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\AdapterException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 
 /**
  * Creates curl resources from a request and response object

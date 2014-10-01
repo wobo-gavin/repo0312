@@ -5,10 +5,10 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Message;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Prepare;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\NoSeekStream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Prepare;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Prepare
