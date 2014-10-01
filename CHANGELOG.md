@@ -21,6 +21,23 @@ Adding support for non-blocking futures and some minor API cleanup.
   requests concurrently using a capped pool size as efficiently as possible.
 * Added `hasListeners()` to EmitterInterface.
 
+### Deprecations
+
+* Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::sendAll` and marked
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client::sendAll` as deprecated (it's still there, just not the
+  recommended way).
+* Marked "functions.php" as deprecated, so that /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is truly PSR-4 compliant.
+  functions.php is still available and autoloaded, but it is now deprecated.
+  These functions are now implemented in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils` using camelCase.
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::jsonDecode`.
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_path` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::getPath`.
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\set_path` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::setPath`.
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch` should now be `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool::batch`, which returns a
+  `BatchResults` object instead of an `SplObjectStorage`. Using functions.php
+  caused problems for many users: they aren't PSR-4 compliant, require an
+  explicit include, and needed an if-guard to ensure that the functions are not
+  declared multiple times.
+
 ### Breaking changes
 
 The breaking changes in this release are relatively minor. The biggest thing to
@@ -63,20 +80,6 @@ interfaces.
   This control mechanism was used to stop a transfer of parallel requests from
   completing. This can now be handled by throwing the exception or by
   cancelling a pool of requests or each outstanding future request individually.
-* Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::sendAll` and marked
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client::sendAll` as deprecated (it's still there, just not the
-  recommended way).
-* Marked "functions.php" as deprecated, so that /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is truly PSR-4 compliant.
-  functions.php is still available and autoloaded, but it is now deprecated.
-  These functions are now implemented in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils` using camelCase.
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::jsonDecode`.
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_path` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::getPath`.
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\set_path` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::setPath`.
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch` should now be `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool::batch`, which returns a
-  `BatchResults` object instead of an `SplObjectStorage`. Using functions.php
-  caused problems for many users: they aren't PSR-4 compliant, require an
-  explicit include, and needed an if-guard to ensure that the functions are not
-  declared multiple times.
 * Updated to "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Streams" 3.0.
     * `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface::getContents()` no longer accepts a
       `maxLen` parameter. This update makes the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ streams project
