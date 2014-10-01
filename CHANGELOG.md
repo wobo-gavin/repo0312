@@ -8,8 +8,8 @@ Adding support for non-blocking futures and some minor API cleanup.
 
 ### New Features
 
-* Added support for non-blocking Future responses based on `/* Replaced /* Replaced /* Replaced guzzle */ */ */http/ring`
-  and `/* Replaced /* Replaced /* Replaced guzzle */ */ */http/ring-/* Replaced /* Replaced /* Replaced client */ */ */`. You can still use the `sendAll()` and `batch()`
+* Added support for non-blocking Future responses based on
+  `/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */-ring`. You can still use the `sendAll()` and `batch()`
   functions in exactly the same way, but you now also have access to the
   `future` request option which creates a future request if possible.
 * You can now create a default adapter based on the environment using a public
@@ -58,8 +58,8 @@ interfaces.
   `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageInterface::getHeader`. If you want to get a header
   value as an array, then use the newly added ``getHeaderLines()`` method of
   ``MessageInterface``.
-* ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::batch`` now returns an ordred indexed array of responses
-  and exceptions rather than an ``SplObjectStorage`` object.
+* ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::batch`` now returns a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\BatchResults` object
+  instead of an SplObjectStorage.
 * ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory`` no longer allows subclasses to add
   custom request options using double-dispatch. Instead, you should now provide
   an associative array to the constructor which is a mapping of the request
@@ -70,6 +70,15 @@ interfaces.
   This control mechanism was used to stop a transfer of parallel requests from
   completing. This can now be handled by throwing the exception or by
   cancelling a pool of requests or each outstanding future request individually.
+* Updated to "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Streams" 3.0.
+    * Removed functions.php from Streams
+    * `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface::getContents()` no longer accepts a
+      `maxLen` parameter.
+    * ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream::__construct``,
+      ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream::factory``, and
+      ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Utils::create`` no longer accept a size in the second
+      argument. They now accept an associative array of options, including the
+      "size" key and "metadata" key which can be used to provide custom metadata.
 
 4.2.2 (2014-09-08)
 ------------------
