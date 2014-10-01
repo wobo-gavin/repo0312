@@ -11,11 +11,21 @@ if (!defined('GUZZLE_FUNCTIONS_VERSION')) {
     define('GUZZLE_FUNCTIONS_VERSION', ClientInterface::VERSION);
 
     /**
+     * @param ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */
+     * @param array           $requests
+     * @param array           $options
+     * @return \SplObjectStorage For backwards compatibility with v4
      * @deprecated Use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool::batch
      */
     function batch(ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */, $requests, array $options = [])
     {
-        return Pool::batch($/* Replaced /* Replaced /* Replaced client */ */ */, $requests, $options);
+        $result = Pool::batch($/* Replaced /* Replaced /* Replaced client */ */ */, $requests, $options);
+        $hash = new \SplObjectStorage();
+        foreach ($result->getKeys() as $request) {
+            $hash[$request] = $result->getResult($request);
+        }
+
+        return $hash;
     }
 
     /**
