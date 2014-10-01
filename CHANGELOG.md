@@ -49,6 +49,8 @@ interfaces.
   ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query``, ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody``, and
   ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie``. This blog post provides a good outline of
    why I did this: http://ocramius.github.io/blog/fluent-interfaces-are-evil/.
+   This also makes the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ message interfaces compatible with the current
+   PSR-7 message proposal.
 * Breaking changes to the adapter layer
     * Removing all classes from `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter`, these are now
       implemented as callables that are stored in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client`.
