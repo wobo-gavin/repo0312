@@ -31,22 +31,18 @@ interfaces.
 * Removed the fluent interfaces (i.e., ``return $this``) from requests,
   responses, ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection``, ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url``,
   ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query``, ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody``, and
-  ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie``.
-* Removing all classes from `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter`, these are now
-  implemented as callables that are stored in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client`.
-* Removed the concept of "parallel adapters". If you want an adapter to
-  send requests in parallel, then have the adapter return
-  ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future`` objects that allow futures to be fulfilled in
-  parallel when one of the future objects are dereferenced.
-* Moved `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction` to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction`. The
-  Transaction object now exposes the request, response, and /* Replaced /* Replaced /* Replaced client */ */ */ as public
-  properties. The getters and setters have been removed.
-* Removed "functions.php" so that /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is truly PSR-4 compliant. These
-  functions are now implemented in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils` using camelCase.
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::jsonDecode`.
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool::batch`.
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_path` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::getPath`.
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\set_path` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::setPath`.
+  ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie``. This blog post provides a good outline of
+   why I did this: http://ocramius.github.io/blog/fluent-interfaces-are-evil/.
+* Breaking changes to the adapter layer
+    * Removing all classes from `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter`, these are now
+      implemented as callables that are stored in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client`.
+    * Removed the concept of "parallel adapters". If you want an adapter to
+      send requests in parallel, then have the adapter return
+      ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future`` objects that allow futures to be fulfilled in
+      parallel when one of the future objects are dereferenced.
+    * Moved `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction` to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction`. The
+      Transaction object now exposes the request, response, and /* Replaced /* Replaced /* Replaced client */ */ */ as public
+      properties. The getters and setters have been removed.
 * Removed the "headers" event. This event was only useful for changing the
   body a response once the headers of the response were known. You can implement
   a similar behavior in a number of ways. One example might be to use a
@@ -56,7 +52,7 @@ interfaces.
   written to.
 * Removed the `asArray` parameter from
   `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageInterface::getHeader`. If you want to get a header
-  value as an array, then use the newly added ``getHeaderLines()`` method of
+  value as an array, then use the newly added ``getHeaderAsArray()`` method of
   ``MessageInterface``.
 * ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::batch`` now returns a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\BatchResults` object
   instead of an SplObjectStorage.
@@ -65,13 +61,22 @@ interfaces.
   an associative array to the constructor which is a mapping of the request
   option name mapping to a function that applies the option value to a request.
 * Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::sendAll` and marked
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client::sendAll` as deprecated.
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client::sendAll` as deprecated (it's still there, just not the
+  recommended way).
 * Removed the concept of "throwImmediately" from exceptions and error events.
   This control mechanism was used to stop a transfer of parallel requests from
   completing. This can now be handled by throwing the exception or by
   cancelling a pool of requests or each outstanding future request individually.
+* Marked "functions.php" as deprecated, so that /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is truly PSR-4 compliant.
+  These functions are now implemented in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils` using camelCase.
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::jsonDecode`.
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_path` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::getPath`.
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\set_path` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::setPath`.
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool::batch`. Using functions.php
+  caused problems for many users: they aren't PSR-4 compliant, require an
+  explicit include, and needed an if-guard to ensure that the functions are not
+  declared multiple times.
 * Updated to "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Streams" 3.0.
-    * Removed functions.php from Streams
     * `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface::getContents()` no longer accepts a
       `maxLen` parameter.
     * ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream::__construct``,
