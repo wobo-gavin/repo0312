@@ -15,7 +15,8 @@
     "require": {
         "php": ">=5.4.0",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/ring": "0.1.*@dev",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/streams": "~3.0@dev"
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/streams": "~3.0@dev",
+        "react/promise": "~2.0"
     },
     "minimum-stability": "dev",
     "suggest": {

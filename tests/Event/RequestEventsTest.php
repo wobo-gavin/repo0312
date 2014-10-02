@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EndEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\RingFuture;
+use React\Promise\Deferred;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents
@@ -70,9 +71,17 @@ class RequestEventsTest extends \PHPUnit_Framework_TestCase
 
     public function adapterResultProvider()
     {
+        $deferred = new Deferred();
+        $future = new RingFuture(
+            $deferred->promise(),
+            function () use ($deferred) {
+                $deferred->resolve(['status' => 404]);
+            }
+        );
+
         return [
             [['status' => 404]],
-            [new RingFuture(function () { return ['status' => 404]; })]
+            [$future]
         ];
     }
 
@@ -88,7 +97,7 @@ class RequestEventsTest extends \PHPUnit_Framework_TestCase
             RequestEvents::stopException($e);
         });
         $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse', $response);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledResponse', $response);
         try {
             $response->getStatusCode();
             $this->fail('Did not throw');

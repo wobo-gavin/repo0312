@@ -13,6 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EndEvent;
+use React\Promise\Deferred;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client
@@ -325,7 +326,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
-     * @expectedExceptionMessage not calling the "then"
+     * @expectedExceptionMessage Adapter must return a RingFuture
      */
     public function testEnsuresResponseIsPresentAfterSending()
     {
@@ -335,13 +336,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
-     * @expectedExceptionMessage not calling the "then"
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Exception\RingException
+     * @expectedExceptionMessage Deref did not realize future
      */
     public function testEnsuresResponseIsPresentAfterDereferencing()
     {
-        $adapter = new MockAdapter(function () {
-            return new RingFuture(function () { return []; });
+        $deferred = new Deferred();
+        $adapter = new MockAdapter(function () use ($deferred) {
+            return new RingFuture(
+                $deferred->promise(),
+                function () {
+                    return [];
+                }
+            );
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org')->deref();
@@ -391,10 +398,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testCanInjectResponseForFutureError()
     {
         $calledFuture = false;
-        $future = new RingFuture(function () use (&$calledFuture) {
-            $calledFuture = true;
-            return ['error' => new \Exception('Noo!')];
-        });
+        $deferred = new Deferred();
+        $future = new RingFuture(
+            $deferred->promise(),
+            function () use ($deferred, &$calledFuture) {
+                $calledFuture = true;
+                $deferred->resolve(['error' => new \Exception('Noo!')]);
+            }
+        );
         $mock = new MockAdapter($future);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $mock]);
         $called = 0;
@@ -417,10 +428,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testCanReturnFutureResults()
     {
         $called = false;
-        $future = new RingFuture(function () use (&$called) {
-            $called = true;
-            return ['status' => 201, 'headers' => []];
-        });
+        $deferred = new Deferred();
+        $future = new RingFuture(
+            $deferred->promise(),
+            function () use ($deferred, &$called) {
+                $called = true;
+                $deferred->resolve(['status' => 201, 'headers' => []]);
+            }
+        );
         $mock = new MockAdapter($future);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $mock]);
         $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://localhost:123/foo', ['future' => true]);
@@ -433,10 +448,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testThrowsExceptionsWhenDereferenced()
     {
         $calledFuture = false;
-        $future = new RingFuture(function () use (&$calledFuture) {
-            $calledFuture = true;
-            return ['error' => new \Exception('Noop!')];
-        });
+        $deferred = new Deferred();
+        $future = new RingFuture(
+            $deferred->promise(),
+            function () use ($deferred, &$calledFuture) {
+                $calledFuture = true;
+                $deferred->resolve(['error' => new \Exception('Noop!')]);
+            }
+        );
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => new MockAdapter($future)]);
         try {
             $res = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://localhost:123/foo', ['future' => true]);
