@@ -560,6 +560,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         });
         $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledResponse', $res);
+        $this->assertTrue($res->cancelled());
     }
 
     public function testReturnsFutureForErrorWhenRequested()

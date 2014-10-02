@@ -2,7 +2,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HasEmitterTrait;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
@@ -307,7 +306,13 @@ class Client implements ClientInterface
             RingBridge::completeRingResponse(
                 $trans, $value, $this->messageFactory, $this->fsm
             );
-            $deferred->resolve($trans->response);
+            if ($trans->exception) {
+                $deferred->reject(
+                    RequestException::wrapException($trans->request, $trans->exception)
+                );
+            } else {
+                $deferred->resolve($trans->response);
+            }
         });
 
         // Create a future response that's hooked up to the ring future.
