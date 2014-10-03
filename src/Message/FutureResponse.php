@@ -3,9 +3,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\MagicFutureTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\ValidatedDeferred;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
 
 /**
  * Represents a response that has not been fulfilled.
@@ -26,25 +24,26 @@ class FutureResponse implements ResponseInterface, FutureInterface
     use MagicFutureTrait;
 
     /**
-     * Create a deferred value that must be resolved with a ResponseInterface.
+     * Returns a FutureResponse that wraps another future.
      *
-     * @return ValidatedDeferred
+     * @param FutureInterface $future      Future to wrap with a new future
+     * @param callable        $onFulfilled Invoked when the future fulfilled
+     * @param callable        $onRejected  Invoked when the future rejected
+     * @param callable        $onProgress  Invoked when the future progresses
+     *
+     * @return FutureResponse
      */
-    public static function createDeferred()
-    {
-        static $valid;
-        if (!$valid) {
-            $valid = function ($value) {
-                if (!$value instanceof ResponseInterface) {
-                    throw new \RuntimeException(
-                        'Future did not return a valid response. Found '
-                        . Core::describeType($value)
-                    );
-                }
-            };
-        }
-
-        return new ValidatedDeferred($valid);
+    public static function proxy(
+        FutureInterface $future,
+        callable $onFulfilled = null,
+        callable $onRejected = null,
+        callable $onProgress = null
+    ) {
+        return new self(
+            $future->then($onFulfilled, $onRejected, $onProgress),
+            [$future, 'deref'],
+            [$future, 'cancel']
+        );
     }
 
     /**

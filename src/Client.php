@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFacto
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\ArrayFutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\Middleware;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlMultiAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlAdapter;
@@ -13,7 +14,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\StreamAd
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\RingFuture;
 use React\Promise\Deferred;
 
 /**
@@ -293,40 +293,6 @@ class Client implements ClientInterface
         return $settings;
     }
 
-    private function createFutureResponse(
-        Transaction $trans,
-        RingFuture $response
-    ) {
-        // Expect a response to be delivered to the future.
-        //$deferred = FutureResponse::createDeferred();
-
-        // When the response promise is resolved, then resolve the future
-        // response promise.
-        $response = $response->then(function ($value) use ($trans) {
-            RingBridge::completeRingResponse(
-                $trans, $value, $this->messageFactory, $this->fsm
-            );
-            if ($trans->exception) {
-                throw RequestException::wrapException($trans->request, $trans->exception);
-            } elseif ($trans->response) {
-                // If we know that the events were fired, then there's a problem.
-                throw RingBridge::getNoRingResponseException($trans->request);
-            }
-            return $trans->response;
-        });
-
-        // Create a future response that's hooked up to the ring future.
-        return new FutureResponse(
-            $response,
-            // Dereference function
-            function () use ($response) {
-                $response->deref();
-            },
-            // Cancel function. Just proxy to the underlying future.
-            [$response, 'cancel']
-        );
-    }
-
     /**
      * Expand a URI template and inherit from the base URL if it's relative
      *
@@ -421,13 +387,21 @@ class Client implements ClientInterface
         callable $adapter,
         MessageFactoryInterface $mf
     ) {
-        return new RequestFsm(function (Transaction $trans) use ($adapter, $mf) {
-            // Create a /* Replaced /* Replaced /* Replaced Guzzle */ */ */-Ring request and send it.
-            $res = $adapter(RingBridge::prepareRingRequest($trans, $mf, $this->fsm));
-            if (!$res instanceof RingFuture) {
-                throw new \RuntimeException('Adapter must return a RingFuture');
-            }
-            $trans->response = $this->createFutureResponse($trans, $res);
+        return new RequestFsm(function (Transaction $t) use ($adapter, $mf) {
+            $t->response = FutureResponse::proxy(
+                $adapter(RingBridge::prepareRingRequest($t, $mf, $this->fsm)),
+                function ($value) use ($t) {
+                    RingBridge::completeRingResponse(
+                        $t, $value, $this->messageFactory, $this->fsm
+                    );
+                    if ($t->exception) {
+                        throw RequestException::wrapException($t->request, $t->exception);
+                    } elseif (!$t->response) {
+                        throw RingBridge::getNoRingResponseException($t->request);
+                    }
+                    return $t->response;
+                }
+            );
         });
     }
 
