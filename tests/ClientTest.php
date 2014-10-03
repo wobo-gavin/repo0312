@@ -336,8 +336,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Exception\RingException
-     * @expectedExceptionMessage Deref did not realize future
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
+     * @expectedExceptionMessage Deref did not resolve future
      */
     public function testEnsuresResponseIsPresentAfterDereferencing()
     {
