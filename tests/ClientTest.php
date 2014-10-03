@@ -79,8 +79,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testCanSpecifyAdapter()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => function () {
-            throw new \Exception('Foo');
-        }]);
+                throw new \Exception('Foo');
+            }]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
     }
 
@@ -326,7 +326,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
-     * @expectedExceptionMessage Adapter must return an ArrayFutureInterface
+     * @expectedExceptionMessage Argument 1 passed to /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse::proxy()
      */
     public function testEnsuresResponseIsPresentAfterSending()
     {
@@ -413,9 +413,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'future' => true,
             'events' => [
                 'error' => function (ErrorEvent $e) use (&$called) {
-                    $called++;
-                    $e->intercept(new Response(200));
-                }
+                        $called++;
+                        $e->intercept(new Response(200));
+                    }
             ]
         ]);
         $this->assertEquals(0, $called);
@@ -561,7 +561,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
         //$this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledResponse', $res);
         //$this->assertTrue($res->cancelled());
-        echo $res->getStatusCode();
+        $res->deref();
     }
 
     public function testReturnsFutureForErrorWhenRequested()

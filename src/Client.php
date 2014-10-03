@@ -6,7 +6,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFacto
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\ArrayFutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\Middleware;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlMultiAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlAdapter;

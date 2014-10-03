@@ -3,6 +3,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\MagicFutureTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\ValidatedDeferred;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 
 /**
@@ -39,7 +40,7 @@ class FutureResponse implements ResponseInterface, FutureInterface
         callable $onRejected = null,
         callable $onProgress = null
     ) {
-        return new self(
+        return new FutureResponse(
             $future->then($onFulfilled, $onRejected, $onProgress),
             [$future, 'deref'],
             [$future, 'cancel']
@@ -58,7 +59,7 @@ class FutureResponse implements ResponseInterface, FutureInterface
         callable $deref,
         callable $cancel = null
     ) {
-        $deferred = self::createDeferred();
+        $deferred = ValidatedDeferred::forInstance('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface');
         return new FutureResponse(
             $deferred->promise(),
             function () use ($deferred, $deref) {
