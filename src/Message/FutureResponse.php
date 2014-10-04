@@ -1,9 +1,9 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\MagicFutureTrait;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\ValidatedDeferred;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\MagicFutureTrait;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\ValidatedDeferredInstance;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 
 /**
@@ -63,7 +63,7 @@ class FutureResponse implements ResponseInterface, FutureInterface
         callable $deref,
         callable $cancel = null
     ) {
-        $deferred = ValidatedDeferred::forInstance('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface');
+        $deferred = new ValidatedDeferredInstance('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface');
         return new FutureResponse(
             $deferred->promise(),
             function () use ($deferred, $deref) {
