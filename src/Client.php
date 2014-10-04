@@ -12,7 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlAdap
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\StreamAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Exception\CancelledFutureAccessException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use React\Promise\FulfilledPromise;
 use React\Promise\RejectedPromise;
