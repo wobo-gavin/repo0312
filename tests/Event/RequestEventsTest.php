@@ -5,7 +5,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EndEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\RingFuture;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureArray;
 use React\Promise\Deferred;
 
 /**
@@ -72,7 +72,7 @@ class RequestEventsTest extends \PHPUnit_Framework_TestCase
     public function adapterResultProvider()
     {
         $deferred = new Deferred();
-        $future = new RingFuture(
+        $future = new FutureArray(
             $deferred->promise(),
             function () use ($deferred) {
                 $deferred->resolve(['status' => 404]);
@@ -94,15 +94,15 @@ class RequestEventsTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.foo.com');
         $request->getEmitter()->on('end', function (EndEvent $e) {
-            RequestEvents::stopException($e);
+            RequestEvents::cancelRequest($e->getException());
         });
         $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledResponse', $response);
         try {
             $response->getStatusCode();
             $this->fail('Did not throw');
         } catch (\Exception $e) {
-            $this->assertContains('404', $e->getMessage());
+            $this->assertContains('Cancelled future', $e->getMessage());
+            $this->assertContains('404', $e->getPrevious()->getMessage());
         }
     }
 
