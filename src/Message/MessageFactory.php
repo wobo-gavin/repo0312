@@ -1,17 +1,17 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ListenerAttacherTrait;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFileInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Cookie;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\HttpError;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ListenerAttacherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Redirect;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFileInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Cookie;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\HttpError;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Redirect;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 
 /**

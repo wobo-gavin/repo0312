@@ -6,9 +6,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\FakeParallel
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
 
@@ -399,7 +399,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ];
 
         $/* Replaced /* Replaced /* Replaced client */ */ */->sendAll($requests);
-        $requests = array_map(function($r) { return $r->getMethod(); }, $history->getRequests());
+        $requests = array_map(function ($r) { return $r->getMethod(); }, $history->getRequests());
         $this->assertContains('GET', $requests);
         $this->assertContains('POST', $requests);
         $this->assertContains('PUT', $requests);

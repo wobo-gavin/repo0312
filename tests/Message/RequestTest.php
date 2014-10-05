@@ -4,8 +4,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\Emitter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request

@@ -2,16 +2,16 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\AdapterInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\MultiAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HasEmitterTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\FakeParallelAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\ParallelAdapterInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\AdapterInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\StreamAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\StreamingProxyAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionIterator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HasEmitterTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;

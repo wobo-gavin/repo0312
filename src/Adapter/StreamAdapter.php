@@ -9,8 +9,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\AbstractMess
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\InflateStream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\LazyOpenStream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Utils;
 

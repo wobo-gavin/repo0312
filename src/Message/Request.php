@@ -1,8 +1,8 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HasEmitterTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HasEmitterTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Prepare;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 

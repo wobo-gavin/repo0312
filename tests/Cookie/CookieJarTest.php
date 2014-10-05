@@ -4,8 +4,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\CookieJa
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar

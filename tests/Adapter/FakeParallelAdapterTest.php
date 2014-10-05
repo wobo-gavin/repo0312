@@ -3,11 +3,11 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Adapter;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\FakeParallelAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\MockAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionIterator;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionIterator;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\FakeParallelAdapter

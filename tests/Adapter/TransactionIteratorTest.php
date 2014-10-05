@@ -2,8 +2,8 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Http;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionIterator;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 
 class TransactionIteratorTest extends \PHPUnit_Framework_TestCase
 {

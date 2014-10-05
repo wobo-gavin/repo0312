@@ -3,14 +3,14 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Subscriber;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock
