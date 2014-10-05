@@ -1,14 +1,7 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledFutureResponse;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\CancelledRequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
-use React\Promise\Deferred;
-use React\Promise\RejectedPromise;
 
 /**
  * Contains methods used to manage the request event lifecycle.
