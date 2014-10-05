@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ParseException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\XmlParseException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 
 /**
@@ -11,7 +12,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterfa
 class Response extends AbstractMessage implements ResponseInterface
 {
     /** @var array Mapping of status codes to reason phrases */
-    private static $statusTexts = array(
+    private static $statusTexts = [
         100 => 'Continue',
         101 => 'Switching Protocols',
         102 => 'Processing',
@@ -70,7 +71,7 @@ class Response extends AbstractMessage implements ResponseInterface
         508 => 'Loop Detected',
         510 => 'Not Extended',
         511 => 'Network Authentication Required',
-    );
+    ];
 
     /** @var string The reason phrase of the response (human readable code) */
     private $reasonPhrase;
@@ -160,9 +161,11 @@ class Response extends AbstractMessage implements ResponseInterface
         } catch (\Exception $e) {
             libxml_disable_entity_loader($disableEntities);
             libxml_use_internal_errors($internalErrors);
-            throw new ParseException(
+            throw new XmlParseException(
                 'Unable to parse response body into XML: ' . $e->getMessage(),
-                $this
+                $this,
+                $e,
+                (libxml_get_last_error()) ?: null
             );
         }
 

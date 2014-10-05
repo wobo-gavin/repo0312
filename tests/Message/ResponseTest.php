@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Message;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\XmlParseException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 
@@ -68,13 +69,20 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ParseException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\XmlParseException
      * @expectedExceptionMessage Unable to parse response body into XML: String could not be parsed as XML
      */
     public function testThrowsExceptionWhenFailsToParseXmlResponse()
     {
         $response = new Response(200, [], Stream::factory('<abc'));
-        $response->xml();
+        try {
+            $response->xml();
+        } catch (XmlParseException $e) {
+            $xmlParseError = $e->getError();
+            $this->assertInstanceOf('\LibXMLError', $xmlParseError);
+            $this->assertContains("Couldn't find end of Start Tag abc line 1", $xmlParseError->message);
+            throw $e;
+        }
     }
 
     public function testHasEffectiveUrl()
@@ -88,7 +96,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     public function testPreventsComplexExternalEntities()
     {
         $xml = '<?xml version="1.0"?><!DOCTYPE scan[<!ENTITY test SYSTEM "php://filter/read=convert.base64-encode/resource=ResponseTest.php">]><scan>&test;</scan>';
-        $response = new Response(200, array(), Stream::factory($xml));
+        $response = new Response(200, [], Stream::factory($xml));
 
         $oldCwd = getcwd();
         chdir(__DIR__);
