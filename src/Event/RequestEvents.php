@@ -1,7 +1,14 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Exception\CancelledFutureAccessException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledFutureResponse;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\CancelledRequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
+use React\Promise\Deferred;
+use React\Promise\RejectedPromise;
 
 /**
  * Contains methods used to manage the request event lifecycle.
@@ -57,15 +64,16 @@ final class RequestEvents
     }
 
     /**
-     * Throws an exception that marks the future as cancelled, preventing the
-     * end event from throwing an exception.
+     * Cancels an end event with a cancelled exception.
      *
-     * @param \Exception Previous exception
+     * @param EndEvent $e
      *
-     * @throws CancelledFutureAccessException
+     * @throws CancelledRequestException
      */
-    public static function cancelRequest(\Exception $e = null)
+    public static function cancelEndEvent(EndEvent $e)
     {
-        throw new CancelledFutureAccessException('Cancelled future', 0, $e);
+        throw CancelledRequestException::fromTrans(
+            $e->getRequest(), $e->getResponse(), $e->getException()
+        );
     }
 }

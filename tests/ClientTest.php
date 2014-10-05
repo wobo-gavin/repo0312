@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\CancelledRequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
@@ -523,30 +524,28 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testUsesProxyEnvironmentVariables()
     {
-        $http = isset($_SERVER['HTTP_PROXY']) ? $_SERVER['HTTP_PROXY'] : null;
-        $https = isset($_SERVER['HTTPS_PROXY']) ? $_SERVER['HTTPS_PROXY'] : null;
-        unset($_SERVER['HTTP_PROXY']);
-        unset($_SERVER['HTTPS_PROXY']);
+        $http = getenv('HTTP_PROXY');
+        $https = getenv('HTTPS_PROXY');
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertNull($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('proxy'));
 
-        $_SERVER['HTTP_PROXY'] = '127.0.0.1';
+        putenv('HTTP_PROXY=127.0.0.1');
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertEquals(
             ['http' => '127.0.0.1'],
             $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('proxy')
         );
 
-        $_SERVER['HTTPS_PROXY'] = '127.0.0.2';
+        putenv('HTTPS_PROXY=127.0.0.2');
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertEquals(
             ['http' => '127.0.0.1', 'https' => '127.0.0.2'],
             $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('proxy')
         );
 
-        $_SERVER['HTTP_PROXY'] = $http;
-        $_SERVER['HTTPS_PROXY'] = $https;
+        putenv("HTTP_PROXY=$http");
+        putenv("HTTPS_PROXY=$https");
     }
 
     public function testCanInjectCancelledFutureInRequestEvents()
@@ -558,15 +557,20 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $ex = null;
         $request->getEmitter()->on('end', function (EndEvent $e) use (&$ex) {
             $ex = $e->getException();
-            RequestEvents::cancelRequest($ex);
+            RequestEvents::cancelEndEvent($e);
         });
+
+        // Should not throw yet!
         $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
-        $this->assertTrue($res->cancelled());
+
         try {
+            // now it throws
             $res->deref();
             $this->fail('Did not throw');
-        } catch (\Exception $e) {
-            $this->assertSame($e->getPrevious(), $ex);
+        } catch (CancelledRequestException $e) {
+            $this->assertTrue($res->cancelled());
+            $this->assertTrue($res->realized());
+            $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException', $e->getPrevious());
         }
     }
 
@@ -577,9 +581,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $ex = null;
         $request->getEmitter()->on('end', function (EndEvent $e) use (&$ex) {
             $ex = $e->getException();
-            RequestEvents::cancelRequest($ex);
+            RequestEvents::cancelEndEvent($e);
         });
         $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledFutureResponse', $res);
         $this->assertTrue($res->cancelled());
         $this->assertTrue($res->realized());
     }

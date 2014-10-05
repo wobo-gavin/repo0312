@@ -6,16 +6,16 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFacto
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledFutureResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\Middleware;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlMultiAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\StreamAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Exception\CancelledFutureAccessException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Exception\CancelledException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use React\Promise\FulfilledPromise;
-use React\Promise\RejectedPromise;
 
 /**
  * HTTP /* Replaced /* Replaced /* Replaced client */ */ */
@@ -237,18 +237,18 @@ class Client implements ClientInterface
         try {
             $this->fsm->run($trans);
             $response = $trans->response;
-            try {
-                // Block until completed.
-                return $response instanceof FutureInterface
-                    ? $response->deref()
-                    : $response;
-            } catch (CancelledFutureAccessException $e) {
-                // Don't fail when the future was cancelled, so just return
-                // the original future that holds a cancelled exception.
-                return $response;
-            }
+            // Block until completed.
+            return $response instanceof FutureInterface
+                ? $response->deref()
+                : $response;
         } catch (\Exception $e) {
-            throw RequestException::wrapException($trans->request, $e);
+            $wrapped = RequestException::wrapException($trans->request, $e);
+            // Don't fail when the future was cancelled, so just return
+            // the original future that holds a cancelled exception.
+            if ($e instanceof CancelledException) {
+                return CancelledFutureResponse::fromException($wrapped);
+            }
+            throw $wrapped;
         }
     }
 
@@ -262,8 +262,8 @@ class Client implements ClientInterface
                 : new FutureResponse(new FulfilledPromise($trans->response));
         } catch (\Exception $e) {
             // Wrap the exception in a promise if the user asked for a future.
-            return new FutureResponse(
-                new RejectedPromise(RequestException::wrapException($trans->request, $e))
+            return CancelledFutureResponse::fromException(
+                RequestException::wrapException($trans->request, $e)
             );
         }
     }
