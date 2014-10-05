@@ -3,6 +3,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\CancelledRequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArray;
@@ -186,8 +187,8 @@ class PoolTest extends \PHPUnit_Framework_TestCase
     {
         $c = $this->getClient();
         $req = $c->createRequest('GET', 'http://foo.com');
-        $req->getEmitter()->on('before', function () {
-            RequestEvents::cancelRequest();
+        $req->getEmitter()->on('before', function (BeforeEvent $e) {
+            CancelledRequestException::create($e->getRequest());
         });
         $p = new Pool($c, [$req]);
         $p->deref();

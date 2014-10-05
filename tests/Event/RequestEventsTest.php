@@ -94,7 +94,7 @@ class RequestEventsTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.foo.com');
         $request->getEmitter()->on('end', function (EndEvent $e) {
-            RequestEvents::cancelRequest($e->getException());
+            RequestEvents::cancelEndEvent($e);
         });
         $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
         try {
