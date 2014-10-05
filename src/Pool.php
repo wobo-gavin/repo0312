@@ -5,7 +5,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ListenerAttacherTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EndEvent;
 use React\Promise\Deferred;
