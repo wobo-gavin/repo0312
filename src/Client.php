@@ -13,6 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlAdap
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\StreamAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Exception\CancelledException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArrayInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use React\Promise\FulfilledPromise;
@@ -99,7 +100,7 @@ class Client implements ClientInterface
             $config = [
                 'select_timeout' => getenv('GUZZLE_CURL_SELECT_TIMEOUT') ?: 1
             ];
-            if ($maxHandles = gettype('GUZZLE_CURL_MAX_HANDLES')) {
+            if ($maxHandles = getenv('GUZZLE_CURL_MAX_HANDLES')) {
                 $config['max_handles'] = $maxHandles;
             }
             $future = new CurlMultiAdapter($config);
@@ -397,8 +398,6 @@ class Client implements ClientInterface
                     );
                     if ($t->exception) {
                         throw RequestException::wrapException($t->request, $t->exception);
-                    } elseif (!$t->response) {
-                        throw RingBridge::getNoRingResponseException($t->request);
                     }
                     return $t->response;
                 }
