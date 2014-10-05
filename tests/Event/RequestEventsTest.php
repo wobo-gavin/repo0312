@@ -5,7 +5,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EndEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureArray;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArray;
 use React\Promise\Deferred;
 
 /**

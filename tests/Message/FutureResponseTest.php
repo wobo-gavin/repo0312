@@ -20,7 +20,7 @@ class FutureResponseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Expected the resolved value to be an instance of /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface, but got NULL
+     * @expectedExceptionMessage Expected the resolved value to be an instance of "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface", but got NULL
      */
     public function testEnsuresDerefReturnsTransaction()
     {
@@ -146,7 +146,7 @@ class FutureResponseTest extends \PHPUnit_Framework_TestCase
         echo $future;
         restore_error_handler();
         $this->assertContains(
-            'Expected the resolved value to be an instance of /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface, but got NULL',
+            'Expected the resolved value to be an instance of "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface", but got NULL',
             $err
         );
     }

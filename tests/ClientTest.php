@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFacto
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureArray;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArray;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;

@@ -5,7 +5,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\FutureArray;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArray;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
