@@ -3,10 +3,10 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledResponse;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\CancelledRequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\RingFuture;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArray;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
@@ -14,6 +14,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EndEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
+use React\Promise\Deferred;
 
 class PoolTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,7 +35,7 @@ class PoolTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \InvalidArgumentException
      */
     public function testValidatesEachElement()
     {
@@ -53,12 +54,6 @@ class PoolTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($p->realized());
         $this->assertFalse($p->cancel());
         $this->assertFalse($p->cancelled());
-    }
-
-    public function testHasSendFunction()
-    {
-        $c = $this->getClient();
-        Pool::send($c, [$c->createRequest('GET', 'http://foo.com')]);
     }
 
     public function testSendsManyRequestsInCappedPool()
@@ -111,11 +106,15 @@ class PoolTest extends \PHPUnit_Framework_TestCase
 
     private function getClient()
     {
-        $future = new RingFuture(function() {
-            return ['status' => 200, 'headers' => []];
-        }, function () {
-            echo 'Cancelling';
-        });
+        $deferred = new Deferred();
+        $future = new FutureArray(
+            $deferred->promise(),
+            function() use ($deferred) {
+                $deferred->resolve(['status' => 200, 'headers' => []]);
+            }, function () {
+                echo 'Cancelling';
+            }
+        );
 
         return new Client(['adapter' => new MockAdapter($future)]);
     }
@@ -176,14 +175,14 @@ class PoolTest extends \PHPUnit_Framework_TestCase
 
     /**
      * This does not throw a cancelled access exception because of the
-     * !cancelled() check in Pool::addNextRequest.
+     * cancelled() check in Pool::addNextRequest.
      */
     public function testDoesNotAddCancelledResponsesToDerefQueue()
     {
         $c = $this->getClient();
         $req = $c->createRequest('GET', 'http://foo.com');
         $req->getEmitter()->on('before', function (BeforeEvent $e) {
-            $e->intercept(new CancelledResponse());
+            CancelledRequestException::create($e->getRequest());
         });
         $p = new Pool($c, [$req]);
         $p->deref();

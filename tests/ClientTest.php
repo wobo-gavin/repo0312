@@ -4,15 +4,17 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\CancelledRequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\RingFuture;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArray;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EndEvent;
+use React\Promise\Deferred;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client
@@ -78,8 +80,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testCanSpecifyAdapter()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => function () {
-            throw new \Exception('Foo');
-        }]);
+                throw new \Exception('Foo');
+            }]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
     }
 
@@ -325,7 +327,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
-     * @expectedExceptionMessage not calling the "then"
+     * @expectedExceptionMessage Argument 1 passed to /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse::proxy() must implement interface /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface
      */
     public function testEnsuresResponseIsPresentAfterSending()
     {
@@ -336,15 +338,20 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
-     * @expectedExceptionMessage not calling the "then"
+     * @expectedExceptionMessage Deref did not resolve future
      */
     public function testEnsuresResponseIsPresentAfterDereferencing()
     {
-        $adapter = new MockAdapter(function () {
-            return new RingFuture(function () { return []; });
+        $deferred = new Deferred();
+        $adapter = new MockAdapter(function () use ($deferred) {
+            return new FutureArray(
+                $deferred->promise(),
+                function () {}
+            );
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org')->deref();
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
+        $response->deref();
     }
 
     public function testClientHandlesErrorsDuringBeforeSend()
@@ -391,10 +398,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testCanInjectResponseForFutureError()
     {
         $calledFuture = false;
-        $future = new RingFuture(function () use (&$calledFuture) {
-            $calledFuture = true;
-            return ['error' => new \Exception('Noo!')];
-        });
+        $deferred = new Deferred();
+        $future = new FutureArray(
+            $deferred->promise(),
+            function () use ($deferred, &$calledFuture) {
+                $calledFuture = true;
+                $deferred->resolve(['error' => new \Exception('Noo!')]);
+            }
+        );
         $mock = new MockAdapter($future);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $mock]);
         $called = 0;
@@ -417,10 +428,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testCanReturnFutureResults()
     {
         $called = false;
-        $future = new RingFuture(function () use (&$called) {
-            $called = true;
-            return ['status' => 201, 'headers' => []];
-        });
+        $deferred = new Deferred();
+        $future = new FutureArray(
+            $deferred->promise(),
+            function () use ($deferred, &$called) {
+                $called = true;
+                $deferred->resolve(['status' => 201, 'headers' => []]);
+            }
+        );
         $mock = new MockAdapter($future);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $mock]);
         $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://localhost:123/foo', ['future' => true]);
@@ -433,10 +448,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testThrowsExceptionsWhenDereferenced()
     {
         $calledFuture = false;
-        $future = new RingFuture(function () use (&$calledFuture) {
-            $calledFuture = true;
-            return ['error' => new \Exception('Noop!')];
-        });
+        $deferred = new Deferred();
+        $future = new FutureArray(
+            $deferred->promise(),
+            function () use ($deferred, &$calledFuture) {
+                $calledFuture = true;
+                $deferred->resolve(['error' => new \Exception('Noop!')]);
+            }
+        );
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => new MockAdapter($future)]);
         try {
             $res = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://localhost:123/foo', ['future' => true]);
@@ -504,30 +523,28 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testUsesProxyEnvironmentVariables()
     {
-        $http = isset($_SERVER['HTTP_PROXY']) ? $_SERVER['HTTP_PROXY'] : null;
-        $https = isset($_SERVER['HTTPS_PROXY']) ? $_SERVER['HTTPS_PROXY'] : null;
-        unset($_SERVER['HTTP_PROXY']);
-        unset($_SERVER['HTTPS_PROXY']);
+        $http = getenv('HTTP_PROXY');
+        $https = getenv('HTTPS_PROXY');
 
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertNull($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('proxy'));
 
-        $_SERVER['HTTP_PROXY'] = '127.0.0.1';
+        putenv('HTTP_PROXY=127.0.0.1');
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertEquals(
             ['http' => '127.0.0.1'],
             $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('proxy')
         );
 
-        $_SERVER['HTTPS_PROXY'] = '127.0.0.2';
+        putenv('HTTPS_PROXY=127.0.0.2');
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertEquals(
             ['http' => '127.0.0.1', 'https' => '127.0.0.2'],
             $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('proxy')
         );
 
-        $_SERVER['HTTP_PROXY'] = $http;
-        $_SERVER['HTTPS_PROXY'] = $https;
+        putenv("HTTP_PROXY=$http");
+        putenv("HTTPS_PROXY=$https");
     }
 
     public function testCanInjectCancelledFutureInRequestEvents()
@@ -536,11 +553,39 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://localhost:123/foo', [
             'future' => true
         ]);
-        $request->getEmitter()->on('end', function (EndEvent $e) {
-            RequestEvents::stopException($e);
+        $ex = null;
+        $request->getEmitter()->on('end', function (EndEvent $e) use (&$ex) {
+            $ex = $e->getException();
+            RequestEvents::cancelEndEvent($e);
+        });
+
+        // Should not throw yet!
+        $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+
+        try {
+            // now it throws
+            $res->deref();
+            $this->fail('Did not throw');
+        } catch (CancelledRequestException $e) {
+            $this->assertTrue($res->cancelled());
+            $this->assertTrue($res->realized());
+            $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException', $e->getPrevious());
+        }
+    }
+
+    public function testCanInjectCancelledFutureForSynchronous()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => new MockAdapter(['status' => 404])]);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://localhost:123/foo');
+        $ex = null;
+        $request->getEmitter()->on('end', function (EndEvent $e) use (&$ex) {
+            $ex = $e->getException();
+            RequestEvents::cancelEndEvent($e);
         });
         $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledResponse', $res);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledFutureResponse', $res);
+        $this->assertTrue($res->cancelled());
+        $this->assertTrue($res->realized());
     }
 
     public function testReturnsFutureForErrorWhenRequested()

@@ -40,7 +40,6 @@ class RingBridgeTest extends \PHPUnit_Framework_TestCase
         ], $r['headers']);
         $this->assertSame($stream, $r['body']);
         $this->assertEquals(['foo' => 'bar'], $r['/* Replaced /* Replaced /* Replaced client */ */ */']);
-        $this->assertTrue(is_callable($r['then']));
         $this->assertFalse($r['future']);
     }
 
@@ -58,7 +57,7 @@ class RingBridgeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([], $r['/* Replaced /* Replaced /* Replaced client */ */ */']);
     }
 
-    public function testCallsThenAndAddsProgress()
+    public function testAddsProgress()
     {
         Server::enqueue([new Response(200)]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => Server::$url]);
