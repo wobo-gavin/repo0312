@@ -3,8 +3,8 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\MagicFutureTrait;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\ValidatedDeferredInstance;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
+use React\Promise\Deferred;
 
 /**
  * Represents a response that has not been fulfilled.
@@ -59,15 +59,11 @@ class FutureResponse implements ResponseInterface, FutureInterface
         callable $deref,
         callable $cancel = null
     ) {
-        $deferred = new ValidatedDeferredInstance('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface');
+        $deferred = new Deferred();
         return new FutureResponse(
             $deferred->promise(),
             function () use ($deferred, $deref) {
-                try {
-                    $deferred->resolve(call_user_func($deref));
-                } catch (\Exception $e) {
-                    $deferred->reject($e);
-                }
+                $deferred->resolve($deref());
             },
             $cancel
         );
