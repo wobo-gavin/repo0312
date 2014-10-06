@@ -3,6 +3,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ListenerAttacherTrait;
@@ -157,7 +158,9 @@ class Pool implements FutureInterface
 
         // Dereference any outstanding FutureResponse objects.
         while ($response = array_pop($this->derefQueue)) {
-            $response->deref();
+            try {
+                $response->deref();
+            } catch (\Exception $e) {}
         }
 
         // Clean up no longer needed state.
@@ -205,7 +208,7 @@ class Pool implements FutureInterface
         callable $onRejected = null,
         callable $onProgress = null
     ) {
-        return $this->promise->then($onRejected, $onRejected, $onProgress);
+        return $this->promise->then($onFulfilled, $onRejected, $onProgress);
     }
 
     private function coerceIterable($requests)
@@ -248,12 +251,13 @@ class Pool implements FutureInterface
         $hash = spl_object_hash($request);
         $this->derefQueue[$hash] = $response;
 
+        // Use this function for both resolution and rejection.
         $fn = function ($value) use ($request, $hash) {
             unset($this->derefQueue[$hash]);
-            $this->deferred->progress([
-                'request' => $request,
-                'result'  => $value
-            ]);
+            $result = $value instanceof ResponseInterface
+                ? ['request' => $request, 'response' => $value, 'error' => null]
+                : ['request' => $request, 'response' => null, 'error' => $value];
+            $this->deferred->progress($result);
             $this->addNextRequest();
         };
 

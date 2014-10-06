@@ -3,7 +3,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\CancelledRequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledFutureResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArray;
@@ -173,18 +173,65 @@ class PoolTest extends \PHPUnit_Framework_TestCase
         Pool::batch($/* Replaced /* Replaced /* Replaced client */ */ */, $requests, ['complete' => 'foo']);
     }
 
-    /**
-     * This does not throw a cancelled access exception because of the
-     * cancelled() check in Pool::addNextRequest.
-     */
-    public function testDoesNotAddCancelledResponsesToDerefQueue()
+    public function testEmitsProgress()
     {
-        $c = $this->getClient();
-        $req = $c->createRequest('GET', 'http://foo.com');
-        $req->getEmitter()->on('before', function (BeforeEvent $e) {
-            CancelledRequestException::create($e->getRequest());
-        });
-        $p = new Pool($c, [$req]);
-        $p->deref();
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => function () {
+            throw new \RuntimeException('No network access');
+        }]);
+
+        $responses = [new Response(200), new Response(404)];
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach(new Mock($responses));
+        $requests = [
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://foo.com/baz'),
+            $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('HEAD', 'http://httpbin.org/get')
+        ];
+
+        $pool = new Pool($/* Replaced /* Replaced /* Replaced client */ */ */, $requests);
+        $count = 0;
+        $thenned = null;
+        $pool->then(
+            function ($value) use (&$thenned) {
+                $thenned = $value;
+            },
+            null,
+            function ($result) use (&$count, $requests) {
+                $this->assertSame($requests[$count], $result['request']);
+                if ($count == 0) {
+                    $this->assertNull($result['error']);
+                    $this->assertEquals(200, $result['response']->getStatusCode());
+                } else {
+                    $this->assertInstanceOf(
+                        '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException',
+                        $result['error']
+                    );
+                }
+                $count++;
+            }
+        );
+
+        $pool->deref();
+        $this->assertEquals(2, $count);
+        $this->assertEquals(true, $thenned);
+    }
+
+    public function testDoesNotThrowInErrorEvent()
+    {
+        Server::flush();
+        Server::enqueue([new Response(404)]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $requests = [$/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://foo.com/baz')];
+        $c = false;
+        // "Cancel" the error.
+        $requests[0]->getEmitter()->on(
+            'error',
+            function (ErrorEvent $e) use (&$c) {
+                $c = true;
+                $e->intercept(
+                    CancelledFutureResponse::fromException($e->getException())
+                );
+            }
+        );
+        $result = Pool::batch($/* Replaced /* Replaced /* Replaced client */ */ */, $requests);
+        $this->assertTrue($c);
     }
 }
