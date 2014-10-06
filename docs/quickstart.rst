@@ -9,34 +9,8 @@ page.
 Make a Request
 ==============
 
-You can send requests with /* Replaced /* Replaced /* Replaced Guzzle */ */ */ in one of two ways: through the procedural
-API or using a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface`` object. Using the procedural API
-is an easy way to send a quick HTTP request. Using a Client object provides
-much more flexibility in how requests are transferred and allows you to more
-easily test the /* Replaced /* Replaced /* Replaced client */ */ */.
-
-Procedural API
---------------
-
-Here's an example of sending a ``POST`` request using the procedural API.
-
-.. code-block:: php
-
-    $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\post('http://httpbin.org/post', [
-        'headers' => ['X-Foo' => 'Bar'],
-        'body'    => ['field_name' => 'value']
-    ]);
-
-You can send all kinds of HTTP requests with the procedural API. Just call
-the function that maps to the HTTP method name.
-
-.. code-block:: php
-
-    $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\head('http://httpbin.org/get');
-    $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\post('http://httpbin.org/post');
-    $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\put('http://httpbin.org/put');
-    $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\delete('http://httpbin.org/delete');
-    $response = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\options('http://httpbin.org/get');
+You can send requests with /* Replaced /* Replaced /* Replaced Guzzle */ */ */ using a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface``
+object.
 
 Creating a Client
 -----------------
