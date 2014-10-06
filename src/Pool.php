@@ -161,7 +161,9 @@ class Pool implements FutureInterface
         }
 
         // Clean up no longer needed state.
-        $this->/* Replaced /* Replaced /* Replaced client */ */ */ = $this->iter = $this->derefQueue = $this->eventListeners = null;
+        $this->isRealized = true;
+        $this->derefQueue = $this->eventListeners = [];
+        $this->/* Replaced /* Replaced /* Replaced client */ */ */ = $this->iter = null;
         $this->deferred->resolve(true);
 
         return true;
