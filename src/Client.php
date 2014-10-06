@@ -13,7 +13,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlAdap
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\StreamAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Exception\CancelledException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArrayInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use React\Promise\FulfilledPromise;
@@ -232,7 +231,18 @@ class Client implements ClientInterface
 
         // Ensure a future response is returned if one was requested.
         if ($request->getConfig()->get('future')) {
-            return $this->returnFuture($trans);
+            try {
+                $this->fsm->run($trans);
+                // Turn the normal response into a future if needed.
+                return $trans->response instanceof FutureInterface
+                    ? $trans->response
+                    : new FutureResponse(new FulfilledPromise($trans->response));
+            } catch (\Exception $e) {
+                // Wrap the exception in a promise if the user asked for a future.
+                return CancelledFutureResponse::fromException(
+                    RequestException::wrapException($trans->request, $e)
+                );
+            }
         }
 
         try {
@@ -250,22 +260,6 @@ class Client implements ClientInterface
                 return CancelledFutureResponse::fromException($wrapped);
             }
             throw $wrapped;
-        }
-    }
-
-    private function returnFuture(Transaction $trans)
-    {
-        try {
-            $this->fsm->run($trans);
-            // Turn the normal response into a future if needed.
-            return $trans->response instanceof FutureInterface
-                ? $trans->response
-                : new FutureResponse(new FulfilledPromise($trans->response));
-        } catch (\Exception $e) {
-            // Wrap the exception in a promise if the user asked for a future.
-            return CancelledFutureResponse::fromException(
-                RequestException::wrapException($trans->request, $e)
-            );
         }
     }
 
