@@ -6,16 +6,15 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFacto
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledFutureResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\Middleware;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlMultiAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\StreamAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Exception\CancelledException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use React\Promise\FulfilledPromise;
+use React\Promise\RejectedPromise;
 
 /**
  * HTTP /* Replaced /* Replaced /* Replaced client */ */ */
@@ -239,27 +238,14 @@ class Client implements ClientInterface
                     : new FutureResponse(new FulfilledPromise($trans->response));
             } catch (RequestException $e) {
                 // Wrap the exception in a promise if the user asked for a future.
-                return CancelledFutureResponse::fromException($e);
+                return new FutureResponse(new RejectedPromise($e));
             }
         } else {
             try {
                 $this->fsm->run($trans);
-                // When a FutureResponse is here, then it was created by the
-                // FSM and there isn't a way to cancel it in an event because
-                // the future is returned immediately and the events run after
-                // the future is created, modifying the result of the future.
-                // A future can be cancelled with a CancelledFutureResponse
-                // intercept of the "end" event. In that case, we deref, catch
-                // the exception, and return the original future that is now
-                // marked as cancelled. If a non-future is found, then a
-                // response was injected in a "before" event of an emitter
-                // before the FSM created the future.
                 return $trans->response instanceof FutureInterface
                     ? $trans->response->deref()
                     : $trans->response;
-            } catch (CancelledException $e) {
-                // Cancelled exceptions can be encountered
-                return $trans->response;
             } catch (\Exception $e) {
                 throw RequestException::wrapException($trans->request, $e);
             }

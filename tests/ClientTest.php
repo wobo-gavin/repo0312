@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\CancelledRequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
@@ -12,8 +11,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdap
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArray;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EndEvent;
 use React\Promise\Deferred;
 
 /**
@@ -545,47 +542,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         putenv("HTTP_PROXY=$http");
         putenv("HTTPS_PROXY=$https");
-    }
-
-    public function testCanInjectCancelledFutureInRequestEvents()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => new MockAdapter(['status' => 404])]);
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://localhost:123/foo', [
-            'future' => true
-        ]);
-        $ex = null;
-        $request->getEmitter()->on('end', function (EndEvent $e) use (&$ex) {
-            $ex = $e->getException();
-            RequestEvents::cancelEndEvent($e);
-        });
-
-        // Should not throw yet!
-        $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
-
-        try {
-            // now it throws
-            $res->deref();
-            $this->fail('Did not throw');
-        } catch (CancelledRequestException $e) {
-            $this->assertTrue($res->cancelled());
-            $this->assertTrue($res->realized());
-            $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException', $e->getPrevious());
-        }
-    }
-
-    public function testCanInjectCancelledFutureForSynchronous()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => new MockAdapter(['status' => 404])]);
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://localhost:123/foo');
-        $ex = null;
-        $request->getEmitter()->on('end', function (EndEvent $e) use (&$ex) {
-            $ex = $e->getException();
-            RequestEvents::cancelEndEvent($e);
-        });
-        $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse', $res);
-        $this->assertTrue($res->cancelled());
-        $this->assertTrue($res->realized());
     }
 
     public function testReturnsFutureForErrorWhenRequested()

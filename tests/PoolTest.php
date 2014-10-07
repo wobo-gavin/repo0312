@@ -3,7 +3,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\CancelledFutureResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArray;
@@ -216,22 +215,12 @@ class PoolTest extends \PHPUnit_Framework_TestCase
 
     public function testDoesNotThrowInErrorEvent()
     {
-        Server::flush();
-        Server::enqueue([new Response(404)]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $responses = [new Response(404)];
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach(new Mock($responses));
         $requests = [$/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://foo.com/baz')];
-        $c = false;
-        // "Cancel" the error.
-        $requests[0]->getEmitter()->on(
-            'error',
-            function (ErrorEvent $e) use (&$c) {
-                $c = true;
-                $e->intercept(
-                    CancelledFutureResponse::fromException($e->getException())
-                );
-            }
-        );
         $result = Pool::batch($/* Replaced /* Replaced /* Replaced client */ */ */, $requests);
-        $this->assertTrue($c);
+        $this->assertCount(1, $result);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException', $result[0]);
     }
 }
