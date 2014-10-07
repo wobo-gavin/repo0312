@@ -3,6 +3,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface;
 
 /**
  * HTTP Request exception
@@ -21,7 +22,10 @@ class RequestException extends TransferException
         ResponseInterface $response = null,
         \Exception $previous = null
     ) {
-        $code = $response ? $response->getStatusCode() : 0;
+        // Set the code of the exception if the response is set and not future.
+        $code = $response && !($response instanceof FutureInterface)
+            ? $response->getStatusCode()
+            : 0;
         parent::__construct($message, $code, $previous);
         $this->request = $request;
         $this->response = $response;

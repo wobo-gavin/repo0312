@@ -11,12 +11,27 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
+use React\Promise\Deferred;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock
  */
 class MockTest extends \PHPUnit_Framework_TestCase
 {
+    public static function createFuture(
+        callable $deref,
+        callable $cancel = null
+    ) {
+        $deferred = new Deferred();
+        return new FutureResponse(
+            $deferred->promise(),
+            function () use ($deferred, $deref) {
+                $deferred->resolve($deref());
+            },
+            $cancel
+        );
+    }
+
     public function testDescribesSubscribedEvents()
     {
         $mock = new Mock();
@@ -111,7 +126,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['future' => true]);
         $response = new Response(200);
-        $future = FutureResponse::createFuture(function () use ($response) {
+        $future = self::createFuture(function () use ($response) {
             return $response;
         });
         $mock = new Mock([$future]);
@@ -127,7 +142,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['future' => true]);
-        $future = FutureResponse::createFuture(function () use ($request) {
+        $future = self::createFuture(function () use ($request) {
             throw new RequestException('foo', $request);
         });
 
@@ -151,7 +166,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['future' => true]);
 
         // The first mock will be a mocked future response.
-        $future = FutureResponse::createFuture(function () use ($/* Replaced /* Replaced /* Replaced client */ */ */) {
+        $future = self::createFuture(function () use ($/* Replaced /* Replaced /* Replaced client */ */ */) {
             // When dereferenced, we will set a mocked response and send
             // another request.
             $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org', ['events' => [

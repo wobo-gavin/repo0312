@@ -1,7 +1,6 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\CancelledRequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use React\Promise\RejectedPromise;
 
@@ -20,16 +19,7 @@ class CancelledFutureResponse extends FutureResponse
      */
     public static function fromException(RequestException $e)
     {
-        if (!($e instanceof CancelledRequestException)) {
-            $e = new CancelledRequestException(
-                $e->getMessage(),
-                $e->getRequest(),
-                $e->getResponse(),
-                $e
-            );
-        }
-
-        return new self(new RejectedPromise($e));
+        return new CancelledFutureResponse(new RejectedPromise($e));
     }
 
     public function realized()

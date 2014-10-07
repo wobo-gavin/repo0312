@@ -6,7 +6,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\EndEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Exception\CancelledException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface;
 
 /**
@@ -116,8 +115,9 @@ class RequestFsm extends Fsm
      */
     protected function endTransition(Transaction $trans)
     {
-        // Futures will have their own end events emitted when dereferenced.
-        if ($trans->response instanceof FutureInterface) {
+        // Futures will have their own end events emitted when dereferenced,
+        // but still emit, even for futures, when an exception is present.
+        if (!$trans->exception && $trans->response instanceof FutureInterface) {
             return;
         }
 
