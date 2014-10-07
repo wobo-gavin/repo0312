@@ -335,7 +335,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
-     * @expectedExceptionMessage Deref did not resolve future
+     * @expectedExceptionMessage Waiting did not resolve future
      */
     public function testEnsuresResponseIsPresentAfterDereferencing()
     {
@@ -348,7 +348,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
         $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
-        $response->deref();
+        $response->wait();
     }
 
     public function testClientHandlesErrorsDuringBeforeSend()
@@ -456,7 +456,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => new MockAdapter($future)]);
         try {
             $res = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://localhost:123/foo', ['future' => true]);
-            $res->deref();
+            $res->wait();
             $this->fail('Did not throw');
         } catch (RequestException $e) {
             $this->assertEquals(1, $calledFuture);
@@ -553,7 +553,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse', $res);
         try {
-            $res->deref();
+            $res->wait();
             $this->fail('did not throw');
         } catch (RequestException $e) {
             $this->assertContains('404', $e->getMessage());
