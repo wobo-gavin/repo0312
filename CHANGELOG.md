@@ -20,23 +20,9 @@ Adding support for non-blocking futures and some minor API cleanup.
 * Added `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool` which implements FutureInterface and transfers
   requests concurrently using a capped pool size as efficiently as possible.
 * Added `hasListeners()` to EmitterInterface.
-
-### Deprecations
-
 * Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::sendAll` and marked
   `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client::sendAll` as deprecated (it's still there, just not the
   recommended way).
-* Marked "functions.php" as deprecated, so that /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is truly PSR-4 compliant.
-  functions.php is still available and autoloaded, but it is now deprecated.
-  These functions are now implemented in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils` using camelCase.
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::jsonDecode`.
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_path` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::getPath`.
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\set_path` moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::setPath`.
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch` should now be `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool::batch`, which returns a
-  `BatchResults` object instead of an `SplObjectStorage`. Using functions.php
-  caused problems for many users: they aren't PSR-4 compliant, require an
-  explicit include, and needed an if-guard to ensure that the functions are not
-  declared multiple times.
 
 ### Breaking changes
 
@@ -51,6 +37,16 @@ interfaces.
    why I did this: http://ocramius.github.io/blog/fluent-interfaces-are-evil/.
    This also makes the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ message interfaces compatible with the current
    PSR-7 message proposal.
+* Removed "functions.php", so that /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is truly PSR-4 compliant. Except
+  for the HTTP request functions from function.psp, these functions are now
+  implemented in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils` using camelCase. `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode`
+  moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::jsonDecode`. `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_path` moved to
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::getPath`. `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\set_path` moved to
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::setPath`. `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch` should now be
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool::batch`, which returns a bjectStorage`. Using functions.php
+  caused problems for many users: they aren't PSR-4 compliant, require an
+  explicit include, and needed an if-guard to ensure that the functions are not
+  declared multiple times.
 * Breaking changes to the adapter layer
     * Removing all classes from `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter`, these are now
       implemented as callables that are stored in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client`.
