@@ -2,6 +2,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Exception\CannotAttachException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
@@ -161,9 +162,9 @@ class PostBody implements PostBodyInterface
         }
     }
 
-    public function isDetached()
+    public function attach($stream)
     {
-        return $this->detached;
+        throw new CannotAttachException();
     }
 
     public function eof()
