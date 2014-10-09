@@ -35,7 +35,7 @@ You can add /* Replaced /* Replaced /* Replaced Guzzle */ */ */ as a dependency 
 
 .. code-block:: bash
 
-    php composer.phar require /* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */:~5
+    php composer.phar require /* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */:~5.0
 
 Alternatively, you can specify /* Replaced /* Replaced /* Replaced Guzzle */ */ */ as a dependency in your project's
 existing composer.json file:
@@ -44,7 +44,7 @@ existing composer.json file:
 
     {
       "require": {
-         "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "~5"
+         "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "~5.0"
       }
    }
 
@@ -61,13 +61,13 @@ Bleeding edge
 -------------
 
 During your development, you can keep up with the latest changes on the master
-branch by setting the version requirement for /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to ``dev-master``.
+branch by setting the version requirement for /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to ``~5.0@dev``.
 
 .. code-block:: js
 
    {
       "require": {
-         "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "dev-master"
+         "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "~5.0@dev"
       }
    }
 
