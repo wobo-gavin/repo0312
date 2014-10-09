@@ -13,7 +13,7 @@ simple to integrate with web services.
   without requiring a dependency on an event loop.
 - Pluggable HTTP adapters allows /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to integrate with any method you choose
   for sending HTTP requests over the wire (e.g., cURL, sockets, PHP's stream
-  wrapper, non-blocking event loops like `React <http://reactphp.org/>`_, etc.).
+  wrapper, non-blocking event loops like ReactPHP.
 - /* Replaced /* Replaced /* Replaced Guzzle */ */ */ makes it so that you no longer need to fool around with cURL options,
   stream contexts, or sockets.
 
@@ -40,7 +40,7 @@ $/* Replaced /* Replaced /* Replaced client */ */ */->send($req)->then(function 
 Get more information and answers with the
 [Documentation](http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/),
 [Forums](https://groups.google.com/forum/?hl=en#!forum//* Replaced /* Replaced /* Replaced guzzle */ */ */),
-and IRC ([#/* Replaced /* Replaced /* Replaced guzzle */ */ */php](irc://irc.freenode.net/#/* Replaced /* Replaced /* Replaced guzzle */ */ */php) @ irc.freenode.net).
+and [Gitter](https://gitter.im//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */).
 
 ### Installing via Composer
 
