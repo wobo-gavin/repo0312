@@ -37,18 +37,6 @@ $/* Replaced /* Replaced /* Replaced client */ */ */->send($req)->then(function 
 });
 ```
 
-- Supports both blocking and non-blocking requests.
-- Pluggable HTTP adapters that can send requests using cURL, streams, sockets,
-  etc. As such, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ doesn't require cURL, but uses cURL by default
-- Streams data for both uploads and downloads
-- Provides event hooks & plugins for cookies, caching, logging, OAuth, mocks,
-  etc.
-- Keep-Alive & connection pooling
-- SSL Verification
-- Automatic decompression of response bodies
-- Streaming multipart file uploads
-- Connection timeouts
-
 Get more information and answers with the
 [Documentation](http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/),
 [Forums](https://groups.google.com/forum/?hl=en#!forum//* Replaced /* Replaced /* Replaced guzzle */ */ */),
