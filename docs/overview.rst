@@ -35,7 +35,7 @@ You can add /* Replaced /* Replaced /* Replaced Guzzle */ */ */ as a dependency 
 
 .. code-block:: bash
 
-    php composer.phar require /* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */:~4
+    php composer.phar require /* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */:~5
 
 Alternatively, you can specify /* Replaced /* Replaced /* Replaced Guzzle */ */ */ as a dependency in your project's
 existing composer.json file:
@@ -44,7 +44,7 @@ existing composer.json file:
 
     {
       "require": {
-         "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "4.*"
+         "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "~5"
       }
    }
 
