@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Exception\ConnectException;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
@@ -70,5 +71,13 @@ class RequestExceptionTest extends \PHPUnit_Framework_TestCase
         $ex = RequestException::wrapException($r, $e);
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException', $ex);
         $this->assertSame($e, $ex->getPrevious());
+    }
+
+    public function testWrapsConnectExceptions()
+    {
+        $e = new ConnectException('foo');
+        $r = new Request('GET', 'http://www.oo.com');
+        $ex = RequestException::wrapException($r, $e);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException', $ex);
     }
 }
