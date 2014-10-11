@@ -12,7 +12,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Fsm;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestFsm;
 
 class RingBridgeTest extends \PHPUnit_Framework_TestCase
@@ -26,7 +25,7 @@ class RingBridgeTest extends \PHPUnit_Framework_TestCase
         $request->getConfig()->set('foo', 'bar');
         $trans = new Transaction(new Client(), $request);
         $factory = new MessageFactory();
-        $fsm = new RequestFsm(function () {});
+        $fsm = new RequestFsm(function () {}, new MessageFactory());
         $r = RingBridge::prepareRingRequest($trans, $factory, $fsm);
         $this->assertEquals('http', $r['scheme']);
         $this->assertEquals('1.1', $r['version']);
@@ -48,7 +47,7 @@ class RingBridgeTest extends \PHPUnit_Framework_TestCase
         $request = new Request('GET', 'http://httpbin.org');
         $trans = new Transaction(new Client(), $request);
         $factory = new MessageFactory();
-        $fsm = new RequestFsm(function () {});
+        $fsm = new RequestFsm(function () {}, new MessageFactory());
         $r = RingBridge::prepareRingRequest($trans, $factory, $fsm);
         $this->assertNull($r['query_string']);
         $this->assertEquals('/', $r['uri']);
@@ -117,7 +116,7 @@ class RingBridgeTest extends \PHPUnit_Framework_TestCase
         });
         $f = new MessageFactory();
         $res = ['status' => 200, 'headers' => []];
-        $fsm = new RequestFsm(function () {});
+        $fsm = new RequestFsm(function () {}, new MessageFactory());
         RingBridge::completeRingResponse($trans, $res, $f, $fsm);
         $this->assertInstanceOf(
             '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface',
@@ -203,16 +202,12 @@ class RingBridgeTest extends \PHPUnit_Framework_TestCase
     {
         $trans = new Transaction(new Client(), new Request('GET', 'http://f.co'));
         $f = new MessageFactory();
-        $called = false;
-        $fsm = new Fsm('foo', [
-            'error' => [
-                'transition' => function ($trans) use (&$called) {
-                    $called = true;
-                    $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException', $trans->exception);
-                }
-            ]
-        ]);
-        RingBridge::completeRingResponse($trans, [], $f, $fsm);
-        $this->assertTrue($called);
+        $fsm = new RequestFsm(function () {}, new MessageFactory());
+        try {
+            RingBridge::completeRingResponse($trans, [], $f, $fsm);
+        } catch (RequestException $e) {
+            $this->assertSame($trans->request, $e->getRequest());
+            $this->assertContains('/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Ring', $e->getMessage());
+        }
     }
 }
