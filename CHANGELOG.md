@@ -4,18 +4,15 @@ CHANGELOG
 5.0.0 (TBD)
 -----------
 
-Adding support for non-blocking futures and some minor API cleanup.
+Adding support for non-blocking responses and some minor API cleanup.
 
 ### New Features
 
-* Added support for non-blocking Future responses based on
-  `/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */-ring`. Note that you can still use the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4
-  `sendAll()` and `batch()` functions in exactly the same way.
-* You can now create a default adapter based on the environment using a public
-  API.
-* Updated the redirect plugin to be non-blocking so that redirects are sent in
-  parallel. Other plugins like this can now be updated to be non-blocking.
-* Added a "progress" event so that you can get upload or download progress
+* Added support for non-blocking responses based on `/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */-ring`.
+* Added a public API for creating a default HTTP adapter.
+* Updated the redirect plugin to be non-blocking so that redirects are sent
+  concurrently. Other plugins like this can now be updated to be non-blocking.
+* Added a "progress" event so that you can get upload and download progress
   events.
 * Added `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool` which implements FutureInterface and transfers
   requests concurrently using a capped pool size as efficiently as possible.
@@ -34,11 +31,11 @@ interfaces.
   responses, ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection``, ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url``,
   ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query``, ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody``, and
   ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie``. This blog post provides a good outline of
-   why I did this: http://ocramius.github.io/blog/fluent-interfaces-are-evil/.
-   This also makes the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ message interfaces compatible with the current
-   PSR-7 message proposal.
+  why I did this: http://ocramius.github.io/blog/fluent-interfaces-are-evil/.
+  This also makes the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ message interfaces compatible with the current
+  PSR-7 message proposal.
 * Removed "functions.php", so that /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is truly PSR-4 compliant. Except
-  for the HTTP request functions from function.psp, these functions are now
+  for the HTTP request functions from function.php, these functions are now
   implemented in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils` using camelCase. `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode`
   moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::jsonDecode`. `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_path` moved to
   `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::getPath`. `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\set_path` moved to
@@ -47,13 +44,11 @@ interfaces.
   caused problems for many users: they aren't PSR-4 compliant, require an
   explicit include, and needed an if-guard to ensure that the functions are not
   declared multiple times.
-* Breaking changes to the adapter layer
+* Rewrote adapter layer.
     * Removing all classes from `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter`, these are now
       implemented as callables that are stored in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client`.
-    * Removed the concept of "parallel adapters". If you want an adapter to
-      send requests in parallel, then have the adapter return
-      ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future`` objects that allow futures to be fulfilled in
-      parallel when one of the future objects are dereferenced.
+    * Removed the concept of "parallel adapters". Sending requests serially or
+      concurrently is now handled using a single adapter.
     * Moved `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction` to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction`. The
       Transaction object now exposes the request, response, and /* Replaced /* Replaced /* Replaced client */ */ */ as public
       properties. The getters and setters have been removed.
@@ -75,8 +70,8 @@ interfaces.
   constructor which is a mapping of the request option name mapping to a
   function that applies the option value to a request.
 * Removed the concept of "throwImmediately" from exceptions and error events.
-  This control mechanism was used to stop a transfer of parallel requests from
-  completing. This can now be handled by throwing the exception or by
+  This control mechanism was used to stop a transfer of concurrent requests
+  from completing. This can now be handled by throwing the exception or by
   cancelling a pool of requests or each outstanding future request individually.
 * Updated to "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Streams" 3.0.
     * `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface::getContents()` no longer accepts a
