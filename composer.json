@@ -14,11 +14,10 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/ring": "dev-master",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/streams": "~3.0@dev",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/ring": "~1.0@dev",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/streams": "~3.0",
         "react/promise": "~2.0"
     },
-    "minimum-stability": "dev",
     "suggest": {
         "ext-curl": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ will use specific adapters if cURL is present"
     },
