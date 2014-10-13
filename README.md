@@ -52,14 +52,10 @@ The recommended way to install /* Replaced /* Replaced /* Replaced Guzzle */ */ 
 curl -sS https://getcomposer.org/installer | php
 ```
 
-Next, update your project's composer.json file to include /* Replaced /* Replaced /* Replaced Guzzle */ */ */:
+Next, run the Composer command to install the latest stable version of /* Replaced /* Replaced /* Replaced Guzzle */ */ */:
 
-```javascript
-{
-    "require": {
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "~5.0"
-    }
-}
+```bash
+composer require /* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */
 ```
 
 After installing, you need to require Composer's autoloader:
