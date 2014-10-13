@@ -112,7 +112,7 @@ interface ClientInterface extends HasEmitterInterface
      * @param RequestInterface $request Request to send
      *
      * @return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface
-     * @throws \LogicException When the adapter does not populate a response
+     * @throws \LogicException When the handler does not populate a response
      * @throws RequestException When an error is encountered
      */
     public function send(RequestInterface $request);

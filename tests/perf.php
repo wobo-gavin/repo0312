@@ -13,7 +13,7 @@ require __DIR__ . '/bootstrap.php';
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlMultiAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlMultiHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool;
 
 // Wait until the server is responding
@@ -48,8 +48,8 @@ $perRequest = ($totalTime / $total) * 1000;
 printf("Batch:  %f (%f ms / request) %d total with %d in parallel\n",
     $totalTime, $perRequest, $total, $parallel);
 
-$adapter = new CurlMultiAdapter(['max_handles' => $parallel]);
-$/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter, 'base_url' => Server::$url]);
+$handler = new CurlMultiHandler(['max_handles' => $parallel]);
+$/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler, 'base_url' => Server::$url]);
 $t = microtime(true);
 for ($i = 0; $i < $total; $i++) {
     $/* Replaced /* Replaced /* Replaced client */ */ */->get('//* Replaced /* Replaced /* Replaced guzzle */ */ */-server/perf');

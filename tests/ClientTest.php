@@ -7,7 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArray;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
@@ -74,9 +74,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      * @expectedException \Exception
      * @expectedExceptionMessage Foo
      */
-    public function testCanSpecifyAdapter()
+    public function testCanSpecifyHandler()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => function () {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => function () {
                 throw new \Exception('Foo');
             }]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
@@ -301,8 +301,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testClientSendsRequests()
     {
-        $mock = new MockAdapter(['status' => 200, 'headers' => []]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $mock]);
+        $mock = new MockHandler(['status' => 200, 'headers' => []]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
         $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com');
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('http://test.com', $response->getEffectiveUrl());
@@ -311,7 +311,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testSendingRequestCanBeIntercepted()
     {
         $response = new Response(200);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $this->ma]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $this->ma]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(
             'before',
             function (BeforeEvent $e) use ($response) {
@@ -328,8 +328,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testEnsuresResponseIsPresentAfterSending()
     {
-        $adapter = function () {};
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
+        $handler = function () {};
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
     }
 
@@ -340,13 +340,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testEnsuresResponseIsPresentAfterDereferencing()
     {
         $deferred = new Deferred();
-        $adapter = new MockAdapter(function () use ($deferred) {
+        $handler = new MockHandler(function () use ($deferred) {
             return new FutureArray(
                 $deferred->promise(),
                 function () {}
             );
         });
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
         $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
         $response->wait();
     }
@@ -403,8 +403,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 $deferred->resolve(['error' => new \Exception('Noo!')]);
             }
         );
-        $mock = new MockAdapter($future);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $mock]);
+        $mock = new MockHandler($future);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
         $called = 0;
         $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://localhost:123/foo', [
             'future' => true,
@@ -433,8 +433,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 $deferred->resolve(['status' => 201, 'headers' => []]);
             }
         );
-        $mock = new MockAdapter($future);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $mock]);
+        $mock = new MockHandler($future);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
         $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://localhost:123/foo', ['future' => true]);
         $this->assertFalse($called);
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse', $response);
@@ -453,7 +453,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 $deferred->resolve(['error' => new \Exception('Noop!')]);
             }
         );
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => new MockAdapter($future)]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => new MockHandler($future)]);
         try {
             $res = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://localhost:123/foo', ['future' => true]);
             $res->wait();
@@ -470,7 +470,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testThrowsExceptionsSynchronously()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client([
-            'adapter' => new MockAdapter(['error' => new \Exception('Noo!')])
+            'handler' => new MockHandler(['error' => new \Exception('Noo!')])
         ]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://localhost:123/foo');
     }
@@ -546,7 +546,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testReturnsFutureForErrorWhenRequested()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => new MockAdapter(['status' => 404])]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => new MockHandler(['status' => 404])]);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://localhost:123/foo', [
             'future' => true
         ]);
@@ -562,7 +562,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testReturnsFutureForResponseWhenRequested()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => new MockAdapter(['status' => 200])]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => new MockHandler(['status' => 200])]);
         $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://localhost:123/foo', [
             'future' => true
         ]);

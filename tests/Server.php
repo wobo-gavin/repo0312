@@ -9,7 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RingBridge;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Ring\Client\Server as TestServer;
 
 /**
- * Placeholder for the /* Replaced /* Replaced /* Replaced Guzzle */ */ */-Ring-Client server that makes it easier to use.
+ * Placeholder for the RingPHP-Client server that makes it easier to use.
  */
 class Server
 {

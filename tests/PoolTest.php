@@ -4,7 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArray;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
@@ -108,12 +108,12 @@ class PoolTest extends \PHPUnit_Framework_TestCase
             }
         );
 
-        return new Client(['adapter' => new MockAdapter($future)]);
+        return new Client(['handler' => new MockHandler($future)]);
     }
 
     public function testBatchesRequests()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => function () {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => function () {
             throw new \RuntimeException('No network access');
         }]);
 
@@ -167,7 +167,7 @@ class PoolTest extends \PHPUnit_Framework_TestCase
 
     public function testEmitsProgress()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => function () {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => function () {
             throw new \RuntimeException('No network access');
         }]);
 

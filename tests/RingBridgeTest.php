@@ -9,7 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestFsm;
@@ -75,7 +75,7 @@ class RingBridgeTest extends \PHPUnit_Framework_TestCase
     public function testGetsResponseProtocolVersionAndEffectiveUrlAndReason()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client([
-            'adapter' => new MockAdapter([
+            'handler' => new MockHandler([
                 'status'  => 200,
                 'reason' => 'test',
                 'headers' => [],
@@ -96,7 +96,7 @@ class RingBridgeTest extends \PHPUnit_Framework_TestCase
         fwrite($res, 'foo');
         rewind($res);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client([
-            'adapter' => new MockAdapter([
+            'handler' => new MockHandler([
                 'status'  => 200,
                 'headers' => [],
                 'body' => $res
@@ -207,7 +207,7 @@ class RingBridgeTest extends \PHPUnit_Framework_TestCase
             RingBridge::completeRingResponse($trans, [], $f, $fsm);
         } catch (RequestException $e) {
             $this->assertSame($trans->request, $e->getRequest());
-            $this->assertContains('/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Ring', $e->getMessage());
+            $this->assertContains('RingPHP', $e->getMessage());
         }
     }
 }
