@@ -1,6 +1,69 @@
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Upgrade Guide
 ====================
 
+4.x to 5.0
+----------
+
+## Rewritten Adapter Layer
+
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ now uses `RingPHP <http://ringphp.readthedocs.org/en/latest/>`_ to send
+HTTP requests. The `adapter` option in a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client` constructor
+is still supported, but it has now been renamed to `handler`. Instead of
+passing a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\AdapterInterface`, you must now pass a PHP
+`callable` that follows the RingPHP specification.
+
+## Removed Fluent Interfaces
+
+`Fluent interfaces were removed <http://ocramius.github.io/blog/fluent-interfaces-are-evil/>`_
+from the following classes:
+
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection`
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url`
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query`
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBody`
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie`
+
+## Removed functions.php
+
+Removed "functions.php", so that /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is truly PSR-4 compliant. The following
+functions can be used as replacements.
+
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode` -> `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::jsonDecode`
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_path` -> `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::getPath`
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::setPath` -> `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\set_path`
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool::batch` -> `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch`. This function is, however,
+  deprecated in favor of using `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool::batch()`.
+
+The "procedural" global /* Replaced /* Replaced /* Replaced client */ */ */ has been removed with no replacement (e.g.,
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get()`, `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\post()`, etc.). Use a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Httl\Client`
+object as a replacement.
+
+## `throwImmediately` has been removed
+
+The concept of "throwImmediately" has been removed from exceptions and error
+events. This control mechanism was used to stop a transfer of concurrent
+requests from completing. This can now be handled by throwing the exception or
+by cancelling a pool of requests or each outstanding future request
+individually.
+
+## headers event has been removed
+
+Removed the "headers" event. This event was only useful for changing the
+body a response once the headers of the response were known. You can implement
+a similar behavior in a number of ways. One example might be to use a
+FnStream that has access to the transaction being sent. For example, when the
+first byte is written, you could check if the response headers match your
+expectations, and if so, change the actual stream body that is being
+written to.
+
+## Updates to HTTP Messages
+
+Removed the `asArray` parameter from
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageInterface::getHeader`. If you want to get a header
+value as an array, then use the newly added `getHeaderAsArray()` method of
+`MessageInterface`. This change makes the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ interfaces compatible with
+the PSR-7 interfaces.
+
 3.x to 4.0
 ----------
 
@@ -285,7 +348,7 @@ emitted during the lifecycle of a request now emit a custom
 methods and a way in which to modify the transaction at that specific point in
 time (e.g., intercept the request and set a response on the transaction).
 
-- `request.before_send` has been renamed to ``before`` and now emits a
+- `request.before_send` has been renamed to `before` and now emits a
   `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent`
 - `request.complete` has been renamed to `complete` and now emits a
   `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent`.
