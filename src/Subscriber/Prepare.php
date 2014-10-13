@@ -8,7 +8,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInter
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Mimetypes;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Mimetypes;
 
 /**
  * Prepares requests with a body before sending

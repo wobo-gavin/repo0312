@@ -1,6 +1,8 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Subscriber;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
