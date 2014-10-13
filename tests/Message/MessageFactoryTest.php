@@ -1,8 +1,12 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Message;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Cookie;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
@@ -236,9 +240,12 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCanSetDefaultQueryWithObject()
     {
-        $request = (new MessageFactory())->createRequest('GET', 'http://foo.com?test=abc', [
-            'query' => new Query(['Foo' => 'Bar', 'test' => 'def'])
-        ]);
+        $request = (new MessageFactory)->createRequest(
+            'GET',
+            'http://foo.com?test=abc', [
+                'query' => new Query(['Foo' => 'Bar', 'test' => 'def'])
+            ]
+        );
         $this->assertEquals('Bar', $request->getQuery()->get('Foo'));
         $this->assertEquals('abc', $request->getQuery()->get('test'));
     }
@@ -511,21 +518,22 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('null', (string) $request->getBody());
     }
 
-    public function testCanUseCustomSubclassesWithMethods()
+    public function testCanUseCustomRequestOptions()
     {
-        (new ExtendedFactory())->createRequest('PUT', 'http://f.com', [
+        $c = false;
+        $f = new MessageFactory([
+            'foo' => function (RequestInterface $request, $value) use (&$c) {
+                $c = true;
+                $this->assertEquals('bar', $value);
+            }
+        ]);
+
+        $f->createRequest('PUT', 'http://f.com', [
             'headers' => ['Content-Type' => 'foo'],
             'foo' => 'bar'
         ]);
-        try {
-            $f = new MessageFactory();
-            $f->createRequest('PUT', 'http://f.com', [
-                'headers' => ['Content-Type' => 'foo'],
-                'foo' => 'bar'
-            ]);
-        } catch (\InvalidArgumentException $e) {
-            $this->assertContains('foo config', $e->getMessage());
-        }
+
+        $this->assertTrue($c);
     }
 
     /**

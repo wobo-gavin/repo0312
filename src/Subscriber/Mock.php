@@ -1,12 +1,9 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HeadersEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
@@ -55,16 +52,8 @@ class Mock implements SubscriberInterface, \Countable
             throw $item;
         }
 
-        // Emulate the receiving of the response headers
-        $request = $event->getRequest();
-        $transaction = new Transaction($event->getClient(), $request);
-        $transaction->setResponse($item);
-        $request->getEmitter()->emit(
-            'headers',
-            new HeadersEvent($transaction)
-        );
-
         // Emulate reading a response body
+        $request = $event->getRequest();
         if ($this->readBodies && $request->getBody()) {
             while (!$request->getBody()->eof()) {
                 $request->getBody()->read(8096);

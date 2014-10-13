@@ -1,22 +1,35 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Subscriber;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
+use React\Promise\Deferred;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock
  */
 class MockTest extends \PHPUnit_Framework_TestCase
 {
+    public static function createFuture(
+        callable $wait,
+        callable $cancel = null
+    ) {
+        $deferred = new Deferred();
+        return new FutureResponse(
+            $deferred->promise(),
+            function () use ($deferred, $wait) {
+                $deferred->resolve($wait());
+            },
+            $cancel
+        );
+    }
+
     public function testDescribesSubscribedEvents()
     {
         $mock = new Mock();
@@ -65,7 +78,7 @@ class MockTest extends \PHPUnit_Framework_TestCase
         $m = new Mock([$response]);
         $ev = new BeforeEvent($t);
         $m->onBefore($ev);
-        $this->assertSame($response, $t->getResponse());
+        $this->assertSame($response, $t->response);
     }
 
     /**
@@ -103,6 +116,75 @@ class MockTest extends \PHPUnit_Framework_TestCase
         } catch (RequestException $e) {
             $this->assertSame($e, $ex);
             $this->assertSame($request, $ex->getRequest());
+        }
+    }
+
+    public function testCanMockFutureResponses()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['future' => true]);
+        $response = new Response(200);
+        $future = self::createFuture(function () use ($response) {
+            return $response;
+        });
+        $mock = new Mock([$future]);
+        $this->assertCount(1, $mock);
+        $request->getEmitter()->attach($mock);
+        $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertSame($future, $res);
+        $this->assertFalse($this->readAttribute($res, 'isRealized'));
+        $this->assertSame($response, $res->wait());
+    }
+
+    public function testCanMockExceptionFutureResponses()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['future' => true]);
+        $future = self::createFuture(function () use ($request) {
+            throw new RequestException('foo', $request);
+        });
+
+        $mock = new Mock([$future]);
+        $request->getEmitter()->attach($mock);
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertSame($future, $response);
+        $this->assertFalse($this->readAttribute($response, 'isRealized'));
+
+        try {
+            $response->wait();
+            $this->fail('Did not throw');
+        } catch (RequestException $e) {
+            $this->assertContains('foo', $e->getMessage());
+        }
+    }
+
+    public function testCanMockFailedFutureResponses()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/', ['future' => true]);
+
+        // The first mock will be a mocked future response.
+        $future = self::createFuture(function () use ($/* Replaced /* Replaced /* Replaced client */ */ */) {
+            // When dereferenced, we will set a mocked response and send
+            // another request.
+            $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org', ['events' => [
+                'before' => function (BeforeEvent $e) {
+                    $e->intercept(new Response(404));
+                }
+            ]]);
+        });
+
+        $mock = new Mock([$future]);
+        $request->getEmitter()->attach($mock);
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertSame($future, $response);
+        $this->assertFalse($this->readAttribute($response, 'isRealized'));
+
+        try {
+            $response->wait();
+            $this->fail('Did not throw');
+        } catch (RequestException $e) {
+            $this->assertEquals(404, $e->getResponse()->getStatusCode());
         }
     }
 }

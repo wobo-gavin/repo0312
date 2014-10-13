@@ -1,32 +1,34 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 
+/**
+ * Base class for request events, providing a request and /* Replaced /* Replaced /* Replaced client */ */ */ getter.
+ */
 abstract class AbstractRequestEvent extends AbstractEvent
 {
-    /** @var TransactionInterface */
-    private $transaction;
+    /** @var Transaction */
+    protected $transaction;
 
     /**
-     * @param TransactionInterface $transaction
+     * @param Transaction $transaction
      */
-    public function __construct(TransactionInterface $transaction)
+    public function __construct(Transaction $transaction)
     {
         $this->transaction = $transaction;
     }
 
     /**
-     * Get the /* Replaced /* Replaced /* Replaced client */ */ */ associated with the event
+     * Get the HTTP /* Replaced /* Replaced /* Replaced client */ */ */ associated with the event.
      *
      * @return ClientInterface
      */
     public function getClient()
     {
-        return $this->transaction->getClient();
+        return $this->transaction->/* Replaced /* Replaced /* Replaced client */ */ */;
     }
 
     /**
@@ -36,11 +38,11 @@ abstract class AbstractRequestEvent extends AbstractEvent
      */
     public function getRequest()
     {
-        return $this->transaction->getRequest();
+        return $this->transaction->request;
     }
 
     /**
-     * @return TransactionInterface
+     * @return Transaction
      */
     protected function getTransaction()
     {

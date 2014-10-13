@@ -1,9 +1,8 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Mimetypes;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\MetadataStreamInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 
@@ -93,9 +92,7 @@ class PostFile implements PostFileInterface
     {
         $this->filename = $filename;
 
-        if (!$this->filename &&
-            $this->content instanceof MetadataStreamInterface
-        ) {
+        if (!$this->filename) {
             $this->filename = $this->content->getMetadata('uri');
         }
 

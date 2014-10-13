@@ -1,6 +1,7 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie;
+
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
 
 /**
  * Persists cookies in the /* Replaced /* Replaced /* Replaced client */ */ */ session
@@ -53,7 +54,7 @@ class SessionCookieJar extends CookieJar
             ? $_SESSION[$this->sessionKey]
             : null;
 
-        $data = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode($cookieJar, true);
+        $data = Utils::jsonDecode($cookieJar, true);
         if (is_array($data)) {
             foreach ($data as $cookie) {
                 $this->setCookie(new SetCookie($cookie));

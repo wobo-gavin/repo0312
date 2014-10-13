@@ -8,35 +8,24 @@ Why should I use /* Replaced /* Replaced /* Replaced Guzzle */ */ */?
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ makes it easy to send HTTP requests and super simple to integrate with
 web services. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ manages things like persistent connections, represents
 query strings as collections, makes it simple to send streaming POST requests
-with fields and files, and abstracts away the underlying HTTP transport layer
-(cURL, ``fopen()``, etc.). By providing an object oriented interface for HTTP
-/* Replaced /* Replaced /* Replaced client */ */ */s, requests, responses, headers, and message bodies, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ makes it so
-that you no longer need to fool around with cURL options or stream contexts.
+with fields and files, and abstracts away the underlying HTTP transport layer.
+By providing an object oriented interface for HTTP /* Replaced /* Replaced /* Replaced client */ */ */s, requests, responses,
+headers, and message bodies, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ makes it so that you no longer need to fool
+around with cURL options, stream contexts, or sockets.
 
-To get a feel for how easy it is to use /* Replaced /* Replaced /* Replaced Guzzle */ */ */, take a look at the
-:doc:`quick start guide <quickstart>`.
+**Asynchronous and Synchronous Requests**
 
-Swappable HTTP Adapters
------------------------
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ allows you to send both asynchronous and synchronous requests using the
+same interface and no direct dependency on an event loop. This flexibility
+allows /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to send an HTTP request using the most appropriate HTTP handler
+based on the request being sent. For example, when sending synchronous
+requests, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will by default send requests using cURL easy handles to
+ensure you're using the fastest possible method for serially transferring HTTP
+requests. When sending asynchronous requests, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ might use cURL's multi
+interface or any other asynchronous handler you configure. When you request
+streaming data, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will by default use PHP's stream wrapper.
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ will use the most appropriate HTTP adapter to send requests based on the
-capabilities of your environment and the options applied to a request. When
-cURL is available on your system, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will automatically use cURL. When a
-request is sent with the ``stream=true`` request option, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will
-automatically use the PHP stream wrapper HTTP adapter so that bytes are only
-read from the HTTP stream as needed.
-
-.. note::
-
-    /* Replaced /* Replaced /* Replaced Guzzle */ */ */ has historically only utilized cURL to send HTTP requests. cURL is
-    an amazing HTTP /* Replaced /* Replaced /* Replaced client */ */ */ (arguably the best), and /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will continue to use
-    it by default when it is available. It is rare, but some developers don't
-    have cURL installed on their systems or run into version specific issues.
-    By allowing swappable HTTP adapters, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is now much more customizable
-    and able to adapt to fit the needs of more developers.
-
-HTTP Streams
-------------
+**Streams**
 
 Request and response message bodies use :doc:`/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Streams <streams>`,
 allowing you to stream data without needing to load it all into memory.
@@ -48,27 +37,23 @@ allowing you to stream data without needing to load it all into memory.
 - You can validate the integrity of a stream using a rolling hash as data is
   read from a stream.
 
-Event System
-------------
+**Event System and Plugins**
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */'s flexible event system allows you to completely modify the behavior
-of a /* Replaced /* Replaced /* Replaced client */ */ */ or request at runtime to cater them for any API. You can send a
-request with a /* Replaced /* Replaced /* Replaced client */ */ */, and the /* Replaced /* Replaced /* Replaced client */ */ */ can do things like automatically retry
-your request if it fails, automatically redirect, log HTTP messages that are
-sent over the wire, emit progress events as data is uploaded and downloaded,
-sign requests using OAuth 1.0, verify the integrity of messages before and
-after they are sent over the wire, and anything else you might need.
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */'s  event system allows you to completely modify the behavior of a /* Replaced /* Replaced /* Replaced client */ */ */
+or request at runtime to cater them for any API. You can send a request with a
+/* Replaced /* Replaced /* Replaced client */ */ */, and the /* Replaced /* Replaced /* Replaced client */ */ */ can do things like automatically retry your request if
+it fails, automatically redirect, log HTTP messages that are sent over the
+wire, emit progress events as data is uploaded and downloaded, sign requests
+using OAuth 1.0, verify the integrity of messages before and after they are
+sent over the wire, and anything else you might need.
 
-Easy to Test
-------------
+**Testable**
 
 Another important aspect of /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is that it's really
 :doc:`easy to test /* Replaced /* Replaced /* Replaced client */ */ */s <testing>`. You can mock HTTP responses and when
-testing an adapter implementation, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides a mock web server that
-makes it easy.
+testing an handler implementation, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides a mock node.js web server.
 
-Large Ecosystem
----------------
+**Ecosystem**
 
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ has a large `ecosystem of plugins <http:///* Replaced /* Replaced /* Replaced guzzle */ */ */.readthedocs.org/en/latest/index.html#http-components>`_,
 including `service descriptions <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-services>`_
@@ -82,70 +67,55 @@ an HTTP response into a more meaningful model object.
   implementation of "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Command" that utlizes /* Replaced /* Replaced /* Replaced Guzzle */ */ */'s service description
   format.
 
-Is it possible to use /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 and 4 in the same project?
-=========================================================
+Does /* Replaced /* Replaced /* Replaced Guzzle */ */ */ require cURL?
+=========================
 
-Yes, because /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 and 4 use different Packagist packages and different
-namespaces. You simply need to add ``/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */`` (/* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3) and
-``/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */`` (/* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4+) to your project's composer.json file.
+No. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ can use any HTTP handler to send requests. This means that /* Replaced /* Replaced /* Replaced Guzzle */ */ */
+can be used with cURL, PHP's stream wrapper, sockets, and non-blocking libraries
+like `React <http://reactphp.org/>`_. You just need to configure a
+`RingPHP <http:///* Replaced /* Replaced /* Replaced guzzle */ */ */-ring.readthedocs.org/en/latest/>`_ handler to use a
+different method of sending requests.
 
-.. code-block:: javascript
+.. note::
 
-    {
-        "require": {
-            "/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */": 3.*,
-            "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": 4.*
-        }
-    }
+    /* Replaced /* Replaced /* Replaced Guzzle */ */ */ has historically only utilized cURL to send HTTP requests. cURL is
+    an amazing HTTP /* Replaced /* Replaced /* Replaced client */ */ */ (arguably the best), and /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will continue to use
+    it by default when it is available. It is rare, but some developers don't
+    have cURL installed on their systems or run into version specific issues.
+    By allowing swappable HTTP handlers, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is now much more customizable
+    and able to adapt to fit the needs of more developers.
 
-You might need to use /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 and /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4 in the same project due to a
-requirement of a legacy application or a dependency that has not yet migrated
-to /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4.0.
-
-How do I migrate from /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 to 4?
-====================================
-
-See https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//blob/master/UPGRADING.md#3x-to-40.
-
-What is this Maximum function nesting error?
-============================================
-
-    Maximum function nesting level of '100' reached, aborting
-
-You could run into this error if you have the XDebug extension installed and
-you execute a lot of requests in callbacks.  This error message comes
-specifically from the XDebug extension. PHP itself does not have a function
-nesting limit. Change this setting in your php.ini to increase the limit::
-
-    xdebug.max_nesting_level = 1000
-
-[`source <http://stackoverflow.com/a/4293870/151504>`_]
-
-Why am I getting a 417 error response?
+Can /* Replaced /* Replaced /* Replaced Guzzle */ */ */ send asynchronous requests?
 ======================================
 
-This can occur for a number of reasons, but if you are sending PUT, POST, or
-PATCH requests with an ``Expect: 100-Continue`` header, a server that does not
-support this header will return a 417 response. You can work around this by
-setting the ``expect`` request option to ``false``:
+Yes. Pass the ``future`` true request option to a request to send it
+asynchronously. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will then return a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse``
+object that can be used synchronously by accessing the response object like a
+normal response, and it can be used asynchronoulsy using a promise that is
+notified when the response is resolved with a real response or rejected with an
+exception.
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client();
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', ['future' => true']);
+    $/* Replaced /* Replaced /* Replaced client */ */ */->send($request)->then(function ($response) {
+        echo 'Got a response! ' . $response;
+    });
 
-    // Disable the expect header on a single request
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', [], 'the body', [
-        'expect' => false
-    ]);
+You can force an asynchronous response to complete using the ``wait()`` method
+of a response.
 
-    // Disable the expect header on all /* Replaced /* Replaced /* Replaced client */ */ */ requests
-    $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultOption('expect', false)
+.. code-block:: php
+
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', ['future' => true']);
+    $futureResponse = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+    $futureResponse->wait();
 
 How can I add custom cURL options?
 ==================================
 
 cURL offer a huge number of `customizable options <http://us1.php.net/curl_setopt>`_.
-While /* Replaced /* Replaced /* Replaced Guzzle */ */ */ normalizes many of these options across different adapters, there
+While /* Replaced /* Replaced /* Replaced Guzzle */ */ */ normalizes many of these options across different handlers, there
 are times when you need to set custom cURL options. This can be accomplished
 by passing an associative array of cURL settings in the **curl** key of the
 **config** request option.
@@ -189,3 +159,41 @@ used with a /* Replaced /* Replaced /* Replaced client */ */ */ and allow self-s
             ]
         ]
     ]);
+
+Why am I getting an SSL verification error?
+===========================================
+
+You need to specify the path on disk to the CA bundle used by /* Replaced /* Replaced /* Replaced Guzzle */ */ */ for
+verifying the peer certificate. See :ref:`verify-option`.
+
+What is this Maximum function nesting error?
+============================================
+
+    Maximum function nesting level of '100' reached, aborting
+
+You could run into this error if you have the XDebug extension installed and
+you execute a lot of requests in callbacks.  This error message comes
+specifically from the XDebug extension. PHP itself does not have a function
+nesting limit. Change this setting in your php.ini to increase the limit::
+
+    xdebug.max_nesting_level = 1000
+
+Why am I getting a 417 error response?
+======================================
+
+This can occur for a number of reasons, but if you are sending PUT, POST, or
+PATCH requests with an ``Expect: 100-Continue`` header, a server that does not
+support this header will return a 417 response. You can work around this by
+setting the ``expect`` request option to ``false``:
+
+.. code-block:: php
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client();
+
+    // Disable the expect header on a single request
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', [], 'the body', [
+        'expect' => false
+    ]);
+
+    // Disable the expect header on all /* Replaced /* Replaced /* Replaced client */ */ */ requests
+    $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultOption('expect', false)

@@ -1,25 +1,37 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\FakeParallelAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\MockAdapter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockHandler;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArray;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
+use React\Promise\Deferred;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client
  */
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
+    /** @callable */
+    private $ma;
+
+    public function setup()
+    {
+        $this->ma = function () {
+            throw new \RuntimeException('Should not have been called.');
+        };
+    }
+
     public function testProvidesDefaultUserAgent()
     {
-        $this->assertEquals(1, preg_match('#^/* Replaced /* Replaced /* Replaced Guzzle */ */ *//.+ curl/.+ PHP/.+$#', Client::getDefaultUserAgent()));
+        $ua = Client::getDefaultUserAgent();
+        $this->assertEquals(1, preg_match('#^/* Replaced /* Replaced /* Replaced Guzzle */ */ *//.+ curl/.+ PHP/.+$#', $ua));
     }
 
     public function testUsesDefaultDefaultOptions()
@@ -27,7 +39,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('allow_redirects'));
         $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('exceptions'));
-        $this->assertContains('cacert.pem', $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('verify'));
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('verify'));
     }
 
     public function testUsesProvidedDefaultOptions()
@@ -40,7 +52,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ]);
         $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('allow_redirects'));
         $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('exceptions'));
-        $this->assertContains('cacert.pem', $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('verify'));
+        $this->assertTrue($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('verify'));
         $this->assertEquals(['foo' => 'bar'], $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('query'));
     }
 
@@ -58,32 +70,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://foo.com/baz/', $/* Replaced /* Replaced /* Replaced client */ */ */->getBaseUrl());
     }
 
-    public function testClientUsesDefaultAdapterWhenNoneIsSet()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        if (!extension_loaded('curl')) {
-            $adapter = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\StreamAdapter';
-        } elseif (ini_get('allow_url_fopen')) {
-            $adapter = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\StreamingProxyAdapter';
-        } else {
-            $adapter = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlAdapter';
-        }
-        $this->assertInstanceOf($adapter, $this->readAttribute($/* Replaced /* Replaced /* Replaced client */ */ */, 'adapter'));
-    }
-
     /**
      * @expectedException \Exception
      * @expectedExceptionMessage Foo
      */
-    public function testCanSpecifyAdapter()
+    public function testCanSpecifyHandler()
     {
-        $adapter = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\AdapterInterface')
-            ->setMethods(['send'])
-            ->getMockForAbstractClass();
-        $adapter->expects($this->once())
-            ->method('send')
-            ->will($this->throwException(new \Exception('Foo')));
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => function () {
+                throw new \Exception('Foo');
+            }]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
     }
 
@@ -236,6 +231,17 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('custom', $request->getHeader('Foo'));
     }
 
+    public function testDoesNotOverwriteExistingUA()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['defaults' => [
+            'headers' => ['User-Agent' => 'test']
+        ]]);
+        $this->assertEquals(
+            ['User-Agent' => 'test'],
+            $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('headers')
+        );
+    }
+
     public function testUsesBaseUrlWhenNoUrlIsSet()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://www.foo.com/baz?bam=bar']);
@@ -295,44 +301,54 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testClientSendsRequests()
     {
-        $response = new Response(200);
-        $adapter = new MockAdapter();
-        $adapter->setResponse($response);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
-        $this->assertSame($response, $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com'));
+        $mock = new MockHandler(['status' => 200, 'headers' => []]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com');
+        $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('http://test.com', $response->getEffectiveUrl());
     }
 
     public function testSendingRequestCanBeIntercepted()
     {
         $response = new Response(200);
-        $response2 = new Response(200);
-        $adapter = new MockAdapter();
-        $adapter->setResponse($response);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $this->ma]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(
             'before',
-            function (BeforeEvent $e) use ($response2) {
-                $e->intercept($response2);
+            function (BeforeEvent $e) use ($response) {
+                $e->intercept($response);
             }
         );
-        $this->assertSame($response2, $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com'));
-        $this->assertEquals('http://test.com', $response2->getEffectiveUrl());
+        $this->assertSame($response, $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com'));
+        $this->assertEquals('http://test.com', $response->getEffectiveUrl());
     }
 
     /**
      * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
-     * @expectedExceptionMessage No response
+     * @expectedExceptionMessage Argument 1 passed to /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse::proxy() must implement interface /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface
      */
     public function testEnsuresResponseIsPresentAfterSending()
     {
-        $adapter = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\MockAdapter')
-            ->setMethods(['send'])
-            ->getMock();
-        $adapter->expects($this->once())
-            ->method('send');
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['adapter' => $adapter]);
+        $handler = function () {};
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
+    }
+
+    /**
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
+     * @expectedExceptionMessage Waiting did not resolve future
+     */
+    public function testEnsuresResponseIsPresentAfterDereferencing()
+    {
+        $deferred = new Deferred();
+        $handler = new MockHandler(function () use ($deferred) {
+            return new FutureArray(
+                $deferred->promise(),
+                function () {}
+            );
+        });
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
+        $response->wait();
     }
 
     public function testClientHandlesErrorsDuringBeforeSend()
@@ -341,10 +357,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function ($e) {
             throw new \Exception('foo');
         });
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('error', function ($e) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('error', function (ErrorEvent $e) {
             $e->intercept(new Response(200));
         });
-        $this->assertEquals(200, $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com')->getStatusCode());
+        $this->assertEquals(
+            200,
+            $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com')->getStatusCode()
+        );
     }
 
     /**
@@ -354,7 +373,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testClientHandlesErrorsDuringBeforeSendAndThrowsIfUnhandled()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function ($e) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function (BeforeEvent $e) {
             throw new RequestException('foo', $e->getRequest());
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
@@ -367,10 +386,93 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testClientWrapsExceptions()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function ($e) {
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function (BeforeEvent $e) {
             throw new \Exception('foo');
         });
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org');
+    }
+
+    public function testCanInjectResponseForFutureError()
+    {
+        $calledFuture = false;
+        $deferred = new Deferred();
+        $future = new FutureArray(
+            $deferred->promise(),
+            function () use ($deferred, &$calledFuture) {
+                $calledFuture = true;
+                $deferred->resolve(['error' => new \Exception('Noo!')]);
+            }
+        );
+        $mock = new MockHandler($future);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
+        $called = 0;
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://localhost:123/foo', [
+            'future' => true,
+            'events' => [
+                'error' => function (ErrorEvent $e) use (&$called) {
+                    $called++;
+                    $e->intercept(new Response(200));
+                }
+            ]
+        ]);
+        $this->assertEquals(0, $called);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse', $response);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($calledFuture);
+        $this->assertEquals(1, $called);
+    }
+
+    public function testCanReturnFutureResults()
+    {
+        $called = false;
+        $deferred = new Deferred();
+        $future = new FutureArray(
+            $deferred->promise(),
+            function () use ($deferred, &$called) {
+                $called = true;
+                $deferred->resolve(['status' => 201, 'headers' => []]);
+            }
+        );
+        $mock = new MockHandler($future);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://localhost:123/foo', ['future' => true]);
+        $this->assertFalse($called);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse', $response);
+        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertTrue($called);
+    }
+
+    public function testThrowsExceptionsWhenDereferenced()
+    {
+        $calledFuture = false;
+        $deferred = new Deferred();
+        $future = new FutureArray(
+            $deferred->promise(),
+            function () use ($deferred, &$calledFuture) {
+                $calledFuture = true;
+                $deferred->resolve(['error' => new \Exception('Noop!')]);
+            }
+        );
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => new MockHandler($future)]);
+        try {
+            $res = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://localhost:123/foo', ['future' => true]);
+            $res->wait();
+            $this->fail('Did not throw');
+        } catch (RequestException $e) {
+            $this->assertEquals(1, $calledFuture);
+        }
+    }
+
+    /**
+     * @expectedExceptionMessage Noo!
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
+     */
+    public function testThrowsExceptionsSynchronously()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client([
+            'handler' => new MockHandler(['error' => new \Exception('Noo!')])
+        ]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://localhost:123/foo');
     }
 
     public function testCanSetDefaultValues()
@@ -399,22 +501,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ];
 
         $/* Replaced /* Replaced /* Replaced client */ */ */->sendAll($requests);
-        $requests = array_map(function ($r) { return $r->getMethod(); }, $history->getRequests());
+        $requests = array_map(function($r) {
+            return $r->getMethod();
+        }, $history->getRequests());
         $this->assertContains('GET', $requests);
         $this->assertContains('POST', $requests);
         $this->assertContains('PUT', $requests);
-    }
-
-    public function testCanSetCustomParallelAdapter()
-    {
-        $called = false;
-        $pa = new FakeParallelAdapter(new MockAdapter(function () use (&$called) {
-            $called = true;
-            return new Response(203);
-        }));
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['parallel_adapter' => $pa]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->sendAll([$/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.foo.com')]);
-        $this->assertTrue($called);
     }
 
     public function testCanDisableAuthPerRequest()
@@ -426,17 +518,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($request->getConfig()->hasKey('auth'));
     }
 
-    /**
-     * @expectedException \PHPUnit_Framework_Error_Deprecated
-     */
-    public function testHasDeprecatedGetEmitter()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $/* Replaced /* Replaced /* Replaced client */ */ */->getEventDispatcher();
-    }
-
     public function testUsesProxyEnvironmentVariables()
     {
+        $http = getenv('HTTP_PROXY');
+        $https = getenv('HTTPS_PROXY');
+
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertNull($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('proxy'));
 
@@ -454,7 +540,34 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('proxy')
         );
 
-        putenv('HTTP_PROXY=');
-        putenv('HTTPS_PROXY=');
+        putenv("HTTP_PROXY=$http");
+        putenv("HTTPS_PROXY=$https");
+    }
+
+    public function testReturnsFutureForErrorWhenRequested()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => new MockHandler(['status' => 404])]);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://localhost:123/foo', [
+            'future' => true
+        ]);
+        $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse', $res);
+        try {
+            $res->wait();
+            $this->fail('did not throw');
+        } catch (RequestException $e) {
+            $this->assertContains('404', $e->getMessage());
+        }
+    }
+
+    public function testReturnsFutureForResponseWhenRequested()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => new MockHandler(['status' => 200])]);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://localhost:123/foo', [
+            'future' => true
+        ]);
+        $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse', $res);
+        $this->assertEquals(200, $res->getStatusCode());
     }
 }

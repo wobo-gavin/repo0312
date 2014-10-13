@@ -1,8 +1,7 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Subscriber;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
@@ -31,7 +30,7 @@ class CookieTest extends \PHPUnit_Framework_TestCase
 
         $plugin = new Cookie($mock);
         $t = new Transaction(new Client(), $request);
-        $t->setResponse($response);
+        $t->response = $response;
         $plugin->onComplete(new CompleteEvent($t));
     }
 

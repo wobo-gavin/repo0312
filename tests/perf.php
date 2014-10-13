@@ -13,13 +13,15 @@ require __DIR__ . '/bootstrap.php';
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlMultiHandler;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool;
 
 // Wait until the server is responding
 Server::wait();
 
 // Get custom make variables
 $total = isset($_SERVER['REQUESTS']) ? $_SERVER['REQUESTS'] : 1000;
-$parallel = isset($_SERVER['PARALLEL']) ? $_SERVER['PARALLEL'] : 25;
+$parallel = isset($_SERVER['PARALLEL']) ? $_SERVER['PARALLEL'] : 100;
 
 $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => Server::$url]);
 
@@ -29,10 +31,10 @@ for ($i = 0; $i < $total; $i++) {
 }
 $totalTime = microtime(true) - $t;
 $perRequest = ($totalTime / $total) * 1000;
-printf("Serial:   %f (%f ms / request) %d total\n",
+printf("Serial: %f (%f ms / request) %d total\n",
     $totalTime, $perRequest, $total);
 
-// Create a generator used to yield batches of requests to sendAll
+// Create a generator used to yield batches of requests
 $reqs = function () use ($/* Replaced /* Replaced /* Replaced client */ */ */, $total) {
     for ($i = 0; $i < $total; $i++) {
         yield $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '//* Replaced /* Replaced /* Replaced guzzle */ */ */-server/perf');
@@ -40,8 +42,20 @@ $reqs = function () use ($/* Replaced /* Replaced /* Replaced client */ */ */, $
 };
 
 $t = microtime(true);
-$/* Replaced /* Replaced /* Replaced client */ */ */->sendAll($reqs(), ['parallel' => $parallel]);
+Pool::send($/* Replaced /* Replaced /* Replaced client */ */ */, $reqs(), ['parallel' => $parallel]);
 $totalTime = microtime(true) - $t;
 $perRequest = ($totalTime / $total) * 1000;
-printf("Parallel: %f (%f ms / request) %d total with %d in parallel\n",
+printf("Batch:  %f (%f ms / request) %d total with %d in parallel\n",
     $totalTime, $perRequest, $total, $parallel);
+
+$handler = new CurlMultiHandler(['max_handles' => $parallel]);
+$/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler, 'base_url' => Server::$url]);
+$t = microtime(true);
+for ($i = 0; $i < $total; $i++) {
+    $/* Replaced /* Replaced /* Replaced client */ */ */->get('//* Replaced /* Replaced /* Replaced guzzle */ */ */-server/perf');
+}
+unset($/* Replaced /* Replaced /* Replaced client */ */ */);
+$totalTime = microtime(true) - $t;
+$perRequest = ($totalTime / $total) * 1000;
+printf("Future: %f (%f ms / request) %d total\n",
+    $totalTime, $perRequest, $total);

@@ -1,8 +1,7 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Subscriber;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Transaction;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\CompleteEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
@@ -23,7 +22,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
         $request = new Request('GET', '/');
         $response = new Response(400);
         $t = new Transaction(new Client(), $request);
-        $t->setResponse($response);
+        $t->response = $response;
         $e = new RequestException('foo', $request, $response);
         $ev = new ErrorEvent($t, $e);
         $h = new History(2);
@@ -48,7 +47,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
         $request = new Request('GET', '/');
         $response = new Response(200);
         $t = new Transaction(new Client(), $request);
-        $t->setResponse($response);
+        $t->response = $response;
         $ev = new CompleteEvent($t);
         $h = new History(2);
         $h->onComplete($ev);
@@ -72,6 +71,47 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, count($h));
         $h->clear();
         $this->assertEquals(0, count($h));
+    }
+
+    public function testWorksWithMock()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://localhost/']);
+        $h = new History();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($h);
+        $mock = new Mock([new Response(200), new Response(201), new Response(202)]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($mock);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $request->setMethod('PUT');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $request->setMethod('POST');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        $this->assertEquals(3, count($h));
+
+        $result = implode("\n", array_map(function ($line) {
+            return strpos($line, 'User-Agent') === 0
+                ? 'User-Agent:'
+                : trim($line);
+        }, explode("\n", $h)));
+
+        $this->assertEquals("> GET / HTTP/1.1
+Host: localhost
+User-Agent:
+
+< HTTP/1.1 200 OK
+
+> PUT / HTTP/1.1
+Host: localhost
+User-Agent:
+
+< HTTP/1.1 201 Created
+
+> POST / HTTP/1.1
+Host: localhost
+User-Agent:
+
+< HTTP/1.1 202 Accepted
+", $result);
     }
 
     public function testCanCastToString()

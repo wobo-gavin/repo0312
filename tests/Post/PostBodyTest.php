@@ -1,5 +1,4 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Post;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
@@ -151,8 +150,23 @@ class PostBodyTest extends \PHPUnit_Framework_TestCase
         $b = new PostBody();
         $b->setField('foo', 'bar');
         $b->detach();
-        $this->assertTrue($b->close());
+        $b->close();
         $this->assertEquals('', $b->read(10));
+    }
+
+    public function testDetachesWhenBodyIsPresent()
+    {
+        $b = new PostBody();
+        $b->setField('foo', 'bar');
+        $b->getContents();
+        $b->detach();
+    }
+
+    public function testFlushAndMetadataPlaceholders()
+    {
+        $b = new PostBody();
+        $this->assertEquals([], $b->getMetadata());
+        $this->assertNull($b->getMetadata('foo'));
     }
 
     public function testCreatesMultipartUploadWithMultiFields()

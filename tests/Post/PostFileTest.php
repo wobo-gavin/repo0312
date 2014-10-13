@@ -1,7 +1,7 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Post;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\MultipartBody;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\Stream;
 
@@ -37,14 +37,7 @@ class PostFileTest extends \PHPUnit_Framework_TestCase
 
     public function testCreatesFromMultipartFormData()
     {
-        $mp = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\MultipartBody')
-            ->setMethods(['getBoundary'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mp->expects($this->once())
-            ->method('getBoundary')
-            ->will($this->returnValue('baz'));
-
+        $mp = new MultipartBody([], [], 'baz');
         $p = new PostFile('foo', $mp);
         $this->assertEquals(
             'form-data; name="foo"',

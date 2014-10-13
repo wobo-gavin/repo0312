@@ -1,6 +1,7 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie;
+
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
 
 /**
  * Persists non-session cookies using a JSON formatted file
@@ -73,9 +74,9 @@ class FileCookieJar extends CookieJar
             // @codeCoverageIgnoreEnd
         }
 
-        $data = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode($json, true);
+        $data = Utils::jsonDecode($json, true);
         if (is_array($data)) {
-            foreach (\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode($json, true) as $cookie) {
+            foreach (Utils::jsonDecode($json, true) as $cookie) {
                 $this->setCookie(new SetCookie($cookie));
             }
         } elseif (strlen($data)) {

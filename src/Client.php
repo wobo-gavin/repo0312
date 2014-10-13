@@ -1,21 +1,20 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\AdapterInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\CurlAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Curl\MultiAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\FakeParallelAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\ParallelAdapterInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\StreamAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\StreamingProxyAdapter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\Transaction;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\TransactionIterator;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HasEmitterTrait;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactoryInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\Middleware;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlMultiHandler;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlHandler;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\StreamHandler;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Core;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+use React\Promise\FulfilledPromise;
+use React\Promise\RejectedPromise;
 
 /**
  * HTTP /* Replaced /* Replaced /* Replaced client */ */ */
@@ -24,22 +23,17 @@ class Client implements ClientInterface
 {
     use HasEmitterTrait;
 
-    const DEFAULT_CONCURRENCY = 25;
-
     /** @var MessageFactoryInterface Request factory used by the /* Replaced /* Replaced /* Replaced client */ */ */ */
     private $messageFactory;
-
-    /** @var AdapterInterface */
-    private $adapter;
-
-    /** @var ParallelAdapterInterface */
-    private $parallelAdapter;
 
     /** @var Url Base URL of the /* Replaced /* Replaced /* Replaced client */ */ */ */
     private $baseUrl;
 
     /** @var array Default request options */
     private $defaults;
+
+    /** @var callable Request state machine */
+    private $fsm;
 
     /**
      * Clients accept an array of constructor parameters.
@@ -65,20 +59,84 @@ class Client implements ClientInterface
      *       Can be a string or an array that contains a URI template followed
      *       by an associative array of expansion variables to inject into the
      *       URI template.
-     *     - adapter: Adapter used to transfer requests
-     *     - parallel_adapter: Adapter used to transfer requests in parallel
+     *     - handler: callable RingPHP handler used to transfer requests
      *     - message_factory: Factory used to create request and response object
      *     - defaults: Default request options to apply to each request
      *     - emitter: Event emitter used for request events
+     *     - fsm: (internal use only) The request finite state machine. A
+     *       function that accepts a transaction and optional final state. The
+     *       function is responsible for transitioning a request through its
+     *       lifecycle events.
      */
     public function __construct(array $config = [])
     {
         $this->configureBaseUrl($config);
         $this->configureDefaults($config);
-        $this->configureAdapter($config);
+
         if (isset($config['emitter'])) {
             $this->emitter = $config['emitter'];
         }
+
+        $this->messageFactory = isset($config['message_factory'])
+            ? $config['message_factory']
+            : new MessageFactory();
+
+        if (isset($config['fsm'])) {
+            $this->fsm = $config['fsm'];
+        } else {
+            if (isset($config['handler'])) {
+                $handler = $config['handler'];
+            } elseif (isset($config['Handler'])) {
+                $handler = $config['Handler'];
+            } else {
+                $handler = static::getDefaultHandler();
+            }
+            $this->fsm = new RequestFsm($handler, $this->messageFactory);
+        }
+    }
+
+    /**
+     * Create a default handler to use based on the environment
+     *
+     * @throws \RuntimeException if no viable Handler is available.
+     */
+    public static function getDefaultHandler()
+    {
+        $default = $future = $streaming = null;
+
+        if (extension_loaded('curl')) {
+            $config = [
+                'select_timeout' => getenv('GUZZLE_CURL_SELECT_TIMEOUT') ?: 1
+            ];
+            if ($maxHandles = getenv('GUZZLE_CURL_MAX_HANDLES')) {
+                $config['max_handles'] = $maxHandles;
+            }
+            $future = new CurlMultiHandler($config);
+            if (function_exists('curl_reset')) {
+                $default = new CurlHandler();
+            }
+        }
+
+        if (ini_get('allow_url_fopen')) {
+            $streaming = new StreamHandler();
+        }
+
+        if (!($default = ($default ?: $future) ?: $streaming)) {
+            throw new \RuntimeException('/* Replaced /* Replaced /* Replaced Guzzle */ */ */ requires cURL, the '
+                . 'allow_url_fopen ini setting, or a custom HTTP handler.');
+        }
+
+        $handler = $default;
+
+        if ($streaming && $streaming !== $default) {
+            $handler = Middleware::wrapStreaming($default, $streaming);
+        }
+
+        if ($future) {
+            $handler = Middleware::wrapFuture($handler, $future);
+        }
+
+        return $handler;
     }
 
     /**
@@ -100,26 +158,16 @@ class Client implements ClientInterface
         return $defaultAgent;
     }
 
-    public function __call($name, $arguments)
-    {
-        return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\deprecation_proxy(
-            $this,
-            $name,
-            $arguments,
-            ['getEventDispatcher' => 'getEmitter']
-        );
-    }
-
     public function getDefaultOption($keyOrPath = null)
     {
         return $keyOrPath === null
             ? $this->defaults
-            : \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_path($this->defaults, $keyOrPath);
+            : Utils::getPath($this->defaults, $keyOrPath);
     }
 
     public function setDefaultOption($keyOrPath, $value)
     {
-        \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\set_path($this->defaults, $keyOrPath, $value);
+        Utils::setPath($this->defaults, $keyOrPath, $value);
     }
 
     public function getBaseUrl()
@@ -188,32 +236,31 @@ class Client implements ClientInterface
 
     public function send(RequestInterface $request)
     {
-        $transaction = new Transaction($this, $request);
-        try {
-            if ($response = $this->adapter->send($transaction)) {
-                return $response;
+        $trans = new Transaction($this, $request);
+        $fn = $this->fsm;
+
+        // Ensure a future response is returned if one was requested.
+        if ($request->getConfig()->get('future')) {
+            try {
+                $fn($trans);
+                // Turn the normal response into a future if needed.
+                return $trans->response instanceof FutureInterface
+                    ? $trans->response
+                    : new FutureResponse(new FulfilledPromise($trans->response));
+            } catch (RequestException $e) {
+                // Wrap the exception in a promise if the user asked for a future.
+                return new FutureResponse(new RejectedPromise($e));
             }
-            throw new \LogicException('No response was associated with the transaction');
-        } catch (RequestException $e) {
-            throw $e;
-        } catch (\Exception $e) {
-            // Wrap exceptions in a RequestException to adhere to the interface
-            throw new RequestException($e->getMessage(), $request, null, $e);
+        } else {
+            try {
+                $fn($trans);
+                return $trans->response instanceof FutureInterface
+                    ? $trans->response->wait()
+                    : $trans->response;
+            } catch (\Exception $e) {
+                throw RequestException::wrapException($trans->request, $e);
+            }
         }
-    }
-
-    public function sendAll($requests, array $options = [])
-    {
-        if (!($requests instanceof TransactionIterator)) {
-            $requests = new TransactionIterator($requests, $this, $options);
-        }
-
-        $this->parallelAdapter->sendAll(
-            $requests,
-            isset($options['parallel'])
-                ? $options['parallel']
-                : self::DEFAULT_CONCURRENCY
-        );
     }
 
     /**
@@ -227,16 +274,8 @@ class Client implements ClientInterface
             'allow_redirects' => true,
             'exceptions'      => true,
             'decode_content'  => true,
-            'verify'          => __DIR__ . '/cacert.pem'
+            'verify'          => true
         ];
-
-        // Use the bundled cacert if it is a regular file, or set to true if
-        // using a phar file (because curL and the stream wrapper can't read
-        // cacerts from the phar stream wrapper). Favor the ini setting over
-        // the system's cacert.
-        if (substr(__FILE__, 0, 7) == 'phar://') {
-            $settings['verify'] = ini_get('openssl.cafile') ?: true;
-        }
 
         // Use the standard Linux HTTP_PROXY and HTTPS_PROXY if set
         if ($proxy = getenv('HTTP_PROXY')) {
@@ -259,55 +298,22 @@ class Client implements ClientInterface
      */
     private function buildUrl($url)
     {
+        // URI template (absolute or relative)
         if (!is_array($url)) {
-            if (strpos($url, '://')) {
-                return (string) $url;
-            }
-            return (string) $this->baseUrl->combine($url);
-        } elseif (strpos($url[0], '://')) {
-            return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\uri_template($url[0], $url[1]);
+            return strpos($url, '://')
+                ? (string) $url
+                : (string) $this->baseUrl->combine($url);
         }
 
+        // Absolute URL
+        if (strpos($url[0], '://')) {
+            return Utils::uriTemplate($url[0], $url[1]);
+        }
+
+        // Combine the relative URL with the base URL
         return (string) $this->baseUrl->combine(
-            \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\uri_template($url[0], $url[1])
+            Utils::uriTemplate($url[0], $url[1])
         );
-    }
-
-    /**
-     * Get a default parallel adapter to use based on the environment
-     *
-     * @return ParallelAdapterInterface
-     */
-    private function getDefaultParallelAdapter()
-    {
-        return extension_loaded('curl')
-            ? new MultiAdapter($this->messageFactory)
-            : new FakeParallelAdapter($this->adapter);
-    }
-
-    /**
-     * Create a default adapter to use based on the environment
-     * @throws \RuntimeException
-     */
-    private function getDefaultAdapter()
-    {
-        if (extension_loaded('curl')) {
-            $this->parallelAdapter = new MultiAdapter($this->messageFactory);
-            $this->adapter = function_exists('curl_reset')
-                ? new CurlAdapter($this->messageFactory)
-                : $this->parallelAdapter;
-            if (ini_get('allow_url_fopen')) {
-                $this->adapter = new StreamingProxyAdapter(
-                    $this->adapter,
-                    new StreamAdapter($this->messageFactory)
-                );
-            }
-        } elseif (ini_get('allow_url_fopen')) {
-            $this->adapter = new StreamAdapter($this->messageFactory);
-        } else {
-            throw new \RuntimeException('/* Replaced /* Replaced /* Replaced Guzzle */ */ */ requires cURL, the '
-                . 'allow_url_fopen ini setting, or a custom HTTP adapter.');
-        }
     }
 
     private function configureBaseUrl(&$config)
@@ -316,7 +322,7 @@ class Client implements ClientInterface
             $this->baseUrl = new Url('', '');
         } elseif (is_array($config['base_url'])) {
             $this->baseUrl = Url::fromString(
-                \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\uri_template(
+                Utils::uriTemplate(
                     $config['base_url'][0],
                     $config['base_url'][1]
                 )
@@ -343,30 +349,9 @@ class Client implements ClientInterface
             $this->defaults['headers'] = [
                 'User-Agent' => static::getDefaultUserAgent()
             ];
-        } elseif (!isset(array_change_key_case($this->defaults['headers'])['user-agent'])) {
+        } elseif (!Core::hasHeader($this->defaults, 'User-Agent')) {
             // Add the User-Agent header if one was not already set
             $this->defaults['headers']['User-Agent'] = static::getDefaultUserAgent();
-        }
-    }
-
-    private function configureAdapter(&$config)
-    {
-        if (isset($config['message_factory'])) {
-            $this->messageFactory = $config['message_factory'];
-        } else {
-            $this->messageFactory = new MessageFactory();
-        }
-        if (isset($config['adapter'])) {
-            $this->adapter = $config['adapter'];
-        } else {
-            $this->getDefaultAdapter();
-        }
-        // If no parallel adapter was explicitly provided and one was not
-        // defaulted when creating the default adapter, then create one now.
-        if (isset($config['parallel_adapter'])) {
-            $this->parallelAdapter = $config['parallel_adapter'];
-        } elseif (!$this->parallelAdapter) {
-            $this->parallelAdapter = $this->getDefaultParallelAdapter();
         }
     }
 
@@ -382,8 +367,7 @@ class Client implements ClientInterface
     private function mergeDefaults(&$options)
     {
         // Merging optimization for when no headers are present
-        if (!isset($options['headers'])
-            || !isset($this->defaults['headers'])) {
+        if (!isset($options['headers']) || !isset($this->defaults['headers'])) {
             $options = array_replace_recursive($this->defaults, $options);
             return null;
         }
@@ -393,5 +377,14 @@ class Client implements ClientInterface
         $options = array_replace_recursive($defaults, $options);
 
         return $this->defaults['headers'];
+    }
+
+    /**
+     * @deprecated Use {@see /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool} instead.
+     * @see /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool
+     */
+    public function sendAll($requests, array $options = [])
+    {
+        (new Pool($this, $requests, $options))->wait();
     }
 }

@@ -3,8 +3,19 @@
 
 [![Build Status](https://secure.travis-ci.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.png?branch=master)](http://travis-ci.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */)
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ that makes it easy to work with HTTP/1.1 and takes
-the pain out of consuming web services.
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ that makes it easy to send HTTP requests and
+trivial to integrate with web services.
+
+- Manages things like persistent connections, represents query strings as
+  collections, simplifies sending streaming POST requests with fields and
+  files, and abstracts away the underlying HTTP transport layer.
+- Can send both synchronous and asynchronous requests using the same interface
+  without requiring a dependency on a specific event loop.
+- Pluggable HTTP adapters allows /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to integrate with any method you choose
+  for sending HTTP requests over the wire (e.g., cURL, sockets, PHP's stream
+  wrapper, non-blocking event loops like ReactPHP.
+- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ makes it so that you no longer need to fool around with cURL options,
+  stream contexts, or sockets.
 
 ```php
 $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client();
@@ -18,23 +29,18 @@ echo $res->getBody();
 // {"type":"User"...'
 var_export($res->json());
 // Outputs the JSON decoded data
-```
 
-- Pluggable HTTP adapters that can send requests serially or in parallel
-- Doesn't require cURL, but uses cURL by default
-- Streams data for both uploads and downloads
-- Provides event hooks & plugins for cookies, caching, logging, OAuth, mocks,
-  etc.
-- Keep-Alive & connection pooling
-- SSL Verification
-- Automatic decompression of response bodies
-- Streaming multipart file uploads
-- Connection timeouts
+// Send an asynchronous request.
+$req = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://httpbin.org', ['future' => true]);
+$/* Replaced /* Replaced /* Replaced client */ */ */->send($req)->then(function ($response) {
+    echo 'I completed! ' . $response;
+});
+```
 
 Get more information and answers with the
 [Documentation](http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/),
 [Forums](https://groups.google.com/forum/?hl=en#!forum//* Replaced /* Replaced /* Replaced guzzle */ */ */),
-and IRC ([#/* Replaced /* Replaced /* Replaced guzzle */ */ */php](irc://irc.freenode.net/#/* Replaced /* Replaced /* Replaced guzzle */ */ */php) @ irc.freenode.net).
+and [Gitter](https://gitter.im//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */).
 
 ### Installing via Composer
 
@@ -51,7 +57,7 @@ Next, update your project's composer.json file to include /* Replaced /* Replace
 ```javascript
 {
     "require": {
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "~4.0"
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "~5.0"
     }
 }
 ```

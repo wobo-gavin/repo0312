@@ -1,5 +1,4 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
@@ -8,8 +7,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInte
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Mimetypes;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\MetadataStreamInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Mimetypes;
 
 /**
  * Prepares requests with a body before sending
@@ -56,10 +55,6 @@ class Prepare implements SubscriberInterface
         RequestInterface $request,
         StreamInterface $body
     ) {
-        if (!($body instanceof MetadataStreamInterface)) {
-            return;
-        }
-
         if (!($uri = $body->getMetadata('uri'))) {
             return;
         }
@@ -89,13 +84,13 @@ class Prepare implements SubscriberInterface
         }
 
         if (null !== ($size = $body->getSize())) {
-            $request->setHeader('Content-Length', $size)
-                ->removeHeader('Transfer-Encoding');
+            $request->setHeader('Content-Length', $size);
+            $request->removeHeader('Transfer-Encoding');
         } elseif ('1.1' == $request->getProtocolVersion()) {
             // Use chunked Transfer-Encoding if there is no determinable
             // content-length header and we're using HTTP/1.1.
-            $request->setHeader('Transfer-Encoding', 'chunked')
-                ->removeHeader('Content-Length');
+            $request->setHeader('Transfer-Encoding', 'chunked');
+            $request->removeHeader('Content-Length');
         }
     }
 
