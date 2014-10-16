@@ -30,6 +30,7 @@ class AbstractTransferEventTest extends \PHPUnit_Framework_TestCase
         $e = $this->getMockBuilder('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\AbstractTransferEvent')
             ->setConstructorArgs([$t])
             ->getMockForAbstractClass();
+        $this->assertTrue($e->hasResponse());
         $this->assertSame($t->response, $e->getResponse());
     }
 
