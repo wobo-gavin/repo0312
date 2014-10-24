@@ -216,4 +216,16 @@ class PoolTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $result);
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException', $result[0]);
     }
+
+    public function testHasSendMethod()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $responses = [new Response(404)];
+        $history = new History();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($history);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach(new Mock($responses));
+        $requests = [$/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://foo.com/baz')];
+        Pool::send($/* Replaced /* Replaced /* Replaced client */ */ */, $requests);
+        $this->assertCount(1, $history);
+    }
 }
