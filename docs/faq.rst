@@ -97,7 +97,7 @@ exception.
 
 .. code-block:: php
 
-    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', ['future' => true']);
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', ['future' => true]);
     $/* Replaced /* Replaced /* Replaced client */ */ */->send($request)->then(function ($response) {
         echo 'Got a response! ' . $response;
     });
@@ -107,7 +107,7 @@ of a response.
 
 .. code-block:: php
 
-    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', ['future' => true']);
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', ['future' => true]);
     $futureResponse = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
     $futureResponse->wait();
 
