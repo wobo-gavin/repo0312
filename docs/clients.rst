@@ -530,7 +530,7 @@ json
 
 .. code-block:: php
 
-    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('/put', ['json' => ['foo' => 'bar']]);
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('PUT', '/put', ['json' => ['foo' => 'bar']]);
     echo $request->getHeader('Content-Type');
     // application/json
     echo $request->getBody();
