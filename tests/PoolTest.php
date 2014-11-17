@@ -228,4 +228,34 @@ class PoolTest extends \PHPUnit_Framework_TestCase
         Pool::send($/* Replaced /* Replaced /* Replaced client */ */ */, $requests);
         $this->assertCount(1, $history);
     }
+
+    public function testDoesNotInfinitelyRecurse()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => function () {
+            throw new \RuntimeException('No network access');
+        }]);
+
+        $last = null;
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on(
+            'before',
+            function (BeforeEvent $e) use (&$last) {
+                $e->intercept(new Response(200));
+                if (function_exists('xdebug_get_stack_depth')) {
+                    if ($last) {
+                        $this->assertEquals($last, xdebug_get_stack_depth());
+                    } else {
+                        $last = xdebug_get_stack_depth();
+                    }
+                }
+            }
+        );
+
+        $requests = [];
+        for ($i = 0; $i < 100; $i++) {
+            $requests[] = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://foo.com');
+        }
+
+        $pool = new Pool($/* Replaced /* Replaced /* Replaced client */ */ */, $requests);
+        $pool->wait();
+    }
 }
