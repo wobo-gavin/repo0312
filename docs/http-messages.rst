@@ -351,7 +351,7 @@ method of a request.
     $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/');
     $config = $request->getConfig();
 
-The config object is a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Common\Collection`` object that acts like
+The config object is a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection`` object that acts like
 an associative array. You can grab values from the collection using array like
 access. You can also modify and remove values using array like access.
 
@@ -393,7 +393,7 @@ allow customization through request configuration options.
 Event Emitter
 -------------
 
-Request objects implement ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Common\HasEmitterInterface``, so they
+Request objects implement ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\HasEmitterInterface``, so they
 have a method called ``getEmitter()`` that can be used to get an event emitter
 used by the request. Any listener or subscriber attached to a request will only
 be triggered for the lifecycle events of a specific request. Conversely, adding
