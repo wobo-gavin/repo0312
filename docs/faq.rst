@@ -64,7 +64,7 @@ an HTTP response into a more meaningful model object.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Command <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//command>`_: Provides the building
   blocks for service description abstraction.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Services <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */-services>`_: Provides an
-  implementation of "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Command" that utlizes /* Replaced /* Replaced /* Replaced Guzzle */ */ */'s service description
+  implementation of "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Command" that utilizes /* Replaced /* Replaced /* Replaced Guzzle */ */ */'s service description
   format.
 
 Does /* Replaced /* Replaced /* Replaced Guzzle */ */ */ require cURL?
@@ -91,7 +91,7 @@ Can /* Replaced /* Replaced /* Replaced Guzzle */ */ */ send asynchronous reques
 Yes. Pass the ``future`` true request option to a request to send it
 asynchronously. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will then return a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse``
 object that can be used synchronously by accessing the response object like a
-normal response, and it can be used asynchronoulsy using a promise that is
+normal response, and it can be used asynchronously using a promise that is
 notified when the response is resolved with a real response or rejected with an
 exception.
 
