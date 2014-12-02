@@ -13,7 +13,7 @@ foreach (['README.md', 'LICENSE'] as $file) {
 
 // Copy each dependency to the staging directory. Copy *.php and *.pem files.
 $packager->recursiveCopy('src', '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http', ['php']);
-$packager->recursiveCopy('vendor/react/promise/src', '');
+$packager->recursiveCopy('vendor/react/promise/src', 'React/Promise');
 $packager->recursiveCopy('vendor//* Replaced /* Replaced /* Replaced guzzle */ */ */http/ringphp/src', '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http/Ring');
 $packager->recursiveCopy('vendor//* Replaced /* Replaced /* Replaced guzzle */ */ */http/streams/src', '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http/Stream');
 $packager->createAutoloader(['React/Promise/functions.php']);
