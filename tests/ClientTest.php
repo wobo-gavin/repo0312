@@ -7,10 +7,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\ErrorEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\MessageFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureArray;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
 use React\Promise\Deferred;
 
 /**
@@ -590,5 +592,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $res = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\FutureResponse', $res);
         $this->assertEquals(200, $res->getStatusCode());
+    }
+
+    public function testCanUseUrlWithCustomQuery()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $url = Url::fromString('http://foo.com/bar');
+        $query = new Query(['baz' => '123%20']);
+        $query->setEncodingType(false);
+        $url->setQuery($query);
+        $r = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', $url);
+        $this->assertEquals('http://foo.com/bar?baz=123%20', $r->getUrl());
     }
 }
