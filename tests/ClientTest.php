@@ -245,6 +245,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('custom', $request->getHeader('Foo'));
     }
 
+    public function testCanOverrideDefaultOptionWithNull()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['defaults' => ['proxy' => 'invalid!']]);
+        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://foo.com?a=b', [
+            'proxy' => null
+        ]);
+        $this->assertFalse($request->getConfig()->hasKey('proxy'));
+    }
+
     public function testDoesNotOverwriteExistingUA()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['defaults' => [
