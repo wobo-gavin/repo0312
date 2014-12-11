@@ -84,7 +84,7 @@ interfaces.
   moved to `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::jsonDecode`. `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_path` moved to
   `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::getPath`. `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\set_path` moved to
   `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::setPath`. `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\batch` should now be
-  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool::batch`, which returns a bjectStorage`. Using functions.php
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool::batch`, which returns an objectStorage`. Using functions.php
   caused problems for many users: they aren't PSR-4 compliant, require an
   explicit include, and needed an if-guard to ensure that the functions are not
   declared multiple times.
