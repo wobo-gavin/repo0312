@@ -4,9 +4,9 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\RequestEvents;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\SubscriberInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\AppliesHeadersInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Mimetypes;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface;
 
 /**
@@ -40,8 +40,8 @@ class Prepare implements SubscriberInterface
 
         $this->addContentLength($request, $body);
 
-        if ($body instanceof PostBodyInterface) {
-            // Synchronize the POST body with the request's headers
+        if ($body instanceof AppliesHeadersInterface) {
+            // Synchronize the body with the request headers
             $body->applyRequestHeaders($request);
         } elseif (!$request->hasHeader('Content-Type')) {
             $this->addContentType($request, $body);
