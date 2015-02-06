@@ -75,7 +75,7 @@ subscriber maintains a history of the requests that were sent by a /* Replaced /
     // Get the last request
     $lastRequest = $history->getLastRequest();
     // Get the last response
-    $lastRequest = $history->getLastResponse();
+    $lastResponse = $history->getLastResponse();
 
     // Iterate over the transactions that were sent
     foreach ($history as $transaction) {
@@ -134,7 +134,7 @@ Mock Adapter
 ============
 
 In addition to using the Mock subscriber, you can use the
-``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockAdapter`` as the handler of a /* Replaced /* Replaced /* Replaced client */ */ */ to return the
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\MockHandler`` as the handler of a /* Replaced /* Replaced /* Replaced client */ */ */ to return the
 same response over and over or return the result of a callable function.
 
 Test Web Server
