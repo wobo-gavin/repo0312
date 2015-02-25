@@ -2,9 +2,8 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Exception\ConnectException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
@@ -73,11 +72,11 @@ class RequestExceptionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($e, $ex->getPrevious());
     }
 
-    public function testWrapsConnectExceptions()
+    public function testDoesNotWrapExistingRequestExceptions()
     {
-        $e = new ConnectException('foo');
         $r = new Request('GET', 'http://www.oo.com');
-        $ex = RequestException::wrapException($r, $e);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException', $ex);
+        $e = new RequestException('foo', $r);
+        $e2 = RequestException::wrapException($r, $e);
+        $this->assertSame($e, $e2);
     }
 }

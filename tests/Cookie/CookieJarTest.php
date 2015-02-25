@@ -1,11 +1,10 @@
 <?php
-
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\CookieJar;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar
@@ -286,7 +285,7 @@ class CookieJarTest extends \PHPUnit_Framework_TestCase
         }
 
         $request = new Request('GET', $url);
-        $this->jar->addCookieHeader($request);
+        $request = $this->jar->withCookieHeader($request);
         $this->assertEquals($cookies, $request->getHeader('Cookie'));
     }
 

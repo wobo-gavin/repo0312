@@ -1,11 +1,9 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\ResponseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Exception\ConnectException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException as HttpConnectException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 
 /**
  * HTTP Request exception
@@ -25,7 +23,7 @@ class RequestException extends TransferException
         \Exception $previous = null
     ) {
         // Set the code of the exception if the response is set and not future.
-        $code = $response && !($response instanceof FutureInterface)
+        $code = $response && !($response instanceof PromiseInterface)
             ? $response->getStatusCode()
             : 0;
         parent::__construct($message, $code, $previous);
@@ -45,11 +43,9 @@ class RequestException extends TransferException
     {
         if ($e instanceof RequestException) {
             return $e;
-        } elseif ($e instanceof ConnectException) {
-            return new HttpConnectException($e->getMessage(), $request, null, $e);
-        } else {
-            return new RequestException($e->getMessage(), $request, null, $e);
         }
+
+        return new RequestException($e->getMessage(), $request, null, $e);
     }
 
     /**
@@ -82,7 +78,7 @@ class RequestException extends TransferException
             $className = __CLASS__;
         }
 
-        $message = $label . ' [url] ' . $request->getUrl()
+        $message = $label . ' [url] ' . $request->getUri()
             . ' [status code] ' . $response->getStatusCode()
             . ' [reason phrase] ' . $response->getReasonPhrase();
 
