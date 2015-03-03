@@ -13,6 +13,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Future\FutureAr
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
 use React\Promise\Deferred;
 
 /**
@@ -28,12 +29,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->ma = function () {
             throw new \RuntimeException('Should not have been called.');
         };
-    }
-
-    public function testProvidesDefaultUserAgent()
-    {
-        $ua = Client::getDefaultUserAgent();
-        $this->assertEquals(1, preg_match('#^/* Replaced /* Replaced /* Replaced Guzzle */ */ *//.+ curl/.+ PHP/.+$#', $ua));
     }
 
     public function testUsesDefaultDefaultOptions()
@@ -138,7 +133,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['defaults' => ['allow_redirects' => false]]);
         $this->assertFalse($/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('allow_redirects'));
         $this->assertEquals(
-            ['User-Agent' => Client::getDefaultUserAgent()],
+            ['User-Agent' => Utils::getDefaultUserAgent()],
             $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('headers')
         );
     }
@@ -147,7 +142,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertEquals(
-            ['User-Agent' => Client::getDefaultUserAgent()],
+            ['User-Agent' => Utils::getDefaultUserAgent()],
             $/* Replaced /* Replaced /* Replaced client */ */ */->getDefaultOption('headers')
         );
     }

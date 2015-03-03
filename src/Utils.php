@@ -1,6 +1,11 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlHandler;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\CurlMultiHandler;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\StreamHandler;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Ring\Client\Middleware;
+
 /**
  * Utility methods used throughout /* Replaced /* Replaced /* Replaced Guzzle */ */ */.
  */
@@ -147,5 +152,60 @@ final class Utils
         }
 
         return $data;
+    }
+
+    /**
+     * Get the default User-Agent string to use with /* Replaced /* Replaced /* Replaced Guzzle */ */ */
+     *
+     * @return string
+     */
+    public static function getDefaultUserAgent()
+    {
+        static $defaultAgent = '';
+        if (!$defaultAgent) {
+            $defaultAgent = '/* Replaced /* Replaced /* Replaced Guzzle */ */ *//' . ClientInterface::VERSION;
+            if (extension_loaded('curl')) {
+                $defaultAgent .= ' curl/' . curl_version()['version'];
+            }
+            $defaultAgent .= ' PHP/' . PHP_VERSION;
+        }
+
+        return $defaultAgent;
+    }
+
+    /**
+     * Create a default handler to use based on the environment
+     *
+     * @throws \RuntimeException if no viable Handler is available.
+     */
+    public static function getDefaultHandler()
+    {
+        $default = $future = null;
+
+        if (extension_loaded('curl')) {
+            $config = [
+                'select_timeout' => getenv('GUZZLE_CURL_SELECT_TIMEOUT') ?: 1
+            ];
+            if ($maxHandles = getenv('GUZZLE_CURL_MAX_HANDLES')) {
+                $config['max_handles'] = $maxHandles;
+            }
+            if (function_exists('curl_reset')) {
+                $default = new CurlHandler();
+                $future = new CurlMultiHandler($config);
+            } else {
+                $default = new CurlMultiHandler($config);
+            }
+        }
+
+        if (ini_get('allow_url_fopen')) {
+            $default = !$default
+                ? new StreamHandler()
+                : Middleware::wrapStreaming($default, new StreamHandler());
+        } elseif (!$default) {
+            throw new \RuntimeException('/* Replaced /* Replaced /* Replaced Guzzle */ */ */ requires cURL, the '
+                . 'allow_url_fopen ini setting, or a custom HTTP handler.');
+        }
+
+        return $future ? Middleware::wrapFuture($default, $future) : $default;
     }
 }
