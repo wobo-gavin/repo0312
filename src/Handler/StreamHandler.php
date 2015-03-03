@@ -62,7 +62,7 @@ class StreamHandler
         $response = [
             'status'         => $parts[1],
             'reason'         => isset($parts[2]) ? $parts[2] : null,
-            'headers'        => \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\headers_from_lines($hdrs)
+            'headers'        => \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::headersFromLines($hdrs)
         ];
 
         $stream = $this->checkDecode($options, $response['headers'], $stream);
@@ -281,7 +281,7 @@ class StreamHandler
             // PHP 5.6 or greater will find the system cert by default. When
             // < 5.6, use the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ bundled cacert.
             if (PHP_VERSION_ID < 50600) {
-                $options['ssl']['cafile'] = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_ca_bundle();
+                $options['ssl']['cafile'] = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::defaultCaBundle();
             }
         } elseif (is_string($value)) {
             $options['ssl']['cafile'] = $value;
@@ -346,7 +346,7 @@ class StreamHandler
         static $args = ['severity', 'message', 'message_code',
             'bytes_transferred', 'bytes_max'];
 
-        $value = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_debug_resource($value);
+        $value = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::getDebugResource($value);
         $ident = $request->getMethod() . ' ' . $request->getUri();
         $this->addNotification(
             $params,

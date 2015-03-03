@@ -4,7 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils as /* Replaced /* Replaced /* Replaced Psr7 */ */ */Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -209,7 +209,7 @@ final class Middleware
                         $modify['set_headers']['Transfer-Encoding'] = 'chunked';
                     }
                 }
-                return $handler(Utils::modifyRequest($request, $modify), $options);
+                return $handler(/* Replaced /* Replaced /* Replaced Psr7 */ */ */Utils::modifyRequest($request, $modify), $options);
             };
         };
     }

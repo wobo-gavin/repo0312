@@ -5,7 +5,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadRespons
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TooManyRedirectsException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils as /* Replaced /* Replaced /* Replaced Psr7 */ */ */Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -127,7 +127,7 @@ class RedirectMiddleware
         }
 
         $modify['uri'] = $this->redirectUri($request, $response, $protocols);
-        Utils::rewindBody($request);
+        /* Replaced /* Replaced /* Replaced Psr7 */ */ */Utils::rewindBody($request);
 
         // Add the Referer header if it is told to do so and only
         // add the header if we are not redirecting from https to http.
@@ -141,7 +141,7 @@ class RedirectMiddleware
             $modify['remove_headers'][] = 'Referer';
         }
 
-        return Utils::modifyRequest($request, $modify);
+        return /* Replaced /* Replaced /* Replaced Psr7 */ */ */Utils::modifyRequest($request, $modify);
     }
 
     /**

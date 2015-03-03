@@ -130,6 +130,6 @@ class ResponsePromise extends Promise implements ResponsePromiseInterface
 
         throw new \InvalidArgumentException('A response promise must be '
             . 'resolved with a Psr\Http\Message\ResponseInterface or a '
-            . '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RejectedPromise. Found ' . \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\describe_type($value));
+            . '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RejectedPromise. Found ' . Utils::describeType($value));
     }
 }
