@@ -5,7 +5,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlMultiHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\Proxy;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\StreamHandler;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 
 /**
  * Utility methods used throughout /* Replaced /* Replaced /* Replaced Guzzle */ */ */.
@@ -335,22 +334,5 @@ EOT
         }
 
         return $defaultAgent;
-    }
-
-    /**
-     * Wait on multiple promises
-     *
-     * @param PromiseInterface[] $promises Promise to await.
-     *
-     * @return array Returns the responses
-     */
-    public static function waitAll(array $promises)
-    {
-        $results = [];
-        foreach ($promises as $promise) {
-            $results[] = $promise->wait();
-        }
-
-        return $results;
     }
 }

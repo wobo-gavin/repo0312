@@ -5,10 +5,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\FulfilledPromise;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils as /* Replaced /* Replaced /* Replaced Psr7 */ */ */Utils;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\RequestInterface;
 use \InvalidArgumentException as Iae;
@@ -31,7 +28,7 @@ use \InvalidArgumentException as Iae;
  */
 class Client implements ClientInterface
 {
-    /** @var Uri Base URI of the /* Replaced /* Replaced /* Replaced client */ */ */ */
+    /** @var /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri Base URI of the /* Replaced /* Replaced /* Replaced client */ */ */ */
     private $baseUri;
 
     /** @var array Default request options */
@@ -134,7 +131,7 @@ class Client implements ClientInterface
         $version = isset($options['version']) ? $options['version'] : '1.1';
         // Merge the URI into the base URI.
         $uri = $this->buildUri($uri);
-        $request = new Request($method, $uri, $headers, $body, $version);
+        $request = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request($method, $uri, $headers, $body, $version);
         unset($options['headers'], $options['body'], $options['version']);
 
         return $this->transfer($request, $options);
@@ -169,7 +166,7 @@ class Client implements ClientInterface
     {
         // URI template (absolute or relative)
         if (!is_array($uri)) {
-            return Uri::resolve($this->baseUri, $uri);
+            return /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri::resolve($this->baseUri, $uri);
         }
 
         if (!isset($uri[1])) {
@@ -179,24 +176,27 @@ class Client implements ClientInterface
 
         // Absolute URL
         if (strpos($uri[0], '://')) {
-            return new Uri(Utils::uriTemplate($uri[0], $uri[1]));
+            return new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri(Utils::uriTemplate($uri[0], $uri[1]));
         }
 
         // Combine the relative URL with the base URL
-        return Uri::resolve($this->baseUri, Utils::uriTemplate($uri[0], $uri[1]));
+        return /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri::resolve(
+            $this->baseUri,
+            Utils::uriTemplate($uri[0], $uri[1])
+        );
     }
 
     private function configureBaseUri($config)
     {
         if (!isset($config['base_uri'])) {
-            $this->baseUri = new Uri('');
+            $this->baseUri = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri('');
         } elseif (!is_array($config['base_uri'])) {
-            $this->baseUri = new Uri($config['base_uri']);
+            $this->baseUri = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri($config['base_uri']);
         } elseif (count($config['base_uri']) < 2) {
             throw new \InvalidArgumentException('You must provide a hash of '
                 . 'varname options in the second element of a base_uri array.');
         } else {
-            $this->baseUri = new Uri(
+            $this->baseUri = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri(
                 Utils::uriTemplate(
                     $config['base_uri'][0],
                     $config['base_uri'][1]
@@ -432,7 +432,7 @@ class Client implements ClientInterface
                     break;
 
                 case 'body':
-                    $modify['body'] = Stream::factory($value);
+                    $modify['body'] = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory($value);
                     unset($options['body']);
                     break;
 
@@ -467,7 +467,7 @@ class Client implements ClientInterface
                     break;
 
                 case 'json':
-                    $modify['body'] = Stream::factory(json_encode($value));
+                    $modify['body'] = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory(json_encode($value));
                     if (!$request->hasHeader('Content-Type')) {
                         $modify['set_headers']['Content-Type'] = 'application/json';
                     }
@@ -476,7 +476,7 @@ class Client implements ClientInterface
             }
         }
 
-        return /* Replaced /* Replaced /* Replaced Psr7 */ */ */Utils::modifyRequest($request, $modify);
+        return /* Replaced /* Replaced /* Replaced Psr7 */ */ */\modify_request($request, $modify);
     }
 
     /**

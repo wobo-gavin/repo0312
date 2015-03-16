@@ -6,10 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RejectedResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\FulfilledResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ResponsePromiseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\InflateStream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamableInterface;
 
@@ -76,7 +73,7 @@ class StreamHandler
         }
 
         return new FulfilledResponse(
-            new Response(
+            new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response(
                 $response['status'],
                 $response['headers'],
                 $stream
@@ -91,7 +88,9 @@ class StreamHandler
             foreach ($headers as $key => $value) {
                 if (strtolower($key) == 'content-encoding') {
                     if ($value == 'gzip' || $value == 'deflate') {
-                        return new InflateStream(Stream::factory($stream));
+                        return new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\InflateStream(
+                            /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory($stream)
+                        );
                     }
                 }
             }
@@ -113,21 +112,21 @@ class StreamHandler
     {
         if (is_resource($stream)) {
             if (!is_resource($dest)) {
-                $stream = Stream::factory($stream);
+                $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory($stream);
             } else {
                 stream_copy_to_stream($stream, $dest);
                 fclose($stream);
                 rewind($dest);
-                return Stream::factory($dest);
+                return /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory($dest);
             }
         }
 
         // Stream the response into the destination stream
         $dest = is_string($dest)
-            ? new Stream(Utils::open($dest, 'r+'))
-            : Stream::factory($dest);
+            ? new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\try_fopen($dest, 'r+'))
+            : /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory($dest);
 
-        Utils::copyToStream($stream, $dest);
+        /* Replaced /* Replaced /* Replaced Psr7 */ */ */\copy_to_stream($stream, $dest);
         $dest->seek(0);
         $stream->close();
 
