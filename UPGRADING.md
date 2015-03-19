@@ -35,7 +35,7 @@ functions can be used as replacements.
   deprecated in favor of using `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool::batch()`.
 
 The "procedural" global /* Replaced /* Replaced /* Replaced client */ */ */ has been removed with no replacement (e.g.,
-`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get()`, `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\post()`, etc.). Use a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Httl\Client`
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get()`, `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\post()`, etc.). Use a `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client`
 object as a replacement.
 
 ## `throwImmediately` has been removed
