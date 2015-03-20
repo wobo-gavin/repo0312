@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\RejectedPromise;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\LazyOpenStream;
 use Psr\Http\Message\RequestInterface;
@@ -146,7 +147,7 @@ class CurlFactory
             );
         }
 
-        return new RejectedResponse($error);
+        return new RejectedPromise($error);
     }
 
     private function getOutputBody(RequestInterface $request, array $options, array &$conf)
