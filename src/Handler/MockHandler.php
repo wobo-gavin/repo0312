@@ -1,10 +1,9 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\FulfilledPromise;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ResponsePromiseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RejectedResponse;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\FulfilledResponse;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\RejectedPromise;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -43,12 +42,12 @@ class MockHandler
             : $this->result;
 
         if ($response instanceof \Exception) {
-            return new RejectedResponse($response);
-        } elseif ($response instanceof ResponsePromiseInterface) {
+            return new RejectedPromise($response);
+        } elseif ($response instanceof PromiseInterface) {
             return $response;
         }
 
-        return new FulfilledResponse($response);
+        return new FulfilledPromise($response);
     }
 
     private function createQueueFn(array $queue)

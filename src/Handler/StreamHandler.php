@@ -2,10 +2,10 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RejectedResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\FulfilledResponse;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ResponsePromiseInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\FulfilledPromise;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\RejectedPromise;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamableInterface;
@@ -21,7 +21,7 @@ class StreamHandler
      * @param RequestInterface $request Request to send.
      * @param array            $options Request transfer options.
      *
-     * @return ResponsePromiseInterface
+     * @return PromiseInterface
      */
     public function __invoke(RequestInterface $request, array $options)
     {
@@ -44,7 +44,7 @@ class StreamHandler
             ) {
                 $e = new ConnectException($e->getMessage(), $request, null, $e);
             }
-            return new RejectedResponse(
+            return new RejectedPromise(
                 RequestException::wrapException($request, $e)
             );
         }
@@ -59,7 +59,7 @@ class StreamHandler
         $response = [
             'status'         => $parts[1],
             'reason'         => isset($parts[2]) ? $parts[2] : null,
-            'headers'        => \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::headersFromLines($hdrs)
+            'headers'        => \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\headers_from_lines($hdrs)
         ];
 
         $stream = $this->checkDecode($options, $response['headers'], $stream);
@@ -72,7 +72,7 @@ class StreamHandler
             $stream = $this->drain($stream, $dest);
         }
 
-        return new FulfilledResponse(
+        return new FulfilledPromise(
             new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response(
                 $response['status'],
                 $response['headers'],
@@ -280,7 +280,7 @@ class StreamHandler
             // PHP 5.6 or greater will find the system cert by default. When
             // < 5.6, use the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ bundled cacert.
             if (PHP_VERSION_ID < 50600) {
-                $options['ssl']['cafile'] = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::defaultCaBundle();
+                $options['ssl']['cafile'] = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_ca_bundle();
             }
         } elseif (is_string($value)) {
             $options['ssl']['cafile'] = $value;
@@ -345,7 +345,7 @@ class StreamHandler
         static $args = ['severity', 'message', 'message_code',
             'bytes_transferred', 'bytes_max'];
 
-        $value = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::getDebugResource($value);
+        $value = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_debug_resource($value);
         $ident = $request->getMethod() . ' ' . $request->getUri();
         $this->addNotification(
             $params,

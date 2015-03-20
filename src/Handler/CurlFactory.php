@@ -1,13 +1,11 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RejectedResponse;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\LazyOpenStream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamableInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -81,7 +79,7 @@ class CurlFactory
 
         if (!empty($headers)) {
             $startLine = explode(' ', array_shift($headers), 3);
-            $headerList = Utils::headersFromLines($headers);
+            $headerList = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\headers_from_lines($headers);
             $response['headers'] = $headerList;
             $response['status'] = isset($startLine[1]) ? (int) $startLine[1] : null;
             $response['reason'] = isset($startLine[2]) ? $startLine[2] : null;
@@ -500,7 +498,7 @@ class CurlFactory
             case 'debug':
 
                 if ($value) {
-                    $conf[CURLOPT_STDERR] = Utils::getDebugResource($value);
+                    $conf[CURLOPT_STDERR] = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_debug_resource($value);
                     $conf[CURLOPT_VERBOSE] = true;
                 }
                 break;

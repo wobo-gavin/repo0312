@@ -1,7 +1,7 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ResponsePromise;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\Promise;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream;
 use Psr\Http\Message\RequestInterface;
 
@@ -78,7 +78,7 @@ class CurlMultiHandler
         $factory = $this->factory;
         $result = $factory($request, $options);
         $id = (int) $result[0];
-        $promise = new ResponsePromise(
+        $promise = new Promise(
             [$this, 'execute'],
             function () use ($id) { return $this->cancel($id); }
         );
