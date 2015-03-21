@@ -37,7 +37,7 @@ class Server
     {
         self::start();
 
-        return self::$/* Replaced /* Replaced /* Replaced client */ */ */->request('DELETE', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests')->wait();
+        return self::$/* Replaced /* Replaced /* Replaced client */ */ */->request('DELETE', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests');
     }
 
     /**
@@ -73,7 +73,7 @@ class Server
 
         self::getClient()->request('PUT', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/responses', [
             'json' => json_encode($data)
-        ])->wait();
+        ]);
     }
 
     /**
@@ -92,7 +92,7 @@ class Server
             return [];
         }
 
-        $response = self::getClient()->request('GET', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests')->wait();
+        $response = self::getClient()->request('GET', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests');
         $data = array_filter(explode(self::REQUEST_DELIMITER, (string) $response->getBody()));
         if ($hydrate) {
             $data = array_map(
@@ -112,7 +112,7 @@ class Server
     public static function stop()
     {
         if (self::$started) {
-            self::getClient()->request('DELETE', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server')->wait();
+            self::getClient()->request('DELETE', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server');
         }
 
         self::$started = false;
@@ -151,7 +151,7 @@ class Server
             self::getClient()->request('GET', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/perf', [
                 'connect_timeout' => 5,
                 'timeout'         => 5
-            ])->wait();
+            ]);
             return true;
         } catch (\Exception $e) {
             return false;
