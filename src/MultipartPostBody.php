@@ -1,9 +1,7 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\AppendStream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\StreamDecoratorTrait;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use Psr\Http\Message\StreamableInterface;
 
 /**
@@ -11,7 +9,7 @@ use Psr\Http\Message\StreamableInterface;
  */
 class MultipartPostBody implements StreamableInterface
 {
-    use StreamDecoratorTrait;
+    use /* Replaced /* Replaced /* Replaced Psr7 */ */ */\StreamDecoratorTrait;
 
     private $boundary;
 
@@ -86,12 +84,12 @@ class MultipartPostBody implements StreamableInterface
      */
     protected function createStream(array $fields, array $files)
     {
-        $stream = new AppendStream();
+        $stream = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\AppendStream();
 
         foreach ($fields as $name => $fieldValues) {
             foreach ((array) $fieldValues as $value) {
                 $stream->addStream(
-                    Stream::factory($this->getFieldString($name, $value))
+                    /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory($this->getFieldString($name, $value))
                 );
             }
         }
@@ -101,12 +99,12 @@ class MultipartPostBody implements StreamableInterface
         }
 
         // Add the trailing boundary with CRLF
-        $stream->addStream(Stream::factory("--{$this->boundary}--\r\n"));
+        $stream->addStream(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory("--{$this->boundary}--\r\n"));
 
         return $stream;
     }
 
-    private function addFileArray(AppendStream $stream, $name, $file)
+    private function addFileArray(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\AppendStream $stream, $name, $file)
     {
         if ($file instanceof StreamableInterface || is_resource($file)) {
             // A single file
@@ -130,11 +128,11 @@ class MultipartPostBody implements StreamableInterface
         }
     }
 
-    private function addFile(AppendStream $stream, array $file)
+    private function addFile(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\AppendStream $stream, array $file)
     {
-        $stream->addStream(Stream::factory($this->getFileHeaders($file[1])));
+        $stream->addStream(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory($this->getFileHeaders($file[1])));
         $stream->addStream($file[0]);
-        $stream->addStream(Stream::factory("\r\n"));
+        $stream->addStream(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory("\r\n"));
     }
 
     /**
@@ -142,7 +140,7 @@ class MultipartPostBody implements StreamableInterface
      */
     private function createPostFile($name, $stream, array $headers = [])
     {
-        $stream = Stream::factory($stream);
+        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory($stream);
         $filename = $name;
 
         if ($uri = $stream->getMetadata('uri')) {
@@ -172,9 +170,7 @@ class MultipartPostBody implements StreamableInterface
         // Set a default Content-Type if one was not supplied
         $type = $this->getHeader($headers, 'content-type');
         if (!$type) {
-            $mimes = Mimetypes::getInstance();
-            $type = $mimes->fromFilename($filename);
-            if ($type) {
+            if ($type = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\mimetype_from_filename($filename)) {
                 $headers['Content-Type'] = $type;
             }
         }
