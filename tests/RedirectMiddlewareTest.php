@@ -1,7 +1,6 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
