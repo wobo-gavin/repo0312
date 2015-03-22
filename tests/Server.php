@@ -21,8 +21,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 class Server
 {
-    const REQUEST_DELIMITER = "\n----[request]\n";
-
     /** @var Client */
     private static $/* Replaced /* Replaced /* Replaced client */ */ */;
     private static $started = false;
@@ -64,15 +62,15 @@ class Server
             }, $response->getHeaders());
 
             $data[] = [
-                'statusCode'   => $response->getStatusCode(),
-                'reasonPhrase' => $response->getReasonPhrase(),
-                'headers'      => $headers,
-                'body'         => base64_encode((string) $response->getBody())
+                'status'  => (string) $response->getStatusCode(),
+                'reason'  => $response->getReasonPhrase(),
+                'headers' => $headers,
+                'body'    => base64_encode((string) $response->getBody())
             ];
         }
 
         self::getClient()->request('PUT', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/responses', [
-            'json' => json_encode($data)
+            'json' => $data
         ]);
     }
 
@@ -93,11 +91,22 @@ class Server
         }
 
         $response = self::getClient()->request('GET', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests');
-        $data = array_filter(explode(self::REQUEST_DELIMITER, (string) $response->getBody()));
+        $data = json_decode($response->getBody(), true);
+
         if ($hydrate) {
             $data = array_map(
                 function ($message) {
-                    return /* Replaced /* Replaced /* Replaced Psr7 */ */ */\parse_request($message);
+                    $uri = $message['uri'];
+                    if (isset($message['query_string'])) {
+                        $uri .= '?' . $message['query_string'];
+                    }
+                    return new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request(
+                        $message['http_method'],
+                        $uri,
+                        $message['headers'],
+                        $message['body'],
+                        $message['version']
+                    );
                 },
                 $data
             );

@@ -58,7 +58,7 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port, l
     var hasher = crypto.createHash('md5');
     hasher.update(input);
     return hasher.digest('hex');
-  }
+  };
 
   /**
    * Node.js HTTP server authentication module.
