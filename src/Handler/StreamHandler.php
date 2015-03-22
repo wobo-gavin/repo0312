@@ -345,7 +345,7 @@ class StreamHandler
         static $args = ['severity', 'message', 'message_code',
             'bytes_transferred', 'bytes_max'];
 
-        $value = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\get_debug_resource($value);
+        $value = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\debug_resource($value);
         $ident = $request->getMethod() . ' ' . $request->getUri();
         $this->addNotification(
             $params,
