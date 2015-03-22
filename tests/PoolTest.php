@@ -96,9 +96,10 @@ class PoolTest extends \PHPUnit_Framework_TestCase
             new Request('GET', 'http://foo.com/202'),
             new Request('GET', 'http://foo.com/404'),
         ];
-        $mock = new MockHandler(function (RequestInterface $request) {
+        $fn = function (RequestInterface $request) {
             return new Response(substr($request->getUri()->getPath(), 1));
-        });
+        };
+        $mock = new MockHandler([$fn, $fn, $fn, $fn]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
         $results = Pool::batch($/* Replaced /* Replaced /* Replaced client */ */ */, $requests);
         $this->assertCount(4, $results);
