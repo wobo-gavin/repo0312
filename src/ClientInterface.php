@@ -77,19 +77,9 @@ interface ClientInterface
     public function getDefaultOption($option = null);
 
     /**
-     * Set a default request option on the /* Replaced /* Replaced /* Replaced client */ */ */ so that any request created
-     * by the /* Replaced /* Replaced /* Replaced client */ */ */ will use the provided default value unless overridden
-     * explicitly when creating a request.
+     * Get the handler stack of the /* Replaced /* Replaced /* Replaced client */ */ */.
      *
-     * @param string $option The option to set.
-     * @param mixed  $value  Default request option value to set
+     * @return HandlerStack
      */
-    public function setDefaultOption($option, $value);
-
-    /**
-     * Get the base URI of the /* Replaced /* Replaced /* Replaced client */ */ */.
-     *
-     * @return UriInterface Returns the base URI if present
-     */
-    public function getBaseUri();
+    public function getHandlerStack();
 }

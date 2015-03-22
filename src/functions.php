@@ -5,6 +5,26 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlMultiHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\Proxy;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\StreamHandler;
+use Psr\Http\Message\UriInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri;
+
+/**
+ * Returns a UriInterface for the given value.
+ *
+ * @param string|UriInterface $uri
+ * @return UriInterface
+ * @throws \InvalidArgumentException
+ */
+function uri_for($uri)
+{
+    if ($uri instanceof UriInterface) {
+        return $uri;
+    } elseif (is_string($uri)) {
+        return new Uri($uri);
+    }
+
+    throw new \InvalidArgumentException('URI must be a string or UriInterface');
+}
 
 /**
  * Expands a URI template
