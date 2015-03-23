@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\RejectedPromise;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -43,7 +44,7 @@ final class Middleware
     public static function httpError()
     {
         return function (callable $handler) {
-            return $fn = function ($request, array $options) use ($handler) {
+            return function ($request, array $options) use ($handler) {
                 return $handler($request, $options)->then(
                     function (ResponseInterface $response) use ($request, $handler) {
                         $code = $response->getStatusCode();
