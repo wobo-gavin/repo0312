@@ -89,7 +89,7 @@ class StreamHandler
                 if (strtolower($key) == 'content-encoding') {
                     if ($value == 'gzip' || $value == 'deflate') {
                         return new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\InflateStream(
-                            /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory($stream)
+                            /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for($stream)
                         );
                     }
                 }
@@ -112,19 +112,19 @@ class StreamHandler
     {
         if (is_resource($stream)) {
             if (!is_resource($dest)) {
-                $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory($stream);
+                $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for($stream);
             } else {
                 stream_copy_to_stream($stream, $dest);
                 fclose($stream);
                 rewind($dest);
-                return /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory($dest);
+                return /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for($dest);
             }
         }
 
         // Stream the response into the destination stream
         $dest = is_string($dest)
             ? new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\try_fopen($dest, 'r+'))
-            : /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream::factory($dest);
+            : /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for($dest);
 
         /* Replaced /* Replaced /* Replaced Psr7 */ */ */\copy_to_stream($stream, $dest);
         $dest->seek(0);

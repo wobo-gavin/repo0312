@@ -2,7 +2,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\Promise;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -233,7 +233,7 @@ class CurlMultiHandler
                 $entry['options'],
                 $entry['response'],
                 $entry['headers'],
-                Stream::factory($entry['body'])
+                /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for($entry['body'])
             );
 
             $this->removeProcessed($id);

@@ -9,10 +9,10 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream;
 use Psr\Http\Message\RequestInterface;
 
 class MiddlewareTest extends \PHPUnit_Framework_TestCase
@@ -207,7 +207,7 @@ class MiddlewareTest extends \PHPUnit_Framework_TestCase
 
     public function testAddsTransferEncodingWhenNoContentLength()
     {
-        $body = FnStream::decorate(Stream::factory('foo'), [
+        $body = FnStream::decorate(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for('foo'), [
             'getSize' => function () { return null; }
         ]);
         $h = new MockHandler(function (RequestInterface $request) {
@@ -227,7 +227,7 @@ class MiddlewareTest extends \PHPUnit_Framework_TestCase
 
     public function testAddsContentTypeWhenMissingAndPossible()
     {
-        $bd = Stream::factory(fopen(__DIR__ . '/../composer.json', 'r'));
+        $bd = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for(fopen(__DIR__ . '/../composer.json', 'r'));
         $h = new MockHandler(function (RequestInterface $request) {
             $this->assertEquals('application/json', $request->getHeader('Content-Type'));
             $this->assertTrue($request->hasHeader('Content-Length'));

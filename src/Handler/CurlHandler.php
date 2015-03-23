@@ -2,7 +2,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\FulfilledPromise;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -79,7 +79,7 @@ class CurlHandler
 
         return new FulfilledPromise(
             CurlFactory::createResponse(
-                $this, $request, $options, $response, $hd, Stream::factory($bd)
+                $this, $request, $options, $response, $hd, /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for($bd)
             )
         );
     }

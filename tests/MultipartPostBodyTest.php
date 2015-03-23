@@ -2,8 +2,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\MultipartPostBody;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 
 class MultipartPostBodyTest extends \PHPUnit_Framework_TestCase
 {
@@ -64,19 +63,19 @@ class MultipartPostBodyTest extends \PHPUnit_Framework_TestCase
 
     public function testSerializesFiles()
     {
-        $f1 = FnStream::decorate(Stream::factory('foo'), [
+        $f1 = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream::decorate(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for('foo'), [
             'getMetadata' => function () {
                 return '/foo/bar.txt';
             }
         ]);
 
-        $f2 = FnStream::decorate(Stream::factory('baz'), [
+        $f2 = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream::decorate(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for('baz'), [
             'getMetadata' => function () {
                 return '/foo/baz.jpg';
             }
         ]);
 
-        $f3 = FnStream::decorate(Stream::factory('bar'), [
+        $f3 = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream::decorate(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for('bar'), [
             'getMetadata' => function () {
                 return '/foo/bar.gif';
             }
@@ -125,7 +124,7 @@ EOT;
 
     public function testSerializesFilesWithCustomHeaders()
     {
-        $f1 = FnStream::decorate(Stream::factory('foo'), [
+        $f1 = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream::decorate(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for('foo'), [
             'getMetadata' => function () {
                 return '/foo/bar.txt';
             }
@@ -159,13 +158,13 @@ EOT;
 
     public function testSerializesFilesWithCustomHeadersAndMultipleValues()
     {
-        $f1 = FnStream::decorate(Stream::factory('foo'), [
+        $f1 = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream::decorate(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for('foo'), [
             'getMetadata' => function () {
                 return '/foo/bar.txt';
             }
         ]);
 
-        $f2 = FnStream::decorate(Stream::factory('baz'), [
+        $f2 = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream::decorate(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for('baz'), [
             'getMetadata' => function () {
                 return '/foo/baz.jpg';
             }

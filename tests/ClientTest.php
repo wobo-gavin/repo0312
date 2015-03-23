@@ -3,6 +3,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 
@@ -125,5 +126,29 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ]);
         $c->get('http://example.com', ['headers' => null]);
         $this->assertFalse($mock->getLastRequest()->hasHeader('foo'));
+    }
+
+    public function testCanGetHandlerStack()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $stack = $/* Replaced /* Replaced /* Replaced client */ */ */->getHandlerStack();
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack', $stack);
+        $this->assertTrue($stack->hasHandler());
+    }
+
+    public function testRewriteExceptionsToHttpErrors()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => new MockHandler([new Response(404)])]);
+        $res = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', ['exceptions' => false]);
+        $this->assertEquals(404, $res->getStatusCode());
+    }
+
+    public function testRewriteSaveToToSink()
+    {
+        $r = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for(fopen('php://temp', 'r+'));
+        $mock = new MockHandler([new Response(200, [], 'foo')]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', ['save_to' => $r]);
+        $this->assertSame($r, $mock->getLastOptions()['sink']);
     }
 }
