@@ -1,6 +1,6 @@
-===============
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ and PSR7
-===============
+================
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ and PSR-7
+================
 
 
 HTTP Messages
