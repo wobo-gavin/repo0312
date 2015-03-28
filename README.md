@@ -1,5 +1,5 @@
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */, PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ and webservice framework
-================================================
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */, PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */
+=======================
 
 [![Build Status](https://secure.travis-ci.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.png?branch=master)](http://travis-ci.org//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */)
 
@@ -27,20 +27,20 @@ echo $res->getHeader('content-type');
 // 'application/json; charset=utf8'
 echo $res->getBody();
 // {"type":"User"...'
-var_export($res->json());
-// Outputs the JSON decoded data
 
 // Send an asynchronous request.
-$req = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://httpbin.org', ['future' => true]);
-$/* Replaced /* Replaced /* Replaced client */ */ */->send($req)->then(function ($response) {
+$request = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('GET', 'http://httpbin.org');
+$promise = $/* Replaced /* Replaced /* Replaced client */ */ */->sendAsync($req)->then(function ($response) {
     echo 'I completed! ' . $response;
 });
+$promise->wait();
 ```
 
 Get more information and answers with the
 [Documentation](http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/),
 [Forums](https://groups.google.com/forum/?hl=en#!forum//* Replaced /* Replaced /* Replaced guzzle */ */ */),
 and [Gitter](https://gitter.im//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */).
+
 
 ### Installing via Composer
 
@@ -63,6 +63,7 @@ After installing, you need to require Composer's autoloader:
 ```php
 require 'vendor/autoload.php';
 ```
+
 
 ### Documentation
 
