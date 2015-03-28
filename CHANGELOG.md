@@ -1,5 +1,56 @@
 # CHANGELOG
 
+## 6.0.0-beta.1
+
+* Updated to use PSR-7
+  * Requires immutable messages, which basically means an event based system
+    owned by a request instance is no longer possible.
+  * Utilizing the [/* Replaced /* Replaced /* Replaced Guzzle */ */ */ PSR-7 package](https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//psr7).
+  * Removed the dependency on `/* Replaced /* Replaced /* Replaced guzzle */ */ */http/streams`. These stream abstractions
+    are available in the `/* Replaced /* Replaced /* Replaced guzzle */ */ */http/psr7` package under the `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */`
+    namespace.
+* Added middleware and handler system
+  * Replaced the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ event and subscriber system with a middleware system.
+  * No longer depends on RingPHP, but rather places the HTTP handlers directly
+    in /* Replaced /* Replaced /* Replaced Guzzle */ */ */, operating on PSR-7 messages.
+  * Retry logic is now encapsulated in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::retry`, which
+    means the `/* Replaced /* Replaced /* Replaced guzzle */ */ */http/retry-subscriber` is now obsolete.
+  * Mocking responses is now handled using `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler`.
+* Asynchronous responses
+  * No longer supports the `future` request option to send an async request.
+    Instead, use one of the `*Async` methods of a /* Replaced /* Replaced /* Replaced client */ */ */ (e.g., `requestAsync`,
+    `getAsync`, etc.).
+  * Utilizing `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise` instead of React's promise library to avoid
+    recursion required by chaining and forwarding react promises. See
+    https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//promises
+  * Added `requestAsync` and `sendAsync` to send request asynchronously.
+  * Added magic methods for `getAsync()`, `postAsync()`, etc. to send requests
+    asynchronously.
+* Request options
+  * POST and form updates
+    * Added the `form_fields` and `form_files` request options.
+    * Removed the `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post` namespace.
+    * The `body` request option no longer accepts an array for POST requests.
+  * The `exceptions` request option has been deprecated in favor of the
+    `http_errors` request options.
+  * The `save_to` request option has been deprecated in favor of `sink` request
+    option.
+* Clients no longer accept an array of URI template string and variables for
+  URI variables. You will need to expand URI templates before passing them
+  into a /* Replaced /* Replaced /* Replaced client */ */ */ constructor or request method.
+* Client methods `get()`, `post()`, `put()`, `patch()`, `options()`, etc. are
+  now magic methods that will send synchronous requests.
+* Replaced `Utils.php` with plain functions in `functions.php`.
+* Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection`.
+* Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\BatchResults`. Batched pool results are now returned as
+  an array.
+* Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query`. Query string handling is now handled using an
+  associative array passed into the `query` request option. The query string
+  is serialized using PHP's `http_build_query`. If you need more control, you
+  can pass the query string in as a string.
+* `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\QueryParser` has been replaced with the
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\parse_query`.
+
 ## 5.2.0 - 2015-01-27
 
 * Added `AppliesHeadersInterface` to make applying headers to a request based
