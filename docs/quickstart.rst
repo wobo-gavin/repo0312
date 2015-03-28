@@ -6,27 +6,52 @@ This page provides a quick introduction to /* Replaced /* Replaced /* Replaced G
 If you have not already installed, /* Replaced /* Replaced /* Replaced Guzzle */ */ */, head over to the :ref:`installation`
 page.
 
+
 Make a Request
 ==============
 
 You can send requests with /* Replaced /* Replaced /* Replaced Guzzle */ */ */ using a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface``
 object.
 
+
 Creating a Client
 -----------------
-
-The procedural API is simple but not very testable; it's best left for quick
-prototyping. If you want to use /* Replaced /* Replaced /* Replaced Guzzle */ */ */ in a more flexible and testable way,
-then you'll need to use a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface`` object.
 
 .. code-block:: php
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/get');
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client([
+        // Base URI is used with relative requests
+        'base_uri' => 'http://httpbin.org',
+        // You can set any number of default request options.
+        'timeout'  => 2.0,
+    ]);
 
-    // You can use the same methods you saw in the procedural API
+The /* Replaced /* Replaced /* Replaced client */ */ */ constructor accepts an associative array of options:
+
+`base_uri`
+    (string|UriInterface) Base URI of the /* Replaced /* Replaced /* Replaced client */ */ */ that is merged into relative
+    URIs. Can be a string or instance of UriInterface.
+
+`handler`
+    (callable) Function that transfers HTTP requests over the wire. The
+    function is called with a `/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\RequestInterface` and array
+     of transfer options, and must return a
+     `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface` that is fulfilled with a
+     `/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\ResponseInterface` on success. `handler` is a
+     constructor only option that cannot be overridden in per/request options.
+
+`...`
+    (mixed) All other options passed to the constructor are used as default
+    request options with every request created by the /* Replaced /* Replaced /* Replaced client */ */ */.
+
+
+Sending Requests
+----------------
+
+    // Magic methods on the /* Replaced /* Replaced /* Replaced client */ */ */ make it easy to send synchronous requests.
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/get');
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->delete('http://httpbin.org/delete');
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->head('http://httpbin.org/get');
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->options('http://httpbin.org/get');
@@ -34,19 +59,22 @@ then you'll need to use a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */H
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post');
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->put('http://httpbin.org/put');
 
-You can create a request with a /* Replaced /* Replaced /* Replaced client */ */ */ and then send the request with the
-/* Replaced /* Replaced /* Replaced client */ */ */ when you're ready.
+You can create a request and then send the request with the /* Replaced /* Replaced /* Replaced client */ */ */ when you're
+ready.
 
 .. code-block:: php
 
-    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://www.foo.com');
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
+
+    $request = new Request('PUT', 'http:/httpbin.org/put');
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request, ['timeout' => 2]);
 
 Client objects provide a great deal of flexibility in how request are
-transferred including default request options, subscribers that are attached
-to each request, and a base URL that allows you to send requests with relative
-URLs. You can find out all about /* Replaced /* Replaced /* Replaced client */ */ */s in the :doc:`/* Replaced /* Replaced /* Replaced client */ */ */s` page of the
-documentation.
+transferred including default request options, default handler stack middleware
+that are used by each request, and a base URI that allows you to send requests
+with relative URIs. You can find out all about /* Replaced /* Replaced /* Replaced client */ */ */s in the :doc:`/* Replaced /* Replaced /* Replaced client */ */ */s`
+page of the documentation.
+
 
 Using Responses
 ===============
@@ -75,6 +103,7 @@ asynchronously using the promise interface of a future response.
             echo $response->getStatusCode();
         });
 
+
 Response Body
 -------------
 
@@ -96,38 +125,6 @@ You can also read read bytes from body of a response like a stream.
         echo $body->read(1024);
     }
 
-JSON Responses
-~~~~~~~~~~~~~~
-
-You can more easily work with JSON responses using the ``json()`` method of a
-response.
-
-.. code-block:: php
-
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/get');
-    $json = $response->json();
-    var_dump($json[0]['origin']);
-
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ internally uses PHP's ``json_decode()`` function to parse responses. If
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is unable to parse the JSON response body, then a
-``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ParseException`` is thrown.
-
-XML Responses
-~~~~~~~~~~~~~
-
-You can use a response's ``xml()`` method to more easily work with responses
-that contain XML data.
-
-.. code-block:: php
-
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('https://github.com/mtdowling.atom');
-    $xml = $response->xml();
-    echo $xml->id;
-    // tag:github.com,2008:/mtdowling
-
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ internally uses a ``SimpleXMLElement`` object to parse responses. If
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is unable to parse the XML response body, then a
-``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ParseException`` is thrown.
 
 Query String Parameters
 =======================
@@ -174,6 +171,7 @@ calling the ``getQuery()`` method of a request and modifying the request's
     $query['empty'] = '';
     echo $query;
     // foo=bar&baz=bam&empty=
+
 
 .. _headers:
 
@@ -232,6 +230,7 @@ value is an array of strings associated with the header.
         echo $name . ": " . implode(", ", $values);
     }
 
+
 Modifying headers
 -----------------
 
@@ -260,6 +259,7 @@ or response object.
     echo $request->getHeader('X-Foo');
     // Echoes an empty string: ''
 
+
 Uploading Data
 ==============
 
@@ -279,11 +279,13 @@ You can easily upload JSON data using the ``json`` request option.
 
     $r = $/* Replaced /* Replaced /* Replaced client */ */ */->put('http://httpbin.org/put', ['json' => ['foo' => 'bar']]);
 
+
 POST Requests
 -------------
 
 In addition to specifying the raw data of a request using the ``body`` request
 option, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides helpful abstractions over sending POST data.
+
 
 Sending POST Fields
 ~~~~~~~~~~~~~~~~~~~
@@ -317,6 +319,7 @@ You can also build up POST requests before sending them.
 
     // Send the POST request
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+
 
 Sending POST Files
 ~~~~~~~~~~~~~~~~~~
@@ -352,6 +355,7 @@ files before sending them.
     $postBody->addFile(new PostFile('test', fopen('/path/to/file', 'r')));
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
 
+
 Cookies
 =======
 
@@ -363,6 +367,7 @@ Cookies
   a new cookie session.
 - Set to a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\CookieJar\CookieJarInterface`` object to use
   an existing cookie jar.
+
 
 Redirects
 =========
@@ -396,6 +401,7 @@ The following example shows that redirects can be disabled.
     // 301
     echo $response->getEffectiveUrl();
     // 'http://github.com/'
+
 
 Exceptions
 ==========

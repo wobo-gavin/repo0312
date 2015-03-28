@@ -12,8 +12,8 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'
 project = u'/* Replaced /* Replaced /* Replaced Guzzle */ */ */'
-copyright = u'2014, Michael Dowling'
-version = '5.0.0'
+copyright = u'2015, Michael Dowling'
+version = '6'
 html_title = "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Documentation"
 html_short_title = "/* Replaced /* Replaced /* Replaced Guzzle */ */ */"
 
