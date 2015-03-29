@@ -15,13 +15,13 @@
     "require": {
         "php": ">=5.4.0",
         "psr/http-message": "^0.9",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/psr7": "dev-master",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/promises": "dev-master"
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/psr7": "^0.1",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/promises": "^0.1"
     },
     "require-dev": {
         "ext-curl": "*",
-        "psr/log": "~1.0",
-        "phpunit/phpunit": "~4.0"
+        "psr/log": "^1.0",
+        "phpunit/phpunit": "^4.0"
     },
     "autoload": {
         "files": ["src/functions.php"],
@@ -34,6 +34,7 @@
             "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\Tests\\": "tests/"
         }
     },
+    "minimum-stability" : "dev",
     "extra": {
         "branch-alias": {
             "dev-master": "5.0-dev",
