@@ -30,19 +30,19 @@ Creating a Client
 
 The /* Replaced /* Replaced /* Replaced client */ */ */ constructor accepts an associative array of options:
 
-`base_uri`
+``base_uri``
     (string|UriInterface) Base URI of the /* Replaced /* Replaced /* Replaced client */ */ */ that is merged into relative
     URIs. Can be a string or instance of UriInterface.
 
-`handler`
+``handler``
     (callable) Function that transfers HTTP requests over the wire. The
-    function is called with a `/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\RequestInterface` and array
-     of transfer options, and must return a
-     `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface` that is fulfilled with a
-     `/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\ResponseInterface` on success. `handler` is a
-     constructor only option that cannot be overridden in per/request options.
+    function is called with a ``/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\RequestInterface`` and array
+    of transfer options, and must return a
+    ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface`` that is fulfilled with a
+    ``/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\ResponseInterface`` on success. ``handler`` is a
+    constructor only option that cannot be overridden in per/request options.
 
-`...`
+``...``
     (mixed) All other options passed to the constructor are used as default
     request options with every request created by the /* Replaced /* Replaced /* Replaced client */ */ */.
 
@@ -50,7 +50,10 @@ The /* Replaced /* Replaced /* Replaced client */ */ */ constructor accepts an a
 Sending Requests
 ----------------
 
-    // Magic methods on the /* Replaced /* Replaced /* Replaced client */ */ */ make it easy to send synchronous requests.
+Magic methods on the /* Replaced /* Replaced /* Replaced client */ */ */ make it easy to send synchronous requests:
+
+.. code-block:: php
+
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/get');
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->delete('http://httpbin.org/delete');
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->head('http://httpbin.org/get');
@@ -60,7 +63,7 @@ Sending Requests
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->put('http://httpbin.org/put');
 
 You can create a request and then send the request with the /* Replaced /* Replaced /* Replaced client */ */ */ when you're
-ready.
+ready:
 
 .. code-block:: php
 
@@ -76,59 +79,169 @@ with relative URIs. You can find out all about /* Replaced /* Replaced /* Replac
 page of the documentation.
 
 
+Async Requests
+--------------
+
+You can send asynchronous requests using the magic methods provided by a /* Replaced /* Replaced /* Replaced client */ */ */:
+
+.. code-block:: php
+
+    $promise = $/* Replaced /* Replaced /* Replaced client */ */ */->getAsync('http://httpbin.org/get');
+    $promise = $/* Replaced /* Replaced /* Replaced client */ */ */->deleteAsync('http://httpbin.org/delete');
+    $promise = $/* Replaced /* Replaced /* Replaced client */ */ */->headAsync('http://httpbin.org/get');
+    $promise = $/* Replaced /* Replaced /* Replaced client */ */ */->optionsAsync('http://httpbin.org/get');
+    $promise = $/* Replaced /* Replaced /* Replaced client */ */ */->patchAsync('http://httpbin.org/patch');
+    $promise = $/* Replaced /* Replaced /* Replaced client */ */ */->postAsync('http://httpbin.org/post');
+    $promise = $/* Replaced /* Replaced /* Replaced client */ */ */->putAsync('http://httpbin.org/put');
+
+You can also use the `sendAsync()` and `requestAsync()` methods of a /* Replaced /* Replaced /* Replaced client */ */ */:
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
+
+    // Create a PSR-7 request object to send
+    $headers = ['X-Foo' => 'Bar'];
+    $body = 'Hello!';
+    $request = new Request('HEAD', 'http://httpbin.org/head', $headers, $body);
+
+    // Or, if you don't need to pass in a request instance:
+    $promise = $/* Replaced /* Replaced /* Replaced client */ */ */->requestAsync('GET', 'http://httpbin.org/get');
+
+The promise returned by these methods implements the
+`Promises/A+ spec <https://promisesaplus.com/>`_, provided by the
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */ promises library <https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//promises>`_. This means
+that you can chain ``then()`` calls off of the promise. These then calls are
+either fulfilled with a successful ``Psr\Http\Message\ResponseInterface`` or
+rejected with an exception.
+
+.. code-block:: php
+
+    use Psr\Http\Message\ResponseInterface;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+
+    $promise = $/* Replaced /* Replaced /* Replaced client */ */ */->requestAsync('GET', 'http://httpbin.org/get');
+    $promise->then(
+        function (ResponseInterface $res) {
+            echo $res->getStatusCode() . "\n";
+        },
+        function (RequestException $e) {
+            echo $e->getMessage() . "\n";
+            echo $e->getRequest()->getMethod();
+        }
+    );
+
+
+Concurrent requests
+-------------------
+
+You can send multiple requests concurrently using promises and asynchronous
+requests.
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise;
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_uri' => 'http://httpbin.org/']);
+
+    // Initiate each request but do not block
+    $promises = [
+        'image' => $/* Replaced /* Replaced /* Replaced client */ */ */->getAsync('/image'),
+        'png'   => $/* Replaced /* Replaced /* Replaced client */ */ */->getAsync('/image/png'),
+        'jpeg'  => $/* Replaced /* Replaced /* Replaced client */ */ */->getAsync('/image/jpeg'),
+        'webp'  => $/* Replaced /* Replaced /* Replaced client */ */ */->getAsync('/image/webp')
+    ];
+
+    // Wait on all of the requests to complete.
+    $results = Promise\unwrap($promises);
+
+    // You can access each result using the key provided to the unwrap
+    // function.
+    echo $results['image']->getHeader('Content-Length');
+    echo $results['png']->getHeader('Content-Length');
+
+You can use the ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool`` object when you have an indeterminate
+amount of requests you wish to send.
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+
+    $requests = function ($total) {
+        $uri = 'http://127.0.0.1:8126//* Replaced /* Replaced /* Replaced guzzle */ */ */-server/perf';
+        for ($i = 0; $i < $total; $i++) {
+            yield new Request('GET', $uri);
+        }
+    };
+
+    $pool = new Pool($/* Replaced /* Replaced /* Replaced client */ */ */, $requests(100), [
+        'concurrency' => 5,
+        'fulfilled' => function ($response, $index) {
+            // this is delivered each successful response
+        },
+        'rejected' => function ($reason, $index) {
+            // this is delivered each failed request
+        },
+    ]);
+
+    // Initiate the transfers and create a promise
+    $promise = $pool->promise();
+
+    // Force the pool of requests to complete.
+    $promise->wait();
+
+
 Using Responses
 ===============
 
-In the previous examples, we retrieved a ``$response`` variable. This value is
-actually an instance of ``Psr\Http\Message\ResponseInterface`` and contains
-lots of helpful information.
+In the previous examples, we retrieved a ``$response`` variable or we were
+delivered a response from a promise. The response object implements a PSR-7
+response, ``Psr\Http\Message\ResponseInterface``, and contains lots of
+helpful information.
 
-You can get the status code and reason phrase of the response.
-
-.. code-block:: php
-
-    $code = $response->getStatusCode();
-    // 200
-
-    $reason = $response->getReasonPhrase();
-    // OK
-
-
-Response Body
--------------
-
-The body of a response can be retrieved and cast to a string.
+You can get the status code and reason phrase of the response:
 
 .. code-block:: php
 
-    $body = $response->getBody();
-    echo $body;
-    // { "some_json_data" ...}
-    $asString = (string) $body;
+    $code = $response->getStatusCode(); // 200
+    $reason = $response->getReasonPhrase(); // OK
 
-You can also read read bytes from body of a response like a stream.
+You can retrieve headers from the response:
 
 .. code-block:: php
 
-    $body = $response->getBody();
+    // Check if a header exists.
+    if ($response->hasHeader('Content-Length')) {
+        echo "It exists";
+    }
 
-    while (!$body->eof()) {
-        echo $body->read(1024);
+    // Get a header from the response.
+    echo $response->getHeader('Content-Length');
+
+    // Get all of the response headers.
+    foreach ($response->getHeaders() as $name => $values) {
+        echo $name ': ' . implode(', ', $values) . "\r\n";
     }
 
 
 Query String Parameters
 =======================
 
-Sending query string parameters with a request is easy. You can set query
-string parameters in the request's URL.
+You can provide query string parameters with a request in several ways.
+
+You can set query string parameters in the request's URI:
 
 .. code-block:: php
 
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org?foo=bar');
 
-You can also specify the query string parameters using the ``query`` request
-option.
+You can specify the query string parameters using the ``query`` request
+option as an array.
 
 .. code-block:: php
 
@@ -136,215 +249,109 @@ option.
         'query' => ['foo' => 'bar']
     ]);
 
-And finally, you can build up the query string of a request as needed by
-calling the ``getQuery()`` method of a request and modifying the request's
-``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query`` object as needed.
+Providing the option as an array will use PHP's ``http_build_query`` function
+to format the query string.
+
+And finally, you can provide the ``query`` request option as a string.
 
 .. code-block:: php
 
-    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://httpbin.org');
-    $query = $request->getQuery();
-    $query->set('foo', 'bar');
-
-    // You can use the query string object like an array
-    $query['baz'] = 'bam';
-
-    // The query object can be cast to a string
-    echo $query;
-    // foo=bar&baz=bam
-
-    // Setting a value to false or null will cause the "=" sign to be omitted
-    $query['empty'] = null;
-    echo $query;
-    // foo=bar&baz=bam&empty
-
-    // Use an empty string to include the "=" sign with an empty value
-    $query['empty'] = '';
-    echo $query;
-    // foo=bar&baz=bam&empty=
-
-
-.. _headers:
-
-Request and Response Headers
-----------------------------
-
-You can specify request headers when sending or creating requests with a
-/* Replaced /* Replaced /* Replaced client */ */ */. In the following example, we send the ``X-Foo-Header`` with a value of
-``value`` by setting the ``headers`` request option.
-
-.. code-block:: php
-
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/get', [
-        'headers' => ['X-Foo-Header' => 'value']
-    ]);
-
-You can view the headers of a response using header specific methods of a
-response class. Headers work exactly the same way for request and response
-object.
-
-You can retrieve a header from a request or response using the ``getHeader()``
-method of the object. This method is case-insensitive and by default will
-return a string containing the header field value.
-
-.. code-block:: php
-
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://www.yahoo.com');
-    $length = $response->getHeader('Content-Length');
-
-Header fields that contain multiple values can be retrieved as a string or as
-an array. Retrieving the field values as a string will naively concatenate all
-of the header values together with a comma. Because not all header fields
-should be represented this way (e.g., ``Set-Cookie``), you can pass an optional
-flag to the ``getHeader()`` method to retrieve the header values as an array.
-
-.. code-block:: php
-
-    $values = $response->getHeader('Set-Cookie', true);
-    foreach ($values as $value) {
-        echo $value;
-    }
-
-You can test if a request or response has a specific header using the
-``hasHeader()`` method. This method accepts a case-insensitive string and
-returns true if the header is present or false if it is not.
-
-You can retrieve all of the headers of a message using the ``getHeaders()``
-method of a request or response. The return value is an associative array where
-the keys represent the header name as it will be sent over the wire, and each
-value is an array of strings associated with the header.
-
-.. code-block:: php
-
-    $headers = $response->getHeaders();
-    foreach ($message->getHeaders() as $name => $values) {
-        echo $name . ": " . implode(", ", $values);
-    }
-
-
-Modifying headers
------------------
-
-The headers of a message can be modified using the ``setHeader()``,
-``addHeader()``, ``setHeaders()``, and ``removeHeader()`` methods of a request
-or response object.
-
-.. code-block:: php
-
-    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', 'http://httpbin.org/get');
-
-    // Set a single value for a header
-    $request->setHeader('User-Agent', 'Testing!');
-
-    // Set multiple values for a header in one call
-    $request->setHeader('X-Foo', ['Baz', 'Bar']);
-
-    // Add a header to the message
-    $request->addHeader('X-Foo', 'Bam');
-
-    echo $request->getHeader('X-Foo');
-    // Baz, Bar, Bam
-
-    // Remove a specific header using a case-insensitive name
-    $request->removeHeader('x-foo');
-    echo $request->getHeader('X-Foo');
-    // Echoes an empty string: ''
+    $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org', ['query' => 'foo=bar']);
 
 
 Uploading Data
 ==============
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides several methods of uploading data.
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides several methods for uploading data.
 
 You can send requests that contain a stream of data by passing a string,
-resource returned from ``fopen``, or a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface``
-object to the ``body`` request option.
+resource returned from ``fopen``, or an instance of a
+``Psr\Http\Message\StreamableInterface`` to the ``body`` request option.
 
 .. code-block:: php
 
+    // Provide the body as a string.
     $r = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', ['body' => 'raw data']);
 
-You can easily upload JSON data using the ``json`` request option.
+    // Provide an fopen resource.
+    $body = fopen('/path/to/file', 'r');
+    $r = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', ['body' => $body]);
+
+    // Use the stream_for() function to create a PSR-7 stream.
+    $body = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for('hello!');
+    $r = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', ['body' => $body]);
+
+An easy way to upload JSON data and set the appropriate header is using the
+``json`` request option:
 
 .. code-block:: php
 
-    $r = $/* Replaced /* Replaced /* Replaced client */ */ */->put('http://httpbin.org/put', ['json' => ['foo' => 'bar']]);
+    $r = $/* Replaced /* Replaced /* Replaced client */ */ */->put('http://httpbin.org/put', [
+        'json' => ['foo' => 'bar']
+    ]);
 
 
-POST Requests
--------------
+POST/Form Requests
+------------------
 
 In addition to specifying the raw data of a request using the ``body`` request
 option, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides helpful abstractions over sending POST data.
 
 
-Sending POST Fields
+Sending form fields
 ~~~~~~~~~~~~~~~~~~~
 
 Sending ``application/x-www-form-urlencoded`` POST requests requires that you
-specify the body of a POST request as an array.
+specify the POST fields as an array in the ``form_fields`` request options.
 
 .. code-block:: php
 
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', [
-        'body' => [
+        'form_fields' => [
             'field_name' => 'abc',
-            'other_field' => '123'
+            'other_field' => '123',
+            'nested_field' => [
+                'nested' => 'hello'
+            ]
         ]
     ]);
 
-You can also build up POST requests before sending them.
 
-.. code-block:: php
-
-    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', 'http://httpbin.org/post');
-    $postBody = $request->getBody();
-
-    // $postBody is an instance of /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface
-    $postBody->setField('foo', 'bar');
-    echo $postBody->getField('foo');
-    // 'bar'
-
-    echo json_encode($postBody->getFields());
-    // {"foo": "bar"}
-
-    // Send the POST request
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
-
-
-Sending POST Files
+Sending form files
 ~~~~~~~~~~~~~~~~~~
 
-Sending ``multipart/form-data`` POST requests (POST requests that contain
-files) is the same as sending ``application/x-www-form-urlencoded``, except
-some of the array values of the POST fields map to PHP ``fopen`` resources, or
-``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface``, or
-``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFileInterface`` objects.
+You can send files along with a form (``multipart/form-data`` POST requests),
+using the ``form_files`` request option. ``form_files`` accepts an array of
+associative arrays, where each associative array contains the following keys:
+
+- name: (required, string) key mapping to the form field name.
+- contents: (required, mixed) Provide a string to send the contents of the
+  file as a string, provide an fopen resource to stream the contents from a
+  PHP stream, or provide a ``Psr\Http\Message\StreamableInterface`` to stream
+  the contents from a PSR-7 stream.
 
 .. code-block:: php
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
 
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://httpbin.org/post', [
-        'body' => [
+        'form_fields' => [
             'field_name' => 'abc',
-            'file_filed' => fopen('/path/to/file', 'r'),
-            'other_file' => new PostFile('other_file', 'this is the content')
+        ],
+        'form_files' => [
+            [
+                'name'     => 'file_name',
+                'contents' => fopen('/path/to/file', 'r')
+            ],
+            [
+                'name'     => 'other_file',
+                'contents' => 'hello',
+                'headers'  => [
+                    'X-Foo' => 'this is an extra header to include'
+                ]
+            ]
         ]
     ]);
-
-Just like when sending POST fields, you can also build up POST requests with
-files before sending them.
-
-.. code-block:: php
-
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostFile;
-
-    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('POST', 'http://httpbin.org/post');
-    $postBody = $request->getBody();
-    $postBody->setField('foo', 'bar');
-    $postBody->addFile(new PostFile('test', fopen('/path/to/file', 'r')));
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
 
 
 Cookies
@@ -359,6 +366,23 @@ Cookies
 - Set to a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\CookieJar\CookieJarInterface`` object to use
   an existing cookie jar.
 
+.. code-block:: php
+
+    // Use a shared /* Replaced /* Replaced /* Replaced client */ */ */ cookie jar
+    $r = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/cookies', ['cookies' => true]);
+
+    // Use an array of cookies
+    $r = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/cookies', [
+        'cookies' => [
+            'foo' => 'bar',
+            'baz' => 'qux',
+        ]
+    ]);
+
+    // Use a specific cookie jar
+    $jar = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
+    $r = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/cookies', ['cookies' => $jar]);
+
 
 Redirects
 =========
@@ -366,9 +390,9 @@ Redirects
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will automatically follow redirects unless you tell it not to. You can
 customize the redirect behavior using the ``allow_redirects`` request option.
 
-- Set to true to enable normal redirects with a maximum number of 5 redirects.
-  This is the default setting.
-- Set to false to disable redirects.
+- Set to ``true`` to enable normal redirects with a maximum number of 5
+  redirects. This is the default setting.
+- Set to ``false`` to disable redirects.
 - Pass an associative array containing the 'max' key to specify the maximum
   number of redirects and optionally provide a 'strict' key value to specify
   whether or not to use strict RFC compliant redirects (meaning redirect POST
@@ -380,8 +404,6 @@ customize the redirect behavior using the ``allow_redirects`` request option.
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://github.com');
     echo $response->getStatusCode();
     // 200
-    echo $response->getEffectiveUrl();
-    // 'https://github.com/'
 
 The following example shows that redirects can be disabled.
 
@@ -390,8 +412,6 @@ The following example shows that redirects can be disabled.
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://github.com', ['allow_redirects' => false]);
     echo $response->getStatusCode();
     // 301
-    echo $response->getEffectiveUrl();
-    // 'http://github.com/'
 
 
 Exceptions
@@ -403,7 +423,7 @@ Exceptions
   a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException`` is thrown. This exception
   extends from ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TransferException``. Catching this
   exception will catch any exception that can be thrown while transferring
-  (non-parallel) requests.
+  requests.
 
   .. code-block:: php
 
@@ -417,6 +437,10 @@ Exceptions
               echo $e->getResponse();
           }
       }
+
+- A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException`` exception is thrown in the
+  event of a networking error. This exception extends from
+  ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException``.
 
 - A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException`` is thrown for 400
   level errors if the ``exceptions`` request option is set to true. This
@@ -438,6 +462,7 @@ Exceptions
 - A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException`` is thrown for 500 level
   errors if the ``exceptions`` request option is set to true. This
   exception extends from ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException``.
+
 - A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TooManyRedirectsException`` is thrown when too
   many redirects are followed. This exception extends from ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException``.
 
