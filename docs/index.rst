@@ -45,7 +45,7 @@ User guide
 
     overview
     quickstart
-    /* Replaced /* Replaced /* Replaced client */ */ */s
+    request-options
     psr7
     handlers-and-middleware
     testing
