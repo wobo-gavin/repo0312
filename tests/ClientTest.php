@@ -185,13 +185,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage cookies must be an array, true, or CookieJarInterface
+     * @expectedExceptionMessage cookies must be an instance of /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface
      */
     public function testValidatesCookies()
     {
         $mock = new MockHandler([new Response(200, [], 'foo')]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', ['cookies' => 'foo']);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', ['cookies' => 'foo'])->wait();
     }
 
     public function testSetCookieToTrueUsesSharedJar()
@@ -473,5 +473,18 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->send(new Request('GET', 'http://foo.com'));
         $this->assertTrue($mock->getLastOptions()['sync']);
+    }
+
+    public function testCanDisableDefaultMiddleware()
+    {
+        $mock = new MockHandler([new Response(500)]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client([
+            'handler' => $mock,
+            'disable_default_middleware' => true
+        ]);
+        $this->assertEquals(
+            500,
+            $/* Replaced /* Replaced /* Replaced client */ */ */->send(new Request('GET', 'http://foo.com'))->getStatusCode()
+        );
     }
 }
