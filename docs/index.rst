@@ -1,8 +1,8 @@
-.. title:: /* Replaced /* Replaced /* Replaced Guzzle */ */ */ | PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ and framework for consuming RESTful web services
+.. title:: /* Replaced /* Replaced /* Replaced Guzzle */ */ */, PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */
 
-======
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */
-======
+====================
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Documentation
+====================
 
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ that makes it easy to send HTTP requests and
 trivial to integrate with web services.
@@ -37,11 +37,11 @@ trivial to integrate with web services.
     $promise->wait();
 
 
-User guide
-----------
+User Guide
+==========
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 3
 
     overview
     quickstart
