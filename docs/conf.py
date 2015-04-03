@@ -22,9 +22,6 @@ html_static_path = ['_static']
 
 ##### /* Replaced /* Replaced /* Replaced Guzzle */ */ */ sphinx theme
 
-# @TODO: Temporary hack while developing the theme.
-sys.path.insert(0, '/Users/dowling/projects//* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme')
-
 import /* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme
 html_translator_class = '/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme.HTMLTranslator'
 html_theme_path = /* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme.html_theme_path()
