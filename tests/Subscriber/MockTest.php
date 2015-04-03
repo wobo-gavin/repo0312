@@ -160,6 +160,22 @@ class MockTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testSaveToFile()
+    {
+        $file = sys_get_temp_dir().'/mock_test_'.uniqid();
+
+        $m = new Mock([new Response(200, [], Stream::factory('TEST FILE'))]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+        $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($m);
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', ['save_to' => $file]);
+
+        $this->assertFileExists($file);
+        $this->assertEquals('TEST FILE', file_get_contents($file));
+
+        unlink($file);
+    }
+
     public function testCanMockFailedFutureResponses()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_url' => 'http://test.com']);
