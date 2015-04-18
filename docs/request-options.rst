@@ -13,6 +13,7 @@ All of the following examples use the following /* Replaced /* Replaced /* Repla
 
     $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client(['base_uri' => 'http://httpbin.org']);
 
+
 .. _allow_redirects-option:
 
 allow_redirects
@@ -71,6 +72,13 @@ specifies which protocols are supported for redirects (defaults to
     ]);
     echo $res->getStatusCode();
     // 200
+
+.. warning::
+
+    This option only has an effect if your handler has the
+    ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::redirect`` middleware. This middleware is added
+    by default when a /* Replaced /* Replaced /* Replaced client */ */ */ is created with no handler, and is added by
+    default when creating a handler with ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler``.
 
 
 auth
@@ -206,6 +214,13 @@ cookie jar.
     $jar = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar();
     $/* Replaced /* Replaced /* Replaced client */ */ */->get('/get', ['cookies' => $jar]);
 
+.. warning::
+
+    This option only has an effect if your handler has the
+    ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::cookies`` middleware. This middleware is added
+    by default when a /* Replaced /* Replaced /* Replaced client */ */ */ is created with no handler, and is added by
+    default when creating a handler with ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler``.
+
 
 .. _connect_timeout-option:
 
@@ -268,6 +283,7 @@ Running the above example would output something like the following:
     < Connection: keep-alive
     <
     * Connection #0 to host httpbin.org left intact
+
 
 .. _decode_content-option:
 
@@ -387,6 +403,13 @@ http_errors
     $res = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/status/500', ['http_errors' => false]);
     echo $res->getStatusCode();
     // 500
+
+.. warning::
+
+    This option only has an effect if your handler has the
+    ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::httpErrors`` middleware. This middleware is added
+    by default when a /* Replaced /* Replaced /* Replaced client */ */ */ is created with no handler, and is added by
+    default when creating a handler with ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler``.
 
 
 json
