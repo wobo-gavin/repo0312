@@ -75,11 +75,4 @@ interface ClientInterface
      * @return mixed
      */
     public function getDefaultOption($option = null);
-
-    /**
-     * Get the handler stack of the /* Replaced /* Replaced /* Replaced client */ */ */.
-     *
-     * @return HandlerStack
-     */
-    public function getHandlerStack();
 }

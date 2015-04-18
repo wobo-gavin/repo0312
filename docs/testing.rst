@@ -27,16 +27,15 @@ a response or exception by shifting return values off of a queue.
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\MockHandler;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-
     // Create a mock and queue two responses.
     $mock = new MockHandler([
         new Response(200, ['X-Foo' => 'Bar']),
         new Response(202, ['Content-Length' => 0])
     ]);
 
-    // Set the handler on the /* Replaced /* Replaced /* Replaced client */ */ */
-    $/* Replaced /* Replaced /* Replaced client */ */ */->getHandlerList()->setHandler($mock);
+    $handler = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler($mock);
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
+
     // The first request is intercepted with the first response.
     echo $/* Replaced /* Replaced /* Replaced client */ */ */->get('/')->getStatusCode();
     //> 200
@@ -61,13 +60,14 @@ history of the requests that were sent by a /* Replaced /* Replaced /* Replaced 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+    $stack = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler();
+    // Add the history middleware to the handler stack.
+    $stack->append($history);
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $stack]);
 
     $container = [];
     $history = Middleware::history($container);
-
-    // Add the history middleware to the /* Replaced /* Replaced /* Replaced client */ */ */.
-    $/* Replaced /* Replaced /* Replaced client */ */ */->getHandlerList()->append($history);
 
     $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/get');
     $/* Replaced /* Replaced /* Replaced client */ */ */->head('http://httpbin.org/get');

@@ -22,14 +22,10 @@ a /* Replaced /* Replaced /* Replaced client */ */ */ constructor.
 
     $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => new CurlHandler()]);
 
-The handler of a /* Replaced /* Replaced /* Replaced client */ */ */ is then stored in the handler stack of the /* Replaced /* Replaced /* Replaced client */ */ */
-(a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack`` object). The handler stack contains the /* Replaced /* Replaced /* Replaced client */ */ */
-and any middleware that will be composed on the handler.
-
-.. code-block:: php
-
-    $stack = $/* Replaced /* Replaced /* Replaced client */ */ */->getHandlerStack();
-    assert(true === $stack->hasHandler());
+The handler provided to a /* Replaced /* Replaced /* Replaced client */ */ */ determines how request options are applied and
+utilized for each request sent by a /* Replaced /* Replaced /* Replaced client */ */ */. For example, if you do not have a
+cookie middleware associated with a /* Replaced /* Replaced /* Replaced client */ */ */, then setting the ``cookies``
+request option will have no effect on the request.
 
 
 Middleware
@@ -74,12 +70,15 @@ Here's an example of adding a header to each request.
         };
     }
 
-Once a middleware has been created, you can add it to a /* Replaced /* Replaced /* Replaced client */ */ */ using the
-/* Replaced /* Replaced /* Replaced client */ */ */'s handler stack.
+Once a middleware has been created, you can add it to a /* Replaced /* Replaced /* Replaced client */ */ */ by either
+wrapping the handler used by the /* Replaced /* Replaced /* Replaced client */ */ */ or by decorating a handler stack.
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->getHandlerStack()->push(add_header('X-Foo', 'bar'));
+    $stack = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack();
+    $stack->setHandler(new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlHandler());
+    $stack->push(add_header('X-Foo', 'bar'));
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client(['handler' => $stack]);
 
 Now when you send a request, the /* Replaced /* Replaced /* Replaced client */ */ */ will use a handler composed with your
 added middleware, adding a header to each request.
@@ -108,7 +107,10 @@ downstream handler. This example adds a header to the response.
         };
     }
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->getHandlerStack()->push(add_response_header('X-Foo', 'bar'));
+    $stack = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack();
+    $stack->setHandler(new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlHandler());
+    $stack->push(add_response_header('X-Foo', 'bar'));
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client(['handler' => $stack]);
 
 Creating a middleware that modifies a request is made much simpler using the
 ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::mapRequest()`` middleware. This middleware accepts
@@ -124,8 +126,10 @@ a function that takes the request argument and returns the request to send.
         return $request->withHeader('X-Foo', 'bar');
     }));
 
-Modifying a response is also much simpler using the ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::mapResponse()``
-middleware.
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client(['handler' => $stack]);
+
+Modifying a response is also much simpler using the
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::mapResponse()`` middleware.
 
 .. code-block:: php
 
@@ -136,6 +140,8 @@ middleware.
     $stack->push(Middleware::mapResponse(function (ResponseInterface $response) {
         return $response->withHeader('X-Foo', 'bar');
     }));
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client(['handler' => $stack]);
 
 
 HandlerStack
@@ -150,7 +156,8 @@ stack.
 
 .. code-block:: php
 
-    $stack = $/* Replaced /* Replaced /* Replaced client */ */ */->getHandlerStack();
+    $stack = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack();
+    $stack->setHandler(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_http_handler());
 
     $stack->push(Middleware::mapRequest(function ($r) {
         echo 'A';
@@ -175,6 +182,7 @@ stack.
         return $r;
     });
 
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client(['handler' => $stack]);
     $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/');
     // echoes '0ABC';
 
@@ -183,8 +191,6 @@ other named middleware, after other named middleware, or remove middleware
 by name.
 
 .. code-block:: php
-
-    $stack = $/* Replaced /* Replaced /* Replaced client */ */ */->getHandlerStack();
 
     // Add a middleware with a name
     $stack->push(Middleware::mapRequest(function ($r) {
@@ -203,12 +209,6 @@ by name.
 
     // Remove a middleware by name
     $stack->remove('add_foo');
-
-Each request created by a /* Replaced /* Replaced /* Replaced client */ */ */ uses a clone of the /* Replaced /* Replaced /* Replaced client */ */ */'s handler stack.
-This means that any middleware added to a /* Replaced /* Replaced /* Replaced client */ */ */ is also added to each request.
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ will then add some default middlewares to each request based on the
-provided options. You can add positional middleware to the handler stack of a
-request using the :ref:`stack-option` request option.
 
 
 Creating a Handler

@@ -131,14 +131,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($mock->getLastRequest()->hasHeader('foo'));
     }
 
-    public function testCanGetHandlerStack()
-    {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        $stack = $/* Replaced /* Replaced /* Replaced client */ */ */->getHandlerStack();
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack', $stack);
-        $this->assertTrue($stack->hasHandler());
-    }
-
     public function testRewriteExceptionsToHttpErrors()
     {
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => new MockHandler([new Response(404)])]);
@@ -158,7 +150,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testAllowRedirectsCanBeTrue()
     {
         $mock = new MockHandler([new Response(200, [], 'foo')]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
+        $handler = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', ['allow_redirects' => true]);
         $this->assertInternalType('array',  $mock->getLastOptions()['allow_redirects']);
     }
@@ -170,7 +163,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testValidatesAllowRedirects()
     {
         $mock = new MockHandler([new Response(200, [], 'foo')]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
+        $handler = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', ['allow_redirects' => 'foo']);
     }
 
@@ -179,7 +173,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testThrowsHttpErrorsByDefault()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => new MockHandler([new Response(404)])]);
+        $mock = new MockHandler([new Response(404)]);
+        $handler = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com');
     }
 
@@ -190,8 +186,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testValidatesCookies()
     {
         $mock = new MockHandler([new Response(200, [], 'foo')]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', ['cookies' => 'foo'])->wait();
+        $handler = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', ['cookies' => 'foo']);
     }
 
     public function testSetCookieToTrueUsesSharedJar()
@@ -200,7 +197,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             new Response(200, ['Set-Cookie' => 'foo=bar']),
             new Response()
         ]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
+        $handler = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', ['cookies' => true]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', ['cookies' => true]);
         $this->assertEquals('foo=bar', $mock->getLastRequest()->getHeader('Cookie'));
@@ -212,7 +210,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             new Response(200, ['Set-Cookie' => 'foo=bar']),
             new Response()
         ]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
+        $handler = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
         $jar = new CookieJar();
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', ['cookies' => $jar]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', ['cookies' => $jar]);
@@ -222,33 +221,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testSetCookieToArray()
     {
         $mock = new MockHandler([new Response()]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
+        $handler = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', ['cookies' => ['foo' => 'bar']]);
         $this->assertEquals('foo=bar', $mock->getLastRequest()->getHeader('Cookie'));
-    }
-
-    public function testCanInjectIntoHandlerStackWithCallback()
-    {
-        $mock = new MockHandler([new Response()]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', [
-            'stack' => function (HandlerStack $s) use (&$called) {
-                $s->push(Middleware::tap(function () use (&$called) {
-                    $called = true;
-                }));
-            }
-        ]);
-        $this->assertTrue($called);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testStackOptionMustBeCallable()
-    {
-        $mock = new MockHandler([new Response()]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
-        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://foo.com', ['stack' => 'foo']);
     }
 
     public function testCanDisableContentDecoding()

@@ -128,4 +128,4 @@ setting the ``expect`` request option to ``false``:
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', ['expect' => false]);
 
     // Disable the expect header on all /* Replaced /* Replaced /* Replaced client */ */ */ requests
-    $/* Replaced /* Replaced /* Replaced client */ */ */->setDefaultOption('expect', false)
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client(['expect' => false]);
