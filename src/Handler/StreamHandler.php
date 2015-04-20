@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\RejectedProm
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\StreamableInterface;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * HTTP handler that uses PHP's HTTP stream wrapper.
@@ -104,9 +104,9 @@ class StreamHandler
      * Drains the stream into the "sink" /* Replaced /* Replaced /* Replaced client */ */ */ option.
      *
      * @param resource                            $stream
-     * @param string|resource|StreamableInterface $dest
+     * @param string|resource|StreamInterface $dest
      *
-     * @return StreamableInterface
+     * @return StreamInterface
      * @throws \RuntimeException when the sink option is invalid.
      */
     private function drain($stream, $dest)
