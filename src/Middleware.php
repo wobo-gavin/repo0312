@@ -3,10 +3,12 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Functions used to create and wrap handlers with handler middleware.
@@ -186,6 +188,38 @@ final class Middleware
                     return $f($request, $options);
                 };
                 return $handler($request, $options)->then($g, $g);
+            };
+        };
+    }
+
+    /**
+     * Middleware that logs requests, responses, and errors using a message
+     * formatter.
+     *
+     * @param LoggerInterface  $logger Logs messages.
+     * @param MessageFormatter $formatter Formatter used to create message strings.
+     *
+     * @return callable Returns a function that accepts the next handler.
+     */
+    public static function log(LoggerInterface $logger, MessageFormatter $formatter)
+    {
+        return function (callable $handler) use ($logger, $formatter) {
+            return function ($request, array $options) use ($handler, $logger, $formatter) {
+                return $handler($request, $options)->then(
+                    function ($response) use ($logger, $request, $formatter) {
+                        $message = $formatter->format($request, $response);
+                        $logger->info($message);
+                        return $response;
+                    },
+                    function ($reason) use ($logger, $request, $formatter) {
+                        $response = $reason instanceof RequestException
+                            ? $reason->getResponse()
+                            : null;
+                        $message = $formatter->format($request, $response, $reason);
+                        $logger->notice($message);
+                        return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for($reason);
+                    }
+                );
             };
         };
     }
