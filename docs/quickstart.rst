@@ -46,6 +46,20 @@ The /* Replaced /* Replaced /* Replaced client */ */ */ constructor accepts an a
         // Send a request to https://foo.com/root
         $response = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/root');
 
+    Don't feel like reading RFC 3986? Here are some quick examples on how a
+    ``base_uri`` is resolved with another URI.
+
+    =======================  ==================  ===============================
+    base_uri                 URI                 Result
+    =======================  ==================  ===============================
+    ``http://foo.com``       ``/bar``            ``http://foo.com/bar``
+    ``http://foo.com/foo``   ``/bar``            ``http://foo.com/bar``
+    ``http://foo.com/foo``   ``bar``             ``http://foo.com/bar``
+    ``http://foo.com/foo/``  ``bar``             ``http://foo.com/foo/bar``
+    ``http://foo.com``       ``http://baz.com``  ``http://baz.com``
+    ``http://foo.com/?bar``  ``bar``             ``http://foo.com/bar``
+    =======================  ==================  ===============================
+
 ``handler``
     (callable) Function that transfers HTTP requests over the wire. The
     function is called with a ``/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\RequestInterface`` and array
