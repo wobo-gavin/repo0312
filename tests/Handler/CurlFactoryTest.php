@@ -33,7 +33,10 @@ class CurlFactoryTest extends \PHPUnit_Framework_TestCase
             ], 'hi')
         ]);
         $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for();
-        $request = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('PUT', Server::$url, ['Hi' => ' 123'], 'testing');
+        $request = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('PUT', Server::$url, [
+            'Hi'             => ' 123',
+            'Content-Length' => '7'
+        ], 'testing');
         $f = new Handler\CurlFactory(3);
         $result = $f->create($request, ['sink' => $stream]);
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\EasyHandle', $result);
