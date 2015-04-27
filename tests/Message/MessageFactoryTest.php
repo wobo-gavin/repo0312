@@ -352,7 +352,7 @@ class MessageFactoryTest extends \PHPUnit_Framework_TestCase
         $mock = new Mock([new Response(200)]);
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->attach($mock);
-        $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com', ['subscribers' => [$mock]]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com', ['subscribers' => [$mock]]);
     }
 
     public function testCanDisableExceptions()
