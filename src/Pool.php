@@ -50,9 +50,6 @@ class Pool implements PromisorInterface
             $opts = [];
         }
 
-        // Add a delay by default to ensure resolving on future tick.
-        $opts['delay'] = true;
-
         $iterable = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\iter_for($requests);
         $requests = function () use ($iterable, $/* Replaced /* Replaced /* Replaced client */ */ */, $opts) {
             foreach ($iterable as $rfn) {
