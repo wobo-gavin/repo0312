@@ -3,6 +3,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test\Handler;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlHandler;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
@@ -12,13 +13,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
  */
 class CurlHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    protected function setUp()
-    {
-        if (!function_exists('curl_reset')) {
-            $this->markTestSkipped('curl_reset() is not available');
-        }
-    }
-
     protected function getHandler($options = [])
     {
         return new CurlHandler($options);
@@ -69,5 +63,23 @@ class CurlHandlerTest extends \PHPUnit_Framework_TestCase
             });
         $p->wait();
         $this->assertTrue($called);
+    }
+
+    public function testUsesContentLengthWhenOverInMemorySize()
+    {
+        Server::flush();
+        Server::enqueue([new Response()]);
+        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for(str_repeat('.', 1000000));
+        $handler = new CurlHandler();
+        $request = new Request(
+            'PUT',
+            Server::$url,
+            ['Content-Length' => 1000000],
+            $stream
+        );
+        $handler($request, [])->wait();
+        $received = Server::received()[0];
+        $this->assertEquals(1000000, $received->getHeaderLine('Content-Length'));
+        $this->assertFalse($received->hasHeader('Transfer-Encoding'));
     }
 }
