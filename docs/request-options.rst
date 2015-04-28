@@ -369,6 +369,37 @@ headers
         ]
     ]);
 
+Headers may be added as default options when creating a /* Replaced /* Replaced /* Replaced client */ */ */. When headers
+are used as default options, they are only applied if the request being created
+does not already contain the specific header. This include both requests passed
+to the /* Replaced /* Replaced /* Replaced client */ */ */ in the ``send()`` and ``sendAsync()`` methods and requests
+created by the /* Replaced /* Replaced /* Replaced client */ */ */ (e.g., ``request()`` and ``requestAsync()``).
+
+.. code-block:: php
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client(['headers' => ['X-Foo' => 'Bar']]);
+
+    // Will send a request with the X-Foo header.
+    $/* Replaced /* Replaced /* Replaced client */ */ */->get('/get');
+
+    // Sets the X-Foo header to "test", which prevents the default header
+    // from being applied.
+    $/* Replaced /* Replaced /* Replaced client */ */ */->get('/get', ['headers' => ['X-Foo' => 'test']);
+
+    // Will disable adding in default headers.
+    $/* Replaced /* Replaced /* Replaced client */ */ */->get('/get', ['headers' => null]);
+
+    // Will not overwrite the X-Foo header because it is in the message.
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
+    $request = new Request('GET', 'http://foo.com', ['X-Foo' => 'test']);
+    $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+
+    // Will overwrite the X-Foo header with the request option provided in the
+    // send method.
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
+    $request = new Request('GET', 'http://foo.com', ['X-Foo' => 'test']);
+    $/* Replaced /* Replaced /* Replaced client */ */ */->send($request, ['headers' => ['X-Foo' => 'overwrite']]);
+
 
 .. _http-errors-option:
 
