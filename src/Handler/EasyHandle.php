@@ -1,6 +1,7 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -35,6 +36,30 @@ final class EasyHandle
 
     /** @var \Exception Exception during on_headers (if any) */
     public $onHeadersException;
+
+    /**
+     * Attach a response to the easy handle based on the received headers.
+     *
+     * @throws \RuntimeException if no headers have been received.
+     */
+    public function createResponse()
+    {
+        if (empty($this->headers)) {
+            throw new \RuntimeException('No headers have been received');
+        }
+
+        // HTTP-version SP status-code SP reason-phrase
+        $startLine = explode(' ', array_shift($this->headers), 3);
+
+        // Attach a response to the easy handle with the parsed headers.
+        $this->response = new Response(
+            $startLine[1],
+            \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\headers_from_lines($this->headers),
+            $this->sink,
+            substr($startLine[0], 5),
+            isset($startLine[2]) ? (int) $startLine[2] : null
+        );
+    }
 
     public function __get($name)
     {
