@@ -6,7 +6,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientExce
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
@@ -237,39 +236,15 @@ final class Middleware
     }
 
     /**
-     * This middleware adds a default content-type if possible and a default
-     * content-length or transfer-encoding header.
+     * This middleware adds a default content-type if possible, a default
+     * content-length or transfer-encoding header, and the expect header.
      *
      * @return callable
      */
     public static function prepareBody()
     {
         return function (callable $handler) {
-            return function (RequestInterface $request, array $options) use ($handler) {
-                $modify = [];
-                // Add a default content-type if possible.
-                if (!$request->hasHeader('Content-Type')) {
-                    if ($uri = $request->getBody()->getMetadata('uri')) {
-                        if ($type = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\mimetype_from_filename($uri)) {
-                            $modify['set_headers']['Content-Type'] = $type;
-                        }
-                    }
-                }
-                // Add a default content-length or transfer-encoding header.
-                static $skip = ['GET' => true, 'HEAD' => true];
-                if (!isset($skip[$request->getMethod()])
-                    && !$request->hasHeader('Content-Length')
-                    && !$request->hasHeader('Transfer-Encoding')
-                ) {
-                    $size = $request->getBody()->getSize();
-                    if ($size !== null) {
-                        $modify['set_headers']['Content-Length'] = $size;
-                    } else {
-                        $modify['set_headers']['Transfer-Encoding'] = 'chunked';
-                    }
-                }
-                return $handler(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\modify_request($request, $modify), $options);
-            };
+            return new PrepareBodyMiddleware($handler);
         };
     }
 
