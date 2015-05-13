@@ -7,7 +7,7 @@ use Psr\Http\Message\StreamInterface;
 /**
  * Stream that when read returns bytes for a streaming multipart/form-data body
  */
-class MultipartPostBody implements StreamInterface
+class MultipartBody implements StreamInterface
 {
     use /* Replaced /* Replaced /* Replaced Psr7 */ */ */\StreamDecoratorTrait;
 
