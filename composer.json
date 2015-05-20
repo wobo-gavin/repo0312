@@ -1,7 +1,7 @@
 {
     "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */",
     "type": "library",
-    "description": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ library and framework for building RESTful web service /* Replaced /* Replaced /* Replaced client */ */ */s",
+    "description": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ library",
     "keywords": ["framework", "http", "rest", "web service", "curl", "/* Replaced /* Replaced /* Replaced client */ */ */", "HTTP /* Replaced /* Replaced /* Replaced client */ */ */"],
     "homepage": "http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/",
     "license": "MIT",
@@ -13,8 +13,9 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/ringphp": "^1.1"
+        "php": ">=5.5.0",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/psr7": "^1.0.0",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/promises": "^1.0.0"
     },
     "require-dev": {
         "ext-curl": "*",
@@ -22,6 +23,7 @@
         "phpunit/phpunit": "^4.0"
     },
     "autoload": {
+        "files": ["src/functions.php"],
         "psr-4": {
             "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\": "src/"
         }
@@ -33,7 +35,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "5.0-dev"
+            "dev-master": "5.0-dev",
+            "dev-v6": "6.0-dev"
         }
     }
 }
