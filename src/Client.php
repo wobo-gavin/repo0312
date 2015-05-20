@@ -376,20 +376,4 @@ class Client implements ClientInterface
 
         return $request;
     }
-
-    /**
-     * @deprecated Use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::getDefaultHandler
-     */
-    public static function getDefaultHandler()
-    {
-        return Utils::getDefaultHandler();
-    }
-
-    /**
-     * @deprecated Use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils::getDefaultUserAgent
-     */
-    public static function getDefaultUserAgent()
-    {
-        return Utils::getDefaultUserAgent();
-    }
 }
