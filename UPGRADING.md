@@ -79,6 +79,9 @@ middleware functions that wrap handlers (or are injected into a
 - Static functions in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils` have been moved to namespaced
   functions under the `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http` namespace. This requires either a Composer
   based autoloader or you to include functions.php.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::getDefaultOption` has been renamed to
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::getConfig`.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::setDefaultOption` has been removed.
 
 4.x to 5.0
 ----------
