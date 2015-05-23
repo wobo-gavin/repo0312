@@ -16,7 +16,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\StreamHandle
  */
 function uri_template($template, array $variables)
 {
-    if (function_exists('\\uri_template')) {
+    if (extension_loaded('uri_template')) {
         // @codeCoverageIgnoreStart
         return \uri_template($template, $variables);
         // @codeCoverageIgnoreEnd
