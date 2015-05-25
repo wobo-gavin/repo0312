@@ -190,16 +190,12 @@ cookies
 
 :Summary: Specifies whether or not cookies are used in a request or what cookie
         jar to use or what cookies to send.
-:Types:
-        - bool
-        - ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface``
+:Types: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface``
 :Default: None
 :Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::COOKIES``
 
-When creating a /* Replaced /* Replaced /* Replaced client */ */ */, you can set the default cookie option to ``true``
-to use a shared cookie session associated with the /* Replaced /* Replaced /* Replaced client */ */ */. Othewise, you
-must specify the cookies option as a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface``
-or ``false``.
+You must specify the cookies option as a
+``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface`` or ``false``.
 
 .. code-block:: php
 
@@ -212,6 +208,11 @@ or ``false``.
     ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::cookies`` middleware. This middleware is added
     by default when a /* Replaced /* Replaced /* Replaced client */ */ */ is created with no handler, and is added by
     default when creating a handler with ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler``.
+
+.. tip::
+
+    When creating a /* Replaced /* Replaced /* Replaced client */ */ */, you can set the default cookie option to ``true``
+    to use a shared cookie session associated with the /* Replaced /* Replaced /* Replaced client */ */ */.
 
 
 .. _connect_timeout-option:

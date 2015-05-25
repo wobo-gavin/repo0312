@@ -386,30 +386,23 @@ Cookies
 =======
 
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ can maintain a cookie session for you if instructed using the
-``cookies`` request option.
-
-- Set to ``true`` to use a shared cookie session associated with the /* Replaced /* Replaced /* Replaced client */ */ */.
-- Pass an associative array containing cookies to send in the request and start
-  a new cookie session.
-- Set to a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\CookieJar\CookieJarInterface`` object to use
-  an existing cookie jar.
+``cookies`` request option. When sending a request, the ``cookies`` option
+must be set an an instance of ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\CookieJar\CookieJarInterface``.
 
 .. code-block:: php
-
-    // Use a shared /* Replaced /* Replaced /* Replaced client */ */ */ cookie jar
-    $r = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/cookies', ['cookies' => true]);
-
-    // Use an array of cookies
-    $r = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/cookies', [
-        'cookies' => [
-            'foo' => 'bar',
-            'baz' => 'qux',
-        ]
-    ]);
 
     // Use a specific cookie jar
     $jar = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
     $r = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/cookies', ['cookies' => $jar]);
+
+You can set ``cookies`` to ``true`` in a /* Replaced /* Replaced /* Replaced client */ */ */ constructor if you would like
+to use a shared cookie jar for all requests.
+
+.. code-block:: php
+
+    // Use a shared /* Replaced /* Replaced /* Replaced client */ */ */ cookie jar
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client(['cookies' => true]);
+    $r = $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/cookies');
 
 
 Redirects
