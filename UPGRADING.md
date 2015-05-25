@@ -5,13 +5,21 @@
 ----------
 
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ now uses [PSR-7](http://www.php-fig.org/psr/psr-7/) for HTTP messages.
-Due to the fact that these messages are immutable, this prompted a
-re-architecting of /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to use a middleware based system rather than an
-event system. Any HTTP message interaction (e.g., `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request`)
-need to be updated to work with the new immutable PSR-7 request and response
-objects. Any event listeners or subscribers need to be updated to become
-middleware functions that wrap handlers (or are injected into a
-`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack`.
+Due to the fact that these messages are immutable, this prompted a refactoring
+of /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to use a middleware based system rather than an event system. Any
+HTTP message interaction (e.g., `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request`) need to be
+updated to work with the new immutable PSR-7 request and response objects. Any
+event listeners or subscribers need to be updated to become middleware
+functions that wrap handlers (or are injected into a
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack`).
+
+The change to PSR-7 unfortunately required significant refactoring to /* Replaced /* Replaced /* Replaced Guzzle */ */ */
+due to the fact that PSR-7 messages are immutable. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 5 relied on an event
+system from plugins. The event system relied on mutability of HTTP messages and
+side effects in order to work. With immutable messages, you have to change your
+workflow to become more about either returning a value (e.g., functional
+middlewares) or setting a value on an object. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ v6 has chosen the
+functional middleware approach.
 
 - Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\BatchResults`
 - Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection`
@@ -29,9 +37,10 @@ middleware functions that wrap handlers (or are injected into a
      Note: there has been movement in the React project to modify promises to
      no longer utilize recursion.
   2. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ needs to have the ability to synchronously block on a promise to
-     wait for a result. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ promises allows this functionality.
+     wait for a result. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ promises allows this functionality (and does
+     not require the use of recursion).
   3. Because we need to be able to wait on a result, doing so using React
-     promises requiring wrapping react promises with RingPHP futures. This
+     promises requires wrapping react promises with RingPHP futures. This
      overhead is no longer needed, reducing stack sizes, reducing complexity,
      and improving performance.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Mimetypes` has been moved to a function in
