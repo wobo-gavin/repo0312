@@ -31,9 +31,8 @@ class Client implements ClientInterface
     /**
      * Clients accept an array of constructor parameters.
      *
-     * Here's an example of creating a /* Replaced /* Replaced /* Replaced client */ */ */ using an URI template for the
-     * /* Replaced /* Replaced /* Replaced client */ */ */'s base_uri and an array of default request options to apply
-     * to each request:
+     * Here's an example of creating a /* Replaced /* Replaced /* Replaced client */ */ */ using a base_uri and an array of
+     * default request options to apply to each request:
      *
      *     $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client([
      *         'base_uri'        => 'http://www.foo.com/1.0/',
@@ -58,6 +57,7 @@ class Client implements ClientInterface
      * - **: any request option
      *
      * @param array $config Client configuration settings.
+     *
      * @see \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions for a list of available request options.
      */
     public function __construct(array $config = [])
