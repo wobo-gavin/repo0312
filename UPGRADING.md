@@ -1,6 +1,138 @@
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Upgrade Guide
 ====================
 
+5.0 to 6.0
+----------
+
+/* Replaced /* Replaced /* Replaced Guzzle */ */ */ now uses [PSR-7](http://www.php-fig.org/psr/psr-7/) for HTTP messages.
+Due to the fact that these messages are immutable, this prompted a refactoring
+of /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to use a middleware based system rather than an event system. Any
+HTTP message interaction (e.g., `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Message\Request`) need to be
+updated to work with the new immutable PSR-7 request and response objects. Any
+event listeners or subscribers need to be updated to become middleware
+functions that wrap handlers (or are injected into a
+`/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack`).
+
+- Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\BatchResults`
+- Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Collection`
+- Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HasDataTrait`
+- Removed `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ToArrayInterface`
+- The `/* Replaced /* Replaced /* Replaced guzzle */ */ */http/streams` dependency has been removed. Stream functionality
+  is now present in the `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */` namespace provided by the
+  `/* Replaced /* Replaced /* Replaced guzzle */ */ */http/psr7` package.
+- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ no longer uses ReactPHP promises and now uses the
+  `/* Replaced /* Replaced /* Replaced guzzle */ */ */http/promises` library. We use a custom promise library for three
+  significant reasons:
+  1. React promises (at the time of writing this) are recursive. Promise
+     chaining and promise resolution will eventually blow the stack. /* Replaced /* Replaced /* Replaced Guzzle */ */ */
+     promises are not recursive as they use a sort of trampolining technique.
+     Note: there has been movement in the React project to modify promises to
+     no longer utilize recursion.
+  2. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ needs to have the ability to synchronously block on a promise to
+     wait for a result. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ promises allows this functionality (and does
+     not require the use of recursion).
+  3. Because we need to be able to wait on a result, doing so using React
+     promises requires wrapping react promises with RingPHP futures. This
+     overhead is no longer needed, reducing stack sizes, reducing complexity,
+     and improving performance.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Mimetypes` has been moved to a function in
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\mimetype_from_extension` and
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\mimetype_from_filename`.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Query` and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\QueryParser` have been removed. Query
+  strings must now be passed into request objects as strings, or provided to
+  the `query` request option when creating requests with /* Replaced /* Replaced /* Replaced client */ */ */s. The `query`
+  option uses PHP's `http_build_query` to convert an array to a string. If you
+  need a different serialization technique, you will need to pass the query
+  string in as a string. There are a couple helper functions that will make
+  working with query strings easier: `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\parse_query` and
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\build_query`.
+- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ no longer has a dependency on RingPHP. Due to the use of a middleware
+  system based on PSR-7, using RingPHP and it's middleware system as well adds
+  more complexity than the benefits it provides. All HTTP handlers that were
+  present in RingPHP have been modified to work directly with PSR-7 messages
+  and placed in the `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler` namespace. This significantly reduces
+  complexity in /* Replaced /* Replaced /* Replaced Guzzle */ */ */, removes a dependency, and improves performance. RingPHP
+  will be maintained for /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 5 support, but will no longer be a part of
+  /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 6.
+- As /* Replaced /* Replaced /* Replaced Guzzle */ */ */ now uses a middleware based systems the event system and RingPHP
+  integration has been removed. Note: while the event system has been removed,
+  it is possible to add your own type of event system that is powered by the
+  middleware system.
+  - Removed the `Event` namespace.
+  - Removed the `Subscriber` namespace.
+  - Removed `Transaction` class
+  - Removed `RequestFsm`
+  - Removed `RingBridge`
+  - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Cookie` is now provided by
+    `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::cookies`
+  - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\HttpError` is now provided by
+    `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::httpError`
+  - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History` is now provided by
+    `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::history`
+  - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock` is now provided by
+    `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::mock`
+  - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Prepare` is now provided by
+    `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\PrepareBodyMiddleware`
+  - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Redirect` is now provided by
+    `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RedirectMiddleware`
+- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ now uses `Psr\Http\Message\UriInterface` (implements in
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri`) for URI support. `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Url` is now gone.
+- Static functions in `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils` have been moved to namespaced
+  functions under the `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http` namespace. This requires either a Composer
+  based autoloader or you to include functions.php.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::getDefaultOption` has been renamed to
+  `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::getConfig`.
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::setDefaultOption` has been removed.
+
+## Migrating to middleware
+
+The change to PSR-7 unfortunately required significant refactoring to /* Replaced /* Replaced /* Replaced Guzzle */ */ */
+due to the fact that PSR-7 messages are immutable. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 5 relied on an event
+system from plugins. The event system relied on mutability of HTTP messages and
+side effects in order to work. With immutable messages, you have to change your
+workflow to become more about either returning a value (e.g., functional
+middlewares) or setting a value on an object. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ v6 has chosen the
+functional middleware approach.
+
+Instead of using the event system to listen for things like the `before` event,
+you now create a stack based middleware function that intercepts a request on
+the way in and the promise of the response on the way out. This is a much
+simpler and more predictable approach than the event system and works nicely
+with PSR-7 middleware. Due to the use of promises, the middleware system is
+also asynchronous.
+
+v5:
+
+```php
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Event\BeforeEvent;
+$/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client();
+// Get the emitter and listen to the before event.
+$/* Replaced /* Replaced /* Replaced client */ */ */->getEmitter()->on('before', function (BeforeEvent $e) {
+    // /* Replaced /* Replaced /* Replaced Guzzle */ */ */ v5 events relied on mutation
+    $e->getRequest()->setHeader('X-Foo', 'Bar');
+});
+```
+
+v6:
+
+In v6, you can modify the request before it is sent using the `mapRequest`
+middleware. The idiomatic way in v6 to modify the request/response lifecycle is
+to setup a handler middleware stack up front and inject the handler into a
+/* Replaced /* Replaced /* Replaced client */ */ */.
+
+```php
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
+// Create a handler stack that has all of the default middlewares attached
+$handler = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack::create();
+// Push the handler onto the handler stack
+$handler->push(Middleware::mapRequest(function (RequestInterface $request) {
+    // Notice that we have to return a request object
+    return $request->withHeader('X-Foo', 'Bar');
+});
+// Inject the handler into the /* Replaced /* Replaced /* Replaced client */ */ */
+$/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client(['handler' => $handler]);
+```
+
 4.x to 5.0
 ----------
 
