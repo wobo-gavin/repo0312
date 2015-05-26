@@ -69,3 +69,15 @@ You can then later update /* Replaced /* Replaced /* Replaced Guzzle */ */ */ us
  ```bash
 composer.phar update
  ```
+
+
+## Version Guidance
+
+- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3.x (`/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */`) is now EOL and will no longer be maintained.
+  Requires PHP 5.3+.
+- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4.x (`/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */`) is now EOL and will no longer be maintained.
+  Requires PHP 5.4+.
+- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 5.x (`/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */`) is still maintained under the `5.3` branch.
+  Requires PHP 5.4+.
+- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 6.x (`/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */`) is the latest stable version of /* Replaced /* Replaced /* Replaced Guzzle */ */ */. This
+  is the only version that is PSR-7 compatible. Requires PHP 5.5+.
