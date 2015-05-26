@@ -2,6 +2,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -21,6 +22,7 @@ interface ClientInterface
      *                                  request and to the transfer.
      *
      * @return ResponseInterface
+     * @throws /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
      */
     public function send(RequestInterface $request, array $options = []);
 
@@ -47,6 +49,7 @@ interface ClientInterface
      * @param array               $options Request options to apply.
      *
      * @return ResponseInterface
+     * @throws /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
      */
     public function request($method, $uri, array $options = []);
 
