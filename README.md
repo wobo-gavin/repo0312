@@ -81,9 +81,8 @@ composer.phar update
 | 6.x     | Latest      | `/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */` | [v6][/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-repo] | [v6][/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-docs] | Yes   |
 
 [/* Replaced /* Replaced /* Replaced guzzle */ */ */-3-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ */3//* Replaced /* Replaced /* Replaced guzzle */ */ */
-[/* Replaced /* Replaced /* Replaced guzzle */ */ */-5-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */
+[/* Replaced /* Replaced /* Replaced guzzle */ */ */-5-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//tree/5.3
 [/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */
-[this-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */
-[/* Replaced /* Replaced /* Replaced guzzle */ */ */-3-docs]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ */3//* Replaced /* Replaced /* Replaced guzzle */ */ */
-[/* Replaced /* Replaced /* Replaced guzzle */ */ */-5-docs]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */
-[/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-docs]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */
+[/* Replaced /* Replaced /* Replaced guzzle */ */ */-3-docs]: http:///* Replaced /* Replaced /* Replaced guzzle */ */ */3.readthedocs.org/en/latest/
+[/* Replaced /* Replaced /* Replaced guzzle */ */ */-5-docs]: http:///* Replaced /* Replaced /* Replaced guzzle */ */ */.readthedocs.org/en/5.3/
+[/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-docs]: http:///* Replaced /* Replaced /* Replaced guzzle */ */ */.readthedocs.org/en/latest/
