@@ -24,7 +24,7 @@ a response or exception by shifting return values off of a queue.
 .. code-block:: php
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\MockHandler;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 
     // Create a mock and queue two responses.
