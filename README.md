@@ -73,11 +73,17 @@ composer.phar update
 
 ## Version Guidance
 
-- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3.x (`/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */`) is now EOL and will no longer be maintained.
-  Requires PHP 5.3+.
-- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 4.x (`/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */`) is now EOL and will no longer be maintained.
-  Requires PHP 5.4+.
-- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 5.x (`/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */`) is still maintained under the `5.3` branch.
-  Requires PHP 5.4+.
-- /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 6.x (`/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */`) is the latest stable version of /* Replaced /* Replaced /* Replaced Guzzle */ */ */. This
-  is the only version that is PSR-7 compatible. Requires PHP 5.5+.
+| Version | Status      | Packagist           | Repo                | Docs                | PSR-7 |
+|---------|-------------|---------------------|---------------------|---------------------|-------|
+| 3.x     | EOL         | `/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */`     | [v3][/* Replaced /* Replaced /* Replaced guzzle */ */ */-3-repo] | [v3][/* Replaced /* Replaced /* Replaced guzzle */ */ */-3-docs] | No    |
+| 4.x     | EOL         | `/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */` | N/A                 | N/A                 | No    |
+| 5.x     | Maintained  | `/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */` | [v5][/* Replaced /* Replaced /* Replaced guzzle */ */ */-5-repo] | [v5][/* Replaced /* Replaced /* Replaced guzzle */ */ */-5-docs] | No    |
+| 6.x     | Latest      | `/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */` | [v6][/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-repo] | [v6][/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-docs] | Yes   |
+
+[/* Replaced /* Replaced /* Replaced guzzle */ */ */-3-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ */3//* Replaced /* Replaced /* Replaced guzzle */ */ */
+[/* Replaced /* Replaced /* Replaced guzzle */ */ */-5-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */
+[/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */
+[this-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */
+[/* Replaced /* Replaced /* Replaced guzzle */ */ */-3-docs]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ */3//* Replaced /* Replaced /* Replaced guzzle */ */ */
+[/* Replaced /* Replaced /* Replaced guzzle */ */ */-5-docs]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */
+[/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-docs]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */
