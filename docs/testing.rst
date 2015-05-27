@@ -25,6 +25,7 @@ a response or exception by shifting return values off of a queue.
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 
     // Create a mock and queue two responses.
@@ -33,7 +34,7 @@ a response or exception by shifting return values off of a queue.
         new Response(202, ['Content-Length' => 0])
     ]);
 
-    $handler = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler($mock);
+    $handler = HandlerStack::create($mock);
     $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
 
     // The first request is intercepted with the first response.
@@ -58,9 +59,10 @@ history of the requests that were sent by a /* Replaced /* Replaced /* Replaced 
 .. code-block:: php
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
 
-    $stack = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler();
+    $stack = HandlerStack::create();
     // Add the history middleware to the handler stack.
     $stack->append($history);
 
