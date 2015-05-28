@@ -70,7 +70,7 @@ functions that wrap handlers (or are injected into a
   - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\History` is now provided by
     `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::history`
   - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Mock` is now provided by
-    `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::mock`
+    `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler`
   - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Prepare` is now provided by
     `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\PrepareBodyMiddleware`
   - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Subscriber\Redirect` is now provided by
