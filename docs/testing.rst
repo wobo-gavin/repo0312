@@ -62,14 +62,14 @@ history of the requests that were sent by a /* Replaced /* Replaced /* Replaced 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
 
-    $stack = HandlerStack::create();
-    // Add the history middleware to the handler stack.
-    $stack->append($history);
-
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $stack]);
-
     $container = [];
     $history = Middleware::history($container);
+    
+    $stack = HandlerStack::create();
+    // Add the history middleware to the handler stack.
+    $stack->push($history);
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $stack]);
 
     $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/get');
     $/* Replaced /* Replaced /* Replaced client */ */ */->head('http://httpbin.org/get');
