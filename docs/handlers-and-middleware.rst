@@ -147,7 +147,7 @@ a function that takes the request argument and returns the request to send.
 
     use /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\RequestInterface;
 
-    $stack = $/* Replaced /* Replaced /* Replaced client */ */ */->getHandlerStack();
+    $stack = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack();
 
     $stack->push(Middleware::mapRequest(function (RequestInterface $request) {
         return $request->withHeader('X-Foo', 'bar');
@@ -162,7 +162,7 @@ Modifying a response is also much simpler using the
 
     use /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\ResponseInterface;
 
-    $stack = $/* Replaced /* Replaced /* Replaced client */ */ */->getHandlerStack();
+    $stack = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack();
 
     $stack->push(Middleware::mapResponse(function (ResponseInterface $response) {
         return $response->withHeader('X-Foo', 'bar');
