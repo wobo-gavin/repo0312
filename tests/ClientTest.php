@@ -8,6 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -79,6 +80,20 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             'http://foo.com/bar/baz',
             $mock->getLastRequest()->getUri()
+        );
+    }
+
+    public function testCanMergeOnBaseUriWithRequest()
+    {
+        $mock = new MockHandler([new Response()]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client([
+            'handler'  => $mock,
+            'base_uri' => 'http://foo.com/bar/'
+        ]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', new Uri('baz'));
+        $this->assertEquals(
+            'http://bar.com/bar/baz',
+            (string) $mock->getLastRequest()->getUri()
         );
     }
 
