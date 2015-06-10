@@ -35,7 +35,7 @@ a response or exception by shifting return values off of a queue.
     ]);
 
     $handler = HandlerStack::create($mock);
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
 
     // The first request is intercepted with the first response.
     echo $/* Replaced /* Replaced /* Replaced client */ */ */->get('/')->getStatusCode();
