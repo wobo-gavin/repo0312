@@ -395,6 +395,18 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testEnsuresThatFormParamsAndMultipartAreExclusive()
+    {
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => function () {}]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://foo.com', [
+            'form_params' => ['foo' => 'bar bam'],
+            'multipart' => []
+        ]);
+    }
+
     public function testCanSendMultipart()
     {
         $mock = new MockHandler([new Response()]);
