@@ -478,11 +478,29 @@ json
 
 .. code-block:: php
 
-    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('PUT', '/put', ['json' => ['foo' => 'bar']]);
-    echo $request->getHeader('Content-Type');
-    // application/json
-    echo $request->getBody();
-    // {"foo":"bar"}
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/put', ['json' => ['foo' => 'bar']]);
+
+Here's an example of using the ``tap`` middleware to see what request is sent
+over the wire.
+
+.. code-block:: php
+
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
+
+    // Grab the /* Replaced /* Replaced /* Replaced client */ */ */'s handler instance.
+    $/* Replaced /* Replaced /* Replaced client */ */ */Handler = $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('handler');
+    // Create a middleware that echoes parts of the request.
+    $tapMiddleware = Middleware::tap(function ($request) {
+        echo $request->getHeader('Content-Type');
+        // application/json
+        echo $request->getBody();
+        // {"foo":"bar"}
+    });
+
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/put', [
+        'json'    => ['foo' => 'bar'],
+        'handler' => $tapMiddleware($/* Replaced /* Replaced /* Replaced client */ */ */Handler)
+    ]);
 
 .. note::
 
@@ -830,6 +848,4 @@ version
 .. code-block:: php
 
     // Force HTTP/1.0
-    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->createRequest('GET', '/get', ['version' => 1.0]);
-    echo $request->getProtocolVersion();
-    // 1.0
+    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->get('/get', ['version' => 1.0]);
