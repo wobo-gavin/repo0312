@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/psr7": "~1.0",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/psr7": "~1.1",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/promises": "~1.0"
     },
     "require-dev": {
