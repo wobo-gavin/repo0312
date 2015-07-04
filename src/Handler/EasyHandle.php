@@ -50,11 +50,27 @@ final class EasyHandle
 
         // HTTP-version SP status-code SP reason-phrase
         $startLine = explode(' ', array_shift($this->headers), 3);
+        $headers = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\headers_from_lines($this->headers);
+        $normalizedKeys = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\normalize_header_keys($headers);
+
+        if (!empty($this->options['decode_content'])
+            && isset($normalizedKeys['content-encoding'])
+        ) {
+            unset($headers[$normalizedKeys['content-encoding']]);
+            if (isset($normalizedKeys['content-length'])) {
+                $bodyLength = (int) $this->sink->getSize();
+                if ($bodyLength) {
+                    $headers[$normalizedKeys['content-length']] = $bodyLength;
+                } else {
+                    unset($headers[$normalizedKeys['content-length']]);
+                }
+            }
+        }
 
         // Attach a response to the easy handle with the parsed headers.
         $this->response = new Response(
             $startLine[1],
-            \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\headers_from_lines($this->headers),
+            $headers,
             $this->sink,
             substr($startLine[0], 5),
             isset($startLine[2]) ? (int) $startLine[2] : null
