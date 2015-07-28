@@ -15,7 +15,7 @@ project = u'/* Replaced /* Replaced /* Replaced Guzzle */ */ */'
 copyright = u'2015, Michael Dowling'
 version = '6'
 html_title = "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Documentation"
-html_short_title = "/* Replaced /* Replaced /* Replaced Guzzle */ */ */"
+html_short_title = "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ 6"
 
 exclude_patterns = ['_build']
 html_static_path = ['_static']
