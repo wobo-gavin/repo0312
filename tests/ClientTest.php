@@ -486,6 +486,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $http = getenv('HTTP_PROXY');
         $https = getenv('HTTPS_PROXY');
+        $no = getenv('NO_PROXY');
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertNull($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('proxy'));
         putenv('HTTP_PROXY=127.0.0.1');
@@ -495,13 +496,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('proxy')
         );
         putenv('HTTPS_PROXY=127.0.0.2');
+        putenv('NO_PROXY=127.0.0.3, 127.0.0.4');
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
         $this->assertEquals(
-            ['http' => '127.0.0.1', 'https' => '127.0.0.2'],
+            ['http' => '127.0.0.1', 'https' => '127.0.0.2', 'no' => ['127.0.0.3','127.0.0.4']],
             $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('proxy')
         );
         putenv("HTTP_PROXY=$http");
         putenv("HTTPS_PROXY=$https");
+        putenv("NO_PROXY=$no");
     }
 
     public function testRequestSendsWithSync()
