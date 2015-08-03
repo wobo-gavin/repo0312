@@ -52,11 +52,11 @@ class Pool implements PromisorInterface
 
         $iterable = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\iter_for($requests);
         $requests = function () use ($iterable, $/* Replaced /* Replaced /* Replaced client */ */ */, $opts) {
-            foreach ($iterable as $rfn) {
+            foreach ($iterable as $key => $rfn) {
                 if ($rfn instanceof RequestInterface) {
-                    yield $/* Replaced /* Replaced /* Replaced client */ */ */->sendAsync($rfn, $opts);
+                    yield $key => $/* Replaced /* Replaced /* Replaced client */ */ */->sendAsync($rfn, $opts);
                 } elseif (is_callable($rfn)) {
-                    yield $rfn($opts);
+                    yield $key => $rfn($opts);
                 } else {
                     throw new \InvalidArgumentException('Each value yielded by '
                         . 'the iterator must be a /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\RequestInterface '
