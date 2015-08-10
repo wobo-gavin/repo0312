@@ -1,11 +1,13 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RedirectMiddleware
@@ -169,5 +171,33 @@ class RedirectMiddlewareTest extends \PHPUnit_Framework_TestCase
         ]);
         $promise->wait();
         $this->assertTrue($call);
+    }
+
+    public function testRemoveAuthorizationHeaderOnRedirect()
+    {
+        $mock = new MockHandler([
+            new Response(302, ['Location' => 'http://test.com']),
+            function (RequestInterface $request) {
+                $this->assertFalse($request->hasHeader('Authorization'));
+                return new Response(200);
+            }
+        ]);
+        $handler = HandlerStack::create($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://example.com?a=b', ['auth' => ['testuser', 'testpass']]);
+    }
+
+    public function testNotRemoveAuthorizationHeaderOnRedirect()
+    {
+        $mock = new MockHandler([
+            new Response(302, ['Location' => 'http://example.com/2']),
+            function (RequestInterface $request) {
+                $this->assertTrue($request->hasHeader('Authorization'));
+                return new Response(200);
+            }
+        ]);
+        $handler = HandlerStack::create($mock);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://example.com?a=b', ['auth' => ['testuser', 'testpass']]);
     }
 }
