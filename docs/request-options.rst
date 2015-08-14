@@ -152,8 +152,7 @@ body
 :Types:
     - string
     - ``fopen()`` resource
-    - ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface``
-    - ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Post\PostBodyInterface``
+    - ``Psr\Http\Message\StreamInterface``
 :Default: None
 :Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::BODY``
 
@@ -174,7 +173,7 @@ This setting can be set to any of the following types:
       $resource = fopen('http://httpbin.org', 'r');
       $/* Replaced /* Replaced /* Replaced client */ */ */->put('/put', ['body' => $resource]);
 
-- ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Stream\StreamInterface``
+- ``Psr\Http\Message\StreamInterface``
 
   .. code-block:: php
 
