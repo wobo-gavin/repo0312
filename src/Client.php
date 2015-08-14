@@ -297,9 +297,6 @@ class Client implements ClientInterface
             $elements = $options['multipart'];
             unset($options['multipart']);
             $options['body'] = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\MultipartStream($elements);
-            // Use a multipart/form-data POST if a Content-Type is not set.
-            $options['_conditional']['Content-Type'] = 'multipart/form-data; boundary='
-                . $options['body']->getBoundary();
         }
 
         if (!empty($options['decode_content'])
@@ -363,6 +360,11 @@ class Client implements ClientInterface
         }
 
         $request = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\modify_request($request, $modify);
+        if ($request->getBody() instanceof /* Replaced /* Replaced /* Replaced Psr7 */ */ */\MultipartStream) {
+            // Use a multipart/form-data POST if a Content-Type is not set.
+            $options['_conditional']['Content-Type'] = 'multipart/form-data; boundary='
+                . $request->getBody()->getBoundary();
+        }
 
         // Merge in conditional headers if they are not present.
         if (isset($options['_conditional'])) {
