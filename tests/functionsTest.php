@@ -70,6 +70,37 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertFileExists(/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_ca_bundle());
     }
+
+    public function noProxyProvider()
+    {
+        return [
+            ['mit.edu', ['.mit.edu'], false],
+            ['foo.mit.edu', ['.mit.edu'], true],
+            ['mit.edu', ['mit.edu'], true],
+            ['mit.edu', ['baz', 'mit.edu'], true],
+            ['mit.edu', ['', '', 'mit.edu'], true],
+            ['mit.edu', ['baz', '*'], true],
+        ];
+    }
+
+    /**
+     * @dataProvider noproxyProvider
+     */
+    public function testChecksNoProxyList($host, $list, $result)
+    {
+        $this->assertSame(
+            $result,
+            \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\is_host_in_noproxy($host, $list)
+        );
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testEnsuresNoProxyCheckHostIsSet()
+    {
+        \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\is_host_in_noproxy('', []);
+    }
 }
 
 final class StrClass
