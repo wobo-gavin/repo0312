@@ -149,8 +149,6 @@ class Client implements ClientInterface
      * Configures the default options for a /* Replaced /* Replaced /* Replaced client */ */ */.
      *
      * @param array $config
-     *
-     * @return array
      */
     private function configureDefaults(array $config)
     {
