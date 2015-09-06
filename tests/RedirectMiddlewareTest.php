@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RedirectMiddleware;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -144,18 +145,16 @@ class RedirectMiddlewareTest extends \PHPUnit_Framework_TestCase
         $handler = $stack->resolve();
         $request = new Request('GET', 'http://example.com?a=b');
         $promise = $handler($request, [
-            'allow_redirects' => [
-                  'track_redirects' => true,
-            ],
+            'allow_redirects' => ['track_redirects' => true]
         ]);
         $response = $promise->wait(true);
         $this->assertEquals(
             [
-                'http://example.com?a=b',
                 'http://example.com',
-                'http://example.com/foo'
+                'http://example.com/foo',
+                'http://example.com/bar',
             ],
-            $response->getHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Redirect')
+            $response->getHeader(RedirectMiddleware::HISTORY_HEADER)
         );
     }
 
