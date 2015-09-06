@@ -83,6 +83,10 @@ functions that wrap handlers (or are injected into a
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::getDefaultOption` has been renamed to
   `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::getConfig`.
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::setDefaultOption` has been removed.
+- The `json` and `xml` methods of response objects has been removed. With the
+  migration to strictly adhering to PSR-7 as the interface for /* Replaced /* Replaced /* Replaced Guzzle */ */ */ messages,
+  adding methods to message interfaces would actually require /* Replaced /* Replaced /* Replaced Guzzle */ */ */ messages
+  to extend from PSR-7 messages rather then work with them directly.
 
 ## Migrating to middleware
 
