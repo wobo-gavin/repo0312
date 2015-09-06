@@ -38,10 +38,10 @@ a response or exception by shifting return values off of a queue.
     $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
 
     // The first request is intercepted with the first response.
-    echo $/* Replaced /* Replaced /* Replaced client */ */ */->get('/')->getStatusCode();
+    echo $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/')->getStatusCode();
     //> 200
     // The second request is intercepted with the second response.
-    echo $/* Replaced /* Replaced /* Replaced client */ */ */->get('/')->getStatusCode();
+    echo $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/')->getStatusCode();
     //> 202
 
 When no more responses are in the queue and a request is sent, an
@@ -64,15 +64,15 @@ history of the requests that were sent by a /* Replaced /* Replaced /* Replaced 
 
     $container = [];
     $history = Middleware::history($container);
-    
+
     $stack = HandlerStack::create();
     // Add the history middleware to the handler stack.
     $stack->push($history);
 
     $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $stack]);
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/get');
-    $/* Replaced /* Replaced /* Replaced client */ */ */->head('http://httpbin.org/get');
+    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'http://httpbin.org/get');
+    $/* Replaced /* Replaced /* Replaced client */ */ */->request('HEAD', 'http://httpbin.org/get');
 
     // Count the number of transactions
     echo count($container);
@@ -152,7 +152,7 @@ can queue an HTTP response or an array of responses by calling
     ]);
 
     $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_uri' => Server::$url]);
-    echo $/* Replaced /* Replaced /* Replaced client */ */ */->get('/foo')->getStatusCode();
+    echo $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/foo')->getStatusCode();
     // 200
 
 When a response is queued on the test server, the test server will remove any

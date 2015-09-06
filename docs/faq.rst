@@ -59,7 +59,7 @@ used with a /* Replaced /* Replaced /* Replaced client */ */ */.
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [
+    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/', [
         'curl' => [
             CURLOPT_INTERFACE => 'xxx.xxx.xxx.xxx'
         ]
@@ -79,7 +79,7 @@ used with a /* Replaced /* Replaced /* Replaced client */ */ */ and allow self-s
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->get('/', [
+    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/', [
         'stream' => true,
         'stream_context' => [
             'ssl' => [
@@ -125,7 +125,7 @@ setting the ``expect`` request option to ``false``:
     $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client();
 
     // Disable the expect header on a single request
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->put('/', ['expect' => false]);
+    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->request('PUT', '/', ['expect' => false]);
 
     // Disable the expect header on all /* Replaced /* Replaced /* Replaced client */ */ */ requests
     $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client(['expect' => false]);

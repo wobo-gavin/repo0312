@@ -237,7 +237,7 @@ stack.
         return $r;
     });
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/');
+    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'http://httpbin.org/');
     // echoes 'ABC';
 
     $stack->unshift(Middleware::mapRequest(function (RequestInterface $r) {
@@ -246,7 +246,7 @@ stack.
     });
 
     $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $stack]);
-    $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://httpbin.org/');
+    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'http://httpbin.org/');
     // echoes '0ABC';
 
 You can give middleware a name, which allows you to add middleware before

@@ -19,7 +19,9 @@ trivial to integrate with web services.
 
 ```php
 $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client();
-$res = $/* Replaced /* Replaced /* Replaced client */ */ */->get('https://api.github.com/user', ['auth' =>  ['user', 'pass']]);
+$res = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'https://api.github.com/user', [
+    'auth' => ['user', 'pass']
+]);
 echo $res->getStatusCode();
 // "200"
 echo $res->getHeader('content-type');
