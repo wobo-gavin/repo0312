@@ -1,6 +1,8 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test\Handler;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlFactory;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\EasyHandle;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
@@ -40,7 +42,7 @@ class CurlFactoryTest extends \PHPUnit_Framework_TestCase
         ], 'testing');
         $f = new Handler\CurlFactory(3);
         $result = $f->create($request, ['sink' => $stream]);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\EasyHandle', $result);
+        $this->assertInstanceOf(EasyHandle::class, $result);
         $this->assertInternalType('resource', $result->handle);
         $this->assertInternalType('array', $result->headers);
         $this->assertSame($stream, $result->sink);
@@ -502,7 +504,7 @@ class CurlFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreatesConnectException()
     {
-        $m = new \ReflectionMethod('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlFactory', 'finishError');
+        $m = new \ReflectionMethod(CurlFactory::class, 'finishError');
         $m->setAccessible(true);
         $factory = new Handler\CurlFactory(1);
         $easy = $factory->create(new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('GET', Server::$url), []);
