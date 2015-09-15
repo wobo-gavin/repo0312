@@ -73,7 +73,7 @@ function that takes the following form.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\RequestInterface;
+    use Psr\Http\Message\RequestInterface;
 
     function my_middleware()
     {
@@ -95,7 +95,7 @@ Here's an example of adding a header to each request.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\RequestInterface;
+    use Psr\Http\Message\RequestInterface;
 
     function add_header($header, $value)
     {
@@ -132,8 +132,8 @@ downstream handler. This example adds a header to the response.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\RequestInterface;
-    use /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\ResponseInterface;
+    use Psr\Http\Message\RequestInterface;
+    use Psr\Http\Message\ResponseInterface;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlHandler;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
@@ -166,7 +166,7 @@ a function that takes the request argument and returns the request to send.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\RequestInterface;
+    use Psr\Http\Message\RequestInterface;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlHandler;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
@@ -186,7 +186,7 @@ Modifying a response is also much simpler using the
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\ResponseInterface;
+    use Psr\Http\Message\ResponseInterface;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlHandler;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
@@ -214,7 +214,7 @@ stack.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\RequestInterface;
+    use Psr\Http\Message\RequestInterface;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
@@ -255,7 +255,7 @@ by name.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\RequestInterface;
+    use Psr\Http\Message\RequestInterface;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
 
     // Add a middleware with a name
