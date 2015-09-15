@@ -95,7 +95,7 @@ ready:
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 
-    $request = new Request('PUT', 'http:/httpbin.org/put');
+    $request = new Request('PUT', 'http://httpbin.org/put');
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request, ['timeout' => 2]);
 
 Client objects provide a great deal of flexibility in how request are
