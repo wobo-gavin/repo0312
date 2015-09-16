@@ -5,10 +5,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri;
+use Psr\Http\Message\ResponseInterface;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +38,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         Server::flush();
         Server::enqueue([new Response(200, ['Content-Length' => 2], 'hi')]);
         $p = $/* Replaced /* Replaced /* Replaced client */ */ */->getAsync(Server::$url, ['query' => ['test' => 'foo']]);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface', $p);
+        $this->assertInstanceOf(PromiseInterface::class, $p);
         $this->assertEquals(200, $p->wait()->getStatusCode());
         $received = Server::received(true);
         $this->assertCount(1, $received);
@@ -48,7 +50,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => new MockHandler([new Response()])]);
         $request = new Request('GET', 'http://example.com');
         $r = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
-        $this->assertInstanceOf('Psr\Http\Message\ResponseInterface', $r);
+        $this->assertInstanceOf(ResponseInterface::class, $r);
         $this->assertEquals(200, $r->getStatusCode());
     }
 
@@ -62,7 +64,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ]);
         $base = $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('base_uri');
         $this->assertEquals('http://foo.com', (string) $base);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri', $base);
+        $this->assertInstanceOf(Uri::class, $base);
         $this->assertNotNull($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('handler'));
         $this->assertEquals(2, $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('timeout'));
         $this->assertArrayHasKey('timeout', $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig());

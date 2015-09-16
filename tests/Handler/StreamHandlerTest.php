@@ -1,6 +1,7 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test\Handler;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\StreamHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
@@ -539,7 +540,7 @@ class StreamHandlerTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertInternalType('float', $gotStats->getTransferTime());
         $this->assertInstanceOf(
-            '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException',
+            ConnectException::class,
             $gotStats->getHandlerErrorData()
         );
     }

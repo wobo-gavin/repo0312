@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
@@ -25,7 +26,7 @@ class PrepareBodyMiddlewareTest extends \PHPUnit_Framework_TestCase
         $stack->push($m);
         $comp = $stack->resolve();
         $p = $comp(new Request('PUT', 'http://www.google.com', [], '123'), []);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface', $p);
+        $this->assertInstanceOf(PromiseInterface::class, $p);
         $response = $p->wait();
         $this->assertEquals(200, $response->getStatusCode());
     }
@@ -47,7 +48,7 @@ class PrepareBodyMiddlewareTest extends \PHPUnit_Framework_TestCase
         $stack->push($m);
         $comp = $stack->resolve();
         $p = $comp(new Request('PUT', 'http://www.google.com', [], $body), []);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface', $p);
+        $this->assertInstanceOf(PromiseInterface::class, $p);
         $response = $p->wait();
         $this->assertEquals(200, $response->getStatusCode());
     }
@@ -67,7 +68,7 @@ class PrepareBodyMiddlewareTest extends \PHPUnit_Framework_TestCase
         $stack->push($m);
         $comp = $stack->resolve();
         $p = $comp(new Request('PUT', 'http://www.google.com', [], $bd), []);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface', $p);
+        $this->assertInstanceOf(PromiseInterface::class, $p);
         $response = $p->wait();
         $this->assertEquals(200, $response->getStatusCode());
     }
@@ -103,7 +104,7 @@ class PrepareBodyMiddlewareTest extends \PHPUnit_Framework_TestCase
         $p = $comp(new Request('PUT', 'http://www.google.com', [], $bd), [
             'expect' => $value
         ]);
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface', $p);
+        $this->assertInstanceOf(PromiseInterface::class, $p);
         $response = $p->wait();
         $this->assertEquals(200, $response->getStatusCode());
     }
@@ -126,7 +127,7 @@ class PrepareBodyMiddlewareTest extends \PHPUnit_Framework_TestCase
             new Request('PUT', 'http://www.google.com', ['Expect' => 'Foo'], $bd),
             ['expect' => true]
         );
-        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface', $p);
+        $this->assertInstanceOf(PromiseInterface::class, $p);
         $response = $p->wait();
         $this->assertEquals(200, $response->getStatusCode());
     }
