@@ -4,13 +4,14 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test\Handler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\Proxy;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions;
 
 /**
  * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\Proxy
  */
 class ProxyTest extends \PHPUnit_Framework_TestCase
 {
-    public function testSendsToSync()
+    public function testSendsToNonSync()
     {
         $a = $b = null;
         $m1 = new MockHandler([function ($v) use (&$a) { $a = $v; }]);
@@ -21,13 +22,13 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($b);
     }
 
-    public function testSendsToNonSync()
+    public function testSendsToSync()
     {
         $a = $b = null;
         $m1 = new MockHandler([function ($v) use (&$a) { $a = $v; }]);
         $m2 = new MockHandler([function ($v) use (&$b) { $b = $v; }]);
         $h = Proxy::wrapSync($m1, $m2);
-        $h(new Request('GET', 'http://foo.com'), ['sync' => true]);
+        $h(new Request('GET', 'http://foo.com'), [RequestOptions::SYNCHRONOUS => true]);
         $this->assertNull($a);
         $this->assertNotNull($b);
     }
