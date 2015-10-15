@@ -86,7 +86,7 @@ pairs:
         UriInterface $uri
     ) {
         echo 'Redirecting! ' . $request->getUri() . ' to ' . $uri . "\n";
-    }
+    };
 
     $res = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/redirect/3', [
         'allow_redirects' => [
