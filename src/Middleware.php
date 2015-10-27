@@ -2,9 +2,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\RejectedPromise;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use Psr\Http\Message\ResponseInterface;
@@ -64,9 +62,7 @@ final class Middleware
                         if ($code < 400) {
                             return $response;
                         }
-                        throw $code > 499
-                            ? new ServerException("Server error: $code", $request, $response)
-                            : new ClientException("Client error: $code", $request, $response);
+                        throw RequestException::create($request, $response);
                     }
                 );
             };
