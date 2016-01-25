@@ -612,7 +612,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
 
-        $this->assertEquals("foo.com", $mockHandler->getLastRequest()->getHeader("Host")[0]);
+        $this->assertEquals("foo.com", $mockHandler->getLastRequest()->getHeader('Host')[0]);
     }
 
 }
