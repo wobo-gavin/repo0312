@@ -138,7 +138,7 @@ class StreamHandler
             : fopen('php://temp', 'r+');
 
         return is_string($sink)
-            ? new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\try_fopen($sink, 'r+'))
+            ? new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\LazyOpenStream($sink, 'w+')
             : /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for($sink);
     }
 
