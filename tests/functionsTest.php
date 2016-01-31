@@ -101,6 +101,32 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\is_host_in_noproxy('', []);
     }
+
+    public function testEncodesJson()
+    {
+        $this->assertEquals('true', \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_encode(true));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testEncodesJsonAndThrowsOnError()
+    {
+        \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_encode("\x99");
+    }
+
+    public function testDecodesJson()
+    {
+        $this->assertSame(true, \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode('true'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testDecodesJsonAndThrowsOnError()
+    {
+        \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode('{{]]');
+    }
 }
 
 final class StrClass
