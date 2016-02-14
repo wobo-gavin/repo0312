@@ -222,7 +222,24 @@ amount of requests you wish to send.
 
     // Force the pool of requests to complete.
     $promise->wait();
+    
+Or using a closure that will return a promise once the pool calls the closure.
 
+.. code-block:: php
+
+    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+
+    $requests = function ($total) use ($/* Replaced /* Replaced /* Replaced client */ */ */) {
+        $uri = 'http://127.0.0.1:8126//* Replaced /* Replaced /* Replaced guzzle */ */ */-server/perf';
+        for ($i = 0; $i < $total; $i++) {
+            yield function() use ($/* Replaced /* Replaced /* Replaced client */ */ */, $uri) {
+                return $/* Replaced /* Replaced /* Replaced client */ */ */->getAsync($uri);
+            };
+        }
+    };
+
+    $pool = new Pool($/* Replaced /* Replaced /* Replaced client */ */ */, $requests(100));
+        
 
 Using Responses
 ===============
