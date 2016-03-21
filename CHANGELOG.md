@@ -1,8 +1,23 @@
 # CHANGELOG
 
-## 6.2.0 - TBD
+## 6.2.0 - 2016-03-21
 
 * Feature: added `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_encode` and `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode`.
+  https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//pull/1389
+* Bug fix: Fix sleep calculation when waiting for delayed requests.
+  https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//pull/1324
+* Feature: More flexible history containers.
+  https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//pull/1373
+* Bug fix: defer sink stream opening in StreamHandler.
+  https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//pull/1377
+* Bug fix: do not attempt to escape cookie values.
+  https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//pull/1406
+* Feature: report original content encoding and length on decoded responses.
+  https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//pull/1409
+* Bug fix: rewind seekable request bodies before dispatching to cURL.
+  https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//pull/1422
+* Bug fix: provide an empty string to `http_build_query` for HHVM workaround.
+  https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//pull/1367
 
 ## 6.1.1 - 2015-11-22
 
