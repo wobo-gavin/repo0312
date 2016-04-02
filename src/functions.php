@@ -5,7 +5,6 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlMultiHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\Proxy;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\StreamHandler;
-use Psr\Http\Message\StreamInterface;
 
 /**
  * Expands a URI template
