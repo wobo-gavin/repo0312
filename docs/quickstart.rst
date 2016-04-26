@@ -28,6 +28,8 @@ Creating a Client
         'timeout'  => 2.0,
     ]);
 
+Clients are immutable in /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 6, which means that you cannot change the defaults used by a /* Replaced /* Replaced /* Replaced client */ */ */ after it's created.
+
 The /* Replaced /* Replaced /* Replaced client */ */ */ constructor accepts an associative array of options:
 
 ``base_uri``
