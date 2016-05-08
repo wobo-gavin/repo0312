@@ -615,4 +615,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo.com', $mockHandler->getLastRequest()->getHeader('Host')[0]);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testValidatesSink()
+    {
+        $mockHandler = new MockHandler([new Response(200)]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mockHandler]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */->get('http://test.com', ['sink' => true]);
+    }
 }
