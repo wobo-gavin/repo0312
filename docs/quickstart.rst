@@ -492,14 +492,15 @@ Exceptions
 
   .. code-block:: php
 
+      use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
       use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 
       try {
           $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'https://github.com/_abc_123_404');
       } catch (RequestException $e) {
-          echo $e->getRequest();
+          echo /* Replaced /* Replaced /* Replaced Psr7 */ */ */\str($e->getRequest());
           if ($e->hasResponse()) {
-              echo $e->getResponse();
+              echo /* Replaced /* Replaced /* Replaced Psr7 */ */ */\str($e->getResponse());
           }
       }
 
@@ -520,8 +521,8 @@ Exceptions
       try {
           $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'https://github.com/_abc_123_404');
       } catch (ClientException $e) {
-          echo $e->getRequest();
-          echo $e->getResponse();
+          echo /* Replaced /* Replaced /* Replaced Psr7 */ */ */\str($e->getRequest());
+          echo /* Replaced /* Replaced /* Replaced Psr7 */ */ */\str($e->getResponse());
       }
 
 - A ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException`` is thrown for 500 level
