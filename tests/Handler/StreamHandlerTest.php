@@ -584,4 +584,19 @@ class StreamHandlerTest extends \PHPUnit_Framework_TestCase
             $gotStats->getHandlerErrorData()
         );
     }
+
+    public function testStreamIgnoresZeroTimeout()
+    {
+        Server::flush();
+        Server::enqueue([new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response(200)]);
+        $req = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('GET', Server::$url);
+        $gotStats = null;
+        $handler = new StreamHandler();
+        $promise = $handler($req, [
+            'connect_timeout' => 10,
+            'timeout' => 0
+        ]);
+        $response = $promise->wait();
+        $this->assertEquals(200, $response->getStatusCode());
+    }
 }
