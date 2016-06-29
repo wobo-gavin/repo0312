@@ -138,11 +138,14 @@ class Client implements ClientInterface
 
     private function buildUri($uri, array $config)
     {
-        if (!isset($config['base_uri'])) {
-            return $uri instanceof UriInterface ? $uri : new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri($uri);
+        // for BC we accept null which would otherwise fail in uri_for
+        $uri = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\uri_for($uri === null ? '' : $uri);
+
+        if (isset($config['base_uri'])) {
+            $uri = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri::resolve(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\uri_for($config['base_uri']), $uri);
         }
 
-        return /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri::resolve(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\uri_for($config['base_uri']), $uri);
+        return $uri->getScheme() === '' ? $uri->withScheme('http') : $uri;
     }
 
     /**
