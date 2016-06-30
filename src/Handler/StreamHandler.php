@@ -105,7 +105,12 @@ class StreamHandler
         $headers = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\headers_from_lines($hdrs);
         list ($stream, $headers) = $this->checkDecode($options, $headers, $stream);
         $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for($stream);
-        $sink = $this->createSink($stream, $options);
+        $sink = $stream;
+
+        if (strcasecmp('HEAD', $request->getMethod())) {
+            $sink = $this->createSink($stream, $options);
+        }
+
         $response = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response($status, $headers, $sink, $ver, $reason);
 
         if (isset($options['on_headers'])) {
@@ -118,6 +123,8 @@ class StreamHandler
             }
         }
 
+        // Do not drain when the request is a HEAD request because they have
+        // no body.
         if ($sink !== $stream) {
             $this->drain(
                 $stream,
