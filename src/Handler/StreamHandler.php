@@ -149,7 +149,7 @@ class StreamHandler
             $normalizedKeys = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\normalize_header_keys($headers);
             if (isset($normalizedKeys['content-encoding'])) {
                 $encoding = $headers[$normalizedKeys['content-encoding']];
-                if ($encoding[0] == 'gzip' || $encoding[0] == 'deflate') {
+                if ($encoding[0] === 'gzip' || $encoding[0] === 'deflate') {
                     $stream = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\InflateStream(
                         /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for($stream)
                     );
@@ -163,7 +163,7 @@ class StreamHandler
                             = $headers[$normalizedKeys['content-length']];
 
                         $length = (int) $stream->getSize();
-                        if ($length == 0) {
+                        if ($length === 0) {
                             unset($headers[$normalizedKeys['content-length']]);
                         } else {
                             $headers[$normalizedKeys['content-length']] = [$length];
