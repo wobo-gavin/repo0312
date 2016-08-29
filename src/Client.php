@@ -145,7 +145,7 @@ class Client implements ClientInterface
             $uri = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri::resolve(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\uri_for($config['base_uri']), $uri);
         }
 
-        return $uri->getScheme() === '' ? $uri->withScheme('http') : $uri;
+        return $uri->getScheme() === '' && $uri->getHost() !== '' ? $uri->withScheme('http') : $uri;
     }
 
     /**
