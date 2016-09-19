@@ -600,7 +600,7 @@ these if needed):
 The following plugins are not part of the core /* Replaced /* Replaced /* Replaced Guzzle */ */ */ package, but are provided
 in separate repositories:
 
-- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BackoffPlugin` has been rewritten to be muchs simpler
+- `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\BackoffPlugin` has been rewritten to be much simpler
   to build custom retry policies using simple functions rather than various
   chained classes. See: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *//retry-subscriber
 - `/* Replaced /* Replaced /* Replaced Guzzle */ */ */\Http\Plugin\Cache\CachePlugin` has moved to
@@ -664,8 +664,8 @@ that contain additional metadata accessible via `getMetadata()`.
 
 The entire concept of the StreamRequestFactory has been removed. The way this
 was used in /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 3 broke the actual interface of sending streaming requests
-(instead of getting back a Response, you got a StreamInterface). Streeaming
-PHP requests are now implemented throught the `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\StreamAdapter`.
+(instead of getting back a Response, you got a StreamInterface). Streaming
+PHP requests are now implemented through the `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Adapter\StreamAdapter`.
 
 3.6 to 3.7
 ----------
