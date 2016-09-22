@@ -132,7 +132,7 @@ $handler = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack:
 $handler->push(Middleware::mapRequest(function (RequestInterface $request) {
     // Notice that we have to return a request object
     return $request->withHeader('X-Foo', 'Bar');
-});
+}));
 // Inject the handler into the /* Replaced /* Replaced /* Replaced client */ */ */
 $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client(['handler' => $handler]);
 ```
