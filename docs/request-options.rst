@@ -462,7 +462,7 @@ created by the /* Replaced /* Replaced /* Replaced client */ */ */ (e.g., ``requ
 
     // Sets the X-Foo header to "test", which prevents the default header
     // from being applied.
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get', ['headers' => ['X-Foo' => 'test']);
+    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get', ['headers' => ['X-Foo' => 'test']]);
 
     // Will disable adding in default headers.
     $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get', ['headers' => null]);
