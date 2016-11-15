@@ -19,15 +19,13 @@ trivial to integrate with web services.
 
 ```php
 $/* Replaced /* Replaced /* Replaced client */ */ */ = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client();
-$res = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'https://api.github.com/user', [
-    'auth' => ['user', 'pass']
-]);
+$res = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'https://api.github.com/repos//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */');
 echo $res->getStatusCode();
 // 200
 echo $res->getHeaderLine('content-type');
 // 'application/json; charset=utf8'
 echo $res->getBody();
-// {"type":"User"...'
+// '{"id": 1420053, "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ */", ...}'
 
 // Send an asynchronous request.
 $request = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('GET', 'http://httpbin.org');
