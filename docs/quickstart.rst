@@ -427,7 +427,7 @@ Cookies
 
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ can maintain a cookie session for you if instructed using the
 ``cookies`` request option. When sending a request, the ``cookies`` option
-must be set an an instance of ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface``.
+must be set to an instance of ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface``.
 
 .. code-block:: php
 
