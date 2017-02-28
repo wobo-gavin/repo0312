@@ -144,7 +144,7 @@ class Client implements ClientInterface
         $uri = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\uri_for($uri === null ? '' : $uri);
 
         if (isset($config['base_uri'])) {
-            $uri = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri::resolve(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\uri_for($config['base_uri']), $uri);
+            $uri = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\UriResolver::resolve(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\uri_for($config['base_uri']), $uri);
         }
 
         return $uri->getScheme() === '' && $uri->getHost() !== '' ? $uri->withScheme('http') : $uri;
