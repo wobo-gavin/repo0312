@@ -38,7 +38,7 @@ $promise->wait();
 ## Help and docs
 
 - [Documentation](http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/)
-- [stackoverflow](http://stackoverflow.com/questions/tagged//* Replaced /* Replaced /* Replaced guzzle */ */ */)
+- [Stack Overflow](http://stackoverflow.com/questions/tagged//* Replaced /* Replaced /* Replaced guzzle */ */ */)
 - [Gitter](https://gitter.im//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */)
 
 
