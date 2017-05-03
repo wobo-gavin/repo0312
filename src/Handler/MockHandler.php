@@ -91,7 +91,7 @@ class MockHandler implements \Countable
         }
 
         $response = $response instanceof \Exception
-            ? new RejectedPromise($response)
+            ? \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for($response)
             : \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\promise_for($response);
 
         return $response->then(
@@ -120,7 +120,7 @@ class MockHandler implements \Countable
                 if ($this->onRejected) {
                     call_user_func($this->onRejected, $reason);
                 }
-                return new RejectedPromise($reason);
+                return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for($reason);
             }
         );
     }
