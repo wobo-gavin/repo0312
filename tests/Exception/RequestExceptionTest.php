@@ -4,11 +4,12 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
  */
-class RequestExceptionTest extends \PHPUnit_Framework_TestCase
+class RequestExceptionTest extends TestCase
 {
     public function testHasRequestAndResponse()
     {

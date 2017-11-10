@@ -2,8 +2,9 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
+use PHPUnit\Framework\TestCase;
 
-class FunctionsTest extends \PHPUnit_Framework_TestCase
+class FunctionsTest extends TestCase
 {
     public function testExpandsTemplate()
     {

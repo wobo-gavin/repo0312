@@ -10,8 +10,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Repla
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
+use PHPUnit\Framework\TestCase;
 
-class PoolTest extends \PHPUnit_Framework_TestCase
+class PoolTest extends TestCase
 {
     /**
      * @expectedException \InvalidArgumentException

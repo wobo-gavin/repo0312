@@ -8,11 +8,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
 use Psr\Http\Message\ResponseInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlFactory
  */
-class CurlFactoryTest extends \PHPUnit_Framework_TestCase
+class CurlFactoryTest extends TestCase
 {
     public static function setUpBeforeClass()
     {

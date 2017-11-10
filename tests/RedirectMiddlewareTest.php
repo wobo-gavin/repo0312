@@ -9,11 +9,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Repla
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RedirectMiddleware;
 use Psr\Http\Message\RequestInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RedirectMiddleware
  */
-class RedirectMiddlewareTest extends \PHPUnit_Framework_TestCase
+class RedirectMiddlewareTest extends TestCase
 {
     public function testIgnoresNonRedirects()
     {

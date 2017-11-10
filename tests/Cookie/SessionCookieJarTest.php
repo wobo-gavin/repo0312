@@ -3,11 +3,12 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\CookieJa
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SessionCookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SessionCookieJar
  */
-class SessionCookieJarTest extends \PHPUnit_Framework_TestCase
+class SessionCookieJarTest extends TestCase
 {
     private $sessionVar;
 

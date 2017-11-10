@@ -7,11 +7,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Repla
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlHandler
  */
-class CurlHandlerTest extends \PHPUnit_Framework_TestCase
+class CurlHandlerTest extends TestCase
 {
     protected function getHandler($options = [])
     {

@@ -10,8 +10,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Repla
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use Psr\Http\Message\RequestInterface;
+use PHPUnit\Framework\TestCase;
 
-class PrepareBodyMiddlewareTest extends \PHPUnit_Framework_TestCase
+class PrepareBodyMiddlewareTest extends TestCase
 {
 
     public function methodProvider()

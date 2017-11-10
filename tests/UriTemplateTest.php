@@ -2,11 +2,12 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\UriTemplate;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\UriTemplate
  */
-class UriTemplateTest extends \PHPUnit_Framework_TestCase
+class UriTemplateTest extends TestCase
 {
     /**
      * @return array

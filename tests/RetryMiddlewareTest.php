@@ -8,8 +8,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Repla
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RetryMiddleware;
+use PHPUnit\Framework\TestCase;
 
-class RetryMiddlewareTest extends \PHPUnit_Framework_TestCase
+class RetryMiddlewareTest extends TestCase
 {
     public function testRetriesWhenDeciderReturnsTrue()
     {
