@@ -117,7 +117,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function testDecodesJson()
     {
-        $this->assertSame(true, \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode('true'));
+        $this->assertTrue(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode('true'));
     }
 
     /**
