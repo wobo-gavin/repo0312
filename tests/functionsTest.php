@@ -63,7 +63,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function testReturnsDebugResource()
     {
-        $this->assertTrue(is_resource(/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\debug_resource()));
+        $this->assertInternalType('resource' , /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\debug_resource());
     }
 
     public function testProvidesDefaultCaBundler()
