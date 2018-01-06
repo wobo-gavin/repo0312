@@ -134,6 +134,7 @@ You can also use the `sendAsync()` and `requestAsync()` methods of a /* Replaced
     $headers = ['X-Foo' => 'Bar'];
     $body = 'Hello!';
     $request = new Request('HEAD', 'http://httpbin.org/head', $headers, $body);
+    $promise = $/* Replaced /* Replaced /* Replaced client */ */ */->sendAsync($request);
 
     // Or, if you don't need to pass in a request instance:
     $promise = $/* Replaced /* Replaced /* Replaced client */ */ */->requestAsync('GET', 'http://httpbin.org/get');
