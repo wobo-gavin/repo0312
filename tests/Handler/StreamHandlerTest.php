@@ -11,11 +11,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
 use Psr\Http\Message\ResponseInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\StreamHandler
  */
-class StreamHandlerTest extends \PHPUnit_Framework_TestCase
+class StreamHandlerTest extends TestCase
 {
     private function queueRes()
     {
@@ -49,7 +50,7 @@ class StreamHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
      */
     public function testAddsErrorToResponse()
     {

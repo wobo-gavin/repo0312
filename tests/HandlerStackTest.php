@@ -6,8 +6,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
+use PHPUnit\Framework\TestCase;
 
-class HandlerStackTest extends \PHPUnit_Framework_TestCase
+class HandlerStackTest extends TestCase
 {
     public function testSetsHandlerInCtor()
     {

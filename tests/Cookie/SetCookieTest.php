@@ -2,11 +2,12 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\CookieJar;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie
  */
-class SetCookieTest extends \PHPUnit_Framework_TestCase
+class SetCookieTest extends TestCase
 {
     public function testInitializesDefaultValues()
     {

@@ -5,8 +5,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlMultiHan
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
+use PHPUnit\Framework\TestCase;
 
-class CurlMultiHandlerTest extends \PHPUnit_Framework_TestCase
+class CurlMultiHandlerTest extends TestCase
 {
     public function testSendsRequest()
     {

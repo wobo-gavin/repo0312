@@ -3,11 +3,12 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\CookieJa
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\FileCookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\FileCookieJar
  */
-class FileCookieJarTest extends \PHPUnit_Framework_TestCase
+class FileCookieJarTest extends TestCase
 {
     private $file;
 

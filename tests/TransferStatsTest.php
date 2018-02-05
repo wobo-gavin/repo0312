@@ -3,8 +3,9 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
+use PHPUnit\Framework\TestCase;
 
-class TransferStatsTest extends \PHPUnit_Framework_TestCase
+class TransferStatsTest extends TestCase
 {
     public function testHasData()
     {

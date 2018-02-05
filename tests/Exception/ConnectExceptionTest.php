@@ -3,11 +3,12 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Event;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException
  */
-class ConnectExceptionTest extends \PHPUnit_Framework_TestCase
+class ConnectExceptionTest extends TestCase
 {
     public function testHasNoResponse()
     {

@@ -6,11 +6,12 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInter
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler
  */
-class MockHandlerTest extends \PHPUnit_Framework_TestCase
+class MockHandlerTest extends TestCase
 {
     public function testReturnsMockResponse()
     {
