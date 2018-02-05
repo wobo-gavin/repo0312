@@ -159,8 +159,8 @@ together in a single report:
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', $initialRequest); // Make your request
 
     // Retrieve both Redirect History headers
-    $redirectUriHistory = $response->getHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Redirect-History'); // retrieve Redirect URI history
-    $redirectCodeHistory = $response->getHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Redirect-Status-History'); // retrieve Redirect HTTP Status history
+    $redirectUriHistory = $response->getHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Redirect-History')[0]; // retrieve Redirect URI history
+    $redirectCodeHistory = $response->getHeader('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Redirect-Status-History')[0]; // retrieve Redirect HTTP Status history
 
     // Add the initial URI requested to the (beginning of) URI history
     array_unshift($redirectUriHistory, $initialRequest);
