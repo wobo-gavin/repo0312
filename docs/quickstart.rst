@@ -483,6 +483,23 @@ The following example shows that redirects can be disabled.
 Exceptions
 ==========
 
+**Tree View**
+
+The following tree view describes how the /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Exceptions depend
+on eachother.
+
+.. code-block:: none
+
+    . \RuntimeException
+    ├── SeekException (implements /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception)
+    └── TransferException (implements /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception)
+        └── RequestException
+            ├── BadResponseException
+            │   ├── ServerException
+            │   └── ClientException
+            ├── ConnectionException
+            └── TooManyRedirectsException
+ 
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ throws exceptions for errors that occur during a transfer.
 
 - In the event of a networking error (connection timeout, DNS errors, etc.),
