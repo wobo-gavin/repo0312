@@ -118,7 +118,7 @@ pairs:
     This option only has an effect if your handler has the
     ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::redirect`` middleware. This middleware is added
     by default when a /* Replaced /* Replaced /* Replaced client */ */ */ is created with no handler, and is added by
-    default when creating a handler with ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler``.
+    default when creating a handler with ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack::create``.
 
 
 auth
