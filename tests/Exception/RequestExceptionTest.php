@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Event;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -173,5 +174,28 @@ class RequestExceptionTest extends TestCase
         $r = new Request('GET', 'http://user:password@www.oo.com');
         $e = RequestException::create($r, new Response(500));
         $this->assertContains('http://user:***@www.oo.com', $e->getMessage());
+    }
+
+    public function testGetResponseBodySummaryOfNonReadableStream()
+    {
+        $this->assertNull(RequestException::getResponseBodySummary(new Response(500, [], new ReadSeekOnlyStream())));
+    }
+}
+
+final class ReadSeekOnlyStream extends Stream
+{
+    public function __construct()
+    {
+        parent::__construct(fopen('php://memory', 'wb'));
+    }
+
+    public function isSeekable()
+    {
+        return true;
+    }
+
+    public function isReadable()
+    {
+        return false;
     }
 }
