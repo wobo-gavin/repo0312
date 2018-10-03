@@ -307,7 +307,8 @@ class StreamHandlerTest extends TestCase
 
     public function testVerifyCanBeDisabled()
     {
-        $this->getSendResult(['verify' => false]);
+        $handler = $this->getSendResult(['verify' => false]);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response', $handler);
     }
 
     /**
@@ -337,6 +338,8 @@ class StreamHandlerTest extends TestCase
         $opts = stream_context_get_options($res->getBody()->detach());
         if (PHP_VERSION_ID < 50600) {
             $this->assertEquals($path, $opts['ssl']['cafile']);
+        } else {
+            $this->assertArrayNotHasKey('cafile', $opts['ssl']);
         }
     }
 
