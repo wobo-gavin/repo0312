@@ -37,8 +37,8 @@ class CurlHandlerTest extends TestCase
         Server::enqueue([$response, $response]);
         $a = new CurlHandler();
         $request = new Request('GET', Server::$url);
-        $a($request, []);
-        $a($request, []);
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\FulfilledPromise', $a($request, []));
+        $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\FulfilledPromise', $a($request, []));
     }
 
     public function testDoesSleep()
