@@ -571,6 +571,7 @@ on each other.
 
   .. code-block:: php
 
+      use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
       use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException;
 
       try {
