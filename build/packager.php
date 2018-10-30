@@ -18,9 +18,9 @@ $packager->recursiveCopy('vendor//* Replaced /* Replaced /* Replaced guzzle */ *
 $packager->recursiveCopy('vendor/psr/http-message/src', 'Psr/Http/Message');
 
 $packager->createAutoloader([
-    '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http/functions.php',
-    '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http//* Replaced /* Replaced /* Replaced Psr7 */ */ *//functions.php',
-    '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http/Promise/functions.php',
+    '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http/functions_include.php',
+    '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http//* Replaced /* Replaced /* Replaced Psr7 */ */ *//functions_include.php',
+    '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http/Promise/functions_include.php',
 ]);
 
 $packager->createPhar(__DIR__ . '/artifacts//* Replaced /* Replaced /* Replaced guzzle */ */ */.phar');
