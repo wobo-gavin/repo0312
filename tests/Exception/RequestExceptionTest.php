@@ -1,5 +1,5 @@
 <?php
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Event;
+namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Exception;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
@@ -8,7 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Repla
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
+ * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
  */
 class RequestExceptionTest extends TestCase
 {
@@ -20,13 +20,13 @@ class RequestExceptionTest extends TestCase
         $this->assertSame($req, $e->getRequest());
         $this->assertSame($res, $e->getResponse());
         $this->assertTrue($e->hasResponse());
-        $this->assertEquals('foo', $e->getMessage());
+        $this->assertSame('foo', $e->getMessage());
     }
 
     public function testCreatesGenerateException()
     {
         $e = RequestException::create(new Request('GET', '/'));
-        $this->assertEquals('Error completing request', $e->getMessage());
+        $this->assertSame('Error completing request', $e->getMessage());
         $this->assertInstanceOf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException', $e);
     }
 
