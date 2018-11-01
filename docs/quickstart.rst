@@ -534,7 +534,7 @@ on each other.
             ├── BadResponseException
             │   ├── ServerException
             │   └── ClientException
-            ├── ConnectionException
+            ├── ConnectException
             └── TooManyRedirectsException
 
 /* Replaced /* Replaced /* Replaced Guzzle */ */ */ throws exceptions for errors that occur during a transfer.
