@@ -8,7 +8,7 @@ class FunctionsTest extends TestCase
 {
     public function testExpandsTemplate()
     {
-        $this->assertEquals(
+        $this->assertSame(
             'foo/123',
             /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\uri_template('foo/{bar}', ['bar' => '123'])
         );
@@ -41,13 +41,13 @@ class FunctionsTest extends TestCase
      */
     public function testDescribesType($input, $output)
     {
-        $this->assertEquals($output, /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\describe_type($input));
+        $this->assertSame($output, /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\describe_type($input));
     }
 
     public function testParsesHeadersFromLines()
     {
         $lines = ['Foo: bar', 'Foo: baz', 'Abc: 123', 'Def: a, b'];
-        $this->assertEquals([
+        $this->assertSame([
             'Foo' => ['bar', 'baz'],
             'Abc' => ['123'],
             'Def' => ['a, b'],
@@ -57,7 +57,7 @@ class FunctionsTest extends TestCase
     public function testParsesHeadersFromLinesWithMultipleLines()
     {
         $lines = ['Foo: bar', 'Foo: baz', 'Foo: 123'];
-        $this->assertEquals([
+        $this->assertSame([
             'Foo' => ['bar', 'baz', '123'],
         ], /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\headers_from_lines($lines));
     }
@@ -105,7 +105,7 @@ class FunctionsTest extends TestCase
 
     public function testEncodesJson()
     {
-        $this->assertEquals('true', \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_encode(true));
+        $this->assertSame('true', \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_encode(true));
     }
 
     /**
