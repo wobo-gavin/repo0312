@@ -2,7 +2,15 @@
     "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */",
     "type": "library",
     "description": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ library",
-    "keywords": ["framework", "http", "rest", "web service", "curl", "/* Replaced /* Replaced /* Replaced client */ */ */", "HTTP /* Replaced /* Replaced /* Replaced client */ */ */"],
+    "keywords": [
+        "framework",
+        "http",
+        "rest",
+        "web service",
+        "curl",
+        "/* Replaced /* Replaced /* Replaced client */ */ */",
+        "HTTP /* Replaced /* Replaced /* Replaced client */ */ */"
+    ],
     "homepage": "http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/",
     "license": "MIT",
     "authors": [
@@ -14,24 +22,13 @@
     ],
     "require": {
         "php": ">=5.5",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/psr7": "^1.4",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/promises": "^1.0"
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/promises": "^1.0",
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/psr7": "^1.4"
     },
     "require-dev": {
         "ext-curl": "*",
         "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.4 || ^7.0",
         "psr/log": "^1.0"
-    },
-    "autoload": {
-        "files": ["src/functions_include.php"],
-        "psr-4": {
-            "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\Tests\\": "tests/"
-        }
     },
     "suggest": {
         "psr/log": "Required for using the Log middleware"
@@ -39,6 +36,19 @@
     "extra": {
         "branch-alias": {
             "dev-master": "6.3-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\": "src/"
+        },
+        "files": [
+            "src/functions_include.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\Tests\\": "tests/"
         }
     }
 }
