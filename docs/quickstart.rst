@@ -200,9 +200,11 @@ amount of requests you wish to send.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Pool;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 
     $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
 
@@ -215,10 +217,10 @@ amount of requests you wish to send.
 
     $pool = new Pool($/* Replaced /* Replaced /* Replaced client */ */ */, $requests(100), [
         'concurrency' => 5,
-        'fulfilled' => function ($response, $index) {
+        'fulfilled' => function (Response $response, $index) {
             // this is delivered each successful response
         },
-        'rejected' => function ($reason, $index) {
+        'rejected' => function (RequestException $reason, $index) {
             // this is delivered each failed request
         },
     ]);
@@ -480,7 +482,7 @@ which returns a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie
     $cookie->getExpires(); // expiration date as a Unix timestamp
 
 The cookies can be also fetched into an array thanks to the `toArray()` method.
-The ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface`` interface extends 
+The ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface`` interface extends
 ``Traversable`` so it can be iterated in a foreach loop.
 
 
