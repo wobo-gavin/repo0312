@@ -506,9 +506,9 @@ class StreamHandlerTest extends TestCase
         Server::enqueue([$response]);
         $a = new StreamHandler();
         $request = new Request('GET', Server::$url);
-        $s = microtime(true);
+        $s = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\_current_time();
         $a($request, ['delay' => 0.1])->wait();
-        $this->assertGreaterThan(0.0001, microtime(true) - $s);
+        $this->assertGreaterThan(0.0001, \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\_current_time() - $s);
     }
 
     /**

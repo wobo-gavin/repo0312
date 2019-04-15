@@ -128,6 +128,11 @@ class FunctionsTest extends TestCase
     {
         \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode('{{]]');
     }
+
+    public function testCurrentTime()
+    {
+        $this->assertGreaterThan(0, /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\_current_time());
+    }
 }
 
 final class StrClass
