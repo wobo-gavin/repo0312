@@ -674,4 +674,26 @@ class ClientTest extends TestCase
     {
         new Client(['handler' => 'not_cllable']);
     }
+
+    public function testResponseBodyAsString()
+    {
+        $responseBody = '{ "package": "/* Replaced /* Replaced /* Replaced guzzle */ */ */" }';
+        $mock = new MockHandler([new Response(200, ['Content-Type' => 'application/json'], $responseBody)]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
+        $request = new Request('GET', 'http://foo.com');
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request, ['json' => ['a' => 'b']]);
+
+        $this->assertSame($responseBody, (string) $response->getBody());
+    }
+
+    public function testResponseContent()
+    {
+        $responseBody = '{ "package": "/* Replaced /* Replaced /* Replaced guzzle */ */ */" }';
+        $mock = new MockHandler([new Response(200, ['Content-Type' => 'application/json'], $responseBody)]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mock]);
+        $request = new Request('POST', 'http://foo.com');
+        $response = $/* Replaced /* Replaced /* Replaced client */ */ */->send($request, ['json' => ['a' => 'b']]);
+
+        $this->assertSame($responseBody, $response->getBody()->getContents());
+    }
 }
