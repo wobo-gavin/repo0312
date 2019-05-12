@@ -9,7 +9,7 @@ RUN set -xe \
     && composer require /* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */
 
 
-FROM php:7.2
+FROM php:7.3
 
 RUN mkdir //* Replaced /* Replaced /* Replaced guzzle */ */ */
 
