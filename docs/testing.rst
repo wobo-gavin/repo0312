@@ -1,8 +1,8 @@
 ======================
-Testing /* Replaced /* Replaced /* Replaced Guzzle */ */ */ Clients
+Testing /* Replaced /* Replaced Guzzle */ */ Clients
 ======================
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides several tools that will enable you to easily mock the HTTP
+/* Replaced /* Replaced Guzzle */ */ provides several tools that will enable you to easily mock the HTTP
 layer without needing to send requests over the internet.
 
 * Mock handler
@@ -13,22 +13,22 @@ layer without needing to send requests over the internet.
 Mock Handler
 ============
 
-When testing HTTP /* Replaced /* Replaced /* Replaced client */ */ */s, you often need to simulate specific scenarios like
+When testing HTTP /* Replaced /* Replaced client */ */s, you often need to simulate specific scenarios like
 returning a successful response, returning an error, or returning specific
 responses in a certain order. Because unit tests need to be predictable, easy
 to bootstrap, and fast, hitting an actual remote API is a test smell.
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ provides a mock handler that can be used to fulfill HTTP requests with
+/* Replaced /* Replaced Guzzle */ */ provides a mock handler that can be used to fulfill HTTP requests with
 a response or exception by shifting return values off of a queue.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+    use /* Replaced /* Replaced Guzzle */ */Http\Client;
+    use /* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler;
+    use /* Replaced /* Replaced Guzzle */ */Http\HandlerStack;
+    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+    use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
 
     // Create a mock and queue two responses.
     $mock = new MockHandler([
@@ -38,21 +38,30 @@ a response or exception by shifting return values off of a queue.
     ]);
 
     $handlerStack = HandlerStack::create($mock);
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handlerStack]);
+    $/* Replaced /* Replaced client */ */ = new Client(['handler' => $handlerStack]);
 
     // The first request is intercepted with the first response.
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/');
+    $response = $/* Replaced /* Replaced client */ */->request('GET', '/');
     echo $response->getStatusCode();
     //> 200
     echo $response->getBody();
     //> Hello, World
     // The second request is intercepted with the second response.
-    echo $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/')->getStatusCode();
+    echo $/* Replaced /* Replaced client */ */->request('GET', '/')->getStatusCode();
     //> 202
+
+    // Reset the queue and queue up a new response
+    $mock->reset();
+    $mock->append(new Response(201));
+
+    // As the mock was reset, the new response is the 201 CREATED,
+    // instead of the previously queued RequestException
+    echo $/* Replaced /* Replaced client */ */->request('GET', '/')->getStatusCode();
+    //> 201
+
 
 When no more responses are in the queue and a request is sent, an
 ``OutOfBoundsException`` is thrown.
-
 
 History Middleware
 ==================
@@ -60,27 +69,27 @@ History Middleware
 When using things like the ``Mock`` handler, you often need to know if the
 requests you expected to send were sent exactly as you intended. While the mock
 handler responds with mocked responses, the history middleware maintains a
-history of the requests that were sent by a /* Replaced /* Replaced /* Replaced client */ */ */.
+history of the requests that were sent by a /* Replaced /* Replaced client */ */.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
+    use /* Replaced /* Replaced Guzzle */ */Http\Client;
+    use /* Replaced /* Replaced Guzzle */ */Http\HandlerStack;
+    use /* Replaced /* Replaced Guzzle */ */Http\Middleware;
 
     $container = [];
     $history = Middleware::history($container);
 
-    $handlerStack = HandlerStack::create(); 
+    $handlerStack = HandlerStack::create();
     // or $handlerStack = HandlerStack::create($mock); if using the Mock handler.
-    
+
     // Add the history middleware to the handler stack.
     $handlerStack->push($history);
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handlerStack]);
+    $/* Replaced /* Replaced client */ */ = new Client(['handler' => $handlerStack]);
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'http://httpbin.org/get');
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('HEAD', 'http://httpbin.org/get');
+    $/* Replaced /* Replaced client */ */->request('GET', 'http://httpbin.org/get');
+    $/* Replaced /* Replaced client */ */->request('HEAD', 'http://httpbin.org/get');
 
     // Count the number of transactions
     echo count($container);
@@ -105,7 +114,7 @@ history of the requests that were sent by a /* Replaced /* Replaced /* Replaced 
 Test Web Server
 ===============
 
-Using mock responses is almost always enough when testing a web service /* Replaced /* Replaced /* Replaced client */ */ */.
+Using mock responses is almost always enough when testing a web service /* Replaced /* Replaced client */ */.
 When implementing custom :doc:`HTTP handlers <handlers-and-middleware>`, you'll
 need to send actual HTTP requests in order to sufficiently test the handler.
 However, a best practice is to contact a local web server rather than a server
@@ -121,11 +130,11 @@ Using the test server
 
 .. warning::
 
-    The following functionality is provided to help developers of /* Replaced /* Replaced /* Replaced Guzzle */ */ */
+    The following functionality is provided to help developers of /* Replaced /* Replaced Guzzle */ */
     develop HTTP handlers. There is no promise of backwards compatibility
-    when it comes to the node.js test server or the ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server``
+    when it comes to the node.js test server or the ``/* Replaced /* Replaced Guzzle */ */Http\Tests\Server``
     class. If you are using the test server or ``Server`` class outside of
-    /* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */, then you will need to configure autoloading and
+    /* Replaced /* Replaced guzzle */ */http//* Replaced /* Replaced guzzle */ */, then you will need to configure autoloading and
     ensure the web server is started manually.
 
 .. hint::
@@ -135,7 +144,7 @@ Using the test server
     is not necessary for mocking requests. For that, please use the
     Mock handler and history middleware.
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ ships with a node.js test server that receives requests and returns
+/* Replaced /* Replaced Guzzle */ */ ships with a node.js test server that receives requests and returns
 responses from a queue. The test server exposes a simple API that is used to
 enqueue responses and inspect the requests that it has received.
 
@@ -143,24 +152,24 @@ Any operation on the ``Server`` object will ensure that
 the server is running and wait until it is able to receive requests before
 returning.
 
-``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server`` provides a static interface to the test server. You
+``/* Replaced /* Replaced Guzzle */ */Http\Tests\Server`` provides a static interface to the test server. You
 can queue an HTTP response or an array of responses by calling
 ``Server::enqueue()``. This method accepts an array of
 ``Psr\Http\Message\ResponseInterface`` and ``Exception`` objects.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
+    use /* Replaced /* Replaced Guzzle */ */Http\Client;
+    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+    use /* Replaced /* Replaced Guzzle */ */Http\Tests\Server;
 
     // Start the server and queue a response
     Server::enqueue([
         new Response(200, ['Content-Length' => 0])
     ]);
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['base_uri' => Server::$url]);
-    echo $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/foo')->getStatusCode();
+    $/* Replaced /* Replaced client */ */ = new Client(['base_uri' => Server::$url]);
+    echo $/* Replaced /* Replaced client */ */->request('GET', '/foo')->getStatusCode();
     // 200
 
 When a response is queued on the test server, the test server will remove any
