@@ -1,13 +1,13 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
+use ArrayAccess;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\RejectedPromise;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
+use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
+use function /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for;
 
 /**
  * Functions used to create and wrap handlers with handler middleware.
@@ -29,7 +29,7 @@ final class Middleware
                 if (empty($options['cookies'])) {
                     return $handler($request, $options);
                 } elseif (!($options['cookies'] instanceof CookieJarInterface)) {
-                    throw new \InvalidArgumentException('cookies must be an instance of /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface');
+                    throw new InvalidArgumentException('cookies must be an instance of /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface');
                 }
                 $cookieJar = $options['cookies'];
                 $request = $cookieJar->withCookieHeader($request);
@@ -73,15 +73,15 @@ final class Middleware
     /**
      * Middleware that pushes history data to an ArrayAccess container.
      *
-     * @param array|\ArrayAccess $container Container to hold the history (by reference).
+     * @param array|ArrayAccess $container Container to hold the history (by reference).
      *
      * @return callable Returns a function that accepts the next handler.
-     * @throws \InvalidArgumentException if container is not an array or ArrayAccess.
+     * @throws InvalidArgumentException if container is not an array or ArrayAccess.
      */
     public static function history(&$container)
     {
-        if (!is_array($container) && !$container instanceof \ArrayAccess) {
-            throw new \InvalidArgumentException('history container must be an array or object implementing ArrayAccess');
+        if (!is_array($container) && !$container instanceof ArrayAccess) {
+            throw new InvalidArgumentException('history container must be an array or object implementing ArrayAccess');
         }
 
         return function (callable $handler) use (&$container) {
@@ -103,7 +103,7 @@ final class Middleware
                             'error'    => $reason,
                             'options'  => $options
                         ];
-                        return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for($reason);
+                        return rejection_for($reason);
                     }
                 );
             };
@@ -183,7 +183,7 @@ final class Middleware
      *
      * @return callable Returns a function that accepts the next handler.
      */
-    public static function log(LoggerInterface $logger, MessageFormatter $formatter, $logLevel = LogLevel::INFO)
+    public static function log(LoggerInterface $logger, MessageFormatter $formatter, $logLevel = 'info' /* \Psr\Log\LogLevel::INFO */)
     {
         return function (callable $handler) use ($logger, $formatter, $logLevel) {
             return function ($request, array $options) use ($handler, $logger, $formatter, $logLevel) {
@@ -199,7 +199,7 @@ final class Middleware
                             : null;
                         $message = $formatter->format($request, $response, $reason);
                         $logger->notice($message);
-                        return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for($reason);
+                        return rejection_for($reason);
                     }
                 );
             };
