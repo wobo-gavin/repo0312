@@ -76,9 +76,8 @@ class Client implements ClientInterface
     }
 
     /**
-     * PHP Magic method
      * @param  string $method
-     * @param  array $args
+     *
      * @return Promise\PromiseInterface
      */
     public function __call($method, array $args)
@@ -98,9 +97,8 @@ class Client implements ClientInterface
     /**
      * Asynchronously send an HTTP request.
      *
-     * @param RequestInterface $request Request to send
      * @param array            $options Request options to apply to the given
-     *                                  request and to the transfer.
+     *                                  request and to the transfer. See \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions.
      *
      * @return PromiseInterface
      */
@@ -118,9 +116,8 @@ class Client implements ClientInterface
     /**
      * Send an HTTP request.
      *
-     * @param RequestInterface $request Request to send
      * @param array            $options Request options to apply to the given
-     *                                  request and to the transfer.
+     *                                  request and to the transfer. See \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions.
      *
      * @return ResponseInterface
      * @throws /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
@@ -141,7 +138,7 @@ class Client implements ClientInterface
      *
      * @param string              $method  HTTP method
      * @param string|UriInterface $uri     URI object or string.
-     * @param array               $options Request options to apply.
+     * @param array               $options Request options to apply. See \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions.
      *
      * @return PromiseInterface
      */
@@ -173,7 +170,7 @@ class Client implements ClientInterface
      *
      * @param string              $method  HTTP method.
      * @param string|UriInterface $uri     URI object or string.
-     * @param array               $options Request options to apply.
+     * @param array               $options Request options to apply. See \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions.
      *
      * @return ResponseInterface
      * @throws /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
@@ -203,9 +200,8 @@ class Client implements ClientInterface
     }
 
     /**
-     * Build URI object.
      * @param  string|null $uri
-     * @param  array       $config
+     *
      * @return UriInterface
      */
     private function buildUri($uri, array $config)
@@ -322,8 +318,7 @@ class Client implements ClientInterface
      * The URI of the request is not modified and the request options are used
      * as-is without merging in default options.
      *
-     * @param RequestInterface $request
-     * @param array            $options
+     * @param array            $options See \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions.
      *
      * @return Promise\PromiseInterface
      */
