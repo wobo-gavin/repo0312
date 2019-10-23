@@ -1,5 +1,7 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Exception;
 
-final class InvalidArgumentException extends \InvalidArgumentException implements /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception {}
+final class InvalidArgumentException extends \InvalidArgumentException implements /* Replaced /* Replaced Guzzle */ */Exception
+{
+}
