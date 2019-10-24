@@ -12,6 +12,9 @@ use Psr\Http\Message\UriInterface;
  */
 interface ClientInterface
 {
+    /**
+     * @deprecated Will be removed in /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 7.0.0
+     */
     const VERSION = '6.4.1';
 
     /**
