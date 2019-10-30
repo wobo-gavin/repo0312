@@ -1,14 +1,14 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test\Handler;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\EasyHandle;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
-use Psr\Http\Message\ResponseInterface;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlFactory
@@ -475,8 +475,12 @@ class CurlFactoryTest extends TestCase
         };
 
         $bd = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream::decorate(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for('test'), [
-            'tell'   => function () { return 1; },
-            'rewind' => function () use (&$called) { $called = true; }
+            'tell'   => function () {
+                return 1;
+            },
+            'rewind' => function () use (&$called) {
+                $called = true;
+            }
         ]);
 
         $factory = new Handler\CurlFactory(1);
@@ -539,7 +543,8 @@ class CurlFactoryTest extends TestCase
         $easy->errno = CURLE_COULDNT_CONNECT;
         $response = $m->invoke(
             null,
-            function () {},
+            function () {
+            },
             $easy,
             $factory
         );

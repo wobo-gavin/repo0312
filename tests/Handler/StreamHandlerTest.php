@@ -4,14 +4,14 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test\Handler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\StreamHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
-use Psr\Http\Message\ResponseInterface;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\StreamHandler
@@ -379,7 +379,9 @@ class StreamHandlerTest extends TestCase
         $this->queueRes();
         $buffer = fopen('php://temp', 'r+');
         $this->getSendResult([
-            'progress' => function () use (&$called) { $called = true; },
+            'progress' => function () use (&$called) {
+                $called = true;
+            },
             'debug' => $buffer,
         ]);
         fseek($buffer, 0);

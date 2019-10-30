@@ -11,9 +11,9 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use PHPUnit\Framework\TestCase;
 use Psr\Log\Test\TestLogger;
 
 class MiddlewareTest extends TestCase

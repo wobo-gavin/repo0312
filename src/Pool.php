@@ -1,9 +1,9 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\EachPromise;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromisorInterface;
 use Psr\Http\Message\RequestInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\EachPromise;
 
 /**
  * Sends an iterator of requests concurrently using a capped pool size.

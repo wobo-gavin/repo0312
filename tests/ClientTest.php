@@ -10,8 +10,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Repla
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri;
-use Psr\Http\Message\ResponseInterface;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 
 class ClientTest extends TestCase
 {
@@ -472,7 +472,8 @@ class ClientTest extends TestCase
      */
     public function testEnsuresThatFormParamsAndMultipartAreExclusive()
     {
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => function () {}]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => function () {
+        }]);
         $/* Replaced /* Replaced /* Replaced client */ */ */->post('http://foo.com', [
             'form_params' => ['foo' => 'bar bam'],
             'multipart' => []
