@@ -1,9 +1,27 @@
-
-
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:\\$config type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:__construct\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:__call\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
 			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:__call\\(\\) should return /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Promise\\\\PromiseInterface but returns /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\PromiseInterface\\|Psr\\\\Http\\\\Message\\\\ResponseInterface\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:sendAsync\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Client.php
 
@@ -18,6 +36,11 @@ parameters:
 			path: src/Client.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:send\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
 			message: "#^PHPDoc tag @throws with type /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception is not subtype of Throwable$#"
 			count: 2
 			path: src/Client.php
@@ -25,6 +48,11 @@ parameters:
 		-
 			message: "#^Call to method wait\\(\\) on an unknown class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\PromiseInterface\\.$#"
 			count: 2
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:requestAsync\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
 			path: src/Client.php
 
 		-
@@ -38,7 +66,42 @@ parameters:
 			path: src/Client.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:request\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:buildUri\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:configureDefaults\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
 			message: "#^Parameter \\#1 \\$str of function strtolower expects string, int\\|string given\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:prepareDefaults\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:prepareDefaults\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:transfer\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:applyOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Client.php
 
@@ -53,6 +116,51 @@ parameters:
 			path: src/Client.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\ClientInterface\\:\\:send\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ClientInterface.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\ClientInterface\\:\\:sendAsync\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ClientInterface.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\ClientInterface\\:\\:request\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ClientInterface.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\ClientInterface\\:\\:requestAsync\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ClientInterface.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\:\\:__construct\\(\\) has parameter \\$cookieArray with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Cookie/CookieJar.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\:\\:fromArray\\(\\) has parameter \\$cookies with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Cookie/CookieJar.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\:\\:fromArray\\(\\) return type has no value type specified in iterable type /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\.$#"
+			count: 1
+			path: src/Cookie/CookieJar.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\:\\:getCookieValue\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/CookieJar.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\:\\:getCookieValue\\(\\) has parameter \\$value with no typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/CookieJar.php
+
+		-
 			message: "#^Result of \\|\\| is always false\\.$#"
 			count: 1
 			path: src/Cookie/CookieJar.php
@@ -63,7 +171,47 @@ parameters:
 			path: src/Cookie/CookieJar.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Cookie/CookieJar.php
+
+		-
+			message: "#^Call to an undefined method Traversable\\<mixed, mixed\\>\\:\\:getArrayCopy\\(\\)\\.$#"
+			count: 1
+			path: src/Cookie/CookieJar.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\:\\:clear\\(\\) return type has no value type specified in iterable type /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJarInterface\\.$#"
+			count: 1
+			path: src/Cookie/CookieJar.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\:\\:clear\\(\\) should return /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJarInterface but return statement is missing\\.$#"
+			count: 1
+			path: src/Cookie/CookieJar.php
+
+		-
 			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\:\\:clear\\(\\) should return /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJarInterface but empty return statement found\\.$#"
+			count: 1
+			path: src/Cookie/CookieJar.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\:\\:clearSessionCookies\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/CookieJar.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\:\\:count\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/CookieJar.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\:\\:getIterator\\(\\) return type has no value type specified in iterable type Traversable\\<mixed, mixed\\>\\.$#"
+			count: 1
+			path: src/Cookie/CookieJar.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\:\\:extractCookies\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Cookie/CookieJar.php
 
@@ -73,7 +221,112 @@ parameters:
 			path: src/Cookie/CookieJar.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJar\\:\\:removeCookieIfEmpty\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/CookieJar.php
+
+		-
+			message: "#^Interface /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJarInterface extends generic interface IteratorAggregate but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Cookie/CookieJarInterface.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJarInterface\\:\\:extractCookies\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/CookieJarInterface.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJarInterface\\:\\:clear\\(\\) return type has no value type specified in iterable type /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJarInterface\\.$#"
+			count: 1
+			path: src/Cookie/CookieJarInterface.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJarInterface\\:\\:clearSessionCookies\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/CookieJarInterface.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\CookieJarInterface\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Cookie/CookieJarInterface.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\FileCookieJar\\:\\:save\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/FileCookieJar.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\FileCookieJar\\:\\:load\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/FileCookieJar.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SessionCookieJar\\:\\:save\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/SessionCookieJar.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SessionCookieJar\\:\\:load\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/SessionCookieJar.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:\\$defaults type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Cookie/SetCookie.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Cookie/SetCookie.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:__construct\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Cookie/SetCookie.php
+
+		-
 			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:\\$data \\(array\\) does not accept array\\|null\\.$#"
+			count: 1
+			path: src/Cookie/SetCookie.php
+
+		-
+			message: "#^Parameter \\#1 \\$timestamp of method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:setExpires\\(\\) expects int, mixed given\\.$#"
+			count: 1
+			path: src/Cookie/SetCookie.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:toArray\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/SetCookie.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:setName\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/SetCookie.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:setValue\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/SetCookie.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:setDomain\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/SetCookie.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:setPath\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/SetCookie.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:setMaxAge\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/SetCookie.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:setExpires\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Cookie/SetCookie.php
 
@@ -83,12 +336,122 @@ parameters:
 			path: src/Cookie/SetCookie.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:setSecure\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/SetCookie.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:setDiscard\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/SetCookie.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Cookie\\\\SetCookie\\:\\:setHttpOnly\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Cookie/SetCookie.php
+
+		-
 			message: "#^Parameter \\#1 \\$str of function ltrim expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/Cookie/SetCookie.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\BadResponseException\\:\\:__construct\\(\\) has parameter \\$handlerContext with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exception/BadResponseException.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\BadResponseException\\:\\:__construct\\(\\) has parameter \\$message with no typehint specified\\.$#"
+			count: 1
+			path: src/Exception/BadResponseException.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\ConnectException\\:\\:__construct\\(\\) has parameter \\$handlerContext with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exception/ConnectException.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\ConnectException\\:\\:__construct\\(\\) has parameter \\$message with no typehint specified\\.$#"
+			count: 1
+			path: src/Exception/ConnectException.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\RequestException\\:\\:\\$handlerContext type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exception/RequestException.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\RequestException\\:\\:__construct\\(\\) has parameter \\$handlerContext with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exception/RequestException.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\RequestException\\:\\:__construct\\(\\) has parameter \\$message with no typehint specified\\.$#"
+			count: 1
+			path: src/Exception/RequestException.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\RequestException\\:\\:create\\(\\) has parameter \\$ctx with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exception/RequestException.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\RequestException\\:\\:getHandlerContext\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exception/RequestException.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\SeekException\\:\\:\\$stream has no typehint specified\\.$#"
+			count: 1
+			path: src/Exception/SeekException.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\SeekException\\:\\:__construct\\(\\) has parameter \\$msg with no typehint specified\\.$#"
+			count: 1
+			path: src/Exception/SeekException.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\SeekException\\:\\:__construct\\(\\) has parameter \\$pos with no typehint specified\\.$#"
+			count: 1
+			path: src/Exception/SeekException.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:\\$handles type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:create\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:release\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
 			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:invokeStats\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:finishError\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:createRejection\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:createRejection\\(\\) has parameter \\$ctx with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Handler/CurlFactory.php
 
@@ -98,9 +461,154 @@ parameters:
 			path: src/Handler/CurlFactory.php
 
 		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:getDefaultConf\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:applyMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:applyMethod\\(\\) has parameter \\$conf with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:applyBody\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:applyBody\\(\\) has parameter \\$conf with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:applyBody\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:applyHeaders\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:applyHeaders\\(\\) has parameter \\$conf with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:removeHeader\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:removeHeader\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
 			message: "#^Parameter \\#1 \\$str1 of function strcasecmp expects string, int\\|string given\\.$#"
 			count: 1
 			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:applyHandlerOptions\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:applyHandlerOptions\\(\\) has parameter \\$conf with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:retryFailedRewind\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:retryFailedRewind\\(\\) has parameter \\$ctx with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactory\\:\\:createHeaderFn\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlFactory.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactoryInterface\\:\\:create\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlFactoryInterface.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlFactoryInterface\\:\\:release\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlFactoryInterface.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlHandler\\:\\:__construct\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlHandler\\:\\:__invoke\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlHandler\\:\\:__invoke\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlHandler.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:\\$selectTimeout has no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:\\$active has no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:\\$handles has no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:\\$delays has no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:\\$options has no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:__construct\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:__get\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:__get\\(\\) has parameter \\$name with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
 
 		-
 			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:\\$_mh \\(resource\\) does not accept resource\\|false\\.$#"
@@ -113,12 +621,122 @@ parameters:
 			path: src/Handler/CurlMultiHandler.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:__invoke\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:__invoke\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:tick\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:execute\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:addRequest\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:addRequest\\(\\) has parameter \\$entry with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:processMessages\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\CurlMultiHandler\\:\\:timeToNext\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/CurlMultiHandler.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\EasyHandle\\:\\:\\$headers type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/EasyHandle.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\EasyHandle\\:\\:\\$options type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/EasyHandle.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\EasyHandle\\:\\:createResponse\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/EasyHandle.php
+
+		-
 			message: "#^Parameter \\#1 \\$status of class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\\\\Response constructor expects int, string given\\.$#"
 			count: 1
 			path: src/Handler/EasyHandle.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\EasyHandle\\:\\:__get\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/EasyHandle.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\EasyHandle\\:\\:__get\\(\\) has parameter \\$name with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/EasyHandle.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:\\$queue has no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:\\$lastRequest has no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:\\$lastOptions has no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:\\$onFulfilled has no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:\\$onRejected has no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:createWithMiddleware\\(\\) has parameter \\$queue with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:__construct\\(\\) has parameter \\$queue with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
 			message: "#^Parameter \\#2 \\$parameters of function call_user_func_array expects array\\<int, mixed\\>, array given\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:__invoke\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:__invoke\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Handler/MockHandler.php
 
@@ -128,12 +746,132 @@ parameters:
 			path: src/Handler/MockHandler.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:append\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:getLastOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:reset\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:invokeStats\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:invokeStats\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\MockHandler\\:\\:invokeStats\\(\\) has parameter \\$reason with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/MockHandler.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:\\$lastHeaders has no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:__invoke\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:invokeStats\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:invokeStats\\(\\) has parameter \\$error with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:invokeStats\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:invokeStats\\(\\) has parameter \\$startTime with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:createResponse\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:createResponse\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:createResponse\\(\\) has parameter \\$startTime with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:createResponse\\(\\) has parameter \\$stream with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
 			message: "#^Parameter \\#1 \\$status of class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\\\\Response constructor expects int, string given\\.$#"
 			count: 1
 			path: src/Handler/StreamHandler.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:createSink\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:createSink\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:checkDecode\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:checkDecode\\(\\) has parameter \\$headers with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:checkDecode\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:checkDecode\\(\\) has parameter \\$stream with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
 			message: "#^Argument of an invalid type array\\<int, array\\<string, int\\|string\\>\\>\\|null supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:createStream\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:createStream\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Handler/StreamHandler.php
 
@@ -148,9 +886,214 @@ parameters:
 			path: src/Handler/StreamHandler.php
 
 		-
-			message: "#^Parameter \\#3 \\$microseconds of function stream_set_timeout expects int, float\\|int given\\.$#"
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:resolveHost\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:resolveHost\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Cannot access offset 0 on array\\|false\\.$#"
+			count: 2
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:getDefaultContext\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_proxy\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_proxy\\(\\) has parameter \\$options with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_proxy\\(\\) has parameter \\$params with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_proxy\\(\\) has parameter \\$value with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_timeout\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_timeout\\(\\) has parameter \\$options with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_timeout\\(\\) has parameter \\$params with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_timeout\\(\\) has parameter \\$value with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_verify\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_verify\\(\\) has parameter \\$options with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_verify\\(\\) has parameter \\$params with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_verify\\(\\) has parameter \\$value with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_cert\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_cert\\(\\) has parameter \\$options with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_cert\\(\\) has parameter \\$params with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_cert\\(\\) has parameter \\$value with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_progress\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_progress\\(\\) has parameter \\$options with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_progress\\(\\) has parameter \\$params with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_progress\\(\\) has parameter \\$value with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_debug\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_debug\\(\\) has parameter \\$options with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_debug\\(\\) has parameter \\$params with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:add_debug\\(\\) has parameter \\$value with no typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:addNotification\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:addNotification\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:callArray\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Handler\\\\StreamHandler\\:\\:callArray\\(\\) has parameter \\$functions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Handler/StreamHandler.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\HandlerStack\\:\\:\\$stack type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/HandlerStack.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\HandlerStack\\:\\:__invoke\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/HandlerStack.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\HandlerStack\\:\\:setHandler\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/HandlerStack.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\HandlerStack\\:\\:unshift\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/HandlerStack.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\HandlerStack\\:\\:push\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/HandlerStack.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\HandlerStack\\:\\:before\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/HandlerStack.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\HandlerStack\\:\\:after\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/HandlerStack.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\HandlerStack\\:\\:remove\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/HandlerStack.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\HandlerStack\\:\\:splice\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/HandlerStack.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\HandlerStack\\:\\:debugCallable\\(\\) has parameter \\$fn with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/HandlerStack.php
 
 		-
 			message: "#^Parameter \\#1 \\$obj of function spl_object_hash expects object, callable given\\.$#"
@@ -163,9 +1106,29 @@ parameters:
 			path: src/MessageFormatter.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Middleware\\:\\:history\\(\\) has parameter \\$container with generic interface ArrayAccess but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Middleware.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Middleware\\:\\:history\\(\\) has parameter \\$container with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Middleware.php
+
+		-
 			message: "#^Result of && is always false\\.$#"
 			count: 1
 			path: src/Middleware.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Pool\\:\\:__construct\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Pool.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Pool\\:\\:__construct\\(\\) has parameter \\$requests with no value type specified in iterable type array\\|Iterator\\.$#"
+			count: 1
+			path: src/Pool.php
 
 		-
 			message: "#^Return typehint of method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Pool\\:\\:promise\\(\\) has invalid type /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Promise\\\\Promise\\.$#"
@@ -178,9 +1141,74 @@ parameters:
 			path: src/Pool.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Pool\\:\\:batch\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Pool.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Pool\\:\\:batch\\(\\) has parameter \\$requests with no value type specified in iterable type array\\|Iterator\\.$#"
+			count: 1
+			path: src/Pool.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Pool\\:\\:batch\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Pool.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: src/Pool.php
+
+		-
 			message: "#^Call to method wait\\(\\) on an unknown class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Promise\\\\Promise\\.$#"
 			count: 1
 			path: src/Pool.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Pool\\:\\:cmpCallback\\(\\) has parameter \\$name with no typehint specified\\.$#"
+			count: 1
+			path: src/Pool.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Pool\\:\\:cmpCallback\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Pool.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Pool\\:\\:cmpCallback\\(\\) has parameter \\$results with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Pool.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\PrepareBodyMiddleware\\:\\:__invoke\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/PrepareBodyMiddleware.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\PrepareBodyMiddleware\\:\\:addExpectHeader\\(\\) has parameter \\$modify with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/PrepareBodyMiddleware.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\PrepareBodyMiddleware\\:\\:addExpectHeader\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/PrepareBodyMiddleware.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\RedirectMiddleware\\:\\:\\$defaultSettings has no typehint specified\\.$#"
+			count: 1
+			path: src/RedirectMiddleware.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\RedirectMiddleware\\:\\:__invoke\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/RedirectMiddleware.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\RedirectMiddleware\\:\\:checkRedirect\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/RedirectMiddleware.php
 
 		-
 			message: "#^Parameter \\#1 \\$str of function substr expects string, int given\\.$#"
@@ -193,14 +1221,149 @@ parameters:
 			path: src/RedirectMiddleware.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\RedirectMiddleware\\:\\:withTracking\\(\\) has parameter \\$statusCode with no typehint specified\\.$#"
+			count: 1
+			path: src/RedirectMiddleware.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\RedirectMiddleware\\:\\:withTracking\\(\\) has parameter \\$uri with no typehint specified\\.$#"
+			count: 1
+			path: src/RedirectMiddleware.php
+
+		-
 			message: "#^Parameter \\#2 \\$value of method Psr\\\\Http\\\\Message\\\\MessageInterface\\:\\:withHeader\\(\\) expects array\\<string\\>\\|string, array given\\.$#"
 			count: 2
 			path: src/RedirectMiddleware.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\RedirectMiddleware\\:\\:guardMax\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/RedirectMiddleware.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\RedirectMiddleware\\:\\:modifyRequest\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/RedirectMiddleware.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\RedirectMiddleware\\:\\:redirectUri\\(\\) has parameter \\$protocols with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/RedirectMiddleware.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\RetryMiddleware\\:\\:__invoke\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/RetryMiddleware.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\RetryMiddleware\\:\\:onFulfilled\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/RetryMiddleware.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\RetryMiddleware\\:\\:onRejected\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/RetryMiddleware.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\RetryMiddleware\\:\\:doRetry\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/RetryMiddleware.php
+
+		-
 			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\RetryMiddleware\\:\\:doRetry\\(\\) should return /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\RetryMiddleware but returns /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Promise\\\\PromiseInterface\\.$#"
 			count: 1
 			path: src/RetryMiddleware.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\TransferStats\\:\\:\\$request has no typehint specified\\.$#"
+			count: 1
+			path: src/TransferStats.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\TransferStats\\:\\:\\$response has no typehint specified\\.$#"
+			count: 1
+			path: src/TransferStats.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\TransferStats\\:\\:\\$transferTime has no typehint specified\\.$#"
+			count: 1
+			path: src/TransferStats.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\TransferStats\\:\\:\\$handlerStats has no typehint specified\\.$#"
+			count: 1
+			path: src/TransferStats.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\TransferStats\\:\\:\\$handlerErrorData has no typehint specified\\.$#"
+			count: 1
+			path: src/TransferStats.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\TransferStats\\:\\:__construct\\(\\) has parameter \\$handlerStats with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/TransferStats.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\TransferStats\\:\\:getHandlerStats\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/TransferStats.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\UriTemplate\\:\\:\\$variables type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/UriTemplate.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\UriTemplate\\:\\:\\$operatorHash type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/UriTemplate.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\UriTemplate\\:\\:\\$delims type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/UriTemplate.php
+
+		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\UriTemplate\\:\\:\\$delimsPct type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/UriTemplate.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\UriTemplate\\:\\:expand\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/UriTemplate.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\UriTemplate\\:\\:expand\\(\\) has parameter \\$template with no typehint specified\\.$#"
+			count: 1
+			path: src/UriTemplate.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\UriTemplate\\:\\:expand\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/UriTemplate.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\UriTemplate\\:\\:parseExpression\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/UriTemplate.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\UriTemplate\\:\\:expandMatch\\(\\) has parameter \\$matches with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/UriTemplate.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\UriTemplate\\:\\:isAssoc\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/UriTemplate.php
+
+		-
+			message: "#^Function /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\uri_template\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions.php
 
 		-
 			message: "#^Function uri_template not found\\.$#"
@@ -213,12 +1376,37 @@ parameters:
 			path: src/functions.php
 
 		-
+			message: "#^Function /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\headers_from_lines\\(\\) has parameter \\$lines with no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: src/functions.php
+
+		-
+			message: "#^Function /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\headers_from_lines\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions.php
+
+		-
 			message: "#^Function /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\debug_resource\\(\\) should return resource but returns resource\\|false\\.$#"
 			count: 1
 			path: src/functions.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function substr expects string, string\\|null given\\.$#"
+			message: "#^Function /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\normalize_header_keys\\(\\) has parameter \\$headers with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions.php
+
+		-
+			message: "#^Function /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\normalize_header_keys\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions.php
+
+		-
+			message: "#^Function /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\is_host_in_noproxy\\(\\) has parameter \\$noProxyArray with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions.php
+
+		-
+			message: "#^Cannot access offset 0 on array\\<int, string\\>\\|false\\.$#"
 			count: 1
 			path: src/functions.php
 
@@ -226,5 +1414,4 @@ parameters:
 			message: "#^Function /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\json_encode\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: src/functions.php
-
 
