@@ -711,4 +711,84 @@ class ClientTest extends TestCase
 
         self::assertSame($responseBody, $response->getBody()->getContents());
     }
+
+    public function testIdnSupportDefaultValue()
+    {
+        $mockHandler = new MockHandler([new Response()]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mockHandler]);
+
+        $config = $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig();
+
+        if (extension_loaded('intl')) {
+            self::assertTrue($config['idn_conversion']);
+        } else {
+            self::assertFalse($config['idn_conversion']);
+        }
+    }
+
+    public function testIdnIsTranslatedToAsciiWhenConversionIsEnabled()
+    {
+        if (!extension_loaded('intl')) {
+            self::markTestSkipped('intl PHP extension is not loaded');
+        }
+        $mockHandler = new MockHandler([new Response()]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mockHandler]);
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'https://яндекс.рф/images', ['idn_conversion' => true]);
+
+        $request = $mockHandler->getLastRequest();
+
+        self::assertSame('https://xn--d1acpjx3f.xn--p1ai/images', (string) $request->getUri());
+        self::assertSame('xn--d1acpjx3f.xn--p1ai', (string) $request->getHeaderLine('Host'));
+    }
+
+    public function testIdnStaysTheSameWhenConversionIsDisabled()
+    {
+        $mockHandler = new MockHandler([new Response()]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mockHandler]);
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'https://яндекс.рф/images', ['idn_conversion' => false]);
+
+        $request = $mockHandler->getLastRequest();
+
+        self::assertSame('https://яндекс.рф/images', (string) $request->getUri());
+        self::assertSame('яндекс.рф', (string) $request->getHeaderLine('Host'));
+    }
+
+    /**
+     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\InvalidArgumentException
+     * @expectedExceptionMessage IDN conversion failed (errors: IDNA_ERROR_LEADING_HYPHEN)
+     */
+    public function testExceptionOnInvalidIdn()
+    {
+        if (!extension_loaded('intl')) {
+            self::markTestSkipped('intl PHP extension is not loaded');
+        }
+        $mockHandler = new MockHandler([new Response()]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mockHandler]);
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'https://-яндекс.рф/images', ['idn_conversion' => true]);
+    }
+
+    /**
+     * @depends testCanUseRelativeUriWithSend
+     * @depends testIdnSupportDefaultValue
+     */
+    public function testIdnBaseUri()
+    {
+        if (!extension_loaded('intl')) {
+            self::markTestSkipped('intl PHP extension is not loaded');
+        }
+
+        $mock = new MockHandler([new Response()]);
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client([
+            'handler'  => $mock,
+            'base_uri' => 'http://яндекс.рф',
+        ]);
+        self::assertSame('http://яндекс.рф', (string) $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('base_uri'));
+        $request = new Request('GET', '/baz');
+        $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+        self::assertSame('http://xn--d1acpjx3f.xn--p1ai/baz', (string) $mock->getLastRequest()->getUri());
+        self::assertSame('xn--d1acpjx3f.xn--p1ai', (string) $mock->getLastRequest()->getHeaderLine('Host'));
+    }
 }

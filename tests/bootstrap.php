@@ -1,4 +1,9 @@
 <?php
+
+namespace {
+    setlocale(LC_ALL, 'C');
+}
+
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test {
     require __DIR__ . '/../vendor/autoload.php';
     require __DIR__ . '/Server.php';
