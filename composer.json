@@ -25,12 +25,12 @@
         "ext-json": "*",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/promises": "^1.0",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/psr7": "^1.6.1",
-        "php-http//* Replaced /* Replaced /* Replaced client */ */ */-integration-tests": "dev-phpunit8",
         "psr/http-/* Replaced /* Replaced /* Replaced client */ */ */": "^1.0"
     },
     "require-dev": {
         "ext-curl": "*",
         "phpunit/phpunit": "^8.5",
+        "php-http//* Replaced /* Replaced /* Replaced client */ */ */-integration-tests": "dev-phpunit8",
         "psr/log": "^1.1"
     },
     "suggest": {
