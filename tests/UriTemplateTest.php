@@ -5,7 +5,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\UriTemplate;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\UriTemplate
+ * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\UriTemplate
  */
 class UriTemplateTest extends TestCase
 {

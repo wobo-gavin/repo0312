@@ -11,7 +11,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Repla
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar
+ * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar
  */
 class CookieJarTest extends TestCase
 {

@@ -9,7 +9,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Repla
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\MessageFormatter
+ * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\MessageFormatter
  */
 class MessageFormatterTest extends TestCase
 {

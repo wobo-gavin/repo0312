@@ -6,7 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SessionCookieJar
+ * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SessionCookieJar
  */
 class SessionCookieJarTest extends TestCase
 {

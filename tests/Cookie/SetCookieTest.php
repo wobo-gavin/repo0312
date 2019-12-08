@@ -5,7 +5,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie
+ * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie
  */
 class SetCookieTest extends TestCase
 {
