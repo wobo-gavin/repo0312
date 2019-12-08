@@ -16,22 +16,7 @@ parameters:
 			path: src/Client.php
 
 		-
-			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:__call\\(\\) should return /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Promise\\\\PromiseInterface but returns /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\PromiseInterface\\|Psr\\\\Http\\\\Message\\\\ResponseInterface\\.$#"
-			count: 1
-			path: src/Client.php
-
-		-
 			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:sendAsync\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Client.php
-
-		-
-			message: "#^Return typehint of method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:sendAsync\\(\\) has invalid type /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\PromiseInterface\\.$#"
-			count: 1
-			path: src/Client.php
-
-		-
-			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:sendAsync\\(\\) should return /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\PromiseInterface but returns /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Promise\\\\PromiseInterface\\.$#"
 			count: 1
 			path: src/Client.php
 
@@ -41,27 +26,7 @@ parameters:
 			path: src/Client.php
 
 		-
-			message: "#^PHPDoc tag @throws with type /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception is not subtype of Throwable$#"
-			count: 2
-			path: src/Client.php
-
-		-
-			message: "#^Call to method wait\\(\\) on an unknown class /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\PromiseInterface\\.$#"
-			count: 2
-			path: src/Client.php
-
-		-
 			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:requestAsync\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Client.php
-
-		-
-			message: "#^Return typehint of method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:requestAsync\\(\\) has invalid type /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\PromiseInterface\\.$#"
-			count: 1
-			path: src/Client.php
-
-		-
-			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:requestAsync\\(\\) should return /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\PromiseInterface but returns /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Promise\\\\PromiseInterface\\.$#"
 			count: 1
 			path: src/Client.php
 

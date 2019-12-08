@@ -133,7 +133,7 @@ function default_user_agent()
     static $defaultAgent = '';
 
     if (!$defaultAgent) {
-        $defaultAgent = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http/' . Client::VERSION;
+        $defaultAgent = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http//* Replaced /* Replaced /* Replaced Guzzle */ */ */';
         if (extension_loaded('curl') && function_exists('curl_version')) {
             $defaultAgent .= ' curl/' . \curl_version()['version'];
         }

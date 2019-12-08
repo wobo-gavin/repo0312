@@ -21,14 +21,14 @@
         }
     ],
     "require": {
-        "php": ">=5.5",
+        "php": "^7.2.5",
         "ext-json": "*",
         "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/promises": "^1.0",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/psr7": "^1.6.1"
+        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/psr7": "^1.6.1",
+        "psr/http-/* Replaced /* Replaced /* Replaced client */ */ */": "^1.0"
     },
     "require-dev": {
-        "ext-curl": "*",
-        "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.4 || ^7.0",
+        "phpunit/phpunit": "^8.5",
         "psr/log": "^1.1"
     },
     "suggest": {
@@ -40,7 +40,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "6.5-dev"
+            "dev-master": "7.0-dev"
         }
     },
     "autoload": {
