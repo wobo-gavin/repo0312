@@ -76,10 +76,6 @@ class RedirectMiddlewareTest extends TestCase
         self::assertSame('http://example.com/foo', (string)$mock->getLastRequest()->getUri());
     }
 
-    /**
-     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TooManyRedirectsException
-     * @expectedExceptionMessage Will not follow more than 3 redirects
-     */
     public function testLimitsToMaxRedirects()
     {
         $mock = new MockHandler([
@@ -93,13 +89,12 @@ class RedirectMiddlewareTest extends TestCase
         $handler = $stack->resolve();
         $request = new Request('GET', 'http://example.com');
         $promise = $handler($request, ['allow_redirects' => ['max' => 3]]);
+
+        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TooManyRedirectsException::class);
+        $this->expectExceptionMessage('Will not follow more than 3 redirects');
         $promise->wait();
     }
 
-    /**
-     * @expectedException \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException
-     * @expectedExceptionMessage Redirect URI,
-     */
     public function testEnsuresProtocolIsValid()
     {
         $mock = new MockHandler([
@@ -109,6 +104,9 @@ class RedirectMiddlewareTest extends TestCase
         $stack->push(Middleware::redirect());
         $handler = $stack->resolve();
         $request = new Request('GET', 'http://example.com');
+
+        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException::class);
+        $this->expectExceptionMessage('Redirect URI,');
         $handler($request, ['allow_redirects' => ['max' => 3]])->wait();
     }
 

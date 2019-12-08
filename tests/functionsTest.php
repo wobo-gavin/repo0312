@@ -95,11 +95,10 @@ class FunctionsTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testEnsuresNoProxyCheckHostIsSet()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\is_host_in_noproxy('', []);
     }
 
@@ -108,11 +107,10 @@ class FunctionsTest extends TestCase
         self::assertSame('true', \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_encode(true));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testEncodesJsonAndThrowsOnError()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_encode("\x99");
     }
 
@@ -121,11 +119,10 @@ class FunctionsTest extends TestCase
         self::assertTrue(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode('true'));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testDecodesJsonAndThrowsOnError()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode('{{]]');
     }
 
