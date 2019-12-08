@@ -529,7 +529,6 @@ on each other.
 .. code-block:: none
 
     . \RuntimeException
-    ├── SeekException (implements /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception)
     └── TransferException (implements /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception)
         └── RequestException
             ├── BadResponseException
