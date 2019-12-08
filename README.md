@@ -85,9 +85,9 @@ composer update
 [/* Replaced /* Replaced /* Replaced guzzle */ */ */-3-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */3
 [/* Replaced /* Replaced /* Replaced guzzle */ */ */-4-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//tree/4.x
 [/* Replaced /* Replaced /* Replaced guzzle */ */ */-5-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//tree/5.3
-[/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */
+[/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//tree/6.5
 [/* Replaced /* Replaced /* Replaced guzzle */ */ */-7-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */
 [/* Replaced /* Replaced /* Replaced guzzle */ */ */-3-docs]: http:///* Replaced /* Replaced /* Replaced guzzle */ */ */3.readthedocs.org
-[/* Replaced /* Replaced /* Replaced guzzle */ */ */-5-docs]: http://docs./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org//en/5.3/
-[/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-docs]: http://docs./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org//en/6.5/
-[/* Replaced /* Replaced /* Replaced guzzle */ */ */-7-docs]: http://docs./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org//en/latest/
+[/* Replaced /* Replaced /* Replaced guzzle */ */ */-5-docs]: http://docs./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/en/5.3/
+[/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-docs]: http://docs./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/en/6.5/
+[/* Replaced /* Replaced /* Replaced guzzle */ */ */-7-docs]: http://docs./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/en/latest/
