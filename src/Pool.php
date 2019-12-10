@@ -2,6 +2,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\EachPromise;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromisorInterface;
 use Psr\Http\Message\RequestInterface;
 
@@ -71,10 +72,8 @@ class Pool implements PromisorInterface
 
     /**
      * Get promise
-     *
-     * @return /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\Promise
      */
-    public function promise()
+    public function promise(): PromiseInterface
     {
         return $this->each->promise();
     }
@@ -101,7 +100,7 @@ class Pool implements PromisorInterface
         ClientInterface $/* Replaced /* Replaced /* Replaced client */ */ */,
         $requests,
         array $options = []
-    ) {
+    ): array {
         $res = [];
         self::cmpCallback($options, 'fulfilled', $res);
         self::cmpCallback($options, 'rejected', $res);
@@ -114,10 +113,8 @@ class Pool implements PromisorInterface
 
     /**
      * Execute callback(s)
-     *
-     * @return void
      */
-    private static function cmpCallback(array &$options, $name, array &$results)
+    private static function cmpCallback(array &$options, string $name, array &$results): void
     {
         if (!isset($options[$name])) {
             $options[$name] = function ($v, $k) use (&$results) {
