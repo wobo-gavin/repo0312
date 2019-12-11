@@ -2,8 +2,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\RejectedPromise;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -47,7 +45,7 @@ class RetryMiddleware
      *
      * @return int milliseconds.
      */
-    public static function exponentialDelay(int $retries)
+    public static function exponentialDelay(int $retries): int
     {
         return (int) pow(2, $retries - 1) * 1000;
     }
