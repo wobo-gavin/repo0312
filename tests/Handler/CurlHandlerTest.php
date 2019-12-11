@@ -69,7 +69,7 @@ class CurlHandlerTest extends TestCase
     {
         Server::flush();
         Server::enqueue([new Response()]);
-        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for(str_repeat('.', 1000000));
+        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for(\str_repeat('.', 1000000));
         $handler = new CurlHandler();
         $request = new Request(
             'PUT',
