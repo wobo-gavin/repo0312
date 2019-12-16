@@ -2,6 +2,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\EachPromise;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromisorInterface;
 use Psr\Http\Message\RequestInterface;
 
@@ -72,7 +73,7 @@ class Pool implements PromisorInterface
     /**
      * Get promise
      *
-     * @return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface
+     * @return PromiseInterface
      */
     public function promise()
     {
