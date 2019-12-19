@@ -23,11 +23,11 @@ trivial to integrate with web services.
 $/* Replaced /* Replaced /* Replaced client */ */ */ = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client();
 $response = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'https://api.github.com/repos//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */');
 
-echo $response->getStatusCode(); # 200
-echo $response->getHeaderLine('content-type'); # 'application/json; charset=utf8'
-echo $response->getBody(); # '{"id": 1420053, "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ */", ...}'
+echo $response->getStatusCode(); // 200
+echo $response->getHeaderLine('content-type'); // 'application/json; charset=utf8'
+echo $response->getBody(); // '{"id": 1420053, "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ */", ...}'
 
-# Send an asynchronous request.
+// Send an asynchronous request.
 $request = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('GET', 'http://httpbin.org');
 $promise = $/* Replaced /* Replaced /* Replaced client */ */ */->sendAsync($request)->then(function ($response) {
     echo 'I completed! ' . $response->getBody();
@@ -49,27 +49,8 @@ The recommended way to install /* Replaced /* Replaced /* Replaced Guzzle */ */ 
 [Composer](http://getcomposer.org).
 
 ```bash
-# Install Composer
-curl -sS https://getcomposer.org/installer | php
-```
-
-Next, run the Composer command to install the latest stable version of /* Replaced /* Replaced /* Replaced Guzzle */ */ */:
-
-```bash
 composer require /* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */
 ```
-
-After installing, you need to require Composer's autoloader:
-
-```php
-require 'vendor/autoload.php';
-```
-
-You can then later update /* Replaced /* Replaced /* Replaced Guzzle */ */ */ using composer:
-
- ```bash
-composer update
- ```
 
 
 ## Version Guidance
