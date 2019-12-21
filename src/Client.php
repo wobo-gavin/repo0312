@@ -5,9 +5,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\InvalidRequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -366,18 +364,6 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
      */
     private function transfer(RequestInterface $request, array $options): PromiseInterface
     {
-        // save_to -> sink
-        if (isset($options['save_to'])) {
-            $options['sink'] = $options['save_to'];
-            unset($options['save_to']);
-        }
-
-        // exceptions -> http_errors
-        if (isset($options['exceptions'])) {
-            $options['http_errors'] = $options['exceptions'];
-            unset($options['exceptions']);
-        }
-
         $request = $this->applyOptions($request, $options);
         /** @var HandlerStack $handler */
         $handler = $options['handler'];
