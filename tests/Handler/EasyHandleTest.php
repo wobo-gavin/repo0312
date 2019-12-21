@@ -2,7 +2,6 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test\Handler;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\EasyHandle;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use PHPUnit\Framework\TestCase;
 
 /**

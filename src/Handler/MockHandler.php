@@ -4,7 +4,6 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\RejectedPromise;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
