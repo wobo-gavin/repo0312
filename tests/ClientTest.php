@@ -5,11 +5,13 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Uri;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
@@ -763,5 +765,37 @@ class ClientTest extends TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
         self::assertSame('http://xn--d1acpjx3f.xn--p1ai/baz', (string) $mock->getLastRequest()->getUri());
         self::assertSame('xn--d1acpjx3f.xn--p1ai', (string) $mock->getLastRequest()->getHeaderLine('Host'));
+    }
+
+    public function testIdnWithRedirect()
+    {
+        if (!extension_loaded('intl')) {
+            self::markTestSkipped('intl PHP extension is not loaded');
+        }
+        $mockHandler = new MockHandler([
+            new Response(302, ['Location' => 'http://www.tést.com/whatever']),
+            new Response()
+        ]);
+        $handler = HandlerStack::create($mockHandler);
+        $requests = [];
+        $handler->push(Middleware::history($requests));
+        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $handler]);
+
+        $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'https://яндекс.рф/images', [
+            RequestOptions::ALLOW_REDIRECTS => [
+                'referer' => true,
+                'track_redirects' => true
+            ],
+            'idn_conversion' => true
+        ]);
+
+        $request = $mockHandler->getLastRequest();
+
+        self::assertSame('http://www.xn--tst-bma.com/whatever', (string) $request->getUri());
+        self::assertSame('www.xn--tst-bma.com', (string) $request->getHeaderLine('Host'));
+
+        $request = $requests[0]['request'];
+        self::assertSame('https://xn--d1acpjx3f.xn--p1ai/images', (string) $request->getUri());
+        self::assertSame('xn--d1acpjx3f.xn--p1ai', (string) $request->getHeaderLine('Host'));
     }
 }
