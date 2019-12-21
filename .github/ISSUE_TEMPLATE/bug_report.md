@@ -3,7 +3,9 @@ name: 🐛 Bug Report
 about: Report errors and problems
 ---
 
-**/* Replaced /* Replaced /* Replaced Guzzle */ */ */ version(s) affected**: x.y.z
+**/* Replaced /* Replaced Guzzle */ */ version(s) affected**: x.y.z
+**PHP version**: x.y.z (hint: `php --version`)
+**cURL version**: x.y.z (hint: `php -i | grep cURL`)
 
 **Description**  
 <!-- A clear and concise description of the problem. -->
