@@ -1,8 +1,8 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception;
 
-use Throwable;
+use Psr\Http\Client\ClientExceptionInterface;
 
-interface /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception extends Throwable
+interface /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception extends ClientExceptionInterface
 {
 }
