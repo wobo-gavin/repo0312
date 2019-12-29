@@ -178,7 +178,7 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port, l
         that.responses = JSON.parse(request.body);
         for (var i = 0; i < that.responses.length; i++) {
           if (that.responses[i].body) {
-            that.responses[i].body = new Buffer(that.responses[i].body, 'base64');
+            that.responses[i].body = new Buffer.from(that.responses[i].body, 'base64');
           }
         }
         if (that.log) {
