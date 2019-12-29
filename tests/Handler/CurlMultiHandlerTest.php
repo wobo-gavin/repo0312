@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Handler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlMultiHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Helpers;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 use PHPUnit\Framework\TestCase;
 
@@ -53,7 +54,7 @@ class CurlMultiHandlerTest extends TestCase
     public function testCanSetSelectTimeout()
     {
         $a = new CurlMultiHandler(['select_timeout' => 2]);
-        self::assertEquals(2, self::readAttribute($a, 'selectTimeout'));
+        self::assertEquals(2, Helpers::readObjectAttribute($a, 'selectTimeout'));
     }
 
     public function testCanCancel()
@@ -101,13 +102,13 @@ class CurlMultiHandlerTest extends TestCase
         $a = new CurlMultiHandler();
 
         //default if no options are given and no environment variable is set
-        self::assertEquals(1, self::readAttribute($a, 'selectTimeout'));
+        self::assertEquals(1, Helpers::readObjectAttribute($a, 'selectTimeout'));
 
         \putenv("GUZZLE_CURL_SELECT_TIMEOUT=3");
         $a = new CurlMultiHandler();
         $selectTimeout = \getenv('GUZZLE_CURL_SELECT_TIMEOUT');
         //Handler reads from the environment if no options are given
-        self::assertEquals($selectTimeout, self::readAttribute($a, 'selectTimeout'));
+        self::assertEquals($selectTimeout, Helpers::readObjectAttribute($a, 'selectTimeout'));
     }
 
     public function throwsWhenAccessingInvalidProperty()

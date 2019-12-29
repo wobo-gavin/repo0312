@@ -5,6 +5,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\EasyHandle;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Helpers;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
 use PHPUnit\Framework\TestCase;
@@ -586,20 +587,20 @@ class CurlFactoryTest extends TestCase
         $easy = $f->create($req, []);
         $h1 = $easy->handle;
         $f->release($easy);
-        self::assertCount(1, self::readAttribute($f, 'handles'));
+        self::assertCount(1, Helpers::readObjectAttribute($f, 'handles'));
         $easy = $f->create($req, []);
         self::assertSame($easy->handle, $h1);
         $easy2 = $f->create($req, []);
         $easy3 = $f->create($req, []);
         $easy4 = $f->create($req, []);
         $f->release($easy);
-        self::assertCount(1, self::readAttribute($f, 'handles'));
+        self::assertCount(1, Helpers::readObjectAttribute($f, 'handles'));
         $f->release($easy2);
-        self::assertCount(2, self::readAttribute($f, 'handles'));
+        self::assertCount(2, Helpers::readObjectAttribute($f, 'handles'));
         $f->release($easy3);
-        self::assertCount(3, self::readAttribute($f, 'handles'));
+        self::assertCount(3, Helpers::readObjectAttribute($f, 'handles'));
         $f->release($easy4);
-        self::assertCount(3, self::readAttribute($f, 'handles'));
+        self::assertCount(3, Helpers::readObjectAttribute($f, 'handles'));
     }
 
     public function testEnsuresOnHeadersIsCallable()
