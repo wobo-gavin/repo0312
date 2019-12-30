@@ -34,10 +34,10 @@ Example:
 
 ```php
 // Before:
-`curl_version()`;
+curl_version();
 
 // After:
-`\curl_version()`;
+\curl_version();
 ```
 
 For the full diff you can check [here](https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//compare/6.5.0..master).
