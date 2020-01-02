@@ -546,27 +546,34 @@ class ClientTest extends TestCase
 
     public function testUsesProxyEnvironmentVariables()
     {
-        $http = \getenv('HTTP_PROXY');
-        $https = \getenv('HTTPS_PROXY');
-        $no = \getenv('NO_PROXY');
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        self::assertNull($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('proxy'));
-        \putenv('HTTP_PROXY=127.0.0.1');
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        self::assertSame(
-            ['http' => '127.0.0.1'],
-            $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('proxy')
-        );
-        \putenv('HTTPS_PROXY=127.0.0.2');
-        \putenv('NO_PROXY=127.0.0.3, 127.0.0.4');
-        $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
-        self::assertSame(
-            ['http' => '127.0.0.1', 'https' => '127.0.0.2', 'no' => ['127.0.0.3','127.0.0.4']],
-            $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('proxy')
-        );
-        \putenv("HTTP_PROXY=$http");
-        \putenv("HTTPS_PROXY=$https");
-        \putenv("NO_PROXY=$no");
+        unset($_SERVER['HTTP_PROXY'], $_SERVER['HTTPS_PROXY'], $_SERVER['NO_PROXY']);
+        \putenv('HTTP_PROXY=');
+        \putenv('HTTPS_PROXY=');
+        \putenv('NO_PROXY=');
+
+        try {
+            $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+            self::assertNull($/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('proxy'));
+
+            \putenv('HTTP_PROXY=127.0.0.1');
+            $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+            self::assertSame(
+                ['http' => '127.0.0.1'],
+                $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('proxy')
+            );
+
+            \putenv('HTTPS_PROXY=127.0.0.2');
+            \putenv('NO_PROXY=127.0.0.3, 127.0.0.4');
+            $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client();
+            self::assertSame(
+                ['http' => '127.0.0.1', 'https' => '127.0.0.2', 'no' => ['127.0.0.3','127.0.0.4']],
+                $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('proxy')
+            );
+        } finally {
+            \putenv('HTTP_PROXY=');
+            \putenv('HTTPS_PROXY=');
+            \putenv('NO_PROXY=');
+        }
     }
 
     public function testRequestSendsWithSync()
