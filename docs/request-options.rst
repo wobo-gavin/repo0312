@@ -600,8 +600,6 @@ over the wire.
 
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
 
-    // Grab the /* Replaced /* Replaced /* Replaced client */ */ */'s handler instance.
-    $/* Replaced /* Replaced /* Replaced client */ */ */Handler = $/* Replaced /* Replaced /* Replaced client */ */ */->getConfig('handler');
     // Create a middleware that echoes parts of the request.
     $tapMiddleware = Middleware::tap(function ($request) {
         echo $request->getHeaderLine('Content-Type');
@@ -610,9 +608,11 @@ over the wire.
         // {"foo":"bar"}
     });
 
+    // The $handler variable is the handler passed in the
+    // options to the /* Replaced /* Replaced /* Replaced client */ */ */ constructor.
     $response = $/* Replaced /* Replaced /* Replaced client */ */ */->request('PUT', '/put', [
         'json'    => ['foo' => 'bar'],
-        'handler' => $tapMiddleware($/* Replaced /* Replaced /* Replaced client */ */ */Handler)
+        'handler' => $tapMiddleware($handler)
     ]);
 
 .. note::
