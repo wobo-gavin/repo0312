@@ -27,12 +27,12 @@ parameters:
 
 		-
 			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:requestAsync\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
+			count: 2
 			path: src/Client.php
 
 		-
 			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:request\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
+			count: 2
 			path: src/Client.php
 
 		-
@@ -72,6 +72,66 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$prefix of function http_build_query expects string, null given\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:get\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:head\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:put\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:post\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:patch\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:delete\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:getAsync\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:headAsync\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:putAsync\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:postAsync\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:patchAsync\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Client\\:\\:deleteAsync\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Client.php
 

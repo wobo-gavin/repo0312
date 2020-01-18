@@ -5,6 +5,7 @@
 ### Changed
 
 * Avoid the getenv function when unsafe [#2531](https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//pull/2531)
+* Added real /* Replaced /* Replaced /* Replaced client */ */ */ methods [#2529](https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//pull/2529)
 
 ### Removed
 
