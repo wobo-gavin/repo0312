@@ -37,7 +37,7 @@ The /* Replaced /* Replaced /* Replaced client */ */ */ constructor accepts an a
     URIs. Can be a string or instance of UriInterface. When a relative URI
     is provided to a /* Replaced /* Replaced /* Replaced client */ */ */, the /* Replaced /* Replaced /* Replaced client */ */ */ will combine the base URI with the
     relative URI using the rules described in
-    `RFC 3986, section 2 <http://tools.ietf.org/html/rfc3986#section-5.2>`_.
+    `RFC 3986, section 5.2 <https://tools.ietf.org/html/rfc3986#section-5.2>`_.
 
     .. code-block:: php
 
