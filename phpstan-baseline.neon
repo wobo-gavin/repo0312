@@ -276,6 +276,16 @@ parameters:
 			path: src/Exception/ConnectException.php
 
 		-
+			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\ConnectException\\:\\:\\$handlerContext type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exception/ConnectException.php
+
+		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\ConnectException\\:\\:getHandlerContext\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exception/ConnectException.php
+
+		-
 			message: "#^Property /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Exception\\\\RequestException\\:\\:\\$handlerContext type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Exception/RequestException.php

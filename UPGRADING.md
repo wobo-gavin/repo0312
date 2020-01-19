@@ -19,6 +19,10 @@ Please make sure:
 - Classes `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException`, `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException`, 
   `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException` can no longer be initialized with an empty
   Response as argument.
+- Class `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException` now extends `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\TransferException`
+  instead of `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException`.
+- Function `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException::getResponse()` is removed.
+- Function `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException::hasResponse()` is removed.
 - Constant `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::VERSION` is removed.
 - Function `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException::getResponseBodySummary` is removed.
   Use `\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\get_message_body_summary` as an alternative.

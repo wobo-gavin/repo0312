@@ -6,6 +6,8 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Repla
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Client\NetworkExceptionInterface;
+use Psr\Http\Client\RequestExceptionInterface;
 
 /**
  * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
@@ -17,6 +19,8 @@ class RequestExceptionTest extends TestCase
         $req = new Request('GET', '/');
         $res = new Response(200);
         $e = new RequestException('foo', $req, $res);
+        self::assertInstanceOf(RequestExceptionInterface::class, $e);
+        self::assertNotInstanceOf(NetworkExceptionInterface::class, $e);
         self::assertSame($req, $e->getRequest());
         self::assertSame($res, $e->getResponse());
         self::assertTrue($e->hasResponse());
