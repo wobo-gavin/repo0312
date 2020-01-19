@@ -2,6 +2,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -50,8 +51,8 @@ final class EasyHandle
 
         // HTTP-version SP status-code SP reason-phrase
         $startLine = \explode(' ', \array_shift($this->headers), 3);
-        $headers = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\headers_from_lines($this->headers);
-        $normalizedKeys = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\normalize_header_keys($headers);
+        $headers = Utils::headersFromLines($this->headers);
+        $normalizedKeys = Utils::normalizeHeaderKeys($headers);
 
         if (!empty($this->options['decode_content'])
             && isset($normalizedKeys['content-encoding'])

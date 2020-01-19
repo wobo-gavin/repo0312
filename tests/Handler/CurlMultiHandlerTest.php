@@ -6,6 +6,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Repla
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Helpers;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
 use PHPUnit\Framework\TestCase;
 
 class CurlMultiHandlerTest extends TestCase
@@ -91,10 +92,10 @@ class CurlMultiHandlerTest extends TestCase
         Server::flush();
         Server::enqueue([new Response()]);
         $a = new CurlMultiHandler();
-        $expected = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\_current_time() + (100 / 1000);
+        $expected = Utils::currentTime() + (100 / 1000);
         $response = $a(new Request('GET', Server::$url), ['delay' => 100]);
         $response->wait();
-        self::assertGreaterThanOrEqual($expected, \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\_current_time());
+        self::assertGreaterThanOrEqual($expected, Utils::currentTime());
     }
 
     public function testUsesTimeoutEnvironmentVariables()

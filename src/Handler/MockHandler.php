@@ -5,6 +5,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestExc
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -158,7 +159,7 @@ class MockHandler implements \Countable
             ) {
                 $this->queue[] = $value;
             } else {
-                throw new \TypeError('Expected a Response, Promise, Throwable or callable. Found ' . \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\describe_type($value));
+                throw new \TypeError('Expected a Response, Promise, Throwable or callable. Found ' . Utils::describeType($value));
             }
         }
     }

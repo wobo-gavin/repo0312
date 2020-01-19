@@ -8,6 +8,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInter
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\LazyOpenStream;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -434,7 +435,7 @@ class CurlFactory implements CurlFactoryInterface
                 if (isset($options['proxy'][$scheme])) {
                     $host = $easy->request->getUri()->getHost();
                     if (!isset($options['proxy']['no']) ||
-                        !\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\is_host_in_noproxy($host, $options['proxy']['no'])
+                        !Utils::isHostInNoProxy($host, $options['proxy']['no'])
                     ) {
                         $conf[CURLOPT_PROXY] = $options['proxy'][$scheme];
                     }
@@ -494,7 +495,7 @@ class CurlFactory implements CurlFactoryInterface
         }
 
         if (!empty($options['debug'])) {
-            $conf[CURLOPT_STDERR] = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\debug_resource($options['debug']);
+            $conf[CURLOPT_STDERR] = Utils::debugResource($options['debug']);
             $conf[CURLOPT_VERBOSE] = true;
         }
     }

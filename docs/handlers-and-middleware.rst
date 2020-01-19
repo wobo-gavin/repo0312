@@ -214,13 +214,14 @@ stack.
 
 .. code-block:: php
 
-    use Psr\Http\Message\RequestInterface;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
     use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
+    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
+    use Psr\Http\Message\RequestInterface;
 
     $stack = new HandlerStack();
-    $stack->setHandler(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\choose_handler());
+    $stack->setHandler(Utils::chooseHandler());
 
     $stack->push(Middleware::mapRequest(function (RequestInterface $r) {
         echo 'A';

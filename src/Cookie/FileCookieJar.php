@@ -1,6 +1,8 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
+
 /**
  * Persists non-session cookies using a JSON formatted file
  */
@@ -57,7 +59,7 @@ class FileCookieJar extends CookieJar
             }
         }
 
-        $jsonStr = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_encode($json);
+        $jsonStr = Utils::jsonEncode($json);
         if (false === \file_put_contents($filename, $jsonStr, LOCK_EX)) {
             throw new \RuntimeException("Unable to save file {$filename}");
         }
@@ -81,9 +83,9 @@ class FileCookieJar extends CookieJar
             return;
         }
 
-        $data = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode($json, true);
+        $data = Utils::jsonDecode($json, true);
         if (\is_array($data)) {
-            foreach (\json_decode($json, true) as $cookie) {
+            foreach (Utils::jsonDecode($json, true) as $cookie) {
                 $this->setCookie(new SetCookie($cookie));
             }
         } elseif (\strlen($data)) {
