@@ -46,7 +46,7 @@ $promise->wait();
 ## Installing /* Replaced /* Replaced /* Replaced Guzzle */ */ */
 
 The recommended way to install /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is through
-[Composer](http://getcomposer.org).
+[Composer](https://getcomposer.org/).
 
 ```bash
 composer require /* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */
