@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\FulfilledPro
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -33,7 +34,7 @@ class StreamHandler
             usleep($options['delay'] * 1000);
         }
 
-        $startTime = isset($options['on_stats']) ? \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\_current_time() : null;
+        $startTime = isset($options['on_stats']) ? Utils::currentTime() : null;
 
         try {
             // Does not support the expect header.
@@ -82,7 +83,7 @@ class StreamHandler
             $stats = new TransferStats(
                 $request,
                 $response,
-                \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\_current_time() - $startTime,
+                Utils::currentTime() - $startTime,
                 $error,
                 []
             );

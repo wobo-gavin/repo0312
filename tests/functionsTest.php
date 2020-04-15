@@ -128,22 +128,6 @@ class FunctionsTest extends TestCase
     {
         \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\json_decode('{{]]');
     }
-
-    public function testCurrentTime()
-    {
-        self::assertGreaterThan(0, /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\_current_time());
-    }
-
-    public function testIdnConvert()
-    {
-        if (!extension_loaded('intl')) {
-            self::markTestSkipped('intl PHP extension is not loaded');
-        }
-
-        $uri = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\uri_for('https://яндекс.рф/images');
-        $uri = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\_idn_uri_convert($uri);
-        self::assertSame('xn--d1acpjx3f.xn--p1ai', $uri->getHost());
-    }
 }
 
 final class StrClass

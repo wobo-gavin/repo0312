@@ -10,6 +10,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Repla
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
@@ -508,9 +509,9 @@ class StreamHandlerTest extends TestCase
         Server::enqueue([$response]);
         $a = new StreamHandler();
         $request = new Request('GET', Server::$url);
-        $s = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\_current_time();
+        $s = Utils::currentTime();
         $a($request, ['delay' => 0.1])->wait();
-        self::assertGreaterThan(0.0001, \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\_current_time() - $s);
+        self::assertGreaterThan(0.0001, Utils::currentTime() - $s);
     }
 
     /**

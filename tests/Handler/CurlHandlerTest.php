@@ -7,6 +7,7 @@ use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Repla
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -47,9 +48,9 @@ class CurlHandlerTest extends TestCase
         Server::enqueue([$response]);
         $a = new CurlHandler();
         $request = new Request('GET', Server::$url);
-        $s = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\_current_time();
+        $s = Utils::currentTime();
         $a($request, ['delay' => 0.1])->wait();
-        self::assertGreaterThan(0.0001, \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\_current_time() - $s);
+        self::assertGreaterThan(0.0001, Utils::currentTime() - $s);
     }
 
     public function testCreatesCurlErrorsWithContext()
