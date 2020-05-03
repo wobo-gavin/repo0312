@@ -1,5 +1,6 @@
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */, PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */
-=======================
+![/* Replaced /* Replaced /* Replaced Guzzle */ */ */](.github/logo.png?raw=true)
+
+# /* Replaced /* Replaced /* Replaced Guzzle */ */ */, PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */
 
 [![Latest Version](https://img.shields.io/github/release//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.svg?style=flat-square)](https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//releases)
 ![Build Status](https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//workflows/CI/badge.svg?style=flat-square)
