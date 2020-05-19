@@ -1,7 +1,6 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\InvalidArgumentException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\Promise;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;

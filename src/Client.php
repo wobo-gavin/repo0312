@@ -2,7 +2,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\InvalidArgumentException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use Psr\Http\Message\RequestInterface;
@@ -489,7 +489,7 @@ class Client implements ClientInterface
     /**
      * Throw Exception with pre-set message.
      * @return void
-     * @throws InvalidArgumentException Invalid body.
+     * @throws \InvalidArgumentException Invalid body.
      */
     private function invalidBody()
     {
