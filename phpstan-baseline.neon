@@ -1311,6 +1311,11 @@ parameters:
 			path: src/UriTemplate.php
 
 		-
+			message: "#^Method /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\Utils\\:\\:idnToAsci\\(\\) has parameter \\$info with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Utils.php
+
+		-
 			message: "#^Function /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\\\uri_template\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/functions.php
