@@ -1,20 +1,20 @@
 /**
- * /* Replaced /* Replaced /* Replaced Guzzle */ */ */ node.js test server to return queued responses to HTTP requests and
+ * /* Replaced /* Replaced Guzzle */ */ node.js test server to return queued responses to HTTP requests and
  * expose a RESTful API for enqueueing responses and retrieving the requests
  * that have been received.
  *
  * - Delete all requests that have been received:
- *      > DELETE //* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests
+ *      > DELETE //* Replaced /* Replaced guzzle */ */-server/requests
  *      > Host: 127.0.0.1:8126
  *
  *  - Enqueue responses
- *      > PUT //* Replaced /* Replaced /* Replaced guzzle */ */ */-server/responses
+ *      > PUT //* Replaced /* Replaced guzzle */ */-server/responses
  *      > Host: 127.0.0.1:8126
  *      >
  *      > [{'status': 200, 'reason': 'OK', 'headers': {}, 'body': '' }]
  *
  *  - Get the received requests
- *      > GET //* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests
+ *      > GET //* Replaced /* Replaced guzzle */ */-server/requests
  *      > Host: 127.0.0.1:8126
  *
  *      < HTTP/1.1 200 OK
@@ -22,7 +22,7 @@
  *      < [{'http_method': 'GET', 'uri': '/', 'headers': {}, 'body': 'string'}]
  *
  *  - Attempt access to the secure area
- *      > GET /secure/by-digest/qop-auth//* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests
+ *      > GET /secure/by-digest/qop-auth//* Replaced /* Replaced guzzle */ */-server/requests
  *      > Host: 127.0.0.1:8126
  *
  *      < HTTP/1.1 401 Unauthorized
@@ -31,10 +31,10 @@
  *      < 401 Unauthorized
  *
  *  - Shutdown the server
- *      > DELETE //* Replaced /* Replaced /* Replaced guzzle */ */ */-server
+ *      > DELETE //* Replaced /* Replaced guzzle */ */-server
  *      > Host: 127.0.0.1:8126
  *
- * @package /* Replaced /* Replaced /* Replaced Guzzle */ */ */ PHP <http://www./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org>
+ * @package /* Replaced /* Replaced Guzzle */ */ PHP <http://www./* Replaced /* Replaced guzzle */ */php.org>
  * @license See the LICENSE file that was distributed with this source code.
  */
 
@@ -42,10 +42,10 @@ var http = require('http');
 var url = require('url');
 
 /**
- * /* Replaced /* Replaced /* Replaced Guzzle */ */ */ node.js server
+ * /* Replaced /* Replaced Guzzle */ */ node.js server
  * @class
  */
-var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port, log) {
+var /* Replaced /* Replaced Guzzle */ */Server = function(port, log) {
 
   this.port = port;
   this.log = log;
@@ -125,11 +125,11 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port, l
   };
 
   var controlRequest = function(request, req, res) {
-    if (req.url == '//* Replaced /* Replaced /* Replaced guzzle */ */ */-server/perf') {
+    if (req.url == '//* Replaced /* Replaced guzzle */ */-server/perf') {
       res.writeHead(200, 'OK', {'Content-Length': 16});
       res.end('Body of response');
     } else if (req.method == 'DELETE') {
-      if (req.url == '//* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests') {
+      if (req.url == '//* Replaced /* Replaced guzzle */ */-server/requests') {
         // Clear the received requests
         that.requests = [];
         res.writeHead(200, 'OK', { 'Content-Length': 0 });
@@ -137,7 +137,7 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port, l
         if (that.log) {
           console.log('Flushing requests');
         }
-      } else if (req.url == '//* Replaced /* Replaced /* Replaced guzzle */ */ */-server') {
+      } else if (req.url == '//* Replaced /* Replaced guzzle */ */-server') {
         // Shutdown the server
         res.writeHead(200, 'OK', { 'Content-Length': 0, 'Connection': 'close' });
         res.end();
@@ -147,7 +147,7 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port, l
         that.server.close();
       }
     } else if (req.method == 'GET') {
-      if (req.url === '//* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests') {
+      if (req.url === '//* Replaced /* Replaced guzzle */ */-server/requests') {
         if (that.log) {
           console.log('Sending received requests');
         }
@@ -155,7 +155,7 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port, l
         var body = JSON.stringify(that.requests);
         res.writeHead(200, 'OK', { 'Content-Length': body.length });
         res.end(body);
-      } else if (req.url == '//* Replaced /* Replaced /* Replaced guzzle */ */ */-server/read-timeout') {
+      } else if (req.url == '//* Replaced /* Replaced guzzle */ */-server/read-timeout') {
         if (that.log) {
           console.log('Sleeping');
         }
@@ -165,7 +165,7 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port, l
           res.end("slept 60 seconds\n");
         }, 60*1000);
       }
-    } else if (req.method == 'PUT' && req.url == '//* Replaced /* Replaced /* Replaced guzzle */ */ */-server/responses') {
+    } else if (req.method == 'PUT' && req.url == '//* Replaced /* Replaced guzzle */ */-server/responses') {
       if (that.log) {
         console.log('Adding responses...');
       }
@@ -178,7 +178,7 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port, l
         that.responses = JSON.parse(request.body);
         for (var i = 0; i < that.responses.length; i++) {
           if (that.responses[i].body) {
-            that.responses[i].body = new Buffer.from(that.responses[i].body, 'base64');
+            that.responses[i].body = Buffer.from(that.responses[i].body, 'base64');
           }
         }
         if (that.log) {
@@ -191,9 +191,9 @@ var /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server = function(port, l
   };
 
   var receivedRequest = function(request, req, res) {
-    if (req.url.indexOf('//* Replaced /* Replaced /* Replaced guzzle */ */ */-server') === 0) {
+    if (req.url.indexOf('//* Replaced /* Replaced guzzle */ */-server') === 0) {
       controlRequest(request, req, res);
-    } else if (req.url.indexOf('//* Replaced /* Replaced /* Replaced guzzle */ */ */-server') == -1 && !that.responses.length) {
+    } else if (req.url.indexOf('//* Replaced /* Replaced guzzle */ */-server') == -1 && !that.responses.length) {
       res.writeHead(500);
       res.end('No responses in queue');
     } else {
@@ -246,5 +246,5 @@ port = process.argv.length >= 3 ? process.argv[2] : 8126;
 log = process.argv.length >= 4 ? process.argv[3] : false;
 
 // Start the server
-server = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Server(port, log);
+server = new /* Replaced /* Replaced Guzzle */ */Server(port, log);
 server.start();
