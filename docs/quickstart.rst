@@ -67,8 +67,7 @@ The /* Replaced /* Replaced /* Replaced client */ */ */ constructor accepts an a
     function is called with a ``/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\RequestInterface`` and array
     of transfer options, and must return a
     ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface`` that is fulfilled with a
-    ``/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\ResponseInterface`` on success. ``handler`` is a
-    constructor only option that cannot be overridden in per/request options.
+    ``/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Http\Message\ResponseInterface`` on success.
 
 ``...``
     (mixed) All other options passed to the constructor are used as default
