@@ -107,17 +107,7 @@ final class Utils
      */
     public static function defaultUserAgent(): string
     {
-        static $defaultAgent = '';
-
-        if (!$defaultAgent) {
-            $defaultAgent = '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http//* Replaced /* Replaced /* Replaced Guzzle */ */ */';
-            if (\extension_loaded('curl') && \function_exists('curl_version')) {
-                $defaultAgent .= ' curl/' . \curl_version()['version'];
-            }
-            $defaultAgent .= ' PHP/' . PHP_VERSION;
-        }
-
-        return $defaultAgent;
+        return sprintf('/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http/%d', ClientInterface::MAJOR_VERSION);
     }
 
     /**

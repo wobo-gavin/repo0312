@@ -11,12 +11,6 @@ class FunctionsTest extends TestCase
         return [['get'], ['head'], ['delete']];
     }
 
-    public function testProvidesDefaultUserAgent()
-    {
-        $ua = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_user_agent();
-        self::assertRegExp('#^/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http/.+ curl/.+ PHP/.+$#', $ua);
-    }
-
     public function typeProvider()
     {
         return [
