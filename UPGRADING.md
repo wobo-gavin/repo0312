@@ -23,7 +23,7 @@ Please make sure:
   instead of `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException`.
 - Function `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException::getResponse()` is removed.
 - Function `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException::hasResponse()` is removed.
-- Constant `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::VERSION` is removed.
+- Constant `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::VERSION` is removed. Added `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\ClientInterface::MAJOR_VERSION` instead.
 - Function `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException::getResponseBodySummary` is removed.
   Use `\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\get_message_body_summary` as an alternative.
 - Function `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar::getCookieValue` is removed.
