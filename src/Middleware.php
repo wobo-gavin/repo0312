@@ -198,7 +198,7 @@ final class Middleware
                             ? $reason->getResponse()
                             : null;
                         $message = $formatter->format($request, $response, \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\exception_for($reason));
-                        $logger->notice($message);
+                        $logger->error($message);
                         return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for($reason);
                     }
                 );
