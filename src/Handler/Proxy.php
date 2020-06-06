@@ -1,6 +1,7 @@
 <?php
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions;
 use Psr\Http\Message\RequestInterface;
 
@@ -22,7 +23,7 @@ class Proxy
         callable $default,
         callable $sync
     ): callable {
-        return function (RequestInterface $request, array $options) use ($default, $sync) {
+        return function (RequestInterface $request, array $options) use ($default, $sync): PromiseInterface {
             return empty($options[RequestOptions::SYNCHRONOUS])
                 ? $default($request, $options)
                 : $sync($request, $options);
@@ -46,7 +47,7 @@ class Proxy
         callable $default,
         callable $streaming
     ): callable {
-        return function (RequestInterface $request, array $options) use ($default, $streaming) {
+        return function (RequestInterface $request, array $options) use ($default, $streaming): PromiseInterface {
             return empty($options['stream'])
                 ? $default($request, $options)
                 : $streaming($request, $options);
