@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Exception;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -33,6 +33,7 @@ class BadResponseException extends RequestException
      */
     public function getResponse(): ResponseInterface
     {
+        /** @var ResponseInterface */
         return parent::getResponse();
     }
 }
