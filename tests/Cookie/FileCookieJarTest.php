@@ -1,4 +1,5 @@
 <?php
+
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\CookieJar;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\FileCookieJar;

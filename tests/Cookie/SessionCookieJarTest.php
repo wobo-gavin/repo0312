@@ -1,12 +1,13 @@
 <?php
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\CookieJar;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SessionCookieJar;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Tests\CookieJar;
+
+use /* Replaced /* Replaced Guzzle */ */Http\Cookie\SessionCookieJar;
+use /* Replaced /* Replaced Guzzle */ */Http\Cookie\SetCookie;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SessionCookieJar
+ * @covers \/* Replaced /* Replaced Guzzle */ */Http\Cookie\SessionCookieJar
  */
 class SessionCookieJarTest extends TestCase
 {

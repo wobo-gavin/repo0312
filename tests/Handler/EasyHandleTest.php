@@ -1,11 +1,12 @@
 <?php
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test\Handler;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\EasyHandle;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Test\Handler;
+
+use /* Replaced /* Replaced Guzzle */ */Http\Handler\EasyHandle;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\EasyHandle
+ * @covers \/* Replaced /* Replaced Guzzle */ */Http\Handler\EasyHandle
  */
 class EasyHandleTest extends TestCase
 {

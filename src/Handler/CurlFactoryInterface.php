@@ -1,5 +1,6 @@
 <?php
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
+
+namespace /* Replaced /* Replaced Guzzle */ */Http\Handler;
 
 use Psr\Http\Message\RequestInterface;
 

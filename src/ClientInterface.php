@@ -1,4 +1,5 @@
 <?php
+
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception;

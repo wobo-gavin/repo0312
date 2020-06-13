@@ -1,16 +1,17 @@
 <?php
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Tests;
+
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
+use /* Replaced /* Replaced Guzzle */ */Http\TransferStats;
 use PHPUnit\Framework\TestCase;
 
 class TransferStatsTest extends TestCase
 {
     public function testHasData()
     {
-        $request = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('GET', 'http://foo.com');
-        $response = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response();
+        $request = new /* Replaced /* Replaced Psr7 */ */\Request('GET', 'http://foo.com');
+        $response = new /* Replaced /* Replaced Psr7 */ */\Response();
         $stats = new TransferStats(
             $request,
             $response,

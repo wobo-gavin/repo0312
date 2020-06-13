@@ -1,5 +1,6 @@
 <?php
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception;
+
+namespace /* Replaced /* Replaced Guzzle */ */Http\Exception;
 
 /**
  * Exception when a server error is encountered (5xx codes)

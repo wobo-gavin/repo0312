@@ -1,4 +1,5 @@
 <?php
+
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;

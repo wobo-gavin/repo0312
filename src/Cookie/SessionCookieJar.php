@@ -1,15 +1,20 @@
 <?php
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie;
+
+namespace /* Replaced /* Replaced Guzzle */ */Http\Cookie;
 
 /**
- * Persists cookies in the /* Replaced /* Replaced /* Replaced client */ */ */ session
+ * Persists cookies in the /* Replaced /* Replaced client */ */ session
  */
 class SessionCookieJar extends CookieJar
 {
-    /** @var string session key */
+    /**
+     * @var string session key
+     */
     private $sessionKey;
-    
-    /** @var bool Control whether to persist session cookies or not. */
+
+    /**
+     * @var bool Control whether to persist session cookies or not.
+     */
     private $storeSessionCookies;
 
     /**
@@ -37,7 +42,7 @@ class SessionCookieJar extends CookieJar
     }
 
     /**
-     * Save cookies to the /* Replaced /* Replaced /* Replaced client */ */ */ session
+     * Save cookies to the /* Replaced /* Replaced client */ */ session
      */
     public function save(): void
     {
@@ -53,7 +58,7 @@ class SessionCookieJar extends CookieJar
     }
 
     /**
-     * Load the contents of the /* Replaced /* Replaced /* Replaced client */ */ */ session into the data array
+     * Load the contents of the /* Replaced /* Replaced client */ */ session into the data array
      */
     protected function load(): void
     {

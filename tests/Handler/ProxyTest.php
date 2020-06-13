@@ -1,24 +1,25 @@
 <?php
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test\Handler;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\Proxy;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Test\Handler;
+
+use /* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler;
+use /* Replaced /* Replaced Guzzle */ */Http\Handler\Proxy;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+use /* Replaced /* Replaced Guzzle */ */Http\RequestOptions;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\Proxy
+ * @covers \/* Replaced /* Replaced Guzzle */ */Http\Handler\Proxy
  */
 class ProxyTest extends TestCase
 {
     public function testSendsToNonSync()
     {
         $a = $b = null;
-        $m1 = new MockHandler([function ($v) use (&$a) {
+        $m1 = new MockHandler([static function ($v) use (&$a) {
             $a = $v;
         }]);
-        $m2 = new MockHandler([function ($v) use (&$b) {
+        $m2 = new MockHandler([static function ($v) use (&$b) {
             $b = $v;
         }]);
         $h = Proxy::wrapSync($m1, $m2);
@@ -30,10 +31,10 @@ class ProxyTest extends TestCase
     public function testSendsToSync()
     {
         $a = $b = null;
-        $m1 = new MockHandler([function ($v) use (&$a) {
+        $m1 = new MockHandler([static function ($v) use (&$a) {
             $a = $v;
         }]);
-        $m2 = new MockHandler([function ($v) use (&$b) {
+        $m2 = new MockHandler([static function ($v) use (&$b) {
             $b = $v;
         }]);
         $h = Proxy::wrapSync($m1, $m2);
@@ -45,10 +46,10 @@ class ProxyTest extends TestCase
     public function testSendsToStreaming()
     {
         $a = $b = null;
-        $m1 = new MockHandler([function ($v) use (&$a) {
+        $m1 = new MockHandler([static function ($v) use (&$a) {
             $a = $v;
         }]);
-        $m2 = new MockHandler([function ($v) use (&$b) {
+        $m2 = new MockHandler([static function ($v) use (&$b) {
             $b = $v;
         }]);
         $h = Proxy::wrapStreaming($m1, $m2);
@@ -60,10 +61,10 @@ class ProxyTest extends TestCase
     public function testSendsToNonStreaming()
     {
         $a = $b = null;
-        $m1 = new MockHandler([function ($v) use (&$a) {
+        $m1 = new MockHandler([static function ($v) use (&$a) {
             $a = $v;
         }]);
-        $m2 = new MockHandler([function ($v) use (&$b) {
+        $m2 = new MockHandler([static function ($v) use (&$b) {
             $b = $v;
         }]);
         $h = Proxy::wrapStreaming($m1, $m2);

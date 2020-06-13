@@ -1,8 +1,9 @@
 <?php
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
+namespace /* Replaced /* Replaced Guzzle */ */Http;
+
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\/* Replaced /* Replaced Guzzle */ */Exception;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
@@ -14,29 +15,29 @@ trait ClientTrait
     /**
      * Create and send an HTTP request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well.
      *
      * @param string              $method  HTTP method.
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      *
-     * @throws /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
+     * @throws /* Replaced /* Replaced Guzzle */ */Exception
      */
     abstract public function request(string $method, $uri, array $options = []): ResponseInterface;
 
     /**
      * Create and send an HTTP GET request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well.
      *
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      *
-     * @throws /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
+     * @throws /* Replaced /* Replaced Guzzle */ */Exception
      */
     public function get($uri, array $options = []): ResponseInterface
     {
@@ -46,14 +47,14 @@ trait ClientTrait
     /**
      * Create and send an HTTP HEAD request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well.
      *
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      *
-     * @throws /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
+     * @throws /* Replaced /* Replaced Guzzle */ */Exception
      */
     public function head($uri, array $options = []): ResponseInterface
     {
@@ -63,14 +64,14 @@ trait ClientTrait
     /**
      * Create and send an HTTP PUT request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well.
      *
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      *
-     * @throws /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
+     * @throws /* Replaced /* Replaced Guzzle */ */Exception
      */
     public function put($uri, array $options = []): ResponseInterface
     {
@@ -80,14 +81,14 @@ trait ClientTrait
     /**
      * Create and send an HTTP POST request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well.
      *
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      *
-     * @throws /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
+     * @throws /* Replaced /* Replaced Guzzle */ */Exception
      */
     public function post($uri, array $options = []): ResponseInterface
     {
@@ -97,14 +98,14 @@ trait ClientTrait
     /**
      * Create and send an HTTP PATCH request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well.
      *
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      *
-     * @throws /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
+     * @throws /* Replaced /* Replaced Guzzle */ */Exception
      */
     public function patch($uri, array $options = []): ResponseInterface
     {
@@ -114,14 +115,14 @@ trait ClientTrait
     /**
      * Create and send an HTTP DELETE request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well.
      *
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      *
-     * @throws /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
+     * @throws /* Replaced /* Replaced Guzzle */ */Exception
      */
     public function delete($uri, array $options = []): ResponseInterface
     {
@@ -131,8 +132,8 @@ trait ClientTrait
     /**
      * Create and send an asynchronous HTTP request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well. Use an array to provide a URL
      * template and additional variables to use in the URL template expansion.
      *
@@ -145,8 +146,8 @@ trait ClientTrait
     /**
      * Create and send an asynchronous HTTP GET request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well. Use an array to provide a URL
      * template and additional variables to use in the URL template expansion.
      *
@@ -161,8 +162,8 @@ trait ClientTrait
     /**
      * Create and send an asynchronous HTTP HEAD request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well. Use an array to provide a URL
      * template and additional variables to use in the URL template expansion.
      *
@@ -177,8 +178,8 @@ trait ClientTrait
     /**
      * Create and send an asynchronous HTTP PUT request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well. Use an array to provide a URL
      * template and additional variables to use in the URL template expansion.
      *
@@ -193,8 +194,8 @@ trait ClientTrait
     /**
      * Create and send an asynchronous HTTP POST request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well. Use an array to provide a URL
      * template and additional variables to use in the URL template expansion.
      *
@@ -209,8 +210,8 @@ trait ClientTrait
     /**
      * Create and send an asynchronous HTTP PATCH request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well. Use an array to provide a URL
      * template and additional variables to use in the URL template expansion.
      *
@@ -225,8 +226,8 @@ trait ClientTrait
     /**
      * Create and send an asynchronous HTTP DELETE request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well. Use an array to provide a URL
      * template and additional variables to use in the URL template expansion.
      *

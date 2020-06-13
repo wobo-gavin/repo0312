@@ -1,12 +1,13 @@
 <?php
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
+
+namespace /* Replaced /* Replaced Guzzle */ */Http;
 
 /**
- * This class contains a list of built-in /* Replaced /* Replaced /* Replaced Guzzle */ */ */ request options.
+ * This class contains a list of built-in /* Replaced /* Replaced Guzzle */ */ request options.
  *
- * More documentation for each option can be found at http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/.
+ * More documentation for each option can be found at http:///* Replaced /* Replaced guzzle */ */php.org/.
  *
- * @link http://docs./* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/en/v6/request-options.html
+ * @link http://docs./* Replaced /* Replaced guzzle */ */php.org/en/v6/request-options.html
  */
 final class RequestOptions
 {
@@ -50,7 +51,7 @@ final class RequestOptions
 
     /**
      * cert: (string|array) Set to a string to specify the path to a file
-     * containing a PEM formatted SSL /* Replaced /* Replaced /* Replaced client */ */ */ side certificate. If a password
+     * containing a PEM formatted SSL /* Replaced /* Replaced client */ */ side certificate. If a password
      * is required, then set cert to an array containing the path to the PEM
      * file in the first array element followed by the certificate password
      * in the second array element.
@@ -58,11 +59,11 @@ final class RequestOptions
     public const CERT = 'cert';
 
     /**
-     * cookies: (bool|/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface, default=false)
+     * cookies: (bool|/* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJarInterface, default=false)
      * Specifies whether or not cookies are used in a request or what cookie
      * jar to use or what cookies to send. This option only works if your
      * handler has the `cookie` middleware. Valid values are `false` and
-     * an instance of {@see \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface}.
+     * an instance of {@see \/* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJarInterface}.
      */
     public const COOKIES = 'cookies';
 
@@ -104,7 +105,7 @@ final class RequestOptions
      * all requests in which the size of the payload cannot be determined or
      * where the body is not rewindable.
      *
-     * By default, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will add the "Expect: 100-Continue" header when the
+     * By default, /* Replaced /* Replaced Guzzle */ */ will add the "Expect: 100-Continue" header when the
      * size of the body of a request is greater than 1 MB and a request is
      * using HTTP/1.1.
      */
@@ -168,7 +169,7 @@ final class RequestOptions
     /**
      * on_stats: (callable) allows you to get access to transfer statistics of
      * a request and access the lower level transfer details of the handler
-     * associated with your /* Replaced /* Replaced /* Replaced client */ */ */. ``on_stats`` is a callable that is invoked
+     * associated with your /* Replaced /* Replaced client */ */. ``on_stats`` is a callable that is invoked
      * when a handler has finished sending a request. The callback is invoked
      * with transfer statistics about the request, the response received, or
      * the error encountered. Included in the data is the total amount of time
@@ -211,7 +212,7 @@ final class RequestOptions
      * synchronous: (bool) Set to true to inform HTTP handlers that you intend
      * on waiting on the response. This can be useful for optimizations. Note
      * that a promise is still returned if you are using one of the async
-     * /* Replaced /* Replaced /* Replaced client */ */ */ methods.
+     * /* Replaced /* Replaced client */ */ methods.
      */
     public const SYNCHRONOUS = 'synchronous';
 
@@ -257,7 +258,7 @@ final class RequestOptions
     public const VERSION = 'version';
 
     /**
-     * force_ip_resolve: (bool) Force /* Replaced /* Replaced /* Replaced client */ */ */ to use only ipv4 or ipv6 protocol
+     * force_ip_resolve: (bool) Force /* Replaced /* Replaced client */ */ to use only ipv4 or ipv6 protocol
      */
     public const FORCE_IP_RESOLVE = 'force_ip_resolve';
 }

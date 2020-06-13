@@ -1,21 +1,24 @@
 <?php
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\CookieJar;
+
+namespace /* Replaced /* Replaced Guzzle */ */Http\Tests\CookieJar;
 
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
+use /* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJar;
+use /* Replaced /* Replaced Guzzle */ */Http\Cookie\SetCookie;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar
+ * @covers \/* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJar
  */
 class CookieJarTest extends TestCase
 {
-    /** @var CookieJar */
+    /**
+     * @var CookieJar
+     */
     private $jar;
 
     public function setUp(): void
@@ -344,7 +347,7 @@ class CookieJarTest extends TestCase
         self::assertCount(4, $jar);
         $jar->clear('bar.com', '/boo', 'other');
         self::assertCount(3, $jar);
-        $names = \array_map(function (SetCookie $c) {
+        $names = \array_map(static function (SetCookie $c) {
             return $c->getName();
         }, $jar->getIterator()->getArrayCopy());
         self::assertSame(['foo', 'test', 'you'], $names);
