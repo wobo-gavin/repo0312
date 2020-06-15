@@ -15,6 +15,7 @@ trivial to integrate with web services.
 - Can send both synchronous and asynchronous requests using the same interface.
 - Uses PSR-7 interfaces for requests, responses, and streams. This allows you
   to utilize other PSR-7 compatible libraries with /* Replaced /* Replaced /* Replaced Guzzle */ */ */.
+- Supports PSR-18 allowing interoperability between other PSR-18 HTTP Clients.
 - Abstracts away the underlying HTTP transport, allowing you to write
   environment and transport agnostic code; i.e., no hard dependency on cURL,
   PHP streams, sockets, or non-blocking event loops.
@@ -39,6 +40,8 @@ $promise->wait();
 
 ## Help and docs
 
+We use GitHub issues only to discuss bugs and new features. For support please refer to:
+
 - [Documentation](http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/)
 - [Stack Overflow](http://stackoverflow.com/questions/tagged//* Replaced /* Replaced /* Replaced guzzle */ */ */)
 - [#/* Replaced /* Replaced /* Replaced guzzle */ */ */](https://app.slack.com//* Replaced /* Replaced /* Replaced client */ */ *//T0D2S9JCT/CE6UAAKL4) channel on [PHP-HTTP Slack](http://slack.httplug.io/)
@@ -62,7 +65,7 @@ composer require /* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Repl
 | 3.x     | EOL        | `/* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */`     | `/* Replaced /* Replaced /* Replaced Guzzle */ */ */`     | [v3][/* Replaced /* Replaced /* Replaced guzzle */ */ */-3-repo] | [v3][/* Replaced /* Replaced /* Replaced guzzle */ */ */-3-docs] | No    | >= 5.3.3    |
 | 4.x     | EOL        | `/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */` | `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http` | [v4][/* Replaced /* Replaced /* Replaced guzzle */ */ */-4-repo] | N/A                 | No    | >= 5.4      |
 | 5.x     | EOL        | `/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */` | `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http` | [v5][/* Replaced /* Replaced /* Replaced guzzle */ */ */-5-repo] | [v5][/* Replaced /* Replaced /* Replaced guzzle */ */ */-5-docs] | No    | >= 5.4      |
-| 6.x     | Maintained | `/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */` | `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http` | [v6][/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-repo] | [v6][/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-docs] | Yes   | >= 5.5      |
+| 6.x     | Bugfixes   | `/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */` | `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http` | [v6][/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-repo] | [v6][/* Replaced /* Replaced /* Replaced guzzle */ */ */-6-docs] | Yes   | >= 5.5      |
 | 7.x     | Latest     | `/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */` | `/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http` | [v7][/* Replaced /* Replaced /* Replaced guzzle */ */ */-7-repo] | [v7][/* Replaced /* Replaced /* Replaced guzzle */ */ */-7-docs] | Yes   | >= 7.2      |
 
 [/* Replaced /* Replaced /* Replaced guzzle */ */ */-3-repo]: https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */3
