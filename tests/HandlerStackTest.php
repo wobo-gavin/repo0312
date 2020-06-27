@@ -1,12 +1,12 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Tests;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
+use /* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJar;
+use /* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler;
+use /* Replaced /* Replaced Guzzle */ */Http\HandlerStack;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
 use PHPUnit\Framework\TestCase;
 
 class HandlerStackTest extends TestCase
@@ -99,13 +99,13 @@ class HandlerStackTest extends TestCase
         $builder->push(__CLASS__ . '::' . 'foo');
         $lines = \explode("\n", (string) $builder);
         self::assertStringContainsString("> 4) Name: 'a', Function: callable(", $lines[0]);
-        self::assertStringContainsString("> 3) Name: '', Function: callable(/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\Tests\\HandlerStackTest::foo)", $lines[1]);
-        self::assertStringContainsString("> 2) Name: '', Function: callable(['/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\Tests\\HandlerStackTest', 'bar'])", $lines[2]);
-        self::assertStringContainsString("> 1) Name: '', Function: callable(/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\Tests\\HandlerStackTest::foo)", $lines[3]);
+        self::assertStringContainsString("> 3) Name: '', Function: callable(/* Replaced /* Replaced Guzzle */ */Http\\Tests\\HandlerStackTest::foo)", $lines[1]);
+        self::assertStringContainsString("> 2) Name: '', Function: callable(['/* Replaced /* Replaced Guzzle */ */Http\\Tests\\HandlerStackTest', 'bar'])", $lines[2]);
+        self::assertStringContainsString("> 1) Name: '', Function: callable(/* Replaced /* Replaced Guzzle */ */Http\\Tests\\HandlerStackTest::foo)", $lines[3]);
         self::assertStringContainsString("< 0) Handler: callable(", $lines[4]);
-        self::assertStringContainsString("< 1) Name: '', Function: callable(/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\Tests\\HandlerStackTest::foo)", $lines[5]);
-        self::assertStringContainsString("< 2) Name: '', Function: callable(['/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\Tests\\HandlerStackTest', 'bar'])", $lines[6]);
-        self::assertStringContainsString("< 3) Name: '', Function: callable(/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\Tests\\HandlerStackTest::foo)", $lines[7]);
+        self::assertStringContainsString("< 1) Name: '', Function: callable(/* Replaced /* Replaced Guzzle */ */Http\\Tests\\HandlerStackTest::foo)", $lines[5]);
+        self::assertStringContainsString("< 2) Name: '', Function: callable(['/* Replaced /* Replaced Guzzle */ */Http\\Tests\\HandlerStackTest', 'bar'])", $lines[6]);
+        self::assertStringContainsString("< 3) Name: '', Function: callable(/* Replaced /* Replaced Guzzle */ */Http\\Tests\\HandlerStackTest::foo)", $lines[7]);
         self::assertStringContainsString("< 4) Name: 'a', Function: callable(", $lines[8]);
     }
 
@@ -207,6 +207,7 @@ class HandlerStackTest extends TestCase
     public static function foo()
     {
     }
+
     public function bar()
     {
     }
