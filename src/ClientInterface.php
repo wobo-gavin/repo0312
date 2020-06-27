@@ -1,9 +1,9 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
+namespace /* Replaced /* Replaced Guzzle */ */Http;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\/* Replaced /* Replaced Guzzle */ */Exception;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -14,7 +14,7 @@ use Psr\Http\Message\UriInterface;
 interface ClientInterface
 {
     /**
-     * The /* Replaced /* Replaced /* Replaced Guzzle */ */ */ major version.
+     * The /* Replaced /* Replaced Guzzle */ */ major version.
      */
     const MAJOR_VERSION = 7;
 
@@ -25,7 +25,7 @@ interface ClientInterface
      * @param array            $options Request options to apply to the given
      *                                  request and to the transfer.
      *
-     * @throws /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
+     * @throws /* Replaced /* Replaced Guzzle */ */Exception
      */
     public function send(RequestInterface $request, array $options = []): ResponseInterface;
 
@@ -41,23 +41,23 @@ interface ClientInterface
     /**
      * Create and send an HTTP request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well.
      *
      * @param string              $method  HTTP method.
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
      *
-     * @throws /* Replaced /* Replaced /* Replaced Guzzle */ */ */Exception
+     * @throws /* Replaced /* Replaced Guzzle */ */Exception
      */
     public function request(string $method, $uri, array $options = []): ResponseInterface;
 
     /**
      * Create and send an asynchronous HTTP request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced /* Replaced client */ */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced /* Replaced client */ */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
+     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
      * contain the query string as well. Use an array to provide a URL
      * template and additional variables to use in the URL template expansion.
      *
@@ -68,15 +68,17 @@ interface ClientInterface
     public function requestAsync(string $method, $uri, array $options = []): PromiseInterface;
 
     /**
-     * Get a /* Replaced /* Replaced /* Replaced client */ */ */ configuration option.
+     * Get a /* Replaced /* Replaced client */ */ configuration option.
      *
-     * These options include default request options of the /* Replaced /* Replaced /* Replaced client */ */ */, a "handler"
-     * (if utilized by the concrete /* Replaced /* Replaced /* Replaced client */ */ */), and a "base_uri" if utilized by
-     * the concrete /* Replaced /* Replaced /* Replaced client */ */ */.
+     * These options include default request options of the /* Replaced /* Replaced client */ */, a "handler"
+     * (if utilized by the concrete /* Replaced /* Replaced client */ */), and a "base_uri" if utilized by
+     * the concrete /* Replaced /* Replaced client */ */.
      *
      * @param string|null $option The config option to retrieve.
      *
      * @return mixed
+     *
+     * @deprecated ClientInterface::getConfig will be removed in /* Replaced /* Replaced guzzle */ */http//* Replaced /* Replaced guzzle */ */:8.0.
      */
     public function getConfig(?string $option = null);
 }
