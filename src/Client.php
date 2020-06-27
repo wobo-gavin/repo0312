@@ -71,6 +71,8 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
      * @param array  $args
      *
      * @return PromiseInterface|ResponseInterface
+     *
+     * @deprecated Client::__call will be removed in /* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */:8.0.
      */
     public function __call($method, $args)
     {
