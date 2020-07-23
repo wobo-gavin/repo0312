@@ -5,7 +5,7 @@ Overview
 Requirements
 ============
 
-#. PHP 5.5.0
+#. PHP 7.2.5
 #. To use the PHP stream handler, ``allow_url_fopen`` must be enabled in your
    system's php.ini.
 #. To use the cURL handler, you must have a recent version of cURL >= 7.19.4
@@ -13,7 +13,7 @@ Requirements
 
 .. note::
 
-    /* Replaced /* Replaced /* Replaced Guzzle */ */ */ no longer requires cURL in order to send HTTP requests. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will
+    /* Replaced /* Replaced Guzzle */ */ no longer requires cURL in order to send HTTP requests. /* Replaced /* Replaced Guzzle */ */ will
     use the PHP stream wrapper to send HTTP requests if cURL is not installed.
     Alternatively, you can provide your own HTTP handler used to send requests.
     Keep in mind that cURL is still required for sending concurrent requests.
@@ -25,7 +25,7 @@ Requirements
 Installation
 ============
 
-The recommended way to install /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is with
+The recommended way to install /* Replaced /* Replaced Guzzle */ */ is with
 `Composer <https://getcomposer.org>`_. Composer is a dependency management tool
 for PHP that allows you to declare the dependencies your project needs and
 installs them into your project.
@@ -35,20 +35,20 @@ installs them into your project.
     # Install Composer
     curl -sS https://getcomposer.org/installer | php
 
-You can add /* Replaced /* Replaced /* Replaced Guzzle */ */ */ as a dependency using Composer:
+You can add /* Replaced /* Replaced Guzzle */ */ as a dependency using Composer:
 
 .. code-block:: bash
 
-    composer require /* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */:^7.0
+    composer require /* Replaced /* Replaced guzzle */ */http//* Replaced /* Replaced guzzle */ */:^7.0
 
-Alternatively, you can specify /* Replaced /* Replaced /* Replaced Guzzle */ */ */ as a dependency in your project's
+Alternatively, you can specify /* Replaced /* Replaced Guzzle */ */ as a dependency in your project's
 existing composer.json file:
 
 .. code-block:: js
 
     {
       "require": {
-         "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "^7.0"
+         "/* Replaced /* Replaced guzzle */ */http//* Replaced /* Replaced guzzle */ */": "^7.0"
       }
    }
 
@@ -66,13 +66,13 @@ Bleeding edge
 -------------
 
 During your development, you can keep up with the latest changes on the master
-branch by setting the version requirement for /* Replaced /* Replaced /* Replaced Guzzle */ */ */ to ``^7.0@dev``.
+branch by setting the version requirement for /* Replaced /* Replaced Guzzle */ */ to ``^7.0@dev``.
 
 .. code-block:: js
 
    {
       "require": {
-         "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */": "^7.0@dev"
+         "/* Replaced /* Replaced guzzle */ */http//* Replaced /* Replaced guzzle */ */": "^7.0@dev"
       }
    }
 
@@ -110,10 +110,10 @@ Contributing
 Guidelines
 ----------
 
-1. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ utilizes PSR-1, PSR-2, PSR-4, and PSR-7.
-2. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is meant to be lean and fast with very few dependencies. This means
+1. /* Replaced /* Replaced Guzzle */ */ utilizes PSR-1, PSR-2, PSR-4, and PSR-7.
+2. /* Replaced /* Replaced Guzzle */ */ is meant to be lean and fast with very few dependencies. This means
    that not every feature request will be accepted.
-3. /* Replaced /* Replaced /* Replaced Guzzle */ */ */ has a minimum PHP version requirement of PHP 7.2. Pull requests must
+3. /* Replaced /* Replaced Guzzle */ */ has a minimum PHP version requirement of PHP 7.2. Pull requests must
    not require a PHP version greater than PHP 7.2 unless the feature is only
    utilized conditionally and the file can be parsed by PHP 7.2.
 4. All pull requests must include unit tests to ensure the change works as
@@ -124,14 +124,14 @@ Running the tests
 -----------------
 
 In order to contribute, you'll need to checkout the source from GitHub and
-install /* Replaced /* Replaced /* Replaced Guzzle */ */ */'s dependencies using Composer:
+install /* Replaced /* Replaced Guzzle */ */'s dependencies using Composer:
 
 .. code-block:: bash
 
-    git clone https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ */.git
-    cd /* Replaced /* Replaced /* Replaced guzzle */ */ */ && composer install
+    git clone https://github.com//* Replaced /* Replaced guzzle */ *///* Replaced /* Replaced guzzle */ */.git
+    cd /* Replaced /* Replaced guzzle */ */ && composer install
 
-/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is unit tested with PHPUnit. Run the tests using the Makefile:
+/* Replaced /* Replaced Guzzle */ */ is unit tested with PHPUnit. Run the tests using the Makefile:
 
 .. code-block:: bash
 
@@ -140,21 +140,21 @@ install /* Replaced /* Replaced /* Replaced Guzzle */ */ */'s dependencies using
 .. note::
 
     You'll need to install node.js v8 or newer in order to perform integration
-    tests on /* Replaced /* Replaced /* Replaced Guzzle */ */ */'s HTTP handlers.
+    tests on /* Replaced /* Replaced Guzzle */ */'s HTTP handlers.
 
 
 Reporting a security vulnerability
 ==================================
 
-We want to ensure that /* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a secure HTTP /* Replaced /* Replaced /* Replaced client */ */ */ library for everyone. If
-you've discovered a security vulnerability in /* Replaced /* Replaced /* Replaced Guzzle */ */ */, we appreciate your help
+We want to ensure that /* Replaced /* Replaced Guzzle */ */ is a secure HTTP /* Replaced /* Replaced client */ */ library for everyone. If
+you've discovered a security vulnerability in /* Replaced /* Replaced Guzzle */ */, we appreciate your help
 in disclosing it to us in a `responsible manner <https://en.wikipedia.org/wiki/Responsible_disclosure>`_.
 
 Publicly disclosing a vulnerability can put the entire community at risk. If
 you've discovered a security concern, please email us at
-security@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org. We'll work with you to make sure that we understand the
+security@/* Replaced /* Replaced guzzle */ */php.org. We'll work with you to make sure that we understand the
 scope of the issue, and that we fully address your concern. We consider
-correspondence sent to security@/* Replaced /* Replaced /* Replaced guzzle */ */ */php.org our highest priority, and work to
+correspondence sent to security@/* Replaced /* Replaced guzzle */ */php.org our highest priority, and work to
 address any issues that arise as quickly as possible.
 
 After a security vulnerability has been corrected, a security hotfix release will
