@@ -14,6 +14,8 @@ use Psr\Http\Message\UriInterface;
  *
  * Apply this middleware like other middleware using
  * {@see \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::redirect()}.
+ *
+ * @final
  */
 class RedirectMiddleware
 {
