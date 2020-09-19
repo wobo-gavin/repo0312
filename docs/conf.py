@@ -11,21 +11,21 @@ extensions = []
 templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'
-project = u'/* Replaced /* Replaced /* Replaced Guzzle */ */ */'
+project = u'/* Replaced /* Replaced Guzzle */ */'
 copyright = u'2015, Michael Dowling'
-version = '6'
-html_title = "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ Documentation"
-html_short_title = "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ 6"
+version = '7'
+html_title = "/* Replaced /* Replaced Guzzle */ */ Documentation"
+html_short_title = "/* Replaced /* Replaced Guzzle */ */ 7"
 
 exclude_patterns = ['_build']
 html_static_path = ['_static']
 
-##### /* Replaced /* Replaced /* Replaced Guzzle */ */ */ sphinx theme
+##### /* Replaced /* Replaced Guzzle */ */ sphinx theme
 
-import /* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme
-html_translator_class = '/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme.HTMLTranslator'
-html_theme_path = /* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme.html_theme_path()
-html_theme = '/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme'
+import /* Replaced /* Replaced guzzle */ */_sphinx_theme
+html_translator_class = '/* Replaced /* Replaced guzzle */ */_sphinx_theme.HTMLTranslator'
+html_theme_path = /* Replaced /* Replaced guzzle */ */_sphinx_theme.html_theme_path()
+html_theme = '/* Replaced /* Replaced guzzle */ */_sphinx_theme'
 
 # Custom sidebar templates, maps document names to template names.
 html_sidebars = {
@@ -33,9 +33,9 @@ html_sidebars = {
 }
 
 # Register the theme as an extension to generate a sitemap.xml
-extensions.append("/* Replaced /* Replaced /* Replaced guzzle */ */ */_sphinx_theme")
+extensions.append("/* Replaced /* Replaced guzzle */ */_sphinx_theme")
 
-# /* Replaced /* Replaced /* Replaced Guzzle */ */ */ theme options (see theme.conf for more information)
+# /* Replaced /* Replaced Guzzle */ */ theme options (see theme.conf for more information)
 html_theme_options = {
 
     # Set the path to a special layout to include for the homepage
@@ -45,7 +45,7 @@ html_theme_options = {
     # homepage = index
 
     # Set the name of the project to appear in the nav menu
-    # "project_nav_name": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */",
+    # "project_nav_name": "/* Replaced /* Replaced Guzzle */ */",
 
     # Set your Disqus short name to enable comments
     # "disqus_comments_shortname": "my_disqus_comments_short_name",
@@ -58,7 +58,7 @@ html_theme_options = {
 
     # Specify a base_url used to generate sitemap.xml links. If not
     # specified, then no sitemap will be built.
-    "base_url": "http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org"
+    "base_url": "http:///* Replaced /* Replaced guzzle */ */php.org"
 
     # Allow the "Table of Contents" page to be defined separately from "master_doc"
     # tocpage = Contents
