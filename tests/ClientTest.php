@@ -750,7 +750,7 @@ class ClientTest extends TestCase
         $/* Replaced /* Replaced /* Replaced client */ */ */ = new Client(['handler' => $mockHandler]);
 
         $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage('IDN conversion failed (errors: IDNA_ERROR_LEADING_HYPHEN)');
+        $this->expectExceptionMessage('IDN conversion failed');
         $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'https://-яндекс.рф/images', ['idn_conversion' => true]);
     }
 
