@@ -1,13 +1,13 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Tests;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RetryMiddleware;
+use /* Replaced /* Replaced Guzzle */ */Http\Client;
+use /* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler;
+use /* Replaced /* Replaced Guzzle */ */Http\Middleware;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+use /* Replaced /* Replaced Guzzle */ */Http\RetryMiddleware;
 use PHPUnit\Framework\TestCase;
 
 class RetryMiddlewareTest extends TestCase
@@ -16,8 +16,8 @@ class RetryMiddlewareTest extends TestCase
     {
         $delayCalls = 0;
         $calls = [];
-        $decider = static function ($retries, $request, $response, $error) use (&$calls) {
-            $calls[] = \func_get_args();
+        $decider = static function (...$args) use (&$calls) {
+            $calls[] = $args;
             return \count($calls) < 3;
         };
         $delay = static function ($retries, $response) use (&$delayCalls) {
@@ -52,9 +52,9 @@ class RetryMiddlewareTest extends TestCase
     public function testCanRetryExceptions()
     {
         $calls = [];
-        $decider = static function ($retries, $request, $response, $error) use (&$calls) {
-            $calls[] = \func_get_args();
-            return $error instanceof \Exception;
+        $decider = static function (...$args) use (&$calls) {
+            $calls[] = $args;
+            return $args[3] instanceof \Exception;
         };
         $m = Middleware::retry($decider);
         $h = new MockHandler([new \Exception(), new Response(201)]);
