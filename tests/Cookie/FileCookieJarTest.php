@@ -1,13 +1,13 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\CookieJar;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Tests\CookieJar;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\FileCookieJar;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie;
+use /* Replaced /* Replaced Guzzle */ */Http\Cookie\FileCookieJar;
+use /* Replaced /* Replaced Guzzle */ */Http\Cookie\SetCookie;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\FileCookieJar
+ * @covers \/* Replaced /* Replaced Guzzle */ */Http\Cookie\FileCookieJar
  */
 class FileCookieJarTest extends TestCase
 {
@@ -15,7 +15,7 @@ class FileCookieJarTest extends TestCase
 
     public function setUp(): void
     {
-        $this->file = \tempnam('/tmp', 'file-cookies');
+        $this->file = \tempnam(\sys_get_temp_dir(), 'file-cookies');
     }
 
     /**
