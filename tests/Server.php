@@ -1,9 +1,9 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Tests;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
+use /* Replaced /* Replaced Guzzle */ */Http\Client;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -25,7 +25,7 @@ class Server
     /**
      * @var Client
      */
-    private static $/* Replaced /* Replaced /* Replaced client */ */ */;
+    private static $/* Replaced /* Replaced client */ */;
     private static $started = false;
     public static $url = 'http://127.0.0.1:8126/';
     public static $port = 8126;
@@ -37,7 +37,7 @@ class Server
      */
     public static function flush()
     {
-        return self::getClient()->request('DELETE', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests');
+        return self::getClient()->request('DELETE', '/* Replaced /* Replaced guzzle */ */-server/requests');
     }
 
     /**
@@ -70,7 +70,33 @@ class Server
             ];
         }
 
-        self::getClient()->request('PUT', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/responses', [
+        self::getClient()->request('PUT', '/* Replaced /* Replaced guzzle */ */-server/responses', [
+            'json' => $data
+        ]);
+    }
+
+    /**
+     * Queue a single raw response manually, to handle cases where PSR7 response is not suitable.
+     *
+     * @param int|string  $statusCode   Status code for the response, e.g. 200
+     * @param string      $reasonPhrase Status reason response e.g "OK"
+     * @param array       $headers      Array of headers to send in response
+     * @param string|null $body         Body to send in response
+     *
+     * @throws \/* Replaced /* Replaced Guzzle */ */Http\Exception\/* Replaced /* Replaced Guzzle */ */Exception
+     */
+    public static function enqueueRaw($statusCode, $reasonPhrase, $headers, $body)
+    {
+        $data = [
+            [
+                'status'  => (string) $statusCode,
+                'reason'  => $reasonPhrase,
+                'headers' => $headers,
+                'body'    => \base64_encode((string) $body)
+            ]
+        ];
+
+        self::getClient()->request('PUT', '/* Replaced /* Replaced guzzle */ */-server/responses', [
             'json' => $data
         ]);
     }
@@ -88,7 +114,7 @@ class Server
             return [];
         }
 
-        $response = self::getClient()->request('GET', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/requests');
+        $response = self::getClient()->request('GET', '/* Replaced /* Replaced guzzle */ */-server/requests');
         $data = \json_decode($response->getBody(), true);
 
         return \array_map(
@@ -97,7 +123,7 @@ class Server
                 if (isset($message['query_string'])) {
                     $uri .= '?' . $message['query_string'];
                 }
-                $response = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request(
+                $response = new /* Replaced /* Replaced Psr7 */ */\Request(
                     $message['http_method'],
                     $uri,
                     $message['headers'],
@@ -120,7 +146,7 @@ class Server
     public static function stop()
     {
         if (self::$started) {
-            self::getClient()->request('DELETE', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server');
+            self::getClient()->request('DELETE', '/* Replaced /* Replaced guzzle */ */-server');
         }
 
         self::$started = false;
@@ -156,7 +182,7 @@ class Server
     private static function isListening()
     {
         try {
-            self::getClient()->request('GET', '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/perf', [
+            self::getClient()->request('GET', '/* Replaced /* Replaced guzzle */ */-server/perf', [
                 'connect_timeout' => 5,
                 'timeout'         => 5
             ]);
@@ -168,13 +194,13 @@ class Server
 
     private static function getClient()
     {
-        if (!self::$/* Replaced /* Replaced /* Replaced client */ */ */) {
-            self::$/* Replaced /* Replaced /* Replaced client */ */ */ = new Client([
+        if (!self::$/* Replaced /* Replaced client */ */) {
+            self::$/* Replaced /* Replaced client */ */ = new Client([
                 'base_uri' => self::$url,
                 'sync'     => true,
             ]);
         }
 
-        return self::$/* Replaced /* Replaced /* Replaced client */ */ */;
+        return self::$/* Replaced /* Replaced client */ */;
     }
 }
