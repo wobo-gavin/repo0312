@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
@@ -113,8 +114,8 @@ class MockHandler implements \Countable
         }
 
         $response = $response instanceof \Throwable
-            ? \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for($response)
-            : \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\promise_for($response);
+            ? P\Create::rejectionFor($response)
+            : P\Create::promiseFor($response);
 
         return $response->then(
             function (?ResponseInterface $value) use ($request, $options) {
@@ -143,7 +144,7 @@ class MockHandler implements \Countable
                 if ($this->onRejected) {
                     ($this->onRejected)($reason);
                 }
-                return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for($reason);
+                return P\Create::rejectionFor($reason);
             }
         );
     }

@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\FulfilledPromise;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
@@ -74,7 +75,7 @@ class StreamHandler
             }
             $this->invokeStats($options, $request, $startTime, null, $e);
 
-            return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for($e);
+            return P\Create::rejectionFor($e);
         }
     }
 
@@ -114,7 +115,7 @@ class StreamHandler
         $reason = $parts[2] ?? null;
         $headers = Utils::headersFromLines($hdrs);
         [$stream, $headers] = $this->checkDecode($options, $headers, $stream);
-        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for($stream);
+        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor($stream);
         $sink = $stream;
 
         if (\strcasecmp('HEAD', $request->getMethod())) {
@@ -129,7 +130,7 @@ class StreamHandler
             } catch (\Exception $e) {
                 $msg = 'An error was encountered during the on_headers event';
                 $ex = new RequestException($msg, $request, $response, $e);
-                return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for($ex);
+                return P\Create::rejectionFor($ex);
             }
         }
 
@@ -159,7 +160,7 @@ class StreamHandler
 
         return \is_string($sink)
             ? new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\LazyOpenStream($sink, 'w+')
-            : /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for($sink);
+            : /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor($sink);
     }
 
     /**
@@ -174,7 +175,7 @@ class StreamHandler
                 $encoding = $headers[$normalizedKeys['content-encoding']];
                 if ($encoding[0] === 'gzip' || $encoding[0] === 'deflate') {
                     $stream = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\InflateStream(
-                        /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for($stream)
+                        /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor($stream)
                     );
                     $headers['x-encoded-content-encoding']
                         = $headers[$normalizedKeys['content-encoding']];
@@ -216,7 +217,7 @@ class StreamHandler
         // that number of bytes has been read. This can prevent infinitely
         // reading from a stream when dealing with servers that do not honor
         // Connection: Close headers.
-        /* Replaced /* Replaced /* Replaced Psr7 */ */ */\copy_to_stream(
+        /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::copyToStream(
             $source,
             $sink,
             (\strlen($contentLength) > 0 && (int) $contentLength > 0) ? (int) $contentLength : -1

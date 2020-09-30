@@ -3,6 +3,7 @@
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test\Handler;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\StreamHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream;
@@ -55,7 +56,7 @@ class StreamHandlerTest extends TestCase
     {
         $handler = new StreamHandler();
 
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException::class);
+        $this->expectException(ConnectException::class);
         $handler(
             new Request('GET', 'http://localhost:123'),
             ['timeout' => 0.01]
@@ -262,7 +263,7 @@ class StreamHandlerTest extends TestCase
 
     public function testAddsProxy()
     {
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException::class);
+        $this->expectException(ConnectException::class);
         $this->expectExceptionMessage('Connection refused');
 
         $this->getSendResult(['proxy' => '127.0.0.1:8125']);
@@ -298,7 +299,7 @@ class StreamHandlerTest extends TestCase
 
     public function testVerifiesVerifyIsValidIfPath()
     {
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException::class);
+        $this->expectException(RequestException::class);
         $this->expectExceptionMessage('SSL CA bundle not found: /does/not/exist');
 
         $this->getSendResult(['verify' => '/does/not/exist']);
@@ -307,12 +308,12 @@ class StreamHandlerTest extends TestCase
     public function testVerifyCanBeDisabled()
     {
         $handler = $this->getSendResult(['verify' => false]);
-        self::assertInstanceOf(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response::class, $handler);
+        self::assertInstanceOf(Response::class, $handler);
     }
 
     public function testVerifiesCertIfValidPath()
     {
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException::class);
+        $this->expectException(RequestException::class);
         $this->expectExceptionMessage('SSL certificate not found: /does/not/exist');
 
         $this->getSendResult(['cert' => '/does/not/exist']);
@@ -527,7 +528,7 @@ class StreamHandlerTest extends TestCase
             }
         ]);
 
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException::class);
+        $this->expectException(RequestException::class);
         $this->expectExceptionMessage('An error was encountered during the on_headers event');
         $promise->wait();
     }
@@ -541,7 +542,7 @@ class StreamHandlerTest extends TestCase
         $req = new Request('GET', Server::$url);
         $got = null;
 
-        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for();
+        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor();
         $stream = FnStream::decorate($stream, [
             'write' => static function ($data) use ($stream, &$got) {
                 self::assertNotNull($got);

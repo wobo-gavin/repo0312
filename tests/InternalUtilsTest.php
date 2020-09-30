@@ -1,9 +1,9 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Test;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
+use /* Replaced /* Replaced Guzzle */ */Http\Utils;
 use PHPUnit\Framework\TestCase;
 
 class InternalUtilsTest extends TestCase
@@ -18,7 +18,7 @@ class InternalUtilsTest extends TestCase
      */
     public function testIdnConvert()
     {
-        $uri = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\uri_for('https://яндекс.рф/images');
+        $uri = /* Replaced /* Replaced Psr7 */ */\Utils::uriFor('https://яндекс.рф/images');
         $uri = Utils::idnUriConvert($uri);
         self::assertSame('xn--d1acpjx3f.xn--p1ai', $uri->getHost());
     }

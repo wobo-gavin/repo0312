@@ -2,9 +2,12 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test\Handler;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlFactory;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\EasyHandle;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Helpers;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
@@ -38,7 +41,7 @@ class CurlFactoryTest extends TestCase
                 'Content-Length' => 2,
             ], 'hi')
         ]);
-        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for();
+        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor();
         $request = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('PUT', Server::$url, [
             'Hi'             => ' 123',
             'Content-Length' => '7'
@@ -390,7 +393,7 @@ class CurlFactoryTest extends TestCase
 
     public function testSavesTo/* Replaced /* Replaced /* Replaced Guzzle */ */ */Stream()
     {
-        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for();
+        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor();
         $this->addDecodeResponse();
         $handler = new Handler\CurlMultiHandler();
         $request = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('GET', Server::$url);
@@ -447,7 +450,7 @@ class CurlFactoryTest extends TestCase
     public function testFailsWhenCannotRewindRetryAfterNoResponse()
     {
         $factory = new Handler\CurlFactory(1);
-        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for('abc');
+        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor('abc');
         $stream->read(1);
         $stream = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\NoSeekStream($stream);
         $request = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('PUT', Server::$url, [], $stream);
@@ -456,7 +459,7 @@ class CurlFactoryTest extends TestCase
             return Handler\CurlFactory::finish($fn, $easy, $factory);
         };
 
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException::class);
+        $this->expectException(RequestException::class);
         $this->expectExceptionMessage('but attempting to rewind the request body failed');
         $fn($request, [])->wait();
     }
@@ -467,10 +470,10 @@ class CurlFactoryTest extends TestCase
 
         $fn = static function ($r, $options) use (&$callHandler) {
             $callHandler = true;
-            return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\promise_for(new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response());
+            return P\Create::promiseFor(new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response());
         };
 
-        $bd = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream::decorate(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for('test'), [
+        $bd = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream::decorate(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor('test'), [
             'tell'   => static function () {
                 return 1;
             },
@@ -503,7 +506,7 @@ class CurlFactoryTest extends TestCase
         $p->wait(false);
         self::assertEquals(3, $call);
 
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException::class);
+        $this->expectException(RequestException::class);
         $this->expectExceptionMessage('The cURL request was retried 3 times');
         $p->wait(true);
     }
@@ -541,7 +544,7 @@ class CurlFactoryTest extends TestCase
             $factory
         );
 
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException::class);
+        $this->expectException(ConnectException::class);
         $response->wait();
     }
 
@@ -559,7 +562,7 @@ class CurlFactoryTest extends TestCase
     public function testAddsStreamingBody()
     {
         $f = new Handler\CurlFactory(3);
-        $bd = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream::decorate(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for('foo'), [
+        $bd = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream::decorate(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor('foo'), [
             'getSize' => static function () {
                 return null;
             }
@@ -627,7 +630,7 @@ class CurlFactoryTest extends TestCase
             }
         ]);
 
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException::class);
+        $this->expectException(RequestException::class);
         $this->expectExceptionMessage('An error was encountered during the on_headers event');
         $promise->wait();
     }
@@ -641,7 +644,7 @@ class CurlFactoryTest extends TestCase
         $req = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('GET', Server::$url);
         $got = null;
 
-        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for();
+        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor();
         $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream::decorate($stream, [
             'write' => static function ($data) use ($stream, &$got) {
                 self::assertNotNull($got);
@@ -720,7 +723,7 @@ class CurlFactoryTest extends TestCase
 
     public function testRewindsBodyIfPossible()
     {
-        $body = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for(\str_repeat('x', 1024 * 1024 * 2));
+        $body = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor(\str_repeat('x', 1024 * 1024 * 2));
         $body->seek(1024 * 1024);
         self::assertSame(1024 * 1024, $body->tell());
 
@@ -735,7 +738,7 @@ class CurlFactoryTest extends TestCase
 
     public function testDoesNotRewindUnseekableBody()
     {
-        $body = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for(\str_repeat('x', 1024 * 1024 * 2));
+        $body = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor(\str_repeat('x', 1024 * 1024 * 2));
         $body->seek(1024 * 1024);
         $body = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\NoSeekStream($body);
         self::assertSame(1024 * 1024, $body->tell());

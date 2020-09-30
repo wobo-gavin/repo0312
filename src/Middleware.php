@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -104,7 +105,7 @@ final class Middleware
                             'error'    => $reason,
                             'options'  => $options
                         ];
-                        return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for($reason);
+                        return P\Create::rejectionFor($reason);
                     }
                 );
             };
@@ -205,9 +206,9 @@ final class Middleware
                         $response = $reason instanceof RequestException
                             ? $reason->getResponse()
                             : null;
-                        $message = $formatter->format($request, $response, \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\exception_for($reason));
+                        $message = $formatter->format($request, $response, P\Create::exceptionFor($reason));
                         $logger->error($message);
-                        return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for($reason);
+                        return P\Create::rejectionFor($reason);
                     }
                 );
             };

@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\EachPromise;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromisorInterface;
@@ -53,7 +54,7 @@ class Pool implements PromisorInterface
             $opts = [];
         }
 
-        $iterable = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\iter_for($requests);
+        $iterable = P\Create::iterFor($requests);
         $requests = static function () use ($iterable, $/* Replaced /* Replaced /* Replaced client */ */ */, $opts) {
             foreach ($iterable as $key => $rfn) {
                 if ($rfn instanceof RequestInterface) {

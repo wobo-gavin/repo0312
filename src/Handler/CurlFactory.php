@@ -4,6 +4,7 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\FulfilledPromise;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\LazyOpenStream;
@@ -180,7 +181,7 @@ class CurlFactory implements CurlFactoryInterface
         // If an exception was encountered during the onHeaders event, then
         // return a rejected promise that wraps that exception.
         if ($easy->onHeadersException) {
-            return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for(
+            return P\Create::rejectionFor(
                 new RequestException(
                     'An error was encountered during the on_headers event',
                     $easy->request,
@@ -207,7 +208,7 @@ class CurlFactory implements CurlFactoryInterface
             ? new ConnectException($message, $easy->request, null, $ctx)
             : new RequestException($message, $easy->request, $easy->response, null, $ctx);
 
-        return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for($error);
+        return P\Create::rejectionFor($error);
     }
 
     /**

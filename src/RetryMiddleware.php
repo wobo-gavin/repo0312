@@ -2,6 +2,7 @@
 
 namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
 
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -103,7 +104,7 @@ class RetryMiddleware
                 null,
                 $reason
             )) {
-                return \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for($reason);
+                return P\Create::rejectionFor($reason);
             }
             return $this->doRetry($req, $options);
         };

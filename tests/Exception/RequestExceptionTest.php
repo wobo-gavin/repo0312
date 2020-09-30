@@ -1,17 +1,19 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Exception;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Tests\Exception;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\ClientException;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\ServerException;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Stream;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\NetworkExceptionInterface;
 use Psr\Http\Client\RequestExceptionInterface;
 
 /**
- * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException
+ * @covers \/* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException
  */
 class RequestExceptionTest extends TestCase
 {
@@ -32,7 +34,7 @@ class RequestExceptionTest extends TestCase
     {
         $e = RequestException::create(new Request('GET', '/'));
         self::assertSame('Error completing request', $e->getMessage());
-        self::assertInstanceOf(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException::class, $e);
+        self::assertInstanceOf(RequestException::class, $e);
     }
 
     public function testCreatesClientErrorResponseException()
@@ -46,7 +48,7 @@ class RequestExceptionTest extends TestCase
             '400 Bad Request',
             $e->getMessage()
         );
-        self::assertInstanceOf(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException::class, $e);
+        self::assertInstanceOf(ClientException::class, $e);
     }
 
     public function testCreatesServerErrorResponseException()
@@ -60,7 +62,7 @@ class RequestExceptionTest extends TestCase
             '500 Internal Server Error',
             $e->getMessage()
         );
-        self::assertInstanceOf(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException::class, $e);
+        self::assertInstanceOf(ServerException::class, $e);
     }
 
     public function testCreatesGenericErrorResponseException()
@@ -74,7 +76,7 @@ class RequestExceptionTest extends TestCase
             '300 ',
             $e->getMessage()
         );
-        self::assertInstanceOf(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException::class, $e);
+        self::assertInstanceOf(RequestException::class, $e);
     }
 
     public function testThrowsInvalidArgumentExceptionOnOutOfBoundsResponseCode()
@@ -112,7 +114,7 @@ class RequestExceptionTest extends TestCase
             $content,
             $e->getMessage()
         );
-        self::assertInstanceOf(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException::class, $e);
+        self::assertInstanceOf(RequestException::class, $e);
     }
 
     public function testCreatesExceptionWithTruncatedSummary()
@@ -141,7 +143,7 @@ class RequestExceptionTest extends TestCase
         $e = new \Exception('foo');
         $r = new Request('GET', 'http://www.oo.com');
         $ex = RequestException::wrapException($r, $e);
-        self::assertInstanceOf(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException::class, $ex);
+        self::assertInstanceOf(RequestException::class, $ex);
         self::assertSame($e, $ex->getPrevious());
     }
 

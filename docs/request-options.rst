@@ -211,7 +211,7 @@ This setting can be set to any of the following types:
   .. code-block:: php
 
       // You can send requests that use a /* Replaced /* Replaced /* Replaced Guzzle */ */ */ stream object as the body
-      $stream = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for('contents...');
+      $stream = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor('contents...');
       $/* Replaced /* Replaced /* Replaced client */ */ */->request('POST', '/post', ['body' => $stream]);
 
 .. note::
@@ -916,7 +916,7 @@ body to an open PSR-7 stream.
 .. code-block:: php
 
     $resource = fopen('/path/to/file', 'w');
-    $stream = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for($resource);
+    $stream = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor($resource);
     $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/stream/20', ['save_to' => $stream]);
 
 .. note::

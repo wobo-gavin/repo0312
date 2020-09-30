@@ -4,11 +4,14 @@ namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
 
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\MessageFormatter;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
+use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
 use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
@@ -47,9 +50,9 @@ class MiddlewareTest extends TestCase
         $h = new MockHandler([new Response(404)]);
         $f = $m($h);
         $p = $f(new Request('GET', 'http://foo.com'), ['http_errors' => true]);
-        self::assertSame('pending', $p->getState());
+        self::assertTrue(P\Is::pending($p));
 
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException::class);
+        $this->expectException(ClientException::class);
         $p->wait();
     }
 
@@ -59,9 +62,9 @@ class MiddlewareTest extends TestCase
         $h = new MockHandler([new Response(500)]);
         $f = $m($h);
         $p = $f(new Request('GET', 'http://foo.com'), ['http_errors' => true]);
-        self::assertSame('pending', $p->getState());
+        self::assertTrue(P\Is::pending($p));
 
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException::class);
+        $this->expectException(ServerException::class);
         $p->wait();
     }
 
@@ -225,7 +228,7 @@ class MiddlewareTest extends TestCase
 
     public function testLogsWithStringError()
     {
-        $h = new MockHandler([\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\rejection_for('some problem')]);
+        $h = new MockHandler([P\Create::rejectionFor('some problem')]);
         $stack = new HandlerStack($h);
         $logger = new TestLogger();
         $formatter = new MessageFormatter('{error}');

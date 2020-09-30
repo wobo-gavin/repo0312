@@ -102,7 +102,7 @@ class RequestException extends TransferException implements RequestExceptionInte
             $response->getReasonPhrase()
         );
 
-        $summary = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\get_message_body_summary($response);
+        $summary = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Message::bodySummary($response);
 
         if ($summary !== null) {
             $message .= ":\n{$summary}\n";

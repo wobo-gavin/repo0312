@@ -1,13 +1,15 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Handler;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Tests\Handler;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlMultiHandler;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Helpers;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\ConnectException;
+use /* Replaced /* Replaced Guzzle */ */Http\Handler\CurlMultiHandler;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+use /* Replaced /* Replaced Guzzle */ */Http\Tests\Helpers;
+use /* Replaced /* Replaced Guzzle */ */Http\Tests\Server;
+use /* Replaced /* Replaced Guzzle */ */Http\Utils;
 use PHPUnit\Framework\TestCase;
 
 class CurlMultiHandlerTest extends TestCase
@@ -48,7 +50,7 @@ class CurlMultiHandlerTest extends TestCase
     {
         $a = new CurlMultiHandler();
 
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException::class);
+        $this->expectException(ConnectException::class);
         $this->expectExceptionMessage('cURL error');
         $a(new Request('GET', 'http://localhost:123'), [])->wait();
     }
@@ -73,7 +75,7 @@ class CurlMultiHandlerTest extends TestCase
         }
 
         foreach ($responses as $r) {
-            self::assertSame('rejected', $r->getState());
+            self::assertTrue(P\Is::rejected($r));
         }
     }
 
@@ -85,7 +87,7 @@ class CurlMultiHandlerTest extends TestCase
         $response = $a(new Request('GET', Server::$url), []);
         $response->wait();
         $response->cancel();
-        self::assertSame('fulfilled', $response->getState());
+        self::assertTrue(P\Is::fulfilled($response));
     }
 
     public function testDelaysConcurrently()

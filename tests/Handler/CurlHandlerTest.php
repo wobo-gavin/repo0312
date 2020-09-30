@@ -1,18 +1,19 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test\Handler;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Test\Handler;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlHandler;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\ConnectException;
+use /* Replaced /* Replaced Guzzle */ */Http\Handler\CurlHandler;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise\FulfilledPromise;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+use /* Replaced /* Replaced Guzzle */ */Http\Tests\Server;
+use /* Replaced /* Replaced Guzzle */ */Http\Utils;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\CurlHandler
+ * @covers \/* Replaced /* Replaced Guzzle */ */Http\Handler\CurlHandler
  */
 class CurlHandlerTest extends TestCase
 {
@@ -26,7 +27,7 @@ class CurlHandlerTest extends TestCase
         $handler = new CurlHandler();
         $request = new Request('GET', 'http://localhost:123');
 
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException::class);
+        $this->expectException(ConnectException::class);
         $this->expectExceptionMessage('cURL');
         $handler($request, ['timeout' => 0.001, 'connect_timeout' => 0.001])->wait();
     }
@@ -38,8 +39,8 @@ class CurlHandlerTest extends TestCase
         Server::enqueue([$response, $response]);
         $a = new CurlHandler();
         $request = new Request('GET', Server::$url);
-        self::assertInstanceOf(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\FulfilledPromise::class, $a($request, []));
-        self::assertInstanceOf(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\FulfilledPromise::class, $a($request, []));
+        self::assertInstanceOf(FulfilledPromise::class, $a($request, []));
+        self::assertInstanceOf(FulfilledPromise::class, $a($request, []));
     }
 
     public function testDoesSleep()
@@ -71,7 +72,7 @@ class CurlHandlerTest extends TestCase
     {
         Server::flush();
         Server::enqueue([new Response()]);
-        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for(\str_repeat('.', 1000000));
+        $stream = /* Replaced /* Replaced Psr7 */ */\Utils::streamFor(\str_repeat('.', 1000000));
         $handler = new CurlHandler();
         $request = new Request(
             'PUT',

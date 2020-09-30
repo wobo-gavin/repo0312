@@ -1,15 +1,18 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test\Handler;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Test\Handler;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\BadResponseException;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Stream;
+use /* Replaced /* Replaced Guzzle */ */Http\TransferStats;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler
+ * @covers \/* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler
  */
 class MockHandlerTest extends TestCase
 {
@@ -102,7 +105,7 @@ class MockHandlerTest extends TestCase
 
     public function testSinkStream()
     {
-        $stream = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Stream(\tmpfile());
+        $stream = new Stream(\tmpfile());
         $res = new Response(200, [], 'TEST CONTENT');
         $mock = new MockHandler([$res]);
         $request = new Request('GET', '/');
@@ -146,7 +149,7 @@ class MockHandlerTest extends TestCase
             }
         ]);
 
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException::class);
+        $this->expectException(RequestException::class);
         $this->expectExceptionMessage('An error was encountered during the on_headers event');
         $promise->wait();
     }
@@ -189,7 +192,7 @@ class MockHandlerTest extends TestCase
         $mock = MockHandler::createWithMiddleware([$r]);
         $request = new Request('GET', 'http://example.com');
 
-        $this->expectException(\/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\BadResponseException::class);
+        $this->expectException(BadResponseException::class);
         $mock($request, ['http_errors' => true])->wait();
     }
 
