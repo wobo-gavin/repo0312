@@ -1,19 +1,19 @@
 {
-    "name": "/* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */",
+    "name": "/* Replaced /* Replaced guzzle */ */http//* Replaced /* Replaced guzzle */ */",
     "type": "library",
-    "description": "/* Replaced /* Replaced /* Replaced Guzzle */ */ */ is a PHP HTTP /* Replaced /* Replaced /* Replaced client */ */ */ library",
+    "description": "/* Replaced /* Replaced Guzzle */ */ is a PHP HTTP /* Replaced /* Replaced client */ */ library",
     "keywords": [
         "framework",
         "http",
         "rest",
         "web service",
         "curl",
-        "/* Replaced /* Replaced /* Replaced client */ */ */",
-        "HTTP /* Replaced /* Replaced /* Replaced client */ */ */",
+        "/* Replaced /* Replaced client */ */",
+        "HTTP /* Replaced /* Replaced client */ */",
         "PSR-7",
         "PSR-18"
     ],
-    "homepage": "http:///* Replaced /* Replaced /* Replaced guzzle */ */ */php.org/",
+    "homepage": "http:///* Replaced /* Replaced guzzle */ */php.org/",
     "license": "MIT",
     "authors": [
         {
@@ -28,19 +28,19 @@
         }
     ],
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.2.5 || ^8.0",
         "ext-json": "*",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/promises": "^1.4",
-        "/* Replaced /* Replaced /* Replaced guzzle */ */ */http/psr7": "^1.7",
-        "psr/http-/* Replaced /* Replaced /* Replaced client */ */ */": "^1.0"
+        "/* Replaced /* Replaced guzzle */ */http/promises": "^1.4",
+        "/* Replaced /* Replaced guzzle */ */http/psr7": "^1.7",
+        "psr/http-/* Replaced /* Replaced client */ */": "^1.0"
     },
     "provide": {
-        "psr/http-/* Replaced /* Replaced /* Replaced client */ */ */-implementation": "1.0"
+        "psr/http-/* Replaced /* Replaced client */ */-implementation": "1.0"
     },
     "require-dev": {
         "ext-curl": "*",
-        "php-http//* Replaced /* Replaced /* Replaced client */ */ */-integration-tests": "^3.0",
-        "phpunit/phpunit": "^8.5.5",
+        "php-http//* Replaced /* Replaced client */ */-integration-tests": "^3.0",
+        "phpunit/phpunit": "^8.5.5 || ^9.3.5",
         "psr/log": "^1.1"
     },
     "suggest": {
@@ -58,7 +58,7 @@
     },
     "autoload": {
         "psr-4": {
-            "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\": "src/"
+            "/* Replaced /* Replaced Guzzle */ */Http\\": "src/"
         },
         "files": [
             "src/functions_include.php"
@@ -66,7 +66,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\\Tests\\": "tests/"
+            "/* Replaced /* Replaced Guzzle */ */Http\\Tests\\": "tests/"
         }
     }
 }

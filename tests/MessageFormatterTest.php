@@ -1,16 +1,16 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Tests;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\MessageFormatter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced Guzzle */ */Http\MessageFormatter;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\MessageFormatter
+ * @covers \/* Replaced /* Replaced Guzzle */ */Http\MessageFormatter
  */
 class MessageFormatterTest extends TestCase
 {
@@ -39,21 +39,27 @@ class MessageFormatterTest extends TestCase
         $f = new MessageFormatter($format);
         $request = new Request('GET', '/');
         $result = $f->format($request);
-        self::assertRegExp($pattern, $result);
+        if (method_exists($this, 'assertMatchesRegularExpression')) {
+            // PHPUnit 9
+            self::assertMatchesRegularExpression($pattern, $result);
+        } else {
+            // PHPUnit 8
+            self::assertRegExp($pattern, $result);
+        }
     }
 
     public function formatProvider()
     {
-        $request = new Request('PUT', '/', ['x-test' => 'abc'], /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor('foo'));
-        $response = new Response(200, ['X-Baz' => 'Bar'], /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor('baz'));
+        $request = new Request('PUT', '/', ['x-test' => 'abc'], /* Replaced /* Replaced Psr7 */ */\Utils::streamFor('foo'));
+        $response = new Response(200, ['X-Baz' => 'Bar'], /* Replaced /* Replaced Psr7 */ */\Utils::streamFor('baz'));
         $err = new RequestException('Test', $request, $response);
 
         return [
-            ['{request}', [$request], /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Message::toString($request)],
-            ['{response}', [$request, $response], /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Message::toString($response)],
-            ['{request} {response}', [$request, $response], /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Message::toString($request) . ' ' . /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Message::toString($response)],
+            ['{request}', [$request], /* Replaced /* Replaced Psr7 */ */\Message::toString($request)],
+            ['{response}', [$request, $response], /* Replaced /* Replaced Psr7 */ */\Message::toString($response)],
+            ['{request} {response}', [$request, $response], /* Replaced /* Replaced Psr7 */ */\Message::toString($request) . ' ' . /* Replaced /* Replaced Psr7 */ */\Message::toString($response)],
             // Empty response yields no value
-            ['{request} {response}', [$request], /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Message::toString($request) . ' '],
+            ['{request} {response}', [$request], /* Replaced /* Replaced Psr7 */ */\Message::toString($request) . ' '],
             ['{req_headers}', [$request], "PUT / HTTP/1.1\r\nx-test: abc"],
             ['{res_headers}', [$request, $response], "HTTP/1.1 200 OK\r\nX-Baz: Bar"],
             ['{res_headers}', [$request], 'NULL'],
