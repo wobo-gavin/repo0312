@@ -114,7 +114,11 @@ class StreamHandler
         $status = (int) $parts[1];
         $reason = $parts[2] ?? null;
         $headers = Utils::headersFromLines($hdrs);
-        [$stream, $headers] = $this->checkDecode($options, $headers, $stream);
+
+        if (\strcasecmp('HEAD', $request->getMethod())) {
+            [$stream, $headers] = $this->checkDecode($options, $headers, $stream);
+        }
+
         $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor($stream);
         $sink = $stream;
 
