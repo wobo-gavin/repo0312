@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
+namespace /* Replaced /* Replaced Guzzle */ */Http;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -14,9 +14,5 @@ interface MessageFormatterInterface
      * @param ResponseInterface|null $response Response that was received
      * @param \Throwable|null        $error    Exception that was received
      */
-    public function format(
-        RequestInterface $request,
-        ?ResponseInterface $response = null,
-        ?\Throwable $error = null
-    ): string;
+    public function format(RequestInterface $request, ?ResponseInterface $response = null, ?\Throwable $error = null): string;
 }

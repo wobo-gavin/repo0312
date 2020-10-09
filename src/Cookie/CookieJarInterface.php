@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Cookie;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -36,10 +36,7 @@ interface CookieJarInterface extends \Countable, \IteratorAggregate
      * @param RequestInterface  $request  Request that was sent
      * @param ResponseInterface $response Response that was received
      */
-    public function extractCookies(
-        RequestInterface $request,
-        ResponseInterface $response
-    ): void;
+    public function extractCookies(RequestInterface $request, ResponseInterface $response): void;
 
     /**
      * Sets a cookie in the cookie jar.

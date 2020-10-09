@@ -1,8 +1,8 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
+namespace /* Replaced /* Replaced Guzzle */ */Http;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -40,7 +40,7 @@ class PrepareBodyMiddleware
         // Add a default content-type if possible.
         if (!$request->hasHeader('Content-Type')) {
             if ($uri = $request->getBody()->getMetadata('uri')) {
-                if (is_string($uri) && $type = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\MimeType::fromFilename($uri)) {
+                if (is_string($uri) && $type = /* Replaced /* Replaced Psr7 */ */\MimeType::fromFilename($uri)) {
                     $modify['set_headers']['Content-Type'] = $type;
                 }
             }
@@ -61,17 +61,14 @@ class PrepareBodyMiddleware
         // Add the expect header if needed.
         $this->addExpectHeader($request, $options, $modify);
 
-        return $fn(/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::modifyRequest($request, $modify), $options);
+        return $fn(/* Replaced /* Replaced Psr7 */ */\Utils::modifyRequest($request, $modify), $options);
     }
 
     /**
      * Add expect header
      */
-    private function addExpectHeader(
-        RequestInterface $request,
-        array $options,
-        array &$modify
-    ): void {
+    private function addExpectHeader(RequestInterface $request, array $options, array &$modify): void
+    {
         // Determine if the Expect header should be used
         if ($request->hasHeader('Expect')) {
             return;

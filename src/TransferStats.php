@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
+namespace /* Replaced /* Replaced Guzzle */ */Http;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -128,8 +128,6 @@ final class TransferStats
      */
     public function getHandlerStat(string $stat)
     {
-        return isset($this->handlerStats[$stat])
-            ? $this->handlerStats[$stat]
-            : null;
+        return isset($this->handlerStats[$stat]) ? $this->handlerStats[$stat] : null;
     }
 }

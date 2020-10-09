@@ -1,13 +1,13 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Handler;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced Guzzle */ */Http\HandlerStack;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
+use /* Replaced /* Replaced Guzzle */ */Http\TransferStats;
+use /* Replaced /* Replaced Guzzle */ */Http\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -52,11 +52,8 @@ class MockHandler implements \Countable
      * @param callable|null $onFulfilled Callback to invoke when the return value is fulfilled.
      * @param callable|null $onRejected  Callback to invoke when the return value is rejected.
      */
-    public static function createWithMiddleware(
-        array $queue = null,
-        callable $onFulfilled = null,
-        callable $onRejected = null
-    ): HandlerStack {
+    public static function createWithMiddleware(array $queue = null, callable $onFulfilled = null, callable $onRejected = null): HandlerStack
+    {
         return HandlerStack::create(new self($queue, $onFulfilled, $onRejected));
     }
 
@@ -69,11 +66,8 @@ class MockHandler implements \Countable
      * @param callable|null          $onFulfilled Callback to invoke when the return value is fulfilled.
      * @param callable|null          $onRejected  Callback to invoke when the return value is rejected.
      */
-    public function __construct(
-        array $queue = null,
-        callable $onFulfilled = null,
-        callable $onRejected = null
-    ) {
+    public function __construct(array $queue = null, callable $onFulfilled = null, callable $onRejected = null)
+    {
         $this->onFulfilled = $onFulfilled;
         $this->onRejected = $onRejected;
 

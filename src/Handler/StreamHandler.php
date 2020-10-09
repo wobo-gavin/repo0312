@@ -1,15 +1,15 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Handler;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\FulfilledPromise;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\ConnectException;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise\FulfilledPromise;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
+use /* Replaced /* Replaced Guzzle */ */Http\TransferStats;
+use /* Replaced /* Replaced Guzzle */ */Http\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -87,13 +87,7 @@ class StreamHandler
         \Throwable $error = null
     ): void {
         if (isset($options['on_stats'])) {
-            $stats = new TransferStats(
-                $request,
-                $response,
-                Utils::currentTime() - $startTime,
-                $error,
-                []
-            );
+            $stats = new TransferStats($request, $response, Utils::currentTime() - $startTime, $error, []);
             ($options['on_stats'])($stats);
         }
     }
@@ -101,12 +95,8 @@ class StreamHandler
     /**
      * @param resource $stream
      */
-    private function createResponse(
-        RequestInterface $request,
-        array $options,
-        $stream,
-        ?float $startTime
-    ): PromiseInterface {
+    private function createResponse(RequestInterface $request, array $options, $stream, ?float $startTime): PromiseInterface
+    {
         $hdrs = $this->lastHeaders;
         $this->lastHeaders = [];
         $parts = \explode(' ', \array_shift($hdrs), 3);
@@ -115,14 +105,14 @@ class StreamHandler
         $reason = $parts[2] ?? null;
         $headers = Utils::headersFromLines($hdrs);
         [$stream, $headers] = $this->checkDecode($options, $headers, $stream);
-        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor($stream);
+        $stream = /* Replaced /* Replaced Psr7 */ */\Utils::streamFor($stream);
         $sink = $stream;
 
         if (\strcasecmp('HEAD', $request->getMethod())) {
             $sink = $this->createSink($stream, $options);
         }
 
-        $response = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response($status, $headers, $sink, $ver, $reason);
+        $response = new /* Replaced /* Replaced Psr7 */ */\Response($status, $headers, $sink, $ver, $reason);
 
         if (isset($options['on_headers'])) {
             try {
@@ -137,11 +127,7 @@ class StreamHandler
         // Do not drain when the request is a HEAD request because they have
         // no body.
         if ($sink !== $stream) {
-            $this->drain(
-                $stream,
-                $sink,
-                $response->getHeaderLine('Content-Length')
-            );
+            $this->drain($stream, $sink, $response->getHeaderLine('Content-Length'));
         }
 
         $this->invokeStats($options, $request, $startTime, $response, null);
@@ -155,12 +141,9 @@ class StreamHandler
             return $stream;
         }
 
-        $sink = $options['sink']
-            ?? \fopen('php://temp', 'r+');
+        $sink = $options['sink'] ?? \fopen('php://temp', 'r+');
 
-        return \is_string($sink)
-            ? new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\LazyOpenStream($sink, 'w+')
-            : /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor($sink);
+        return \is_string($sink) ? new /* Replaced /* Replaced Psr7 */ */\LazyOpenStream($sink, 'w+') : /* Replaced /* Replaced Psr7 */ */\Utils::streamFor($sink);
     }
 
     /**
@@ -174,18 +157,15 @@ class StreamHandler
             if (isset($normalizedKeys['content-encoding'])) {
                 $encoding = $headers[$normalizedKeys['content-encoding']];
                 if ($encoding[0] === 'gzip' || $encoding[0] === 'deflate') {
-                    $stream = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\InflateStream(
-                        /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor($stream)
-                    );
-                    $headers['x-encoded-content-encoding']
-                        = $headers[$normalizedKeys['content-encoding']];
+                    $stream = new /* Replaced /* Replaced Psr7 */ */\InflateStream(/* Replaced /* Replaced Psr7 */ */\Utils::streamFor($stream));
+                    $headers['x-encoded-content-encoding'] = $headers[$normalizedKeys['content-encoding']];
+
                     // Remove content-encoding header
                     unset($headers[$normalizedKeys['content-encoding']]);
+
                     // Fix content-length header
                     if (isset($normalizedKeys['content-length'])) {
-                        $headers['x-encoded-content-length']
-                            = $headers[$normalizedKeys['content-length']];
-
+                        $headers['x-encoded-content-length'] = $headers[$normalizedKeys['content-length']];
                         $length = (int) $stream->getSize();
                         if ($length === 0) {
                             unset($headers[$normalizedKeys['content-length']]);
@@ -201,23 +181,20 @@ class StreamHandler
     }
 
     /**
-     * Drains the source stream into the "sink" /* Replaced /* Replaced /* Replaced client */ */ */ option.
+     * Drains the source stream into the "sink" /* Replaced /* Replaced client */ */ option.
      *
      * @param string $contentLength Header specifying the amount of
      *                              data to read.
      *
      * @throws \RuntimeException when the sink option is invalid.
      */
-    private function drain(
-        StreamInterface $source,
-        StreamInterface $sink,
-        string $contentLength
-    ): StreamInterface {
+    private function drain(StreamInterface $source, StreamInterface $sink, string $contentLength): StreamInterface
+    {
         // If a content-length header is provided, then stop reading once
         // that number of bytes has been read. This can prevent infinitely
         // reading from a stream when dealing with servers that do not honor
         // Connection: Close headers.
-        /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::copyToStream(
+        /* Replaced /* Replaced Psr7 */ */\Utils::copyToStream(
             $source,
             $sink,
             (\strlen($contentLength) > 0 && (int) $contentLength > 0) ? (int) $contentLength : -1
@@ -309,10 +286,7 @@ class StreamHandler
             if (!\is_array($options['stream_context'])) {
                 throw new \InvalidArgumentException('stream_context must be an array');
             }
-            $context = \array_replace_recursive(
-                $context,
-                $options['stream_context']
-            );
+            $context = \array_replace_recursive($context, $options['stream_context']);
         }
 
         // Microsoft NTLM authentication only supported with curl handler
@@ -334,12 +308,7 @@ class StreamHandler
                 $this->lastHeaders = $http_response_header;
 
                 if (false === $resource) {
-                    throw new ConnectException(
-                        sprintf('Connection refused for URI %s', $uri),
-                        $request,
-                        null,
-                        $context
-                    );
+                    throw new ConnectException(sprintf('Connection refused for URI %s', $uri), $request, null, $context);
                 }
 
                 if (isset($options['read_timeout'])) {
@@ -362,26 +331,14 @@ class StreamHandler
             if ('v4' === $options['force_ip_resolve']) {
                 $records = \dns_get_record($uri->getHost(), \DNS_A);
                 if (false === $records || !isset($records[0]['ip'])) {
-                    throw new ConnectException(
-                        \sprintf(
-                            "Could not resolve IPv4 address for host '%s'",
-                            $uri->getHost()
-                        ),
-                        $request
-                    );
+                    throw new ConnectException(\sprintf("Could not resolve IPv4 address for host '%s'", $uri->getHost()), $request);
                 }
                 return $uri->withHost($records[0]['ip']);
             }
             if ('v6' === $options['force_ip_resolve']) {
                 $records = \dns_get_record($uri->getHost(), \DNS_AAAA);
                 if (false === $records || !isset($records[0]['ipv6'])) {
-                    throw new ConnectException(
-                        \sprintf(
-                            "Could not resolve IPv6 address for host '%s'",
-                            $uri->getHost()
-                        ),
-                        $request
-                    );
+                    throw new ConnectException(\sprintf("Could not resolve IPv6 address for host '%s'", $uri->getHost()), $request);
                 }
                 return $uri->withHost('[' . $records[0]['ipv6'] . ']');
             }
@@ -434,12 +391,7 @@ class StreamHandler
         } else {
             $scheme = $request->getUri()->getScheme();
             if (isset($value[$scheme])) {
-                if (!isset($value['no'])
-                    || !Utils::isHostInNoProxy(
-                        $request->getUri()->getHost(),
-                        $value['no']
-                    )
-                ) {
+                if (!isset($value['no']) || !Utils::isHostInNoProxy($request->getUri()->getHost(), $value['no'])) {
                     $options['http']['proxy'] = $value[$scheme];
                 }
             }
@@ -535,8 +487,7 @@ class StreamHandler
             \STREAM_NOTIFY_COMPLETED     => 'COMPLETED',
             \STREAM_NOTIFY_RESOLVE       => 'RESOLVE',
         ];
-        static $args = ['severity', 'message', 'message_code',
-            'bytes_transferred', 'bytes_max'];
+        static $args = ['severity', 'message', 'message_code', 'bytes_transferred', 'bytes_max'];
 
         $value = Utils::debugResource($value);
         $ident = $request->getMethod() . ' ' . $request->getUri()->withFragment('');

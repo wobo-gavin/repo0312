@@ -1,9 +1,9 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
+namespace /* Replaced /* Replaced Guzzle */ */Http;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -40,11 +40,8 @@ class RetryMiddleware
      *                                                                         and returns the number of
      *                                                                         milliseconds to delay.
      */
-    public function __construct(
-        callable $decider,
-        callable $nextHandler,
-        callable $delay = null
-    ) {
+    public function __construct(callable $decider, callable $nextHandler, callable $delay = null)
+    {
         $this->decider = $decider;
         $this->nextHandler = $nextHandler;
         $this->delay = $delay ?: __CLASS__ . '::exponentialDelay';

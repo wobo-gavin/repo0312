@@ -1,9 +1,9 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Handler;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+use /* Replaced /* Replaced Guzzle */ */Http\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -76,15 +76,11 @@ final class EasyHandle
         $headers = Utils::headersFromLines($this->headers);
         $normalizedKeys = Utils::normalizeHeaderKeys($headers);
 
-        if (!empty($this->options['decode_content'])
-            && isset($normalizedKeys['content-encoding'])
-        ) {
-            $headers['x-encoded-content-encoding']
-                = $headers[$normalizedKeys['content-encoding']];
+        if (!empty($this->options['decode_content']) && isset($normalizedKeys['content-encoding'])) {
+            $headers['x-encoded-content-encoding'] = $headers[$normalizedKeys['content-encoding']];
             unset($headers[$normalizedKeys['content-encoding']]);
             if (isset($normalizedKeys['content-length'])) {
-                $headers['x-encoded-content-length']
-                    = $headers[$normalizedKeys['content-length']];
+                $headers['x-encoded-content-length'] = $headers[$normalizedKeys['content-length']];
 
                 $bodyLength = (int) $this->sink->getSize();
                 if ($bodyLength) {
@@ -116,9 +112,7 @@ final class EasyHandle
      */
     public function __get($name)
     {
-        $msg = $name === 'handle'
-            ? 'The EasyHandle has been released'
-            : 'Invalid property: ' . $name;
+        $msg = $name === 'handle' ? 'The EasyHandle has been released' : 'Invalid property: ' . $name;
         throw new \BadMethodCallException($msg);
     }
 }

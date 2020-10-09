@@ -1,11 +1,11 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Handler;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\Promise;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise\Promise;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
+use /* Replaced /* Replaced Guzzle */ */Http\Utils;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -71,7 +71,7 @@ class CurlMultiHandler
         if (isset($options['select_timeout'])) {
             $this->selectTimeout = $options['select_timeout'];
         } elseif ($selectTimeout = Utils::getenv('GUZZLE_CURL_SELECT_TIMEOUT')) {
-            @trigger_error('Since /* Replaced /* Replaced /* Replaced guzzle */ */ */http//* Replaced /* Replaced /* Replaced guzzle */ */ */ 7.2.0: Using environment variable GUZZLE_CURL_SELECT_TIMEOUT is deprecated. Use option "select_timeout" instead.', \E_USER_DEPRECATED);
+            @trigger_error('Since /* Replaced /* Replaced guzzle */ */http//* Replaced /* Replaced guzzle */ */ 7.2.0: Using environment variable GUZZLE_CURL_SELECT_TIMEOUT is deprecated. Use option "select_timeout" instead.', \E_USER_DEPRECATED);
             $this->selectTimeout = (int) $selectTimeout;
         } else {
             $this->selectTimeout = 1;
@@ -157,9 +157,7 @@ class CurlMultiHandler
         // Step through the task queue which may add additional requests.
         P\Utils::queue()->run();
 
-        if ($this->active &&
-            \curl_multi_select($this->_mh, $this->selectTimeout) === -1
-        ) {
+        if ($this->active && \curl_multi_select($this->_mh, $this->selectTimeout) === -1) {
             // Perform a usleep if a select returns -1.
             // See: https://bugs.php.net/bug.php?id=61141
             \usleep(250);
@@ -235,11 +233,7 @@ class CurlMultiHandler
             unset($this->handles[$id], $this->delays[$id]);
             $entry['easy']->errno = $done['result'];
             $entry['deferred']->resolve(
-                CurlFactory::finish(
-                    $this,
-                    $entry['easy'],
-                    $this->factory
-                )
+                CurlFactory::finish($this, $entry['easy'], $this->factory)
             );
         }
     }
