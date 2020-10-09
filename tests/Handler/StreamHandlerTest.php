@@ -1,23 +1,23 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Test\Handler;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Test\Handler;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\StreamHandler;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\FnStream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests\Server;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\ConnectException;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced Guzzle */ */Http\Handler\StreamHandler;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\FnStream;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+use /* Replaced /* Replaced Guzzle */ */Http\RequestOptions;
+use /* Replaced /* Replaced Guzzle */ */Http\Tests\Server;
+use /* Replaced /* Replaced Guzzle */ */Http\TransferStats;
+use /* Replaced /* Replaced Guzzle */ */Http\Utils;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * @covers \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\StreamHandler
+ * @covers \/* Replaced /* Replaced Guzzle */ */Http\Handler\StreamHandler
  */
 class StreamHandlerTest extends TestCase
 {
@@ -214,10 +214,6 @@ class StreamHandlerTest extends TestCase
         $handler = new StreamHandler();
         $request = new Request('HEAD', Server::$url);
         $response = $handler($request, ['decode_content' => true])->wait();
-
-        // We do not receive the body for a HEAD request, thus we can't decode it
-        // and the content-encoding must be preserved.
-        self::assertTrue($response->hasHeader('content-encoding'));
 
         // Verify that the content-length matches the encoded size.
         self::assertTrue(!$response->hasHeader('content-length') || $response->getHeaderLine('content-length') == \strlen($content));
@@ -564,7 +560,7 @@ class StreamHandlerTest extends TestCase
         $req = new Request('GET', Server::$url);
         $got = null;
 
-        $stream = /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor();
+        $stream = /* Replaced /* Replaced Psr7 */ */\Utils::streamFor();
         $stream = FnStream::decorate($stream, [
             'write' => static function ($data) use ($stream, &$got) {
                 self::assertNotNull($got);
@@ -590,8 +586,8 @@ class StreamHandlerTest extends TestCase
     public function testInvokesOnStatsOnSuccess()
     {
         Server::flush();
-        Server::enqueue([new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response(200)]);
-        $req = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('GET', Server::$url);
+        Server::enqueue([new /* Replaced /* Replaced Psr7 */ */\Response(200)]);
+        $req = new /* Replaced /* Replaced Psr7 */ */\Request('GET', Server::$url);
         $gotStats = null;
         $handler = new StreamHandler();
         $promise = $handler($req, [
@@ -615,7 +611,7 @@ class StreamHandlerTest extends TestCase
 
     public function testInvokesOnStatsOnError()
     {
-        $req = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('GET', 'http://127.0.0.1:123');
+        $req = new /* Replaced /* Replaced Psr7 */ */\Request('GET', 'http://127.0.0.1:123');
         $gotStats = null;
         $handler = new StreamHandler();
         $promise = $handler($req, [
@@ -645,8 +641,8 @@ class StreamHandlerTest extends TestCase
     public function testStreamIgnoresZeroTimeout()
     {
         Server::flush();
-        Server::enqueue([new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response(200)]);
-        $req = new /* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request('GET', Server::$url);
+        Server::enqueue([new /* Replaced /* Replaced Psr7 */ */\Response(200)]);
+        $req = new /* Replaced /* Replaced Psr7 */ */\Request('GET', Server::$url);
         $gotStats = null;
         $handler = new StreamHandler();
         $promise = $handler($req, [
@@ -680,7 +676,7 @@ class StreamHandlerTest extends TestCase
         Server::flush();
         $handler = new StreamHandler();
         $response = $handler(
-            new Request('GET', Server::$url . '/* Replaced /* Replaced /* Replaced guzzle */ */ */-server/read-timeout'),
+            new Request('GET', Server::$url . '/* Replaced /* Replaced guzzle */ */-server/read-timeout'),
             [
                 RequestOptions::READ_TIMEOUT => 1,
                 RequestOptions::STREAM => true,
