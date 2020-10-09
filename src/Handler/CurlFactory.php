@@ -1,15 +1,15 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Handler;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ConnectException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\FulfilledPromise;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\LazyOpenStream;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Utils;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\ConnectException;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise\FulfilledPromise;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\LazyOpenStream;
+use /* Replaced /* Replaced Guzzle */ */Http\TransferStats;
+use /* Replaced /* Replaced Guzzle */ */Http\Utils;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -316,7 +316,7 @@ class CurlFactory implements CurlFactoryInterface
                 $value = (string) $value;
                 if ($value === '') {
                     // cURL requires a special format for empty headers.
-                    // See https://github.com//* Replaced /* Replaced /* Replaced guzzle */ */ *///* Replaced /* Replaced /* Replaced guzzle */ */ *//issues/1882 for more details.
+                    // See https://github.com//* Replaced /* Replaced guzzle */ *///* Replaced /* Replaced guzzle */ *//issues/1882 for more details.
                     $conf[\CURLOPT_HTTPHEADER][] = "$name;";
                 } else {
                     $conf[\CURLOPT_HTTPHEADER][] = "$name: $value";
@@ -380,7 +380,7 @@ class CurlFactory implements CurlFactoryInterface
             }
         }
 
-        if (!empty($options['decode_content'])) {
+        if (!isset($options['curl'][\CURLOPT_ENCODING]) && !empty($options['decode_content'])) {
             $accept = $easy->request->getHeaderLine('Accept-Encoding');
             if ($accept) {
                 $conf[\CURLOPT_ENCODING] = $accept;
@@ -397,7 +397,7 @@ class CurlFactory implements CurlFactoryInterface
         }
         $sink = $options['sink'];
         if (!\is_string($sink)) {
-            $sink = \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\stream_for($sink);
+            $sink = \/* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\stream_for($sink);
         } elseif (!\is_dir(\dirname($sink))) {
             // Ensure that the directory exists before failing in curl.
             throw new \RuntimeException(\sprintf('Directory %s does not exist for sink value of %s', \dirname($sink), $sink));
@@ -479,7 +479,7 @@ class CurlFactory implements CurlFactoryInterface
         if (isset($options['progress'])) {
             $progress = $options['progress'];
             if (!\is_callable($progress)) {
-                throw new \InvalidArgumentException('progress /* Replaced /* Replaced /* Replaced client */ */ */ option must be callable');
+                throw new \InvalidArgumentException('progress /* Replaced /* Replaced client */ */ option must be callable');
             }
             $conf[\CURLOPT_NOPROGRESS] = false;
             $conf[\CURLOPT_PROGRESSFUNCTION] = static function ($resource, int $downloadSize, int $downloaded, int $uploadSize, int $uploaded) use ($progress) {
