@@ -1,20 +1,21 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Tests;
+namespace /* Replaced /* Replaced Guzzle */ */Http\Tests;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\SetCookie;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ClientException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Handler\MockHandler;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\MessageFormatter;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Response;
+use /* Replaced /* Replaced Guzzle */ */Http\BodySummarizer;
+use /* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJar;
+use /* Replaced /* Replaced Guzzle */ */Http\Cookie\SetCookie;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\ClientException;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\ServerException;
+use /* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler;
+use /* Replaced /* Replaced Guzzle */ */Http\HandlerStack;
+use /* Replaced /* Replaced Guzzle */ */Http\MessageFormatter;
+use /* Replaced /* Replaced Guzzle */ */Http\Middleware;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -47,24 +48,39 @@ class MiddlewareTest extends TestCase
     public function testThrowsExceptionOnHttpClientError()
     {
         $m = Middleware::httpErrors();
-        $h = new MockHandler([new Response(404)]);
+        $h = new MockHandler([new Response(400, [], str_repeat('a', 1000))]);
         $f = $m($h);
         $p = $f(new Request('GET', 'http://foo.com'), ['http_errors' => true]);
         self::assertTrue(P\Is::pending($p));
 
         $this->expectException(ClientException::class);
+        $this->expectExceptionMessage(\sprintf("Client error: `GET http://foo.com` resulted in a `400 Bad Request` response:\n%s (truncated...)", str_repeat('a', 120)));
+        $p->wait();
+    }
+
+    public function testThrowsExceptionOnHttpClientErrorLongBody()
+    {
+        $m = Middleware::httpErrors(new BodySummarizer(200));
+        $h = new MockHandler([new Response(404, [], str_repeat('b', 1000))]);
+        $f = $m($h);
+        $p = $f(new Request('GET', 'http://foo.com'), ['http_errors' => true]);
+        self::assertTrue(P\Is::pending($p));
+
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessage(\sprintf("Client error: `GET http://foo.com` resulted in a `404 Not Found` response:\n%s (truncated...)", str_repeat('b', 200)));
         $p->wait();
     }
 
     public function testThrowsExceptionOnHttpServerError()
     {
         $m = Middleware::httpErrors();
-        $h = new MockHandler([new Response(500)]);
+        $h = new MockHandler([new Response(500, [], 'Oh no!')]);
         $f = $m($h);
         $p = $f(new Request('GET', 'http://foo.com'), ['http_errors' => true]);
         self::assertTrue(P\Is::pending($p));
 
         $this->expectException(ServerException::class);
+        $this->expectExceptionMessage("GET http://foo.com` resulted in a `500 Internal Server Error` response:\nOh no!");
         $p->wait();
     }
 

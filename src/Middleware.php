@@ -1,11 +1,11 @@
 <?php
 
-namespace /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http;
+namespace /* Replaced /* Replaced Guzzle */ */Http;
 
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise as P;
-use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Promise\PromiseInterface;
+use /* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJarInterface;
+use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
+use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -19,7 +19,7 @@ final class Middleware
      * Middleware that adds cookies to requests.
      *
      * The options array must be set to a CookieJarInterface in order to use
-     * cookies. This is typically handled for you by a /* Replaced /* Replaced /* Replaced client */ */ */.
+     * cookies. This is typically handled for you by a /* Replaced /* Replaced client */ */.
      *
      * @return callable Returns a function that accepts the next handler.
      */
@@ -30,7 +30,7 @@ final class Middleware
                 if (empty($options['cookies'])) {
                     return $handler($request, $options);
                 } elseif (!($options['cookies'] instanceof CookieJarInterface)) {
-                    throw new \InvalidArgumentException('cookies must be an instance of /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface');
+                    throw new \InvalidArgumentException('cookies must be an instance of /* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJarInterface');
                 }
                 $cookieJar = $options['cookies'];
                 $request = $cookieJar->withCookieHeader($request);
@@ -49,22 +49,24 @@ final class Middleware
      * Middleware that throws exceptions for 4xx or 5xx responses when the
      * "http_error" request option is set to true.
      *
+     * @param BodySummarizerInterface|null $bodySummarizer The body summarizer to use in exception messages.
+     *
      * @return callable(callable): callable Returns a function that accepts the next handler.
      */
-    public static function httpErrors(): callable
+    public static function httpErrors(BodySummarizerInterface $bodySummarizer = null): callable
     {
-        return static function (callable $handler): callable {
-            return static function ($request, array $options) use ($handler) {
+        return static function (callable $handler) use ($bodySummarizer): callable {
+            return static function ($request, array $options) use ($handler, $bodySummarizer) {
                 if (empty($options['http_errors'])) {
                     return $handler($request, $options);
                 }
                 return $handler($request, $options)->then(
-                    static function (ResponseInterface $response) use ($request) {
+                    static function (ResponseInterface $response) use ($request, $bodySummarizer) {
                         $code = $response->getStatusCode();
                         if ($code < 400) {
                             return $response;
                         }
-                        throw RequestException::create($request, $response);
+                        throw RequestException::create($request, $response, null, [], $bodySummarizer);
                     }
                 );
             };
@@ -189,7 +191,7 @@ final class Middleware
      */
     public static function log(LoggerInterface $logger, $formatter, string $logLevel = 'info'): callable
     {
-        // To be compatible with /* Replaced /* Replaced /* Replaced Guzzle */ */ */ 7.1.x we need to allow users to pass a MessageFormatter
+        // To be compatible with /* Replaced /* Replaced Guzzle */ */ 7.1.x we need to allow users to pass a MessageFormatter
         if (!$formatter instanceof MessageFormatter && !$formatter instanceof MessageFormatterInterface) {
             throw new \LogicException(sprintf('Argument 2 to %s::log() must be of type %s', self::class, MessageFormatterInterface::class));
         }
