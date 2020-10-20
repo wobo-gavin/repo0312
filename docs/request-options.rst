@@ -2,16 +2,16 @@
 Request Options
 ===============
 
-You can customize requests created and transferred by a /* Replaced /* Replaced /* Replaced client */ */ */ using
+You can customize requests created and transferred by a /* Replaced /* Replaced client */ */ using
 **request options**. Request options control various aspects of a request
 including, headers, query string parameters, timeout settings, the body of a
 request, and much more.
 
-All of the following examples use the following /* Replaced /* Replaced /* Replaced client */ */ */:
+All of the following examples use the following /* Replaced /* Replaced client */ */:
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client(['base_uri' => 'http://httpbin.org']);
+    $/* Replaced /* Replaced client */ */ = new /* Replaced /* Replaced Guzzle */ */Http\Client(['base_uri' => 'http://httpbin.org']);
 
 
 .. _allow_redirects-option:
@@ -35,13 +35,13 @@ allow_redirects
             'track_redirects' => false
         ]
 
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::ALLOW_REDIRECTS``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::ALLOW_REDIRECTS``
 
 Set to ``false`` to disable redirects.
 
 .. code-block:: php
 
-    $res = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/redirect/3', ['allow_redirects' => false]);
+    $res = $/* Replaced /* Replaced client */ */->request('GET', '/redirect/3', ['allow_redirects' => false]);
     echo $res->getStatusCode();
     // 302
 
@@ -50,7 +50,7 @@ number of 5 redirects.
 
 .. code-block:: php
 
-    $res = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/redirect/3');
+    $res = $/* Replaced /* Replaced client */ */->request('GET', '/redirect/3');
     echo $res->getStatusCode();
     // 200
 
@@ -71,12 +71,12 @@ pairs:
   redirect response that was received. Any return value from the on_redirect
   function is ignored.
 - track_redirects: (bool) When set to ``true``, each redirected URI and status
-  code encountered will be tracked in the ``X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Redirect-History`` and
-  ``X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Redirect-Status-History`` headers respectively. All URIs and
+  code encountered will be tracked in the ``X-/* Replaced /* Replaced Guzzle */ */-Redirect-History`` and
+  ``X-/* Replaced /* Replaced Guzzle */ */-Redirect-Status-History`` headers respectively. All URIs and
   status codes will be stored in the order which the redirects were encountered.
 
-  Note: When tracking redirects the ``X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Redirect-History`` header will
-  exclude the initial request's URI and the ``X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Redirect-Status-History``
+  Note: When tracking redirects the ``X-/* Replaced /* Replaced Guzzle */ */-Redirect-History`` header will
+  exclude the initial request's URI and the ``X-/* Replaced /* Replaced Guzzle */ */-Redirect-Status-History``
   header will exclude the final status code.
 
 .. code-block:: php
@@ -93,7 +93,7 @@ pairs:
         echo 'Redirecting! ' . $request->getUri() . ' to ' . $uri . "\n";
     };
 
-    $res = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/redirect/3', [
+    $res = $/* Replaced /* Replaced client */ */->request('GET', '/redirect/3', [
         'allow_redirects' => [
             'max'             => 10,        // allow at most 10 redirects.
             'strict'          => true,      // use "strict" RFC compliant redirects.
@@ -107,18 +107,18 @@ pairs:
     echo $res->getStatusCode();
     // 200
 
-    echo $res->getHeaderLine('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Redirect-History');
+    echo $res->getHeaderLine('X-/* Replaced /* Replaced Guzzle */ */-Redirect-History');
     // http://first-redirect, http://second-redirect, etc...
 
-    echo $res->getHeaderLine('X-/* Replaced /* Replaced /* Replaced Guzzle */ */ */-Redirect-Status-History');
+    echo $res->getHeaderLine('X-/* Replaced /* Replaced Guzzle */ */-Redirect-Status-History');
     // 301, 302, etc...
 
 .. warning::
 
     This option only has an effect if your handler has the
-    ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::redirect`` middleware. This middleware is added
-    by default when a /* Replaced /* Replaced /* Replaced client */ */ */ is created with no handler, and is added by
-    default when creating a handler with ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\HandlerStack::create``.
+    ``/* Replaced /* Replaced Guzzle */ */Http\Middleware::redirect`` middleware. This middleware is added
+    by default when a /* Replaced /* Replaced client */ */ is created with no handler, and is added by
+    default when creating a handler with ``/* Replaced /* Replaced Guzzle */ */Http\HandlerStack::create``.
 
 
 auth
@@ -133,7 +133,7 @@ auth
         - string
         - null
 :Default: None
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::AUTH``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::AUTH``
 
 The built-in authentication types are as follows:
 
@@ -144,7 +144,7 @@ basic
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get', ['auth' => ['username', 'password']]);
+    $/* Replaced /* Replaced client */ */->request('GET', '/get', ['auth' => ['username', 'password']]);
 
 digest
     Use `digest authentication <http://www.ietf.org/rfc/rfc2069.txt>`_
@@ -152,7 +152,7 @@ digest
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get', [
+    $/* Replaced /* Replaced client */ */->request('GET', '/get', [
         'auth' => ['username', 'password', 'digest']
     ]);
 
@@ -168,7 +168,7 @@ ntlm
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get', [
+    $/* Replaced /* Replaced client */ */->request('GET', '/get', [
         'auth' => ['username', 'password', 'ntlm']
     ]);
 
@@ -187,7 +187,7 @@ body
     - ``fopen()`` resource
     - ``Psr\Http\Message\StreamInterface``
 :Default: None
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::BODY``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::BODY``
 
 This setting can be set to any of the following types:
 
@@ -196,7 +196,7 @@ This setting can be set to any of the following types:
   .. code-block:: php
 
       // You can send requests that use a string as the message body.
-      $/* Replaced /* Replaced /* Replaced client */ */ */->request('PUT', '/put', ['body' => 'foo']);
+      $/* Replaced /* Replaced client */ */->request('PUT', '/put', ['body' => 'foo']);
 
 - resource returned from ``fopen()``
 
@@ -204,15 +204,15 @@ This setting can be set to any of the following types:
 
       // You can send requests that use a stream resource as the body.
       $resource = fopen('http://httpbin.org', 'r');
-      $/* Replaced /* Replaced /* Replaced client */ */ */->request('PUT', '/put', ['body' => $resource]);
+      $/* Replaced /* Replaced client */ */->request('PUT', '/put', ['body' => $resource]);
 
 - ``Psr\Http\Message\StreamInterface``
 
   .. code-block:: php
 
-      // You can send requests that use a /* Replaced /* Replaced /* Replaced Guzzle */ */ */ stream object as the body
-      $stream = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor('contents...');
-      $/* Replaced /* Replaced /* Replaced client */ */ */->request('POST', '/post', ['body' => $stream]);
+      // You can send requests that use a /* Replaced /* Replaced Guzzle */ */ stream object as the body
+      $stream = /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Utils::streamFor('contents...');
+      $/* Replaced /* Replaced client */ */->request('POST', '/post', ['body' => $stream]);
 
 .. note::
 
@@ -225,7 +225,7 @@ cert
 ----
 
 :Summary: Set to a string to specify the path to a file containing a PEM
-        formatted /* Replaced /* Replaced /* Replaced client */ */ */ side certificate. If a password is required, then set to
+        formatted /* Replaced /* Replaced client */ */ side certificate. If a password is required, then set to
         an array containing the path to the PEM file in the first array element
         followed by the password required for the certificate in the second array
         element.
@@ -233,11 +233,11 @@ cert
         - string
         - array
 :Default: None
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::CERT``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::CERT``
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/', ['cert' => ['/path/server.pem', 'password']]);
+    $/* Replaced /* Replaced client */ */->request('GET', '/', ['cert' => ['/path/server.pem', 'password']]);
 
 
 .. _cookies-option:
@@ -247,29 +247,29 @@ cookies
 
 :Summary: Specifies whether or not cookies are used in a request or what cookie
         jar to use or what cookies to send.
-:Types: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface``
+:Types: ``/* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJarInterface``
 :Default: None
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::COOKIES``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::COOKIES``
 
 You must specify the cookies option as a
-``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJarInterface`` or ``false``.
+``/* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJarInterface`` or ``false``.
 
 .. code-block:: php
 
-    $jar = new \/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Cookie\CookieJar();
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get', ['cookies' => $jar]);
+    $jar = new \/* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJar();
+    $/* Replaced /* Replaced client */ */->request('GET', '/get', ['cookies' => $jar]);
 
 .. warning::
 
     This option only has an effect if your handler has the
-    ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::cookies`` middleware. This middleware is added
-    by default when a /* Replaced /* Replaced /* Replaced client */ */ */ is created with no handler, and is added by
-    default when creating a handler with ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler``.
+    ``/* Replaced /* Replaced Guzzle */ */Http\Middleware::cookies`` middleware. This middleware is added
+    by default when a /* Replaced /* Replaced client */ */ is created with no handler, and is added by
+    default when creating a handler with ``/* Replaced /* Replaced Guzzle */ */Http\default_handler``.
 
 .. tip::
 
-    When creating a /* Replaced /* Replaced /* Replaced client */ */ */, you can set the default cookie option to ``true``
-    to use a shared cookie session associated with the /* Replaced /* Replaced /* Replaced client */ */ */.
+    When creating a /* Replaced /* Replaced client */ */, you can set the default cookie option to ``true``
+    to use a shared cookie session associated with the /* Replaced /* Replaced client */ */.
 
 
 .. _connect_timeout-option:
@@ -281,12 +281,12 @@ connect_timeout
         to a server. Use ``0`` to wait indefinitely (the default behavior).
 :Types: float
 :Default: ``0``
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::CONNECT_TIMEOUT``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::CONNECT_TIMEOUT``
 
 .. code-block:: php
 
-    // Timeout if the /* Replaced /* Replaced /* Replaced client */ */ */ fails to connect to the server in 3.14 seconds.
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/delay/5', ['connect_timeout' => 3.14]);
+    // Timeout if the /* Replaced /* Replaced client */ */ fails to connect to the server in 3.14 seconds.
+    $/* Replaced /* Replaced client */ */->request('GET', '/delay/5', ['connect_timeout' => 3.14]);
 
 .. note::
 
@@ -310,11 +310,11 @@ debug
         - bool
         - ``fopen()`` resource
 :Default: None
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::DEBUG``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::DEBUG``
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get', ['debug' => true]);
+    $/* Replaced /* Replaced client */ */->request('GET', '/get', ['debug' => true]);
 
 Running the above example would output something like the following:
 
@@ -324,7 +324,7 @@ Running the above example would output something like the following:
     *   Trying 107.21.213.98... * Connected to httpbin.org (107.21.213.98) port 80 (#0)
     > GET /get HTTP/1.1
     Host: httpbin.org
-    User-Agent: /* Replaced /* Replaced /* Replaced Guzzle */ */ *//4.0 curl/7.21.4 PHP/5.5.7
+    User-Agent: /* Replaced /* Replaced Guzzle */ *//4.0 curl/7.21.4 PHP/5.5.7
 
     < HTTP/1.1 200 OK
     < Access-Control-Allow-Origin: *
@@ -348,11 +348,11 @@ decode_content
         - string
         - bool
 :Default: ``true``
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::DECODE_CONTENT``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::DECODE_CONTENT``
 
 This option can be used to control how content-encoded response bodies are
 handled. By default, ``decode_content`` is set to true, meaning any gzipped
-or deflated response will be decoded by /* Replaced /* Replaced /* Replaced Guzzle */ */ */.
+or deflated response will be decoded by /* Replaced /* Replaced Guzzle */ */.
 
 When set to ``false``, the body of a response is never decoded, meaning the
 bytes pass through the handler unchanged.
@@ -360,7 +360,7 @@ bytes pass through the handler unchanged.
 .. code-block:: php
 
     // Request gzipped data, but do not decode it while downloading
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/foo.js', [
+    $/* Replaced /* Replaced client */ */->request('GET', '/foo.js', [
         'headers'        => ['Accept-Encoding' => 'gzip'],
         'decode_content' => false
     ]);
@@ -372,7 +372,7 @@ header of the request.
 .. code-block:: php
 
     // Pass "gzip" as the Accept-Encoding header.
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/foo.js', ['decode_content' => 'gzip']);
+    $/* Replaced /* Replaced client */ */->request('GET', '/foo.js', ['decode_content' => 'gzip']);
 
 
 .. _delay-option:
@@ -385,7 +385,7 @@ delay
     - integer
     - float
 :Default: null
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::DELAY``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::DELAY``
 
 
 .. _expect-option:
@@ -398,7 +398,7 @@ expect
     - bool
     - integer
 :Default: ``1048576``
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::EXPECT``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::EXPECT``
 
 Set to ``true`` to enable the "Expect: 100-Continue" header for all requests
 that sends a body. Set to ``false`` to disable the "Expect: 100-Continue"
@@ -407,7 +407,7 @@ be greater than the number in order to send the Expect header. Setting to a
 number will send the Expect header for all requests in which the size of the
 payload cannot be determined or where the body is not rewindable.
 
-By default, /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will add the "Expect: 100-Continue" header when the size of
+By default, /* Replaced /* Replaced Guzzle */ */ will add the "Expect: 100-Continue" header when the size of
 the body of a request is greater than 1 MB and a request is using HTTP/1.1.
 
 .. note::
@@ -415,7 +415,7 @@ the body of a request is greater than 1 MB and a request is using HTTP/1.1.
     This option only takes effect when using HTTP/1.1. The HTTP/1.0 and
     HTTP/2.0 protocols do not support the "Expect: 100-Continue" header.
     Support for handling the "Expect: 100-Continue" workflow must be
-    implemented by /* Replaced /* Replaced /* Replaced Guzzle */ */ */ HTTP handlers used by a /* Replaced /* Replaced /* Replaced client */ */ */.
+    implemented by /* Replaced /* Replaced Guzzle */ */ HTTP handlers used by a /* Replaced /* Replaced client */ */.
 
 
 force_ip_resolve
@@ -424,15 +424,15 @@ force_ip_resolve
 :Summary: Set to "v4" if you want the HTTP handlers to use only ipv4 protocol or "v6" for ipv6 protocol.
 :Types: string
 :Default: null
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::FORCE_IP_RESOLVE``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::FORCE_IP_RESOLVE``
 
 .. code-block:: php
 
     // Force ipv4 protocol
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/foo', ['force_ip_resolve' => 'v4']);
+    $/* Replaced /* Replaced client */ */->request('GET', '/foo', ['force_ip_resolve' => 'v4']);
 
     // Force ipv6 protocol
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/foo', ['force_ip_resolve' => 'v6']);
+    $/* Replaced /* Replaced client */ */->request('GET', '/foo', ['force_ip_resolve' => 'v6']);
 
 .. note::
 
@@ -446,7 +446,7 @@ form_params
 
 :Summary: Used to send an `application/x-www-form-urlencoded` POST request.
 :Types: array
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::FORM_PARAMS``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::FORM_PARAMS``
 
 Associative array of form field names to values where each value is a string or
 array of strings. Sets the Content-Type header to
@@ -455,7 +455,7 @@ present.
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('POST', '/post', [
+    $/* Replaced /* Replaced client */ */->request('POST', '/post', [
         'form_params' => [
             'foo' => 'bar',
             'baz' => ['hi', 'there!']
@@ -479,12 +479,12 @@ headers
     representing the header field values.
 :Types: array
 :Defaults: None
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::HEADERS``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::HEADERS``
 
 .. code-block:: php
 
     // Set various headers on a request
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get', [
+    $/* Replaced /* Replaced client */ */->request('GET', '/get', [
         'headers' => [
             'User-Agent' => 'testing/1.0',
             'Accept'     => 'application/json',
@@ -492,36 +492,36 @@ headers
         ]
     ]);
 
-Headers may be added as default options when creating a /* Replaced /* Replaced /* Replaced client */ */ */. When headers
+Headers may be added as default options when creating a /* Replaced /* Replaced client */ */. When headers
 are used as default options, they are only applied if the request being created
 does not already contain the specific header. This includes both requests passed
-to the /* Replaced /* Replaced /* Replaced client */ */ */ in the ``send()`` and ``sendAsync()`` methods, and requests
-created by the /* Replaced /* Replaced /* Replaced client */ */ */ (e.g., ``request()`` and ``requestAsync()``).
+to the /* Replaced /* Replaced client */ */ in the ``send()`` and ``sendAsync()`` methods, and requests
+created by the /* Replaced /* Replaced client */ */ (e.g., ``request()`` and ``requestAsync()``).
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client(['headers' => ['X-Foo' => 'Bar']]);
+    $/* Replaced /* Replaced client */ */ = new /* Replaced /* Replaced Guzzle */ */Http\Client(['headers' => ['X-Foo' => 'Bar']]);
 
     // Will send a request with the X-Foo header.
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get');
+    $/* Replaced /* Replaced client */ */->request('GET', '/get');
 
     // Sets the X-Foo header to "test", which prevents the default header
     // from being applied.
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get', ['headers' => ['X-Foo' => 'test']]);
+    $/* Replaced /* Replaced client */ */->request('GET', '/get', ['headers' => ['X-Foo' => 'test']]);
 
     // Will disable adding in default headers.
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get', ['headers' => null]);
+    $/* Replaced /* Replaced client */ */->request('GET', '/get', ['headers' => null]);
 
     // Will not overwrite the X-Foo header because it is in the message.
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
+    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
     $request = new Request('GET', 'http://foo.com', ['X-Foo' => 'test']);
-    $/* Replaced /* Replaced /* Replaced client */ */ */->send($request);
+    $/* Replaced /* Replaced client */ */->send($request);
 
     // Will overwrite the X-Foo header with the request option provided in the
     // send method.
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Request;
+    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
     $request = new Request('GET', 'http://foo.com', ['X-Foo' => 'test']);
-    $/* Replaced /* Replaced /* Replaced client */ */ */->send($request, ['headers' => ['X-Foo' => 'overwrite']]);
+    $/* Replaced /* Replaced client */ */->send($request, ['headers' => ['X-Foo' => 'overwrite']]);
 
 
 .. _http-errors-option:
@@ -534,23 +534,23 @@ http_errors
     HTTP protocol errors are encountered.
 :Types: bool
 :Default: ``true``
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::HTTP_ERRORS``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::HTTP_ERRORS``
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/status/500');
-    // Throws a /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\ServerException
+    $/* Replaced /* Replaced client */ */->request('GET', '/status/500');
+    // Throws a /* Replaced /* Replaced Guzzle */ */Http\Exception\ServerException
 
-    $res = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/status/500', ['http_errors' => false]);
+    $res = $/* Replaced /* Replaced client */ */->request('GET', '/status/500', ['http_errors' => false]);
     echo $res->getStatusCode();
     // 500
 
 .. warning::
 
     This option only has an effect if your handler has the
-    ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware::httpErrors`` middleware. This middleware is added
-    by default when a /* Replaced /* Replaced /* Replaced client */ */ */ is created with no handler, and is added by
-    default when creating a handler with ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\default_handler``.
+    ``/* Replaced /* Replaced Guzzle */ */Http\Middleware::httpErrors`` middleware. This middleware is added
+    by default when a /* Replaced /* Replaced client */ */ is created with no handler, and is added by
+    default when creating a handler with ``/* Replaced /* Replaced Guzzle */ */Http\default_handler``.
 
 
 idn_conversion
@@ -562,14 +562,14 @@ idn_conversion
     - bool
     - int
 :Default: ``true`` if ``intl`` extension is available (and ICU library is 4.6+ for PHP 7.2+), ``false`` otherwise
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::IDN_CONVERSION``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::IDN_CONVERSION``
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'https://яндекс.рф');
+    $/* Replaced /* Replaced client */ */->request('GET', 'https://яндекс.рф');
     // яндекс.рф is translated to xn--d1acpjx3f.xn--p1ai before passing it to the handler
 
-    $res = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'https://яндекс.рф', ['idn_conversion' => false]);
+    $res = $/* Replaced /* Replaced client */ */->request('GET', 'https://яндекс.рф', ['idn_conversion' => false]);
     // The domain part (яндекс.рф) stays unmodified
 
 Enables/disables IDN support, can also be used for precise control by combining
@@ -587,18 +587,18 @@ json
 :Types:
     Any PHP type that can be operated on by PHP's ``json_encode()`` function.
 :Default: None
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::JSON``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::JSON``
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->request('PUT', '/put', ['json' => ['foo' => 'bar']]);
+    $response = $/* Replaced /* Replaced client */ */->request('PUT', '/put', ['json' => ['foo' => 'bar']]);
 
 Here's an example of using the ``tap`` middleware to see what request is sent
 over the wire.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Middleware;
+    use /* Replaced /* Replaced Guzzle */ */Http\Middleware;
 
     // Create a middleware that echoes parts of the request.
     $tapMiddleware = Middleware::tap(function ($request) {
@@ -609,8 +609,8 @@ over the wire.
     });
 
     // The $handler variable is the handler passed in the
-    // options to the /* Replaced /* Replaced /* Replaced client */ */ */ constructor.
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->request('PUT', '/put', [
+    // options to the /* Replaced /* Replaced client */ */ constructor.
+    $response = $/* Replaced /* Replaced client */ */->request('PUT', '/put', [
         'json'    => ['foo' => 'bar'],
         'handler' => $tapMiddleware($handler)
     ]);
@@ -632,7 +632,7 @@ multipart
 
 :Summary: Sets the body of the request to a `multipart/form-data` form.
 :Types: array
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::MULTIPART``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::MULTIPART``
 
 The value of ``multipart`` is an array of associative arrays, each containing
 the following key value pairs:
@@ -646,7 +646,7 @@ the following key value pairs:
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('POST', '/post', [
+    $/* Replaced /* Replaced client */ */->request('POST', '/post', [
         'multipart' => [
             [
                 'name'     => 'foo',
@@ -682,11 +682,11 @@ on_headers
 :Summary: A callable that is invoked when the HTTP headers of the response have
     been received but the body has not yet begun to download.
 :Types: - callable
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::ON_HEADERS``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::ON_HEADERS``
 
 The callable accepts a ``Psr\Http\Message\ResponseInterface`` object. If an exception
 is thrown by the callable, then the promise associated with the response will
-be rejected with a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException`` that wraps the
+be rejected with a ``/* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException`` that wraps the
 exception that was thrown.
 
 You may need to know what headers and status codes were received before data
@@ -695,7 +695,7 @@ can be written to the sink.
 .. code-block:: php
 
     // Reject responses that are greater than 1024 bytes.
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'http://httpbin.org/stream/1024', [
+    $/* Replaced /* Replaced client */ */->request('GET', 'http://httpbin.org/stream/1024', [
         'on_headers' => function (ResponseInterface $response) {
             if ($response->getHeaderLine('Content-Length') > 1024) {
                 throw new \Exception('The file is too big!');
@@ -716,23 +716,23 @@ on_stats
 
 :Summary: ``on_stats`` allows you to get access to transfer statistics of a
     request and access the lower level transfer details of the handler
-    associated with your /* Replaced /* Replaced /* Replaced client */ */ */. ``on_stats`` is a callable that is invoked
+    associated with your /* Replaced /* Replaced client */ */. ``on_stats`` is a callable that is invoked
     when a handler has finished sending a request. The callback is invoked
     with transfer statistics about the request, the response received, or the
     error encountered. Included in the data is the total amount of time taken
     to send the request.
 :Types: - callable
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::ON_STATS``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::ON_STATS``
 
-The callable accepts a ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats`` object.
+The callable accepts a ``/* Replaced /* Replaced Guzzle */ */Http\TransferStats`` object.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\TransferStats;
+    use /* Replaced /* Replaced Guzzle */ */Http\TransferStats;
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */ = new /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Client();
+    $/* Replaced /* Replaced client */ */ = new /* Replaced /* Replaced Guzzle */ */Http\Client();
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', 'http://httpbin.org/stream/1024', [
+    $/* Replaced /* Replaced client */ */->request('GET', 'http://httpbin.org/stream/1024', [
         'on_stats' => function (TransferStats $stats) {
             echo $stats->getEffectiveUri() . "\n";
             echo $stats->getTransferTime() . "\n";
@@ -758,7 +758,7 @@ progress
 :Summary: Defines a function to invoke when transfer progress is made.
 :Types: - callable
 :Default: None
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::PROGRESS``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::PROGRESS``
 
 The function accepts the following positional arguments:
 
@@ -770,7 +770,7 @@ The function accepts the following positional arguments:
 .. code-block:: php
 
     // Send a GET request to /get?foo=bar
-    $result = $/* Replaced /* Replaced /* Replaced client */ */ */->request(
+    $result = $/* Replaced /* Replaced client */ */->request(
         'GET',
         '/',
         [
@@ -797,13 +797,13 @@ proxy
     - string
     - array
 :Default: None
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::PROXY``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::PROXY``
 
 Pass a string to specify a proxy for all protocols.
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/', ['proxy' => 'tcp://localhost:8125']);
+    $/* Replaced /* Replaced client */ */->request('GET', '/', ['proxy' => 'tcp://localhost:8125']);
 
 Pass an associative array to specify HTTP proxies for specific URI schemes
 (i.e., "http", "https"). Provide a ``no`` key value pair to provide a list of
@@ -811,7 +811,7 @@ host names that should not be proxied to.
 
 .. note::
 
-    /* Replaced /* Replaced /* Replaced Guzzle */ */ */ will automatically populate this value with your environment's
+    /* Replaced /* Replaced Guzzle */ */ will automatically populate this value with your environment's
     ``NO_PROXY`` environment variable. However, when providing a ``proxy``
     request option, it is up to you to provide the ``no`` value parsed from
     the ``NO_PROXY`` environment variable
@@ -819,7 +819,7 @@ host names that should not be proxied to.
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/', [
+    $/* Replaced /* Replaced client */ */->request('GET', '/', [
         'proxy' => [
             'http'  => 'tcp://localhost:8125', // Use this proxy with "http"
             'https' => 'tcp://localhost:9124', // Use this proxy with "https",
@@ -842,12 +842,12 @@ query
     - array
     - string
 :Default: None
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::QUERY``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::QUERY``
 
 .. code-block:: php
 
     // Send a GET request to /get?foo=bar
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get', ['query' => ['foo' => 'bar']]);
+    $/* Replaced /* Replaced client */ */->request('GET', '/get', ['query' => ['foo' => 'bar']]);
 
 Query strings specified in the ``query`` option will overwrite all query string
 values supplied in the URI of a request.
@@ -855,7 +855,7 @@ values supplied in the URI of a request.
 .. code-block:: php
 
     // Send a GET request to /get?foo=bar
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get?abc=123', ['query' => ['foo' => 'bar']]);
+    $/* Replaced /* Replaced client */ */->request('GET', '/get?abc=123', ['query' => ['foo' => 'bar']]);
 
 read_timeout
 ------------
@@ -863,13 +863,13 @@ read_timeout
 :Summary: Float describing the timeout to use when reading a streamed body
 :Types: float
 :Default: Defaults to the value of the ``default_socket_timeout`` PHP ini setting
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::READ_TIMEOUT``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::READ_TIMEOUT``
 
 The timeout applies to individual read operations on a streamed body (when the ``stream`` option is enabled).
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/stream', [
+    $response = $/* Replaced /* Replaced client */ */->request('GET', '/stream', [
         'stream' => true,
         'read_timeout' => 10,
     ]);
@@ -894,21 +894,21 @@ sink
     - ``Psr\Http\Message\StreamInterface``
 
 :Default: PHP temp stream
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::SINK``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::SINK``
 
 Pass a string to specify the path to a file that will store the contents of the
 response body:
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/stream/20', ['sink' => '/path/to/file']);
+    $/* Replaced /* Replaced client */ */->request('GET', '/stream/20', ['sink' => '/path/to/file']);
 
 Pass a resource returned from ``fopen()`` to write the response to a PHP stream:
 
 .. code-block:: php
 
     $resource = fopen('/path/to/file', 'w');
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/stream/20', ['sink' => $resource]);
+    $/* Replaced /* Replaced client */ */->request('GET', '/stream/20', ['sink' => $resource]);
 
 Pass a ``Psr\Http\Message\StreamInterface`` object to stream the response
 body to an open PSR-7 stream.
@@ -916,8 +916,8 @@ body to an open PSR-7 stream.
 .. code-block:: php
 
     $resource = fopen('/path/to/file', 'w');
-    $stream = /* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\/* Replaced /* Replaced /* Replaced Psr7 */ */ */\Utils::streamFor($resource);
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/stream/20', ['save_to' => $stream]);
+    $stream = /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Utils::streamFor($resource);
+    $/* Replaced /* Replaced client */ */->request('GET', '/stream/20', ['save_to' => $stream]);
 
 .. note::
 
@@ -939,7 +939,7 @@ ssl_key
         - string
         - array
 :Default: None
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::SSL_KEY``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::SSL_KEY``
 
 .. note::
 
@@ -957,11 +957,11 @@ stream
     up-front.
 :Types: bool
 :Default: ``false``
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::STREAM``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::STREAM``
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/stream/20', ['stream' => true]);
+    $response = $/* Replaced /* Replaced client */ */->request('GET', '/stream/20', ['stream' => true]);
     // Read bytes off of the stream until the end of the stream is reached
     $body = $response->getBody();
     while (!$body->eof()) {
@@ -971,7 +971,7 @@ stream
 .. note::
 
     Streaming response support must be implemented by the HTTP handler used by
-    a /* Replaced /* Replaced /* Replaced client */ */ */. This option might not be supported by every HTTP handler, but the
+    a /* Replaced /* Replaced client */ */. This option might not be supported by every HTTP handler, but the
     interface of the response object remains the same regardless of whether or
     not it is supported by the handler.
 
@@ -983,7 +983,7 @@ synchronous
     response. This can be useful for optimizations.
 :Types: bool
 :Default: none
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::SYNCHRONOUS``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::SYNCHRONOUS``
 
 
 .. _verify-option:
@@ -1002,18 +1002,18 @@ verify
     - bool
     - string
 :Default: ``true``
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::VERIFY``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::VERIFY``
 
 .. code-block:: php
 
     // Use the system's CA bundle (this is the default setting)
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/', ['verify' => true]);
+    $/* Replaced /* Replaced client */ */->request('GET', '/', ['verify' => true]);
 
     // Use a custom SSL certificate on disk.
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/', ['verify' => '/path/to/cert.pem']);
+    $/* Replaced /* Replaced client */ */->request('GET', '/', ['verify' => '/path/to/cert.pem']);
 
     // Disable validation entirely (don't do this!).
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/', ['verify' => false]);
+    $/* Replaced /* Replaced client */ */->request('GET', '/', ['verify' => false]);
 
 If you do not need a specific certificate bundle, then Mozilla provides a
 commonly used CA bundle which can be downloaded
@@ -1034,13 +1034,13 @@ timeout
         to wait indefinitely (the default behavior).
 :Types: float
 :Default: ``0``
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::TIMEOUT``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::TIMEOUT``
 
 .. code-block:: php
 
     // Timeout if a server does not return a response in 3.14 seconds.
-    $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/delay/5', ['timeout' => 3.14]);
-    // PHP Fatal error:  Uncaught exception '/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\Exception\RequestException'
+    $/* Replaced /* Replaced client */ */->request('GET', '/delay/5', ['timeout' => 3.14]);
+    // PHP Fatal error:  Uncaught exception '/* Replaced /* Replaced Guzzle */ */Http\Exception\TransferException'
 
 
 .. _version-option:
@@ -1051,9 +1051,9 @@ version
 :Summary: Protocol version to use with the request.
 :Types: string, float
 :Default: ``1.1``
-:Constant: ``/* Replaced /* Replaced /* Replaced Guzzle */ */ */Http\RequestOptions::VERSION``
+:Constant: ``/* Replaced /* Replaced Guzzle */ */Http\RequestOptions::VERSION``
 
 .. code-block:: php
 
     // Force HTTP/1.0
-    $request = $/* Replaced /* Replaced /* Replaced client */ */ */->request('GET', '/get', ['version' => 1.0]);
+    $request = $/* Replaced /* Replaced client */ */->request('GET', '/get', ['version' => 1.0]);
