@@ -28,3 +28,16 @@ jobs:
 
       - name: Roave BC Check
         uses: docker://nyholm/roave-bc-check-ga
+
+  phpcsfixer-check:
+    name: PHP-CS-Fixer Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: PHP-CS-Fixer Check
+        uses: docker://oskarstark/php-cs-fixer-ga
++      with:
++        args: --config=.project.php_cs --diff --dry-run
