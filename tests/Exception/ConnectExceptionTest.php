@@ -1,15 +1,15 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Tests\Exception;
+namespace /* Replaced Guzzle */Http\Tests\Exception;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\ConnectException;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+use /* Replaced Guzzle */Http\Exception\ConnectException;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\NetworkExceptionInterface;
 use Psr\Http\Client\RequestExceptionInterface;
 
 /**
- * @covers \/* Replaced /* Replaced Guzzle */ */Http\Exception\ConnectException
+ * @covers \/* Replaced Guzzle */Http\Exception\ConnectException
  */
 class ConnectExceptionTest extends TestCase
 {

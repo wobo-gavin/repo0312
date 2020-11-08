@@ -1,8 +1,8 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Handler;
+namespace /* Replaced Guzzle */Http\Handler;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
+use /* Replaced Guzzle */Http\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -10,7 +10,7 @@ use Psr\Http\Message\RequestInterface;
  *
  * When using the CurlHandler, custom curl options can be specified as an
  * associative array of curl option constants mapping to values in the
- * **curl** key of the "/* Replaced /* Replaced client */ */" key of the request.
+ * **curl** key of the "/* Replaced client */" key of the request.
  *
  * @final
  */

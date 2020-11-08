@@ -1,15 +1,15 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Tests;
+namespace /* Replaced Guzzle */Http\Tests;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler;
-use /* Replaced /* Replaced Guzzle */ */Http\HandlerStack;
-use /* Replaced /* Replaced Guzzle */ */Http\Middleware;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\FnStream;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+use /* Replaced Guzzle */Http\Handler\MockHandler;
+use /* Replaced Guzzle */Http\HandlerStack;
+use /* Replaced Guzzle */Http\Middleware;
+use /* Replaced Guzzle */Http\Promise\PromiseInterface;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\FnStream;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
@@ -54,7 +54,7 @@ class PrepareBodyMiddlewareTest extends TestCase
 
     public function testAddsTransferEncodingWhenNoContentLength()
     {
-        $body = FnStream::decorate(/* Replaced /* Replaced Psr7 */ */\Utils::streamFor('foo'), [
+        $body = FnStream::decorate(/* Replaced Psr7 */\Utils::streamFor('foo'), [
             'getSize' => static function () {
                 return null;
             }
@@ -78,7 +78,7 @@ class PrepareBodyMiddlewareTest extends TestCase
 
     public function testAddsContentTypeWhenMissingAndPossible()
     {
-        $bd = /* Replaced /* Replaced Psr7 */ */\Utils::streamFor(\fopen(__DIR__ . '/../composer.json', 'r'));
+        $bd = /* Replaced Psr7 */\Utils::streamFor(\fopen(__DIR__ . '/../composer.json', 'r'));
         $h = new MockHandler([
             static function (RequestInterface $request) {
                 self::assertSame('application/json', $request->getHeaderLine('Content-Type'));
@@ -111,7 +111,7 @@ class PrepareBodyMiddlewareTest extends TestCase
      */
     public function testAddsExpect($value, $result)
     {
-        $bd = /* Replaced /* Replaced Psr7 */ */\Utils::streamFor(\fopen(__DIR__ . '/../composer.json', 'r'));
+        $bd = /* Replaced Psr7 */\Utils::streamFor(\fopen(__DIR__ . '/../composer.json', 'r'));
 
         $h = new MockHandler([
             static function (RequestInterface $request) use ($result) {
@@ -134,7 +134,7 @@ class PrepareBodyMiddlewareTest extends TestCase
 
     public function testIgnoresIfExpectIsPresent()
     {
-        $bd = /* Replaced /* Replaced Psr7 */ */\Utils::streamFor(\fopen(__DIR__ . '/../composer.json', 'r'));
+        $bd = /* Replaced Psr7 */\Utils::streamFor(\fopen(__DIR__ . '/../composer.json', 'r'));
         $h = new MockHandler([
             static function (RequestInterface $request) {
                 self::assertSame(['Foo'], $request->getHeader('Expect'));

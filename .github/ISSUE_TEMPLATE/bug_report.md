@@ -3,7 +3,7 @@ name: 🐛 Bug Report
 about: Report errors and problems
 ---
 
-**/* Replaced /* Replaced Guzzle */ */ version(s) affected**: x.y.z
+**/* Replaced Guzzle */ version(s) affected**: x.y.z
 **PHP version**: x.y.z (hint: `php --version`)
 **cURL version**: x.y.z (hint: `php -i | grep cURL`)
 

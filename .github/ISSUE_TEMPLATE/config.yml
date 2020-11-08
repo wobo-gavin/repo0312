@@ -1,9 +1,9 @@
 blank_issues_enabled: false
 contact_links:
   - name: 📚Documentation
-    url: http://docs./* Replaced /* Replaced guzzle */ */php.org
+    url: http://docs./* Replaced guzzle */php.org
     about: Check the documentation before opening an issue.
 
   - name: ❓Support
-    url: https://github.com//* Replaced /* Replaced guzzle */ *//.github/blob/master/.github/SUPPORT.md
+    url: https://github.com//* Replaced guzzle *//.github/blob/master/.github/SUPPORT.md
     about: We use GitHub issues only to discuss bugs and new features.

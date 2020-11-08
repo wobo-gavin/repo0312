@@ -1,10 +1,10 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http;
+namespace /* Replaced Guzzle */Http;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\BadResponseException;
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\TooManyRedirectsException;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
+use /* Replaced Guzzle */Http\Exception\BadResponseException;
+use /* Replaced Guzzle */Http\Exception\TooManyRedirectsException;
+use /* Replaced Guzzle */Http\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -13,15 +13,15 @@ use Psr\Http\Message\UriInterface;
  * Request redirect middleware.
  *
  * Apply this middleware like other middleware using
- * {@see \/* Replaced /* Replaced Guzzle */ */Http\Middleware::redirect()}.
+ * {@see \/* Replaced Guzzle */Http\Middleware::redirect()}.
  *
  * @final
  */
 class RedirectMiddleware
 {
-    public const HISTORY_HEADER = 'X-/* Replaced /* Replaced Guzzle */ */-Redirect-History';
+    public const HISTORY_HEADER = 'X-/* Replaced Guzzle */-Redirect-History';
 
-    public const STATUS_HISTORY_HEADER = 'X-/* Replaced /* Replaced Guzzle */ */-Redirect-Status-History';
+    public const STATUS_HISTORY_HEADER = 'X-/* Replaced Guzzle */-Redirect-Status-History';
 
     /**
      * @var array
@@ -175,7 +175,7 @@ class RedirectMiddleware
         }
 
         $modify['uri'] = $uri;
-        /* Replaced /* Replaced Psr7 */ */\Message::rewindBody($request);
+        /* Replaced Psr7 */\Message::rewindBody($request);
 
         // Add the Referer header if it is told to do so and only
         // add the header if we are not redirecting from https to http.
@@ -193,7 +193,7 @@ class RedirectMiddleware
             $modify['remove_headers'][] = 'Authorization';
         }
 
-        return /* Replaced /* Replaced Psr7 */ */\Utils::modifyRequest($request, $modify);
+        return /* Replaced Psr7 */\Utils::modifyRequest($request, $modify);
     }
 
     /**
@@ -201,9 +201,9 @@ class RedirectMiddleware
      */
     private function redirectUri(RequestInterface $request, ResponseInterface $response, array $protocols): UriInterface
     {
-        $location = /* Replaced /* Replaced Psr7 */ */\UriResolver::resolve(
+        $location = /* Replaced Psr7 */\UriResolver::resolve(
             $request->getUri(),
-            new /* Replaced /* Replaced Psr7 */ */\Uri($response->getHeaderLine('Location'))
+            new /* Replaced Psr7 */\Uri($response->getHeaderLine('Location'))
         );
 
         // Ensure that the redirect URI is allowed based on the protocols.

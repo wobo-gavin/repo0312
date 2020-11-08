@@ -1,15 +1,15 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Handler;
+namespace /* Replaced Guzzle */Http\Handler;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\ConnectException;
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\FulfilledPromise;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
-use /* Replaced /* Replaced Guzzle */ */Http\TransferStats;
-use /* Replaced /* Replaced Guzzle */ */Http\Utils;
+use /* Replaced Guzzle */Http\Exception\ConnectException;
+use /* Replaced Guzzle */Http\Exception\RequestException;
+use /* Replaced Guzzle */Http\Promise as P;
+use /* Replaced Guzzle */Http\Promise\FulfilledPromise;
+use /* Replaced Guzzle */Http\Promise\PromiseInterface;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */;
+use /* Replaced Guzzle */Http\TransferStats;
+use /* Replaced Guzzle */Http\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -105,14 +105,14 @@ class StreamHandler
         $reason = $parts[2] ?? null;
         $headers = Utils::headersFromLines($hdrs);
         [$stream, $headers] = $this->checkDecode($options, $headers, $stream);
-        $stream = /* Replaced /* Replaced Psr7 */ */\Utils::streamFor($stream);
+        $stream = /* Replaced Psr7 */\Utils::streamFor($stream);
         $sink = $stream;
 
         if (\strcasecmp('HEAD', $request->getMethod())) {
             $sink = $this->createSink($stream, $options);
         }
 
-        $response = new /* Replaced /* Replaced Psr7 */ */\Response($status, $headers, $sink, $ver, $reason);
+        $response = new /* Replaced Psr7 */\Response($status, $headers, $sink, $ver, $reason);
 
         if (isset($options['on_headers'])) {
             try {
@@ -143,7 +143,7 @@ class StreamHandler
 
         $sink = $options['sink'] ?? \fopen('php://temp', 'r+');
 
-        return \is_string($sink) ? new /* Replaced /* Replaced Psr7 */ */\LazyOpenStream($sink, 'w+') : /* Replaced /* Replaced Psr7 */ */\Utils::streamFor($sink);
+        return \is_string($sink) ? new /* Replaced Psr7 */\LazyOpenStream($sink, 'w+') : /* Replaced Psr7 */\Utils::streamFor($sink);
     }
 
     /**
@@ -157,7 +157,7 @@ class StreamHandler
             if (isset($normalizedKeys['content-encoding'])) {
                 $encoding = $headers[$normalizedKeys['content-encoding']];
                 if ($encoding[0] === 'gzip' || $encoding[0] === 'deflate') {
-                    $stream = new /* Replaced /* Replaced Psr7 */ */\InflateStream(/* Replaced /* Replaced Psr7 */ */\Utils::streamFor($stream));
+                    $stream = new /* Replaced Psr7 */\InflateStream(/* Replaced Psr7 */\Utils::streamFor($stream));
                     $headers['x-encoded-content-encoding'] = $headers[$normalizedKeys['content-encoding']];
 
                     // Remove content-encoding header
@@ -181,7 +181,7 @@ class StreamHandler
     }
 
     /**
-     * Drains the source stream into the "sink" /* Replaced /* Replaced client */ */ option.
+     * Drains the source stream into the "sink" /* Replaced client */ option.
      *
      * @param string $contentLength Header specifying the amount of
      *                              data to read.
@@ -194,7 +194,7 @@ class StreamHandler
         // that number of bytes has been read. This can prevent infinitely
         // reading from a stream when dealing with servers that do not honor
         // Connection: Close headers.
-        /* Replaced /* Replaced Psr7 */ */\Utils::copyToStream(
+        /* Replaced Psr7 */\Utils::copyToStream(
             $source,
             $sink,
             (\strlen($contentLength) > 0 && (int) $contentLength > 0) ? (int) $contentLength : -1

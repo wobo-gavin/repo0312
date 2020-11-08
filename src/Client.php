@@ -1,12 +1,12 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http;
+namespace /* Replaced Guzzle */Http;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJar;
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\/* Replaced /* Replaced Guzzle */ */Exception;
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\InvalidArgumentException;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
+use /* Replaced Guzzle */Http\Cookie\CookieJar;
+use /* Replaced Guzzle */Http\Exception\/* Replaced Guzzle */Exception;
+use /* Replaced Guzzle */Http\Exception\InvalidArgumentException;
+use /* Replaced Guzzle */Http\Promise as P;
+use /* Replaced Guzzle */Http\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -26,10 +26,10 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
     /**
      * Clients accept an array of constructor parameters.
      *
-     * Here's an example of creating a /* Replaced /* Replaced client */ */ using a base_uri and an array of
+     * Here's an example of creating a /* Replaced client */ using a base_uri and an array of
      * default request options to apply to each request:
      *
-     *     $/* Replaced /* Replaced client */ */ = new Client([
+     *     $/* Replaced client */ = new Client([
      *         'base_uri'        => 'http://www.foo.com/1.0/',
      *         'timeout'         => 0,
      *         'allow_redirects' => false,
@@ -39,20 +39,20 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
      * Client configuration settings include the following options:
      *
      * - handler: (callable) Function that transfers HTTP requests over the
-     *   wire. The function is called with a /* Replaced /* Replaced Psr7 */ */\Http\Message\RequestInterface
+     *   wire. The function is called with a /* Replaced Psr7 */\Http\Message\RequestInterface
      *   and array of transfer options, and must return a
-     *   /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface that is fulfilled with a
-     *   /* Replaced /* Replaced Psr7 */ */\Http\Message\ResponseInterface on success.
+     *   /* Replaced Guzzle */Http\Promise\PromiseInterface that is fulfilled with a
+     *   /* Replaced Psr7 */\Http\Message\ResponseInterface on success.
      *   If no handler is provided, a default handler will be created
      *   that enables all of the request options below by attaching all of the
      *   default middleware to the handler.
-     * - base_uri: (string|UriInterface) Base URI of the /* Replaced /* Replaced client */ */ that is merged
+     * - base_uri: (string|UriInterface) Base URI of the /* Replaced client */ that is merged
      *   into relative URIs. Can be a string or instance of UriInterface.
      * - **: any request option
      *
      * @param array $config Client configuration settings.
      *
-     * @see \/* Replaced /* Replaced Guzzle */ */Http\RequestOptions for a list of available request options.
+     * @see \/* Replaced Guzzle */Http\RequestOptions for a list of available request options.
      */
     public function __construct(array $config = [])
     {
@@ -64,7 +64,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
 
         // Convert the base_uri to a UriInterface
         if (isset($config['base_uri'])) {
-            $config['base_uri'] = /* Replaced /* Replaced Psr7 */ */\Utils::uriFor($config['base_uri']);
+            $config['base_uri'] = /* Replaced Psr7 */\Utils::uriFor($config['base_uri']);
         }
 
         $this->configureDefaults($config);
@@ -76,7 +76,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
      *
      * @return PromiseInterface|ResponseInterface
      *
-     * @deprecated Client::__call will be removed in /* Replaced /* Replaced guzzle */ */http//* Replaced /* Replaced guzzle */ */:8.0.
+     * @deprecated Client::__call will be removed in /* Replaced guzzle */http//* Replaced guzzle */:8.0.
      */
     public function __call($method, $args)
     {
@@ -96,7 +96,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
      * Asynchronously send an HTTP request.
      *
      * @param array $options Request options to apply to the given
-     *                       request and to the transfer. See \/* Replaced /* Replaced Guzzle */ */Http\RequestOptions.
+     *                       request and to the transfer. See \/* Replaced Guzzle */Http\RequestOptions.
      */
     public function sendAsync(RequestInterface $request, array $options = []): PromiseInterface
     {
@@ -113,9 +113,9 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
      * Send an HTTP request.
      *
      * @param array $options Request options to apply to the given
-     *                       request and to the transfer. See \/* Replaced /* Replaced Guzzle */ */Http\RequestOptions.
+     *                       request and to the transfer. See \/* Replaced Guzzle */Http\RequestOptions.
      *
-     * @throws /* Replaced /* Replaced Guzzle */ */Exception
+     * @throws /* Replaced Guzzle */Exception
      */
     public function send(RequestInterface $request, array $options = []): ResponseInterface
     {
@@ -140,14 +140,14 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
     /**
      * Create and send an asynchronous HTTP request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced client */, or a
+     * relative path to append to the base path of the /* Replaced client */. The URL can
      * contain the query string as well. Use an array to provide a URL
      * template and additional variables to use in the URL template expansion.
      *
      * @param string              $method  HTTP method
      * @param string|UriInterface $uri     URI object or string.
-     * @param array               $options Request options to apply. See \/* Replaced /* Replaced Guzzle */ */Http\RequestOptions.
+     * @param array               $options Request options to apply. See \/* Replaced Guzzle */Http\RequestOptions.
      */
     public function requestAsync(string $method, $uri = '', array $options = []): PromiseInterface
     {
@@ -157,11 +157,11 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
         $body = $options['body'] ?? null;
         $version = $options['version'] ?? '1.1';
         // Merge the URI into the base URI.
-        $uri = $this->buildUri(/* Replaced /* Replaced Psr7 */ */\Utils::uriFor($uri), $options);
+        $uri = $this->buildUri(/* Replaced Psr7 */\Utils::uriFor($uri), $options);
         if (\is_array($body)) {
             throw $this->invalidBody();
         }
-        $request = new /* Replaced /* Replaced Psr7 */ */\Request($method, $uri, $headers, $body, $version);
+        $request = new /* Replaced Psr7 */\Request($method, $uri, $headers, $body, $version);
         // Remove the option so that they are not doubly-applied.
         unset($options['headers'], $options['body'], $options['version']);
 
@@ -171,15 +171,15 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
     /**
      * Create and send an HTTP request.
      *
-     * Use an absolute path to override the base path of the /* Replaced /* Replaced client */ */, or a
-     * relative path to append to the base path of the /* Replaced /* Replaced client */ */. The URL can
+     * Use an absolute path to override the base path of the /* Replaced client */, or a
+     * relative path to append to the base path of the /* Replaced client */. The URL can
      * contain the query string as well.
      *
      * @param string              $method  HTTP method.
      * @param string|UriInterface $uri     URI object or string.
-     * @param array               $options Request options to apply. See \/* Replaced /* Replaced Guzzle */ */Http\RequestOptions.
+     * @param array               $options Request options to apply. See \/* Replaced Guzzle */Http\RequestOptions.
      *
-     * @throws /* Replaced /* Replaced Guzzle */ */Exception
+     * @throws /* Replaced Guzzle */Exception
      */
     public function request(string $method, $uri = '', array $options = []): ResponseInterface
     {
@@ -188,17 +188,17 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
     }
 
     /**
-     * Get a /* Replaced /* Replaced client */ */ configuration option.
+     * Get a /* Replaced client */ configuration option.
      *
-     * These options include default request options of the /* Replaced /* Replaced client */ */, a "handler"
-     * (if utilized by the concrete /* Replaced /* Replaced client */ */), and a "base_uri" if utilized by
-     * the concrete /* Replaced /* Replaced client */ */.
+     * These options include default request options of the /* Replaced client */, a "handler"
+     * (if utilized by the concrete /* Replaced client */), and a "base_uri" if utilized by
+     * the concrete /* Replaced client */.
      *
      * @param string|null $option The config option to retrieve.
      *
      * @return mixed
      *
-     * @deprecated Client::getConfig will be removed in /* Replaced /* Replaced guzzle */ */http//* Replaced /* Replaced guzzle */ */:8.0.
+     * @deprecated Client::getConfig will be removed in /* Replaced guzzle */http//* Replaced guzzle */:8.0.
      */
     public function getConfig(?string $option = null)
     {
@@ -210,7 +210,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
     private function buildUri(UriInterface $uri, array $config): UriInterface
     {
         if (isset($config['base_uri'])) {
-            $uri = /* Replaced /* Replaced Psr7 */ */\UriResolver::resolve(/* Replaced /* Replaced Psr7 */ */\Utils::uriFor($config['base_uri']), $uri);
+            $uri = /* Replaced Psr7 */\UriResolver::resolve(/* Replaced Psr7 */\Utils::uriFor($config['base_uri']), $uri);
         }
 
         if (isset($config['idn_conversion']) && ($config['idn_conversion'] !== false)) {
@@ -222,7 +222,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
     }
 
     /**
-     * Configures the default options for a /* Replaced /* Replaced client */ */.
+     * Configures the default options for a /* Replaced client */.
      */
     private function configureDefaults(array $config): void
     {
@@ -319,7 +319,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
      * The URI of the request is not modified and the request options are used
      * as-is without merging in default options.
      *
-     * @param array $options See \/* Replaced /* Replaced Guzzle */ */Http\RequestOptions.
+     * @param array $options See \/* Replaced Guzzle */Http\RequestOptions.
      */
     private function transfer(RequestInterface $request, array $options): PromiseInterface
     {
@@ -359,12 +359,12 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
             $options['body'] = \http_build_query($options['form_params'], '', '&');
             unset($options['form_params']);
             // Ensure that we don't have the header in different case and set the new value.
-            $options['_conditional'] = /* Replaced /* Replaced Psr7 */ */\Utils::caselessRemove(['Content-Type'], $options['_conditional']);
+            $options['_conditional'] = /* Replaced Psr7 */\Utils::caselessRemove(['Content-Type'], $options['_conditional']);
             $options['_conditional']['Content-Type'] = 'application/x-www-form-urlencoded';
         }
 
         if (isset($options['multipart'])) {
-            $options['body'] = new /* Replaced /* Replaced Psr7 */ */\MultipartStream($options['multipart']);
+            $options['body'] = new /* Replaced Psr7 */\MultipartStream($options['multipart']);
             unset($options['multipart']);
         }
 
@@ -372,7 +372,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
             $options['body'] = Utils::jsonEncode($options['json']);
             unset($options['json']);
             // Ensure that we don't have the header in different case and set the new value.
-            $options['_conditional'] = /* Replaced /* Replaced Psr7 */ */\Utils::caselessRemove(['Content-Type'], $options['_conditional']);
+            $options['_conditional'] = /* Replaced Psr7 */\Utils::caselessRemove(['Content-Type'], $options['_conditional']);
             $options['_conditional']['Content-Type'] = 'application/json';
         }
 
@@ -380,7 +380,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
             && $options['decode_content'] !== true
         ) {
             // Ensure that we don't have the header in different case and set the new value.
-            $options['_conditional'] = /* Replaced /* Replaced Psr7 */ */\Utils::caselessRemove(['Accept-Encoding'], $options['_conditional']);
+            $options['_conditional'] = /* Replaced Psr7 */\Utils::caselessRemove(['Accept-Encoding'], $options['_conditional']);
             $modify['set_headers']['Accept-Encoding'] = $options['decode_content'];
         }
 
@@ -388,7 +388,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
             if (\is_array($options['body'])) {
                 throw $this->invalidBody();
             }
-            $modify['body'] = /* Replaced /* Replaced Psr7 */ */\Utils::streamFor($options['body']);
+            $modify['body'] = /* Replaced Psr7 */\Utils::streamFor($options['body']);
             unset($options['body']);
         }
 
@@ -398,7 +398,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
             switch ($type) {
                 case 'basic':
                     // Ensure that we don't have the header in different case and set the new value.
-                    $modify['set_headers'] = /* Replaced /* Replaced Psr7 */ */\Utils::caselessRemove(['Authorization'], $modify['set_headers']);
+                    $modify['set_headers'] = /* Replaced Psr7 */\Utils::caselessRemove(['Authorization'], $modify['set_headers']);
                     $modify['set_headers']['Authorization'] = 'Basic '
                         . \base64_encode("$value[0]:$value[1]");
                     break;
@@ -434,11 +434,11 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
             }
         }
 
-        $request = /* Replaced /* Replaced Psr7 */ */\Utils::modifyRequest($request, $modify);
-        if ($request->getBody() instanceof /* Replaced /* Replaced Psr7 */ */\MultipartStream) {
+        $request = /* Replaced Psr7 */\Utils::modifyRequest($request, $modify);
+        if ($request->getBody() instanceof /* Replaced Psr7 */\MultipartStream) {
             // Use a multipart/form-data POST if a Content-Type is not set.
             // Ensure that we don't have the header in different case and set the new value.
-            $options['_conditional'] = /* Replaced /* Replaced Psr7 */ */\Utils::caselessRemove(['Content-Type'], $options['_conditional']);
+            $options['_conditional'] = /* Replaced Psr7 */\Utils::caselessRemove(['Content-Type'], $options['_conditional']);
             $options['_conditional']['Content-Type'] = 'multipart/form-data; boundary='
                 . $request->getBody()->getBoundary();
         }
@@ -452,7 +452,7 @@ class Client implements ClientInterface, \Psr\Http\Client\ClientInterface
                     $modify['set_headers'][$k] = $v;
                 }
             }
-            $request = /* Replaced /* Replaced Psr7 */ */\Utils::modifyRequest($request, $modify);
+            $request = /* Replaced Psr7 */\Utils::modifyRequest($request, $modify);
             // Don't pass this internal value along to middleware/handlers.
             unset($options['_conditional']);
         }

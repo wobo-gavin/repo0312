@@ -1,8 +1,8 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http;
+namespace /* Replaced Guzzle */Http;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
+use /* Replaced Guzzle */Http\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -40,7 +40,7 @@ class PrepareBodyMiddleware
         // Add a default content-type if possible.
         if (!$request->hasHeader('Content-Type')) {
             if ($uri = $request->getBody()->getMetadata('uri')) {
-                if (is_string($uri) && $type = /* Replaced /* Replaced Psr7 */ */\MimeType::fromFilename($uri)) {
+                if (is_string($uri) && $type = /* Replaced Psr7 */\MimeType::fromFilename($uri)) {
                     $modify['set_headers']['Content-Type'] = $type;
                 }
             }
@@ -61,7 +61,7 @@ class PrepareBodyMiddleware
         // Add the expect header if needed.
         $this->addExpectHeader($request, $options, $modify);
 
-        return $fn(/* Replaced /* Replaced Psr7 */ */\Utils::modifyRequest($request, $modify), $options);
+        return $fn(/* Replaced Psr7 */\Utils::modifyRequest($request, $modify), $options);
     }
 
     /**

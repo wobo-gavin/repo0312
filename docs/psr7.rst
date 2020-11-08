@@ -1,21 +1,21 @@
 ================
-/* Replaced /* Replaced Guzzle */ */ and PSR-7
+/* Replaced Guzzle */ and PSR-7
 ================
 
-/* Replaced /* Replaced Guzzle */ */ utilizes PSR-7 as the HTTP message interface. This allows /* Replaced /* Replaced Guzzle */ */ to work
+/* Replaced Guzzle */ utilizes PSR-7 as the HTTP message interface. This allows /* Replaced Guzzle */ to work
 with any other library that utilizes PSR-7 message interfaces.
 
-/* Replaced /* Replaced Guzzle */ */ is an HTTP /* Replaced /* Replaced client */ */ that sends HTTP requests to a server and receives HTTP
+/* Replaced Guzzle */ is an HTTP /* Replaced client */ that sends HTTP requests to a server and receives HTTP
 responses. Both requests and responses are referred to as messages.
 
-/* Replaced /* Replaced Guzzle */ */ relies on the ``/* Replaced /* Replaced guzzle */ */http/psr7`` Composer package for its message
+/* Replaced Guzzle */ relies on the ``/* Replaced guzzle */http/psr7`` Composer package for its message
 implementation of PSR-7.
 
-You can create a request using the ``/* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request`` class:
+You can create a request using the ``/* Replaced Guzzle */Http\/* Replaced Psr7 */\Request`` class:
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+    use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
 
     $request = new Request('GET', 'http://httpbin.org/get');
 
@@ -24,11 +24,11 @@ You can create a request using the ``/* Replaced /* Replaced Guzzle */ */Http\/*
     $body = 'hello!';
     $request = new Request('PUT', 'http://httpbin.org/put', $headers, $body);
 
-You can create a response using the ``/* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response`` class:
+You can create a response using the ``/* Replaced Guzzle */Http\/* Replaced Psr7 */\Response`` class:
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+    use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Response;
 
     // The constructor requires no arguments.
     $response = new Response();
@@ -57,9 +57,9 @@ You can check if a request or response has a specific header using the
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
+    use /* Replaced Guzzle */Http\/* Replaced Psr7 */;
 
-    $request = new /* Replaced /* Replaced Psr7 */ */\Request('GET', '/', ['X-Foo' => 'bar']);
+    $request = new /* Replaced Psr7 */\Request('GET', '/', ['X-Foo' => 'bar']);
 
     if ($request->hasHeader('X-Foo')) {
         echo 'It is there';
@@ -95,18 +95,18 @@ headers contain a link and several key value pairs:
 
     <http://foo.com>; rel="thing"; type="image/jpeg"
 
-/* Replaced /* Replaced Guzzle */ */ provides a convenience feature that can be used to parse these types of
+/* Replaced Guzzle */ provides a convenience feature that can be used to parse these types of
 headers:
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
+    use /* Replaced Guzzle */Http\/* Replaced Psr7 */;
 
-    $request = new /* Replaced /* Replaced Psr7 */ */\Request('GET', '/', [
+    $request = new /* Replaced Psr7 */\Request('GET', '/', [
         'Link' => '<http:/.../front.jpeg>; rel="front"; type="image/jpeg"'
     ]);
 
-    $parsed = /* Replaced /* Replaced Psr7 */ */\Header::parse($request->getHeader('Link'));
+    $parsed = /* Replaced Psr7 */\Header::parse($request->getHeader('Link'));
     var_export($parsed);
 
 Will output:
@@ -136,19 +136,19 @@ You can retrieve the body of a message using the ``getBody()`` method:
 
 .. code-block:: php
 
-    $response = /* Replaced /* Replaced Guzzle */ */Http\get('http://httpbin.org/get');
+    $response = /* Replaced Guzzle */Http\get('http://httpbin.org/get');
     echo $response->getBody();
     // JSON string: { ... }
 
 The body used in request and response objects is a
 ``Psr\Http\Message\StreamInterface``. This stream is used for both
-uploading data and downloading data. /* Replaced /* Replaced Guzzle */ */ will, by default, store the body of
+uploading data and downloading data. /* Replaced Guzzle */ will, by default, store the body of
 a message in a stream that uses PHP temp streams. When the size of the body
 exceeds 2 MB, the stream will automatically switch to storing data on disk
 rather than in memory (protecting your application from memory exhaustion).
 
 The easiest way to create a body for a message is using the ``streamFor``
-method from the ``/* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Utils`` class --
+method from the ``/* Replaced Guzzle */Http\/* Replaced Psr7 */\Utils`` class --
 ``Utils::streamFor``. This method accepts strings, resources,
 callables, iterators, other streamables, and returns an instance of
 ``Psr\Http\Message\StreamInterface``.
@@ -158,8 +158,8 @@ write bytes off of the stream as needed.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced Guzzle */ */Http\Stream\Stream;
-    $response = $/* Replaced /* Replaced client */ */->request('GET', 'http://httpbin.org/get');
+    use /* Replaced Guzzle */Http\Stream\Stream;
+    $response = $/* Replaced client */->request('GET', 'http://httpbin.org/get');
 
     echo $response->getBody()->read(4);
     echo $response->getBody()->read(4);
@@ -170,7 +170,7 @@ write bytes off of the stream as needed.
 Requests
 ========
 
-Requests are sent from a /* Replaced /* Replaced client */ */ to a server. Requests include the method to
+Requests are sent from a /* Replaced client */ to a server. Requests include the method to
 be applied to a resource, the identifier of the resource, and the protocol
 version to use.
 
@@ -185,49 +185,49 @@ that might not be part of RFC 7231 (like "MOVE").
 .. code-block:: php
 
     // Create a request using a completely custom HTTP method
-    $request = new \/* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request('MOVE', 'http://httpbin.org/move');
+    $request = new \/* Replaced Guzzle */Http\/* Replaced Psr7 */\Request('MOVE', 'http://httpbin.org/move');
 
     echo $request->getMethod();
     // MOVE
 
-You can create and send a request using methods on a /* Replaced /* Replaced client */ */ that map to the
+You can create and send a request using methods on a /* Replaced client */ that map to the
 HTTP method you wish to use.
 
-:GET: ``$/* Replaced /* Replaced client */ */->get('http://httpbin.org/get', [/** options **/])``
-:POST: ``$/* Replaced /* Replaced client */ */->post('http://httpbin.org/post', [/** options **/])``
-:HEAD: ``$/* Replaced /* Replaced client */ */->head('http://httpbin.org/get', [/** options **/])``
-:PUT: ``$/* Replaced /* Replaced client */ */->put('http://httpbin.org/put', [/** options **/])``
-:DELETE: ``$/* Replaced /* Replaced client */ */->delete('http://httpbin.org/delete', [/** options **/])``
-:OPTIONS: ``$/* Replaced /* Replaced client */ */->options('http://httpbin.org/get', [/** options **/])``
-:PATCH: ``$/* Replaced /* Replaced client */ */->patch('http://httpbin.org/put', [/** options **/])``
+:GET: ``$/* Replaced client */->get('http://httpbin.org/get', [/** options **/])``
+:POST: ``$/* Replaced client */->post('http://httpbin.org/post', [/** options **/])``
+:HEAD: ``$/* Replaced client */->head('http://httpbin.org/get', [/** options **/])``
+:PUT: ``$/* Replaced client */->put('http://httpbin.org/put', [/** options **/])``
+:DELETE: ``$/* Replaced client */->delete('http://httpbin.org/delete', [/** options **/])``
+:OPTIONS: ``$/* Replaced client */->options('http://httpbin.org/get', [/** options **/])``
+:PATCH: ``$/* Replaced client */->patch('http://httpbin.org/put', [/** options **/])``
 
 For example:
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced client */ */->patch('http://httpbin.org/patch', ['body' => 'content']);
+    $response = $/* Replaced client */->patch('http://httpbin.org/patch', ['body' => 'content']);
 
 
 Request URI
 -----------
 
 The request URI is represented by a ``Psr\Http\Message\UriInterface`` object.
-/* Replaced /* Replaced Guzzle */ */ provides an implementation of this interface using the
-``/* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Uri`` class.
+/* Replaced Guzzle */ provides an implementation of this interface using the
+``/* Replaced Guzzle */Http\/* Replaced Psr7 */\Uri`` class.
 
 When creating a request, you can provide the URI as a string or an instance of
 ``Psr\Http\Message\UriInterface``.
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced client */ */->request('GET', 'http://httpbin.org/get?q=foo');
+    $response = $/* Replaced client */->request('GET', 'http://httpbin.org/get?q=foo');
 
 
 Scheme
 ------
 
 The `scheme <https://tools.ietf.org/html/rfc3986#section-3.1>`_ of a request
-specifies the protocol to use when sending the request. When using /* Replaced /* Replaced Guzzle */ */, the
+specifies the protocol to use when sending the request. When using /* Replaced Guzzle */, the
 scheme can be set to "http" or "https".
 
 .. code-block:: php
@@ -298,7 +298,7 @@ are not allowed in the query string will be percent-encoded according to
 Responses
 =========
 
-Responses are the HTTP messages a /* Replaced /* Replaced client */ */ receives from a server after sending
+Responses are the HTTP messages a /* Replaced client */ receives from a server after sending
 an HTTP request message.
 
 
@@ -310,8 +310,8 @@ status code, and reason phrase.
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced client */ */ = new \/* Replaced /* Replaced Guzzle */ */Http\Client();
-    $response = $/* Replaced /* Replaced client */ */->request('GET', 'http://httpbin.org/get');
+    $/* Replaced client */ = new \/* Replaced Guzzle */Http\Client();
+    $response = $/* Replaced client */->request('GET', 'http://httpbin.org/get');
 
     echo $response->getStatusCode(); // 200
     echo $response->getReasonPhrase(); // OK
@@ -338,7 +338,7 @@ As described earlier, you can get the body of a response using the
 Streams
 =======
 
-/* Replaced /* Replaced Guzzle */ */ uses PSR-7 stream objects to represent request and response message
+/* Replaced Guzzle */ uses PSR-7 stream objects to represent request and response message
 bodies. These stream objects allow you to work with various types of data all
 using a common interface.
 
@@ -363,25 +363,25 @@ write-only, read-write, allow arbitrary random access (seeking forwards or
 backwards to any location), or only allow sequential access (for example in the
 case of a socket or pipe).
 
-/* Replaced /* Replaced Guzzle */ */ uses the ``/* Replaced /* Replaced guzzle */ */http/psr7`` package to provide stream support. More
+/* Replaced Guzzle */ uses the ``/* Replaced guzzle */http/psr7`` package to provide stream support. More
 information on using streams, creating streams, converting streams to PHP
 stream resource, and stream decorators can be found in the
-`/* Replaced /* Replaced Guzzle */ */ PSR-7 documentation <https://github.com//* Replaced /* Replaced guzzle */ *//psr7/blob/master/README.md>`_.
+`/* Replaced Guzzle */ PSR-7 documentation <https://github.com//* Replaced guzzle *//psr7/blob/master/README.md>`_.
 
 
 Creating Streams
 ----------------
 
-The best way to create a stream is using the ``/* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Utils::streamFor``
+The best way to create a stream is using the ``/* Replaced Guzzle */Http\/* Replaced Psr7 */\Utils::streamFor``
 method. This method accepts strings, resources returned from ``fopen()``,
 an object that implements ``__toString()``, iterators, callables, and instances
 of ``Psr\Http\Message\StreamInterface``.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
+    use /* Replaced Guzzle */Http\/* Replaced Psr7 */;
 
-    $stream = /* Replaced /* Replaced Psr7 */ */\Utils::streamFor('string data');
+    $stream = /* Replaced Psr7 */\Utils::streamFor('string data');
     echo $stream;
     // string data
     echo $stream->read(3);
@@ -399,7 +399,7 @@ requested by a stream consumer will be buffered until a subsequent read.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
+    use /* Replaced Guzzle */Http\/* Replaced Psr7 */;
 
     $generator = function ($bytes) {
         for ($i = 0; $i < $bytes; $i++) {
@@ -408,7 +408,7 @@ requested by a stream consumer will be buffered until a subsequent read.
     };
 
     $iter = $generator(1024);
-    $stream = /* Replaced /* Replaced Psr7 */ */\Utils::streamFor($iter);
+    $stream = /* Replaced Psr7 */\Utils::streamFor($iter);
     echo $stream->read(3); // ...
 
 
@@ -422,10 +422,10 @@ and can optionally expose other custom data.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
+    use /* Replaced Guzzle */Http\/* Replaced Psr7 */;
 
     $resource = fopen('/path/to/file', 'r');
-    $stream = /* Replaced /* Replaced Psr7 */ */\Utils::streamFor($resource);
+    $stream = /* Replaced Psr7 */\Utils::streamFor($resource);
     echo $stream->getMetadata('uri');
     // /path/to/file
     var_export($stream->isReadable());
@@ -440,17 +440,17 @@ Stream Decorators
 -----------------
 
 Adding custom functionality to streams is very simple with stream decorators.
-/* Replaced /* Replaced Guzzle */ */ provides several built-in decorators that provide additional stream
+/* Replaced Guzzle */ provides several built-in decorators that provide additional stream
 functionality.
 
-- `AppendStream <https://github.com//* Replaced /* Replaced guzzle */ *//psr7#appendstream>`_
-- `BufferStream <https://github.com//* Replaced /* Replaced guzzle */ *//psr7#bufferstream>`_
-- `CachingStream <https://github.com//* Replaced /* Replaced guzzle */ *//psr7#cachingstream>`_
-- `DroppingStream <https://github.com//* Replaced /* Replaced guzzle */ *//psr7#droppingstream>`_
-- `FnStream <https://github.com//* Replaced /* Replaced guzzle */ *//psr7#fnstream>`_
-- `InflateStream <https://github.com//* Replaced /* Replaced guzzle */ *//psr7#inflatestream>`_
-- `LazyOpenStream <https://github.com//* Replaced /* Replaced guzzle */ *//psr7#lazyopenstream>`_
-- `LimitStream <https://github.com//* Replaced /* Replaced guzzle */ *//psr7#limitstream>`_
-- `MultipartStream <https://github.com//* Replaced /* Replaced guzzle */ *//psr7#multipartstream>`_
-- `NoSeekStream <https://github.com//* Replaced /* Replaced guzzle */ *//psr7#noseekstream>`_
-- `PumpStream <https://github.com//* Replaced /* Replaced guzzle */ *//psr7#pumpstream>`_
+- `AppendStream <https://github.com//* Replaced guzzle *//psr7#appendstream>`_
+- `BufferStream <https://github.com//* Replaced guzzle *//psr7#bufferstream>`_
+- `CachingStream <https://github.com//* Replaced guzzle *//psr7#cachingstream>`_
+- `DroppingStream <https://github.com//* Replaced guzzle *//psr7#droppingstream>`_
+- `FnStream <https://github.com//* Replaced guzzle *//psr7#fnstream>`_
+- `InflateStream <https://github.com//* Replaced guzzle *//psr7#inflatestream>`_
+- `LazyOpenStream <https://github.com//* Replaced guzzle *//psr7#lazyopenstream>`_
+- `LimitStream <https://github.com//* Replaced guzzle *//psr7#limitstream>`_
+- `MultipartStream <https://github.com//* Replaced guzzle *//psr7#multipartstream>`_
+- `NoSeekStream <https://github.com//* Replaced guzzle *//psr7#noseekstream>`_
+- `PumpStream <https://github.com//* Replaced guzzle *//psr7#pumpstream>`_

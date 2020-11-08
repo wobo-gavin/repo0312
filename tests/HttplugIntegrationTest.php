@@ -1,8 +1,8 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Tests;
+namespace /* Replaced Guzzle */Http\Tests;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Client;
+use /* Replaced Guzzle */Http\Client;
 use Http\Client\Tests\HttpClientTest;
 use Psr\Http\Client\ClientInterface;
 

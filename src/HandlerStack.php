@@ -1,13 +1,13 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http;
+namespace /* Replaced Guzzle */Http;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
+use /* Replaced Guzzle */Http\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Creates a composed /* Replaced /* Replaced Guzzle */ */ handler function by stacking middlewares on top of
+ * Creates a composed /* Replaced Guzzle */ handler function by stacking middlewares on top of
  * an HTTP handler function.
  *
  * @final
@@ -30,14 +30,14 @@ class HandlerStack
     private $cached;
 
     /**
-     * Creates a default handler stack that can be used by /* Replaced /* Replaced client */ */s.
+     * Creates a default handler stack that can be used by /* Replaced client */s.
      *
      * The returned handler will wrap the provided handler or use the most
      * appropriate default handler for your system. The returned HandlerStack has
      * support for cookies, redirects, HTTP error exceptions, and preparing a body
      * before sending.
      *
-     * The returned handler stack can be passed to a /* Replaced /* Replaced client */ */ in the "handler"
+     * The returned handler stack can be passed to a /* Replaced client */ in the "handler"
      * option.
      *
      * @param null|callable(RequestInterface, array): PromiseInterface $handler HTTP handler function to use with the stack. If no

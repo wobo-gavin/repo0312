@@ -1,11 +1,11 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Handler;
+namespace /* Replaced Guzzle */Http\Handler;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\Promise;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced Guzzle */ */Http\Utils;
+use /* Replaced Guzzle */Http\Promise as P;
+use /* Replaced Guzzle */Http\Promise\Promise;
+use /* Replaced Guzzle */Http\Promise\PromiseInterface;
+use /* Replaced Guzzle */Http\Utils;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -71,7 +71,7 @@ class CurlMultiHandler
         if (isset($options['select_timeout'])) {
             $this->selectTimeout = $options['select_timeout'];
         } elseif ($selectTimeout = Utils::getenv('GUZZLE_CURL_SELECT_TIMEOUT')) {
-            @trigger_error('Since /* Replaced /* Replaced guzzle */ */http//* Replaced /* Replaced guzzle */ */ 7.2.0: Using environment variable GUZZLE_CURL_SELECT_TIMEOUT is deprecated. Use option "select_timeout" instead.', \E_USER_DEPRECATED);
+            @trigger_error('Since /* Replaced guzzle */http//* Replaced guzzle */ 7.2.0: Using environment variable GUZZLE_CURL_SELECT_TIMEOUT is deprecated. Use option "select_timeout" instead.', \E_USER_DEPRECATED);
             $this->selectTimeout = (int) $selectTimeout;
         } else {
             $this->selectTimeout = 1;

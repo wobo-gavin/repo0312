@@ -1,19 +1,19 @@
 {
-    "name": "/* Replaced /* Replaced guzzle */ */http//* Replaced /* Replaced guzzle */ */",
+    "name": "/* Replaced guzzle */http//* Replaced guzzle */",
     "type": "library",
-    "description": "/* Replaced /* Replaced Guzzle */ */ is a PHP HTTP /* Replaced /* Replaced client */ */ library",
+    "description": "/* Replaced Guzzle */ is a PHP HTTP /* Replaced client */ library",
     "keywords": [
         "framework",
         "http",
         "rest",
         "web service",
         "curl",
-        "/* Replaced /* Replaced client */ */",
-        "HTTP /* Replaced /* Replaced client */ */",
+        "/* Replaced client */",
+        "HTTP /* Replaced client */",
         "PSR-7",
         "PSR-18"
     ],
-    "homepage": "http:///* Replaced /* Replaced guzzle */ */php.org/",
+    "homepage": "http:///* Replaced guzzle */php.org/",
     "license": "MIT",
     "authors": [
         {
@@ -30,16 +30,16 @@
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-json": "*",
-        "/* Replaced /* Replaced guzzle */ */http/promises": "^1.4",
-        "/* Replaced /* Replaced guzzle */ */http/psr7": "^1.7",
-        "psr/http-/* Replaced /* Replaced client */ */": "^1.0"
+        "/* Replaced guzzle */http/promises": "^1.4",
+        "/* Replaced guzzle */http/psr7": "^1.7",
+        "psr/http-/* Replaced client */": "^1.0"
     },
     "provide": {
-        "psr/http-/* Replaced /* Replaced client */ */-implementation": "1.0"
+        "psr/http-/* Replaced client */-implementation": "1.0"
     },
     "require-dev": {
         "ext-curl": "*",
-        "php-http//* Replaced /* Replaced client */ */-integration-tests": "^3.0",
+        "php-http//* Replaced client */-integration-tests": "^3.0",
         "phpunit/phpunit": "^8.5.5 || ^9.3.5",
         "psr/log": "^1.1"
     },
@@ -58,7 +58,7 @@
     },
     "autoload": {
         "psr-4": {
-            "/* Replaced /* Replaced Guzzle */ */Http\\": "src/"
+            "/* Replaced Guzzle */Http\\": "src/"
         },
         "files": [
             "src/functions_include.php"
@@ -66,7 +66,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "/* Replaced /* Replaced Guzzle */ */Http\\Tests\\": "tests/"
+            "/* Replaced Guzzle */Http\\Tests\\": "tests/"
         }
     }
 }
