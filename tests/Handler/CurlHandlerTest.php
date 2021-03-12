@@ -1,19 +1,19 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Test\Handler;
+namespace /* Replaced Guzzle */Http\Test\Handler;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\ConnectException;
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\CurlHandler;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\FulfilledPromise;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
-use /* Replaced /* Replaced Guzzle */ */Http\Tests\Server;
-use /* Replaced /* Replaced Guzzle */ */Http\Utils;
+use /* Replaced Guzzle */Http\Exception\ConnectException;
+use /* Replaced Guzzle */Http\Handler\CurlHandler;
+use /* Replaced Guzzle */Http\Promise\FulfilledPromise;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Response;
+use /* Replaced Guzzle */Http\Tests\Server;
+use /* Replaced Guzzle */Http\Utils;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \/* Replaced /* Replaced Guzzle */ */Http\Handler\CurlHandler
+ * @covers \/* Replaced Guzzle */Http\Handler\CurlHandler
  */
 class CurlHandlerTest extends TestCase
 {
@@ -72,7 +72,7 @@ class CurlHandlerTest extends TestCase
     {
         Server::flush();
         Server::enqueue([new Response()]);
-        $stream = /* Replaced /* Replaced Psr7 */ */\Utils::streamFor(\str_repeat('.', 1000000));
+        $stream = /* Replaced Psr7 */\Utils::streamFor(\str_repeat('.', 1000000));
         $handler = new CurlHandler();
         $request = new Request(
             'PUT',

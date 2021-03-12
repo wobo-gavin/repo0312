@@ -1,11 +1,11 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http;
+namespace /* Replaced Guzzle */Http;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\EachPromise;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromisorInterface;
+use /* Replaced Guzzle */Http\Promise as P;
+use /* Replaced Guzzle */Http\Promise\EachPromise;
+use /* Replaced Guzzle */Http\Promise\PromiseInterface;
+use /* Replaced Guzzle */Http\Promise\PromisorInterface;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -29,7 +29,7 @@ class Pool implements PromisorInterface
     private $each;
 
     /**
-     * @param ClientInterface $/* Replaced /* Replaced client */ */   Client used to send the requests.
+     * @param ClientInterface $/* Replaced client */   Client used to send the requests.
      * @param array|\Iterator $requests Requests or functions that return
      *                                  requests to send concurrently.
      * @param array           $config   Associative array of options
@@ -38,7 +38,7 @@ class Pool implements PromisorInterface
      *                                  - fulfilled: (callable) Function to invoke when a request completes.
      *                                  - rejected: (callable) Function to invoke when a request is rejected.
      */
-    public function __construct(ClientInterface $/* Replaced /* Replaced client */ */, $requests, array $config = [])
+    public function __construct(ClientInterface $/* Replaced client */, $requests, array $config = [])
     {
         if (!isset($config['concurrency'])) {
             $config['concurrency'] = 25;
@@ -52,14 +52,14 @@ class Pool implements PromisorInterface
         }
 
         $iterable = P\Create::iterFor($requests);
-        $requests = static function () use ($iterable, $/* Replaced /* Replaced client */ */, $opts) {
+        $requests = static function () use ($iterable, $/* Replaced client */, $opts) {
             foreach ($iterable as $key => $rfn) {
                 if ($rfn instanceof RequestInterface) {
-                    yield $key => $/* Replaced /* Replaced client */ */->sendAsync($rfn, $opts);
+                    yield $key => $/* Replaced client */->sendAsync($rfn, $opts);
                 } elseif (\is_callable($rfn)) {
                     yield $key => $rfn($opts);
                 } else {
-                    throw new \InvalidArgumentException('Each value yielded by the iterator must be a /* Replaced /* Replaced Psr7 */ */\Http\Message\RequestInterface or a callable that returns a promise that fulfills with a /* Replaced /* Replaced Psr7 */ */\Message\Http\ResponseInterface object.');
+                    throw new \InvalidArgumentException('Each value yielded by the iterator must be a /* Replaced Psr7 */\Http\Message\RequestInterface or a callable that returns a promise that fulfills with a /* Replaced Psr7 */\Message\Http\ResponseInterface object.');
                 }
             }
         };
@@ -83,22 +83,22 @@ class Pool implements PromisorInterface
      * as such, is NOT recommended when sending a large number or an
      * indeterminate number of requests concurrently.
      *
-     * @param ClientInterface $/* Replaced /* Replaced client */ */   Client used to send the requests
+     * @param ClientInterface $/* Replaced client */   Client used to send the requests
      * @param array|\Iterator $requests Requests to send concurrently.
      * @param array           $options  Passes through the options available in
-     *                                  {@see \/* Replaced /* Replaced Guzzle */ */Http\Pool::__construct}
+     *                                  {@see \/* Replaced Guzzle */Http\Pool::__construct}
      *
      * @return array Returns an array containing the response or an exception
      *               in the same order that the requests were sent.
      *
      * @throws \InvalidArgumentException if the event format is incorrect.
      */
-    public static function batch(ClientInterface $/* Replaced /* Replaced client */ */, $requests, array $options = []): array
+    public static function batch(ClientInterface $/* Replaced client */, $requests, array $options = []): array
     {
         $res = [];
         self::cmpCallback($options, 'fulfilled', $res);
         self::cmpCallback($options, 'rejected', $res);
-        $pool = new static($/* Replaced /* Replaced client */ */, $requests, $options);
+        $pool = new static($/* Replaced client */, $requests, $options);
         $pool->promise()->wait();
         \ksort($res);
 

@@ -1,21 +1,21 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Tests;
+namespace /* Replaced Guzzle */Http\Tests;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Client;
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\BadResponseException;
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\TooManyRedirectsException;
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler;
-use /* Replaced /* Replaced Guzzle */ */Http\HandlerStack;
-use /* Replaced /* Replaced Guzzle */ */Http\Middleware;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
-use /* Replaced /* Replaced Guzzle */ */Http\RedirectMiddleware;
+use /* Replaced Guzzle */Http\Client;
+use /* Replaced Guzzle */Http\Exception\BadResponseException;
+use /* Replaced Guzzle */Http\Exception\TooManyRedirectsException;
+use /* Replaced Guzzle */Http\Handler\MockHandler;
+use /* Replaced Guzzle */Http\HandlerStack;
+use /* Replaced Guzzle */Http\Middleware;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Response;
+use /* Replaced Guzzle */Http\RedirectMiddleware;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * @covers \/* Replaced /* Replaced Guzzle */ */Http\RedirectMiddleware
+ * @covers \/* Replaced Guzzle */Http\RedirectMiddleware
  */
 class RedirectMiddlewareTest extends TestCase
 {
@@ -113,7 +113,7 @@ class RedirectMiddlewareTest extends TestCase
         try {
             $promise->wait();
             self::fail();
-        } catch (\/* Replaced /* Replaced Guzzle */ */Http\Exception\TooManyRedirectsException $e) {
+        } catch (\/* Replaced Guzzle */Http\Exception\TooManyRedirectsException $e) {
             self::assertSame(302, $e->getResponse()->getStatusCode());
         }
     }
@@ -173,7 +173,7 @@ class RedirectMiddlewareTest extends TestCase
         );
     }
 
-    public function testAdds/* Replaced /* Replaced Guzzle */ */RedirectHeader()
+    public function testAdds/* Replaced Guzzle */RedirectHeader()
     {
         $mock = new MockHandler([
             new Response(302, ['Location' => 'http://example.com']),
@@ -200,7 +200,7 @@ class RedirectMiddlewareTest extends TestCase
         );
     }
 
-    public function testAdds/* Replaced /* Replaced Guzzle */ */RedirectStatusHeader()
+    public function testAdds/* Replaced Guzzle */RedirectStatusHeader()
     {
         $mock = new MockHandler([
             new Response(301, ['Location' => 'http://example.com']),
@@ -282,8 +282,8 @@ class RedirectMiddlewareTest extends TestCase
             }
         ]);
         $handler = HandlerStack::create($mock);
-        $/* Replaced /* Replaced client */ */ = new Client(['handler' => $handler]);
-        $/* Replaced /* Replaced client */ */->get('http://example.com?a=b', ['auth' => ['testuser', 'testpass']]);
+        $/* Replaced client */ = new Client(['handler' => $handler]);
+        $/* Replaced client */->get('http://example.com?a=b', ['auth' => ['testuser', 'testpass']]);
     }
 
     public function testNotRemoveAuthorizationHeaderOnRedirect()
@@ -296,8 +296,8 @@ class RedirectMiddlewareTest extends TestCase
             }
         ]);
         $handler = HandlerStack::create($mock);
-        $/* Replaced /* Replaced client */ */ = new Client(['handler' => $handler]);
-        $/* Replaced /* Replaced client */ */->get('http://example.com?a=b', ['auth' => ['testuser', 'testpass']]);
+        $/* Replaced client */ = new Client(['handler' => $handler]);
+        $/* Replaced client */->get('http://example.com?a=b', ['auth' => ['testuser', 'testpass']]);
     }
 
     /**

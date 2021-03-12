@@ -2,15 +2,15 @@
 Quickstart
 ==========
 
-This page provides a quick introduction to /* Replaced /* Replaced Guzzle */ */ and introductory examples.
-If you have not already installed, /* Replaced /* Replaced Guzzle */ */, head over to the :ref:`installation`
+This page provides a quick introduction to /* Replaced Guzzle */ and introductory examples.
+If you have not already installed, /* Replaced Guzzle */, head over to the :ref:`installation`
 page.
 
 
 Making a Request
 ================
 
-You can send requests with /* Replaced /* Replaced Guzzle */ */ using a ``/* Replaced /* Replaced Guzzle */ */Http\ClientInterface``
+You can send requests with /* Replaced Guzzle */ using a ``/* Replaced Guzzle */Http\ClientInterface``
 object.
 
 
@@ -19,34 +19,34 @@ Creating a Client
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced Guzzle */ */Http\Client;
+    use /* Replaced Guzzle */Http\Client;
 
-    $/* Replaced /* Replaced client */ */ = new Client([
+    $/* Replaced client */ = new Client([
         // Base URI is used with relative requests
         'base_uri' => 'http://httpbin.org',
         // You can set any number of default request options.
         'timeout'  => 2.0,
     ]);
 
-Clients are immutable in /* Replaced /* Replaced Guzzle */ */ 6, which means that you cannot change the defaults used by a /* Replaced /* Replaced client */ */ after it's created.
+Clients are immutable in /* Replaced Guzzle */ 6, which means that you cannot change the defaults used by a /* Replaced client */ after it's created.
 
-The /* Replaced /* Replaced client */ */ constructor accepts an associative array of options:
+The /* Replaced client */ constructor accepts an associative array of options:
 
 ``base_uri``
-    (string|UriInterface) Base URI of the /* Replaced /* Replaced client */ */ that is merged into relative
+    (string|UriInterface) Base URI of the /* Replaced client */ that is merged into relative
     URIs. Can be a string or instance of UriInterface. When a relative URI
-    is provided to a /* Replaced /* Replaced client */ */, the /* Replaced /* Replaced client */ */ will combine the base URI with the
+    is provided to a /* Replaced client */, the /* Replaced client */ will combine the base URI with the
     relative URI using the rules described in
     `RFC 3986, section 5.2 <https://tools.ietf.org/html/rfc3986#section-5.2>`_.
 
     .. code-block:: php
 
-        // Create a /* Replaced /* Replaced client */ */ with a base URI
-        $/* Replaced /* Replaced client */ */ = new /* Replaced /* Replaced Guzzle */ */Http\Client(['base_uri' => 'https://foo.com/api/']);
+        // Create a /* Replaced client */ with a base URI
+        $/* Replaced client */ = new /* Replaced Guzzle */Http\Client(['base_uri' => 'https://foo.com/api/']);
         // Send a request to https://foo.com/api/test
-        $response = $/* Replaced /* Replaced client */ */->request('GET', 'test');
+        $response = $/* Replaced client */->request('GET', 'test');
         // Send a request to https://foo.com/root
-        $response = $/* Replaced /* Replaced client */ */->request('GET', '/root');
+        $response = $/* Replaced client */->request('GET', '/root');
 
     Don't feel like reading RFC 3986? Here are some quick examples on how a
     ``base_uri`` is resolved with another URI.
@@ -64,83 +64,83 @@ The /* Replaced /* Replaced client */ */ constructor accepts an associative arra
 
 ``handler``
     (callable) Function that transfers HTTP requests over the wire. The
-    function is called with a ``/* Replaced /* Replaced Psr7 */ */\Http\Message\RequestInterface`` and array
+    function is called with a ``/* Replaced Psr7 */\Http\Message\RequestInterface`` and array
     of transfer options, and must return a
-    ``/* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface`` that is fulfilled with a
-    ``/* Replaced /* Replaced Psr7 */ */\Http\Message\ResponseInterface`` on success.
+    ``/* Replaced Guzzle */Http\Promise\PromiseInterface`` that is fulfilled with a
+    ``/* Replaced Psr7 */\Http\Message\ResponseInterface`` on success.
 
 ``...``
     (mixed) All other options passed to the constructor are used as default
-    request options with every request created by the /* Replaced /* Replaced client */ */.
+    request options with every request created by the /* Replaced client */.
 
 
 Sending Requests
 ----------------
 
-Magic methods on the /* Replaced /* Replaced client */ */ make it easy to send synchronous requests:
+Magic methods on the /* Replaced client */ make it easy to send synchronous requests:
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced client */ */->get('http://httpbin.org/get');
-    $response = $/* Replaced /* Replaced client */ */->delete('http://httpbin.org/delete');
-    $response = $/* Replaced /* Replaced client */ */->head('http://httpbin.org/get');
-    $response = $/* Replaced /* Replaced client */ */->options('http://httpbin.org/get');
-    $response = $/* Replaced /* Replaced client */ */->patch('http://httpbin.org/patch');
-    $response = $/* Replaced /* Replaced client */ */->post('http://httpbin.org/post');
-    $response = $/* Replaced /* Replaced client */ */->put('http://httpbin.org/put');
+    $response = $/* Replaced client */->get('http://httpbin.org/get');
+    $response = $/* Replaced client */->delete('http://httpbin.org/delete');
+    $response = $/* Replaced client */->head('http://httpbin.org/get');
+    $response = $/* Replaced client */->options('http://httpbin.org/get');
+    $response = $/* Replaced client */->patch('http://httpbin.org/patch');
+    $response = $/* Replaced client */->post('http://httpbin.org/post');
+    $response = $/* Replaced client */->put('http://httpbin.org/put');
 
-You can create a request and then send the request with the /* Replaced /* Replaced client */ */ when you're
+You can create a request and then send the request with the /* Replaced client */ when you're
 ready:
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+    use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
 
     $request = new Request('PUT', 'http://httpbin.org/put');
-    $response = $/* Replaced /* Replaced client */ */->send($request, ['timeout' => 2]);
+    $response = $/* Replaced client */->send($request, ['timeout' => 2]);
 
 Client objects provide a great deal of flexibility in how request are
 transferred including default request options, default handler stack middleware
 that are used by each request, and a base URI that allows you to send requests
 with relative URIs.
 
-You can find out more about /* Replaced /* Replaced client */ */ middleware in the
+You can find out more about /* Replaced client */ middleware in the
 :doc:`handlers-and-middleware` page of the documentation.
 
 
 Async Requests
 --------------
 
-You can send asynchronous requests using the magic methods provided by a /* Replaced /* Replaced client */ */:
+You can send asynchronous requests using the magic methods provided by a /* Replaced client */:
 
 .. code-block:: php
 
-    $promise = $/* Replaced /* Replaced client */ */->getAsync('http://httpbin.org/get');
-    $promise = $/* Replaced /* Replaced client */ */->deleteAsync('http://httpbin.org/delete');
-    $promise = $/* Replaced /* Replaced client */ */->headAsync('http://httpbin.org/get');
-    $promise = $/* Replaced /* Replaced client */ */->optionsAsync('http://httpbin.org/get');
-    $promise = $/* Replaced /* Replaced client */ */->patchAsync('http://httpbin.org/patch');
-    $promise = $/* Replaced /* Replaced client */ */->postAsync('http://httpbin.org/post');
-    $promise = $/* Replaced /* Replaced client */ */->putAsync('http://httpbin.org/put');
+    $promise = $/* Replaced client */->getAsync('http://httpbin.org/get');
+    $promise = $/* Replaced client */->deleteAsync('http://httpbin.org/delete');
+    $promise = $/* Replaced client */->headAsync('http://httpbin.org/get');
+    $promise = $/* Replaced client */->optionsAsync('http://httpbin.org/get');
+    $promise = $/* Replaced client */->patchAsync('http://httpbin.org/patch');
+    $promise = $/* Replaced client */->postAsync('http://httpbin.org/post');
+    $promise = $/* Replaced client */->putAsync('http://httpbin.org/put');
 
-You can also use the `sendAsync()` and `requestAsync()` methods of a /* Replaced /* Replaced client */ */:
+You can also use the `sendAsync()` and `requestAsync()` methods of a /* Replaced client */:
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
+    use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
 
     // Create a PSR-7 request object to send
     $headers = ['X-Foo' => 'Bar'];
     $body = 'Hello!';
     $request = new Request('HEAD', 'http://httpbin.org/head', $headers, $body);
-    $promise = $/* Replaced /* Replaced client */ */->sendAsync($request);
+    $promise = $/* Replaced client */->sendAsync($request);
 
     // Or, if you don't need to pass in a request instance:
-    $promise = $/* Replaced /* Replaced client */ */->requestAsync('GET', 'http://httpbin.org/get');
+    $promise = $/* Replaced client */->requestAsync('GET', 'http://httpbin.org/get');
 
 The promise returned by these methods implements the
 `Promises/A+ spec <https://promisesaplus.com/>`_, provided by the
-`/* Replaced /* Replaced Guzzle */ */ promises library <https://github.com//* Replaced /* Replaced guzzle */ *//promises>`_. This means
+`/* Replaced Guzzle */ promises library <https://github.com//* Replaced guzzle *//promises>`_. This means
 that you can chain ``then()`` calls off of the promise. These then calls are
 either fulfilled with a successful ``Psr\Http\Message\ResponseInterface`` or
 rejected with an exception.
@@ -148,9 +148,9 @@ rejected with an exception.
 .. code-block:: php
 
     use Psr\Http\Message\ResponseInterface;
-    use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
+    use /* Replaced Guzzle */Http\Exception\RequestException;
 
-    $promise = $/* Replaced /* Replaced client */ */->requestAsync('GET', 'http://httpbin.org/get');
+    $promise = $/* Replaced client */->requestAsync('GET', 'http://httpbin.org/get');
     $promise->then(
         function (ResponseInterface $res) {
             echo $res->getStatusCode() . "\n";
@@ -170,17 +170,17 @@ requests.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced Guzzle */ */Http\Client;
-    use /* Replaced /* Replaced Guzzle */ */Http\Promise;
+    use /* Replaced Guzzle */Http\Client;
+    use /* Replaced Guzzle */Http\Promise;
 
-    $/* Replaced /* Replaced client */ */ = new Client(['base_uri' => 'http://httpbin.org/']);
+    $/* Replaced client */ = new Client(['base_uri' => 'http://httpbin.org/']);
 
     // Initiate each request but do not block
     $promises = [
-        'image' => $/* Replaced /* Replaced client */ */->getAsync('/image'),
-        'png'   => $/* Replaced /* Replaced client */ */->getAsync('/image/png'),
-        'jpeg'  => $/* Replaced /* Replaced client */ */->getAsync('/image/jpeg'),
-        'webp'  => $/* Replaced /* Replaced client */ */->getAsync('/image/webp')
+        'image' => $/* Replaced client */->getAsync('/image'),
+        'png'   => $/* Replaced client */->getAsync('/image/png'),
+        'jpeg'  => $/* Replaced client */->getAsync('/image/jpeg'),
+        'webp'  => $/* Replaced client */->getAsync('/image/webp')
     ];
 
     // Wait for the requests to complete; throws a ConnectException
@@ -199,27 +199,27 @@ requests.
     echo $responses['image']['value']->getHeader('Content-Length')[0];
     echo $responses['png']['value']->getHeader('Content-Length')[0];
 
-You can use the ``/* Replaced /* Replaced Guzzle */ */Http\Pool`` object when you have an indeterminate
+You can use the ``/* Replaced Guzzle */Http\Pool`` object when you have an indeterminate
 amount of requests you wish to send.
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced Guzzle */ */Http\Client;
-    use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
-    use /* Replaced /* Replaced Guzzle */ */Http\Pool;
-    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
-    use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+    use /* Replaced Guzzle */Http\Client;
+    use /* Replaced Guzzle */Http\Exception\RequestException;
+    use /* Replaced Guzzle */Http\Pool;
+    use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
+    use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Response;
 
-    $/* Replaced /* Replaced client */ */ = new Client();
+    $/* Replaced client */ = new Client();
 
     $requests = function ($total) {
-        $uri = 'http://127.0.0.1:8126//* Replaced /* Replaced guzzle */ */-server/perf';
+        $uri = 'http://127.0.0.1:8126//* Replaced guzzle */-server/perf';
         for ($i = 0; $i < $total; $i++) {
             yield new Request('GET', $uri);
         }
     };
 
-    $pool = new Pool($/* Replaced /* Replaced client */ */, $requests(100), [
+    $pool = new Pool($/* Replaced client */, $requests(100), [
         'concurrency' => 5,
         'fulfilled' => function (Response $response, $index) {
             // this is delivered each successful response
@@ -239,18 +239,18 @@ Or using a closure that will return a promise once the pool calls the closure.
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced client */ */ = new Client();
+    $/* Replaced client */ = new Client();
 
-    $requests = function ($total) use ($/* Replaced /* Replaced client */ */) {
-        $uri = 'http://127.0.0.1:8126//* Replaced /* Replaced guzzle */ */-server/perf';
+    $requests = function ($total) use ($/* Replaced client */) {
+        $uri = 'http://127.0.0.1:8126//* Replaced guzzle */-server/perf';
         for ($i = 0; $i < $total; $i++) {
-            yield function() use ($/* Replaced /* Replaced client */ */, $uri) {
-                return $/* Replaced /* Replaced client */ */->getAsync($uri);
+            yield function() use ($/* Replaced client */, $uri) {
+                return $/* Replaced client */->getAsync($uri);
             };
         }
     };
 
-    $pool = new Pool($/* Replaced /* Replaced client */ */, $requests(100));
+    $pool = new Pool($/* Replaced client */, $requests(100));
 
 
 Using Responses
@@ -310,14 +310,14 @@ You can set query string parameters in the request's URI:
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced client */ */->request('GET', 'http://httpbin.org?foo=bar');
+    $response = $/* Replaced client */->request('GET', 'http://httpbin.org?foo=bar');
 
 You can specify the query string parameters using the ``query`` request
 option as an array.
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced client */ */->request('GET', 'http://httpbin.org', [
+    $/* Replaced client */->request('GET', 'http://httpbin.org', [
         'query' => ['foo' => 'bar']
     ]);
 
@@ -328,13 +328,13 @@ And finally, you can provide the ``query`` request option as a string.
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced client */ */->request('GET', 'http://httpbin.org', ['query' => 'foo=bar']);
+    $/* Replaced client */->request('GET', 'http://httpbin.org', ['query' => 'foo=bar']);
 
 
 Uploading Data
 ==============
 
-/* Replaced /* Replaced Guzzle */ */ provides several methods for uploading data.
+/* Replaced Guzzle */ provides several methods for uploading data.
 
 You can send requests that contain a stream of data by passing a string,
 resource returned from ``fopen``, or an instance of a
@@ -343,24 +343,24 @@ resource returned from ``fopen``, or an instance of a
 .. code-block:: php
 
     // Provide the body as a string.
-    $r = $/* Replaced /* Replaced client */ */->request('POST', 'http://httpbin.org/post', [
+    $r = $/* Replaced client */->request('POST', 'http://httpbin.org/post', [
         'body' => 'raw data'
     ]);
 
     // Provide an fopen resource.
     $body = fopen('/path/to/file', 'r');
-    $r = $/* Replaced /* Replaced client */ */->request('POST', 'http://httpbin.org/post', ['body' => $body]);
+    $r = $/* Replaced client */->request('POST', 'http://httpbin.org/post', ['body' => $body]);
 
     // Use the Utils::streamFor method to create a PSR-7 stream.
-    $body = \/* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Utils::streamFor('hello!');
-    $r = $/* Replaced /* Replaced client */ */->request('POST', 'http://httpbin.org/post', ['body' => $body]);
+    $body = \/* Replaced Guzzle */Http\/* Replaced Psr7 */\Utils::streamFor('hello!');
+    $r = $/* Replaced client */->request('POST', 'http://httpbin.org/post', ['body' => $body]);
 
 An easy way to upload JSON data and set the appropriate header is using the
 ``json`` request option:
 
 .. code-block:: php
 
-    $r = $/* Replaced /* Replaced client */ */->request('PUT', 'http://httpbin.org/put', [
+    $r = $/* Replaced client */->request('PUT', 'http://httpbin.org/put', [
         'json' => ['foo' => 'bar']
     ]);
 
@@ -369,7 +369,7 @@ POST/Form Requests
 ------------------
 
 In addition to specifying the raw data of a request using the ``body`` request
-option, /* Replaced /* Replaced Guzzle */ */ provides helpful abstractions over sending POST data.
+option, /* Replaced Guzzle */ provides helpful abstractions over sending POST data.
 
 
 Sending form fields
@@ -380,7 +380,7 @@ specify the POST fields as an array in the ``form_params`` request options.
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced client */ */->request('POST', 'http://httpbin.org/post', [
+    $response = $/* Replaced client */->request('POST', 'http://httpbin.org/post', [
         'form_params' => [
             'field_name' => 'abc',
             'other_field' => '123',
@@ -406,7 +406,7 @@ associative arrays, where each associative array contains the following keys:
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced client */ */->request('POST', 'http://httpbin.org/post', [
+    $response = $/* Replaced client */->request('POST', 'http://httpbin.org/post', [
         'multipart' => [
             [
                 'name'     => 'field_name',
@@ -431,42 +431,42 @@ associative arrays, where each associative array contains the following keys:
 Cookies
 =======
 
-/* Replaced /* Replaced Guzzle */ */ can maintain a cookie session for you if instructed using the
+/* Replaced Guzzle */ can maintain a cookie session for you if instructed using the
 ``cookies`` request option. When sending a request, the ``cookies`` option
-must be set to an instance of ``/* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJarInterface``.
+must be set to an instance of ``/* Replaced Guzzle */Http\Cookie\CookieJarInterface``.
 
 .. code-block:: php
 
     // Use a specific cookie jar
-    $jar = new \/* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJar;
-    $r = $/* Replaced /* Replaced client */ */->request('GET', 'http://httpbin.org/cookies', [
+    $jar = new \/* Replaced Guzzle */Http\Cookie\CookieJar;
+    $r = $/* Replaced client */->request('GET', 'http://httpbin.org/cookies', [
         'cookies' => $jar
     ]);
 
-You can set ``cookies`` to ``true`` in a /* Replaced /* Replaced client */ */ constructor if you would like
+You can set ``cookies`` to ``true`` in a /* Replaced client */ constructor if you would like
 to use a shared cookie jar for all requests.
 
 .. code-block:: php
 
-    // Use a shared /* Replaced /* Replaced client */ */ cookie jar
-    $/* Replaced /* Replaced client */ */ = new \/* Replaced /* Replaced Guzzle */ */Http\Client(['cookies' => true]);
-    $r = $/* Replaced /* Replaced client */ */->request('GET', 'http://httpbin.org/cookies');
+    // Use a shared /* Replaced client */ cookie jar
+    $/* Replaced client */ = new \/* Replaced Guzzle */Http\Client(['cookies' => true]);
+    $r = $/* Replaced client */->request('GET', 'http://httpbin.org/cookies');
 
-Different implementations exist for the ``/* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJarInterface``
+Different implementations exist for the ``/* Replaced Guzzle */Http\Cookie\CookieJarInterface``
 :
 
-- The ``/* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJar`` class stores cookies as an array.
-- The ``/* Replaced /* Replaced Guzzle */ */Http\Cookie\FileCookieJar`` class persists non-session cookies
+- The ``/* Replaced Guzzle */Http\Cookie\CookieJar`` class stores cookies as an array.
+- The ``/* Replaced Guzzle */Http\Cookie\FileCookieJar`` class persists non-session cookies
   using a JSON formatted file.
-- The ``/* Replaced /* Replaced Guzzle */ */Http\Cookie\SessionCookieJar`` class persists cookies in the
-  /* Replaced /* Replaced client */ */ session.
+- The ``/* Replaced Guzzle */Http\Cookie\SessionCookieJar`` class persists cookies in the
+  /* Replaced client */ session.
 
 You can manually set cookies into a cookie jar with the named constructor
 ``fromArray(array $cookies, $domain)``.
 
 .. code-block:: php
 
-    $jar = \/* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJar::fromArray(
+    $jar = \/* Replaced Guzzle */Http\Cookie\CookieJar::fromArray(
         [
             'some_cookie' => 'foo',
             'other_cookie' => 'barbaz1234'
@@ -475,7 +475,7 @@ You can manually set cookies into a cookie jar with the named constructor
     );
 
 You can get a cookie by its name with the ``getCookieByName($name)`` method
-which returns a ``/* Replaced /* Replaced Guzzle */ */Http\Cookie\SetCookie`` instance.
+which returns a ``/* Replaced Guzzle */Http\Cookie\SetCookie`` instance.
 
 .. code-block:: php
 
@@ -486,14 +486,14 @@ which returns a ``/* Replaced /* Replaced Guzzle */ */Http\Cookie\SetCookie`` in
     $cookie->getExpires(); // expiration date as a Unix timestamp
 
 The cookies can be also fetched into an array thanks to the `toArray()` method.
-The ``/* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJarInterface`` interface extends
+The ``/* Replaced Guzzle */Http\Cookie\CookieJarInterface`` interface extends
 ``Traversable`` so it can be iterated in a foreach loop.
 
 
 Redirects
 =========
 
-/* Replaced /* Replaced Guzzle */ */ will automatically follow redirects unless you tell it not to. You can
+/* Replaced Guzzle */ will automatically follow redirects unless you tell it not to. You can
 customize the redirect behavior using the ``allow_redirects`` request option.
 
 - Set to ``true`` to enable normal redirects with a maximum number of 5
@@ -507,7 +507,7 @@ customize the redirect behavior using the ``allow_redirects`` request option.
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced client */ */->request('GET', 'http://github.com');
+    $response = $/* Replaced client */->request('GET', 'http://github.com');
     echo $response->getStatusCode();
     // 200
 
@@ -515,7 +515,7 @@ The following example shows that redirects can be disabled.
 
 .. code-block:: php
 
-    $response = $/* Replaced /* Replaced client */ */->request('GET', 'http://github.com', [
+    $response = $/* Replaced client */->request('GET', 'http://github.com', [
         'allow_redirects' => false
     ]);
     echo $response->getStatusCode();
@@ -527,13 +527,13 @@ Exceptions
 
 **Tree View**
 
-The following tree view describes how the /* Replaced /* Replaced Guzzle */ */ Exceptions depend
+The following tree view describes how the /* Replaced Guzzle */ Exceptions depend
 on each other.
 
 .. code-block:: none
 
     . \RuntimeException
-    └── TransferException (implements /* Replaced /* Replaced Guzzle */ */Exception)
+    └── TransferException (implements /* Replaced Guzzle */Exception)
         └── ConnectException (implements NetworkExceptionInterface)
         └── RequestException
             ├── BadResponseException
@@ -541,65 +541,65 @@ on each other.
             │   └── ClientException
             └── TooManyRedirectsException
 
-/* Replaced /* Replaced Guzzle */ */ throws exceptions for errors that occur during a transfer.
+/* Replaced Guzzle */ throws exceptions for errors that occur during a transfer.
 
 - In the event of a networking error (connection timeout, DNS errors, etc.),
-  a ``/* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException`` is thrown. This exception
-  extends from ``/* Replaced /* Replaced Guzzle */ */Http\Exception\TransferException``. Catching this
+  a ``/* Replaced Guzzle */Http\Exception\RequestException`` is thrown. This exception
+  extends from ``/* Replaced Guzzle */Http\Exception\TransferException``. Catching this
   exception will catch any exception that can be thrown while transferring
   requests.
 
   .. code-block:: php
 
-      use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
-      use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
+      use /* Replaced Guzzle */Http\/* Replaced Psr7 */;
+      use /* Replaced Guzzle */Http\Exception\RequestException;
 
       try {
-          $/* Replaced /* Replaced client */ */->request('GET', 'https://github.com/_abc_123_404');
+          $/* Replaced client */->request('GET', 'https://github.com/_abc_123_404');
       } catch (RequestException $e) {
-          echo /* Replaced /* Replaced Psr7 */ */\Message::toString($e->getRequest());
+          echo /* Replaced Psr7 */\Message::toString($e->getRequest());
           if ($e->hasResponse()) {
-              echo /* Replaced /* Replaced Psr7 */ */\Message::toString($e->getResponse());
+              echo /* Replaced Psr7 */\Message::toString($e->getResponse());
           }
       }
 
-- A ``/* Replaced /* Replaced Guzzle */ */Http\Exception\ConnectException`` exception is thrown in the
+- A ``/* Replaced Guzzle */Http\Exception\ConnectException`` exception is thrown in the
   event of a networking error. This exception extends from
-  ``/* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException``.
+  ``/* Replaced Guzzle */Http\Exception\RequestException``.
 
-- A ``/* Replaced /* Replaced Guzzle */ */Http\Exception\ClientException`` is thrown for 400
+- A ``/* Replaced Guzzle */Http\Exception\ClientException`` is thrown for 400
   level errors if the ``http_errors`` request option is set to true. This
-  exception extends from ``/* Replaced /* Replaced Guzzle */ */Http\Exception\BadResponseException`` and
-  ``/* Replaced /* Replaced Guzzle */ */Http\Exception\BadResponseException`` extends from
-  ``/* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException``.
+  exception extends from ``/* Replaced Guzzle */Http\Exception\BadResponseException`` and
+  ``/* Replaced Guzzle */Http\Exception\BadResponseException`` extends from
+  ``/* Replaced Guzzle */Http\Exception\RequestException``.
 
   .. code-block:: php
 
-      use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
-      use /* Replaced /* Replaced Guzzle */ */Http\Exception\ClientException;
+      use /* Replaced Guzzle */Http\/* Replaced Psr7 */;
+      use /* Replaced Guzzle */Http\Exception\ClientException;
 
       try {
-          $/* Replaced /* Replaced client */ */->request('GET', 'https://github.com/_abc_123_404');
+          $/* Replaced client */->request('GET', 'https://github.com/_abc_123_404');
       } catch (ClientException $e) {
-          echo /* Replaced /* Replaced Psr7 */ */\Message::toString($e->getRequest());
-          echo /* Replaced /* Replaced Psr7 */ */\Message::toString($e->getResponse());
+          echo /* Replaced Psr7 */\Message::toString($e->getRequest());
+          echo /* Replaced Psr7 */\Message::toString($e->getResponse());
       }
 
-- A ``/* Replaced /* Replaced Guzzle */ */Http\Exception\ServerException`` is thrown for 500 level
+- A ``/* Replaced Guzzle */Http\Exception\ServerException`` is thrown for 500 level
   errors if the ``http_errors`` request option is set to true. This
-  exception extends from ``/* Replaced /* Replaced Guzzle */ */Http\Exception\BadResponseException``.
+  exception extends from ``/* Replaced Guzzle */Http\Exception\BadResponseException``.
 
-- A ``/* Replaced /* Replaced Guzzle */ */Http\Exception\TooManyRedirectsException`` is thrown when too
-  many redirects are followed. This exception extends from ``/* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException``.
+- A ``/* Replaced Guzzle */Http\Exception\TooManyRedirectsException`` is thrown when too
+  many redirects are followed. This exception extends from ``/* Replaced Guzzle */Http\Exception\RequestException``.
 
 All of the above exceptions extend from
-``/* Replaced /* Replaced Guzzle */ */Http\Exception\TransferException``.
+``/* Replaced Guzzle */Http\Exception\TransferException``.
 
 
 Environment Variables
 =====================
 
-/* Replaced /* Replaced Guzzle */ */ exposes a few environment variables that can be used to customize the
+/* Replaced Guzzle */ exposes a few environment variables that can be used to customize the
 behavior of the library.
 
 ``GUZZLE_CURL_SELECT_TIMEOUT``
@@ -621,7 +621,7 @@ behavior of the library.
 Relevant ini Settings
 ---------------------
 
-/* Replaced /* Replaced Guzzle */ */ can utilize PHP ini settings when configuring /* Replaced /* Replaced client */ */s.
+/* Replaced Guzzle */ can utilize PHP ini settings when configuring /* Replaced client */s.
 
 ``openssl.cafile``
     Specifies the path on disk to a CA file in PEM format to use when sending

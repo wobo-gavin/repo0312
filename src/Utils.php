@@ -1,12 +1,12 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http;
+namespace /* Replaced Guzzle */Http;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\InvalidArgumentException;
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\CurlHandler;
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\CurlMultiHandler;
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\Proxy;
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\StreamHandler;
+use /* Replaced Guzzle */Http\Exception\InvalidArgumentException;
+use /* Replaced Guzzle */Http\Handler\CurlHandler;
+use /* Replaced Guzzle */Http\Handler\CurlMultiHandler;
+use /* Replaced Guzzle */Http\Handler\Proxy;
+use /* Replaced Guzzle */Http\Handler\StreamHandler;
 use Psr\Http\Message\UriInterface;
 
 final class Utils
@@ -86,7 +86,7 @@ final class Utils
      *
      * @throws \RuntimeException if no viable Handler is available.
      *
-     * @return callable(\Psr\Http\Message\RequestInterface, array): \/* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface Returns the best handler for the given system.
+     * @return callable(\Psr\Http\Message\RequestInterface, array): \/* Replaced Guzzle */Http\Promise\PromiseInterface Returns the best handler for the given system.
      */
     public static function chooseHandler(): callable
     {
@@ -104,18 +104,18 @@ final class Utils
                 ? Proxy::wrapStreaming($handler, new StreamHandler())
                 : new StreamHandler();
         } elseif (!$handler) {
-            throw new \RuntimeException('/* Replaced /* Replaced Guzzle */ */Http requires cURL, the allow_url_fopen ini setting, or a custom HTTP handler.');
+            throw new \RuntimeException('/* Replaced Guzzle */Http requires cURL, the allow_url_fopen ini setting, or a custom HTTP handler.');
         }
 
         return $handler;
     }
 
     /**
-     * Get the default User-Agent string to use with /* Replaced /* Replaced Guzzle */ */.
+     * Get the default User-Agent string to use with /* Replaced Guzzle */.
      */
     public static function defaultUserAgent(): string
     {
-        return sprintf('/* Replaced /* Replaced Guzzle */ */Http/%d', ClientInterface::MAJOR_VERSION);
+        return sprintf('/* Replaced Guzzle */Http/%d', ClientInterface::MAJOR_VERSION);
     }
 
     /**
@@ -131,7 +131,7 @@ final class Utils
      *
      * @throws \RuntimeException if no bundle can be found.
      *
-     * @deprecated Utils::defaultCaBundle will be removed in /* Replaced /* Replaced guzzle */ */http//* Replaced /* Replaced guzzle */ */:8.0. This method is not needed in PHP 5.6+.
+     * @deprecated Utils::defaultCaBundle will be removed in /* Replaced guzzle */http//* Replaced guzzle */:8.0. This method is not needed in PHP 5.6+.
      */
     public static function defaultCaBundle(): string
     {
@@ -178,7 +178,7 @@ No system CA bundle could be found in any of the the common system locations.
 PHP versions earlier than 5.6 are not properly configured to use the system's
 CA bundle by default. In order to verify peer certificates, you will need to
 supply the path on disk to a certificate bundle to the 'verify' request
-option: http://docs./* Replaced /* Replaced guzzle */ */php.org/en/latest//* Replaced /* Replaced client */ */s.html#verify. If you do not
+option: http://docs./* Replaced guzzle */php.org/en/latest//* Replaced client */s.html#verify. If you do not
 need a specific certificate bundle, then Mozilla provides a commonly used CA
 bundle which can be downloaded here (provided by the maintainer of cURL):
 https://curl.haxx.se/ca/cacert.pem. Once

@@ -1,13 +1,13 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Handler;
+namespace /* Replaced Guzzle */Http\Handler;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced Guzzle */ */Http\HandlerStack;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced Guzzle */ */Http\TransferStats;
-use /* Replaced /* Replaced Guzzle */ */Http\Utils;
+use /* Replaced Guzzle */Http\Exception\RequestException;
+use /* Replaced Guzzle */Http\HandlerStack;
+use /* Replaced Guzzle */Http\Promise as P;
+use /* Replaced Guzzle */Http\Promise\PromiseInterface;
+use /* Replaced Guzzle */Http\TransferStats;
+use /* Replaced Guzzle */Http\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;

@@ -1,18 +1,18 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Tests\CookieJar;
+namespace /* Replaced Guzzle */Http\Tests\CookieJar;
 
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
-use /* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJar;
-use /* Replaced /* Replaced Guzzle */ */Http\Cookie\SetCookie;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+use /* Replaced Guzzle */Http\Cookie\CookieJar;
+use /* Replaced Guzzle */Http\Cookie\SetCookie;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Response;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \/* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJar
+ * @covers \/* Replaced Guzzle */Http\Cookie\CookieJar
  */
 class CookieJarTest extends TestCase
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Tests\Handler;
+namespace /* Replaced Guzzle */Http\Tests\Handler;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\ConnectException;
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\CurlMultiHandler;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
-use /* Replaced /* Replaced Guzzle */ */Http\Tests\Helpers;
-use /* Replaced /* Replaced Guzzle */ */Http\Tests\Server;
-use /* Replaced /* Replaced Guzzle */ */Http\Utils;
+use /* Replaced Guzzle */Http\Exception\ConnectException;
+use /* Replaced Guzzle */Http\Handler\CurlMultiHandler;
+use /* Replaced Guzzle */Http\Promise as P;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Response;
+use /* Replaced Guzzle */Http\Tests\Helpers;
+use /* Replaced Guzzle */Http\Tests\Server;
+use /* Replaced Guzzle */Http\Utils;
 use PHPUnit\Framework\TestCase;
 
 class CurlMultiHandlerTest extends TestCase

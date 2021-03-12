@@ -1,15 +1,15 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Test\Handler;
+namespace /* Replaced Guzzle */Http\Test\Handler;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler;
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\Proxy;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
-use /* Replaced /* Replaced Guzzle */ */Http\RequestOptions;
+use /* Replaced Guzzle */Http\Handler\MockHandler;
+use /* Replaced Guzzle */Http\Handler\Proxy;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
+use /* Replaced Guzzle */Http\RequestOptions;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \/* Replaced /* Replaced Guzzle */ */Http\Handler\Proxy
+ * @covers \/* Replaced Guzzle */Http\Handler\Proxy
  */
 class ProxyTest extends TestCase
 {

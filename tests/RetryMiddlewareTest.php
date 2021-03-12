@@ -1,13 +1,13 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Tests;
+namespace /* Replaced Guzzle */Http\Tests;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Client;
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler;
-use /* Replaced /* Replaced Guzzle */ */Http\Middleware;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
-use /* Replaced /* Replaced Guzzle */ */Http\RetryMiddleware;
+use /* Replaced Guzzle */Http\Client;
+use /* Replaced Guzzle */Http\Handler\MockHandler;
+use /* Replaced Guzzle */Http\Middleware;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Response;
+use /* Replaced Guzzle */Http\RetryMiddleware;
 use PHPUnit\Framework\TestCase;
 
 class RetryMiddlewareTest extends TestCase

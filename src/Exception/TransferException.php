@@ -1,7 +1,7 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Exception;
+namespace /* Replaced Guzzle */Http\Exception;
 
-class TransferException extends \RuntimeException implements /* Replaced /* Replaced Guzzle */ */Exception
+class TransferException extends \RuntimeException implements /* Replaced Guzzle */Exception
 {
 }

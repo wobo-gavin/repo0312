@@ -1,13 +1,13 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Tests\CookieJar;
+namespace /* Replaced Guzzle */Http\Tests\CookieJar;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Cookie\FileCookieJar;
-use /* Replaced /* Replaced Guzzle */ */Http\Cookie\SetCookie;
+use /* Replaced Guzzle */Http\Cookie\FileCookieJar;
+use /* Replaced Guzzle */Http\Cookie\SetCookie;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \/* Replaced /* Replaced Guzzle */ */Http\Cookie\FileCookieJar
+ * @covers \/* Replaced Guzzle */Http\Cookie\FileCookieJar
  */
 class FileCookieJarTest extends TestCase
 {

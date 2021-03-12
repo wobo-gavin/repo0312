@@ -1,18 +1,18 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Test\Handler;
+namespace /* Replaced Guzzle */Http\Test\Handler;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\BadResponseException;
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Stream;
-use /* Replaced /* Replaced Guzzle */ */Http\TransferStats;
+use /* Replaced Guzzle */Http\Exception\BadResponseException;
+use /* Replaced Guzzle */Http\Exception\RequestException;
+use /* Replaced Guzzle */Http\Handler\MockHandler;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Response;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Stream;
+use /* Replaced Guzzle */Http\TransferStats;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \/* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler
+ * @covers \/* Replaced Guzzle */Http\Handler\MockHandler
  */
 class MockHandlerTest extends TestCase
 {

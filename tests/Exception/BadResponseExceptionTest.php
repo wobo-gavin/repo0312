@@ -1,10 +1,10 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Tests\Exception;
+namespace /* Replaced Guzzle */Http\Tests\Exception;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\BadResponseException;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+use /* Replaced Guzzle */Http\Exception\BadResponseException;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Response;
 use PHPUnit\Framework\TestCase;
 
 class BadResponseExceptionTest extends TestCase

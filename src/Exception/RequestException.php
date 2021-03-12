@@ -1,9 +1,9 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Exception;
+namespace /* Replaced Guzzle */Http\Exception;
 
-use /* Replaced /* Replaced Guzzle */ */Http\BodySummarizer;
-use /* Replaced /* Replaced Guzzle */ */Http\BodySummarizerInterface;
+use /* Replaced Guzzle */Http\BodySummarizer;
+use /* Replaced Guzzle */Http\BodySummarizerInterface;
 use Psr\Http\Client\RequestExceptionInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

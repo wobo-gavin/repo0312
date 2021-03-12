@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http;
+namespace /* Replaced Guzzle */Http;
 
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\RequestInterface;
@@ -83,10 +83,10 @@ class MessageFormatter implements MessageFormatterInterface
                 $result = '';
                 switch ($matches[1]) {
                     case 'request':
-                        $result = /* Replaced /* Replaced Psr7 */ */\Message::toString($request);
+                        $result = /* Replaced Psr7 */\Message::toString($request);
                         break;
                     case 'response':
-                        $result = $response ? /* Replaced /* Replaced Psr7 */ */\Message::toString($response) : '';
+                        $result = $response ? /* Replaced Psr7 */\Message::toString($response) : '';
                         break;
                     case 'req_headers':
                         $result = \trim($request->getMethod()

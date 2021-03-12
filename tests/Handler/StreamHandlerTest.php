@@ -1,23 +1,23 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Test\Handler;
+namespace /* Replaced Guzzle */Http\Test\Handler;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\ConnectException;
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\StreamHandler;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\FnStream;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
-use /* Replaced /* Replaced Guzzle */ */Http\RequestOptions;
-use /* Replaced /* Replaced Guzzle */ */Http\Tests\Server;
-use /* Replaced /* Replaced Guzzle */ */Http\TransferStats;
-use /* Replaced /* Replaced Guzzle */ */Http\Utils;
+use /* Replaced Guzzle */Http\Exception\ConnectException;
+use /* Replaced Guzzle */Http\Exception\RequestException;
+use /* Replaced Guzzle */Http\Handler\StreamHandler;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\FnStream;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Response;
+use /* Replaced Guzzle */Http\RequestOptions;
+use /* Replaced Guzzle */Http\Tests\Server;
+use /* Replaced Guzzle */Http\TransferStats;
+use /* Replaced Guzzle */Http\Utils;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * @covers \/* Replaced /* Replaced Guzzle */ */Http\Handler\StreamHandler
+ * @covers \/* Replaced Guzzle */Http\Handler\StreamHandler
  */
 class StreamHandlerTest extends TestCase
 {
@@ -560,7 +560,7 @@ class StreamHandlerTest extends TestCase
         $req = new Request('GET', Server::$url);
         $got = null;
 
-        $stream = /* Replaced /* Replaced Psr7 */ */\Utils::streamFor();
+        $stream = /* Replaced Psr7 */\Utils::streamFor();
         $stream = FnStream::decorate($stream, [
             'write' => static function ($data) use ($stream, &$got) {
                 self::assertNotNull($got);
@@ -586,8 +586,8 @@ class StreamHandlerTest extends TestCase
     public function testInvokesOnStatsOnSuccess()
     {
         Server::flush();
-        Server::enqueue([new /* Replaced /* Replaced Psr7 */ */\Response(200)]);
-        $req = new /* Replaced /* Replaced Psr7 */ */\Request('GET', Server::$url);
+        Server::enqueue([new /* Replaced Psr7 */\Response(200)]);
+        $req = new /* Replaced Psr7 */\Request('GET', Server::$url);
         $gotStats = null;
         $handler = new StreamHandler();
         $promise = $handler($req, [
@@ -611,7 +611,7 @@ class StreamHandlerTest extends TestCase
 
     public function testInvokesOnStatsOnError()
     {
-        $req = new /* Replaced /* Replaced Psr7 */ */\Request('GET', 'http://127.0.0.1:123');
+        $req = new /* Replaced Psr7 */\Request('GET', 'http://127.0.0.1:123');
         $gotStats = null;
         $handler = new StreamHandler();
         $promise = $handler($req, [
@@ -641,8 +641,8 @@ class StreamHandlerTest extends TestCase
     public function testStreamIgnoresZeroTimeout()
     {
         Server::flush();
-        Server::enqueue([new /* Replaced /* Replaced Psr7 */ */\Response(200)]);
-        $req = new /* Replaced /* Replaced Psr7 */ */\Request('GET', Server::$url);
+        Server::enqueue([new /* Replaced Psr7 */\Response(200)]);
+        $req = new /* Replaced Psr7 */\Request('GET', Server::$url);
         $gotStats = null;
         $handler = new StreamHandler();
         $promise = $handler($req, [
@@ -676,7 +676,7 @@ class StreamHandlerTest extends TestCase
         Server::flush();
         $handler = new StreamHandler();
         $response = $handler(
-            new Request('GET', Server::$url . '/* Replaced /* Replaced guzzle */ */-server/read-timeout'),
+            new Request('GET', Server::$url . '/* Replaced guzzle */-server/read-timeout'),
             [
                 RequestOptions::READ_TIMEOUT => 1,
                 RequestOptions::STREAM => true,

@@ -1,21 +1,21 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Tests;
+namespace /* Replaced Guzzle */Http\Tests;
 
-use /* Replaced /* Replaced Guzzle */ */Http\BodySummarizer;
-use /* Replaced /* Replaced Guzzle */ */Http\Cookie\CookieJar;
-use /* Replaced /* Replaced Guzzle */ */Http\Cookie\SetCookie;
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\ClientException;
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\ServerException;
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler;
-use /* Replaced /* Replaced Guzzle */ */Http\HandlerStack;
-use /* Replaced /* Replaced Guzzle */ */Http\MessageFormatter;
-use /* Replaced /* Replaced Guzzle */ */Http\Middleware;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+use /* Replaced Guzzle */Http\BodySummarizer;
+use /* Replaced Guzzle */Http\Cookie\CookieJar;
+use /* Replaced Guzzle */Http\Cookie\SetCookie;
+use /* Replaced Guzzle */Http\Exception\ClientException;
+use /* Replaced Guzzle */Http\Exception\RequestException;
+use /* Replaced Guzzle */Http\Exception\ServerException;
+use /* Replaced Guzzle */Http\Handler\MockHandler;
+use /* Replaced Guzzle */Http\HandlerStack;
+use /* Replaced Guzzle */Http\MessageFormatter;
+use /* Replaced Guzzle */Http\Middleware;
+use /* Replaced Guzzle */Http\Promise as P;
+use /* Replaced Guzzle */Http\Promise\PromiseInterface;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

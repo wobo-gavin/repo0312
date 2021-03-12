@@ -1,8 +1,8 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Cookie;
+namespace /* Replaced Guzzle */Http\Cookie;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Utils;
+use /* Replaced Guzzle */Http\Utils;
 
 /**
  * Persists non-session cookies using a JSON formatted file

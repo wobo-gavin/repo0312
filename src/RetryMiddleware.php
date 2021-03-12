@@ -1,9 +1,9 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http;
+namespace /* Replaced Guzzle */Http;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Promise as P;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface;
+use /* Replaced Guzzle */Http\Promise as P;
+use /* Replaced Guzzle */Http\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 

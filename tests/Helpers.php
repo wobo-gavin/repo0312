@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Tests;
+namespace /* Replaced Guzzle */Http\Tests;
 
 class Helpers
 {

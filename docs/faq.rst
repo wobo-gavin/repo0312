@@ -2,36 +2,36 @@
 FAQ
 ===
 
-Does /* Replaced /* Replaced Guzzle */ */ require cURL?
+Does /* Replaced Guzzle */ require cURL?
 =========================
 
-No. /* Replaced /* Replaced Guzzle */ */ can use any HTTP handler to send requests. This means that /* Replaced /* Replaced Guzzle */ */
+No. /* Replaced Guzzle */ can use any HTTP handler to send requests. This means that /* Replaced Guzzle */
 can be used with cURL, PHP's stream wrapper, sockets, and non-blocking libraries
 like `React <https://reactphp.org/>`_. You just need to configure an HTTP handler
 to use a different method of sending requests.
 
 .. note::
 
-    /* Replaced /* Replaced Guzzle */ */ has historically only utilized cURL to send HTTP requests. cURL is
-    an amazing HTTP /* Replaced /* Replaced client */ */ (arguably the best), and /* Replaced /* Replaced Guzzle */ */ will continue to use
+    /* Replaced Guzzle */ has historically only utilized cURL to send HTTP requests. cURL is
+    an amazing HTTP /* Replaced client */ (arguably the best), and /* Replaced Guzzle */ will continue to use
     it by default when it is available. It is rare, but some developers don't
     have cURL installed on their systems or run into version specific issues.
-    By allowing swappable HTTP handlers, /* Replaced /* Replaced Guzzle */ */ is now much more customizable
+    By allowing swappable HTTP handlers, /* Replaced Guzzle */ is now much more customizable
     and able to adapt to fit the needs of more developers.
 
 
-Can /* Replaced /* Replaced Guzzle */ */ send asynchronous requests?
+Can /* Replaced Guzzle */ send asynchronous requests?
 ======================================
 
 Yes. You can use the ``requestAsync``, ``sendAsync``, ``getAsync``,
 ``headAsync``, ``putAsync``, ``postAsync``, ``deleteAsync``, and ``patchAsync``
-methods of a /* Replaced /* Replaced client */ */ to send an asynchronous request. The /* Replaced /* Replaced client */ */ will return a
-``/* Replaced /* Replaced Guzzle */ */Http\Promise\PromiseInterface`` object. You can chain ``then``
+methods of a /* Replaced client */ to send an asynchronous request. The /* Replaced client */ will return a
+``/* Replaced Guzzle */Http\Promise\PromiseInterface`` object. You can chain ``then``
 functions off of the promise.
 
 .. code-block:: php
 
-    $promise = $/* Replaced /* Replaced client */ */->requestAsync('GET', 'http://httpbin.org/get');
+    $promise = $/* Replaced client */->requestAsync('GET', 'http://httpbin.org/get');
     $promise->then(function ($response) {
         echo 'Got a response! ' . $response->getStatusCode();
     });
@@ -41,7 +41,7 @@ of the returned promise.
 
 .. code-block:: php
 
-    $promise = $/* Replaced /* Replaced client */ */->requestAsync('GET', 'http://httpbin.org/get');
+    $promise = $/* Replaced client */->requestAsync('GET', 'http://httpbin.org/get');
     $response = $promise->wait();
 
 
@@ -49,17 +49,17 @@ How can I add custom cURL options?
 ==================================
 
 cURL offers a huge number of `customizable options <https://www.php.net/curl_setopt>`_.
-While /* Replaced /* Replaced Guzzle */ */ normalizes many of these options across different handlers, there
+While /* Replaced Guzzle */ normalizes many of these options across different handlers, there
 are times when you need to set custom cURL options. This can be accomplished
 by passing an associative array of cURL settings in the **curl** key of a
 request.
 
 For example, let's say you need to customize the outgoing network interface
-used with a /* Replaced /* Replaced client */ */.
+used with a /* Replaced client */.
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced client */ */->request('GET', '/', [
+    $/* Replaced client */->request('GET', '/', [
         'curl' => [
             CURLOPT_INTERFACE => 'xxx.xxx.xxx.xxx'
         ]
@@ -71,11 +71,11 @@ additional options can be specified as an associative array in the
 
 .. code-block:: php
 
-    use /* Replaced /* Replaced Guzzle */ */Http\Client;
-    use /* Replaced /* Replaced Guzzle */ */Http\HandlerStack;
-    use /* Replaced /* Replaced Guzzle */ */Http\Handler\CurlMultiHandler;
+    use /* Replaced Guzzle */Http\Client;
+    use /* Replaced Guzzle */Http\HandlerStack;
+    use /* Replaced Guzzle */Http\Handler\CurlMultiHandler;
 
-    $/* Replaced /* Replaced client */ */ = new Client(['handler' => HandlerStack::create(new CurlMultiHandler([
+    $/* Replaced client */ = new Client(['handler' => HandlerStack::create(new CurlMultiHandler([
         'options' => [
             CURLMOPT_MAX_TOTAL_CONNECTIONS => 50,
             CURLMOPT_MAX_HOST_CONNECTIONS => 5,
@@ -92,11 +92,11 @@ array is an associative array where each key is a PHP transport, and each value
 is an associative array of transport options.
 
 For example, let's say you need to customize the outgoing network interface
-used with a /* Replaced /* Replaced client */ */ and allow self-signed certificates.
+used with a /* Replaced client */ and allow self-signed certificates.
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced client */ */->request('GET', '/', [
+    $/* Replaced client */->request('GET', '/', [
         'stream' => true,
         'stream_context' => [
             'ssl' => [
@@ -112,7 +112,7 @@ used with a /* Replaced /* Replaced client */ */ and allow self-signed certifica
 Why am I getting an SSL verification error?
 ===========================================
 
-You need to specify the path on disk to the CA bundle used by /* Replaced /* Replaced Guzzle */ */ for
+You need to specify the path on disk to the CA bundle used by /* Replaced Guzzle */ for
 verifying the peer certificate. See :ref:`verify-option`.
 
 
@@ -139,20 +139,20 @@ setting the ``expect`` request option to ``false``:
 
 .. code-block:: php
 
-    $/* Replaced /* Replaced client */ */ = new /* Replaced /* Replaced Guzzle */ */Http\Client();
+    $/* Replaced client */ = new /* Replaced Guzzle */Http\Client();
 
     // Disable the expect header on a single request
-    $response = $/* Replaced /* Replaced client */ */->request('PUT', '/', ['expect' => false]);
+    $response = $/* Replaced client */->request('PUT', '/', ['expect' => false]);
 
-    // Disable the expect header on all /* Replaced /* Replaced client */ */ requests
-    $/* Replaced /* Replaced client */ */ = new /* Replaced /* Replaced Guzzle */ */Http\Client(['expect' => false]);
+    // Disable the expect header on all /* Replaced client */ requests
+    $/* Replaced client */ = new /* Replaced Guzzle */Http\Client(['expect' => false]);
 
 How can I track redirected requests?
 ====================================
 
 You can enable tracking of redirected URIs and status codes via the
 `track_redirects` option. Each redirected URI and status code will be stored in the
-``X-/* Replaced /* Replaced Guzzle */ */-Redirect-History`` and the ``X-/* Replaced /* Replaced Guzzle */ */-Redirect-Status-History``
+``X-/* Replaced Guzzle */-Redirect-History`` and the ``X-/* Replaced Guzzle */-Redirect-Status-History``
 header respectively.
 
 The initial request's URI and the final status code will be excluded from the results.
@@ -163,8 +163,8 @@ together in a single report:
 
 .. code-block:: php
 
-    // First you configure /* Replaced /* Replaced Guzzle */ */ with redirect tracking and make a request
-    $/* Replaced /* Replaced client */ */ = new Client([
+    // First you configure /* Replaced Guzzle */ with redirect tracking and make a request
+    $/* Replaced client */ = new Client([
         RequestOptions::ALLOW_REDIRECTS => [
             'max'             => 10,        // allow at most 10 redirects.
             'strict'          => true,      // use "strict" RFC compliant redirects.
@@ -173,11 +173,11 @@ together in a single report:
         ],
     ]);
     $initialRequest = '/redirect/3'; // Store the request URI for later use
-    $response = $/* Replaced /* Replaced client */ */->request('GET', $initialRequest); // Make your request
+    $response = $/* Replaced client */->request('GET', $initialRequest); // Make your request
 
     // Retrieve both Redirect History headers
-    $redirectUriHistory = $response->getHeader('X-/* Replaced /* Replaced Guzzle */ */-Redirect-History')[0]; // retrieve Redirect URI history
-    $redirectCodeHistory = $response->getHeader('X-/* Replaced /* Replaced Guzzle */ */-Redirect-Status-History')[0]; // retrieve Redirect HTTP Status history
+    $redirectUriHistory = $response->getHeader('X-/* Replaced Guzzle */-Redirect-History')[0]; // retrieve Redirect URI history
+    $redirectCodeHistory = $response->getHeader('X-/* Replaced Guzzle */-Redirect-Status-History')[0]; // retrieve Redirect HTTP Status history
 
     // Add the initial URI requested to the (beginning of) URI history
     array_unshift($redirectUriHistory, $initialRequest);

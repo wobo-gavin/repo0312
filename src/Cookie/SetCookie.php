@@ -1,6 +1,6 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Cookie;
+namespace /* Replaced Guzzle */Http\Cookie;
 
 /**
  * Set-Cookie object

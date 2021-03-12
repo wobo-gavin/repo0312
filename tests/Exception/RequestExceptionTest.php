@@ -1,19 +1,19 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Tests\Exception;
+namespace /* Replaced Guzzle */Http\Tests\Exception;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\ClientException;
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException;
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\ServerException;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Stream;
+use /* Replaced Guzzle */Http\Exception\ClientException;
+use /* Replaced Guzzle */Http\Exception\RequestException;
+use /* Replaced Guzzle */Http\Exception\ServerException;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Response;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Stream;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\NetworkExceptionInterface;
 use Psr\Http\Client\RequestExceptionInterface;
 
 /**
- * @covers \/* Replaced /* Replaced Guzzle */ */Http\Exception\RequestException
+ * @covers \/* Replaced Guzzle */Http\Exception\RequestException
  */
 class RequestExceptionTest extends TestCase
 {

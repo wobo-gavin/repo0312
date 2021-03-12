@@ -1,9 +1,9 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Tests;
+namespace /* Replaced Guzzle */Http\Tests;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Client;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */;
+use /* Replaced Guzzle */Http\Client;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -25,7 +25,7 @@ class Server
     /**
      * @var Client
      */
-    private static $/* Replaced /* Replaced client */ */;
+    private static $/* Replaced client */;
     private static $started = false;
     public static $url = 'http://127.0.0.1:8126/';
     public static $port = 8126;
@@ -37,7 +37,7 @@ class Server
      */
     public static function flush()
     {
-        return self::getClient()->request('DELETE', '/* Replaced /* Replaced guzzle */ */-server/requests');
+        return self::getClient()->request('DELETE', '/* Replaced guzzle */-server/requests');
     }
 
     /**
@@ -70,7 +70,7 @@ class Server
             ];
         }
 
-        self::getClient()->request('PUT', '/* Replaced /* Replaced guzzle */ */-server/responses', [
+        self::getClient()->request('PUT', '/* Replaced guzzle */-server/responses', [
             'json' => $data
         ]);
     }
@@ -83,7 +83,7 @@ class Server
      * @param array       $headers      Array of headers to send in response
      * @param string|null $body         Body to send in response
      *
-     * @throws \/* Replaced /* Replaced Guzzle */ */Http\Exception\/* Replaced /* Replaced Guzzle */ */Exception
+     * @throws \/* Replaced Guzzle */Http\Exception\/* Replaced Guzzle */Exception
      */
     public static function enqueueRaw($statusCode, $reasonPhrase, $headers, $body)
     {
@@ -96,7 +96,7 @@ class Server
             ]
         ];
 
-        self::getClient()->request('PUT', '/* Replaced /* Replaced guzzle */ */-server/responses', [
+        self::getClient()->request('PUT', '/* Replaced guzzle */-server/responses', [
             'json' => $data
         ]);
     }
@@ -114,7 +114,7 @@ class Server
             return [];
         }
 
-        $response = self::getClient()->request('GET', '/* Replaced /* Replaced guzzle */ */-server/requests');
+        $response = self::getClient()->request('GET', '/* Replaced guzzle */-server/requests');
         $data = \json_decode($response->getBody(), true);
 
         return \array_map(
@@ -123,7 +123,7 @@ class Server
                 if (isset($message['query_string'])) {
                     $uri .= '?' . $message['query_string'];
                 }
-                $response = new /* Replaced /* Replaced Psr7 */ */\Request(
+                $response = new /* Replaced Psr7 */\Request(
                     $message['http_method'],
                     $uri,
                     $message['headers'],
@@ -146,7 +146,7 @@ class Server
     public static function stop()
     {
         if (self::$started) {
-            self::getClient()->request('DELETE', '/* Replaced /* Replaced guzzle */ */-server');
+            self::getClient()->request('DELETE', '/* Replaced guzzle */-server');
         }
 
         self::$started = false;
@@ -182,7 +182,7 @@ class Server
     private static function isListening()
     {
         try {
-            self::getClient()->request('GET', '/* Replaced /* Replaced guzzle */ */-server/perf', [
+            self::getClient()->request('GET', '/* Replaced guzzle */-server/perf', [
                 'connect_timeout' => 5,
                 'timeout'         => 5
             ]);
@@ -194,13 +194,13 @@ class Server
 
     private static function getClient()
     {
-        if (!self::$/* Replaced /* Replaced client */ */) {
-            self::$/* Replaced /* Replaced client */ */ = new Client([
+        if (!self::$/* Replaced client */) {
+            self::$/* Replaced client */ = new Client([
                 'base_uri' => self::$url,
                 'sync'     => true,
             ]);
         }
 
-        return self::$/* Replaced /* Replaced client */ */;
+        return self::$/* Replaced client */;
     }
 }

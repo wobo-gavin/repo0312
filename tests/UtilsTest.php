@@ -1,9 +1,9 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Test;
+namespace /* Replaced Guzzle */Http\Test;
 
-use /* Replaced /* Replaced Guzzle */ */Http;
-use /* Replaced /* Replaced Guzzle */ */Http\Utils;
+use /* Replaced Guzzle */Http;
+use /* Replaced Guzzle */Http\Utils;
 use PHPUnit\Framework\TestCase;
 
 class UtilsTest extends TestCase
@@ -21,7 +21,7 @@ class UtilsTest extends TestCase
             [false, 'bool(false)'],
             [10, 'int(10)'],
             [1.0, 'float(1)'],
-            [new StrClass(), 'object(/* Replaced /* Replaced Guzzle */ */Http\Test\StrClass)'],
+            [new StrClass(), 'object(/* Replaced Guzzle */Http\Test\StrClass)'],
             [['foo'], 'array(1)']
         ];
     }
@@ -43,7 +43,7 @@ class UtilsTest extends TestCase
 
         try {
             self::assertSame($output, Utils::describeType($input));
-            self::assertSame($output, /* Replaced /* Replaced Guzzle */ */Http\describe_type($input));
+            self::assertSame($output, /* Replaced Guzzle */Http\describe_type($input));
         } finally {
             if (extension_loaded('xdebug')) {
                 ini_set('xdebug.overload_var_dump', $originalOverload);
@@ -67,7 +67,7 @@ class UtilsTest extends TestCase
         ];
 
         self::assertSame($expected, Utils::headersFromLines($lines));
-        self::assertSame($expected, /* Replaced /* Replaced Guzzle */ */Http\headers_from_lines($lines));
+        self::assertSame($expected, /* Replaced Guzzle */Http\headers_from_lines($lines));
     }
 
     public function testParsesHeadersFromLinesWithMultipleLines()
@@ -76,31 +76,31 @@ class UtilsTest extends TestCase
         $expected = ['Foo' => ['bar', 'baz', '123']];
 
         self::assertSame($expected, Utils::headersFromLines($lines));
-        self::assertSame($expected, /* Replaced /* Replaced Guzzle */ */Http\headers_from_lines($lines));
+        self::assertSame($expected, /* Replaced Guzzle */Http\headers_from_lines($lines));
     }
 
     public function testChooseHandler()
     {
         self::assertIsCallable(Utils::chooseHandler());
-        self::assertIsCallable(/* Replaced /* Replaced Guzzle */ */Http\choose_handler());
+        self::assertIsCallable(/* Replaced Guzzle */Http\choose_handler());
     }
 
     public function testDefaultUserAgent()
     {
         self::assertIsString(Utils::defaultUserAgent());
-        self::assertIsString(/* Replaced /* Replaced Guzzle */ */Http\default_user_agent());
+        self::assertIsString(/* Replaced Guzzle */Http\default_user_agent());
     }
 
     public function testReturnsDebugResource()
     {
         self::assertIsResource(Utils::debugResource());
-        self::assertIsResource(/* Replaced /* Replaced Guzzle */ */Http\debug_resource());
+        self::assertIsResource(/* Replaced Guzzle */Http\debug_resource());
     }
 
     public function testProvidesDefaultCaBundler()
     {
         self::assertFileExists(Utils::defaultCaBundle());
-        self::assertFileExists(/* Replaced /* Replaced Guzzle */ */Http\default_ca_bundle());
+        self::assertFileExists(/* Replaced Guzzle */Http\default_ca_bundle());
     }
 
     public function testNormalizeHeaderKeys()
@@ -109,7 +109,7 @@ class UtilsTest extends TestCase
         $expected = ['hello' => 'HelLo', 'world' => 'WORld'];
 
         self::assertSame($expected, Utils::normalizeHeaderKeys($input));
-        self::assertSame($expected, /* Replaced /* Replaced Guzzle */ */Http\normalize_header_keys($input));
+        self::assertSame($expected, /* Replaced Guzzle */Http\normalize_header_keys($input));
     }
 
     public function noProxyProvider()
@@ -130,7 +130,7 @@ class UtilsTest extends TestCase
     public function testChecksNoProxyList($host, $list, $result)
     {
         self::assertSame($result, Utils::isHostInNoProxy($host, $list));
-        self::assertSame($result, \/* Replaced /* Replaced Guzzle */ */Http\is_host_in_noproxy($host, $list));
+        self::assertSame($result, \/* Replaced Guzzle */Http\is_host_in_noproxy($host, $list));
     }
 
     public function testEnsuresNoProxyCheckHostIsSet()
@@ -144,13 +144,13 @@ class UtilsTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \/* Replaced /* Replaced Guzzle */ */Http\is_host_in_noproxy('', []);
+        \/* Replaced Guzzle */Http\is_host_in_noproxy('', []);
     }
 
     public function testEncodesJson()
     {
         self::assertSame('true', Utils::jsonEncode(true));
-        self::assertSame('true', \/* Replaced /* Replaced Guzzle */ */Http\json_encode(true));
+        self::assertSame('true', \/* Replaced Guzzle */Http\json_encode(true));
     }
 
     public function testEncodesJsonAndThrowsOnError()
@@ -164,13 +164,13 @@ class UtilsTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \/* Replaced /* Replaced Guzzle */ */Http\json_encode("\x99");
+        \/* Replaced Guzzle */Http\json_encode("\x99");
     }
 
     public function testDecodesJson()
     {
         self::assertTrue(Utils::jsonDecode('true'));
-        self::assertTrue(\/* Replaced /* Replaced Guzzle */ */Http\json_decode('true'));
+        self::assertTrue(\/* Replaced Guzzle */Http\json_decode('true'));
     }
 
     public function testDecodesJsonAndThrowsOnError()
@@ -184,7 +184,7 @@ class UtilsTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        \/* Replaced /* Replaced Guzzle */ */Http\json_decode('{{]]');
+        \/* Replaced Guzzle */Http\json_decode('{{]]');
     }
 }
 

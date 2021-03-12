@@ -1,15 +1,15 @@
 <?php
 
-namespace /* Replaced /* Replaced Guzzle */ */Http\Tests;
+namespace /* Replaced Guzzle */Http\Tests;
 
-use /* Replaced /* Replaced Guzzle */ */Http\Client;
-use /* Replaced /* Replaced Guzzle */ */Http\Exception\ClientException;
-use /* Replaced /* Replaced Guzzle */ */Http\Handler\MockHandler;
-use /* Replaced /* Replaced Guzzle */ */Http\HandlerStack;
-use /* Replaced /* Replaced Guzzle */ */Http\Pool;
-use /* Replaced /* Replaced Guzzle */ */Http\Promise\Promise;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Request;
-use /* Replaced /* Replaced Guzzle */ */Http\/* Replaced /* Replaced Psr7 */ */\Response;
+use /* Replaced Guzzle */Http\Client;
+use /* Replaced Guzzle */Http\Exception\ClientException;
+use /* Replaced Guzzle */Http\Handler\MockHandler;
+use /* Replaced Guzzle */Http\HandlerStack;
+use /* Replaced Guzzle */Http\Pool;
+use /* Replaced Guzzle */Http\Promise\Promise;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Request;
+use /* Replaced Guzzle */Http\/* Replaced Psr7 */\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
@@ -119,8 +119,8 @@ class PoolTest extends TestCase
         };
         $mock = new MockHandler([$fn, $fn, $fn, $fn]);
         $handler = HandlerStack::create($mock);
-        $/* Replaced /* Replaced client */ */ = new Client(['handler' => $handler]);
-        $results = Pool::batch($/* Replaced /* Replaced client */ */, $requests);
+        $/* Replaced client */ = new Client(['handler' => $handler]);
+        $results = Pool::batch($/* Replaced client */, $requests);
         self::assertCount(4, $results);
         self::assertSame([0, 1, 2, 3], \array_keys($results));
         self::assertSame(200, $results[0]->getStatusCode());
@@ -140,8 +140,8 @@ class PoolTest extends TestCase
                 return new Response(\substr($request->getUri()->getPath(), 1));
             }
         ]);
-        $/* Replaced /* Replaced client */ */ = new Client(['handler' => $mock]);
-        $results = Pool::batch($/* Replaced /* Replaced client */ */, $requests, [
+        $/* Replaced client */ = new Client(['handler' => $mock]);
+        $results = Pool::batch($/* Replaced client */, $requests, [
             'fulfilled' => static function ($value) use (&$called) {
                 $called = true;
             }
